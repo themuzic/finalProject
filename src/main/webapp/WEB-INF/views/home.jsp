@@ -7,6 +7,10 @@
 	<title>DEVELOFFICE</title>
 </head>
 <body>
+
+<c:set var="contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
+<jsp:forward page="main/mainPage.jsp"/>
+
 <h1>
 	Hello world!  
 </h1>
