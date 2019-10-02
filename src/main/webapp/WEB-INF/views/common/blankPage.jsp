@@ -10,7 +10,18 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-
+<style>
+	.contentWrap{
+		float:left;
+		width:75%;
+		background: white;
+		padding-top:30px;
+		padding-bottom:30px;
+		padding-left:50px;
+		padding-right:50px;
+		font-size:14px;
+	}
+</style>
 
 
 </head>
@@ -26,6 +37,8 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
+					<div class="contentWrap">
+					
 					<!-- 이 아래부터 내용 작성 -->
 					
 					
@@ -42,6 +55,8 @@
 					
 					
 					<!-- 이 위까지 내용작성 -->
+					
+					</div>
 				</div>
 			</div>
 			<!-- END MAIN CONTENT -->
@@ -49,11 +64,7 @@
 		<!-- END MAIN -->
 		
 		<div class="clearfix"></div>
-		<footer>
-			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p>
-			</div>
-		</footer>
+		
 
 	<!--  -->
 	</div>

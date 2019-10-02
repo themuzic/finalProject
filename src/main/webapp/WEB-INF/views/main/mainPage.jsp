@@ -26,6 +26,9 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
+				
+				<!--  -->
+				
 					<!-- OVERVIEW -->
 					<div class="panel panel-headline">
 						<div class="panel-heading">
@@ -377,6 +380,9 @@
 							<!-- END REALTIME CHART -->
 						</div>
 					</div>
+					
+					<!--  -->
+					
 				</div>
 			</div>
 			<!-- END MAIN CONTENT -->
