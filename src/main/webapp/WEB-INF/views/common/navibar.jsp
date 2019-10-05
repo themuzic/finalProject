@@ -41,7 +41,7 @@
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="index.html"><img src="resources/assets/img/logo.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+				<a href="mainPage.do"><img src="resources/assets/img/logo.png" alt="Klorofil Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -94,71 +94,71 @@
 				<nav>
 					<ul class="nav">
 						<li>
-							<a href="#menu1" data-toggle="collapse" class="collapsed"><i class="fa fa-clipboard"></i> <span>전자결재</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#menu1" data-toggle="collapse" class="collapsed" id="menu1_1"><i class="fa fa-clipboard"></i> <span>전자결재</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu1" class="collapse ">
 								<ul class="nav">
-									<li><a href="" class="">작성하기</a></li>
-									<li><a href="" class="">전체문서</a></li>
-									<li><a href="" class="">진행중인문서</a></li>
-									<li><a href="" class="">완료된문서</a></li>
-									<li><a href="" class="">돌아온문서</a></li>
-									<li><a href="" class="">참조문서</a></li>
+									<li><a href="insertDocumentForm.do" class="" id="m1_1">작성하기</a></li>
+									<li><a href="documentTable.do" class="" id="m1_2">전체문서</a></li>
+									<li><a href="" class="" id="m1_3">진행중인문서</a></li>
+									<li><a href="" class="" id="m1_4">완료된문서</a></li>
+									<li><a href="" class="" id="m1_5">돌아온문서</a></li>
+									<li><a href="" class="" id="m1_6">참조문서</a></li>
 								</ul>
 							</div>
 						</li>
 
 						<li>
-							<a href="#menu2" data-toggle="collapse" class="collapsed"><i class="fa fa-envelope"></i> <span>EMAIL</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#menu2" data-toggle="collapse" class="collapsed" id="menu2_1"><i class="fa fa-envelope"></i> <span>EMAIL</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu2" class="collapse ">
 								<ul class="nav">
-									<li><a href="" class="">메일쓰기</a></li>
-									<li><a href="" class="">받은메일함</a></li>
-									<li><a href="" class="">보낸메일함</a></li>
-									<li><a href="" class="">휴지통</a></li>									
+									<li><a href="" class="" id="m2_1">메일쓰기</a></li>
+									<li><a href="" class="" id="m2_2">받은메일함</a></li>
+									<li><a href="" class="" id="m2_3">보낸메일함</a></li>
+									<li><a href="" class="" id="m2_4">휴지통</a></li>									
 								</ul>
 							</div>
 						</li>
 						
 						<li>
-							<a href="#menu3" data-toggle="collapse" class="collapsed"><i class="lnr lnr-inbox"></i> <span>일감관리</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#menu3" data-toggle="collapse" class="collapsed" id="menu3_1"><i class="lnr lnr-inbox"></i> <span>일감관리</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu3" class="collapse ">
 								<ul class="nav">
-									<li><a href="" class="">프로젝트관리</a></li>
-									<li><a href="" class="">TO-DO</a></li>
-									<li><a href="" class="">품앗이</a></li>								
+									<li><a href="" class="" id="m3_1">프로젝트관리</a></li>
+									<li><a href="" class="" id="m3_2">TO-DO</a></li>
+									<li><a href="" class="" id="m3_3">품앗이</a></li>								
 								</ul>
 							</div>
 						</li>
 
 						<li>
-							<a href="#menu5" data-toggle="collapse" class="collapsed"><i class="fa fa-calendar"></i> <span>일정관리</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#menu4" data-toggle="collapse" class="collapsed" id="menu4_1"><i class="fa fa-calendar"></i> <span>일정관리</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<div id="menu4" class="collapse ">
+								<ul class="nav">
+									<li><a href="" class="" id="m4_1">공통일정</a></li>
+									<li><a href="" class="" id="m4_2">팀별일정</a></li>						
+								</ul>
+							</div>
+						</li>
+
+						<li>
+							<a href="#menu5" data-toggle="collapse" class="collapsed" id="menu5_1"><i class="fa fa-check"></i> <span>예약</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu5" class="collapse ">
 								<ul class="nav">
-									<li><a href="" class="">공통일정</a></li>
-									<li><a href="" class="">팀별일정</a></li>						
+									<li><a href="" class="" id="m5_1">회의실</a></li>
+									<li><a href="" class="" id="m5_2">차량</a></li>
+									<li><a href="" class="" id="m5_3">안마의자</a></li>
+									<li><a href="" class="" id="m5_4">카페</a></li>									
 								</ul>
 							</div>
 						</li>
 
 						<li>
-							<a href="#menu6" data-toggle="collapse" class="collapsed"><i class="fa fa-check"></i> <span>예약</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#menu6" data-toggle="collapse" class="collapsed" id="menu6_1"><i class="fa fa-list"></i> <span>게시판</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu6" class="collapse ">
 								<ul class="nav">
-									<li><a href="" class="">회의실</a></li>
-									<li><a href="" class="">차량</a></li>
-									<li><a href="" class="">안마의자</a></li>
-									<li><a href="" class="">카페</a></li>									
-								</ul>
-							</div>
-						</li>
-
-						<li>
-							<a href="#menu7" data-toggle="collapse" class="collapsed"><i class="fa fa-list"></i> <span>게시판</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="menu7" class="collapse ">
-								<ul class="nav">
-									<li><a href="" class="">공지사항</a></li>
-									<li><a href="" class="">팀게시판</a></li>
-									<li><a href="" class="">자유게시판</a></li>								
+									<li><a href="" class="" id="m6_1">공지사항</a></li>
+									<li><a href="" class="" id="m6_2">팀게시판</a></li>
+									<li><a href="" class="" id="m6_3">자유게시판</a></li>								
 								</ul>
 							</div>
 						</li>
@@ -171,6 +171,12 @@
 		
 		
 	<script>
+		$(function(){
+			
+			
+			
+			
+		});
 		
 	
 	

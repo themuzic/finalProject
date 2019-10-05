@@ -51,20 +51,15 @@ $(document).ready(function() {
 	/*----------------------------------*/
 
 	$('.sidebar a[data-toggle="collapse"]').on('click', function() {
-		
-		
 		if($(this).hasClass('collapsed')) {
 			$('.sidebar a[data-toggle="collapse"]').removeClass('active');
 			$('.sidebar a[data-toggle="collapse"]').addClass('collapsed');
 			$('.sidebar a[data-toggle="collapse"]').prevAll().removeClass('in');
-			$('.sidebar a[data-toggle="collapse"]').prevAll().css('aria-expanded','false');
 			$('.sidebar a[data-toggle="collapse"]').nextAll().removeClass('in');
-			$('.sidebar a[data-toggle="collapse"]').nextAll().css('aria-expanded','false');
-			$(this).addClass('active');
 			
+			$(this).addClass('active');
 		} else {
 			$(this).removeClass('active');
-			
 		}
 	});
 

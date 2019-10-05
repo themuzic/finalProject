@@ -8,5 +8,13 @@
 	</settings>
 	
 	
+	<typeAliases>
+		<typeAlias type="com.kh.develoffice.document.model.vo.Document" alias="Document"/>
+	</typeAliases>
+	
+	
+	<mappers>
+		<mapper resource="mappers/document-mapper.xml"/>
+	</mappers>
 
 </configuration>

@@ -6,6 +6,11 @@ blockquote, body, button, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4,
 dl, li, menu, ol, ul {
     list-style: none;
 }
+body, button, input, select, td, textarea, th {
+    font-size: 14px;
+    font-family: '맑은 고딕','Malgun Gothic',dotum,sans-serif;
+    color: #676767;
+}
 .OrgTree {
 	    clear: both;
 	    /* float: left; */
@@ -55,8 +60,7 @@ dl, li, menu, ol, ul {
     width: 23px;
     height: 19px;
     background-position: -378px -65px;
-    top: 0;
-    left: 31px;
+    
 }
 .to-item .down {
     display: inline-block;
@@ -78,5 +82,162 @@ dl, li, menu, ol, ul {
     width: 26px;
     height: 26px;
     background-position: -384px -92px;
+}
+.content_title .detail_select {
+    float: left;
+    padding-right: 26px;
+    position: relative;
+    color: #2985db;
+    font-size: 13px;
+}
+.content_title {
+    position: relative;
+    padding: 20px 25px 0;
+    min-width: 733px;
+    height: 40px;
+}
+fieldset, img {
+    border: 0 none;
+}
+.content_title .detail_select>a {
+    color: #2985db;
+}
+.fl {
+    float: left!important;
+}
+.icon.question {
+    float: left;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-position: -308px -20px;
+    margin-top: 4px;
+    margin-left: 2px;
+}
+.blind {
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border: 0;
+    background: 0;
+    font-size: 0;
+    line-height: 0;
+}
+.tooltip {
+    position: relative;
+}
+.setting_box {
+    /* position: absolute; */
+    top: 17px;
+    right: 25px;
+}
+.content_inbox {
+    /* position: absolute; */
+    top: 61px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.cont_box {
+    min-height: 400px;
+    min-width: 500px;
+    width: 100%;
+}
+.tableType02 {
+    width: 100%;
+    border-top: 1px solid #cdcdcd;
+}
+table {
+    border-collapse: collapse;
+}
+caption {
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+}
+.tableType02 th {
+    padding: 14px 14px;
+    border-bottom: 1px solid #dedede;
+    background: #f9f9f9;
+    color: #333;
+    font-weight: 400;
+}
+.tableType02 td {
+    padding: 12px 0 12px 14px;
+    border-bottom: 1px solid #dedede;
+}
+a {
+    color: #676767;
+    text-decoration: none;
+}
+.tooltip-box {
+    position: absolute;
+    float: left;
+    top: 20px;
+    left: -50px;
+    width: 382px;
+    padding: 12px;
+    margin: 6px 0 0;
+    font-size: 12px;
+    background-color: #fcfcfc;
+    border: 1px solid #cfcfcf;
+    z-index: 1500;
+    text-align: left;
+}
+.pdt_10 {
+    padding-top: 10px!important;
+}
+.cal_table1 {
+    width: 100%;
+}
+.cal_table1 tr td:first-child, .cal_table1 tr th:first-child {
+    border-left: 0;
+}
+.cal_table1 tbody th {
+    text-align: left;
+}
+.cal_table1 th {
+    padding: 6px 12px;
+    font-weight: 400;
+    background: #f9f9f9;
+    border-left: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+    border-right: 1px solid #dedede;
+}
+.cal_table1 tr td:last-child, .cal_table1 tr th:last-child {
+    border-right: 0;
+}
+.cal_table1 td {
+    padding: 6px 12px;
+    border-left: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+    border-right: 1px solid #dedede;
+}
+.vt {
+    vertical-align: top!important;
+}
+.cal_table1 tr td:last-child, .cal_table1 tr th:last-child {
+    border-right: 0;
+}
+.dropbtn-wrap .btn_variables, .layer_box .btn_variables, .layer_button.btn_variables {
+    background: #fff;
+    padding: 5px 27px 6px;
+    border: 1px solid #c8c8c8;
+    color: #2c86dc;
+}
+.layer_button button {
+    padding: 5px 27px 6px;
+    color: #444;
+    letter-spacing: -1px;
+    border: 1px solid #dadada;
+    background: #dadada;
 }
 /*# sourceMappingURL=maps/style.css.map */

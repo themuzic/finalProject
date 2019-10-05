@@ -22,7 +22,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.kh.develoffice" />
-	
+	<!-- 위의  component-scan을 통해서 bean scanning이 이뤄진다. -->
 	
 	
 </beans:beans>

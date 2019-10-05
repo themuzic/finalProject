@@ -29,6 +29,19 @@
 	 	constructor-arg 엘리멘트를 통해 작성 -> 생성자 DI
 	 
 	  -->
+	  
+	  
+	  <!-- 2. Multipart 관련된 빈 등록
+	                    파일 업로드 시 사용
+	  -->
+	 <bean id="multipartResolver"
+	       class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	 	<property name="maxUploadSize" value="100000000"/>
+	 	<property name="maxInMemorySize" value="100000000"/>
+	 </bean>
+	 
+	  
+	  
 	 
 	 <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 	 	<!-- 아까 작성했던 mybatis-config의 설정들 불러들이기 -->
