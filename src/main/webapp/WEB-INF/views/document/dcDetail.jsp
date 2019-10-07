@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<title>Insert title here</title>
+<title>DEVELOFFICE</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
@@ -66,7 +66,7 @@
 											</div>
 										</div>
 									</span>
-															<span class="detail_select">
+									<span class="detail_select">
 										<a href="javascript:void(0);" class="fl" onclick="ApprovalProcess.cancelDocument('');">기안취소</a><a href="javascript:void(0)" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
 										<div class="tooltip hide" style="left:0;top:0;color:#676767;">
 											<div class="tooltip-box" style="width:360px;">
@@ -75,7 +75,7 @@
 											</div>
 										</div>
 									</span>
-															<span class="detail_select">
+									<span class="detail_select">
 										<a href="javascript:void(0);" class="fl" onclick="ApprovalProcess.copyDocument();">기안복사</a><a href="javascript:void(0);" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
 										<div class="tooltip hide" style="left:0;top:0;color:#676767;">
 											<div class="tooltip-box" style="width:300px;">
@@ -112,6 +112,7 @@
 						<div class="cont_box view">
 							<div class="approval-wrap write view">
 											<h1>품의서</h1>
+											
 											<table class="tableType02">
 									<colgroup>
 										<col style="width:12.09%;">
@@ -431,7 +432,16 @@
 	
 	<!-- script 작성 -->
 	<script>
-	
+		$(function(){
+			
+			$(".icon.question.tipsIcon").mouseenter(function(){
+				$(this).siblings('.toolTip').addClass("show");
+			}).mouseout(function(){
+				$(this).siblings('.toolTip').removeClass("show");
+			});
+			
+			
+		})
 	
 	
 	

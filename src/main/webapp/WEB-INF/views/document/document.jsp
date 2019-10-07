@@ -7,13 +7,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<title>Insert title here</title>
+<title>DEVELOFFICE</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
 
-
 	
+	
+
+
+<!-- datepicker -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
 
@@ -42,7 +48,6 @@
 						</div>
 						
 						<!--------------------------------------------------------------------------------->
-						
 						
 							<h4 style="padding: 2px 0 15px 0;">기본 설정</h4>
 							<table class="docuTable">
@@ -773,8 +778,126 @@
 						</table>
 						<div class="after" style="padding-bottom:10px;">
 							<h4 class="fl" style="float:left;">거래 내역</h4>
-							<button type="button" class="" onclick="" style="vertical-align:top!important;margin-left:20px;color:#779ec0;border:0 none;background-color:transparent;">추가</button>
+							<button type="button" class="weakblue mgl_20 vt" id="addDealInfo" onclick="">추가</button>
 						</div>
+						
+						
+						<script>
+							
+						
+						
+						</script>
+						
+						
+						<!-- 추가창 팝업 시작 --------------------------------------------------------------------->
+						
+						
+						<div class="layer_box large account hide typeE" id="layerDealInformation" style="margin-left: -375px; margin-top: -171px; display: block; width: 750px;">
+							<div class="title_layer text_variables">
+										거래 내역 추가(개인)			</div>
+							<table class="tableType02">
+								<colgroup>
+									<col width="120">
+									<col>
+									<col width="120">
+									<col>
+								</colgroup>
+								<tbody>
+									<tr>
+										<th scope="row">계정과목</th>
+										<td>
+											<label>
+												<input type="text" class="account-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputAccountingAccount" maxlength="20" autocomplete="off">
+												<button id="btnAccountingAccountSearchLayer" onclick="ApprovalDocument.getAccountSearchLayer();"><span class="icon src"><em class="blind">검색</em></span></button>
+											</label>
+											<span class="hide" id="textAccountingAccount"></span>
+											<button class="weakblue vm hide" id="btnAccountingAccount" onclick="ApprovalDocument.setAccountingAccount('', '', true);">변경</button>
+										</td>
+										<th scope="row">지출일자</th>
+										<td>
+											<label>
+												<input type="text" id="textExpenseDate" readonly style="width:150px;">
+												<script>				
+													$("#textExpenseDate").datepicker();
+												</script>
+												<button type="button" class="icon month" onclick="$('#textExpenseDate').focus();"><span class="blind">날짜 선택</span></button>
+											</label>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">코스트센터</th>
+										<td>
+											<label>
+												<input type="text" class="account-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputAccountingDepartment" maxlength="20" autocomplete="off">
+												<button id="btnAccountingDepartmentSearchLayer" onclick="ApprovalDocument.getDepartmentSearchLayer();"><span class="icon src"><em class="blind">검색</em></span></button>
+											</label>
+											<span class="hide" id="textAccountingDepartment"></span>
+											<button class="weakblue vm hide" id="btnAccountingDepartment" onclick="ApprovalDocument.setAccountingDepartment('', '', true);">변경</button>
+										</td>
+										<th scope="row">증빙</th>
+										<td>
+											<select class="" id="selectAccountingProof" onchange="ApprovalDocument.changeAccountingProof();">
+												<option value="">증빙</option>
+																		<option value="receipt">일반 영수증</option>
+																		<option value="card">개인 카드</option>
+																		<option value="tax_bill">세금 계산서</option>
+																		<option value="bill">계산서</option>
+																		<option value="cash_receipt">현금 영수증</option>
+																		<option value="etc">기타</option>
+																	</select>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">공급가액</th>
+										<td>
+											<label><input type="text" id="inputSupplyPrice" maxlength="20"></label>
+										</td>
+										<th scope="row">세액</th>
+										<td>
+											<label><input type="text" id="inputTaxAmount" disabled="true" maxlength="20"></label>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">거래처</th>
+										<td>
+											<label>
+												<input type="text" class="account-add" placeholder="직접 입력하세요." id="inputDealCustomer" maxlength="20">
+												<input type="text" class="account-add js-complete hide ui-autocomplete-input" placeholder="클릭 후 입력" id="inputAccountingCustomer" autocomplete="off">
+												<button id="btnAccountingCustomerSearchLayer" class="hide" onclick="ApprovalDocument.getCustomerSearchLayer('deal');"><span class="icon src"><em class="blind">검색</em></span></button>
+											</label>
+											<span class="hide" id="textAccountingCustomer"></span>
+											<button class="weakblue vm hide" id="btnAccountingCustomer" onclick="ApprovalDocument.setAccountingCustomer('', '', '', true);">변경</button>
+										</td>
+										<th scope="row">사업자등록번호</th>
+										<td>
+											<label><input type="text" id="inputCompanyNum" disabled="true" readonly=""></label>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row">현금영수증 번호</th>
+										<td><label><input type="text" id="inputCashReceiptsNum" disabled="true" maxlength="20"></label></td>
+										<th scope="row">적요</th>
+										<td>
+											<label><input type="text" id="inputBrief"></label>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="layer_button">
+								<button type="button" class="btn_variables" onclick="ApprovalDocument.saveDealInformation('SAVE');">저장</button>
+								<button type="button" class="btn_variables" onclick="ApprovalDocument.saveDealInformation('REPEAT');">저장 후 추가</button>
+								<button type="button" class="closeBtn" onclick="hideLayer();">취소</button>
+							</div>
+							<a href="javascript:void(0)" class="icon btn_closelayer closeBtn" onclick="hideLayer();" title="레이어 닫기"><span class="blind">레이어 닫기</span></a>
+						
+						
+						
+						</div>
+						
+						
+						<!-- 추가창 팝업 끝 ---------------------------------------------------------------------->
+						
+						
 			
 						<table class="tableType01 account mgb_20" id="tableAccoutingDealInformation" style="margin-bottom:20px;">
 							<colgroup>
@@ -885,35 +1008,18 @@
 	<!-- END WRAPPER -->
 	
 	
-	<!-- Javascript -->
-	<script src="resources/assets/vendor/jquery/jquery.min.js"></script>
-	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.js"></script>
-	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
-	<script src="resources/assets/scripts/klorofil-common.js"></script>
-
-
-
-
-	<script src="resources/js/common_new.js"></script>
-	<script src="resources/js/jquery-ui.min.js"></script>
-	<script src="resources/js/main.js"></script>
- 	
-	<script src="resources/js/approval_dext.js"></script>
-	<script src="resources/js/approval_table.js"></script>
-	<!-- <script src="resources/js/complete.js"></script> -->
-	<!-- <script src="resources/js/document_dext.js"></script> -->
-	<!-- <script src="resources/js/jaddressbook.js"></script> -->
-	<!-- <script src="resources/js/jajaxBasic.js"></script> -->
-	<!-- <script src="resources/js/jquery-1.11.2.min.js"></script> -->
-	<!-- <script src="resources/js/jquery.fileupload.js"></script> -->
-	<!-- <script src="resources/js/jquery.toastmessage.js"></script> -->
-	<!-- <script src="resources/js/jvalidateMessage.js"></script> -->
-	<!-- <script src="resources/js/Sly.js"></script> -->
+	
+	
+	
+	
+	
+	
+	
+	
 	<!-- script 작성 -->
 	<script>
 	$(function(){
+		
 		
 		/* 사이드바의 해당 메뉴 활성화 유지하기 */
 		$("#menu1").addClass("in");
@@ -923,15 +1029,14 @@
 		$("#m1_1").addClass("active");
 		
 		
-		
-		
 			
 		$(".detailQ").mouseenter(function(){
-			$(this).css("cursor","pointer")
+			$(this).css("cursor","pointer");
 			$(this).siblings('.toolTip').addClass("show");			
 		}).mouseout(function(){
 			$(this).siblings('.toolTip').removeClass("show");
 		});
+		
 		
 		$("#documentTypeSelect").on('change',function(){
 			if( $("#documentTypeSelect option:selected").val() == 'N' ){
@@ -980,16 +1085,19 @@
 				$(".filezone").addClass("show");
 			}
 			
+			$(".closeBtn").click(function(){
+				$('.layer_box').removeClass("show");
+			});
+			
+			
 			$("#btnApprovalSelect").click(function(){
 				$(".typeD").addClass("show");
 			});
 			
-			$(".closeBtn").click(function(){
-				$(".typeD").removeClass("show");
+			
+			$("#addDealInfo").click(function(){
+				$(".typeE").addClass("show");				
 			});
-			
-			
-			
 			
 			
 			
@@ -1000,6 +1108,9 @@
 	})
 	</script>
 	
+	
+	
+	<!--
 	
 	<script>
 					$(function(){
@@ -1128,6 +1239,32 @@
 						$(this).append(append_template);
 					});
 	</script>
+	
+	 -->
+<!-- Javascript -->
+	<!-- <script src="resources/assets/vendor/jquery/jquery.min.js"></script> -->
+	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
+	<script src="resources/assets/scripts/klorofil-common.js"></script>
 
+
+
+
+	
+	<script src="resources/js/main.js"></script>
+ 	<script src="resources/js/common_new.js"></script>
+	<script src="resources/js/approval_dext.js"></script>
+	<script src="resources/js/approval_table.js"></script>
+	<!-- <script src="resources/js/complete.js"></script> -->
+	<!-- <script src="resources/js/document_dext.js"></script> -->
+	<!-- <script src="resources/js/jaddressbook.js"></script> -->
+	<!-- <script src="resources/js/jajaxBasic.js"></script> -->
+	<!-- <script src="resources/js/jquery-1.11.2.min.js"></script> -->
+	<!-- <script src="resources/js/jquery.fileupload.js"></script> -->
+	<!-- <script src="resources/js/jquery.toastmessage.js"></script> -->
+	<!-- <script src="resources/js/jvalidateMessage.js"></script> -->
+	<!-- <script src="resources/js/Sly.js"></script> -->
 </body>
 </html>

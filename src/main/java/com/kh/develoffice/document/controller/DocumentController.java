@@ -26,7 +26,7 @@ public class DocumentController {
 	@RequestMapping("documentDetailView.do")
 	public String documentDetailView() {
 		return "document/dcDetail";
-		/* return "common/blankPage"; */
+		/* return "common/test1"; */
 	}
 	
 	

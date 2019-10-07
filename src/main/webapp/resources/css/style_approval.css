@@ -760,7 +760,7 @@ select.select-type {line-height:28px;height:28px;border-color:#cfcfcf}
 .layer_box.account .tableType02 td {padding:3px 0 3px 10px;border-bottom: 1px solid #ececec;}
 .layer_box.account .tableType02 tr:last-child th,
 .layer_box.account .tableType02 tr:last-child td  {border-bottom: 1px solid #dedede;}
-.layer_box.account input[type="text"] {width: 176px;padding-left: 12px;height: 28px;border: 1px solid #cfcfcf;}
+.layer_box.account input[type="text"] {width: 190px;padding-left: 12px;height: 30px;border: 1px solid #cfcfcf;}
 .layer_box.account select {width: 190px;height: 30px;padding-left: 10px;border: 1px solid #cfcfcf;}
 .layer_box.account .account-add {width: 125px;background: #f7f7f7;}
 .layer_box.account input[type="text"].cal {width: 150px;}
