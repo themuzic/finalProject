@@ -112,7 +112,7 @@
 							<div id="menu2" class="collapse ">
 								<ul class="nav">
 									<li><a href="" class="" id="m2_1">메일쓰기</a></li>
-									<li><a href="" class="" id="m2_2">받은메일함</a></li>
+									<li><a href="sendMail.do" class="" id="m2_2">받은메일함</a></li>
 									<li><a href="" class="" id="m2_3">보낸메일함</a></li>
 									<li><a href="" class="" id="m2_4">휴지통</a></li>									
 								</ul>
