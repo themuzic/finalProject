@@ -175,7 +175,7 @@
 											<th scope="row" class="sign">
 												<div style="height: 162px; display: table-cell; width: 116px; vertical-align: middle; text-align: center;">
 												결재
-												<span class="spr-approval set fa fa-plus addPlus" title="결재" onclick="ApprovalProcess.getApprovalUserInfoLayer('A', 'approval_first_line');"></span>
+												<span class="spr-approval set addPlus" title="결재" onclick="ApprovalProcess.getApprovalUserInfoLayer('A', 'approval_first_line');"></span>
 												</div>
 											</th>
 											<td class="sign vt" id="approvalFirstLine">
@@ -247,7 +247,7 @@
 							<tr>
 								<th scope="row" class="agree">
 									<div style="height: 54px; display: table-cell; width: 116px; vertical-align: middle; text-align: center;">
-									합의									<span class="spr-approval set fa fa-plus addPlus" title="합의" onclick="ApprovalProcess.getApprovalUserInfoLayer('D', 'approval_second_line');"></span>
+									합의									<span class="spr-approval set addPlus" title="합의" onclick="ApprovalProcess.getApprovalUserInfoLayer('D', 'approval_second_line');"></span>
 													</div>
 								</th>
 								<td class="agree vt" id="approvalSecondLine">
@@ -279,7 +279,7 @@
 							<tr>
 								<th scope="row">
 									<div class="choice" style="min-height: 45px; height: 44px; display: table-cell; width: 116px; vertical-align: middle; text-align: center;">
-									참조									<span class="spr-approval set fa fa-plus addPlus" title="참조" onclick="ApprovalProcess.showApprovalInput('approvalFourthLine', 'inputApprovalFourthLine');"></span>
+									참조									<span class="spr-approval set addPlus" title="참조" onclick="ApprovalProcess.showApprovalInput('approvalFourthLine', 'inputApprovalFourthLine');"></span>
 													</div>
 								</th>
 								<td id="approvalFourthLine">
@@ -297,9 +297,8 @@
 									<div class="file after" style="padding-bottom: 30px;">
 										<div class="top">
 											<span class="body-color mgr_20">별첨</span>
-											<a href="javascript:void(0);" class="addfile" onclick="ApprovalProcess.getAttchedFileLayer();">파일 첨부</a>
-											<span class="weakgray">|</span>
-											<a href="javascript:void(0);" class="addfile" onclick="ApprovalProcess.getRelatedDocumentLayer();">관련문서 첨부</a>
+											<a href="javascript:void(0);" class="addfile" onclick="$('#fileApprovalAttach').click();">파일 첨부</a>
+											<input type="file" style="overflow: hidden; width:0px; height:0px;" name="approval_attach" id="fileApprovalAttach" multiple="">
 										</div>
 										<div class="filebox">
 											<span class="cont_file" style="float: left;">

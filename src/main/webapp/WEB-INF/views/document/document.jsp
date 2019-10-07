@@ -13,324 +13,10 @@
 
 
 
-	<script src="resources/js/common_new.js"></script>
-	<script src="resources/js/jquery-ui.min.js"></script>
-	<script src="resources/js/main.js"></script>
-<!-- 	
-	<script src="resources/js/approval_dext.js"></script>
-	<script src="resources/js/approval_table.js"></script>
-	<script src="resources/js/complete.js"></script>
-	<script src="resources/js/document_dext.js"></script>
-	<script src="resources/js/jaddressbook.js"></script>
-	<script src="resources/js/jajaxBasic.js"></script>
-	<script src="resources/js/jquery-1.11.2.min.js"></script>
-	<script src="resources/js/jquery.fileupload.js"></script>
-	<script src="resources/js/jquery.toastmessage.js"></script>
-	<script src="resources/js/jvalidateMessage.js"></script>
-	<script src="resources/js/Sly.js"></script>
- -->
+	
 
-<style>
-	.documentWrap{
-		float:left;
-		width:75%;
-		background: white;
-		padding-top:30px;
-		padding-bottom:30px;
-		padding-left:50px;
-		padding-right:50px;
-		font-size:14px;
-	}
-	.docuTable{
-		margin-bottom: 50px;
-	    /* table-layout: fixed; */
-	    /* border-left: 1px solid #ececec; */
-	    /* border-right: 1px solid #ececec; */
-	    width: 100%;
-    	border: 1px solid #cdcdcd;
-    	display: table;
-	    border-collapse: collapse;
-	    border-spacing: 2px;
-	}
-	table{
-		border-collapse: collapse;
-		display: table;
-		width: 100%;
-		border-spacing: 0px;
-	}
-	.docuTable th{
-		text-align: center;
-		padding: 12px 0;
-	}
-	.docuTable td{
-		padding: 8px 0 8px 10px;
-	}
-	.docuTable tr:last-child > th{
-		border-bottom: 1px solid #cdcdcd;
-	}
-	.docuTable tr:last-child > td{
-		border-bottom: 1px solid #cdcdcd;
-	}
-	.docuTable tr td:last-child{
-		border-right: 1px solid #cdcdcd;
-	}
-	.write-select{
-		width: calc(52% - 20px);
-		height: 30px;
-	    padding-left: 10px;
-	    border: 1px solid #cfcfcf;
-	}
-	th{
-		padding: 12px 0;
-	    border-bottom: 1px solid #ececec;
-	    border-right: 1px solid #ececec;
-	    background: #f9f9f9;
-	    color: #333;
-	    font-weight: 400;
-	}
-	td{
-		padding: 2px 0 2px 10px;
-	    border-bottom: 1px solid #ececec;
-	    border-right: 1px solid #ececec;
-	}
-			
-	.tooltip-box{
-		position: absolute;
-	    float: left;
-	    top: 20px;
-	    left: -50px;
-	    width: 382px;
-	    padding: 12px;
-	    margin: 6px 0 0;
-	    font-size: 12px;
-	    background-color: #fcfcfc;
-	    border: 1px solid #cfcfcf;
-	    z-index: 1500;
-	    text-align: left;
-	}
-	.documentWrap h4{
-		font-size:14px;
-    	color: #333;
-    	font-weight: 700;
-	}
-	.toolTip{
-		position: relative;
-	}
-	#btnApprovalSelect{
-		vertical-align: top!important;
-		color: #779ec0;
-		border: 0 none;
-    	background-color: transparent;
-	}
-	.team.name{
-		background: #f9f9f9;
-	}
-	.name{
-		height: 40px;
-	}
-	.stamp{
-		height: 80px;
-    	empty-cells: show;
-	}
-	.addPlus{
-		display: inline-block;
-	    position: absolute;
-	    top: 13px;
-	    right: 5px;
-	    z-index: 0;
-	    width: 19px;
-	    height: 19px;
-	    background-position: -1px -1px;
-	    cursor: pointer;
-	}
-	.cal_table1{
-		border-top: 1px solid #cdcdcd;
-	    border-left: 1px solid #cdcdcd;
-	    border-right: 1px solid #cdcdcd;
-	    table-layout: fixed;
-	    width:100%;
-	}
-	.cal_table1 tr td:last-child{
-		border-right:0;
-	}
-	.cal_table1 .confer table:first-child tr:last-of-type td{
-		border-bottom: 0;
-	}
-	.cal_table1.refer td{
-		vertical-align: middle;
-    	border-bottom: 1px solid #cdcdcd;
-	}
-	.cal_table1.refer th{
-		vertical-align: middle;
-    	border-bottom: 1px solid #cdcdcd;
-	}
-	.cal_table1 tr:last-child > td{
-		border-bottom:0;
-	}
-	.write_input {
-	    position: relative;
-	    margin-bottom: 8px;
-	}
-	.tableType02 tr:last-child > td {
-		border-bottom: 1px solid #cdcdcd;
-	}
-	.tableType02 tr:nth-last-of-type(2) > th{
-    	border-bottom: 1px solid #cdcdcd;
-	}
-	.tableType02 tr:nth-last-of-type(2) > td{
-    	border-bottom: 1px solid #cdcdcd;
-	}
-	.tableType01{
-		table-layout: fixed;
-		width: 100%;
-	    border-top: 1px solid #cdcdcd;
-	    border-bottom: 1px solid #cdcdcd;
-	}
-	.tableType01 th{
-		padding: 9px 10px 9px 15px;
-    	text-align: left;
-	}
-	.black{
-		color: #444;
-		font-weight: 400;
-	}
-	.file-list{
-		width: 100%;
-    	border: 2px dashed #e4e4e4;
-	}
-	.file-list .top{
-		position: absolute;
-	}
-	.file-list .center {
-	    padding: 22px 0 24px;
-	    text-align: center;
-	    overflow: hidden;
-	    color: #a9a9a9;
-	}
-	.down {
-	    display: inline-block;
-	    width: 7px;
-	    height: 4px;
-	    vertical-align: middle;
-	    margin-left: 4px;
-	    background: url("https://approval.office.hiworks.com/static/images/insa/spr_insa_icon.png") -50px 0 no-repeat;
-	}	
-	.layer_box.large.address, .layer_box.large.print {
-	    width: 800px;
-	    padding: 25px 30px 32px;
-	}
-	.layer_box.large {
-	    width: 640px;
-	    padding: 25px 30px 32px;
-	}
-	.layer_box {
-	    position: fixed;
-	    top: 50%;
-	    left: 50%;
-	    z-index: 1500;
-	    border: 1px solid #8d8d8d;
-	    background: #fff;
-	}
-	.layer_box .title_layer {
-	    padding-bottom: 21px;
-	    font-size: 16px;
-	}
-	.layer_box .text_variables {
-	    color: #2985db;
-	}	
-	.layer_box.address.line .line-list-wrap > .fl {
-	    width: 415px;
-	    padding-top: 10px;
-	}	
-	.fl {
-	    float: left!important;
-	}
-	.fr {
-	    float: right!important;
-	}
-	.dropdown-menu {
-	    position: absolute;
-	    top: 100%;
-	    left: 0;
-	    float: left;
-	    min-width: 130px;
-	    padding: 12px 0;
-	    margin: 6px 0 0;
-	    font-size: 14px;
-	    background-color: #fff;
-	    border: 1px solid #999;
-	    z-index: 110;
-	}
-	
-	.hide {
-	    display: none;
-	}
-	dl, li, menu, ol, ul {
-	    list-style: none;
-	}
-	.layer_box.address.line .line-list-wrap .add-del-btn {
-	    float: left;
-	    width: 40px;
-	    text-align: center;
-	    padding: 0;
-	}
-	.layer_box.address.line .line-list-wrap > .fr.mgb20 {
-	    float: left !important;
-	}
-	.dropbtn-wrap .layer_button, .layer_box .layer_button {
-	    margin-top: 29px;
-	    line-height: 19px;
-	    text-align: center;
-	}
-	button, input, select, textarea {
-	    vertical-align: middle;
-	}
-	.layer_box .select-box, .layer_box input.text-box {
-	    border: 1px solid #a5acb2;
-	    padding-left: 5px;
-	}
-	.layer_box input[type=text] {
-	    height: 21px;
-	}
-	.layer_box select {
-	    height: 23px;
-	}
-	.dropdown-menu {
-	    position: absolute;
-	    top: 100%;
-	    left: 0;
-	    float: left;
-	    min-width: 130px;
-	    padding: 12px 0;
-	    margin: 6px 0 0;
-	    font-size: 14px;
-	    background-color: #fff;
-	    border: 1px solid #999;
-	    z-index: 110;
-	}
-	.after:after {
-	    content: '';
-	    display: block;
-	    clear: both;
-	}
-	.icon {
-	    background: url(resources/assets/img/sp_icon.png) 0 0 no-repeat;
-	}
-	.spr-approval {
-	    background: url(resources/assets/img/spr_approval.png) 0 0 no-repeat;
-	}
-	.layer_box.address.line .line-list-wrap > .fr .four-line .approval-direction {
-	    height: 78px;
-	    padding-top: 12px;
-	    background-position: -96px -363px;
-	}
-	.layer_box.address.line .line-list-wrap > .fr .three-line .approval-direction {
-	    height: 56px;
-	    padding-top: 2px;
-	    background-position: -96px -380px;
-	}
-	
-</style>
+
+
 
 </head>
 <body>
@@ -461,7 +147,7 @@
 							<tbody>
 								<tr>
 									<th scope="row" class="agree">
-										<div class="choice" style="height:162px;display:table-cell;width:112px;vertical-align:middle;text-align:center;line-height:normal;position:relative;">신청<span class="fa fa-plus addPlus" title="신청" onclick=""></span></div>
+										<div class="choice" style="height:162px;display:table-cell;width:112px;vertical-align:middle;text-align:center;line-height:normal;position:relative;">신청<span class="spr-approval set addPlus" title="신청" onclick=""></span></div>
 									</th>
 									<td class="confer vt" id="approvalFirstLine">
 										<table>
@@ -506,7 +192,7 @@
 										</table>
 									</td>
 									<th scope="row" class="confer">
-										<div class="choice" style="height:162px;display:table-cell;width:112px;vertical-align:middle;text-align:center;line-height:normal;position:relative;">처리<span class="fa fa-plus addPlus" title="처리" onclick=""></span></div>
+										<div class="choice" style="height:162px;display:table-cell;width:112px;vertical-align:middle;text-align:center;line-height:normal;position:relative;">처리<span class="spr-approval set addPlus" title="처리" onclick=""></span></div>
 									</th>
 									<td class="confer vt" id="approvalSecondLine">
 										<table>
@@ -606,7 +292,7 @@
 							</colgroup>
 							<tbody>
 								<tr>
-									<th scope="row" class="sign"><div style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">결재<span class="fa fa-plus addPlus" title="결재" onclick="ApprovalDocument.approvalLineSetting('approval_first_line', 'A');"></span></div></th>
+									<th scope="row" class="sign"><div style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">결재<span class="spr-approval set addPlus" title="결재" onclick="ApprovalDocument.approvalLineSetting('approval_first_line', 'A');"></span></div></th>
 									<td class="sign vt" id="approvalFirstLine">
 										<table style="width:100%;table-layout:fixed"><colgroup><col><col><col><col><col><col><col></colgroup>
 											<tbody>
@@ -676,7 +362,7 @@
 							</colgroup>
 						<tbody>
 							<tr>
-								<th scope="row" class="agree"><div style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">합의<span class="fa fa-plus addPlus" title="합의" onclick="ApprovalDocument.approvalLineSetting('approval_second_line', 'D');"></span></div>
+								<th scope="row" class="agree"><div style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">합의<span class="spr-approval set addPlus" title="합의" onclick="ApprovalDocument.approvalLineSetting('approval_second_line', 'D');"></span></div>
 							</th>
 								<td class="agree vt" id="approvalSecondLine">
 									<table>
@@ -707,7 +393,7 @@
 									</table>
 								</td>
 								<th scope="row" class="confer">
-									<div class="choice" style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">재무 합의<span class="fa fa-plus addPlus" title="재무 합의" onclick="ApprovalDocument.approvalLineSetting('approval_third_line', 'E');"></span></div>
+									<div class="choice" style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">재무 합의<span class="spr-approval set addPlus" title="재무 합의" onclick="ApprovalDocument.approvalLineSetting('approval_third_line', 'E');"></span></div>
 								</th>
 								<td class="confer vt" id="approvalThirdLine">
 									<table>
@@ -784,7 +470,7 @@
 						
 						
 						
-						<div class="layer_box large address line hide typeD" id="div_approval_view_one" style="margin-left: -400px; margin-top: -311px; display: block;">
+						<div class="layer_box large address line hide typeD" id="div_approval_view_one" style="margin-left: -400px; margin-top: -311px; display: block;width: 800px;">
 							<div class="title_layer text_variables" id="titleApprovalLineSetting">결재선 설정</div>
 							<div class="line-search after" id="searchP" style="display: block;">
 								<ul class="after">
@@ -819,7 +505,7 @@
 											<select id="leftList" size="19" frameborder="0" style="display:none;" onclick="addressbook.click_leftList(this)">
 																	</select>
 											<div id="treeDiv" style="white-space: nowrap;float: none;" class="treeDiv OrgTree"><ul><li id="addressTreeNode_45295" class="last"><div class="Container"><img onclick="addressbook.ToggleTree(this);" src="https://approval.office.hiworks.com/assets/images/common/tree_images/tree_m.gif" class="plus"><strong onclick="addressbook.selectNode(this);" class="selectedNode">cocoaTest <span style="font-weight:normal; color:silver; font-size:8pt">(6)</span></strong></div><ul style=""><li id="addressTreeNode_46498"><div class="Container"><strong onclick="addressbook.selectNode(this);">경영지원팀 <span style="font-weight:normal; color:silver; font-size:8pt">(1)</span></strong></div></li><li id="addressTreeNode_46499"><div class="Container"><strong onclick="addressbook.selectNode(this);">개발팀 <span style="font-weight:normal; color:silver; font-size:8pt">(1)</span></strong></div></li><li id="addressTreeNode_46500"><div class="Container"><strong onclick="addressbook.selectNode(this);">서비스팀 <span style="font-weight:normal; color:silver; font-size:8pt">(2)</span></strong></div></li><li id="addressTreeNode_46501" class="last"><div class="Container"><strong onclick="addressbook.selectNode(this);">영업팀 <span style="font-weight:normal; color:silver; font-size:8pt">(1)</span></strong></div></li></ul></li></ul></div>
-											<div id="leftProgressDiv" style="display: none;" class="progressDiv"><img src="/assets/images/common/icon/progress_big.gif"></div>
+											<div id="leftProgressDiv" style="display: none;" class="progressDiv"><img src="resources/images/progress_big.gif"></div>
 										</div>
 										<div class="name-list" style="width: auto;">
 											<select multiple="multiple" id="rightList" style="">
@@ -829,7 +515,7 @@
 																		<a href="javascript:void(0);" class="text_variables fl mgr_20" onclick="addressbook.click_rightSelect('select');">전체</a> <a href="javascript:void(0);" class="text_variables mgr_20" onclick="addressbook.click_rightSelect('deselect');">선택안함</a>
 												<span id="pagingP"></span>
 											</div>
-											<div id="rightProgressDiv" style="display: none;" class="progressDiv"><img src="/assets/images/common/icon/progress_big.gif"></div>
+											<div id="rightProgressDiv" style="display: none;" class="progressDiv"><img src="resources/images/progress_big.gif"></div>
 										</div>
 									</div>
 						
@@ -957,7 +643,7 @@
 								</div>
 							</div>
 							<div class="layer_button">
-								<button type="button" class="btn_variables" onclick="addressbook.btnApply();">확인</button> <button type="button" onclick="addressbook.closeAddressbook();">취소</button>
+								<button type="button" class="btn_variables" onclick="addressbook.btnApply();">확인</button> <button type="button" class="closeBtn" onclick="addressbook.closeAddressbook();">취소</button>
 							</div>
 							<a href="javascript:void(0);" class="icon btn_closelayer closeBtn" onclick="addressbook.closeAddressbook();" title="레이어 닫기"></a>
 						</div>
@@ -1085,9 +771,9 @@
 							
 						</tbody>
 						</table>
-						<div class="after">
+						<div class="after" style="padding-bottom:10px;">
 							<h4 class="fl" style="float:left;">거래 내역</h4>
-							<button type="button" class="" onclick="" style="vertical-align:top!important;margin-left:20px;margin-top:7px;color:#779ec0;border:0 none;background-color:transparent;">추가</button>
+							<button type="button" class="" onclick="" style="vertical-align:top!important;margin-left:20px;color:#779ec0;border:0 none;background-color:transparent;">추가</button>
 						</div>
 			
 						<table class="tableType01 account mgb_20" id="tableAccoutingDealInformation" style="margin-bottom:20px;">
@@ -1113,7 +799,209 @@
 							</tbody>
 						</table>
 			
-					<script>
+					</div>						
+						
+					<!--------------------------------------------------------------------------------->
+					
+					<div class="write_input js-approval-input filezone hide" >
+						<div class="txt file">
+							<div class="position">
+								<div class="file-list" id="dragZone" style="min-height: 66px;">
+									<div class="top" style="padding:22px 20px 24px 20px;">
+										<p class="left">
+											<span class="body-color mgr_20 viewAttachedFileArea" style="margin-right:20px;">별첨</span>
+											<a href="javascript:void(0);" class="addfile viewAttachedFileArea" onclick="$('#fileApprovalAttach').click();">파일 첨부</a>
+											<input type="file" style="overflow: hidden; width:0px; height:0px;" name="approval_attach" id="fileApprovalAttach" multiple="">
+											
+											<!-------------------------------------------------->
+											<!-- <span class="weakgray viewAttachedFileArea">|</span> -->
+											<!-- <a href="javascript:void(0);" class="addfile" onclick="ApprovalDocument.getRelatedDocumentLayer();">관련문서 첨부</a> -->
+											<!-------------------------------------------------->
+											
+										</p>
+										<p class="right viewAttachedFileArea hide" id="approvalAttachSize" style="display: none;"><span id="attachAttachSum"></span> / 50MB</p>
+									</div>
+									
+									<div class="center viewAttachedFileArea show" id="approvalAttachText">
+										여기로 파일을 끌어놓으세요							</div>
+										
+									<div class="list hide" id="approvalAttachList" style="display: none;">
+										<table id="tableApprovalRelated">
+											<caption></caption>
+											<colgroup>
+												<col width="">
+											</colgroup>
+											<tbody></tbody>
+										</table>
+										<table id="tableApprovalAttach">
+											<caption></caption>
+											<colgroup>
+												<col width="">
+											</colgroup>
+											<tbody></tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+					</div>
+					
+					
+					
+					
+					
+					
+					
+					<!-- 이 위까지 내용작성 -->
+				</div>
+			</div>
+			<!-- END MAIN CONTENT -->
+		</div>
+		<!-- END MAIN -->
+		
+		<div class="clearfix"></div>
+		
+		<!-- 
+		<footer>
+			<div class="container-fluid">
+				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p>
+			</div>
+		</footer>
+		 -->
+
+	<!--  -->
+	</div>
+	<!-- END WRAPPER -->
+	
+	
+	<!-- Javascript -->
+	<script src="resources/assets/vendor/jquery/jquery.min.js"></script>
+	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.js"></script>
+	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
+	<script src="resources/assets/scripts/klorofil-common.js"></script>
+
+
+
+
+	<script src="resources/js/common_new.js"></script>
+	<script src="resources/js/jquery-ui.min.js"></script>
+	<script src="resources/js/main.js"></script>
+ 	
+	<script src="resources/js/approval_dext.js"></script>
+	<script src="resources/js/approval_table.js"></script>
+	<!-- <script src="resources/js/complete.js"></script> -->
+	<!-- <script src="resources/js/document_dext.js"></script> -->
+	<!-- <script src="resources/js/jaddressbook.js"></script> -->
+	<!-- <script src="resources/js/jajaxBasic.js"></script> -->
+	<!-- <script src="resources/js/jquery-1.11.2.min.js"></script> -->
+	<!-- <script src="resources/js/jquery.fileupload.js"></script> -->
+	<!-- <script src="resources/js/jquery.toastmessage.js"></script> -->
+	<!-- <script src="resources/js/jvalidateMessage.js"></script> -->
+	<!-- <script src="resources/js/Sly.js"></script> -->
+	<!-- script 작성 -->
+	<script>
+	$(function(){
+		
+		/* 사이드바의 해당 메뉴 활성화 유지하기 */
+		$("#menu1").addClass("in");
+		$("#menu1").attr('aria-expanded',true);
+		$("#menu1_1").addClass("active");
+		$("#menu1_1").attr('aria-expanded',true);
+		$("#m1_1").addClass("active");
+		
+		
+		
+		
+			
+		$(".detailQ").mouseenter(function(){
+			$(this).css("cursor","pointer")
+			$(this).siblings('.toolTip').addClass("show");			
+		}).mouseout(function(){
+			$(this).siblings('.toolTip').removeClass("show");
+		});
+		
+		$("#documentTypeSelect").on('change',function(){
+			if( $("#documentTypeSelect option:selected").val() == 'N' ){
+				$(".guide").css("display","block");
+				$(".docuTitle").removeClass("show");
+				$("#btnApprovalSelect").removeClass("show");
+				$(".typeA").removeClass("show");
+				$(".typeB").removeClass("show");
+				$(".typeC").removeClass("show");
+				$(".filezone").removeClass("show");
+			}
+			if( $("#documentTypeSelect option:selected").val() == 'A' ){
+				$(".guide").css("display","none");
+				$(".docuTitle").addClass("show");
+				$("#btnApprovalSelect").addClass("show");
+				$(".typeA").addClass("show");
+				$(".typeB").removeClass("show");
+				$(".typeC").removeClass("show");
+				$(".filezone").addClass("show");
+			}
+			if( $("#documentTypeSelect option:selected").val() == 'B' ){
+				$(".guide").css("display","none");
+				$(".docuTitle").addClass("show");
+				$("#btnApprovalSelect").addClass("show");
+				$(".typeA").removeClass("show");
+				$(".typeB").addClass("show");
+				$(".typeC").removeClass("show");
+				$(".filezone").addClass("show");
+			}
+			if( $("#documentTypeSelect option:selected").val() == 'C' ){
+				$(".guide").css("display","none");
+				$(".docuTitle").addClass("show");
+				$("#btnApprovalSelect").addClass("show");
+				$(".typeA").removeClass("show");
+				$(".typeB").removeClass("show");
+				$(".typeC").addClass("show");
+				$(".filezone").addClass("show");
+			}
+			if( $("#documentTypeSelect option:selected").val() == 'D' ){
+				$(".guide").css("display","none");
+				$(".docuTitle").addClass("show");
+				$("#btnApprovalSelect").addClass("show");
+				$(".typeA").removeClass("show");
+				$(".typeB").removeClass("show");
+				$(".typeC").removeClass("show");
+				$(".filezone").addClass("show");
+			}
+			
+			$("#btnApprovalSelect").click(function(){
+				$(".typeD").addClass("show");
+			});
+			
+			$(".closeBtn").click(function(){
+				$(".typeD").removeClass("show");
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+		});
+	
+	})
+	</script>
+	
+	
+	<script>
 					$(function(){
 						ApprovalDocument._spendingReport = {};
 						ApprovalDocument._spendingReport.type = 'P';
@@ -1239,188 +1127,6 @@
 		
 						$(this).append(append_template);
 					});
-					</script></div>						
-						
-					<!--------------------------------------------------------------------------------->
-					
-					<div class="write_input js-approval-input filezone hide" >
-						<div class="txt file">
-							<div class="position">
-								<div class="file-list" id="dragZone" style="min-height: 66px;">
-									<div class="top" style="padding:22px 20px 24px 20px;">
-										<p class="left">
-											<span class="body-color mgr_20 viewAttachedFileArea" style="margin-right:20px;">별첨</span>
-											<a href="javascript:void(0);" class="addfile viewAttachedFileArea" onclick="$('#fileApprovalAttach').click();">파일 첨부</a>
-											<input type="file" style="overflow: hidden; width:0px; height:0px;" name="approval_attach" id="fileApprovalAttach" multiple="">
-											
-											<!-------------------------------------------------->
-											<!-- <span class="weakgray viewAttachedFileArea">|</span> -->
-											<!-- <a href="javascript:void(0);" class="addfile" onclick="ApprovalDocument.getRelatedDocumentLayer();">관련문서 첨부</a> -->
-											<!-------------------------------------------------->
-											
-										</p>
-										<p class="right viewAttachedFileArea hide" id="approvalAttachSize" style="display: none;"><span id="attachAttachSum"></span> / 50MB</p>
-									</div>
-									
-									<div class="center viewAttachedFileArea show" id="approvalAttachText">
-										여기로 파일을 끌어놓으세요							</div>
-										
-									<div class="list hide" id="approvalAttachList" style="display: none;">
-										<table id="tableApprovalRelated">
-											<caption></caption>
-											<colgroup>
-												<col width="">
-											</colgroup>
-											<tbody></tbody>
-										</table>
-										<table id="tableApprovalAttach">
-											<caption></caption>
-											<colgroup>
-												<col width="">
-											</colgroup>
-											<tbody></tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-					</div>
-					
-					
-					
-					
-					
-					
-					
-					<!-- 이 위까지 내용작성 -->
-				</div>
-			</div>
-			<!-- END MAIN CONTENT -->
-		</div>
-		<!-- END MAIN -->
-		
-		<div class="clearfix"></div>
-		
-		<!-- 
-		<footer>
-			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p>
-			</div>
-		</footer>
-		 -->
-
-	<!--  -->
-	</div>
-	<!-- END WRAPPER -->
-	
-	
-	<!-- Javascript -->
-	<script src="resources/assets/vendor/jquery/jquery.min.js"></script>
-	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
-	<script src="resources/assets/scripts/klorofil-common.js"></script>
-
-	
-	<!-- script 작성 -->
-	<script>
-	$(function(){
-		
-		/* 사이드바의 해당 메뉴 활성화 유지하기 */
-		$("#menu1").addClass("in");
-		$("#menu1").attr('aria-expanded',true);
-		$("#menu1_1").addClass("active");
-		$("#menu1_1").attr('aria-expanded',true);
-		$("#m1_1").addClass("active");
-		
-		
-		
-		
-			
-		$(".detailQ").mouseenter(function(){
-			$(this).css("cursor","pointer")
-			$(this).siblings('.toolTip').addClass("show");			
-		}).mouseout(function(){
-			$(this).siblings('.toolTip').removeClass("show");
-		});
-		
-		$("#documentTypeSelect").on('change',function(){
-			if( $("#documentTypeSelect option:selected").val() == 'N' ){
-				$(".guide").css("display","block");
-				$(".docuTitle").removeClass("show");
-				$("#btnApprovalSelect").removeClass("show");
-				$(".typeA").removeClass("show");
-				$(".typeB").removeClass("show");
-				$(".typeC").removeClass("show");
-				$(".filezone").removeClass("show");
-			}
-			if( $("#documentTypeSelect option:selected").val() == 'A' ){
-				$(".guide").css("display","none");
-				$(".docuTitle").addClass("show");
-				$("#btnApprovalSelect").addClass("show");
-				$(".typeA").addClass("show");
-				$(".typeB").removeClass("show");
-				$(".typeC").removeClass("show");
-				$(".filezone").addClass("show");
-			}
-			if( $("#documentTypeSelect option:selected").val() == 'B' ){
-				$(".guide").css("display","none");
-				$(".docuTitle").addClass("show");
-				$("#btnApprovalSelect").addClass("show");
-				$(".typeA").removeClass("show");
-				$(".typeB").addClass("show");
-				$(".typeC").removeClass("show");
-				$(".filezone").addClass("show");
-			}
-			if( $("#documentTypeSelect option:selected").val() == 'C' ){
-				$(".guide").css("display","none");
-				$(".docuTitle").addClass("show");
-				$("#btnApprovalSelect").addClass("show");
-				$(".typeA").removeClass("show");
-				$(".typeB").removeClass("show");
-				$(".typeC").addClass("show");
-				$(".filezone").addClass("show");
-			}
-			if( $("#documentTypeSelect option:selected").val() == 'D' ){
-				$(".guide").css("display","none");
-				$(".docuTitle").addClass("show");
-				$("#btnApprovalSelect").addClass("show");
-				$(".typeA").removeClass("show");
-				$(".typeB").removeClass("show");
-				$(".typeC").removeClass("show");
-				$(".filezone").addClass("show");
-			}
-			
-			$("#btnApprovalSelect").click(function(){
-				$(".typeD").addClass("show");
-			});
-			
-			$(".closeBtn").click(function(){
-				$(".typeD").removeClass("show");
-			});
-			
-			
-			
-			
-			
-			
-			
-			
-		});
-	
-	})
 	</script>
 
 </body>

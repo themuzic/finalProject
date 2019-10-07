@@ -11,6 +11,9 @@ body, button, input, select, td, textarea, th {
     font-family: '맑은 고딕','Malgun Gothic',dotum,sans-serif;
     color: #676767;
 }
+.main{
+	min-height: 770px !important;
+}
 .OrgTree {
 	    clear: both;
 	    /* float: left; */
@@ -53,7 +56,7 @@ body, button, input, select, td, textarea, th {
     background-position: -281px 0;
 }
 .icon {
-    background: url(resources/assets/img/sp_icon.png) 0 0 no-repeat;
+    background: url(../images/sp_icon.png) 0 0 no-repeat;
 }
 .to-item .up {
     display: inline-block;
