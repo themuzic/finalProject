@@ -169,6 +169,7 @@ caption {
     background: #f9f9f9;
     color: #333;
     font-weight: 400;
+    text-align: center;
 }
 .tableType02 td {
     padding: 12px 0 12px 14px;
@@ -252,6 +253,33 @@ a {
     position: absolute;
     top: 17px;
     right: 25px;
+}
+.board_comment {
+    padding: 20px;
+    background: #f6f7f8;
+}
+.board_comment li {
+    padding: 20px 0 20px 30px;
+    overflow: hidden;
+    border-bottom: 1px solid #e8ecee;
+}
+.comment_write button {
+    display: inline-block;
+    width: 80px;
+    padding: 7px 0 7px;
+    background: #fff;
+    text-align: center;
+    color: #2c86dc;
+    border: 1px solid #c8c8c8;
+}
+.bt_left {
+    width: 100%;
+    padding: 20px 0 50px;
+    text-align: left;
+}
+.cont_file {
+    float: left;
+    margin: 0 20px 5px 0;
 }
 
 /*# sourceMappingURL=maps/style.css.map */
