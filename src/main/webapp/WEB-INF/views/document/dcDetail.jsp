@@ -11,21 +11,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
-<link rel="stylesheet" href="resources/assets/css/jquery-ui.min.css">
-<link rel="stylesheet" href="resources/assets/css/jquery.toastmessage-min.css">
-<link rel="stylesheet" href="resources/assets/css/slick.css">
-<link rel="stylesheet" href="resources/assets/css/style_approval.css">
-<link rel="stylesheet" href="resources/assets/css/style_new.css">
-<link rel="stylesheet" href="resources/assets/css/style_tutorial.css">
-<link rel="stylesheet" href="resources/assets/css/style.css">
-<!-- <link rel="stylesheet" href="resources/assets/css/hi_style.css"> -->
 
 
 
 
-	<script src="resources/assets/scripts/common_new.js"></script>
-	<script src="resources/assets/scripts/jquery-ui.min.js"></script>
-	<script src="resources/assets/scripts/main.js"></script>
+	<script src="resources/js/common_new.js"></script>
+	<script src="resources/js/jquery-ui.min.js"></script>
+	<script src="resources/js/main.js"></script>
 
 
 <style>
@@ -63,47 +55,47 @@
 					
 					<div id="contents" style="left: 255px;">
 						<div class="content_title">
-				<form>
-					<fieldset>
-												<span class="detail_select">
-							<a href="javascript:void(0);" class="fl" onclick="ApprovalProcess.modifyDocument();">내용수정</a><a href="javascript:void(0)" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
-							<div class="tooltip hide" style="left:45px;top:0;color:#676767;">
-								<div class="tooltip-box" style="width:400px;">
-									<p>ㆍ기안자가 기안 내용 수정이 필요하다고 판단했을 경우 결재 진행 중에도<br>&nbsp;&nbsp; 할 수 있습니다.</p>
-									<p>ㆍ내용을 수정하는 동안에는 결재가 진행되지만, 내용 수정이 완료되면, <br>&nbsp;&nbsp; 기존 결재 내역은 모두 초기화됩니다.</p>
-								</div>
-							</div>
-						</span>
-												<span class="detail_select">
-							<a href="javascript:void(0);" class="fl" onclick="ApprovalProcess.cancelDocument('');">기안취소</a><a href="javascript:void(0)" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
-							<div class="tooltip hide" style="left:0;top:0;color:#676767;">
-								<div class="tooltip-box" style="width:360px;">
-									<p>ㆍ기안자가 기안 자체를 삭제하고 싶을 때 사용할 수 있습니다.</p>
-									<p>ㆍ기존 결재 내역 뿐만 아니라 문서 번호 자체가 없어지게 됩니다.</p>
-								</div>
-							</div>
-						</span>
-												<span class="detail_select">
-							<a href="javascript:void(0);" class="fl" onclick="ApprovalProcess.copyDocument();">기안복사</a><a href="javascript:void(0);" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
-							<div class="tooltip hide" style="left:0;top:0;color:#676767;">
-								<div class="tooltip-box" style="width:300px;">
-									<p>ㆍ기안한 문서를 복사해서 문서를 작성할 수 있습니다.</p>
-									<p>ㆍ결재선과 결재 양식 정보가 입력된 채로 작성을 할 수 있습니다.</p>
-								</div>
-							</div>
-						</span>
-												<span class="detail_select">
-							<a href="javascript:void(0);" onclick="ApprovalProcess.getApprovalLineLayer();">결재선변경</a>
-						</span>
+							<form>
+								<fieldset>
 															<span class="detail_select">
-							<a href="javascript:void(0);" onclick="ApprovalProcess.documentPrint();">인쇄</a>
-						</span>
-					</fieldset>
-				</form>
-				<div class="setting_box">
-							<a class="icon list_bt" href="/cocoa-test1.onhiworks.com/approval/document/lists/P/?&amp;list_mode=P" title="목록보기"></a>
+										<a href="javascript:void(0);" class="fl" onclick="ApprovalProcess.modifyDocument();">내용수정</a><a href="javascript:void(0)" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
+										<div class="tooltip hide" style="left:45px;top:0;color:#676767;">
+											<div class="tooltip-box" style="width:400px;">
+												<p>ㆍ기안자가 기안 내용 수정이 필요하다고 판단했을 경우 결재 진행 중에도<br>&nbsp;&nbsp; 할 수 있습니다.</p>
+												<p>ㆍ내용을 수정하는 동안에는 결재가 진행되지만, 내용 수정이 완료되면, <br>&nbsp;&nbsp; 기존 결재 내역은 모두 초기화됩니다.</p>
+											</div>
 										</div>
-			</div>
+									</span>
+															<span class="detail_select">
+										<a href="javascript:void(0);" class="fl" onclick="ApprovalProcess.cancelDocument('');">기안취소</a><a href="javascript:void(0)" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
+										<div class="tooltip hide" style="left:0;top:0;color:#676767;">
+											<div class="tooltip-box" style="width:360px;">
+												<p>ㆍ기안자가 기안 자체를 삭제하고 싶을 때 사용할 수 있습니다.</p>
+												<p>ㆍ기존 결재 내역 뿐만 아니라 문서 번호 자체가 없어지게 됩니다.</p>
+											</div>
+										</div>
+									</span>
+															<span class="detail_select">
+										<a href="javascript:void(0);" class="fl" onclick="ApprovalProcess.copyDocument();">기안복사</a><a href="javascript:void(0);" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
+										<div class="tooltip hide" style="left:0;top:0;color:#676767;">
+											<div class="tooltip-box" style="width:300px;">
+												<p>ㆍ기안한 문서를 복사해서 문서를 작성할 수 있습니다.</p>
+												<p>ㆍ결재선과 결재 양식 정보가 입력된 채로 작성을 할 수 있습니다.</p>
+											</div>
+										</div>
+									</span>
+															<span class="detail_select">
+										<a href="javascript:void(0);" onclick="ApprovalProcess.getApprovalLineLayer();">결재선변경</a>
+									</span>
+																		<span class="detail_select">
+										<a href="javascript:void(0);" onclick="ApprovalProcess.documentPrint();">인쇄</a>
+									</span>
+								</fieldset>
+							</form>
+							<div class="setting_box">
+								<a class="icon list_bt" href="/cocoa-test1.onhiworks.com/approval/document/lists/P/?&amp;list_mode=P" title="목록보기"></a>
+							</div>
+						</div>
 			
 			<input type="hidden" name="approval_document_no" value="278570">
 			<input type="hidden" name="approval_first_line" value="57511">

@@ -11,15 +11,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
-<link rel="stylesheet" href="resources/css/jquery-ui.min.css">
-<link rel="stylesheet" href="resources/css/jquery.toastmessage-min.css">
-<link rel="stylesheet" href="resources/css/slick.css">
-<link rel="stylesheet" href="resources/css/style_approval.css">
-<link rel="stylesheet" href="resources/css/style_new.css">
-<link rel="stylesheet" href="resources/css/style_tutorial.css">
-<link rel="stylesheet" href="resources/css/style.css">
-
-
 
 
 	<script src="resources/js/common_new.js"></script>
@@ -367,7 +358,7 @@
 						<!--------------------------------------------------------------------------------->
 						
 						
-							<h4>기본 설정</h4>
+							<h4 style="padding: 2px 0 15px 0;">기본 설정</h4>
 							<table class="docuTable">
 								<colgroup>
 									<col style="width:14.15%;">

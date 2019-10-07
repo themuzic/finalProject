@@ -41,9 +41,9 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
-					<b style="color:#2985db;">전체 문서</b><br><br>
+					<b style="color:#3287B2;">전체 문서</b><br><br>
 					
-					<table class="table table-hover">
+					<table class="ui selectable celled table">
 						<colgroup>
 							<col style="width:15%;">
 							<col style="width:40%;">
@@ -65,7 +65,7 @@
 										<tbody>
 											<tr>
 												<td>1</td>
-												<td>Steve</td>
+												<td><a href="documentDetailView.do" style="color:black;">Steve</a></td>
 												<td>Jobs</td>
 												<td>@steve</td>
 												<td>@steve</td>

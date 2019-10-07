@@ -13,17 +13,34 @@
 
 
 <!-- VENDOR CSS -->
-	<link rel="stylesheet" href="resources/assets/vendor/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="resources/assets/vendor/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="resources/assets/vendor/linearicons/style.css">
-	<link rel="stylesheet" href="resources/assets/vendor/chartist/css/chartist-custom.css">
-	<!-- MAIN CSS -->
-	<link rel="stylesheet" href="resources/assets/css/main.css">
-	<!-- GOOGLE FONTS -->
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
-	<!-- ICONS -->
-	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+<link rel="stylesheet" href="resources/assets/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/assets/vendor/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="resources/assets/vendor/linearicons/style.css">
+<link rel="stylesheet" href="resources/assets/vendor/chartist/css/chartist-custom.css">
+<!-- MAIN CSS -->
+<link rel="stylesheet" href="resources/assets/css/main.css">
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+<!-- ICONS -->
+<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+
+
+
+<!-- SEMANTIC-UI -->
+<link rel="stylesheet" href="resources/semantic/table.css">
+
+
+
+<!-- HI-WORKS -->
+<link rel="stylesheet" href="resources/css/jquery-ui.min.css">
+<link rel="stylesheet" href="resources/css/jquery.toastmessage-min.css">
+<link rel="stylesheet" href="resources/css/slick.css">
+<link rel="stylesheet" href="resources/css/style_approval.css">
+<link rel="stylesheet" href="resources/css/style_new.css">
+<link rel="stylesheet" href="resources/css/style_tutorial.css">
+<link rel="stylesheet" href="resources/css/style.css">
+
 
 
 <style>
@@ -112,8 +129,8 @@
 							<div id="menu2" class="collapse ">
 								<ul class="nav">
 									<li><a href="" class="" id="m2_1">메일쓰기</a></li>
-									<li><a href="recieveMail.do" class="" id="m2_2">받은메일함</a></li>
-									<li><a href="sendMail.do" class="" id="m2_3">보낸메일함</a></li>
+									<li><a href="" class="" id="m2_2">받은메일함</a></li>
+									<li><a href="" class="" id="m2_3">보낸메일함</a></li>
 									<li><a href="" class="" id="m2_4">휴지통</a></li>									
 								</ul>
 							</div>
