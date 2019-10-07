@@ -117,7 +117,7 @@
 						<tr>
 							<th style="width:0.1px"></th> <!-- 메일번호 -->
 							<th>체크/별</th>
-							<th>받는 사람</th>
+							<th>보낸 사람</th>
 							<th style="width:550px;">메일 제목</th>
 							<th style="width:130px;" class="aa">파일 첨부 여부</th>
 							<th style="width:130px;" class="aa">받은 날짜</th>
@@ -212,7 +212,7 @@
 			$("#menu2").attr('aria-expanded',true);
 			$("#menu2_1").addClass("active");
 			$("#menu2_1").attr('aria-expanded',true);
-			$("#m2_3").addClass("active");	
+			$("#m2_2").addClass("active");	
 		});
 
 	</script>

@@ -13,8 +13,13 @@ public class MailController {
 	@Autowired
 	private MailService mService;
 	
+	@RequestMapping("recieveMail.do")
+	public String recieveMailList() {
+		return "mail/recieveMail";
+	}
+	
 	@RequestMapping("sendMail.do")
-	public String documentTableList() {
+	public String sendMailList() {
 		return "mail/sendMail";
 	}
 	
