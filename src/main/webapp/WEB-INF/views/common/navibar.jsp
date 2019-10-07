@@ -44,11 +44,299 @@
 
 
 <style>
-	/* .collapsed{
-		background:#2B333E;
-		border-left-color:#2B333E;
-	} */
-
+	.documentWrap{
+		float:left;
+		width:75%;
+		background: white;
+		padding-top:30px;
+		padding-bottom:30px;
+		padding-left:50px;
+		padding-right:50px;
+		font-size:14px;
+	}
+	.docuTable{
+		margin-bottom: 50px;
+	    /* table-layout: fixed; */
+	    /* border-left: 1px solid #ececec; */
+	    /* border-right: 1px solid #ececec; */
+	    width: 100%;
+    	border: 1px solid #cdcdcd;
+    	display: table;
+	    border-collapse: collapse;
+	    border-spacing: 2px;
+	}
+	table{
+		border-collapse: collapse;
+		display: table;
+		width: 100%;
+		border-spacing: 0px;
+	}
+	.docuTable th{
+		text-align: center;
+		padding: 12px 0;
+	}
+	.docuTable td{
+		padding: 8px 0 8px 10px;
+	}
+	.docuTable tr:last-child > th{
+		border-bottom: 1px solid #cdcdcd;
+	}
+	.docuTable tr:last-child > td{
+		border-bottom: 1px solid #cdcdcd;
+	}
+	.docuTable tr td:last-child{
+		border-right: 1px solid #cdcdcd;
+	}
+	.write-select{
+		width: calc(52% - 20px);
+		height: 30px;
+	    padding-left: 10px;
+	    border: 1px solid #cfcfcf;
+	}
+	th{
+		padding: 12px 0;
+	    border-bottom: 1px solid #ececec;
+	    border-right: 1px solid #ececec;
+	    background: #f9f9f9;
+	    color: #333;
+	    font-weight: 400;
+	}
+	td{
+		padding: 2px 0 2px 10px;
+	    border-bottom: 1px solid #ececec;
+	    border-right: 1px solid #ececec;
+	}
+			
+	.tooltip-box{
+		position: absolute;
+	    float: left;
+	    top: 20px;
+	    left: -50px;
+	    width: 382px;
+	    padding: 12px;
+	    margin: 6px 0 0;
+	    font-size: 12px;
+	    background-color: #fcfcfc;
+	    border: 1px solid #cfcfcf;
+	    z-index: 1500;
+	    text-align: left;
+	}
+	.documentWrap h4{
+		font-size:14px;
+    	color: #333;
+    	font-weight: 700;
+	}
+	.toolTip{
+		position: relative;
+	}
+	#btnApprovalSelect{
+		vertical-align: top!important;
+		color: #779ec0;
+		border: 0 none;
+    	background-color: transparent;
+	}
+	.team.name{
+		background: #f9f9f9;
+	}
+	.name{
+		height: 40px;
+	}
+	.stamp{
+		height: 80px;
+    	empty-cells: show;
+	}
+	.addPlus{
+		display: inline-block;
+	    position: absolute;
+	    top: 13px;
+	    right: 5px;
+	    z-index: 0;
+	    width: 19px;
+	    height: 19px;
+	    background-position: -1px -1px;
+	    cursor: pointer;
+	}
+	.cal_table1{
+		border-top: 1px solid #cdcdcd;
+	    border-left: 1px solid #cdcdcd;
+	    border-right: 1px solid #cdcdcd;
+	    table-layout: fixed;
+	    width:100%;
+	}
+	.cal_table1 tr td:last-child{
+		border-right:0;
+	}
+	.cal_table1 .confer table:first-child tr:last-of-type td{
+		border-bottom: 0;
+	}
+	.cal_table1.refer td{
+		vertical-align: middle;
+    	border-bottom: 1px solid #cdcdcd;
+	}
+	.cal_table1.refer th{
+		vertical-align: middle;
+    	border-bottom: 1px solid #cdcdcd;
+	}
+	.cal_table1 tr:last-child > td{
+		border-bottom:0;
+	}
+	.write_input {
+	    position: relative;
+	    margin-bottom: 8px;
+	}
+	.tableType02 tr:last-child > td {
+		border-bottom: 1px solid #cdcdcd;
+	}
+	.tableType02 tr:nth-last-of-type(2) > th{
+    	border-bottom: 1px solid #cdcdcd;
+	}
+	.tableType02 tr:nth-last-of-type(2) > td{
+    	border-bottom: 1px solid #cdcdcd;
+	}
+	.tableType01{
+		table-layout: fixed;
+		width: 100%;
+	    border-top: 1px solid #cdcdcd;
+	    border-bottom: 1px solid #cdcdcd;
+	}
+	.tableType01 th{
+		padding: 9px 10px 9px 15px;
+    	text-align: left;
+	}
+	.black{
+		color: #444;
+		font-weight: 400;
+	}
+	.file-list{
+		width: 100%;
+    	border: 2px dashed #e4e4e4;
+	}
+	.file-list .top{
+		position: absolute;
+	}
+	.file-list .center {
+	    padding: 22px 0 24px;
+	    text-align: center;
+	    overflow: hidden;
+	    color: #a9a9a9;
+	}
+	.down {
+	    display: inline-block;
+	    width: 7px;
+	    height: 4px;
+	    vertical-align: middle;
+	    margin-left: 4px;
+	    background: url("https://approval.office.hiworks.com/static/images/insa/spr_insa_icon.png") -50px 0 no-repeat;
+	}	
+	.layer_box.large.address, .layer_box.large.print {
+	    width: 800px;
+	    padding: 25px 30px 32px;
+	}
+	.layer_box.large {
+	    width: 640px;
+	    padding: 25px 30px 32px;
+	}
+	.layer_box {
+	    position: fixed;
+	    top: 50%;
+	    left: 50%;
+	    z-index: 1500;
+	    border: 1px solid #8d8d8d;
+	    background: #fff;
+	}
+	.layer_box .title_layer {
+	    padding-bottom: 21px;
+	    font-size: 16px;
+	}
+	.layer_box .text_variables {
+	    color: #2985db;
+	}	
+	.layer_box.address.line .line-list-wrap > .fl {
+	    width: 415px;
+	    padding-top: 10px;
+	}	
+	.fl {
+	    float: left!important;
+	}
+	.fr {
+	    float: right!important;
+	}
+	.dropdown-menu {
+	    position: absolute;
+	    top: 100%;
+	    left: 0;
+	    float: left;
+	    min-width: 130px;
+	    padding: 12px 0;
+	    margin: 6px 0 0;
+	    font-size: 14px;
+	    background-color: #fff;
+	    border: 1px solid #999;
+	    z-index: 110;
+	}
+	
+	.hide {
+	    display: none;
+	}
+	dl, li, menu, ol, ul {
+	    list-style: none;
+	}
+	.layer_box.address.line .line-list-wrap .add-del-btn {
+	    float: left;
+	    width: 40px;
+	    text-align: center;
+	    padding: 0;
+	}
+	.layer_box.address.line .line-list-wrap > .fr.mgb20 {
+	    float: left !important;
+	}
+	.dropbtn-wrap .layer_button, .layer_box .layer_button {
+	    margin-top: 29px;
+	    line-height: 19px;
+	    text-align: center;
+	}
+	button, input, select, textarea {
+	    vertical-align: middle;
+	}
+	.layer_box .select-box, .layer_box input.text-box {
+	    border: 1px solid #a5acb2;
+	    padding-left: 5px;
+	}
+	.layer_box input[type=text] {
+	    height: 21px;
+	}
+	.layer_box select {
+	    height: 23px;
+	}
+	.dropdown-menu {
+	    position: absolute;
+	    top: 100%;
+	    left: 0;
+	    float: left;
+	    min-width: 130px;
+	    padding: 12px 0;
+	    margin: 6px 0 0;
+	    font-size: 14px;
+	    background-color: #fff;
+	    border: 1px solid #999;
+	    z-index: 110;
+	}
+	.after:after {
+	    content: '';
+	    display: block;
+	    clear: both;
+	}
+	.layer_box.address.line .line-list-wrap > .fr .four-line .approval-direction {
+	    height: 78px;
+	    padding-top: 12px;
+	    background-position: -96px -363px;
+	}
+	.layer_box.address.line .line-list-wrap > .fr .three-line .approval-direction {
+	    height: 56px;
+	    padding-top: 2px;
+	    background-position: -96px -380px;
+	}
+	
 </style>
 
 </head>
