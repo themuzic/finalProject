@@ -1,5 +1,5 @@
-package com.kh.develoffice.toDo.model.vo;
+package com.kh.develoffice.todo.model.vo;
 
-public class ToDo {
+public class Todo {
 
 }
