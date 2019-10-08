@@ -473,9 +473,9 @@
 						
 						<!-- 결제선 주소록 테스트 -->
 						
+						<div id="approval_address_layer" class="booking_layer_div layer_box hide typeD">
 						
-						
-						<div class="layer_box large address line hide typeD" id="div_approval_view_one" style="margin-left: -400px; margin-top: -311px; display: block;width: 800px;">
+						<div class="layer_box large address line " id="div_approval_view_one" style="margin-left: -400px; margin-top: -311px; display: block;width: 800px;">
 							<div class="title_layer text_variables" id="titleApprovalLineSetting">결재선 설정</div>
 							<div class="line-search after" id="searchP" style="display: block;">
 								<ul class="after">
@@ -654,7 +654,8 @@
 						</div>
 						
 						
-						
+						<div class="layer_back" style="position: fixed;width: 100%;height: 100%;z-index: 1000;background-color: rgb(0, 0, 0);opacity: 0.3;top: 0px;left: 0px;margin: 0px;padding: 0px;"></div>
+					</div>
 						
 						
 						
@@ -791,107 +792,109 @@
 						
 						<!-- 추가창 팝업 시작 --------------------------------------------------------------------->
 						
+						<div id="add_account_layer" class="booking_layer_div layer_box hide">
 						
-						<div class="layer_box large account hide typeE" id="layerDealInformation" style="margin-left: -375px; margin-top: -171px; display: block; width: 750px;">
-							<div class="title_layer text_variables">
-										거래 내역 추가(개인)			</div>
-							<table class="tableType02">
-								<colgroup>
-									<col width="120">
-									<col>
-									<col width="120">
-									<col>
-								</colgroup>
-								<tbody>
-									<tr>
-										<th scope="row">계정과목</th>
-										<td>
-											<label>
-												<input type="text" class="account-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputAccountingAccount" maxlength="20" autocomplete="off">
-												<button id="btnAccountingAccountSearchLayer" onclick="ApprovalDocument.getAccountSearchLayer();"><span class="icon src"><em class="blind">검색</em></span></button>
-											</label>
-											<span class="hide" id="textAccountingAccount"></span>
-											<button class="weakblue vm hide" id="btnAccountingAccount" onclick="ApprovalDocument.setAccountingAccount('', '', true);">변경</button>
-										</td>
-										<th scope="row">지출일자</th>
-										<td>
-											<label>
-												<input type="text" id="textExpenseDate" readonly style="width:150px;">
-												<script>				
-													$("#textExpenseDate").datepicker();
-												</script>
-												<button type="button" class="icon month" onclick="$('#textExpenseDate').focus();"><span class="blind">날짜 선택</span></button>
-											</label>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row">코스트센터</th>
-										<td>
-											<label>
-												<input type="text" class="account-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputAccountingDepartment" maxlength="20" autocomplete="off">
-												<button id="btnAccountingDepartmentSearchLayer" onclick="ApprovalDocument.getDepartmentSearchLayer();"><span class="icon src"><em class="blind">검색</em></span></button>
-											</label>
-											<span class="hide" id="textAccountingDepartment"></span>
-											<button class="weakblue vm hide" id="btnAccountingDepartment" onclick="ApprovalDocument.setAccountingDepartment('', '', true);">변경</button>
-										</td>
-										<th scope="row">증빙</th>
-										<td>
-											<select class="" id="selectAccountingProof" onchange="ApprovalDocument.changeAccountingProof();">
-												<option value="">증빙</option>
-																		<option value="receipt">일반 영수증</option>
-																		<option value="card">개인 카드</option>
-																		<option value="tax_bill">세금 계산서</option>
-																		<option value="bill">계산서</option>
-																		<option value="cash_receipt">현금 영수증</option>
-																		<option value="etc">기타</option>
-																	</select>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row">공급가액</th>
-										<td>
-											<label><input type="text" id="inputSupplyPrice" maxlength="20"></label>
-										</td>
-										<th scope="row">세액</th>
-										<td>
-											<label><input type="text" id="inputTaxAmount" disabled="true" maxlength="20"></label>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row">거래처</th>
-										<td>
-											<label>
-												<input type="text" class="account-add" placeholder="직접 입력하세요." id="inputDealCustomer" maxlength="20">
-												<input type="text" class="account-add js-complete hide ui-autocomplete-input" placeholder="클릭 후 입력" id="inputAccountingCustomer" autocomplete="off">
-												<button id="btnAccountingCustomerSearchLayer" class="hide" onclick="ApprovalDocument.getCustomerSearchLayer('deal');"><span class="icon src"><em class="blind">검색</em></span></button>
-											</label>
-											<span class="hide" id="textAccountingCustomer"></span>
-											<button class="weakblue vm hide" id="btnAccountingCustomer" onclick="ApprovalDocument.setAccountingCustomer('', '', '', true);">변경</button>
-										</td>
-										<th scope="row">사업자등록번호</th>
-										<td>
-											<label><input type="text" id="inputCompanyNum" disabled="true" readonly=""></label>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row">현금영수증 번호</th>
-										<td><label><input type="text" id="inputCashReceiptsNum" disabled="true" maxlength="20"></label></td>
-										<th scope="row">적요</th>
-										<td>
-											<label><input type="text" id="inputBrief"></label>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-							<div class="layer_button">
-								<button type="button" class="btn_variables" onclick="ApprovalDocument.saveDealInformation('SAVE');">저장</button>
-								<button type="button" class="btn_variables" onclick="ApprovalDocument.saveDealInformation('REPEAT');">저장 후 추가</button>
-								<button type="button" class="closeBtn" onclick="hideLayer();">취소</button>
+							<div class="layer_box large account" id="layerDealInformation" style="margin-left: -375px; margin-top: -171px; display: block; width: 750px;">
+								<div class="title_layer text_variables">
+											거래 내역 추가(개인)			</div>
+								<table class="tableType02">
+									<colgroup>
+										<col width="120">
+										<col>
+										<col width="120">
+										<col>
+									</colgroup>
+									<tbody>
+										<tr>
+											<th scope="row">계정과목</th>
+											<td>
+												<label>
+													<input type="text" class="account-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputAccountingAccount" maxlength="20" autocomplete="off">
+													<button id="btnAccountingAccountSearchLayer" onclick="ApprovalDocument.getAccountSearchLayer();"><span class="icon src"><em class="blind">검색</em></span></button>
+												</label>
+												<span class="hide" id="textAccountingAccount"></span>
+												<button class="weakblue vm hide" id="btnAccountingAccount" onclick="ApprovalDocument.setAccountingAccount('', '', true);">변경</button>
+											</td>
+											<th scope="row">지출일자</th>
+											<td>
+												<label>
+													<input type="text" id="textExpenseDate" readonly style="width:150px;">
+													<script>				
+														$("#textExpenseDate").datepicker();
+													</script>
+													<button type="button" class="icon month" onclick="$('#textExpenseDate').focus();"><span class="blind">날짜 선택</span></button>
+												</label>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">코스트센터</th>
+											<td>
+												<label>
+													<input type="text" class="account-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputAccountingDepartment" maxlength="20" autocomplete="off">
+													<button id="btnAccountingDepartmentSearchLayer" onclick="ApprovalDocument.getDepartmentSearchLayer();"><span class="icon src"><em class="blind">검색</em></span></button>
+												</label>
+												<span class="hide" id="textAccountingDepartment"></span>
+												<button class="weakblue vm hide" id="btnAccountingDepartment" onclick="ApprovalDocument.setAccountingDepartment('', '', true);">변경</button>
+											</td>
+											<th scope="row">증빙</th>
+											<td>
+												<select class="" id="selectAccountingProof" onchange="ApprovalDocument.changeAccountingProof();">
+													<option value="">증빙</option>
+																			<option value="receipt">일반 영수증</option>
+																			<option value="card">개인 카드</option>
+																			<option value="tax_bill">세금 계산서</option>
+																			<option value="bill">계산서</option>
+																			<option value="cash_receipt">현금 영수증</option>
+																			<option value="etc">기타</option>
+																		</select>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">공급가액</th>
+											<td>
+												<label><input type="text" id="inputSupplyPrice" maxlength="20"></label>
+											</td>
+											<th scope="row">세액</th>
+											<td>
+												<label><input type="text" id="inputTaxAmount" disabled="true" maxlength="20"></label>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">거래처</th>
+											<td>
+												<label>
+													<input type="text" class="account-add" placeholder="직접 입력하세요." id="inputDealCustomer" maxlength="20">
+													<input type="text" class="account-add js-complete hide ui-autocomplete-input" placeholder="클릭 후 입력" id="inputAccountingCustomer" autocomplete="off">
+													<button id="btnAccountingCustomerSearchLayer" class="hide" onclick="ApprovalDocument.getCustomerSearchLayer('deal');"><span class="icon src"><em class="blind">검색</em></span></button>
+												</label>
+												<span class="hide" id="textAccountingCustomer"></span>
+												<button class="weakblue vm hide" id="btnAccountingCustomer" onclick="ApprovalDocument.setAccountingCustomer('', '', '', true);">변경</button>
+											</td>
+											<th scope="row">사업자등록번호</th>
+											<td>
+												<label><input type="text" id="inputCompanyNum" disabled="true" readonly=""></label>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">현금영수증 번호</th>
+											<td><label><input type="text" id="inputCashReceiptsNum" disabled="true" maxlength="20"></label></td>
+											<th scope="row">적요</th>
+											<td>
+												<label><input type="text" id="inputBrief"></label>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="layer_button">
+									<button type="button" class="btn_variables" onclick="ApprovalDocument.saveDealInformation('SAVE');">저장</button>
+									<button type="button" class="btn_variables" onclick="ApprovalDocument.saveDealInformation('REPEAT');">저장 후 추가</button>
+									<button type="button" class="closeBtn" onclick="hideLayer();">취소</button>
+								</div>
+								<a href="javascript:void(0)" class="icon btn_closelayer closeBtn" onclick="hideLayer();" title="레이어 닫기"><span class="blind">레이어 닫기</span></a>
+							
 							</div>
-							<a href="javascript:void(0)" class="icon btn_closelayer closeBtn" onclick="hideLayer();" title="레이어 닫기"><span class="blind">레이어 닫기</span></a>
-						
-						
-						
+							
+							<div class="layer_back" style="position: fixed;width: 100%;height: 100%;z-index: 1000;background-color: rgb(0, 0, 0);opacity: 0.3;top: 0px;left: 0px;margin: 0px;padding: 0px;"></div>
 						</div>
 						
 						
@@ -1091,12 +1094,12 @@
 			
 			
 			$("#btnApprovalSelect").click(function(){
-				$(".typeD").addClass("show");
+				$("#approval_address_layer").addClass("show");
 			});
 			
 			
 			$("#addDealInfo").click(function(){
-				$(".typeE").addClass("show");				
+				$("#add_account_layer").addClass("show");				
 			});
 			
 			
