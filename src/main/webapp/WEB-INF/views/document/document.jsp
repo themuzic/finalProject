@@ -103,9 +103,9 @@
 										<input type="hidden" id="prevApprovalCategoryNo" value="">
 										<select name="approval_form_no" class="write-select" id="documentTypeSelect" autocomplete="off">																
 											<option value="N">선택</option>
-											<option value="A">지출 결의서</option>
-											<option value="B">회람</option>
-											<option value="C">품의서</option>
+											<option value="AP">지출 결의서</option>
+											<option value="CN">회람</option>
+											<option value="CF">품의서</option>
 										</select>
 										<!-- <button class="weakblue" onclick="ApprovalDocument.getSelectApprovalForm();">문서보기</button> -->
 										<input type="hidden" id="prevApprovalFormNo" value="26723">
@@ -1110,7 +1110,7 @@
 				$("#summernote").summernote('destroy');	
 				//--------------------------------------
 			}
-			if( $("#documentTypeSelect option:selected").val() == 'A' ){
+			if( $("#documentTypeSelect option:selected").val() == 'AP' ){
 				$(".guide").css("display","none");
 				$(".docuTitle").addClass("show");
 				$("#btnApprovalSelect").addClass("show");
@@ -1122,7 +1122,7 @@
 				$("#summernote").summernote('destroy');
 				
 			}
-			if( $("#documentTypeSelect option:selected").val() == 'B' ){
+			if( $("#documentTypeSelect option:selected").val() == 'CN' ){
 				$(".guide").css("display","none");
 				$(".docuTitle").addClass("show");
 				$("#btnApprovalSelect").addClass("show");
@@ -1141,7 +1141,7 @@
 				//--------------------------
 				
 			}
-			if( $("#documentTypeSelect option:selected").val() == 'C' ){
+			if( $("#documentTypeSelect option:selected").val() == 'CF' ){
 				$(".guide").css("display","none");
 				$(".docuTitle").addClass("show");
 				$("#btnApprovalSelect").addClass("show");

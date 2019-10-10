@@ -690,5 +690,8 @@ fieldset, img {
 .ta_r {
     text-align: right!important;
 }
+.tableType01 th, .tableType01 td{
+	border-left: 1px solid #ececec;
+}
 
 /*# sourceMappingURL=maps/style.css.map */

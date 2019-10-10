@@ -21,6 +21,8 @@
 		padding-right:50px;
 		font-size:14px;
 	}
+	
+	
 </style>
 
 
