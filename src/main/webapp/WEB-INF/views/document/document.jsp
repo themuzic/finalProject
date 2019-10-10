@@ -11,15 +11,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-
 
 	
 
 <!-- summernote 에디터 -->
-	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 	<script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
 	
@@ -39,8 +37,8 @@
 	/* 에디터 CSS 시작 */
 	
 	.note-toolbar, .panel-heading{
-		padding-top:10px !important;
-		padding-bottom:10px !important;
+		padding-top:0px !important;
+		padding-bottom:5px !important;
 	}
 	.note-btn-group{
 		padding-right: 5px !important;
@@ -50,7 +48,10 @@
 	}
 	.note-btn{
 		height: 30px;
+		border: 1px solid #ccc !important;
 		background:white !important;
+		box-shadow: none !important;
+		
 	}
 	
 	/* 에디터 CSS 끝 */
