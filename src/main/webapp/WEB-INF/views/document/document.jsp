@@ -11,15 +11,54 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+
+
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 
 	
 	
+<!-- summernote -->
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+	<script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
+	
+
 
 
 <!-- datepicker -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+<style>
+	#tableAccoutingDealInformation th{
+		padding-left: 12px;
+	}
+	
+	/* 에디터 CSS 시작 */
+	
+	.note-toolbar, .panel-heading{
+		padding-top:10px !important;
+		padding-bottom:10px !important;
+	}
+	.note-btn-group{
+		padding-right: 5px !important;
+	}
+	.panel-heading button{
+		padding:0 10px 0 10px !important;
+	}
+	.note-btn{
+		height: 30px;
+		background:white !important;
+	}
+	
+	/* 에디터 CSS 끝 */
+	
+</style>
 
 
 
@@ -693,6 +732,15 @@
 						</div>
 						
 						<!--------------------------------------------------------------------------------->
+						<!--------- 에디터 ------------------------------------------------------------------>
+						
+						
+						
+						<div id="summernote" name="content"></div>
+						
+						
+						
+						<!--------------------------------------------------------------------------------->
 						
 						<div class="js-approval-input typeA hide" id="approvalDbContent" style="display: block;">
 						<table class="tableType02 account docuTable">
@@ -1041,6 +1089,14 @@
 		});
 		
 		
+		/* $("#summernote").summernote({
+			tabsize: 2,
+	        height: 300,
+	        lang: 'ko-KR'
+		});
+		$('.dropdown-toggle').dropdown(); */
+		
+		
 		$("#documentTypeSelect").on('change',function(){
 			if( $("#documentTypeSelect option:selected").val() == 'N' ){
 				$(".guide").css("display","block");
@@ -1050,6 +1106,11 @@
 				$(".typeB").removeClass("show");
 				$(".typeC").removeClass("show");
 				$(".filezone").removeClass("show");
+				$("#editor_layer").removeClass("show");
+				
+				// 에디터 off-----------------------------
+				$("#summernote").summernote('destroy');	
+				//--------------------------------------
 			}
 			if( $("#documentTypeSelect option:selected").val() == 'A' ){
 				$(".guide").css("display","none");
@@ -1059,6 +1120,9 @@
 				$(".typeB").removeClass("show");
 				$(".typeC").removeClass("show");
 				$(".filezone").addClass("show");
+				
+				$("#summernote").summernote('destroy');
+				
 			}
 			if( $("#documentTypeSelect option:selected").val() == 'B' ){
 				$(".guide").css("display","none");
@@ -1068,6 +1132,16 @@
 				$(".typeB").addClass("show");
 				$(".typeC").removeClass("show");
 				$(".filezone").addClass("show");
+				
+				// 에디터 on--------------------
+				$("#summernote").summernote({
+					tabsize: 2,
+			        height: 300,
+			        lang: 'ko-KR'
+				});
+				$('.dropdown-toggle').dropdown();
+				//--------------------------
+				
 			}
 			if( $("#documentTypeSelect option:selected").val() == 'C' ){
 				$(".guide").css("display","none");
@@ -1077,6 +1151,13 @@
 				$(".typeB").removeClass("show");
 				$(".typeC").addClass("show");
 				$(".filezone").addClass("show");
+
+				$("#summernote").summernote({
+					tabsize: 2,
+			        height: 300,
+			        lang: 'ko-KR'
+				});
+				$('.dropdown-toggle').dropdown();
 			}
 			if( $("#documentTypeSelect option:selected").val() == 'D' ){
 				$(".guide").css("display","none");
@@ -1253,9 +1334,8 @@
 	<script src="resources/assets/scripts/klorofil-common.js"></script>
 
 
-
-
 	
+<!-- HI-WORKS -->
 	<script src="resources/js/main.js"></script>
  	<script src="resources/js/common_new.js"></script>
 	<script src="resources/js/approval_dext.js"></script>

@@ -18,5 +18,11 @@ public class ReservationController {
 	public String myReservListView() {
 		return "reservation/myReservation";
 	}
+	
+	
+	@RequestMapping("conferenceRoom.do")
+	public String conferenceRoom() {
+		return "reservation/confRoom";
+	}
 
 }

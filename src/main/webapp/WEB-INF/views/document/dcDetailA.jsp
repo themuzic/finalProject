@@ -288,36 +288,42 @@
 															<th scope="col">적요</th>
 														</tr>
 													</thead>
-													<tbody>
-																						<tr>
+													<tbody align="center">
+														<tr>
 															<td>유류비</td>
 															<td>2019-10-08</td>
 															<td>
-																<span class="fl">영업부</span>
+																<span class="">영업부</span>
+																<!-- 
 																<a href="javascript:void(0);" class="icon question tipsIcon" style="position: relative;top:2px;margin-left:10px"><span class="blind">세부 설명</span></a>
 																<span class="tooltip hide" style="left:0;top:0;color:#676767;">
 																	<div class="tooltip-box" style="width:230px;">
 																		<p>
 																			코드 : 001&nbsp;
-																			코스트센터 : 영업부												</p>
+																			코스트센터 : 영업부
+																		</p>
 																	</div>
 																</span>
+																 -->
 															</td>
 															<td class="ta_r">30,000</td>
 															<td>
-																<span class="fl">주유소</span>
+																<span class="">주유소</span>
+																<!-- 
 																<a href="javascript:void(0);" class="icon question tipsIcon" style="position: relative;top:2px;margin-left:10px"><span class="blind">세부 설명</span></a>
 																<span class="tooltip hide" style="left:0;top:0;color:#676767;">
 																	<div class="tooltip-box" style="width:230px;">
 																		<p>
 																			코드 : -&nbsp;
-																			거래처명 : 주유소												</p>
+																			거래처명 : 주유소
+																		</p>
 																	</div>
 																</span>
+																 -->
 															</td>
 															<td>유류비</td>
 														</tr>
-																														<tr>
+														<tr>
 															<td></td>
 															<td></td>
 															<td></td>
