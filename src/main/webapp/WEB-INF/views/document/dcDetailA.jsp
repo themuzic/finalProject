@@ -140,7 +140,7 @@
 													</div>
 												</th>
 												<td class="confer vt" id="approvalFirstLine">
-													<table style="height: 163px;">\
+													<table style="height: 163px;">
 														<colgroup>
 															<col width=""><col width=""><col width=""><col width="">
 														</colgroup>
@@ -157,7 +157,7 @@
 									</tr>
 									<tr>
 									<td class="stamp">
-									<img src="/cocoa-test1.onhiworks.com/approval/sign/approval/B/2/57511" alt="결재"><p class="date" title="2019-10-08 15:10:51">2019-10-08 </p>
+									<img src="resources/images/stamp_approval.png" alt="결재"><p class="date" title="2019-10-08 15:10:51">2019-10-08 </p>
 									</td>
 									<td class="stamp">
 									</td>
