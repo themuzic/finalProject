@@ -12,10 +12,10 @@
 
 
 
+<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- summernote 에디터 -->
-<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> -->
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 <script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
@@ -1319,8 +1319,7 @@
 	
 	 -->
 <!-- Javascript -->
-	<!-- <script src="resources/assets/vendor/jquery/jquery.min.js"></script> -->
-	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	
 	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.js"></script>
 	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>

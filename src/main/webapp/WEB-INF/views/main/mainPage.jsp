@@ -398,12 +398,15 @@
 	
 	
 	<!-- Javascript -->
-	<script src="resources/assets/vendor/jquery/jquery.min.js"></script>
 	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
 	<script src="resources/assets/scripts/klorofil-common.js"></script>
+	
+	
+	
+	
 	<script>
 	$(function() {
 		var data, options;
