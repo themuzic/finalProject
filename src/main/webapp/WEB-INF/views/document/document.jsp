@@ -73,6 +73,10 @@
 					
 					
 					<div class="documentWrap">
+					
+					
+						<form action="" name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">
+						
 						
 						<div style="padding-bottom:15px;">
 							<span style="padding-right:20px;"><a href=""><b>기안하기</b></a></span>
@@ -92,11 +96,11 @@
 								<tr>
 									<th>문서종류</th>
 									<td>
-										<select name="approval_category_no" class="write-select" autocomplete="off">
-											<option value="3328" selected="">공용</option>
+										<select name="" class="write-select" autocomplete="off">
+											<option value="" selected="">공용</option>
 										</select>
 										<input type="hidden" id="prevApprovalCategoryNo" value="">
-										<select name="approval_form_no" class="write-select" id="documentTypeSelect" autocomplete="off">																
+										<select name="docuType" class="write-select" id="documentTypeSelect" autocomplete="off">																
 											<option value="N">선택</option>
 											<option value="AP">지출 결의서</option>
 											<option value="CN">회람</option>
@@ -113,14 +117,14 @@
 									<th>보존연한</th>
 									
 									<td>
-										<select name="preserved_term" class="fl write-select" id="set_preserved_term_y">
+										<select name="saveTerm" class="fl write-select" id="set_preserved_term_y">
 											<option value="">보존 연한</option>
-																			<option value="1">1년</option>
-																			<option value="3">3년</option>
-																			<option value="5">5년</option>
-																			<option value="10">10년</option>
-																			<option value="0">영구</option>
-																		</select>
+											<option value="1">1년</option>
+											<option value="3">3년</option>
+											<option value="5">5년</option>
+											<option value="10">10년</option>
+											<option value="0">영구</option>
+										</select>
 										<span class="fl hide" id="set_preserved_term_n">년</span>
 										<span class="lnr lnr-question-circle detailQ" style="padding-left:5px;line-height: 30px;"></span>
 										<div class="toolTip hide">
@@ -136,13 +140,13 @@
 									<th>보안등급</th>
 									
 									<td>
-										<select name="security_level" class="fl write-select" id="set_security_level_y">
+										<select name="security" class="fl write-select" id="set_security_level_y">
 											<option value="">보안 등급</option>
-																			<option value="S">S등급</option>
-																			<option value="A">A등급</option>
-																			<option value="B">B등급</option>
-																			<option value="C">C등급</option>
-																		</select>
+											<option value="S">S등급</option>
+											<option value="A">A등급</option>
+											<option value="B">B등급</option>
+											<option value="C">C등급</option>
+										</select>
 										<span class="fl hide" id="set_security_level_n">등급</span>
 										<span class="lnr lnr-question-circle detailQ" style="padding-left:5px;line-height: 30px;"></span>
 										<div class="toolTip hide" >
@@ -975,7 +979,7 @@
 						
 					<!-------------- 첨부파일존 시작 ---------------------------------------------------------->
 					
-					<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">
+					
 					
 					<div class="filezone hide">
 				        <table class="table" width="100%" style="border: 2px dashed #e4e4e4;height: 50px;">
@@ -991,10 +995,10 @@
 				        
 
 
-				    </form>
 						
 					<!-------------- 첨부파일존 끝 ---------------------------------------------------------->
 					
+				    </form>
 						
 						
 						
