@@ -114,7 +114,7 @@
 					<tr>
 						<th>1</th> <!-- 메일번호 -->
 						<th>별</th>
-						<th>받는사람</th>
+						<th>보낸사람</th>
 						<th>메일제목</th>
 						<th class="aa">첨부파일</th>
 						<th class="aa">날짜</th>
@@ -222,7 +222,7 @@
 			$("#menu2").attr('aria-expanded',true);
 			$("#menu2_1").addClass("active");
 			$("#menu2_1").attr('aria-expanded',true);
-			$("#m2_3").addClass("active");	
+			$("#m2_4").addClass("active");	
 		});
 
 	</script>

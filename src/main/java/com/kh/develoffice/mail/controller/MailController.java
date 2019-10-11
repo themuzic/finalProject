@@ -13,9 +13,9 @@ public class MailController {
 	@Autowired
 	private MailService mService;
 	
-	@RequestMapping("recieveMail.do")
-	public String recieveMailList() {
-		return "mail/recieveMail";
+	@RequestMapping("receiveMail.do")
+	public String receiveMailList() {
+		return "mail/receiveMail";
 	}
 	
 	@RequestMapping("sendMail.do")
@@ -23,7 +23,15 @@ public class MailController {
 		return "mail/sendMail";
 	}
 	
+	@RequestMapping("deleteMail.do")
+	public String deleteMailList() {
+		return "mail/deleteMail";
+	}
 	
+	@RequestMapping("insertMail.do")
+	public String insertMailForm() {
+		return "mail/insertMail";
+	}
 	
 	
 	

@@ -32,6 +32,15 @@
 
 
 
+<!-- summernote 에디터 -->
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+	<script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
+
+
+
 <!-- HI-WORKS -->
 <!-- <link rel="stylesheet" href="resources/css/jquery-ui.min.css"> -->
 <link rel="stylesheet" href="resources/css/jquery.toastmessage-min.css">
@@ -433,10 +442,10 @@ $.datepicker.setDefaults({
 							<a href="#menu2" data-toggle="collapse" class="collapsed" id="menu2_1"><i class="fa fa-envelope"></i> <span>EMAIL</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu2" class="collapse ">
 								<ul class="nav">
-									<li><a href="" class="" id="m2_1">메일쓰기</a></li>
-									<li><a href="" class="" id="m2_2">받은메일함</a></li>
-									<li><a href="" class="" id="m2_3">보낸메일함</a></li>
-									<li><a href="" class="" id="m2_4">휴지통</a></li>									
+									<li><a href="insertMail.do" class="" id="m2_1">메일쓰기</a></li>
+									<li><a href="receiveMail.do" class="" id="m2_2">받은메일함</a></li>
+									<li><a href="sendMail.do" class="" id="m2_3">보낸메일함</a></li>
+									<li><a href="deleteMail.do" class="" id="m2_4">휴지통</a></li>									
 								</ul>
 							</div>
 						</li>
