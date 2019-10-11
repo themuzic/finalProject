@@ -10,11 +10,22 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.develoffice.document.model.vo.Document" alias="Document"/>
+		<typeAlias type="com.kh.develoffice.document.model.vo.DocuA" alias="DocuA"/>
+		<typeAlias type="com.kh.develoffice.document.model.vo.DocuB" alias="DocuB"/>
+		<typeAlias type="com.kh.develoffice.document.model.vo.DocumentFile" alias="DocumentFile"/>
+		<typeAlias type="com.kh.develoffice.document.model.vo.Approval" alias="Approval"/>
+		<typeAlias type="com.kh.develoffice.document.model.vo.Reference" alias="Reference"/>
+		<typeAlias type="com.kh.develoffice.employee.model.vo.Employee" alias="Employee"/>
+		<typeAlias type="com.kh.develoffice.employee.model.vo.WorkTime" alias="WorkTime"/>
+		<typeAlias type="com.kh.develoffice.reservation.model.vo.Reservation" alias="Reservation"/>
+		<typeAlias type="com.kh.develoffice.reservation.model.vo.Payment" alias="Payment"/>
 	</typeAliases>
 	
 	
 	<mappers>
 		<mapper resource="mappers/document-mapper.xml"/>
+		<mapper resource="mappers/employee-mapper.xml"/>
+		<mapper resource="mappers/reservation-mapper.xml"/>
 	</mappers>
 
 </configuration>

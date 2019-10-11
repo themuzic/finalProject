@@ -1,8 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="documentMapper">
-
-
+	
+	<resultMap id="documentResultSet" type="Document">
+		<id property="docuNum" column="docu_num"/>
+		<result property="docuType" column="docu_type"/>
+		<result property="docuCode" column="docu_code"/>
+		<result property="empId" column="emp_id"/>
+		<result property="saveTerm" column="saveTerm"/>
+		<result property="security" column="security"/>
+		<result property="docuDate" column="docu_date"/>
+		<result property="status" column="status"/>
+	</resultMap>
+	
+	
+	<resultMap id="docuAResultSet" type="DocuA">
+		<id property="docuNum" column="docu_num"/>
+		<result property="title" column="title"/>
+		<result property="accountingType" column="accounting_type"/>
+		<result property="spendingYear" column="spending_year"/>
+		<result property="spendingMouth" column="spending_mouth"/>
+		<result property="spenderName" column="spender_name"/>
+		<result property="accountName" column="account_name"/>
+		<result property="expenseDate" column="expense_date"/>
+		<result property="departmentName" column="department_name"/>
+		<result property="price" column="price"/>
+		<result property="customer" column="customer"/>
+		<result property="brief" column="brief"/>
+		<result property="status" column="status"/>
+	</resultMap>
+	
+	
+	<resultMap id="docuBResultSet" type="DocuB">
+		<id property="docuNum" column="docu_num"/>
+		<result property="title" column="title"/>
+		<result property="content" column="content"/>
+		<result property="status" column="status"/>
+	</resultMap>
+	
+	
+	<resultMap id="docuFileResultSet" type="DocumentFile">
+		<id property="fileNo" column="file_no"/>
+		<result property="docuNum" column="docu_num"/>
+		<result property="filePath" column="file_path"/>
+		<result property="originName" column="origin_name"/>
+		<result property="changeName" column="change_name"/>
+		<result property="createDate" column="create_date"/>
+		<result property="status" column="status"/>
+	</resultMap>
+	
+	
+	<resultMap id="apResultSet" type="Approval">
+		<id property="docuNum" column="docu_num"/>
+		<id property="empId" column="emp_id"/>
+		<result property="status" column="status"/>
+		<result property="approvalDate" column="approval_date"/>
+	</resultMap>
+	
+	
+	<resultMap id="rfResultSet" type="Reference">
+		<id property="docuNum" column="docu_num"/>
+		<id property="empId" column="emp_id"/>
+		<result property="status" column="status"/>
+		<result property="checkDate" column="check_date"/>
+	</resultMap>
+	
 
 
 

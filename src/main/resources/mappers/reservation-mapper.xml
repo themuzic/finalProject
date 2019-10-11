@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="reservationMapper">
+
+	<resultMap id="reservResultSet" type="Reservation">
+		<id property="reservNum" column="reserv_num"/>
+		<result property="empId" column="emp_id"/>
+		<result property="reservType" column="reserv_type"/>
+		<result property="startDate" column="start_date"/>
+		<result property="endDate" column="end_date"/>
+	</resultMap>
+	
+	
+	<resultMap id="payResultSet" type="Payment">
+		<id property="payNum" column="pay_num"/>
+		<result property="empId" column="emp_id"/>
+		<result property="price" column="price"/>
+		<result property="product" column="product"/>
+		<result property="quantity" column="quantity"/>
+		<result property="payDate" column="pay_date"/>
+	</resultMap>
+
+
+
+
+</mapper>

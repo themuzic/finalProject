@@ -93,16 +93,20 @@
 									</colgroup>
 									<thead>
 										<tr>
-											<th scope="col">분류</th>
-											<th scope="col">자원명</th>
-											<th scope="col">예약 시간</th>
-											<th scope="col">상태</th>
+											<th scope="col">결제 일시</th>
+											<th scope="col">구입 상품</th>
+											<th scope="col">총 수량</th>
+											<th scope="col">결제 가격</th>
 										</tr>
 									</thead>
-									<tbody id="booking_ready_list_tbody"><tr><td colspan="4" class="center">리스트가 존재하지 않습니다.</td></tr></tbody>
+									<tbody id="booking_ready_list_tbody">
+										<tr>
+											<td colspan="4" class="center">리스트가 존재하지 않습니다.</td>
+										</tr>
+									</tbody>
 								</table>
 							</div>
-							<p class="pdt_20">* 대기 목록은 7일 후 자동 삭제됩니다.</p>
+							<p class="pdt_20">* 문의 사항은 사내 카페로 문의 바랍니다.</p>
 						</div>
 					</div>
 			

@@ -723,7 +723,7 @@
 							<label style="width:80px;position:absolute;top:4px;">제목</label>
 							<div class="txt title" style="margin-left: 80px;position:relative;">
 								<div class="position">
-									<input type="text" name="approval_document_title" id="approval_document_title" value="" style="width:100%;">
+									<input type="text" name="title" id="approval_document_title" value="" style="width:100%;">
 								</div>
 							</div>
 						</div>
@@ -733,7 +733,7 @@
 						
 						
 						
-						<div id="summernote" name="content"></div>
+						<textarea id="summernote" name="content" value=""></textarea>
 						
 						
 						
@@ -750,10 +750,10 @@
 								<th scope="row">구분</th>
 								<td>
 									<label>
-										<input type="radio" name="accounting_type" value="P" checked="" onchange="ApprovalDocument.changeSpendingReportType();">
+										<input type="radio" name="accountingType" value="P" checked="" onchange="ApprovalDocument.changeSpendingReportType();">
 										개인							</label>
 									<label style="margin-left: 20px;">
-										<input type="radio" name="accounting_type" value="C" onchange="ApprovalDocument.changeSpendingReportType();">
+										<input type="radio" name="accountingType" value="C" onchange="ApprovalDocument.changeSpendingReportType();">
 										법인							</label>
 								</td>
 							</tr>
@@ -763,14 +763,14 @@
 								<td>
 									<div class="to-item" id="spending_regist_md">
 										<!-- 회계 기준 : 월별 -->
-										<select class="write-select" style="width: 80px;" onchange="ApprovalDocument.changeFixedDate();" id="selectFixedYear">
+										<select class="write-select" name="spendingYear" style="width: 80px;" onchange="ApprovalDocument.changeFixedDate();" id="selectFixedYear">
 											<option value="2016">2016</option>
 											<option value="2017">2017</option>
 											<option value="2018">2018</option>
 											<option value="2019" selected="">2019</option>
 										</select>
 										년
-										<select class="write-select" style="width: 50px;" onchange="ApprovalDocument.changeFixedDate();" id="selectFixedMonth">
+										<select class="write-select" name="spendingMonth" style="width: 55px;" onchange="ApprovalDocument.changeFixedDate();" id="selectFixedMonth">
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
@@ -779,8 +779,8 @@
 											<option value="6">6</option>
 											<option value="7">7</option>
 											<option value="8">8</option>
-											<option value="9" selected="">9</option>
-											<option value="10">10</option>
+											<option value="9">9</option>
+											<option value="10" selected="">10</option>
 											<option value="11">11</option>
 											<option value="12">12</option>
 										</select>
@@ -799,7 +799,7 @@
 							<tr>
 								<th scope="row">지출자</th>
 								<td>
-									<input type="text" class="account-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputSpenderName">
+									<input type="text" name="spenderName" class="account-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputSpenderName">
 									<span class="hide" id="textSpenderName"> </span>
 									<button class="weakblue mgl_20 vt hide" id="modifySpenderName" onclick="ApprovalDocument.modifySpenderName();">변경</button>
 								</td>
@@ -966,7 +966,7 @@
 									<th scope="col"><a href="javascript:void(0);" class="js-approval-spending-order js-approval-order black" value="brief">적요<span class="down hide"></span></a></th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="spendTb">
 							</tbody>
 						</table>
 			
@@ -1074,6 +1074,8 @@
 		$('.dropdown-toggle').dropdown(); */
 		
 		
+		$("#summernote").hide();
+		
 		$("#documentTypeSelect").on('change',function(){
 			if( $("#documentTypeSelect option:selected").val() == 'N' ){
 				$(".guide").css("display","block");
@@ -1084,10 +1086,11 @@
 				$(".typeC").removeClass("show");
 				$(".filezone").removeClass("show");
 				$("#editor_layer").removeClass("show");
-				
+								
 				// 에디터 off-----------------------------
 				$("#summernote").summernote('destroy');	
 				//--------------------------------------
+				$("#summernote").hide();
 			}
 			if( $("#documentTypeSelect option:selected").val() == 'AP' ){
 				$(".guide").css("display","none");
@@ -1099,6 +1102,7 @@
 				$(".filezone").addClass("show");
 				
 				$("#summernote").summernote('destroy');
+				$("#summernote").hide();
 				
 			}
 			if( $("#documentTypeSelect option:selected").val() == 'CN' ){

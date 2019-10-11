@@ -1,5 +1,7 @@
 package com.kh.develoffice.document.model.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,7 @@ public class Approval {
 	private int docuNum;		// 문서번호
 	private int empId;			// 결재선에 포함된 직원ID
 	private String status;		// 결재상태
+	private Date approvalDate;		// 결재한날짜
 	
 	
 	public Approval(int docuNum, int empId) {

@@ -21,8 +21,7 @@ public class DocumentController {
 	public String documentTableList() {
 		return "document/dcTable";
 	}
-	
-	
+		
 	@RequestMapping("documentDetailView.do")
 	public String documentDetailView() {
 		return "document/dcDetailA";
