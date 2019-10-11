@@ -19,7 +19,7 @@ public class Employee {
 	private String empName;		//이름
 	private String empPwd;		//비밀번호
 	private String gender;		//성별
-	private String birth;		//생년월일(yyyymmdd)
+	private Date birth;		//생년월일(yyyymmdd)
 	private int deptCode;		//부서코드
 	private String deptName;	//부서이름
 	private int jobCode;		//직급코드
@@ -37,7 +37,7 @@ public class Employee {
 	
 	
 	
-	public Employee(String empName, String gender, String birth, int deptCode, int jobCode, String phone, String email,
+	public Employee(String empName, String gender, Date birth, int deptCode, int jobCode, String phone, String email,
 			String address, int salary, String account) {
 		super();
 		this.empName = empName;

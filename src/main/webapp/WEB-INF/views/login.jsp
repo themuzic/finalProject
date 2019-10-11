@@ -35,12 +35,12 @@
 							</div>
 							<form class="form-auth-small" action="login.do" method="post">
 								<div class="form-group">
-									<label for="signin-email" class="control-label sr-only">Email</label>
-									<input type="email" class="form-control" id="signin-email" value="" placeholder="ID">
+									<label for="signin-id" class="control-label sr-only">Email</label>
+									<input type="text" class="form-control" name="empId" id="signin-id" value="" placeholder="ID">
 								</div>
 								<div class="form-group">
 									<label for="signin-password" class="control-label sr-only">Password</label>
-									<input type="password" class="form-control" id="signin-password" value="" placeholder="Password">
+									<input type="password" class="form-control" name="empPwd" id="signin-password" value="" placeholder="Password">
 								</div>
 								<div class="form-group clearfix">
 									<label class="fancy-checkbox element-left">

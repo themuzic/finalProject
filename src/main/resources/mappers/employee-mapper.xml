@@ -32,6 +32,18 @@
 		<result property="checkOut" column="check_out"/>
 	</resultMap>
 
-
+	
+	
+	<select id="loginEmp" parameterType="Employee" resultMap="empResultSet">
+		select * from emp where emp_id=#{empId} and emp_pwd=#{empPwd}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>
