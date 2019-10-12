@@ -33,7 +33,10 @@ public class MailController {
 		return "mail/insertMail";
 	}
 	
-	
+	@RequestMapping("receiveDetail.do")
+	public String receiveDetail() {
+		return "mail/receiveDetail";
+	}
 	
 	
 

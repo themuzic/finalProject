@@ -40,59 +40,6 @@
 					<div class="contentWrap" style="width:1210px;">
 					
 		<!-- 이 아래부터 내용 작성 -->
-
-<!-- 		<div class="panel contents content_title" style="width:1130px; height:auto;"> -->
-<!-- 			<div class="panel-heading" id='m_list_default_menu'> -->
-<!-- 					<span class="panel-title detail_select" style="font-size:16px; color:#2985db"> -->
-<!-- 						<input type="checkbox" id="chkAll" onclick="MailList.CheckAll();"> -->
-<!-- 						 <a href="javascript:void(0)" id='m_list_view_option' >보기:  -->
-<!-- 						 	<span id='special_search_label'>모두</span> -->
-<!-- 						 	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif"> -->
-<!-- 					 	</a> -->
-<!-- 					 	<span id='m_list_checked_action' style='display:none'><label id='m_list_checked_cnt' ></label></span>  -->
-<!-- 						<div id='m_list_view_option_detail' class="dropdown hide" > -->
-<!-- 		                    <ul class="dropdown-menu"> -->
-<!-- 		                        <li><a href="" onclick="allMail">모두</a></li> -->
-<!-- 		                        <li><a href="" onclick="starMail;" >별 표시</a></li> -->
-<!-- 		                        <li><a href="" onclick="fileMail" >첨부 있음</a></li> -->
-<!-- 		                        <li><a href=""onclick="noReadMail" >안 읽은 메일</a></li> -->
-<!-- 		                        <li><a href="" onclick="readMail">읽은 메일</a></li> -->
-<!-- 		                    </ul> -->
-<!-- 		                </div> -->
-<!-- 					</span> -->
-<!-- 			</div> -->
-
-<!-- 	        <div id='m_list_checked_menu' style='display:none'> -->
-<!-- 	            <span class="detail_select" id="m_list_checked_menu_delete"> -->
-<!-- 	                <a href="javascript:void(0)" onclick="MailList.moveToTrash();">삭제</a> -->
-<!-- 	            </span> -->
-<!-- 	            <span class="detail_select"> -->
-<!-- 	                <a href="javascript:void(0)" onclick="MailList.DeleteSelected();">완전삭제</a> -->
-<!-- 	            </span> -->
-	        
-<!-- 	            <span class="detail_select"> -->
-<!-- 	                <a href="" id='m_list_move_mbox' >이동 -->
-<!-- 	                	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif" alt="이동 드롭다운 메뉴 열기" class="open_drop"> -->
-<!-- 	                </a> -->
-	                
-<!-- 	                <div class="dropdown hide" id='m_list_move_mbox_detail'> -->
-<!-- 	                    <div class="dropscroll-menu"> -->
-<!-- 	                        <ul style="min-width:220px; border-color:#2985db"> -->
-<!-- 	                            <li> -->
-<!-- 	                                <a href="" id="receive"onclick="receive">받은 편지함</a> -->
-<!-- 	                            </li> -->
-<!-- 	                            <li> -->
-<!-- 	                                <a href="" id="send"onclick="send"> 보낸 편지함</a> -->
-<!-- 	                            </li>     -->
-<!-- 	                            <li> -->
-<!-- 	                                <a href="" id="delete"onclick="delete"> 휴지통</a> -->
-<!-- 	                            </li> -->
-<!-- 	                        </ul> -->
-<!-- 	                   </div> -->
-<!-- 	                </div> -->
-<!-- 	            </span> -->
-<!-- 	        </div>         -->
-<!-- 		</div> -->
 		
 		<input type="checkbox" id="chkAll" onclick="">
 		<a href="" id="look" style="color:#3287B2; font-size:15px;">보기: 

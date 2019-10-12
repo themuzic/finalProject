@@ -138,7 +138,7 @@
 						</td>
 						<td><img src=""></td>
 						<td class="mName">전재광</td>
-						<td class="mTitle">메일제목입니다.</td>
+						<td class="mTitle"><a href="receiveDetail.do" style="color:black;">메일제목입니다.</a></td>
 						<td align="right">첨부파일</td>
 						<td class="aa">19-09-16 09:47</td>
 					</tr>
