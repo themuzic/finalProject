@@ -13,8 +13,6 @@
 
 
 
-
-
 <!-- datepicker -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -36,6 +34,9 @@
 	    font-size: 14px;
 	    color: #333;
 	    font-weight: 700;
+	}
+	.add-sendlist{
+		cursor:pointer;
 	}
 	
 	/* 에디터 CSS 시작 */
@@ -79,51 +80,117 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
+					<span class="detail_select">
+						<a href="" onclick="" style="font-size:16px;">보내기</a>
+					</span> &nbsp;
+					<span class="earlyView" id="earlyView">
+						<a href="#myModal" data-target="#myModal" data-toggle="modal" onclick="" style="font-size:16px;">미리보기</a>
+					</span>
+					<hr>
+					
+					<div class="write_input">
+						<p style="width:80px; position:absolute;top:4px;">받는 사람</p>
+						<div class="txt" style="margin-left:80px; position:relative;">
+							<div class="position">
+								<textarea class="cc_addr autocomplete" name="to_addr" id='to_addr' placeholder="메일 주소를 입력하세요." style="width:100%; height:30px; padding-top:5px; padding-left:3px;"></textarea>
+								<a href="" class="addaddr icon" onclick=""></a>
+							</div>
+							<div class="dropdown" style="display:none">
+								<ul class="dropdown-menu address2">
+									<li><a href=""><span class="point_color">자동 완성 설정</span></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+									
+					<div class="write_input js-approval-input docuTitle">
+						<p style="width:80px; position:absolute;top:4px;">참조 
+							<span class="add-sendlist">+</span>
+						</p>
+						<div class="txt title" style="margin-left:80px; position:relative;">
+							<div class="position">
+								<textarea name="title" id="approval_document_title" style="width:100%; height:30px;"></textarea>
+							</div>
+					</div>
+					
+					<div class="write_input" style='display:none' id='divBCC'>
+						<p style="width:80px; position:absolute;top:4px;">숨은 참조</p>
+						<div class="txt" style="margin-left:80px; margin-top:10px; position:relative;">
+							<div class="position">
+								<textarea class="cc_addr autocomplete" name="bcc_addr" id='bcc_addr' style="width:100%; height:30px;"></textarea>
+								<a href="" class="addaddr icon" onclick=""></a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="write_input js-approval-input docuTitle">
+						<label style="width:80px; position:absolute;top:4px;">제목</label>
+						<div class="txt title" style="margin-left:80px; margin-top:10px; position:relative;">
+							<div class="position">
+								<input type="text" name="title" id="approval_document_title" value="" style="width:100%; height:30px;">
+							</div>
+						</div>
+					</div>
 					
 					
-					<!------------------------------------------------------------------------>
+					<!---------------------- 미리 보기창 모달 -------------------------->
 					
-					<h4 class="filezone" style="margin-top:50px;margin-bottom:0;padding: 0 0 15px 0;font-size:14px;color:#333;font-weight:700;">첨부 파일</h4>
-						
+					<!-- Modal -->
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="exampleModalLabel" style="color:#3287B2; font-size:16px;">메일 미리보기</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body" style="height:450px; width:600px; padding-left:20px;">
+					      <br>
+							<p>보낸사람  : 	</p><br>
+							<p>받는사람  : 	</p><br>
+							<p>참조  :		</p><br>
+							<p>숨은참조:		</p><br>
+							<hr>
+							<p>제목  : 		</p><br>
+							<hr>
+							<p>내용  :	 	</p><br>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+					
+					<!-------------------------------------------------------------->
+					
+					
+	
 					<!-------------- 첨부파일존 시작 ---------------------------------------------------------->
 					
-					<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">
-					
-					<div class="filezone">
-				        <table class="table" width="100%" style="border: 2px dashed #e4e4e4;height: 50px;">
-				            <tbody id="fileTableTbody">
-				                <tr>
-				                    <td id="dropZone" style="padding: 15px;text-align: center;">
-				                        파일을 드래그 하세요
-				                    </td>
-				                </tr>
-				            </tbody>
-				        </table>
-				    </div>
-				        
-
-
+					<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">	
+						<div class="filezone">
+					        <table class="table" width="100%" style="border: 2px dashed #e4e4e4;height: 50px;">
+					            <tbody id="fileTableTbody">
+					                <tr>
+					                    <td id="dropZone" style="padding: 15px;text-align: center;">
+					                        파일을 드래그 하세요
+					                    </td>
+					                </tr>
+					            </tbody>
+					        </table>
+					    </div>
 				    </form>
 						
 					<!-------------- 첨부파일존 끝 ---------------------------------------------------------->
-
-						
 					
+					<!-------------- 에디터 -------------------->
 					
-					
-					
-					<br>	
-						
 					<div id="summernote" name="content"></div>
-						
-						
-				
 					
-					
-					
-					
-					
-					
+					<!---------------------------------------->	
+	
 					
 					<!-- 이 위까지 내용작성 -->
 					
@@ -165,10 +232,9 @@
 			$("#menu2_1").attr('aria-expanded',true);
 			$("#m2_1").addClass("active");	
 			
-			
-			
-			
-			
+			$(".add-sendlist").click(function(){
+				$("#divBCC").css("display", "block");
+			})
 		});
 		
 		
