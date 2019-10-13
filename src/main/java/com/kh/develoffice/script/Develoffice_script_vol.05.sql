@@ -1202,6 +1202,9 @@ INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL,'김상윤','1234','M','19901026',2,
 INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL, '원영주', '1234', 'F', '19940331', 6, 4, '01031563212', 'oneyj33@naver.com',
                             '강원도 춘천시 퇴계동', 7000000, '01031563212', '0', TO_DATE('20190415','YYYY-MM-DD'),NULL,DEFAULT,DEFAULT);
 
+INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL, '설용환', '1234', 'M', '19890214', 3, 3, '01083311011', 'dydghks11@naver.com',
+                            '서울시 송파구 문정동', 5000000, '01083311011', '0', TO_DATE('20190415','YYYY-MM-DD'),NULL,DEFAULT,DEFAULT);
+
 
 ------------------VIEW 생성------------------------------------
 -- 직원테이블에 부서,직급이름 추가 

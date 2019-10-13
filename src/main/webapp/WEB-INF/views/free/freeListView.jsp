@@ -48,7 +48,7 @@
 	    
    	});
    	
-   /*  $('#myTable_filter').prepend('<select id="select"></select>');
+    $('#myTable_filter').prepend('<select id="select"></select>');
     $('#myTable > thead > tr').children().each(function (indexInArray, valueOfElement) { 
         $('#select').append('<option>'+valueOfElement.innerHTML+'</option>');
     });
@@ -58,7 +58,7 @@
         table.column(colIndex).search(this.value).draw();
         
       	
-    }); */
+    }); 
  
    	   
    	$(document).ready(function() {
@@ -110,14 +110,14 @@
 					<!-- 이 아래부터 내용 작성 -->
 					
 					
-											<table id="myTable" class="table table-bordered">
+							<table id="myTable" class="table table-bordered">
 					        <thead>
 					            <tr>
-						      		<th style="text-align:center;"><i class="fas fa-list-ol"><!-- no --></i></th>
-							  		<th id="title" width="300" style="text-align:center;"><!-- title --></th>
-							  		<th data-orderable="false" id="writer" width="100" style="text-align:center;"><i class="fa fa-user"><!-- writer --></i></th>
-							  		<th data-orderable="false" style="text-align:center;" width="50"><i class="fa fa-eye"><!-- count --></i></th>
-							  		<th data-orderable="false" style="text-align:center;" width="100"><i class="far fa-clock"><!-- date --></i></th>
+						      		<th style="text-align:center;">no<!-- <i class="fas fa-list-ol"></i> --></th>
+							  		<th id="title" width="300" style="text-align:center;">title</th>
+							  		<th data-orderable="false" id="writer" width="100" style="text-align:center;">writer<!-- <i class="fa fa-user"></i> --></th>
+							  		<th data-orderable="false" style="text-align:center;" width="50">count<!-- <i class="fa fa-eye"></i> --></th>
+							  		<th data-orderable="false" style="text-align:center;" width="100">date<!-- <i class="far fa-clock"></i> --></th>
 					    		</tr>
 					        </thead>
 					        <tbody>
