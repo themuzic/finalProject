@@ -13,7 +13,6 @@
 <link rel="stylesheet" type="text/css" href="resources/assets/Semantic-UI-CSS-master/semantic.css"> 
 <link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> 
 <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
-
 <script>
    jQuery(function($){
    	$("#myTable").DataTable({
@@ -152,7 +151,7 @@
 				            		<input type="hidden">
 				            		<input type="checkbox">
 				            	</td>
-				            	<td><i class="star icon"></i></td>
+				            	<td><img src="">별</td>
 				            	<td class="person">설용환</td>
 				            	<td style="padding-left:60px;">!!!긴급</td>
 				            	<td>첨부파일</td>
