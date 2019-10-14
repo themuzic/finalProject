@@ -21,6 +21,27 @@
 		padding-right:50px;
 		font-size:14px;
 	}
+	
+	.dropscroll-menu {
+	    position: absolute;
+	    top: 100%;
+	    left: 0;
+	    float: left;
+	    min-width: 130px;
+	    padding: 12px 0;
+	    margin: 6px 0 0;
+	    font-size: 14px;
+	    background-color: #fff;
+	    border: 1px solid #999;
+	    z-index: 110;
+    }
+    #ul{
+    	margin:8px;
+    	line-height:2;
+    }
+    li{
+    	width:140px;
+    }
 </style>
 
 
@@ -42,29 +63,49 @@
 					<!-- 이 아래부터 내용 작성 -->
 					
 					
-					<span class="detail_select">
+					<span class="send menu" id="send">
 						<a href="" onclick="" style="font-size:16px;">답장</a>
 					</span> &nbsp; &nbsp; &nbsp;
-					<span class="earlyView" id="earlyView">
+					<span class="allSend menu" id="allSend">
 						<a href="" onclick="" style="font-size:16px;">전체답장</a>
 					</span> &nbsp; &nbsp; &nbsp;
-					<span class="earlyView" id="earlyView">
+					<span class="delete menu" id="delete">
 						<a href="" onclick="" style="font-size:16px;">삭제</a>
 					</span> &nbsp; &nbsp; &nbsp;
-					<span class="earlyView" id="earlyView">
+					<span class="absol_delete menu" id="absol_delete">
 						<a href="" onclick="" style="font-size:16px;">완전삭제</a>
 					</span> &nbsp; &nbsp; &nbsp;
-					<span class="earlyView" id="earlyView">
-						<a href="" onclick="" style="font-size:16px;">이동
-							<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif" alt="이동 드롭다운 메뉴 열기" class="open_drop">
-						</a>
-					</span>
-					<hr>
 					
 					
 					
-					
-					
+					<span class="move menu" id="move">
+		                <a href="javascript:void(0)" id='m_view_move_mbox' >이동
+		                	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif" alt="이동 드롭다운 메뉴 열기" class="open_drop">
+		                </a>
+		                <div class="dropdown hide" id="m_view_move_mbox_detail" style="margin-left:330px;">
+		                    <div class="dropscroll-menu" style="width:150px;">
+		                        <ul style="min-width:220px; border-color:#2985db;" id="ul">
+						            <li style="color:black;">
+		                                <a href="javascript:void(0)" id="move_b0" onclick="MailView.moveTo('53307','b0')" style="color:gray;">받은 편지함</a>
+		                            </li>
+						            <li>
+		                                <a href="javascript:void(0)" id="move_b1" onclick="MailView.moveTo('53307','b1')" style="color:gray;">보낸 편지함</a>
+		                            </li>
+						            <li>
+		                                <a href="javascript:void(0)" id="move_b2" onclick="MailView.moveTo('53307','b2')" style="color:gray;">보낼 편지함</a>
+		                            </li>
+						            <li>
+		                                <a href="javascript:void(0)" id="move_b3" onclick="MailView.moveTo('53307','b3')" style="color:gray;">임시 보관함</a>
+		                            </li>
+						            <li>
+		                                <a href="javascript:void(0)" id="move_b5" onclick="MailView.moveTo('53307','b5')" style="color:gray;">휴지통</a>
+		                            </li>
+								</ul>
+		                     </div>  
+						</div>
+		            </span>
+		            <hr>
+		            
 					<form>
 			            <div class="view_field" id="view_field">
 			                <h3>
@@ -94,26 +135,7 @@
 				            </div>
 			            </div>
        				 </form>
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
+
 					
 					<!-- 이 위까지 내용작성 -->
 					
@@ -138,10 +160,16 @@
 	<script>
 		$(function(){
 			
+			$(".move").click(function(){
+				$(".dropdown").addClass("show");				
+			});
 			
-			
-			
-			
+			$(".dropscroll-menu").find("li").mouseenter(function(){
+			       $(this).css({"background":"#ddd","cursor":"pointer"});
+			    }).mouseout(function(){
+			       $(this).css("background","white");
+			    });
+
 			
 		});
 	
