@@ -693,5 +693,23 @@ fieldset, img {
 .tableType01 th, .tableType01 td{
 	border-left: 1px solid #ececec;
 }
+.layer_box.rs-booking-layer, .layer_box.rs-detail-layer {
+    width: 430px;
+    height: 355px;
+    padding: 25px 30px 32px;
+}
+.layer_box .to-add.approve dt, .layer_box .to-add.detail-search dt {
+    float: left;
+    width: 20%;
+}
+.layer_box .to-add.approve dd, .layer_box .to-add.detail-search dd {
+    float: right;
+    width: 80%;
+}
+.rs-layer-textarea {
+    height: 80px;
+    resize: none;
+    width: 270px;
+}
 
 /*# sourceMappingURL=maps/style.css.map */

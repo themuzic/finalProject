@@ -93,8 +93,8 @@
 													<td style="border-bottom:none;">
 														<table class="rs-resource-tbl" no="5109">
 															<thead class="rs-view booking_resource_img_top">
-																<tr><th scope="col"><span class="resource_name_span" title="회의실" style="text-align: center;">회의실</span> <span class="show-rs-info category_detail_view" r_type="R" no="5109">i</span></th></tr>
-																<tr class="rs-bg"><td class=""><img src="resources/images/confRoom.jpg" alt=""></td></tr>
+																<tr><th scope="col"><span class="resource_name_span" title="안마의자" style="text-align: center;">안마의자</span> <span class="show-rs-info category_detail_view" r_type="R" no="5109">i</span></th></tr>
+																<tr class="rs-bg"><td class=""><img src="resources/images/massage.png" alt=""></td></tr>
 																<tr><td class="rs-divider-td"><hr class="rs-divider"></td></tr>
 															</thead>
 														</table>
@@ -339,7 +339,7 @@
 			$("#menu5").attr('aria-expanded',true);
 			$("#menu5_1").addClass("active");
 			$("#menu5_1").attr('aria-expanded',true);
-			$("#m5_2").addClass("active");
+			$("#m5_4").addClass("active");
 			
 			
 			$("#time-table tr").on('click',function(){

@@ -15,7 +15,6 @@
 <script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- summernote 에디터 -->
-<!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> -->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 <script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
@@ -863,9 +862,9 @@
 											<th scope="row">지출일자</th>
 											<td>
 												<label>
-													<input type="text" id="textExpenseDate" readonly style="width:150px;">
+													<input type="text" id="textExpenseDate" class="datepicker" readonly style="width:150px;">
 													<script>				
-														$("#textExpenseDate").datepicker();
+														$(".datepicker").datepicker();
 													</script>
 													<button type="button" class="icon month" onclick="$('#textExpenseDate').focus();"><span class="blind">날짜 선택</span></button>
 												</label>
@@ -935,7 +934,7 @@
 									<button type="button" class="btn_variables" onclick="ApprovalDocument.saveDealInformation('REPEAT');">저장 후 추가</button>
 									<button type="button" class="closeBtn" onclick="hideLayer();">취소</button>
 								</div>
-								<a href="javascript:void(0)" class="icon btn_closelayer closeBtn" onclick="hideLayer();" title="레이어 닫기"><span class="blind">레이어 닫기</span></a>
+								<a href="javascript:void(0)" class="icon btn_closelayer closeBtn" onclick="hideLayer();" title="레이어 닫기"></a>
 							
 							</div>
 							
@@ -1506,17 +1505,16 @@
 	<script src="resources/assets/scripts/klorofil-common.js"></script>
 
 
-	
+
 <!-- HI-WORKS -->
 	<script src="resources/js/main.js"></script>
  	<script src="resources/js/common_new.js"></script>
-	<script src="resources/js/approval_dext.js"></script>
 	<script src="resources/js/approval_table.js"></script>
+	<!-- <script src="resources/js/approval_dext.js"></script> -->
 	<!-- <script src="resources/js/complete.js"></script> -->
 	<!-- <script src="resources/js/document_dext.js"></script> -->
 	<!-- <script src="resources/js/jaddressbook.js"></script> -->
 	<!-- <script src="resources/js/jajaxBasic.js"></script> -->
-	<!-- <script src="resources/js/jquery-1.11.2.min.js"></script> -->
 	<!-- <script src="resources/js/jquery.fileupload.js"></script> -->
 	<!-- <script src="resources/js/jquery.toastmessage.js"></script> -->
 	<!-- <script src="resources/js/jvalidateMessage.js"></script> -->

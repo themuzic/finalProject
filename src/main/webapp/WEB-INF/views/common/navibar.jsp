@@ -42,7 +42,7 @@
 
 <!-- HI-WORKS -->
 <!-- <link rel="stylesheet" href="resources/css/jquery-ui.min.css"> -->
-<link rel="stylesheet" href="resources/css/jquery.toastmessage-min.css">
+<!-- <link rel="stylesheet" href="resources/css/jquery.toastmessage-min.css"> -->
 <link rel="stylesheet" href="resources/css/slick.css">
 <link rel="stylesheet" href="resources/css/style_new.css">
 <link rel="stylesheet" href="resources/css/style_tutorial.css">
@@ -52,7 +52,8 @@
 
 <!-- datepicker -->
 <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+<script src="resources/js/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="resources/js/datepicker-ko.js"></script>
 
@@ -69,6 +70,9 @@ $.datepicker.setDefaults({
     showMonthAfterYear: true,
     yearSuffix: '년'
 });
+
+
+
 </script>
 
 
@@ -476,8 +480,8 @@ $.datepicker.setDefaults({
 								<ul class="nav">
 									<li><a href="myReservListView.do" class="" id="m5_1">내 예약 보기</a></li>
 									<li><a href="conferenceRoom.do" class="" id="m5_2">회의실</a></li>
-									<li><a href="" class="" id="m5_3">차량</a></li>
-									<li><a href="" class="" id="m5_4">안마의자</a></li>
+									<li><a href="car.do" class="" id="m5_3">차량</a></li>
+									<li><a href="massage.do" class="" id="m5_4">안마의자</a></li>
 									<li><a href="" class="" id="m5_5">카페</a></li>									
 								</ul>
 							</div>
@@ -508,10 +512,13 @@ $.datepicker.setDefaults({
 				$('.layer_box').removeClass("show");
 			});
 			
-			
+			/* $(".ui-datepicker-trigger").remove(); */
+				
+			$(".datepicker").removeClass('hasDatepicker').datepicker();
+			$("#ui-datepicker-div").css('z-index', 9999);
+		
 		});
 		
-	
 	
 	
 	</script>

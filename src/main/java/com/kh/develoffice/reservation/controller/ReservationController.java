@@ -24,5 +24,17 @@ public class ReservationController {
 	public String conferenceRoom() {
 		return "reservation/confRoom";
 	}
+	
+	
+	@RequestMapping("car.do")
+	public String car() {
+		return "reservation/car";
+	}
+	
+	
+	@RequestMapping("massage.do")
+	public String massage() {
+		return "reservation/massage";
+	}
 
 }
