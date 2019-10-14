@@ -30,6 +30,9 @@
 <!-- SEMANTIC-UI -->
 <link rel="stylesheet" href="resources/semantic/table.css">
 <link rel="stylesheet" href="resources/semantic/step.css">
+<link rel="stylesheet" href="resources/semantic/semantic_button.css">
+<link rel="stylesheet" href="resources/semantic/semantic_dropdown.css">
+<link rel="stylesheet" href="resources/semantic/semantic_icon.css">
 
 
 
