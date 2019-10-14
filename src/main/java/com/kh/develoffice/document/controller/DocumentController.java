@@ -12,6 +12,12 @@ public class DocumentController {
 	@Autowired
 	private DocumentService dService;
 	
+	
+	@RequestMapping("mainPage.do")
+	public String mainPage() {
+		return "main/mainPage";
+	}
+	
 	@RequestMapping("insertDocumentForm.do")
 	public String insertDocumentForm() {
 		return "document/document";
