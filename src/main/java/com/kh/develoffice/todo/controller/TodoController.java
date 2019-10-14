@@ -12,8 +12,13 @@ public class TodoController {
 	@Autowired
 	private TodoService tService;
 	
-	@RequestMapping("toDoBoardList.do")
-	public String toDoBoardList() {
-		return "todo/todoBoard";
+	@RequestMapping("todoBoardList.do")
+	public String todoBoardList() {
+		return "todo/tdBoardListView";
+	}
+	
+	@RequestMapping("todoDetail.do")
+	public String todoDetail() {
+		return "todo/tdDetailView";
 	}
 }

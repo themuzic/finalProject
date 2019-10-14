@@ -10,8 +10,9 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<link rel="stylesheet" href="resources/css/dropdown.css">
-<link rel="stylesheet" href="resources/css/icon.css">
+<link rel="stylesheet" href="resources/css/semantic_dropdown.css">
+<link rel="stylesheet" href="resources/css/semantic_icon.css">
+<link rel="stylesheet" href="resources/css/semantic_button.css">
 
 
 <style>
@@ -328,12 +329,17 @@ a.ui.card:hover,
 							<td colspan="3">
 								<i class="plus circle icon"></i>
 							</td>
+							<td>
+								<div class="ui inverted segment">
+								  <button class="ui inverted primary button">새 Board 생성하기</button>
+								</div>
+							</td>
 						</tr>
 					</table>
 					
 					<!-- 테이블 만들어서 3열로 카드 넣으면 ? -->
 					
-					<a class="ui card" href="http://www.dog.com">
+					<a class="ui card" href="todoDetail.do">
 					  <div class="content">
 					    <div class="header">2019-10</div>
 					    <div class="meta">
