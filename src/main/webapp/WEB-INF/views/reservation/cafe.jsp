@@ -10,10 +10,14 @@
 <title>DEVELOFFICE</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+<link rel="stylesheet" href="resources/semantic/semantic.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/segment.min.css"> -->
+
+
 <style>
 	.contentWrap{
 		float:left;
-		width:100%;
+		width:75%;
 		background: white;
 		padding-top:30px;
 		padding-bottom:30px;
@@ -22,21 +26,56 @@
 		font-size:14px;
 	}
 	.description{
-		font-size:12px;
+		font-size:12px !important;
+	}
+	.ui.accordion.menu .item .title{
+		font-size:18px !important;
 	}
 	.test{
 		border: 1px solid lightgray;
 	}
 	.cafe_div{
 		width:33.3%;
-		height: 300px;
-		padding: 30px 60px 30px 60px;
+		height: 320px;
+		padding: 30px 70px 30px 60px;
 	}
 	.menu, .menu_price{
-		font-size: 20px;
+		font-size: 16px;
 	}
 	#m_table td{
 		height: 40px;
+	}
+	.ui.checkbox{
+		box-sizing: border-box;
+		width:100%;
+	}
+	.ui.checkbox input[type="checkbox"]{
+		/* right: 30px; */
+	    width: 20px;
+	    height: 20px;
+	    margin-top:3px;
+	}
+	.ui.checkbox label{
+		font-size: 1.5rem !important;
+		cursor:pointer !important;
+	}
+	span{
+		font-size: 1.5rem !important;
+	}
+	#cafe_table_wrap td{
+		border:0;
+	}
+	.icon{
+		background:none !important;
+	}
+	.item{
+		padding: 10px 25px 10px 25px !important;
+	}
+	.ui.checkbox{
+		padding-right:27px;
+	}
+	.ui.checkbox label{
+		float:left;
 	}
 </style>
 
@@ -48,6 +87,7 @@
 	<!--  -->
 	<jsp:include page="../common/navibar.jsp"/>
 	<!--  -->
+	
 	
 	<!-- MAIN -->
 		<div class="main">
@@ -65,19 +105,19 @@
 					<!-- active : 현재 스텝 -->
 					<!-- disabled : 아직 도달하지 않은 스텝 -->
 					
-					  <div class="active step">
+					  <div class="active step" id="step1">
 					    <div class="content">
 					      <div class="title">Menu</div>
 					      <div class="description">메뉴를 선택하세요.</div>
 					    </div>
 					  </div>
-					  <div class="disabled step">
+					  <div class="disabled step" id="step2">
 					    <div class="content">
 					      <div class="title">Quantity</div>
 					      <div class="description">수량을 선택하세요.</div>
 					    </div>
 					  </div>
-					  <div class="disabled step">
+					  <div class="disabled step" id="step3">
 					    <div class="content">
 					      <div class="title">Confirm Order</div>
 					      <div class="description">주문을 확인하세요.</div>
@@ -89,38 +129,90 @@
 					
 					<!----------------------------------------------------->
 					
-					<div class="" id="cafe_table_wrap">
-						<div id="m_div" class="cafe_div test fl">
-							<table id="m_table" class="cafe_table test">
-								<tr>
-									<td><span class="menu fl">Americano</span> <span class="menu_price fr">1000</span></td>
-								</tr>								
-								<tr>
-									<td><span class="menu fl">Caffè Latte</span> <span class="menu_price fr">1500</span></td>
-								</tr>
-								<tr>
-									<td><span class="menu fl">Vanilla Latte</span> <span class="menu_price fr">1500</span></td>
-								</tr>
-								<tr>
-									<td><span class="menu fl">Hazelnut Latte</span> <span class="menu_price fr">1500</span></td>
-								</tr>
-								<tr>
-									<td><span class="menu fl">Caffè Mocca</span> <span class="menu_price fr">1500</span></td>
-								</tr>
-								<tr>
-									<td><span class="menu fl">Caffè Macchiato</span> <span class="menu_price fr">1500</span></td>
-								</tr>
-							</table>
-						</div>
-						
-						<div id="q_div" class="cafe_div test fl">
-							<table id="q_table" class="cafe_table test"></table>
-						</div>
-						
-						<div id="o_div" class="cafe_div test fl">
-							<table id="o_table" class="cafe_table test"></table>
-						</div>
+					<div class="ui vertical accordion menu" style="width:100%;">
+					
+					
+					  <div class="item">
+					    <a class="active title">
+					      <i class="dropdown icon" id="tab1"></i>
+					      Menu
+					    </a>
+					    <div class="active content">
+					    	<div class="ui form">
+					        <div class="grouped fields">
+					          <div class="field">
+					            <div class="ui checkbox">
+					              <input type="checkbox" name="menu" id="menu1">
+					              <label>Americano</label><span class="fr">1000원</span>
+					            </div>
+					          </div>
+					          <div class="field">
+					            <div class="ui checkbox">
+					              <input type="checkbox" name="menu" id="menu2">
+					              <label for="menu2">Cafe Latte</label><span class="fr">1500원</span>
+					            </div>
+					          </div>
+					          <div class="field">
+					            <div class="ui checkbox">
+					              <input type="checkbox" name="menu" id="menu3">
+					              <label for="menu3">Vanilla Latte</label><span class="fr">1500원</span>
+					            </div>
+					          </div>
+					          <div class="field">
+					            <div class="ui checkbox">
+					              <input type="checkbox" name="menu" id="menu4">
+					              <label for="menu4">Hazelnut Latte</label><span class="fr">1500원</span>
+					            </div>
+					          </div>
+					          <div class="field">
+					            <div class="ui checkbox">
+					              <input type="checkbox" name="menu" id="menu5">
+					              <label for="menu5">Cafe Mocca</label><span class="fr">1500원</span>
+					            </div>
+					          </div>
+					          <div class="field">
+					            <div class="ui checkbox">
+					              <input type="checkbox" name="menu" id="menu6">
+					              <label for="menu6">Cafe Macchiato</label><span class="fr">1500원</span>
+					            </div>
+					          </div>
+					        </div>
+					      </div>
+					    </div>
+					  </div>
+					  
+					  
+					  <div class="item">
+					    <a class="title">
+					      <i class="dropdown icon" id="tab2"></i>
+					      Quantity
+					    </a>
+					    <div class="content">
+					      
+					    </div>
+					  </div>
+					  
+					  
+					  <div class="item">
+					    <a class="title">
+					      <i class="dropdown icon" id="tab3"></i>
+					      Confirm Order
+					    </a>
+					    <div class="content">
+					      
+					    </div>
+					  </div>
+					  
+					  
 					</div>
+					
+					
+					
+					
+					
+					
+					
+					<!----------------------------------------------------->
 					
 					
 					
@@ -149,6 +241,10 @@
 	
 	<!-- script 작성 -->
 	<script>
+	
+	
+			
+	
 		$(function(){
 			
 			/* 사이드바의 해당 메뉴 활성화 유지하기 */
@@ -159,10 +255,34 @@
 			$("#m5_5").addClass("active");
 			
 			
+			/* step 단계별 활성화 */
+			$("#tab1").click(function(){
+				
+				$("#step1").removeClass('completed');
+				$("#step1").addClass('active');
+				
+				$("#step2").css('background','white');
+				$("#step2").removeClass('completed');
+				$("#step2").removeClass('active');
+				$("#step2").addClass('disabled');			
+				
+			});
+			
+			
+			$("#tab2").click(function(){
+				$("#step1").css('background','white');
+				$("#step1").removeClass('active');
+				$("#step1").addClass('completed');
+				
+				$("#step2").removeClass('disabled');
+				$("#step2").addClass('active');			
+				
+			});
 			
 			
 		});
 		
+		/* 화면 상단 스텝 깜빡임 시작 */
 		
 		var toggle = false;
 		var handle = null;
@@ -185,7 +305,32 @@
 			}
 			toggle = !toggle;
 		}
-	
+		
+		/* 화면 상단 스텝 깜빡임 끝 */
+		
+		
+		/* 메뉴담기 시작 */
+		
+		var menuArr = new Array();
+		
+		$('input[type="checkbox"]').change(function(){
+			if($(this).prop('checked')){
+				menuArr.push($(this).val());
+			}else{
+				for(var i in menuArr){
+					if(menuArr[i] == $(this).val()){
+						menuArr.splice(menuArr.indexOf($(this).val()),1);
+					}
+				}
+			}
+			console.log(menuArr);
+		});
+		
+		/* 메뉴담기 끝 */
+		
+		$('.ui.accordion').accordion();
+		
+		
 	
 	</script>
 	
@@ -197,6 +342,6 @@
 	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
 	<script src="resources/assets/scripts/klorofil-common.js"></script>
-	
+	<script src="resources/semantic/semantic.js"></script>
 </body>
 </html>

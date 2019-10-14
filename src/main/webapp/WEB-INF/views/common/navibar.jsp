@@ -26,24 +26,6 @@
 <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
 
 
-
-<!-- SEMANTIC-UI -->
-<link rel="stylesheet" href="resources/semantic/table.css">
-<link rel="stylesheet" href="resources/semantic/step.css">
-<link rel="stylesheet" href="resources/semantic/semantic_button.css">
-<link rel="stylesheet" href="resources/semantic/semantic_dropdown.css">
-<link rel="stylesheet" href="resources/semantic/semantic_icon.css">
-<link rel="stylesheet" href="resources/semantic/checkbox.css">
-<script src="resources/semantic/checkbox.js"></script>
-
-
-<!-- summernote 에디터 -->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
-<script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
-
-
-
 <!-- HI-WORKS -->
 <link rel="stylesheet" href="resources/css/jquery.toastmessage-min.css">
 <link rel="stylesheet" href="resources/css/slick.css">
@@ -53,10 +35,37 @@
 <link rel="stylesheet" href="resources/css/style_approval.css">
 
 
+
 <!-- datepicker -->
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="resources/js/jquery-ui.js"></script>
+<link rel="stylesheet" href="resources/assets/css/jquery-ui.css">
 <script src="resources/js/datepicker-ko.js"></script>
+
+
+
+<!-- SEMANTIC-UI -->
+
+<link rel="stylesheet" href="resources/semantic/table.css">
+<link rel="stylesheet" href="resources/semantic/step.css">
+<link rel="stylesheet" href="resources/semantic/semantic_button.css">
+<link rel="stylesheet" href="resources/semantic/semantic_dropdown.css">
+<link rel="stylesheet" href="resources/semantic/semantic_icon.css">
+<link rel="stylesheet" href="resources/semantic/checkbox.css">
+<script src="resources/semantic/checkbox.js"></script>
+<link rel="stylesheet" href="resources/semantic/accordion.css">
+<script src="resources/semantic/accordion.js"></script>
+
+
+
+<!-- summernote 에디터 -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+<script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
+
+
+
+
+
 
 <script>
 $.datepicker.setDefaults({
@@ -510,10 +519,10 @@ $.datepicker.setDefaults({
 				$('.layer_box').removeClass("show");
 			});
 			
+			$(".datepicker").datepicker();
 			
 		});
 		
-	
 	
 	
 	</script>

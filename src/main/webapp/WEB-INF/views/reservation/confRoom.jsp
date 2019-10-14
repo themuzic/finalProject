@@ -14,7 +14,6 @@
 
 
 
-
 <style>
 	.contentWrap{
 		float:left;
@@ -67,7 +66,7 @@
 								<div class="cal_head" id="cal_head_fixed_div" style="padding-right: 42px; padding-left: 20px;">
 									<div id="cal_head_fixed_div_area">
 										<button type="button" class="icon directleft" onclick="bookingResourceListTime.moveDate('previous');"><span class="blind">전일 이동</span></button>
-										<input type="text" class="num datepicker hasDatepicker" id="booking_date" value="2019-10-08" style="width:110px;border:none;margin-right:5px;" readonly=""><span id="week_name_span">(화)</span>
+										<input type="text" class="num datepicker" id="booking_date" value="2019-10-08" style="width:110px;border:none;margin-right:5px;" readonly=""><span id="week_name_span">(화)</span>
 										<button type="button" class="icon month" onclick="$('#booking_date').focus();"><span class="blind">예약 날짜 선택</span></button>
 										<button type="button" class="icon directright" onclick="bookingResourceListTime.moveDate('next');"><span class="blind">익일 이동</span></button>
 										<button type="button" class="today-btn vt" onclick="bookingResourceListTime.setToday();">오늘</button>
@@ -212,15 +211,6 @@
 										<dd>
 											<div class="fl">
 												<input type="text" name="date" id="booking_date_in_layer" class="datepicker" style="width:147px;" value="2019-10-14" readonly>
-												<script>				
-													$(function(){
-														$('#booking_date_in_layer').on('focus',function(){
-															$("#ui-datepicker-div").css('z-index', "9999!important");														
-															$(".datepicker").datepicker();
-														});
-														
-													})
-												</script>
 												<button type="button" class="icon month" onclick="$('#booking_date_in_layer').focus();"></button>
 											</div>
 										</dd>
@@ -356,11 +346,6 @@
 	</script>
 	
 	<!-- Javascript -->
-	
-	<!-- <script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script> -->
-	<!-- <script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script> -->
-	<!-- <script src="resources/assets/vendor/chartist/js/chartist.min.js"></script> -->
-	<!-- <script src="resources/assets/scripts/klorofil-common.js"></script> -->
 	
 
 
