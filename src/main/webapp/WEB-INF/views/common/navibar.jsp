@@ -29,20 +29,23 @@
 
 <!-- SEMANTIC-UI -->
 <link rel="stylesheet" href="resources/semantic/table.css">
-
+<link rel="stylesheet" href="resources/semantic/step.css">
+<link rel="stylesheet" href="resources/semantic/semantic_button.css">
+<link rel="stylesheet" href="resources/semantic/semantic_dropdown.css">
+<link rel="stylesheet" href="resources/semantic/semantic_icon.css">
+<link rel="stylesheet" href="resources/semantic/checkbox.css">
+<script src="resources/semantic/checkbox.js"></script>
 
 
 <!-- summernote 에디터 -->
-	<!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>  -->
-	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
-	<script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+<script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
 
 
 
 <!-- HI-WORKS -->
-<!-- <link rel="stylesheet" href="resources/css/jquery-ui.min.css"> -->
-<!-- <link rel="stylesheet" href="resources/css/jquery.toastmessage-min.css"> -->
+<link rel="stylesheet" href="resources/css/jquery.toastmessage-min.css">
 <link rel="stylesheet" href="resources/css/slick.css">
 <link rel="stylesheet" href="resources/css/style_new.css">
 <link rel="stylesheet" href="resources/css/style_tutorial.css">
@@ -51,9 +54,7 @@
 
 
 <!-- datepicker -->
-<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-<script src="resources/js/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="resources/js/datepicker-ko.js"></script>
 
@@ -70,9 +71,6 @@ $.datepicker.setDefaults({
     showMonthAfterYear: true,
     yearSuffix: '년'
 });
-
-
-
 </script>
 
 
@@ -482,7 +480,7 @@ $.datepicker.setDefaults({
 									<li><a href="conferenceRoom.do" class="" id="m5_2">회의실</a></li>
 									<li><a href="car.do" class="" id="m5_3">차량</a></li>
 									<li><a href="massage.do" class="" id="m5_4">안마의자</a></li>
-									<li><a href="" class="" id="m5_5">카페</a></li>									
+									<li><a href="cafe.do" class="" id="m5_5">카페</a></li>									
 								</ul>
 							</div>
 						</li>
@@ -512,13 +510,10 @@ $.datepicker.setDefaults({
 				$('.layer_box').removeClass("show");
 			});
 			
-			/* $(".ui-datepicker-trigger").remove(); */
-				
-			$(".datepicker").removeClass('hasDatepicker').datepicker();
-			$("#ui-datepicker-div").css('z-index', 9999);
-		
+			
 		});
 		
+	
 	
 	
 	</script>

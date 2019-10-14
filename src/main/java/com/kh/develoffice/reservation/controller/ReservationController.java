@@ -13,7 +13,6 @@ public class ReservationController {
 	private ReservationService rService;
 	
 	
-	
 	@RequestMapping("myReservListView.do")
 	public String myReservListView() {
 		return "reservation/myReservation";
@@ -36,5 +35,13 @@ public class ReservationController {
 	public String massage() {
 		return "reservation/massage";
 	}
+	
+	
+	@RequestMapping("cafe.do")
+	public String cafe() {
+		return "reservation/cafe";
+	}
+	
+	
 
 }
