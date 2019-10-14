@@ -10,10 +10,11 @@
 <title>DEVELOFFICE</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+
 <style>
 	.contentWrap{
 		float:left;
-		width:75%;
+		width:50%;
 		background: white;
 		padding-top:30px;
 		padding-bottom:30px;
@@ -21,6 +22,8 @@
 		padding-right:50px;
 		font-size:14px;
 	}
+	
+	.
 </style>
 
 
@@ -41,7 +44,47 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
+					<div class="ui animated fade button" tabindex="0">
+					  <div class="visible content">Sign-up for a Pro account</div>
+					  <div class="hidden content">
+					    $12.99 a month
+					  </div>
+					</div>
 					
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th width="5%"></th>
+								<th width="7%">#</th>
+								<th width="50%">제목</th>
+								<th width="19%">상태</th>
+								<th width="19%">등록 날짜</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input type="checkbox"></td>
+								<td>1</td>
+								<td>Steve</td>
+								<td>Jobs</td>
+								<td>@steve</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox"></td>
+								<td>2</td>
+								<td>Simon</td>
+								<td>Philips</td>
+								<td>@simon</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox"></td>
+								<td>3</td>
+								<td>Jane</td>
+								<td>Doe</td>
+								<td>@jane</td>
+							</tr>
+						</tbody>
+					</table>
 					
 					
 					
@@ -77,9 +120,11 @@
 	<script>
 		$(function(){
 			
-			
-			
-			
+			$("#menu3").addClass("in");
+			$("#menu3").attr('aria-expanded',true);
+			$("#menu3_1").addClass("active");
+			$("#menu3_1").attr('aria-expanded',true);
+			$("#m3_2").addClass("active");	
 			
 			
 		});

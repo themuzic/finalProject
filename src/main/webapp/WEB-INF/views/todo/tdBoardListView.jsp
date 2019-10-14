@@ -316,27 +316,27 @@ a.ui.card:hover,
 					<table>
 						<tr>
 							<td>
-								<div class="ui selection dropdown error">
-								  Dropdown 
-								  <i class="dropdown icon"></i>
-								  <div class="menu">
-								    <div class="item">Choice 1</div>
-								    <div class="item">Choice 2</div>
-								    <div class="item">Choice 3</div>
+								<div class="ui compact menu">
+								  <div class="ui simple dropdown item">
+								    Dropdown
+								    <i class="dropdown icon"></i>
+								    <div class="menu">
+								      <div class="item">Choice 1</div>
+								      <div class="item">Choice 2</div>
+								      <div class="item">Choice 3</div>
+								    </div>
 								  </div>
 								</div>
 							</td>
-							<td colspan="3">
-								<i class="plus circle icon"></i>
-							</td>
 							<td>
 								<div class="ui inverted segment">
-								  <button class="ui inverted primary button">새 Board 생성하기</button>
+								  <button type="button" class="btn btn-primary btn-lg" id="insertTdBoard">+ ToDo</button>
 								</div>
 							</td>
 						</tr>
 					</table>
 					
+
 					<!-- 테이블 만들어서 3열로 카드 넣으면 ? -->
 					
 					<a class="ui card" href="todoDetail.do">
@@ -358,9 +358,9 @@ a.ui.card:hover,
 					
 					<a class="ui card" href="http://www.dog.com">
 					  <div class="content">
-					    <div class="header">2019-10</div>
+					    <div class="header">2019-09</div>
 					    <div class="meta">
-					      <span class="category">2019년 10월 업무 관리</span>
+					      <span class="category">2019년 9월 업무 관리</span>
 					    </div>
 					    <!-- <div class="description">
 					      <p> 2019년 10월 </p>
@@ -404,7 +404,15 @@ a.ui.card:hover,
 	
 	<!-- script 작성 -->
 	<script>
-	
+	$(function(){
+		
+		$("#menu3").addClass("in");
+		$("#menu3").attr('aria-expanded',true);
+		$("#menu3_1").addClass("active");
+		$("#menu3_1").attr('aria-expanded',true);
+		$("#m3_2").addClass("active");	
+		
+	});
 	
 	
 	
