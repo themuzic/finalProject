@@ -76,7 +76,7 @@
 					    </select>
 					    <div class="ui input">
 					<input type="search" name="search" value="" placeholder="Search..." style="height:32px;">
-					<i class="circular search link icon"></i>
+					<i class="circular search link"></i>
 					</div>	         
 					<button type="submit" onclick="return validate();" style="color:#3287B2">검색하기</button>
 				</form>
@@ -93,12 +93,11 @@
 	       </script>
 	       
 		 	<div id='m_list_default_menu'>
-				<input type="checkbox" id="chkAll" name="chkAll" onclick="">
 	            <span class="detail_select menu">
 					<a href="javascript:void(0)" id="lookAll" class="lookAll" style="color:#3287B2; font-size:15px;">보기: 모두
 					 	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif">
 				 	</a>
-		            <div class="dropdown1 hide" id="m_view_move_mbox_detail" style="margin-top:5px;">
+		            <div class="dropdown1 hide" id="m_view_move_mbox_detail">
 	                    <div class="dropscroll-menu1" style="width:150px; border:1px solid #999; z-index: 110;">
 	                        <ul style="min-width:220px; border-color:#2985db;" id="ul" class="ul">
 					            <li class="li" class="li">
@@ -124,7 +123,7 @@
 
 	        
 	        
-	        <div id='chkMenu' class="chkMenu hide" name="chkMenu" style="font-size:15px; margin-left:30px; display:none">
+	        <div id='chkMenu' class="chkMenu hide" name="chkMenu" style="font-size:15px; display:none">
 	            <span class="detail_select" id="m_list_checked_menu_delete">
 	                <a href="javascript:void(0)" onclick="">삭제</a>&nbsp;&nbsp;
 	            </span>
@@ -139,7 +138,7 @@
 	                <a href="javascript:void(0)" id='m_list_move_mbox' >이동
 	                	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif" alt="이동 드롭다운 메뉴 열기" class="open_drop">
 	                </a>
-	                <div class="dropdown2 hide" id='m_list_move_mbox_detail' style="margin-top:5px; margin-left:180px;">
+	                <div class="dropdown2 hide" id='m_list_move_mbox_detail' style= "margin-left:180px;">
 	                    <div class="dropscroll-menu2">
 	                        <ul style="min-width:110px; border-color:#2985db; margin:10px; line-height:2">
 	                            <li>
@@ -170,7 +169,7 @@
 			</colgroup>
 				<thead>
 					<tr>
-						<th>chk</th>
+						<th><input type="checkbox" id="chkAll" class="chkBox" name="chkAll" onclick=""></th>
 						<th><i class="far fa-star"></i></th>
 						<th>보낸사람</th>
 						<th>메일제목</th>
@@ -182,7 +181,7 @@
 					<tr>
 						<td>
 							<input type="hidden">
-							<input type="checkbox" class="check">
+							<input type="checkbox" class="check chkBox">
 						</td>
 						<td><i class="far fa-star"></i></td>
 						<td class="mName">전재광</td>
@@ -193,7 +192,7 @@
 					<tr>
 						<td>
 							<input type="hidden">
-							<input type="checkbox" class="check">
+							<input type="checkbox" class="check chkBox">
 						</td>
 						<td><i class="far fa-star"></i></td>
 						<td class="mName">유현규</td>
@@ -204,7 +203,7 @@
 					<tr>
 						<td>
 							<input type="hidden">
-							<input type="checkbox" class="check">
+							<input type="checkbox" class="check chkBox">
 						</td>
 						<td><i class="far fa-star"></i></td>
 						<td class="mName">설용환</td>
@@ -215,7 +214,7 @@
 					<tr>
 						<td>
 							<input type="hidden">
-							<input type="checkbox" class="check">
+							<input type="checkbox" class="check chkBox">
 						</td>
 						<td><i class="far fa-star"></i></td>
 						<td class="mName">김상윤</td>
@@ -226,7 +225,7 @@
 					<tr>
 						<td>
 							<input type="hidden">
-							<input type="checkbox" class="check">
+							<input type="checkbox" class="check chkBox">
 						</td>
 						<td><i class="far fa-star"></i></td>
 						<td class="mName">원영주</td>
@@ -267,6 +266,7 @@
 	
 		$(function(){
 			
+			/* 호버 기능 */
 		    $("#listArea").find("td").mouseenter(function(){
 		       $(this).parent().css({"background":"#ddd","cursor":"pointer"});
 		    }).mouseout(function(){
@@ -280,18 +280,44 @@
 			$("#menu2_1").attr('aria-expanded',true);
 			$("#m2_2").addClass("active");	
 			
-			/* 체크박스 전체 선택하기 */
-			$("#chkAll").click(function(){
-				var chk = $(this).is(":checked");
-				if(chk) $(".select_subject input").prop('checked', true);
-				else  $(".select_subject input").prop('checked', false);
+			/* 체크박스 선택하기 */
+// 			$("#chkAll").click(function(){
+// 				var chk = $(this).is(":checked");
+// 				if(chk) $(".select_subject input").prop('checked', true);
+// 				else $(".select_subject input").prop('checked', false);
 				
-				$(".chkMenu").addClass("show");
-				$("#lookAll").addClass("hide");
-				$("#lookAll").css("display","none");
-				$(".chkMenu").css("display", "block");
+// 				$(".chkMenu").addClass("show");
+// 				$("#lookAll").addClass("hide");
+// 				$("#lookAll").css("display","none");
+// 				$(".chkMenu").css("display", "block");
+// 			});
+			
+			/* 체크박스 하나라도 선택되면 메뉴바 변경 */
+			$(".chkBox").change(function() {			
+				var checked = $(this).prop('checked');
+				if(checked)
+			        $(".chkMenu").addClass("show"); 
+					$(".chkMenu").css("display","block");
+					$("#lookAll").addClass("hide");
 			});
 			
+			
+// 			if($(".chkBox").is(":checked") == false) {
+// 				  $("#lookAll").addClass("show");
+// 				  $(".chkMenu").addClass("hide");
+// 				  $(".chkMenu").css("display","none");
+// 				  $("#lookAll").css("display","block");
+// 				}
+			
+			if($(".chkBox").is(":checked") == true) {
+				  $("#lookAll").addClass("hide");
+				  $(".chkMenu").addClass("show");
+				  $(".chkMenu").css("display","block");
+				  $("#lookAll").css("display","none");
+				}
+
+			
+			/* 호버 기능 */
 			$(".dropscroll-menu1").find("li").mouseenter(function(){
 			       $(this).css({"background":"#ddd","cursor":"pointer"});
 			    }).mouseout(function(){
@@ -304,11 +330,12 @@
 			       $(this).css("background","white");
 			});
 			
+			/* 드롭바 나타내기 */
 			$("#lookAll").click(function(){
 				$(".dropdown1").addClass("show");
 			});
 			
-			
+			/* 드롭바 마우스 이벤트 */
 			$('.dropdown1').on({
 			    mouseover: function(){
 			        $(this).addClass("show");
@@ -319,6 +346,7 @@
  			    }
 			});
 
+			/* 드롭바 나타내기 */
 			$(".move").click(function(){
 				if($(".dropdown2").addClass("show")){
 					
@@ -327,6 +355,7 @@
 				}			
 			});
 			
+			/* 드롭바 마우스 이벤트 */
 			$('.dropdown2').on({
 			    mouseover: function(){
 			        $(this).addClass("show");
@@ -337,8 +366,6 @@
  			    }
 			});
 
-
-			
 		});
 
 	</script>

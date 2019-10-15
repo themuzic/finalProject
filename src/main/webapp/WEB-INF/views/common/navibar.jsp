@@ -482,7 +482,7 @@ $.datepicker.setDefaults({
 							<a href="#menu4" data-toggle="collapse" class="collapsed" id="menu4_1"><i class="fa fa-calendar"></i> <span>일정관리</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu4" class="collapse ">
 								<ul class="nav">
-									<li><a href="" class="" id="m4_1">공통일정</a></li>
+									<li><a href="scheduleList.do" class="" id="m4_1">공통일정</a></li>
 									<li><a href="" class="" id="m4_2">팀별일정</a></li>						
 								</ul>
 							</div>
