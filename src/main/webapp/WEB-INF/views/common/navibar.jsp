@@ -492,7 +492,12 @@ $.datepicker.setDefaults({
 							<a href="#menu5" data-toggle="collapse" class="collapsed" id="menu5_1"><i class="fa fa-check"></i> <span>예약</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu5" class="collapse ">
 								<ul class="nav">
-									<li><a href="myReservListView.do" class="" id="m5_1">내 예약 보기</a></li>
+									<li>
+										<c:url value="myReservListView.do" var="myReservListView">
+											<c:param name="empId" value="${loginUser.empId}"/>
+										</c:url>
+										<a href="${myReservListView}" class="" id="m5_1">내 예약 보기</a>
+									</li>
 									<li><a href="conferenceRoom.do" class="" id="m5_2">회의실</a></li>
 									<li><a href="car.do" class="" id="m5_3">차량</a></li>
 									<li><a href="massage.do" class="" id="m5_4">안마의자</a></li>

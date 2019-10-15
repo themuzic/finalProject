@@ -657,6 +657,8 @@
 		    			type:"post",
 		    			data:{payNum:rsp.imp_uid,
 		    				  reservNum:rsp.merchant_uid,
+		    				  payPrice:rsp.paid_amount,
+		    				  confirmNum:rsp.apply_num,
 		    				  empId:'${loginUser.empId}',
 		    				  price:sumP,
 		    				  product:fullMenuName,
@@ -671,10 +673,6 @@
 		    				} else{
 		    					alertify.alert('', '결제 실패');
 		    				}
-		    				
-		    				
-		    				
-		    				
 		    				
 		    			},
 		    			error:function(){

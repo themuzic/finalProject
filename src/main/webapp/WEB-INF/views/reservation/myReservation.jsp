@@ -48,118 +48,84 @@
 						<div class="setting_title">
 							<h3 style="font-weight: bold;">나의 예약 목록</h3>
 						</div>
-					<div class="content_inbox">
-						<!-- Contents -->
-						<div class="setting_field" style="margin-bottom:50px;">
-							<h4>예약 목록</h4>
-							<div class="pdb_50">
-								<table class="tableType01 rs-table">
-									<colgroup>
-										<col width="">
-										<col width="">
-										<col width="">
-										<col width="">
-									</colgroup>
-									<thead>
-										<tr>
-											<th scope="col">분류</th>
-											<th scope="col">자원명</th>
-											<th scope="col">예약 시간</th>
-											<th scope="col">상태</th>
-										</tr>
-									</thead>
-									<tbody id="booking_list_tbody">
-										<tr>    
-											<td>회의실</td>
-											<td>회의실</td>
-											<td>2019-10-09 03:00 ~ 2019-10-09 04:00</td>
-											<td>
-												<button type="button" name="button" class="weakblue del_booking_layer_btn" booking_no="11203">삭제</button>
-												<span class="grey_bar">|</span>
-												<button type="button" name="button" class="weakblue booking_detail_view" booking_no="11203">상세보기</button>
-											</td>
-										</tr>
-									</tbody>
-								</table>
+						<div class="content_inbox">
+							<!-- Contents -->
+							<div class="setting_field" style="margin-bottom:50px;">
+								<h4>예약 목록</h4>
+								<div class="pdb_50">
+									<table class="tableType01 rs-table">
+										<colgroup>
+											<col width="">
+											<col width="">
+											<col width="">
+											<col width="">
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">분류</th>
+												<th scope="col">자원명</th>
+												<th scope="col">예약 시간</th>
+												<th scope="col">상태</th>
+											</tr>
+										</thead>
+										<tbody id="booking_list_tbody">
+											<tr>    
+												<td>회의실</td>
+												<td>회의실</td>
+												<td>2019-10-09 03:00 ~ 2019-10-09 04:00</td>
+												<td>
+													<button type="button" name="button" class="weakblue del_booking_layer_btn" booking_no="11203">삭제</button>
+													<span class="grey_bar">|</span>
+													<button type="button" name="button" class="weakblue booking_detail_view" booking_no="11203">상세보기</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="">
+									<h4>결제 목록</h4>
+									<table class="tableType01 rs-table">
+										<colgroup>
+											<col width="">
+											<col width="">
+											<col width="">
+											<col width="">
+										</colgroup>
+										<thead>
+											<tr>
+												<th scope="col">결제 일시</th>
+												<th scope="col">구입 상품</th>
+												<th scope="col">총 수량</th>
+												<th scope="col">결제 가격</th>
+											</tr>
+										</thead>
+										<tbody id="booking_ready_list_tbody">
+										
+											<c:if test="${ empty payList }">
+												<tr>
+													<td colspan="4" class="center">리스트가 존재하지 않습니다.</td>
+												</tr>
+											</c:if>
+											
+											<c:if test="${ !empty payList }">
+												<c:forEach items="${ payList }" var="pay">
+													<tr>
+														<td>${ pay.payDate }</td>
+														<td>${ pay.product }</td>
+														<td>${ pay.quantity }</td>
+														<td>${ pay.price }</td>
+													</tr>
+												</c:forEach>
+											</c:if>
+											
+											
+										</tbody>
+									</table>
+								</div>
+								<p class="pdt_20">* 문의 사항은 카페로 문의 바랍니다.</p>
 							</div>
-							<div class="">
-								<h4>결제 목록</h4>
-								<table class="tableType01 rs-table">
-									<colgroup>
-										<col width="">
-										<col width="">
-										<col width="">
-										<col width="">
-									</colgroup>
-									<thead>
-										<tr>
-											<th scope="col">결제 일시</th>
-											<th scope="col">구입 상품</th>
-											<th scope="col">총 수량</th>
-											<th scope="col">결제 가격</th>
-										</tr>
-									</thead>
-									<tbody id="booking_ready_list_tbody">
-										<tr>
-											<td colspan="4" class="center">리스트가 존재하지 않습니다.</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<p class="pdt_20">* 문의 사항은 카페로 문의 바랍니다.</p>
 						</div>
 					</div>
-			
-			<!-- 
-			<script id="booking_list_template" type="text/x-jquery-tmpl">
-				{{if booking.length > 0}}
-					{{each booking}}
-				<tr>
-					<td>${category_name}</td>
-					<td>${resource_name}</td>
-					{{if resource_type == 'D'}}
-						<td>${bookingCommon.makeDate(start_date).format('Y-m-d a')} ~ ${bookingCommon.makeDate(end_date, '', '-12 hours').format('Y-m-d a')}</td>
-					{{else}}
-						<td>${bookingCommon.makeDate(start_date).format('Y-m-d H:i')} ~ ${bookingCommon.makeDate(end_date).format('Y-m-d H:i')}</td>
-					{{/if}}
-					<td>
-						{{if bookingCommon.dateDiff(new Date(), bookingCommon.makeDate(start_date)) }}
-							<button type="button" name="button" class="weakblue del_booking_layer_btn" booking_no="${no}">${bookingCommon.getLangMessage('booking_html_del')}</button>
-						{{else}}
-							<button type="button" name="button" class="weakblue booking_return_layer_btn" booking_no="${no}">${bookingCommon.getLangMessage('booking_html_return')}</button>
-						{{/if}}
-						<span class="grey_bar">|</span>
-						<button type="button" name="button" class="weakblue booking_detail_view" booking_no="${no}">${bookingCommon.getLangMessage('booking_html_detail_view')}</button>
-					</td>
-				</tr>
-			{{/each}}
-		{{else}}
-			<tr><td colspan="4" class="center">${bookingCommon.getLangMessage('booking_html_no_list')}</td></tr>
-		{{/if}}
-			</script>
-			<script id="booking_ready_list_template" type="text/x-jquery-tmpl">
-		{{if ready.length > 0}}
-			{{each ready}}
-				<tr>
-					<td>${category_name}</td>
-					<td>${resource_name}</td>
-					{{if resource_type == 'D'}}
-						<td>${bookingCommon.makeDate(start_date).format('Y-m-d a')} ~ ${bookingCommon.makeDate(end_date, '', '-12 hours').format('Y-m-d a')}</td>
-					{{else}}
-						<td>${bookingCommon.makeDate(start_date).format('Y-m-d H:i')} ~ ${bookingCommon.makeDate(end_date).format('Y-m-d H:i')}</td>
-					{{/if}}
-					<td>
-						<span class="point_color booking_detail_view cpointer" booking_no="${no}">${status_name}</span>
-					</td>
-				</tr>
-			{{/each}}
-		{{else}}
-			<tr><td colspan="4" class="center">${bookingCommon.getLangMessage('booking_html_no_list')}</td></tr>
-		{{/if}}
-			</script>	
-			
-			 -->	
-		</div>
 					
 		
 		<!-- 상세보기 모달 시작 ----------------------------------------------------->
@@ -262,8 +228,6 @@
 	
 	<script src="resources/js/main.js"></script>
  	<script src="resources/js/common_new.js"></script>
-	<script src="resources/js/approval_dext.js"></script>
-	<script src="resources/js/approval_table.js"></script>
 	
 	<!-- script 작성 -->
 	<script>
@@ -286,7 +250,23 @@
 			});
 			
 			
+			
+			
+			
+			
+			
+			
 		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 	</script>
 

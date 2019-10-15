@@ -24,7 +24,12 @@
 	<insert id="insertPayment" parameterType="Payment">
 		insert into payment
 		values(#{payNum},#{empId},#{price},#{product},#{quantity},sysdate)
-	</insert>	
+	</insert>
+	
+	
+	<select id="selectPayment" parameterType="_int" resultMap="payResultSet">
+		select * from payment where emp_id=#{empId}
+	</select>
 
 
 </mapper>

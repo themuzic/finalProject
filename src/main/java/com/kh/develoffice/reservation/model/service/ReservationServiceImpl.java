@@ -1,5 +1,7 @@
 package com.kh.develoffice.reservation.model.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,12 @@ public class ReservationServiceImpl implements ReservationService{
 	public int insertPayment(Payment payment) {
 		
 		return rDao.insertPayment(payment);
+	}
+
+	@Override
+	public ArrayList<Payment> selectPayList(int empId) {
+		
+		return rDao.selectPayList(empId);
 	}
 
 }

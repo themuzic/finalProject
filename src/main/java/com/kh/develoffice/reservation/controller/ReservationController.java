@@ -1,8 +1,12 @@
 package com.kh.develoffice.reservation.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.develoffice.reservation.model.service.ReservationService;
 import com.kh.develoffice.reservation.model.vo.Payment;
@@ -15,8 +19,17 @@ public class ReservationController {
 	
 	
 	@RequestMapping("myReservListView.do")
-	public String myReservListView() {
-		return "reservation/myReservation";
+	public ModelAndView myReservListView(int empId, ModelAndView mv) {
+		
+		
+		ArrayList<Payment> payList = rService.selectPayList(empId);
+		
+		System.out.println(empId);
+		System.out.println(payList);
+		
+		mv.addObject("payList", payList).setViewName("reservation/myReservation");
+		
+		return mv;
 	}
 	
 	
@@ -43,10 +56,12 @@ public class ReservationController {
 		return "reservation/cafe";
 	}
 	
-	
+	@ResponseBody
 	@RequestMapping("payment.do")
 	public String insertPayment(Payment payment) {
 		
+		System.out.println(payment);
+				
 		int result = rService.insertPayment(payment);
 		
 		if(result > 0) {
