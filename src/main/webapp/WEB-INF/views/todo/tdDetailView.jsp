@@ -13,8 +13,9 @@
 
 <style>
 	.contentWrap{
+	 	display:inline;
 		float:left;
-		width:50%;
+		width:95%;
 		background: white;
 		padding-top:30px;
 		padding-bottom:30px;
@@ -23,7 +24,13 @@
 		font-size:14px;
 	}
 	
-	.
+	.allContentWrap, .statusContentWrap{
+		width: 50%;
+		display:inline; 
+		float:left;
+	}
+	
+	
 </style>
 
 
@@ -44,47 +51,167 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
-					<div class="ui animated fade button" tabindex="0">
+					<!-- <div class="ui animated fade button" tabindex="0">
 					  <div class="visible content">Sign-up for a Pro account</div>
 					  <div class="hidden content">
 					    $12.99 a month
 					  </div>
+					</div> -->
+					
+					<div class="allContentWrap" style="padding:0 30px 0 10px">
+						<table class="table table-hover">
+						
+							<button class="large ui button" style="margin:0 0 5px 0; background-color:#337ab7; color:white;">
+							  전체보기
+							</button>
+							
+							<thead>
+								<tr>
+									<th width="5%"></th>
+									<th width="5%">#</th>
+									<th width="48%">제목</th>
+									<th width="18%">상태</th>
+									<th width="24%">등록날짜</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="checkbox"></td>
+									<td>1</td>
+									<td>Steve</td>
+									<td>진행중</td>
+									<td>@steve</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"></td>
+									<td>2</td>
+									<td>Simon</td>
+									<td>대기</td>
+									<td>@simon</td>
+								</tr>
+								<tr>
+									<td><input type="checkbox"></td>
+									<td>3</td>
+									<td>Jane</td>
+									<td>완료</td>
+									<td>@jane</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<div class="btnArea" align="center">
+							<button type="button" class="btn btn-default">
+								<i class="fa fa-plus-square"></i> 추가하기 
+							</button>
+							<button type="reset" class="btn btn-danger">
+								<i class="fa fa-trash-o"></i> 삭제하기
+							</button>
+						</div>
+						
+						
 					</div>
 					
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th width="5%"></th>
-								<th width="7%">#</th>
-								<th width="50%">제목</th>
-								<th width="19%">상태</th>
-								<th width="19%">등록 날짜</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>1</td>
-								<td>Steve</td>
-								<td>Jobs</td>
-								<td>@steve</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>2</td>
-								<td>Simon</td>
-								<td>Philips</td>
-								<td>@simon</td>
-							</tr>
-							<tr>
-								<td><input type="checkbox"></td>
-								<td>3</td>
-								<td>Jane</td>
-								<td>Doe</td>
-								<td>@jane</td>
-							</tr>
-						</tbody>
-					</table>
+					<div class="statusContentWrap" style="padding:0 10px 0 30px">
+	
+						<div class="ongoingTD">
+							<button class="large ui button" style="margin:0 0 5px 0; background-color:#5bc0de; color:white;">
+							  진행중
+							</button>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th width="7%">#</th>
+										<th width="50%">제목</th>
+										<th width="20%">등록날짜</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td>Steve</td>
+										<td>@steve</td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td>Simon</td>
+										<td>@simon</td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td>Jane</td>
+										<td>@jane</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						
+						<div class="waitingTD">
+							<button class="large ui button" style="margin:0 0 5px 0; background-color:#5cb85c; color:white;">
+							  대기
+							</button>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th width="7%">#</th>
+										<th width="50%">제목</th>
+										<th width="20%">등록날짜</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td>Steve</td>
+										<td>@steve</td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td>Simon</td>
+										<td>@simon</td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td>Jane</td>
+										<td>@jane</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						
+						<div class="completionTD">
+							<button class="large ui button" style="margin:0 0 5px 0; background-color:#f0ad4e; color:white;">
+							  완료
+							</button>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th width="7%">#</th>
+										<th width="50%">제목</th>
+										<th width="20%">등록날짜</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td>Steve</td>
+										<td>@steve</td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td>Simon</td>
+										<td>@simon</td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td>Jane</td>
+										<td>@jane</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>					
+					
+					</div>
+					
+					
 					
 					
 					

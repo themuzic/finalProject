@@ -16,281 +16,30 @@
 
 
 <style>
-.ui.card {
-  max-width: 100%;
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  width: 290px;
-  min-height: 0px;
-  background: #FFFFFF;
-  padding: 0em;
-  border: none;
-  border-radius: 0.28571429rem;
-  -webkit-box-shadow: 0px 1px 3px 0px #D4D4D5, 0px 0px 0px 1px #D4D4D5;
-          box-shadow: 0px 1px 3px 0px #D4D4D5, 0px 0px 0px 1px #D4D4D5;
-  -webkit-transition: -webkit-box-shadow 0.1s ease, -webkit-transform 0.1s ease;
-  transition: -webkit-box-shadow 0.1s ease, -webkit-transform 0.1s ease;
-  transition: box-shadow 0.1s ease, transform 0.1s ease;
-  transition: box-shadow 0.1s ease, transform 0.1s ease, -webkit-box-shadow 0.1s ease, -webkit-transform 0.1s ease;
-  z-index: '';
-}
-.ui.card {
-  margin: 1em 0em;
-}
-.ui.card a {
-  cursor: pointer;
-}
-.ui.card:first-child {
-  margin-top: 0em;
-}
-.ui.card:last-child {
-  margin-bottom: 0em;
-}
-
-.ui.card > :first-child {
-  border-radius: 0.28571429rem 0.28571429rem 0em 0em !important;
-  border-top: none !important;
-}
-.ui.card > :last-child {
-  border-radius: 0em 0em 0.28571429rem 0.28571429rem !important;
-}
-.ui.card > :only-child {
-  border-radius: 0.28571429rem !important;
-}
-
-.ui.card > .image {
-  position: relative;
-  display: block;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
-  padding: 0em;
-  background: rgba(0, 0, 0, 0.05);
-}
-.ui.card > .image > img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: inherit;
-}
-.ui.card > .image:not(.ui) > img {
-  border: none;
-}
-
-.ui.card > .content {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  border: none;
-  border-top: 1px solid rgba(34, 36, 38, 0.1);
-  background: none;
-  margin: 0em;
-  padding: 1em 1em;
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  font-size: 1em;
-  border-radius: 0em;
-}
-.ui.card > .content:after {
-  display: block;
-  content: ' ';
-  height: 0px;
-  clear: both;
-  overflow: hidden;
-  visibility: hidden;
-}
-.ui.card > .content > .header {
-  display: block;
-  margin: '';
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  color: rgba(0, 0, 0, 0.85);
-}
-
-.ui.card > .content > .header:not(.ui) {
-  font-weight: bold;
-  font-size: 1.28571429em;
-  margin-top: -0.21425em;
-  line-height: 1.28571429em;
-}
-.ui.card > .content > .meta + .description,
-.ui.card > .content > .header + .description {
-  margin-top: 0.5em;
-}
-
-.ui.card [class*="left floated"] {
-  float: left;
-}
-.ui.card [class*="right floated"] {
-  float: right;
-}
-
-.ui.card [class*="left aligned"] {
-  text-align: left;
-}
-.ui.card [class*="center aligned"] {
-  text-align: center;
-}
-.ui.card [class*="right aligned"] {
-  text-align: right;
-}
-
-.ui.card .content img {
-  display: inline-block;
-  vertical-align: middle;
-  width: '';
-}
-.ui.card img.avatar,
-.ui.card .avatar img {
-  width: 2em;
-  height: 2em;
-  border-radius: 500rem;
-}
-
-.ui.card > .content > .description {
-  clear: both;
-  color: rgba(0, 0, 0, 0.68);
-}
-
-.ui.card > .content p {
-  margin: 0em 0em 0.5em;
-}
-.ui.card > .content p:last-child {
-  margin-bottom: 0em;
-}
-
-.ui.card .meta {
-  font-size: 1em;
-  color: rgba(0, 0, 0, 0.4);
-}
-.ui.card .meta * {
-  margin-right: 0.3em;
-}
-.ui.card .meta :last-child {
-  margin-right: 0em;
-}
-.ui.card .meta [class*="right floated"] {
-  margin-right: 0em;
-  margin-left: 0.3em;
-}
-
-.ui.card > .content a:not(.ui) {
-  color: '';
-  -webkit-transition: color 0.1s ease;
-  transition: color 0.1s ease;
-}
-.ui.card > .content a:not(.ui):hover {
-  color: '';
-}
-
-.ui.card > .content > a.header {
-  color: rgba(0, 0, 0, 0.85);
-}
-.ui.card > .content > a.header:hover {
-  color: #1e70bf;
-}
-
-.ui.card .meta > a:not(.ui) {
-  color: rgba(0, 0, 0, 0.4);
-}
-.ui.card .meta > a:not(.ui):hover {
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.ui.card > .buttons,
-.ui.card > .button {
-  margin: 0px -1px;
-  width: calc(100% +  2px );
-}
-
-.ui.card .dimmer {
-  background-color: '';
-  z-index: 10;
-}
-.ui.card > .content .star.icon {
-  cursor: pointer;
-  opacity: 0.75;
-  -webkit-transition: color 0.1s ease;
-  transition: color 0.1s ease;
-}
-.ui.card > .content .star.icon:hover {
-  opacity: 1;
-  color: #FFB70A;
-}
-.ui.card > .content .active.star.icon {
-  color: #FFE623;
-}
-
-.ui.card > .content .like.icon {
-  cursor: pointer;
-  opacity: 0.75;
-  -webkit-transition: color 0.1s ease;
-  transition: color 0.1s ease;
-}
-.ui.card > .content .like.icon:hover {
-  opacity: 1;
-  color: #FF2733;
-}
-.ui.card > .content .active.like.icon {
-  color: #FF2733;
-}
-
-.ui.card > .extra {
-  max-width: 100%;
-  min-height: 0em !important;
-  -webkit-box-flex: 0;
-      -ms-flex-positive: 0;
-          flex-grow: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
-  position: static;
-  background: none;
-  width: auto;
-  margin: 0em 0em;
-  padding: 0.75em 1em;
-  top: 0em;
-  left: 0em;
-  color: rgba(0, 0, 0, 0.4);
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  -webkit-transition: color 0.1s ease;
-  transition: color 0.1s ease;
-}
-.ui.card > .extra a:not(.ui) {
-  color: rgba(0, 0, 0, 0.4);
-}
-.ui.card > .extra a:not(.ui):hover {
-  color: #1e70bf;
-}
-
-a.ui.card,
-.ui.link.card {
-  -webkit-transform: none;
-          transform: none;
-}
-a.ui.card:hover,
-.ui.link.card:hover {
-  cursor: pointer;
-  z-index: 5;
-  background: #FFFFFF;
-  border: none;
-  -webkit-box-shadow: 0px 1px 3px 0px #BCBDBD, 0px 0px 0px 1px #D4D4D5;
-          box-shadow: 0px 1px 3px 0px #BCBDBD, 0px 0px 0px 1px #D4D4D5;
-  -webkit-transform: translateY(-3px);
-          transform: translateY(-3px);
-}
-
-/*--------------
-      Size
----------------*/
-
-.ui.cards > .card {
-  font-size: 1em;
-}
+	.contentWrap{
+		float:left;
+		width:75%;
+		background: white;
+		padding-top:30px;
+		padding-bottom:30px;
+		padding-left:50px;
+		padding-right:50px;
+		font-size:14px;
+	}
+	
+	.ui.link.cards{
+		margin-left:15px;
+		margin-right:15px;
+	}
+	
+	#top-table{
+		margin-top:5px;
+		margin-bottom:5px;
+	}
+	#content-table{
+		margin-top:5px;
+		margin-bottom:5px;
+	}
 
 
 </style>
@@ -313,10 +62,10 @@ a.ui.card:hover,
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
-					<table>
-						<tr>
+					<table id="top-table">
+						<tr id="content-table">
 							<td>
-								<div class="ui compact menu">
+								<!-- <div class="ui compact menu">
 								  <div class="ui simple dropdown item">
 								    Dropdown
 								    <i class="dropdown icon"></i>
@@ -326,52 +75,107 @@ a.ui.card:hover,
 								      <div class="item">Choice 3</div>
 								    </div>
 								  </div>
-								</div>
+								</div> -->
+								
+								<select class="form-control input-lg" style="width:300px">
+									<option value="cheese">2019년 10월</option>
+									<option value="tomatoes">2019년 9월</option>
+									<option value="mozarella">2019년 8월</option>
+									<option value="mushrooms">Mushrooms</option>
+									<option value="pepperoni">Pepperoni</option>
+									<option value="onions">Onions</option>
+								</select>
 							</td>
 							<td>
 								<div class="ui inverted segment">
-								  <button type="button" class="btn btn-primary btn-lg" id="insertTdBoard">+ ToDo</button>
+								  <button type="button" style="background-color:#3287B2; color:white;" class="btn btn-lg" id="insertTdBoard" onclick="location.href='insertTodoBoard.do'">+ Board</button>
 								</div>
 							</td>
 						</tr>
 					</table>
 					
-
-					<!-- 테이블 만들어서 3열로 카드 넣으면 ? -->
+					<br><br>
 					
-					<a class="ui card" href="todoDetail.do">
-					  <div class="content">
-					    <div class="header">2019-10</div>
-					    <div class="meta">
-					      <span class="category">2019년 10월 업무 관리</span>
-					    </div>
-					    <!-- <div class="description">
-					      <p> 2019년 10월 </p>
-					    </div> -->
-					  </div>
-					  <div class="extra content">
-					    <div class="right floated author">
-					      <img class="ui avatar image" src="resources/images/sky1.jpg"> Matt
-					    </div>
-					  </div>
-					</a>
+					<div class="ui three cards">
 					
-					<a class="ui card" href="http://www.dog.com">
-					  <div class="content">
-					    <div class="header">2019-09</div>
-					    <div class="meta">
-					      <span class="category">2019년 9월 업무 관리</span>
-					    </div>
-					    <!-- <div class="description">
-					      <p> 2019년 10월 </p>
-					    </div> -->
-					  </div>
-					  <div class="extra content">
-					    <div class="right floated author">
-					      <img class="ui avatar image" src="resources/images/sky1.jpg"> Matt
-					    </div>
-					  </div>
-					</a>
+						<div class="ui link cards" onclick="location.href='todoDetail.do'" >
+						  <div class="card">
+						    <div class="image">
+						      <img src="resources/images/square-image.png">
+						    </div>
+						    <div class="content">
+						      <div class="header">2019년 10월</div>
+						      <div class="meta">
+						        2019년 10월 서비스팀 업무 관리
+						      </div>
+						    </div>
+						    <div class="extra content">
+						      <span class="right floated">
+						        2019-10-13
+						      </span>
+						    </div>
+						  </div>
+					  	</div>
+					  	
+					  	<div class="ui link cards" onclick="location.href='todoDetail.do'">
+						  <div class="card">
+						    <div class="image">
+						      <img src="resources/images/default_profile.png">
+						    </div>
+						    <div class="content">
+						      <div class="header">2019년 9월</div>
+						      <div class="meta">
+						        2019년 9월 업무 관리
+						      </div>
+						    </div>
+						    <div class="extra content">
+						      <span class="right floated">
+						        2019-09-02
+						      </span>
+						    </div>
+						  </div>
+					  	</div>
+					  	
+					  	<div class="ui link cards" onclick="location.href='todoDetail.do'">
+						  <div class="card">
+						    <div class="image">
+						      <img src="resources/images/confRoom.jpg">
+						    </div>
+						    <div class="content">
+						      <div class="header">Matt Giampietro</div>
+						      <div class="meta">
+						        Matthew is an interior designer living in New York.
+						      </div>
+						    </div>
+						    <div class="extra content">
+						      <span class="right floated">
+						        Joined in 2013
+						      </span>
+						    </div>
+						  </div>
+					  	</div>
+					  	
+					  	<div class="ui link cards" onclick="location.href='todoDetail.do'">
+						  <div class="card">
+						    <div class="image">
+						      <img src="resources/images/default_profile.png">
+						    </div>
+						    <div class="content">
+						      <div class="header">2019년 9월</div>
+						      <div class="meta">
+						        2019년 9월 업무 관리
+						      </div>
+						    </div>
+						    <div class="extra content">
+						      <span class="right floated">
+						        2019-09-02
+						      </span>
+						    </div>
+						  </div>
+					  	</div>
+					  	
+					
+					</div>
 					
 				
 					

@@ -21,4 +21,9 @@ public class TodoController {
 	public String todoDetail() {
 		return "todo/tdDetailView";
 	}
+	
+	@RequestMapping("insertTodoBoard.do")
+	public String insertTodoBoard() {
+		return "todo/insertTdBoard";
+	}
 }
