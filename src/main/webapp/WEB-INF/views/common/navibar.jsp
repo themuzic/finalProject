@@ -54,7 +54,8 @@
 <script src="resources/semantic/checkbox.js"></script>
 <link rel="stylesheet" href="resources/semantic/accordion.css">
 <script src="resources/semantic/accordion.js"></script>
-
+<link rel="stylesheet" href="resources/semantic/card.css">
+<link rel="stylesheet" href="resources/semantic/form.css">
 
 
 <!-- summernote 에디터 -->
