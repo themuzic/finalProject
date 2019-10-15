@@ -106,7 +106,7 @@
 									</tbody>
 								</table>
 							</div>
-							<p class="pdt_20">* 문의 사항은 사내 카페로 문의 바랍니다.</p>
+							<p class="pdt_20">* 문의 사항은 카페로 문의 바랍니다.</p>
 						</div>
 					</div>
 			

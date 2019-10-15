@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.develoffice.reservation.model.service.ReservationService;
+import com.kh.develoffice.reservation.model.vo.Payment;
 
 @Controller
 public class ReservationController {
@@ -43,5 +44,16 @@ public class ReservationController {
 	}
 	
 	
+	@RequestMapping("payment.do")
+	public String insertPayment(Payment payment) {
+		
+		int result = rService.insertPayment(payment);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
 
 }

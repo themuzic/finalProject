@@ -65,6 +65,11 @@
 <script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
 
 
+<!-- alertify -->
+<link rel="stylesheet" href="resources/css/alertify.css">
+<link rel="stylesheet" href="resources/css/alertify.rtl.css">
+<script src="resources/js/alertify.js"></script>
+
 
 
 

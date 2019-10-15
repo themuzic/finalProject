@@ -20,7 +20,11 @@
 		<result property="payDate" column="pay_date"/>
 	</resultMap>
 
-
+	
+	<insert id="insertPayment" parameterType="Payment">
+		insert into payment
+		values(#{payNum},#{empId},#{price},#{product},#{quantity},sysdate)
+	</insert>	
 
 
 </mapper>
