@@ -34,7 +34,7 @@ public class Employee {
 	private Date retireDate;	//퇴사날짜
 	private String empStatus;	//상태(y/n)
 	private String profilePath; //프사경로
-	
+	private String statusMsg;	//메신저 상태메세지
 	
 	
 	public Employee(String empName, String gender, Date birth, int deptCode, int jobCode, String phone, String email,
