@@ -139,11 +139,11 @@
 				        <thead>
 				            <tr>
 				             	<th data-orderable="false" style="text-align:left;"><i><input type="checkbox" id="chkAll"></i></th>
-					      		<th style="text-align:center;"><i class="fas fa-list-ol"><!-- no --></i></th>
-						  		<th data-orderable="false" id="writer" style="text-align:center;"><i class="fa fa-user"><!-- writer --></i></th>
-						  		<th id="title" width="300" style="text-align:center;"><!-- title --></th>
-						  		<th data-orderable="false" style="text-align:center;"><i class="fa fa-eye"><!-- count --></i></th>
-						  		<th data-orderable="false" style="text-align:center;"><i class="far fa-clock"><!-- date --></i></th>
+					      		<th style="text-align:center;"><i class="fas fa-list-ol"></i></th>
+						  		<th data-orderable="false" id="writer" style="text-align:center;"><i class="fa fa-user"></i></th>
+						  		<th id="title" width="300" style="text-align:center;"></th>
+						  		<th data-orderable="false" style="text-align:center;"><i class="fa fa-eye"></i></th>
+						  		<th data-orderable="false" style="text-align:center;"><i class="far fa-clock"></i></th>
 				    		</tr>
 				        </thead>
 				        <tbody class="select_subject">

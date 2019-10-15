@@ -86,19 +86,19 @@
 		                    <div class="dropscroll-menu" style="width:150px;">
 		                        <ul style="min-width:220px; border-color:#2985db;" id="ul">
 						            <li class="li">
-		                                <a href="javascript:void(0)" id="move_b0" onclick="MailView.moveTo('53307','b0')" style="color:gray;">받은 편지함</a>
+		                                <a href="javascript:void(0)" id="move_b0" onclick="" style="color:gray;">받은 편지함</a>
 		                            </li>
 						            <li class="li">
-		                                <a href="javascript:void(0)" id="move_b1" onclick="MailView.moveTo('53307','b1')" style="color:gray;">보낸 편지함</a>
+		                                <a href="javascript:void(0)" id="move_b1" onclick="" style="color:gray;">보낸 편지함</a>
 		                            </li>
 						            <li class="li">
-		                                <a href="javascript:void(0)" id="move_b2" onclick="MailView.moveTo('53307','b2')" style="color:gray;">보낼 편지함</a>
+		                                <a href="javascript:void(0)" id="move_b2" onclick="" style="color:gray;">보낼 편지함</a>
 		                            </li>
 						            <li class="li">
-		                                <a href="javascript:void(0)" id="move_b3" onclick="MailView.moveTo('53307','b3')" style="color:gray;">임시 보관함</a>
+		                                <a href="javascript:void(0)" id="move_b3" onclick="" style="color:gray;">임시 보관함</a>
 		                            </li>
 						            <li class="li">
-		                                <a href="javascript:void(0)" id="move_b5" onclick="MailView.moveTo('53307','b5')" style="color:gray;">휴지통</a>
+		                                <a href="javascript:void(0)" id="move_b5" onclick="" style="color:gray;">휴지통</a>
 		                            </li>
 								</ul>
 		                     </div>  
@@ -106,7 +106,7 @@
 		            </span>
 		            <hr>
 		            
-					<form>
+					<form action="" method="post" encType="multipart/form-data">
 			            <div class="view_field" id="view_field">
 			                <h3>
 			                    <a href="" onclick="" star="N"  class="icon impt " id="aStar" >
@@ -161,7 +161,11 @@
 		$(function(){
 			
 			$(".move").click(function(){
-				$(".dropdown").addClass("show");				
+				if($(".dropdown").addClass("show")){
+					
+				}else{
+					$(".dropdown").removeClass("show");
+				}			
 			});
 			
 			$(".dropscroll-menu").find("li").mouseenter(function(){
@@ -169,6 +173,16 @@
 			    }).mouseout(function(){
 			       $(this).css("background","white");
 			    });
+			
+			$('.dropdown').on({
+			    mouseover: function(){
+			        $(this).addClass("show");
+			    },
+			     mouseleave: function(){
+			    	$(this).removeClass("show");
+			        $(this).addClass("hide");
+ 			    }
+			});
 
 			
 		});

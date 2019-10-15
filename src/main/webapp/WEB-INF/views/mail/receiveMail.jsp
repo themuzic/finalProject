@@ -21,6 +21,30 @@
 		padding-right:50px;
 		font-size:14px;
 	}
+	#ul{
+    	margin:8px;
+    	line-height:2;
+    }
+    .li{
+    	width:140px;
+    }
+    .dropscroll-menu1 {
+	    position: absolute;
+	    float: left;
+	    font-size: 14px;
+	    background-color: #fff;
+	    border: 1px solid #999;
+	    z-index: 130;
+    }
+    .dropscroll-menu2 {
+	    position: absolute;
+	    float: left;
+	    font-size: 14px;
+	    background-color: #fff;
+	    border: 1px solid #999;
+	    z-index: 130;
+    }
+	
 </style>
 
 
@@ -42,56 +66,90 @@
 		<!-- 이 아래부터 내용 작성 -->
 
 		<fieldset>
+			<div id="searchArea" align="right">
+				<form action="search.bo">
+					<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray">
+					       <option>------</option>
+					       <option value="writer">이름</option>
+					       <option value="title">제목</option>
+					       <option value="content">내용</option>
+					    </select>
+					    <div class="ui input">
+					<input type="search" name="search" value="" placeholder="Search..." style="height:32px;">
+					<i class="circular search link icon"></i>
+					</div>	         
+					<button type="submit" onclick="return validate();" style="color:#3287B2">검색하기</button>
+				</form>
+	       </div>
+	       
+	       <script>
+		       function validate(){
+		           if($("option:selected").val() == "------"){
+		              alert("검색 조건을 체크해주세요");
+// 		              alertify.alert("검색 조건을 체크해주세요");
+		           return false;
+		           }
+		        }
+	       </script>
+	       
 		 	<div id='m_list_default_menu'>
-	            <span class="detail_select">
-					<input type="checkbox" id="chkAll" name="chkAll" onclick="">
-					<a href="" id="look" style="color:#3287B2; font-size:15px;">
-					 	<span id="lookAll" class="lookAll" style="">보기: 모두</span>
+				<input type="checkbox" id="chkAll" name="chkAll" onclick="">
+	            <span class="detail_select menu">
+					<a href="javascript:void(0)" id="lookAll" class="lookAll" style="color:#3287B2; font-size:15px;">보기: 모두
 					 	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif">
 				 	</a>
-		            <span id='m_list_checked_action' style='display:none'>
-		            	<label id='m_list_checked_cnt' ></label>
-		            </span>
-		            <!-- Drop Down -->                            
-		            <div id='m_list_view_option_detail' class="dropdown hide" >
-		                <ul class="dropdown-menu">
-		                    <li><a href="" onclick="">모두</a></li>
-		                    <li><a href="" onclick="">별 표시</a></li>
-		                    <li><a href="" onclick="">첨부 있음</a></li>
-		                    <li><a href=""onclick="">안 읽은 메일</a></li>
-		                    <li><a href="" onclick="">읽은 메일</a></li>
-		                </ul>
-		            </div>
-		           	<!-- // Drop Down -->
+		            <div class="dropdown1 hide" id="m_view_move_mbox_detail" style="margin-top:5px;">
+	                    <div class="dropscroll-menu1" style="width:150px; border:1px solid #999; z-index: 110;">
+	                        <ul style="min-width:220px; border-color:#2985db;" id="ul" class="ul">
+					            <li class="li" class="li">
+	                                <a href="javascript:void(0)" id="move_b0" onclick="" style="color:gray;">모두</a>
+	                            </li>
+					            <li class="li" class="li">
+	                                <a href="javascript:void(0)" id="move_b1" onclick="" style="color:gray;">별 표시</a>
+	                            </li>
+					            <li class="li" class="li">
+	                                <a href="javascript:void(0)" id="move_b2" onclick="" style="color:gray;">첨부 있음</a>
+	                            </li>
+					            <li class="li" class="li">
+	                                <a href="javascript:void(0)" id="move_b3" onclick="" style="color:gray;">안 읽은 메일</a>
+	                            </li>
+					            <li class="li" class="li">
+	                                <a href="javascript:void(0)" id="move_b5" onclick="" style="color:gray;">읽은 메일</a>
+	                            </li>
+							</ul>
+	                     </div>  
+					</div>
 	            </span>
 	        </div>
+
 	        
-	        <div id='chkMenu' class="chkMenu" name="chkMenu" style="display:none">
+	        
+	        <div id='chkMenu' class="chkMenu hide" name="chkMenu" style="font-size:15px; margin-left:30px; display:none">
 	            <span class="detail_select" id="m_list_checked_menu_delete">
-	                <a href="javascript:void(0)" onclick="">삭제</a>
+	                <a href="javascript:void(0)" onclick="">삭제</a>&nbsp;&nbsp;
 	            </span>
 	            <span class="detail_select">
-	                <a href="javascript:void(0)" onclick="">완전삭제</a>
+	                <a href="javascript:void(0)" onclick="">완전삭제</a>&nbsp;&nbsp;
 	            </span>
 	            <span class="detail_select" id="m_list_checked_menu_resend">
-	                <a href="javascript:void(0)" onclick="">재발송</a>
+	                <a href="javascript:void(0)" onclick="">재발송</a>&nbsp;&nbsp;
 	            </span>
 	        
-	            <span class="detail_select">
+	            <span class="detail_select move">
 	                <a href="javascript:void(0)" id='m_list_move_mbox' >이동
 	                	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif" alt="이동 드롭다운 메뉴 열기" class="open_drop">
 	                </a>
-	                <div class="dropdown hide" id='m_list_move_mbox_detail'>
-	                    <div class="dropscroll-menu">
-	                        <ul style="min-width:220px; border-color:#2985db">
+	                <div class="dropdown2 hide" id='m_list_move_mbox_detail' style="margin-top:5px; margin-left:180px;">
+	                    <div class="dropscroll-menu2">
+	                        <ul style="min-width:110px; border-color:#2985db; margin:10px; line-height:2">
 	                            <li>
-	                                <a href="" id="receive"onclick="">받은 편지함</a>
+	                                <a href="" id="receive"onclick="" style="color:gray">받은 편지함</a>
 	                            </li>
 	                            <li>
-	                                <a href="" id="send"onclick=""> 보낸 편지함</a>
+	                                <a href="" id="send"onclick="" style="color:gray"> 보낸 편지함</a>
 	                            </li>
 	                            <li>
-	                                <a href="" id="delete"onclick="">휴지통</a>
+	                                <a href="" id="delete"onclick="" style="color:gray">휴지통</a>
 	                            </li>
 	                        </ul>
 	                    </div>
@@ -99,16 +157,6 @@
             	</span>
             </div>   
 	 	</fieldset>
-	 	
-	 	<div id='optionDetail' class="dropdown hide" style="display:none;">
-           <ul class="dropdown-menu">
-               <li><a href="" onclick="allMail">모두</a></li>
-               <li><a href="" onclick="starMail;" >별 표시</a></li>
-               <li><a href="" onclick="fileMail" >첨부 있음</a></li>
-               <li><a href=""onclick="noReadMail" >안 읽은 메일</a></li>
-               <li><a href="" onclick="readMail">읽은 메일</a></li>
-           </ul>
-       </div>
 	 	
 			
 		<table class="ui selectable celled table">
@@ -123,7 +171,7 @@
 				<thead>
 					<tr>
 						<th>chk</th>
-						<th>별</th>
+						<th><i class="far fa-star"></i></th>
 						<th>보낸사람</th>
 						<th>메일제목</th>
 						<th class="aa">첨부파일</th>
@@ -136,7 +184,7 @@
 							<input type="hidden">
 							<input type="checkbox" class="check">
 						</td>
-						<td><img src=""></td>
+						<td><i class="far fa-star"></i></td>
 						<td class="mName">전재광</td>
 						<td class="mTitle"><a href="receiveDetail.do" style="color:black;">메일제목입니다.</a></td>
 						<td align="right">첨부파일</td>
@@ -147,7 +195,7 @@
 							<input type="hidden">
 							<input type="checkbox" class="check">
 						</td>
-						<td><img src=""></td>
+						<td><i class="far fa-star"></i></td>
 						<td class="mName">유현규</td>
 						<td class="mTitle">메일제목입니다.</td>
 						<td align="right">첨부파일</td>
@@ -158,7 +206,7 @@
 							<input type="hidden">
 							<input type="checkbox" class="check">
 						</td>
-						<td><img src=""></td>
+						<td><i class="far fa-star"></i></td>
 						<td class="mName">설용환</td>
 						<td class="mTitle">메일제목입니다.</td>
 						<td align="right">첨부파일</td>
@@ -169,8 +217,8 @@
 							<input type="hidden">
 							<input type="checkbox" class="check">
 						</td>
-						<td><img src=""></td>
-						<td class="mName">김성은</td>
+						<td><i class="far fa-star"></i></td>
+						<td class="mName">김상윤</td>
 						<td class="mTitle">메일제목입니다.</td>
 						<td align="right">첨부파일</td>
 						<td class="aa">19-09-19 14:00</td>
@@ -180,7 +228,7 @@
 							<input type="hidden">
 							<input type="checkbox" class="check">
 						</td>
-						<td><img src=""></td>
+						<td><i class="far fa-star"></i></td>
 						<td class="mName">원영주</td>
 						<td class="mTitle">메일제목입니다.</td>
 						<td align="right">첨부파일</td>
@@ -218,6 +266,7 @@
 	<script>
 	
 		$(function(){
+			
 		    $("#listArea").find("td").mouseenter(function(){
 		       $(this).parent().css({"background":"#ddd","cursor":"pointer"});
 		    }).mouseout(function(){
@@ -236,20 +285,59 @@
 				var chk = $(this).is(":checked");
 				if(chk) $(".select_subject input").prop('checked', true);
 				else  $(".select_subject input").prop('checked', false);
-			});
-						
-			$("#chkAll").click(function(){
-				 if($(this).attr("checked")){
-				      $('.lookAll').css('display', 'none');
-				      $(".chkMenu").css('display', 'block');
-				 }else{
-				      $('.lookAll').css('display', 'block');
-				      $('.chkMenu').css('display', 'none');
-				 }
+				
+				$(".chkMenu").addClass("show");
+				$("#lookAll").addClass("hide");
+				$("#lookAll").css("display","none");
+				$(".chkMenu").css("display", "block");
 			});
 			
+			$(".dropscroll-menu1").find("li").mouseenter(function(){
+			       $(this).css({"background":"#ddd","cursor":"pointer"});
+			    }).mouseout(function(){
+			       $(this).css("background","white");
+			});
+			
+			$(".dropscroll-menu2").find("li").mouseenter(function(){
+			       $(this).css({"background":"#ddd","cursor":"pointer"});
+			    }).mouseout(function(){
+			       $(this).css("background","white");
+			});
+			
+			$("#lookAll").click(function(){
+				$(".dropdown1").addClass("show");
+			});
 			
 			
+			$('.dropdown1').on({
+			    mouseover: function(){
+			        $(this).addClass("show");
+			    },
+			     mouseleave: function(){
+			    	$(this).removeClass("show");
+			        $(this).addClass("hide");
+ 			    }
+			});
+
+			$(".move").click(function(){
+				if($(".dropdown2").addClass("show")){
+					
+				}else{
+					$(".dropdown2").removeClass("show");
+				}			
+			});
+			
+			$('.dropdown2').on({
+			    mouseover: function(){
+			        $(this).addClass("show");
+			    },
+			     mouseleave: function(){
+			    	$(this).removeClass("show");
+			        $(this).addClass("hide");
+ 			    }
+			});
+
+
 			
 		});
 
