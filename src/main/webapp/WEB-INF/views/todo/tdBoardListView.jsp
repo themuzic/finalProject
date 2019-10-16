@@ -77,7 +77,7 @@
 								  </div>
 								</div> -->
 								
-								<select class="form-control input-lg" style="width:300px">
+								<select class="form-control input-lg" style="width:40%;">
 									<option value="cheese">2019년 10월</option>
 									<option value="tomatoes">2019년 9월</option>
 									<option value="mozarella">2019년 8월</option>
@@ -100,7 +100,7 @@
 					
 					<div class="ui three cards">
 					
-						<div class="ui link cards" onclick="location.href='todoDetail.do'" >
+						<div class="ui link cards" onclick="location.href='todoList.do'" >
 						  <div class="card">
 						    <div class="image">
 						      <img src="resources/images/square-image.png">
@@ -119,7 +119,7 @@
 						  </div>
 					  	</div>
 					  	
-					  	<div class="ui link cards" onclick="location.href='todoDetail.do'">
+					  	<div class="ui link cards" onclick="location.href='todoList.do'">
 						  <div class="card">
 						    <div class="image">
 						      <img src="resources/images/default_profile.png">
@@ -138,7 +138,7 @@
 						  </div>
 					  	</div>
 					  	
-					  	<div class="ui link cards" onclick="location.href='todoDetail.do'">
+					  	<div class="ui link cards" onclick="location.href='todoList.do'">
 						  <div class="card">
 						    <div class="image">
 						      <img src="resources/images/confRoom.jpg">
@@ -157,7 +157,7 @@
 						  </div>
 					  	</div>
 					  	
-					  	<div class="ui link cards" onclick="location.href='todoDetail.do'">
+					  	<div class="ui link cards" onclick="location.href='todoList.do'">
 						  <div class="card">
 						    <div class="image">
 						      <img src="resources/images/default_profile.png">

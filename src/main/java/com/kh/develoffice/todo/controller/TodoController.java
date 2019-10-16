@@ -17,8 +17,8 @@ public class TodoController {
 		return "todo/tdBoardListView";
 	}
 	
-	@RequestMapping("todoDetail.do")
-	public String todoDetail() {
+	@RequestMapping("todoList.do")
+	public String todoList() {
 		return "todo/todoListView";
 	}
 	
@@ -45,5 +45,10 @@ public class TodoController {
 	@RequestMapping("waitingTodo.do")
 	public String waitingTodo() {
 		return "todo/waitingTodo";
+	}
+	
+	@RequestMapping("todoDetail.do")
+	public String todoDetail() {
+		return "todo/todoDetailView";
 	}
 }

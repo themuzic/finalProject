@@ -123,7 +123,7 @@
 					<!-- 이 아래부터 내용 작성 -->
 					
 					<button class="large ui button btn-lg" onclick="location.href='allTodo.do'" style="margin:0 0 5px 0; background-color:#337ab7; color:white;">
-							전체 TO-DO List
+							<i class="fas fa-globe"></i> &nbsp;전체 TO-DO List
 					</button>
 					<br><br>
 					
