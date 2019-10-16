@@ -472,7 +472,7 @@ $.datepicker.setDefaults({
 							<a href="#menu3" data-toggle="collapse" class="collapsed" id="menu3_1"><i class="lnr lnr-inbox"></i> <span>일감관리</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu3" class="collapse ">
 								<ul class="nav">
-									<li><a href="" class="" id="m3_1">프로젝트관리</a></li>
+									<li><a href="projectList.do" class="" id="m3_1">프로젝트관리</a></li>
 									<li><a href="todoBoardList.do" class="" id="m3_2">TO-DO</a></li>
 									<li><a href="" class="" id="m3_3">품앗이</a></li>								
 								</ul>
