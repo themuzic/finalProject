@@ -19,8 +19,8 @@
 		<typeAlias type="com.kh.develoffice.employee.model.vo.WorkTime" alias="WorkTime"/>
 		<typeAlias type="com.kh.develoffice.reservation.model.vo.Reservation" alias="Reservation"/>
 		<typeAlias type="com.kh.develoffice.reservation.model.vo.Payment" alias="Payment"/>
-		<typeAlias type="com.kh.develofiice.chat.model.vo.Chat" alias="Chat"/>
-		<typeAlias type="com.kh.develofiice.chat.model.vo.Message" alias="Message"/>
+		<typeAlias type="com.kh.develoffice.chat.model.vo.Chat" alias="Chat"/>
+		<typeAlias type="com.kh.develoffice.chat.model.vo.Message" alias="Message"/>
 	</typeAliases>
 	
 	
