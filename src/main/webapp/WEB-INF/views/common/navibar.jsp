@@ -57,6 +57,7 @@
 <link rel="stylesheet" href="resources/semantic/card.css">
 <link rel="stylesheet" href="resources/semantic/form.css">
 <link rel="stylesheet" href="resources/semantic/input.css">
+<link rel="stylesheet" href="resources/semantic/image.css">
 
 
 <!-- summernote 에디터 -->
