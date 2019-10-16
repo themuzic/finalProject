@@ -16,8 +16,6 @@
 <script>
    jQuery(function($){
    	$("#myTable").DataTable({
-   		
-   		
    		responsive:true,
    		info: false,
    		 "language": {
@@ -26,7 +24,8 @@
 	        "info": "현재 _START_ - _END_ / _TOTAL_건",
 	        "infoEmpty": "데이터 없음",
 	        "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-	        "search": "에서 검색: ",
+	        "search": "검색: ",
+	        "searchPlaceholder" :"키워드를 입력하세요.",
 	        "zeroRecords": "일치하는 결과가 없습니다.",
 	        "loadingRecords": "로딩중...",
 	        "processing":     "잠시만 기다려 주세요...",
@@ -50,20 +49,20 @@
    	
     $('#myTable_filter').prepend('<select id="select"></select>');
     $('#myTable > thead > tr').children().each(function (indexInArray, valueOfElement) { 
+    	if(indexInArray == 1 || indexInArray == 2){
         $('#select').append('<option>'+valueOfElement.innerHTML+'</option>');
+    	}
     });
- 
-    	$('.dataTables_filter input').unbind().bind('keyup', function () {
+    
+    /* .dataTables_filter input */
+    /* myInput */
+    $('.dataTables_filter input').unbind().bind('keyup', function () {
+    	var table = $('#myTable').DataTable();
         var colIndex = document.querySelector('#select').selectedIndex;
-        table.column(colIndex).search(this.value).draw();
-        
-      	
-    }); 
+	    table.column(colIndex+1).search(this.value).draw();
+    });  
  
-   	   
-   	$(document).ready(function() {
-   	    $('#myTable').DataTable();
-   	} );
+  
    	
    	
 
@@ -79,9 +78,10 @@
 <script src="resources/assets/Semantic-UI-CSS-master/semantic.js"></script>
 
 <style>
+	
 	.contentWrap{
 		float:left;
-		width:75%;
+		width:100%;
 		background: white;
 		padding-top:30px;
 		padding-bottom:30px;
@@ -89,6 +89,17 @@
 		padding-right:50px;
 		font-size:14px;
 	}
+	
+	#myTable > tbody > tr{
+		text-align:center;
+	}
+	
+	.pagination {
+    float: left;
+	}
+	
+
+	
 </style>
 
 
@@ -112,77 +123,78 @@
 					
 							<table id="myTable" class="table table-bordered">
 					        <thead>
+					           
 					            <tr>
-						      		<th style="text-align:center;">no<!-- <i class="fas fa-list-ol"></i> --></th>
-							  		<th id="title" width="300" style="text-align:center;">title</th>
-							  		<th data-orderable="false" id="writer" width="100" style="text-align:center;">writer<!-- <i class="fa fa-user"></i> --></th>
-							  		<th data-orderable="false" style="text-align:center;" width="50">count<!-- <i class="fa fa-eye"></i> --></th>
-							  		<th data-orderable="false" style="text-align:center;" width="100">date<!-- <i class="far fa-clock"></i> --></th>
+						      		<th style="text-align:center;"><i class="fas fa-list-ol"></i></th>
+							  		<th id="title" style="text-align:center;">제목</th>
+							  		<th data-orderable="false" id="writer" width="100" style="text-align:center;">작성자</th>
+							  		<th data-orderable="false" style="text-align:center;" width="50">조회수</th>
+							  		<th data-orderable="false" style="text-align:center;" width="100">작성일</th>
 					    		</tr>
 					        </thead>
 					        <tbody>
-					            <tr>
+					            <tr onclick="location.href='freeDetail.do';">
 					            	<td>1</td>
 					            	<td>청협 창립 54주년 기념 청소년지도자 및 청소년 표창후보자 추천</td>
 					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
+					            	<td>12</td>
+					            	<td>2019-09-01</td>
 					            </tr>
 					             <tr>
 					            	<td>2</td>
 					            	<td>한국청소년단체협의회 회원단체 승격 신청 안내</td>
 					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
+					            	<td>34</td>
+					            	<td>2019-09-01</td>
 					            </tr>
 					             <tr>
 					            	<td>3</td>
 					            	<td>2019 올림픽데이런 개최 안내(대한체육회)</td>
 					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
+					            	<td>51</td>
+					            	<td>2019-09-01</td>
 					            </tr>
 					             <tr>
 					            	<td>4</td>
 					            	<td>[2019 전국청소년지도자대회] 청소년지도자! Vlog! 영상공모전</td>
 					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
+					            	<td>342</td>
+					            	<td>2019-09-01</td>
 					            </tr>
 					             <tr>
 					            	<td>5</td>
 					            	<td>재)성남시청소년재단 직원 채용 공고</td>
 					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
+					            	<td>214</td>
+					            	<td>2019-09-01</td>
 					            </tr>
 					             <tr>
 					            	<td>6</td>
 					            	<td>2019년 청소년푸른성장대상 수상 후보자 추천 공고 </td>
 					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
+					            	<td>24</td>
+					            	<td>2019-09-01</td>
 					            </tr>
 					             <tr>
 					            	<td>7</td>
 					            	<td>2019년 올키즈스트라 상위관악단 단원 수시 모집</td>
 					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
+					            	<td>73</td>
+					            	<td>2019-09-01</td>
 					            </tr>
 					             <tr>
 					            	<td>8</td>
 					            	<td>2019년 청소년 국제교류활동 UCC 공모전 안내</td>
 					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
+					            	<td>45</td>
+					            	<td>2019-09-01</td>
 					            </tr>
 					             <tr>
 					            	<td>9</td>
 					            	<td>2019 올림픽데이런 개최 안내(대한체육회) </td>
 					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
+					            	<td>732</td>
+					            	<td>2019-09-01</td>
 					            </tr>
 					             <tr>
 					            	<td>10</td>
@@ -231,7 +243,7 @@
 					       
 					    </table>
 
-					    <button onclick="" class="btn btn-primary" style="float:right;">글쓰기</button>
+					    <button onclick="location.href='insertFree.do';" class="btn btn-primary" style="float:right;">글쓰기</button>
 					
 					
 					
@@ -273,8 +285,35 @@
 	<!-- script 작성 -->
 	<script>
 	
+	$(function(){
+		
+		$("#myTable td").mouseenter(function(){
+			$(this).parent().css({"background" : "rgb(243, 230, 181)", "cursor" : "pointer"});
+		}).mouseout(function(){
+			$(this).parent().css("background", "white");
+			
+		}).click(function(){
+			var num = $(this).parent().children().eq(0).text();
+			
+		/* 	<c:url value="bdetail.do" var="bdetail">
+			<c:param name="bId" value="${b.bId}"/>
+			</c:url> 
+			<a href="${bdetail}">${b.bTitle}</a>
+			 */
+			
+		});
+		
+	});
 	
-	
+	$(function(){
+		
+		/* 사이드바의 해당 메뉴 활성화 유지하기 */
+		$("#menu6").addClass("in");
+		$("#menu6").attr('aria-expanded',true);
+		$("#menu6_1").addClass("active");
+		$("#menu6_1").attr('aria-expanded',true);
+		$("#m6_3").addClass("active");	
+	});
 	
 	</script>
 
