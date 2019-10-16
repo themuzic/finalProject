@@ -281,16 +281,16 @@
 			$("#m2_2").addClass("active");	
 			
 			/* 체크박스 선택하기 */
-// 			$("#chkAll").click(function(){
-// 				var chk = $(this).is(":checked");
-// 				if(chk) $(".select_subject input").prop('checked', true);
-// 				else $(".select_subject input").prop('checked', false);
+			$("#chkAll").click(function(){
+				var chk = $(this).is(":checked");
+				if(chk) $(".select_subject input").prop('checked', true);
+				else $(".select_subject input").prop('checked', false);
 				
-// 				$(".chkMenu").addClass("show");
-// 				$("#lookAll").addClass("hide");
-// 				$("#lookAll").css("display","none");
-// 				$(".chkMenu").css("display", "block");
-// 			});
+				$(".chkMenu").addClass("show");
+				$("#lookAll").addClass("hide");
+				$("#lookAll").css("display","none");
+				$(".chkMenu").css("display", "block");
+			});
 			
 			/* 체크박스 하나라도 선택되면 메뉴바 변경 */
 			$(".chkBox").change(function() {			

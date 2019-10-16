@@ -92,8 +92,8 @@
 						<p style="width:80px; position:absolute;top:4px;">받는 사람</p>
 						<div class="txt" style="margin-left:80px; position:relative;">
 							<div class="position">
-								<textarea class="cc_addr autocomplete" name="mailTo" id='to_addr' placeholder="메일 주소를 입력하세요." 
-									style="width:97%; height:30px; padding-top:5px; padding-left:3px; resize:none"></textarea>
+								<input type="email" class="cc_addr autocomplete" name="mailTo" id='to_addr' placeholder="메일 주소를 입력하세요." 
+									style="width:97%; height:30px; padding-top:5px; padding-left:3px;">
 								<button type="button" class="" id="addressSelect" onclick="" style="display:inline-block;padding:0; font-size:20px">
 									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
 								</button>
@@ -112,7 +112,7 @@
 						</p>
 						<div class="txt title" style="margin-left:80px; position:relative;">
 							<div class="position">
-								<textarea name="title" id="approval_document_title" style="width:97%; height:30px; resize:none"></textarea>
+								<input type="email" name="title" id="approval_document_title" style="width:97%; height:30px;">
 								<button type="button" class="" id="select" onclick="" style="display:inline-block;padding:0; font-size:20px">
 									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
 								</button>
@@ -123,7 +123,7 @@
 						<p style="width:80px; position:absolute;top:4px;">숨은 참조</p>
 						<div class="txt" style="margin-left:80px; margin-top:10px; position:relative;">
 							<div class="position">
-								<textarea class="cc_addr autocomplete" name="bcc_addr" id='bcc_addr' style="width:97%; height:30px; resize:none"></textarea>
+								<input type="email" class="cc_addr autocomplete" name="bcc_addr" id='bcc_addr' style="width:97%; height:30px;">
 								<button type="button" class="" id="hideSelect" onclick="" style="display:inline-block;padding:0; font-size:20px">
 									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
 								</button>
