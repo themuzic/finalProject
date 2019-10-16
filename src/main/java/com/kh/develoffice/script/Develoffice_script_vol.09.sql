@@ -1211,6 +1211,21 @@ INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL,'유현규','1234','M','19950712',5,
 INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL, '설용환', '1234', 'M', '19890214', 3, 3, '01083311011', 'dydghks11@naver.com',
                             '서울시 송파구 문정동', 5000000, '01083311011', '0', TO_DATE('20190415','YYYY-MM-DD'),NULL,DEFAULT,DEFAULT, NULL);
 
+
+
+-----------------WIDGET TEST INSERT----------------------------
+
+--	"WIDGET_TYPE"	NUMBER		NOT NULL,
+--	"EMP_ID"		NUMBER		NOT NULL,
+--	"LEFT"			NUMBER		NULL,
+--	"TOP"			NUMBER		NULL,
+--	"FOLD"			VARCHAR2(1)	DEFAULT 'N'	CHECK(FOLD IN('Y','N')),
+--	"STATUS"		VARCHAR2(1)	DEFAULT 'N'	CHECK(STATUS IN('Y','N'))
+
+INSERT INTO WIDGET VALUES(1,10001,25,108,'N','Y');
+
+
+
 ------------------VIEW 생성------------------------------------
 -- 직원테이블에 부서,직급이름 추가 
 CREATE OR REPLACE VIEW EMP AS
