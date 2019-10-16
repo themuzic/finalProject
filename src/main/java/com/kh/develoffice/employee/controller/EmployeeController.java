@@ -61,5 +61,10 @@ public class EmployeeController {
 		
 		return mv;
 	}
+	
+	@RequestMapping("mainPage.do")
+	public String mainPage() {
+		return "main/mainPage";
+	}
 
 }
