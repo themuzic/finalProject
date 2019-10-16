@@ -61,8 +61,8 @@
 					<div class="allContentWrap" style="padding:0 30px 0 10px">
 						<table class="table table-hover">
 						
-							<button class="large ui button" style="margin:0 0 5px 0; background-color:#337ab7; color:white;">
-							  전체보기
+							<button class="large ui button" onclick="location.href='allTodo.do'" style="margin:0 0 5px 0; background-color:#337ab7; color:white; font-size: 1.5rem;">
+							  	<i class="fas fa-globe"></i> &nbsp;전체보기
 							</button>
 							
 							<thead>
@@ -104,7 +104,7 @@
 								<i class="fa fa-plus-square"></i> 추가하기 
 							</button>
 							<button type="reset" class="btn btn-danger">
-								<i class="fa fa-trash-o"></i> 삭제하기
+								<i class="far fa-trash-alt"></i> 삭제하기
 							</button>
 						</div>
 						
@@ -114,8 +114,8 @@
 					<div class="statusContentWrap" style="padding:0 10px 0 30px">
 	
 						<div class="ongoingTD">
-							<button class="large ui button" style="margin:0 0 5px 0; background-color:#5bc0de; color:white;">
-							  진행중
+							<button class="large ui button btn-lg" onclick="location.href='ongoingTodo.do'" style="margin:0 0 5px 0; background-color:#5bc0de; color:white; font-size: 1.5rem;">
+								<i class="fas fa-tasks"></i> &nbsp;진행중
 							</button>
 							<table class="table table-hover">
 								<thead>
@@ -146,8 +146,8 @@
 						</div>
 						
 						<div class="waitingTD">
-							<button class="large ui button" style="margin:0 0 5px 0; background-color:#5cb85c; color:white;">
-							  대기
+							<button class="large ui button btn-lg" onclick="location.href='waitingTodo.do'" style="margin:0 0 5px 0; background-color:#5cb85c; color:white; font-size: 1.5rem;">
+							  	<i class="fas fa-spinner"></i> &nbsp;대기
 							</button>
 							<table class="table table-hover">
 								<thead>
@@ -178,8 +178,8 @@
 						</div>
 						
 						<div class="completionTD">
-							<button class="large ui button" style="margin:0 0 5px 0; background-color:#f0ad4e; color:white;">
-							  완료
+							<button class="large ui button btn-lg" onclick="location.href='completionTodo.do'" style="margin:0 0 5px 0; background-color:#f0ad4e; color:white; font-size: 1.5rem;">
+							 	<i class="fas fa-check"></i> &nbsp;완료
 							</button>
 							<table class="table table-hover">
 								<thead>

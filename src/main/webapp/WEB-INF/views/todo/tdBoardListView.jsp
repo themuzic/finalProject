@@ -88,7 +88,9 @@
 							</td>
 							<td>
 								<div class="ui inverted segment">
-								  <button type="button" style="background-color:#3287B2; color:white;" class="btn btn-lg" id="insertTdBoard" onclick="location.href='insertTodoBoard.do'">+ Board</button>
+								  <button type="button" style="background-color:#3287B2; color:white;" class="btn btn-lg" id="insertTdBoard" onclick="location.href='insertTodoBoard.do'">
+								  	<i class="fas fa-plus-circle"></i> Board
+								  </button>
 								</div>
 							</td>
 						</tr>

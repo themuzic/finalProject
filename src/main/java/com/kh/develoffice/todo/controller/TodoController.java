@@ -19,11 +19,31 @@ public class TodoController {
 	
 	@RequestMapping("todoDetail.do")
 	public String todoDetail() {
-		return "todo/tdDetailView";
+		return "todo/todoListView";
 	}
 	
 	@RequestMapping("insertTodoBoard.do")
 	public String insertTodoBoard() {
 		return "todo/insertTdBoard";
+	}
+	
+	@RequestMapping("allTodo.do")
+	public String allTodo() {
+		return "todo/allTodo";
+	}
+	
+	@RequestMapping("ongoingTodo.do")
+	public String ongoingTodo() {
+		return "todo/ongoingTodo";
+	}
+	
+	@RequestMapping("completionTodo.do")
+	public String completionTodo() {
+		return "todo/completionTodo";
+	}
+	
+	@RequestMapping("waitingTodo.do")
+	public String waitingTodo() {
+		return "todo/waitingTodo";
 	}
 }
