@@ -79,8 +79,10 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
+				<form action="mailSending.do" method="post">
 					<span class="detail_select">
-						<a href="" onclick="" style="font-size:16px;">보내기</a>
+					<input type="submit" value="보내기" style="font-size:16px;">
+<!-- 						<a href="" onclick="" style="font-size:16px;">보내기</a> -->
 					</span> &nbsp;
 					<span class="earlyView" id="earlyView">
 						<a href="#myModal" data-target="#myModal" data-toggle="modal" onclick="" style="font-size:16px;">미리보기</a>
@@ -90,7 +92,7 @@
 						<p style="width:80px; position:absolute;top:4px;">받는 사람</p>
 						<div class="txt" style="margin-left:80px; position:relative;">
 							<div class="position">
-								<textarea class="cc_addr autocomplete" name="to_addr" id='to_addr' placeholder="메일 주소를 입력하세요." 
+								<textarea class="cc_addr autocomplete" name="mailTo" id='to_addr' placeholder="메일 주소를 입력하세요." 
 									style="width:97%; height:30px; padding-top:5px; padding-left:3px; resize:none"></textarea>
 								<button type="button" class="" id="addressSelect" onclick="" style="display:inline-block;padding:0; font-size:20px">
 									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
@@ -133,7 +135,7 @@
 						<label style="width:80px; position:absolute;top:4px;">제목</label>
 						<div class="txt title" style="margin-left:80px; margin-top:10px; position:relative;">
 							<div class="position">
-								<input type="text" name="title" id="approval_document_title" value="" style="width:97%; height:30px;">
+								<input type="text" name="mailTitle" id="approval_document_title" value="" style="width:97%; height:30px;">
 							</div>
 						</div>
 					</div>
@@ -158,7 +160,8 @@
 					
 					<!-------------- 에디터 -------------------->
 					
-					<div id="summernote" name="content"></div>
+					<div id="summernote" name="mailContent"></div>
+				</form>
 					
 					<!---------------------------------------->	
 					
@@ -380,14 +383,7 @@
 						
 						<div class="layer_back" style="position: fixed;width: 100%;height: 100%;z-index: 1000;background-color: rgb(0, 0, 0);opacity: 0.3;top: 0px;left: 0px;margin: 0px;padding: 0px;"></div>
 					</div>
-						
-						
-						
-						
-						
-						
-						
-						
+
 						<!-- 결제선 주소록 테스트 -->
 					
 					
