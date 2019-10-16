@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+	
+	<util:properties id="config" location="classpath:test.properties" />
+
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
@@ -53,11 +58,26 @@
 	 	<constructor-arg ref="sqlSession"/>
 	 </bean>
 	 
-	 <bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
+	 <!-- <bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
 	      <property name="host" value="smtp.gmail.com" />
 	      <property name="port" value="587" />
 	      <property name="username" value="sangyoon2ya@gmail.com" />
-	      <property name="password" value="비밀번호" />
+	      <property name="password" value="12Rjwlfua!" />
+	      <property name="javaMailProperties">
+	         <props>
+	               <prop key="mail.transport.protocol">smtp</prop>
+	               <prop key="mail.smtp.auth">true</prop>
+	               <prop key="mail.smtp.starttls.enable">true</prop>
+	               <prop key="mail.debug">true</prop>
+	         </props>
+	      </property>
+   	 </bean> -->
+   	 
+   	 <bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
+	      <property name="host" value="smtp.gmail.com" />
+	      <property name="port" value="587" />
+	      <property name="username" value="#{config['mail.username']}" />
+	      <property name="password" value="#{config['mail.password']}" />
 	      <property name="javaMailProperties">
 	         <props>
 	               <prop key="mail.transport.protocol">smtp</prop>

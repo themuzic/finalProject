@@ -117,7 +117,7 @@
 									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
 								</button>
 							</div>
-					</div>
+						</div>
 					
 					<div class="write_input" style='display:none' id='divBCC'>
 						<p style="width:80px; position:absolute;top:4px;">숨은 참조</p>
@@ -160,7 +160,7 @@
 					
 					<!-------------- 에디터 -------------------->
 					
-					<div id="summernote" name="mailContent"></div>
+					<textarea id="summernote" name="mailContent"></textarea>
 				</form>
 					
 					<!---------------------------------------->	

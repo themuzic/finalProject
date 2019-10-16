@@ -10,7 +10,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.kh.develoffice.document.model.service.DocumentService;
 import com.kh.develoffice.mail.model.service.MailService;
 
 @Controller
@@ -50,12 +49,15 @@ public class MailController {
 	// mailSending 코드
 	@RequestMapping("mailSending.do")
 	public String mailSending(HttpServletRequest request) {
-   
-    String setfrom = "sangyoon2ya@gmail.com";         
-    String tomail = request.getParameter("mailTo");    // 받는 사람 이메일
-	String title = request.getParameter("mailTitle");      // 보내는 사람 이메일
-	String content = request.getParameter("mailContent");  // 보내는 사람 이메일
-	String filename = "D:/test.txt";                   // 파일 경로.
+
+    String setfrom = "sangyoon2ya@gmail.com";          		// 보내는 사람 이메일
+    String tomail = request.getParameter("mailTo");    		// 받는 사람 이메일
+	String title = request.getParameter("mailTitle");      	// 메일 제목
+	String content = request.getParameter("mailContent");  	// 메일 내용
+	String filename = "D:/test.txt";                   	   	// 파일 경로
+	
+//	System.out.println(tomail);
+//	System.out.println(content);
 	   
     try {
       MimeMessage message = mailSender.createMimeMessage();
@@ -66,7 +68,7 @@ public class MailController {
       messageHelper.setSubject(title);  // 메일제목은 생략이 가능하다
       messageHelper.setText(content);   // 메일 내용
  
-		  // 파일첨부
+      // 파일첨부
 	  FileSystemResource fsr = new FileSystemResource(filename);
 	  messageHelper.addAttachment("test2.txt", fsr);
 	     
@@ -75,7 +77,7 @@ public class MailController {
 	      System.out.println(e);
 	    }
 	   
-	    return "redirect:receiveMail.do";
+	    return "mail/successMail";
 	  } 
 
 
