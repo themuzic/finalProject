@@ -506,7 +506,7 @@
 						
 						
 						
-						<!-- 결제선 주소록 테스트 -->
+						<!---------- 결제선 주소록 시작 ------------------------>
 						
 						<div id="approval_address_layer" class="booking_layer_div layer_box hide typeD">
 						
@@ -514,9 +514,9 @@
 							<div class="title_layer text_variables" id="titleApprovalLineSetting">결재선 설정</div>
 							<div class="line-search after" id="searchP" style="display: block;">
 								<ul class="after">
-												<li><label for="rdo_sch_name"><input type="radio" value="name" name="searchField" id="rdo_sch_name" onclick="$j('#keyword').focus();" checked="checked"> 이름</label></li>
-												<li><label for="rdo_sch_const"><input type="radio" value="const" name="searchField" id="rdo_sch_const" onclick="$j('#keyword').focus();"> 조직</label></li>
-											</ul>
+									<li><label for="rdo_sch_name"><input type="radio" value="name" name="searchField" id="rdo_sch_name" onclick="$j('#keyword').focus();" checked="checked"> 이름</label></li>
+									<li><label for="rdo_sch_const"><input type="radio" value="const" name="searchField" id="rdo_sch_const" onclick="$j('#keyword').focus();"> 조직</label></li>
+								</ul>
 								<div class="fl input-area">
 									<input type="text" style="width:203px;position: absolute;" class="text-box vm" id="keyword" onkeypress="if(event.keyCode == 13){ event.preventDefault(); addressbook.click_searchBtn();}">
 									<span class="icon h_detail vm"></span>
@@ -532,27 +532,37 @@
 									<div class="after">
 										<div class="fl" id="searchMessage" style="display: none;"><span id="searchKeyword"></span> 검색결과 : <span id="searchCount"></span></div>
 										<div class="fr">
-											<a class="icon order" href="javascript:void(0);" title="정렬" id="anchorApprovalUserOrder"></a>
+											<a class="icon order" title="정렬" id="anchorApprovalUserOrder"></a>
 											<ul class="dropdown-menu hide" id="orderApprovalDropdown" style="width: 70px; top: 124px; left: 314px;">
-												<li><a href="javascript:void(0);" class="js-approval-node-order" onclick="addressbook.click_orderBtn('name', 'ASC');$j('#orderApprovalDropdown').toggleClass('show');">이름순</a></li>
-												<li><a href="javascript:void(0);" class="js-approval-node-order" onclick="addressbook.click_orderBtn('position', 'DESC');$j('#orderApprovalDropdown').toggleClass('show');">직급순</a></li>
-												<li><a href="javascript:void(0);" class="js-approval-node-order" onclick="addressbook.click_orderBtn('priority', '');$j('#orderApprovalDropdown').toggleClass('show');">설정순</a></li>
+												<li><a class="js-approval-node-order sortByName">이름순</a></li>
+												<li><a class="js-approval-node-order sortByJob">직급순</a></li>
 											</ul>
 										</div>
 									</div>
 									<div class="after">
 										<div class="category-list" style="height: 397px;width: 205px;">
-											<select id="leftList" size="19" frameborder="0" style="display:none;" onclick="addressbook.click_leftList(this)">
+											<select id="leftList" size="19" frameborder="0" style="display:none;">
 																	</select>
-											<div id="treeDiv" style="white-space: nowrap;float: none;" class="treeDiv OrgTree"><ul><li id="addressTreeNode_45295" class="last"><div class="Container"><img onclick="addressbook.ToggleTree(this);" src="https://approval.office.hiworks.com/assets/images/common/tree_images/tree_m.gif" class="plus"><strong onclick="addressbook.selectNode(this);" class="selectedNode">cocoaTest <span style="font-weight:normal; color:silver; font-size:8pt">(6)</span></strong></div><ul style=""><li id="addressTreeNode_46498"><div class="Container"><strong onclick="addressbook.selectNode(this);">경영지원팀 <span style="font-weight:normal; color:silver; font-size:8pt">(1)</span></strong></div></li><li id="addressTreeNode_46499"><div class="Container"><strong onclick="addressbook.selectNode(this);">개발팀 <span style="font-weight:normal; color:silver; font-size:8pt">(1)</span></strong></div></li><li id="addressTreeNode_46500"><div class="Container"><strong onclick="addressbook.selectNode(this);">서비스팀 <span style="font-weight:normal; color:silver; font-size:8pt">(2)</span></strong></div></li><li id="addressTreeNode_46501" class="last"><div class="Container"><strong onclick="addressbook.selectNode(this);">영업팀 <span style="font-weight:normal; color:silver; font-size:8pt">(1)</span></strong></div></li></ul></li></ul></div>
+											<div id="treeDiv" style="white-space: nowrap;float: none;" class="treeDiv OrgTree">
+												<ul>
+													<li id="" class="last">
+														<div class="Container">
+															<img onclick="" src="https://approval.office.hiworks.com/assets/images/common/tree_images/tree_m.gif" class="plus">
+															<strong onclick="" id="subOffice" class="selectedNode">DEVELOFFICE <span style="font-weight:normal; color:silver; font-size:8pt">(${deptSize})</span></strong>
+														</div>
+														<ul style="" id="subDept">
+														</ul>
+													</li>
+												</ul>
+											</div>
 											<div id="leftProgressDiv" style="display: none;" class="progressDiv"><img src="resources/images/progress_big.gif"></div>
 										</div>
 										<div class="name-list" style="width: auto;">
-											<select multiple="multiple" id="rightList" style="">
-																	<option value="56672" title="sfsfy1 (개발팀)" node_id="46499">sfsfy1 (개발팀)</option><option value="56675" title="김상윤 (서비스팀)" node_id="46500">김상윤 (서비스팀)</option><option value="56674" title="김성은 (영업팀)" node_id="46501">김성은 (영업팀)</option><option value="57462" title="원영주 (경영지원팀)" node_id="46498">원영주 (경영지원팀)</option><option value="56673" title="유현규 (서비스팀)" node_id="46500">유현규 (서비스팀)</option><option value="57511" title="전재광 (cocoaTest)" node_id="45295">전재광 (cocoaTest)</option></select>
+											<select multiple="multiple" id="rightList" style=""></select>
 						
 											<div class="choice-area" style="width: 203px;font-size: 12px;padding: 5px;">
-																		<a href="javascript:void(0);" class="text_variables fl mgr_20" onclick="addressbook.click_rightSelect('select');">전체</a> <a href="javascript:void(0);" class="text_variables mgr_20" onclick="addressbook.click_rightSelect('deselect');">선택안함</a>
+												<a class="text_variables fl mgr_20" id="selectAll" style="cursor:pointer">전체</a>
+												<a class="text_variables mgr_20" id="cancelAll" style="cursor:pointer">선택안함</a>
 												<span id="pagingP"></span>
 											</div>
 											<div id="rightProgressDiv" style="display: none;" class="progressDiv"><img src="resources/images/progress_big.gif"></div>
@@ -699,7 +709,7 @@
 						
 						
 						
-						<!-- 결제선 주소록 테스트 -->
+						<!---------- 결제선 주소록 끝 ------------------------>
 						
 						
 						
@@ -1064,14 +1074,7 @@
 			$(this).siblings('.toolTip').removeClass("show");
 		});
 		
-		
-		/* $("#summernote").summernote({
-			tabsize: 2,
-	        height: 300,
-	        lang: 'ko-KR'
-		});
-		$('.dropdown-toggle').dropdown(); */
-		
+
 		
 		$("#summernote").hide();
 		
@@ -1149,10 +1152,15 @@
 				$(".filezone").addClass("show");
 			}
 			
+			
+			
+		});
+		
+		
+		
 			$(".closeBtn").click(function(){
 				$('.layer_box').removeClass("show");
 			});
-			
 			
 			$("#btnApprovalSelect").click(function(){
 				$("#approval_address_layer").addClass("show");
@@ -1162,12 +1170,147 @@
 			$("#addDealInfo").click(function(){
 				$("#add_account_layer").addClass("show");				
 			});
+		
+		
+		
 			
 			
+		/* 결재선 창 기능 시작 */
+		
+		/* 제일 왼쪽 div에 모든 부서명 출력 */
+		$.each(${deptList}, function(index, dept){
+			
+			if(index != 0){
+				$subDeptLi = $('<li class="subDept_li" id="subDept'+index+'">');
+				$subDeptDiv = $('<div class="Container">');
+				$subDeptStrong = $('<strong>')
+				$subDeptSpan1 = $('<span class="subDeptName">').text(dept.deptName);
+				$subDeptSpan2 = $('<span style="font-weight:normal; color:silver; font-size:8pt">').text('('+dept.count+')');
+				
+				$subDeptStrong.append($subDeptSpan1);
+				$subDeptStrong.append($subDeptSpan2);
+				$subDeptDiv.append($subDeptStrong);
+				$subDeptLi.append($subDeptDiv);
+				
+				$("#subDept").append($subDeptLi);
+			}
+		});
+		
+		/* 부서명들 중 가장 상단의 회사명 클릭 시 */
+		$("#subOffice").click(function(){
+			$("#rightList").html("");
+			$(".subDept_li").css('color','#676767');
+			
+			$.each(${empList}, function(index, emp){
+				
+				$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'">').text(emp.empName+" "+emp.jobName);
+				$("#rightList").append($op);
+			});
+		});
+		
+		/* 부서명 클릭 시 */
+		$("#subDept").on('click','.subDept_li',function(){
+			
+			$(this).css('color','#2985db');
+			$(this).siblings().css('color','#676767');
+			var dept = $(this).find('.subDeptName').text();
+			$("#rightList").html("");
+			
+			$.each(${empList}, function(index, emp){
+				
+				if(dept == emp.deptName){
+					$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'">').text(emp.empName+" "+emp.jobName);
+					$("#rightList").append($op);
+				}
+
+			});
 			
 		});
+		
+		// 직원이름 여러개 선택 하는거
+		/* 
+		$("#rightList").on('mouseup','option',function(){
+			console.log($("#rightList option:selected"));
+		});
+		 */
+		
+		//전체선택
+		$("#selectAll").on('click',function(){
+			$("#rightList option").attr('selected',true);
+		});
+		//전체선택취소
+		$("#cancelAll").on('click',function(){
+			$("#rightList option").attr('selected',false);
+		});
+		//정렬 버튼
+		$('#anchorApprovalUserOrder').on('click',function(){
+			$("#orderApprovalDropdown").toggleClass('show');
+		});
+		//이름 or 직급 정렬
+		$(".js-approval-node-order").on('click',function(){
+			
+			var sortArr = ${empList};
+			
+			if(document.getElementById('rightList').innerHTML != ""){
+				
+				console.log('if문 통과1');
+				
+				if($(this).hasClass('sortByName')){	//이름정렬
+					console.log('if문 통과2');
+					sortArr.sort(function(a, b){
+						return a.empName < b.empName ? -1 : a.empName > b.empName ? 1: 0;
+					});
+					
+				} else{	//직급정렬
+					console.log('if문 통과3');
+					sortArr.sort(function(a, b){
+						return a.jobCode - b.jobCode;
+					});
+					
+				}
+				console.log(sortArr);
+				
+				$("#rightList").html("");
+				
+				var conditionArr = $(".subDept_li");
+				var conditionName = "";
+				
+				//선택된 부서(파란색) 이름 찾기
+				$.each(conditionArr, function(index, li){					
+					//console.log(li.style.color);
+					if(li.style.color == 'rgb(41, 133, 219)'){
+						conditionName = li.childNodes[0].childNodes[0].childNodes[0].innerHTML;
+					}
+				});
+				
+				//console.log('선택된 부서명 : '+conditionName);
+				
+				$.each(sortArr, function(index, emp){
+					if(conditionName == ""){	//파란색으로 선택된 부서명이 없으면 => 전체 직원 선택이면
+						$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'">').text(emp.empName+" "+emp.jobName);
+						$("#rightList").append($op);
+					} else {	// 파란색으로 선택된 부서명이 있으면
+						if(conditionName == emp.deptName){
+							$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'">').text(emp.empName+" "+emp.jobName);
+							$("#rightList").append($op);
+						}
+					}
+				});
+			}
+			
+			$("#orderApprovalDropdown").toggleClass('show');
+		});
+		
+		
+		
+		 
+		 
+		/* 결재선 창 기능 끝 */
+	
 	
 	})
+	
+	
 	
 	
 	
@@ -1366,137 +1509,7 @@
 	
 	
 	
-	<!--
 	
-	<script>
-					$(function(){
-						ApprovalDocument._spendingReport = {};
-						ApprovalDocument._spendingReport.type = 'P';
-						ApprovalDocument._spendingReport.spendingRegist = 'M';
-						ApprovalDocument._spendingReport.spendingDate = [];
-						ApprovalDocument._spendingReport.fixedYear = '2019';
-						ApprovalDocument._spendingReport.fixedMonth = '9';
-						ApprovalDocument._spendingReport.fixedDays = '27';
-						ApprovalDocument._spendingReport.spender = {'user_no':'', 'node_id':''};
-						$("#infoEmployeeAccount").children().filter(":odd").html('');
-										ApprovalDocument._spendingReport.deal = [];
-										ApprovalDocument._spendingReport.currentDeal = [];
-		
-										
-										$("input[name='approval_document_title']").val('2019년 9월 지출 결의서 - 개인');
-						
-						if($('#spendingDateCustom').length){
-							$('#spendingDateCustom').datepicker({
-								dateFormat: 'yy-mm-dd',
-								prevText: '이전 달',
-								nextText: '다음 달',
-								monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-								monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-								dayNames: ['일','월','화','수','목','금','토'],
-								dayNamesShort: ['일','월','화','수','목','금','토'],
-								dayNamesMin: ['일','월','화','수','목','금','토'],
-								showMonthAfterYear: true,
-								yearSuffix: '년',
-								onSelect : function(){
-									if(ApprovalDocument.initDealInformation() === false){
-										$('#spendingDateCustom').datepicker('setDate', ApprovalDocument._spendingReport.fixedYear + '-' + ApprovalDocument._spendingReport.fixedMonth + '-' + ApprovalDocument._spendingReport.fixedDays);
-										return;
-									}
-									var d = $(this).datepicker('getDate');
-									ApprovalDocument._spendingReport.fixedYear = d.getFullYear();
-									ApprovalDocument._spendingReport.fixedMonth = d.getMonth() + 1;
-									ApprovalDocument._spendingReport.fixedDays = d.getDate();
-		
-									ApprovalDocument.setAutoTitleInSpendingReport();
-								}
-							});
-						}
-					});
-		
-					$(document).on('click', '.js-approval-spending-order', function(e){
-						e.preventDefault();
-						var up_template = '<span class="up"></span>';
-						var down_template = '<span class="down"></span>';
-						var append_template = up_template;
-						var order_value = 'ASC';
-		
-						if($(this).children('span').hasClass('up')){
-							append_template = down_template;
-							order_value = 'DESC';
-						}
-		
-						var tdIdx = 0;
-						var order_key = $(this).attr('value');
-						if($(this).attr('value') === 'account_name'){
-							tdIdx = 0;
-						}else if($(this).attr('value') === 'expense_date'){
-							tdIdx = 1;
-						}else if($(this).attr('value') === 'department_name'){
-							tdIdx = 2;
-						}else if($(this).attr('value') === 'price'){
-							tdIdx = 3;
-						}else if($(this).attr('value') === 'customer_name'){
-							tdIdx = 4;
-						}else if($(this).attr('value') === 'brief'){
-							tdIdx = 5;
-						}
-		
-						 _this._spendingReport.deal.sort(function(a, b){
-								var aTxt = '';
-								var bTxt = '';
-		
-								if(tdIdx === 3){
-									aTxt = parseInt(a['supply_price']) + (a['tax_amount'] !== '' ? parseInt(a['tax_amount']) : 0);
-									bTxt = parseInt(b['supply_price']) + (b['tax_amount'] !== '' ? parseInt(b['tax_amount']) : 0);
-								}else{
-									aTxt = a[order_key];
-									bTxt = b[order_key];
-								}
-								console.log(aTxt);
-								console.log(bTxt);
-								if(order_value === 'ASC'){
-									return bTxt < aTxt ? 1 : -1;
-								}else{
-									return bTxt > aTxt ? 1 : -1;
-								}
-							});
-		
-						$('.js-approval-spending-order span').remove();
-		
-						$sumRow = $('#tableAccoutingDealInformation #sumRow').detach();
-		
-						$('#tableAccoutingDealInformation tbody').html($('#tableAccoutingDealInformation tbody').children('tr').not('#sumRow').sort(function(a, b){
-							var $b = $(b).children('td').eq(tdIdx);
-							var $a = $(a).children('td').eq(tdIdx);
-							var bTxt = $b.text();
-							var aTxt = $a.text();
-							if($b.find('span.fl').length){
-								bTxt = $b.find('span.fl').text(); 
-							}
-		
-							if($a.find('span.fl').length){
-								aTxt = $a.find('span.fl').text(); 
-							}
-		
-							if(tdIdx === 3){
-								aTxt = parseInt(aTxt.replace(/,/gi, ''));
-								bTxt = parseInt(bTxt.replace(/,/gi, ''));
-							}
-							
-							if(order_value === 'ASC'){
-								return bTxt < aTxt ? 1 : -1;
-							}else{
-								return bTxt > aTxt ? 1 : -1;
-							}
-						}));
-		
-						 $sumRow.appendTo($('#tableAccoutingDealInformation tbody'));
-		
-						$(this).append(append_template);
-					});
-	</script>
-	
-	 -->
 <!-- Javascript -->
 	
 	<!-- <script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.js"></script> -->

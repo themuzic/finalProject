@@ -15,5 +15,8 @@ public interface EmployeeService {
 	
 	// 해당 계정의 모든 위젯 정보 호출
 	ArrayList<Widget> selectWidget(int id);
+	
+	// 모든 직원 목록 호출
+	ArrayList<Employee> selectAllEmp();
 
 }

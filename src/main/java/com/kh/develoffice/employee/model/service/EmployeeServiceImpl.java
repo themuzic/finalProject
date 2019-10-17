@@ -33,6 +33,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public ArrayList<Widget> selectWidget(int id) {
 		return eDao.selectWidget(id);
 	}
+
+	@Override
+	public ArrayList<Employee> selectAllEmp() {
+		return eDao.selectAllEmp();
+	}
 	
 	
 	

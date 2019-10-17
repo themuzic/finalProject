@@ -66,6 +66,23 @@
 	</resultMap>
 	
 
+	<resultMap id="deptResultSet" type="Department">
+		<id property="deptCode" column="dept_code"/>
+		<result property="deptName" column="dept_name"/>
+		<result property="count" column="capacity"/>
+	</resultMap>
+
+
+
+
+
+	<select id="selectDept" resultMap="deptResultSet">
+		select dept_code, dept_name, count(emp_id) as capacity
+		from department
+		left join employee using (dept_code)
+		group by dept_code, dept_name
+        order by dept_code
+	</select>
 
 
 </mapper>

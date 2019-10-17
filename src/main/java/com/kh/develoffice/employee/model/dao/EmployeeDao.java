@@ -29,5 +29,10 @@ public class EmployeeDao {
 	public ArrayList<Widget> selectWidget(int id){
 		return (ArrayList)sqlSession.selectList("employeeMapper.selectWidget", id);
 	}
+	
+	
+	public ArrayList<Employee> selectAllEmp(){
+		return (ArrayList)sqlSession.selectList("employeeMapper.selectAllEmp");
+	}
 
 }

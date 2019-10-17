@@ -45,7 +45,7 @@
 	
 	
 	<select id="loginEmp" parameterType="Employee" resultMap="empResultSet">
-		select * from emp where emp_id=#{empId} and emp_pwd=#{empPwd}
+		select * from emp where emp_id=#{empId} and emp_pwd=#{empPwd} and emp_status='Y'
 	</select>
 	
 	
@@ -60,6 +60,10 @@
 		select * from widget where emp_id=#{id}
 	</select>
 	
+	
+	<select id="selectAllEmp" resultMap="empResultSet">
+		select * from emp where emp_status='Y' order by job_code, emp_name
+	</select>
 	
 	
 
