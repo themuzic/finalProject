@@ -37,6 +37,12 @@
 		<!-- 앞으로 .do인 요청들을 저 servlet-context.xml 파일이 처리하도록 -->
 	</servlet-mapping>
 	
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+		<!-- 웹소켓 핸들러 매핑값이 /echo라서 만들었어요 -->
+	</servlet-mapping>
+	
 	
 	<!-- 한글 깨짐 방지 인코딩 필터 -->
 	<filter>
