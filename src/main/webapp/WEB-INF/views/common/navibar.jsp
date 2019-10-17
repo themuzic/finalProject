@@ -58,6 +58,7 @@
 <link rel="stylesheet" href="resources/semantic/form.css">
 <link rel="stylesheet" href="resources/semantic/input.css">
 <link rel="stylesheet" href="resources/semantic/image.css">
+<link rel="stylesheet" href="resources/semantic/label.css">
 
 
 <!-- summernote 에디터 -->
