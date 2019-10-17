@@ -29,6 +29,8 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<!-- 웹소켓 비동기화를 위한 속성 -->
+		<async-supported>true</async-supported>
 	</servlet>
 		
 	<servlet-mapping>

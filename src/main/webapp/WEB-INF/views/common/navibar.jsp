@@ -403,6 +403,9 @@ $.datepicker.setDefaults({
 				
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="chat.do"><i class="lnr lnr-envelope"></i>메신저 입니다 하하하하</a>
+						</li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
 								<i class="lnr lnr-alarm"></i>

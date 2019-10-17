@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <!-- sockjs 라이브러리 -->
-<script type="text/javascript" src="resources/js/sockjs-0.3.4.js"></script>
+<script type="text/javascript" src="resources/chat/js/sockjs-0.3.4.js"></script>
 
 <!-- 제이쿼리 이벤트 라이브러리 cdn -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
