@@ -133,130 +133,36 @@
 					    		</tr>
 					        </thead>
 					        <tbody>
-					            <tr onclick="location.href='freeDetail.do';">
-					            	<td>1</td>
-					            	<td>청협 창립 54주년 기념 청소년지도자 및 청소년 표창후보자 추천</td>
-					            	<td>관리자</td>
-					            	<td>12</td>
-					            	<td>2019-09-01</td>
-					            </tr>
-					             <tr>
-					            	<td>2</td>
-					            	<td>한국청소년단체협의회 회원단체 승격 신청 안내</td>
-					            	<td>관리자</td>
-					            	<td>34</td>
-					            	<td>2019-09-01</td>
-					            </tr>
-					             <tr>
-					            	<td>3</td>
-					            	<td>2019 올림픽데이런 개최 안내(대한체육회)</td>
-					            	<td>관리자</td>
-					            	<td>51</td>
-					            	<td>2019-09-01</td>
-					            </tr>
-					             <tr>
-					            	<td>4</td>
-					            	<td>[2019 전국청소년지도자대회] 청소년지도자! Vlog! 영상공모전</td>
-					            	<td>관리자</td>
-					            	<td>342</td>
-					            	<td>2019-09-01</td>
-					            </tr>
-					             <tr>
-					            	<td>5</td>
-					            	<td>재)성남시청소년재단 직원 채용 공고</td>
-					            	<td>관리자</td>
-					            	<td>214</td>
-					            	<td>2019-09-01</td>
-					            </tr>
-					             <tr>
-					            	<td>6</td>
-					            	<td>2019년 청소년푸른성장대상 수상 후보자 추천 공고 </td>
-					            	<td>관리자</td>
-					            	<td>24</td>
-					            	<td>2019-09-01</td>
-					            </tr>
-					             <tr>
-					            	<td>7</td>
-					            	<td>2019년 올키즈스트라 상위관악단 단원 수시 모집</td>
-					            	<td>관리자</td>
-					            	<td>73</td>
-					            	<td>2019-09-01</td>
-					            </tr>
-					             <tr>
-					            	<td>8</td>
-					            	<td>2019년 청소년 국제교류활동 UCC 공모전 안내</td>
-					            	<td>관리자</td>
-					            	<td>45</td>
-					            	<td>2019-09-01</td>
-					            </tr>
-					             <tr>
-					            	<td>9</td>
-					            	<td>2019 올림픽데이런 개최 안내(대한체육회) </td>
-					            	<td>관리자</td>
-					            	<td>732</td>
-					            	<td>2019-09-01</td>
-					            </tr>
-					             <tr>
-					            	<td>10</td>
-					            	<td>(미래학회) 청소년 미래캠프 청소년 참가 안내 </td>
-					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
-					            </tr>
-					             <tr>
-					            	<td>11</td>
-					            	<td>제7회 대한민국 인성교육대상 수상 후보자 추천 공고</td>
-					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
-					            </tr>
-					             <tr>
-					            	<td>12</td>
-					            	<td>서울</td>
-					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
-					            </tr>
-					             <tr>
-					            	<td>13</td>
-					            	<td>서울</td>
-					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
-					            </tr>
-					             <tr>
-					            	<td>14</td>
-					            	<td>서울</td>
-					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
-					            </tr>
-					             <tr>
-					            	<td>15</td>
-					            	<td>서울</td>
-					            	<td>관리자</td>
-					            	<td></td>
-					            	<td></td>
-					            </tr>
+					        	<c:forEach items="${list}" var="f">
+						            <tr> 
+						            	<td>${f.frId}</td>
+						            	<td>
+						            		<c:if test="${empty loginUser}">
+												${f.frTitle}
+											</c:if> 
+											<c:if test="${!empty loginUser}">
+												<c:url value="freeDetail.do" var="frdetail">
+													<c:param name="frId" value="${f.frId}"/>
+												</c:url> 
+												<a href="${frdetail}">${f.frTitle}</a>						
+											</c:if> 
+						            	</td>
+						            	<td>${f.frWriter}</td>
+						            	<td>${f.frCount}</td>
+						            	<td>${f.frCreateDate}</td>
+						            </tr>
+					        	</c:forEach>
 					            
 					        </tbody>
 					       
 					    </table>
 
-					    <button onclick="location.href='insertFree.do';" class="btn btn-primary" style="float:right;">글쓰기</button>
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
+						
+						<c:if test="${!empty sessionScope.loginUser}">
+						    <button onclick="location.href='insertFree.do';" class="btn btn-primary" style="float:right;">글쓰기</button>
+						</c:if>
+						
+						
 					<!-- 이 위까지 내용작성 -->
 					
 					</div>
@@ -288,7 +194,7 @@
 	$(function(){
 		
 		$("#myTable td").mouseenter(function(){
-			$(this).parent().css({"background" : "rgb(243, 230, 181)", "cursor" : "pointer"});
+			$(this).parent().css({"background" : "#f9f9f9", "cursor" : "pointer"});
 		}).mouseout(function(){
 			$(this).parent().css("background", "white");
 			

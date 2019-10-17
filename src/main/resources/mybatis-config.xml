@@ -22,6 +22,7 @@
 		<typeAlias type="com.kh.develoffice.reservation.model.vo.Payment" alias="Payment"/>
 		<typeAlias type="com.kh.develoffice.chat.model.vo.Chat" alias="Chat"/>
 		<typeAlias type="com.kh.develoffice.chat.model.vo.Message" alias="Message"/>
+		<typeAlias type="com.kh.develoffice.free.model.vo.Free" alias="Free"/>
 	</typeAliases>
 	
 	
@@ -30,6 +31,7 @@
 		<mapper resource="mappers/employee-mapper.xml"/>
 		<mapper resource="mappers/reservation-mapper.xml"/>
 		<mapper resource="mappers/chat-mapper.xml"/>
+		<mapper resource="mappers/free-mapper.xml"/>	
 	</mappers>
 
 </configuration>

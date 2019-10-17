@@ -25,5 +25,6 @@ public class Free {
 	private Date frCreateDate;
 	private Date frModifyDate;
 	private String frStatus;
+	private int frLikeCount;
 
 }
