@@ -79,7 +79,7 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
-				<form action="mailSending.do" method="post">
+				<form action="mailSending.do" id="uploadForm" name="uploadForm" method="post" enctype="multipart/form-data">
 					<span class="detail_select">
 					<input type="submit" value="보내기" style="font-size:16px;">
 <!-- 						<a href="" onclick="" style="font-size:16px;">보내기</a> -->
@@ -142,19 +142,19 @@
 	
 					<!-------------- 첨부파일존 시작 ---------------------------------------------------------->
 					
-					<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">	
+<!-- 					<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">	 -->
 						<div class="filezone">
 					        <table class="table" width="100%" style="border: 2px dashed #e4e4e4;height: 50px;">
 					            <tbody id="fileTableTbody">
 					                <tr>
 					                    <td id="dropZone" style="padding: 15px;text-align: center;">
-					                        파일을 드래그 하세요
+					                        	파일을 드래그 하세요
 					                    </td>
 					                </tr>
 					            </tbody>
 					        </table>
 					    </div>
-				    </form>
+<!-- 				    </form> -->
 						
 					<!-------------- 첨부파일존 끝 ---------------------------------------------------------->
 					
@@ -504,10 +504,20 @@
 		                    alert("업로드 불가");
 		                    return;
 		                }
-		                selectFile(files)
+		                /*
+		               inFile = "<input type='file' name='uploadFile'>";
+		                inFile.files[0]=e.originalEvent.dataTransfer.files;
+		                //inFile = $("<input type='file' name='uploadFile'>").prop('files',e.originalEvent.dataTransfer.files);
+			            console.log(inFile);
+			            */
+			            
+		                selectFile(files);
 		            }else{
 		                alert("ERROR");
 		            }
+		            
+		            
+		            
 		        });
 		    }
 
@@ -544,7 +554,7 @@
 		                    fileSizeList[fileIndex] = fileSize;
 		 
 		                    // 업로드 파일 목록 생성
-		                    addFileList(fileIndex, fileName, fileSize);
+		                    addFileList(fileIndex, fileName, fileSize, files);
 		 
 		                    // 파일 번호 증가
 		                    fileIndex++;
@@ -556,16 +566,24 @@
 		    }
 		 
 		    // 업로드 파일 목록 생성
-		    function addFileList(fIndex, fileName, fileSize){
+		    function addFileList(fIndex, fileName, fileSize, files){
 		        var html = "";
 		        html += "<tr id='fileTr_" + fIndex + "'>";
 		        html += "    <td class='left' >";
 		        html +=         fileName + " / " + fileSize + "MB "  + "&nbsp;<a href='#' onclick='deleteFile(" + fIndex + "); return false;' class='btn small bg_02' style='box-shadow:none; border:1px solid #ececec;'>삭제</a>"
+		        html +=	"       <input type='file' name='uploadFile' id='test'>"
+		        //html += inFile
 		        html += "    </td>"
 		        html += "</tr>"
-		 
 		        $('#fileTableTbody').append(html);
+		        
+		        $("#test").prop("files", files);
+		        console.log($("#test"));
+		        
+		        // input file 숨기기
+		        $("#test").css("display", "none");
 		    }
+		
 		 
 		    // 업로드 파일 삭제
 		    function deleteFile(fIndex){
@@ -630,7 +648,7 @@
 		            });
 		        }
 		    }
-
+		    
 			
 			/*------------------------- 파일 드랍 끝 ---------------------------  */
 	
