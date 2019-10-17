@@ -391,7 +391,10 @@ $.datepicker.setDefaults({
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="brand">
-				<a href="mainPage.do"><img src="resources/assets/img/logo.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+				<c:url value="mainPage.do" var="mainPage">
+					<c:param name="empId" value="${loginUser.empId}"/>
+				</c:url>
+				<a href="${mainPage}"><img src="resources/assets/img/logo.png" alt="Klorofil Logo" class="img-responsive logo"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">

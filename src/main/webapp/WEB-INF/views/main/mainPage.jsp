@@ -8,13 +8,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>DEVELOFFICE</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
 
 
 </head>
-<body>
+<body onload="loadWidgets();">
 	<!-- WRAPPER -->
 	<div id="wrapper">
 	<!--  -->
@@ -28,78 +28,81 @@
 				<div class="container-fluid">
 				
 				<!--  -->
-				
-					<!-- OVERVIEW -->
-					<div class="panel panel-headline">
+				<!-- 근태관련 -->
+					<div class="panel" style="position:absolute;min-width:500px;">
+						<input type="hidden" class="widgetType" name="widgetType" value="1">
+						<input type="hidden" class="left" name="left" value="">
+						<input type="hidden" class="top" name="top" value="">
+						<input type="hidden" class="fold" name="fold" value="N">
+						<input type="hidden" class="status" name="status" value="Y">
+						
 						<div class="panel-heading">
-							<h3 class="panel-title">Weekly Overview</h3>
-							<p class="panel-subtitle">Period: Oct 14, 2016 - Oct 21, 2016</p>
+							<h3 class="panel-title">My Tasks</h3>
+							<div class="right">
+								<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+								<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+							</div>
 						</div>
 						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-3">
-									<div class="metric">
-										<span class="icon"><i class="fa fa-download"></i></span>
-										<p>
-											<span class="number">1,252</span>
-											<span class="title">Downloads</span>
-										</p>
+							<ul class="list-unstyled task-list">
+								<li>
+									<p>이달의 근무율 <span class="label-percent">23%</span></p>
+									<div class="progress progress-xs">
+										<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width:23%">
+											<span class="sr-only">23% Complete</span>
+										</div>
 									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="metric">
-										<span class="icon"><i class="fa fa-shopping-bag"></i></span>
-										<p>
-											<span class="number">203</span>
-											<span class="title">Sales</span>
-										</p>
+								</li>
+								<li>
+									<p>Load &amp; Stress Test <span class="label-percent">80%</span></p>
+									<div class="progress progress-xs">
+										<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+											<span class="sr-only">80% Complete</span>
+										</div>
 									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="metric">
-										<span class="icon"><i class="fa fa-eye"></i></span>
-										<p>
-											<span class="number">274,678</span>
-											<span class="title">Visits</span>
-										</p>
+								</li>
+								<li style="text-align: center;">
+									<div>
+										<button class="ui negative basic button" id="statrWork">출근</button>
+										<button class="ui positive basic button" id="endWork">퇴근</button>
 									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="metric">
-										<span class="icon"><i class="fa fa-bar-chart"></i></span>
-										<p>
-											<span class="number">35%</span>
-											<span class="title">Conversions</span>
-										</p>
+								</li>
+								<li>
+									<p>Server Check <span class="label-percent">45%</span></p>
+									<div class="progress progress-xs">
+										<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+											<span class="sr-only">45% Complete</span>
+										</div>
 									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-9">
-									<div id="headline-chart" class="ct-chart"></div>
-								</div>
-								<div class="col-md-3">
-									<div class="weekly-summary text-right">
-										<span class="number">2,315</span> <span class="percentage"><i class="fa fa-caret-up text-success"></i> 12%</span>
-										<span class="info-label">Total Sales</span>
+								</li>
+								<li>
+									<p>Mobile App Development <span class="label-percent">10%</span></p>
+									<div class="progress progress-xs">
+										<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+											<span class="sr-only">10% Complete</span>
+										</div>
 									</div>
-									<div class="weekly-summary text-right">
-										<span class="number">$5,758</span> <span class="percentage"><i class="fa fa-caret-up text-success"></i> 23%</span>
-										<span class="info-label">Monthly Income</span>
-									</div>
-									<div class="weekly-summary text-right">
-										<span class="number">$65,938</span> <span class="percentage"><i class="fa fa-caret-down text-danger"></i> 8%</span>
-										<span class="info-label">Total Income</span>
-									</div>
-								</div>
-							</div>
+								</li>
+							</ul>
 						</div>
+						
 					</div>
 					<!-- END OVERVIEW -->
-					<div class="row">
-						<div class="col-md-6">
+				
+				
+				
+				
+				
+				
+					
+					
 							<!-- RECENT PURCHASES -->
-							<div class="panel">
+							<div class="panel" style="position:absolute;min-width:500px;">
+								<input type="hidden" class="widgetType" name="widgetType" value="2">
+								<input type="hidden" class="left" name="left" value="">
+								<input type="hidden" class="top" name="top" value="">
+								<input type="hidden" class="fold" name="fold" value="N">
+								<input type="hidden" class="status" name="status" value="Y">
 								<div class="panel-heading">
 									<h3 class="panel-title">Recent Purchases</h3>
 									<div class="right">
@@ -165,28 +168,15 @@
 								</div>
 							</div>
 							<!-- END RECENT PURCHASES -->
-						</div>
-						<div class="col-md-6">
-							<!-- MULTI CHARTS -->
-							<div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">Projection vs. Realization</h3>
-									<div class="right">
-										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-									</div>
-								</div>
-								<div class="panel-body">
-									<div id="visits-trends-chart" class="ct-chart"></div>
-								</div>
-							</div>
-							<!-- END MULTI CHARTS -->
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-7">
+							
+							
 							<!-- TODO LIST -->
-							<div class="panel">
+							<div class="panel" style="position:absolute;min-width:500px;">	
+								<input type="hidden" class="widgetType" name="widgetType" value="3">
+								<input type="hidden" class="left" name="left" value="">
+								<input type="hidden" class="top" name="top" value="">
+								<input type="hidden" class="fold" name="fold" value="N">
+								<input type="hidden" class="status" name="status" value="Y">							
 								<div class="panel-heading">
 									<h3 class="panel-title">To-Do List</h3>
 									<div class="right">
@@ -239,147 +229,7 @@
 								</div>
 							</div>
 							<!-- END TODO LIST -->
-						</div>
-						<div class="col-md-5">
-							<!-- TIMELINE -->
-							<div class="panel panel-scrolling">
-								<div class="panel-heading">
-									<h3 class="panel-title">Recent User Activity</h3>
-									<div class="right">
-										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-									</div>
-								</div>
-								<div class="panel-body">
-									<ul class="list-unstyled activity-list">
-										<li>
-											<img src="resources/assets/img/user1.png" alt="Avatar" class="img-circle pull-left avatar">
-											<p><a href="#">Michael</a> has achieved 80% of his completed tasks <span class="timestamp">20 minutes ago</span></p>
-										</li>
-										<li>
-											<img src="resources/assets/img/user2.png" alt="Avatar" class="img-circle pull-left avatar">
-											<p><a href="#">Daniel</a> has been added as a team member to project <a href="#">System Update</a> <span class="timestamp">Yesterday</span></p>
-										</li>
-										<li>
-											<img src="resources/assets/img/user3.png" alt="Avatar" class="img-circle pull-left avatar">
-											<p><a href="#">Martha</a> created a new heatmap view <a href="#">Landing Page</a> <span class="timestamp">2 days ago</span></p>
-										</li>
-										<li>
-											<img src="resources/assets/img/user4.png" alt="Avatar" class="img-circle pull-left avatar">
-											<p><a href="#">Jane</a> has completed all of the tasks <span class="timestamp">2 days ago</span></p>
-										</li>
-										<li>
-											<img src="resources/assets/img/user5.png" alt="Avatar" class="img-circle pull-left avatar">
-											<p><a href="#">Jason</a> started a discussion about <a href="#">Weekly Meeting</a> <span class="timestamp">3 days ago</span></p>
-										</li>
-									</ul>
-									<button type="button" class="btn btn-primary btn-bottom center-block">Load More</button>
-								</div>
-							</div>
-							<!-- END TIMELINE -->
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<!-- TASKS -->
-							<div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">My Tasks</h3>
-									<div class="right">
-										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-									</div>
-								</div>
-								<div class="panel-body">
-									<ul class="list-unstyled task-list">
-										<li>
-											<p>Updating Users Settings <span class="label-percent">23%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width:23%">
-													<span class="sr-only">23% Complete</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<p>Load &amp; Stress Test <span class="label-percent">80%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-													<span class="sr-only">80% Complete</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<p>Data Duplication Check <span class="label-percent">100%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-													<span class="sr-only">Success</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<p>Server Check <span class="label-percent">45%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-													<span class="sr-only">45% Complete</span>
-												</div>
-											</div>
-										</li>
-										<li>
-											<p>Mobile App Development <span class="label-percent">10%</span></p>
-											<div class="progress progress-xs">
-												<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
-													<span class="sr-only">10% Complete</span>
-												</div>
-											</div>
-										</li>
-									</ul>
-								</div>
-							</div>
-							<!-- END TASKS -->
-						</div>
-						<div class="col-md-4">
-							<!-- VISIT CHART -->
-							<div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">Website Visits</h3>
-									<div class="right">
-										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-									</div>
-								</div>
-								<div class="panel-body">
-									<div id="visits-chart" class="ct-chart"></div>
-								</div>
-							</div>
-							<!-- END VISIT CHART -->
-						</div>
-						<div class="col-md-4">
-							<!-- REALTIME CHART -->
-							<div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">System Load</h3>
-									<div class="right">
-										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
-										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
-									</div>
-								</div>
-								<div class="panel-body">
-									<div id="system-load" class="easy-pie-chart" data-percent="70">
-										<span class="percent">70</span>
-									</div>
-									<h4>CPU Load</h4>
-									<ul class="list-unstyled list-justify">
-										<li>High: <span>95%</span></li>
-										<li>Average: <span>87%</span></li>
-										<li>Low: <span>20%</span></li>
-										<li>Threads: <span>996</span></li>
-										<li>Processes: <span>259</span></li>
-									</ul>
-								</div>
-							</div>
-							<!-- END REALTIME CHART -->
-						</div>
-					</div>
+						
 					
 					<!--  -->
 					
@@ -408,7 +258,155 @@
 	
 	
 	<script>
+	
+	var endLeft;
+	var endTop;
+    
+	/* 위젯 움직일때 */
+    $(".panel").draggable({
+    	cursor:"move",
+		stack:".panel",
+		opacity:0.8,
+
+        start: function(event, ui) {
+
+            var Startpos = $(this).position();
+            
+            console.log("START: \nLeft: "+ Startpos.left + "\nTop: " + Startpos.top);
+        },
+
+        stop: function(event, ui) {
+
+            var Stoppos = $(this).position();
+            
+            endLeft = Stoppos.left;
+            endTop = Stoppos.top;
+            
+            $(this).children('.left').val(endLeft);
+            $(this).children('.top').val(endTop);
+            
+            console.log("STOP: \nLeft: "+ endLeft + "\nTop: " + endTop);
+            
+            saveWidget($(this).children('.left'));            
+        }
+    });
+	
+    
+    /* 접는 버튼 눌렀을때 */
+    $(document).on('click','.btn-toggle-collapse',function(){
+    	
+    	if($(this).parents('.panel').children('.fold').val()=='N'){
+    		$(this).parents('.panel').children('.fold').val('Y');
+    	} else {
+    		$(this).parents('.panel').children('.fold').val('N');
+    	}
+    	
+    	console.log($(this).parents('.panel').children('.fold').val());
+    	
+    	saveWidget($(this));
+    });
+    
+    /* 위젯 끄는 버튼 눌렀을때 */
+    $(document).on('click','.btn-remove',function(){
+    	
+    	if($(this).parents('.panel').children('.status').val()=='N'){
+    		$(this).parents('.panel').show();
+    		$(this).parents('.panel').children('.status').val('Y');
+    	} else {
+    		$(this).parents('.panel').hide();
+    		$(this).parents('.panel').children('.status').val('N');
+    	}
+    	
+    	console.log($(this).parents('.panel').children('.status').val());
+    	
+    	saveWidget($(this));
+    });
+    
+    
+    
+	
+	function saveWidget(e) {
+		
+		$.ajax({
+			url:"saveWidget.do",
+			type:"post",
+			data:{widgetType:e.parents('.panel').children('.widgetType').val(),
+				  empId:'${loginUser.empId}',
+				  left:e.parents('.panel').children('.left').val(),
+				  top:e.parents('.panel').children('.top').val(),
+				  fold:e.parents('.panel').children('.fold').val(),
+				  status:e.parents('.panel').children('.status').val()
+				 },
+			success:function(data){
+				if(data == "success"){
+					console.log('저장성공');
+				}else{
+					console.log('저장실패');
+				}
+			},
+			error:function(){
+				console.log('통신실패');
+			}
+		});
+	}
+	
+	
+	function loadWidgets() {
+		var panels = $('.panel').children('.widgetType');
+		
+		//console.log(panels);
+		//console.log(${widgetList});
+		
+		$.each(${widgetList}, function(i, widget){
+			
+			$.each(panels, function(j, panel){
+				//console.log(panel);
+				
+				if(widget.widgetType == panel.value){
+					
+					panel.parentNode.style.left = widget.left+'px';
+					panel.parentNode.style.top = widget.top+'px';
+					panel.nextSibling.nextSibling.setAttribute('value',widget.left);
+					panel.nextSibling.nextSibling.nextSibling.nextSibling.setAttribute('value',widget.top);
+					
+					if(widget.fold == "Y"){
+						panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.style.display = 'none';
+						panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[1].classList.add('click');
+						panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[1].click();
+						panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.setAttribute('value','Y');
+						//console.log('folding 완료');
+					}
+					
+					if(widget.status == "N"){
+						panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[3].click();
+						panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.setAttribute('value','N');
+						//console.log('hide 완료');
+						
+					}
+					
+				}
+				
+			});
+			
+		});
+	}
+	
+	function foldClick() {
+		
+	}
+	
+	function statusClick() {
+		
+	}
+	
+	
+	
+	
+	
+	/* ----------------------------------------------- */
 	$(function() {
+		
+	/*
 		var data, options;
 
 		// headline charts
@@ -494,8 +492,11 @@
 		};
 
 		new Chartist.Bar('#visits-chart', data, options);
-
-
+		
+		});
+		*/
+		
+		/*
 		// real-time pie chart
 		var sysLoad = $('#system-load').easyPieChart({
 			size: 130,
@@ -522,9 +523,13 @@
 		function getRandomInt(min, max) {
 			return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
-
+		*/
 	});
+	
+	
 	</script>
-
+	
+<script src="resources/js/jquery-ui.js"></script>
+<script src="resources/js/classList.js"></script>
 </body>
 </html>

@@ -33,15 +33,32 @@
 	</resultMap>
 
 	
+	<resultMap id="widgetResultSet" type="Widget">
+		<id property="widgetType" column="widget_type"/>
+		<id property="empId" column="emp_id"/>
+		<result property="left" column="left"/>
+		<result property="top" column="top"/>
+		<result property="fold" column="fold"/>
+		<result property="status" column="status"/>
+	</resultMap>
+	
+	
 	
 	<select id="loginEmp" parameterType="Employee" resultMap="empResultSet">
 		select * from emp where emp_id=#{empId} and emp_pwd=#{empPwd}
 	</select>
 	
 	
+	<update id="saveWidget" parameterType="Widget">
+		update widget
+		set left=#{left}, top=#{top}, fold=#{fold}, status=#{status}
+		where widget_type=#{widgetType} and emp_id=#{empId}
+	</update>
 	
 	
-	
+	<select id="selectWidget" parameterType="_int" resultMap="widgetResultSet">
+		select * from widget where emp_id=#{id}
+	</select>
 	
 	
 	

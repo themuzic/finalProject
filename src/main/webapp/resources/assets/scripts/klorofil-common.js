@@ -220,6 +220,12 @@ $.fn.clickToggle = function( f1, f2 ) {
 	return this.each( function() {
 		var clicked = false;
 		$(this).bind('click', function() {
+			console.log($(this).parents('.panel').children('.fold').val());
+			if($(this).parents('.panel').children('.fold').val() == 'Y'){
+				clicked = true;
+			}
+			console.log(clicked);
+			
 			if(clicked) {
 				clicked = false;
 				return f2.apply(this, arguments);

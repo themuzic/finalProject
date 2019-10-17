@@ -1,17 +1,23 @@
 package com.kh.develoffice.employee.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.develoffice.employee.model.service.EmployeeService;
 import com.kh.develoffice.employee.model.vo.Employee;
+import com.kh.develoffice.employee.model.vo.Widget;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -30,12 +36,31 @@ public class EmployeeController {
 	@RequestMapping(value="login.do", method = RequestMethod.POST)
 	   public ModelAndView loginMember(Employee emp, HttpSession session, ModelAndView mv) {
 		
-		Employee loginUser = eService.loginEmp(emp);
-		   
+		Employee loginUser = eService.loginEmp(emp);	// 로그인 객체 정보 호출
+		
 		   if(loginUser != null) {
 			   
-			   session.setAttribute("loginUser", loginUser);			   
-			   mv.setViewName("main/mainPage");
+			   int id = loginUser.getEmpId();
+			   session.setAttribute("loginUser", loginUser);
+			   ArrayList<Widget> widgetList = eService.selectWidget(id);	// 해당 계정의 위젯 정보 호출
+			   
+//			   System.out.println(widgetList);
+			   
+			   JSONArray jArr = new JSONArray();
+
+				for(Widget w : widgetList) {
+					JSONObject jObj = new JSONObject();
+					jObj.put("widgetType", w.getWidgetType());
+					jObj.put("empId", w.getEmpId());
+					jObj.put("left", w.getLeft());
+					jObj.put("top", w.getTop());
+					jObj.put("fold", w.getFold());
+					jObj.put("status", w.getStatus());
+					
+					jArr.add(jObj);
+				}
+				
+				mv.addObject("widgetList", jArr).setViewName("main/mainPage");
 			   
 		   } else {			   
 			   mv.addObject("msg", "로그인 실패");		// 전달하고자 하는 데이터 담기 addObject(key, value);
@@ -44,6 +69,32 @@ public class EmployeeController {
 		return mv;
 	}
 	
+	@RequestMapping("mainPage.do")
+	public ModelAndView mainPage(int empId, ModelAndView mv) {
+		
+		ArrayList<Widget> widgetList = eService.selectWidget(empId);
+		
+//		System.out.println(empId);
+//		System.out.println(widgetList);
+		
+		JSONArray jArr = new JSONArray();
+
+		for(Widget w : widgetList) {
+			JSONObject jObj = new JSONObject();
+			jObj.put("widgetType", w.getWidgetType());
+			jObj.put("empId", w.getEmpId());
+			jObj.put("left", w.getLeft());
+			jObj.put("top", w.getTop());
+			jObj.put("fold", w.getFold());
+			jObj.put("status", w.getStatus());
+			
+			jArr.add(jObj);
+		}
+		
+		mv.addObject("widgetList", jArr).setViewName("main/mainPage");
+		
+		return mv;
+	}
 	
 	/**
 	 * - 로그아웃
@@ -62,9 +113,21 @@ public class EmployeeController {
 		return mv;
 	}
 	
-	@RequestMapping("mainPage.do")
-	public String mainPage() {
-		return "main/mainPage";
+	
+	@ResponseBody
+	@RequestMapping("saveWidget.do")
+	public String saveWidget(Widget w) {
+		
+		System.out.println(w);
+		
+		int result = eService.saveWidget(w);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+		
 	}
 
 }

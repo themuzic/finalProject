@@ -17,6 +17,7 @@
 		<typeAlias type="com.kh.develoffice.document.model.vo.Reference" alias="Reference"/>
 		<typeAlias type="com.kh.develoffice.employee.model.vo.Employee" alias="Employee"/>
 		<typeAlias type="com.kh.develoffice.employee.model.vo.WorkTime" alias="WorkTime"/>
+		<typeAlias type="com.kh.develoffice.employee.model.vo.Widget" alias="Widget"/>
 		<typeAlias type="com.kh.develoffice.reservation.model.vo.Reservation" alias="Reservation"/>
 		<typeAlias type="com.kh.develoffice.reservation.model.vo.Payment" alias="Payment"/>
 		<typeAlias type="com.kh.develoffice.chat.model.vo.Chat" alias="Chat"/>
