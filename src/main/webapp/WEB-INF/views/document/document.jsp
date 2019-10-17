@@ -572,20 +572,20 @@
 								</div>
 								<div class="add-del-btn with-fourline">
 									<div class="top" style="margin-top: 70px;">
-										<a href="javascript:void(0);" class="icon btn-add js-btn-approval-first-line" onclick="Approval.addUser('selectApprovalFirstLine');"><span class="blind"></span></a>
-										<a href="javascript:void(0);" class="icon btn-del js-btn-approval-first-line" onclick="Approval.deleteUser('selectApprovalFirstLine');"><span class="blind"></span></a>
+										<a class="icon btn-add js-btn-approval-first-line"><span class="blind"></span></a>
+										<a class="icon btn-del js-btn-approval-first-line"><span class="blind"></span></a>
 									</div>
 									<div class="middle" style="margin-top: 50px;">
-										<a href="javascript:void(0);" class="icon btn-add js-btn-approval-second-line" onclick="Approval.addUser('selectApprovalSecondLine');"><span class="blind"></span></a>
-										<a href="javascript:void(0);" class="icon btn-del js-btn-approval-second-line" onclick="Approval.deleteUser('selectApprovalSecondLine');"><span class="blind"></span></a>
+										<a class="icon btn-add js-btn-approval-second-line"><span class="blind"></span></a>
+										<a class="icon btn-del js-btn-approval-second-line"><span class="blind"></span></a>
 									</div>
 									<div class="bottom" style="margin-top: 34px;">
-										<a href="javascript:void(0);" class="icon btn-add js-btn-approval-third-line" onclick="Approval.addUser('selectApprovalThirdLine');"><span class="blind"></span></a>
-										<a href="javascript:void(0);" class="icon btn-del js-btn-approval-third-line" onclick="Approval.deleteUser('selectApprovalThirdLine');"><span class="blind"></span></a>
+										<a class="icon btn-add js-btn-approval-third-line"><span class="blind"></span></a>
+										<a class="icon btn-del js-btn-approval-third-line"><span class="blind"></span></a>
 									</div>
 									<div class="last" style="margin-top: 25px;">
-										<a href="javascript:void(0);" class="icon btn-add js-btn-approval-fourth-line" onclick="Approval.addUser('selectApprovalFourthLine');"><span class="blind"></span></a>
-										<a href="javascript:void(0);" class="icon btn-del js-btn-approval-fourth-line" onclick="Approval.deleteUser('selectApprovalFourthLine');"><span class="blind"></span></a>
+										<a class="icon btn-add js-btn-approval-fourth-line"><span class="blind"></span></a>
+										<a class="icon btn-del js-btn-approval-fourth-line"><span class="blind"></span></a>
 									</div>
 								</div>
 								<div class="fr mgb20">
@@ -612,7 +612,7 @@
 											</div>
 						
 											<div class="layer_button">
-												<button type="button" class="btn_variables" onclick="Approval.selectMultiNodeUser();">확인</button> <button type="button" onclick="$j('#layerMultiNode').hide();">취소</button>
+												<button type="button" class="btn_variables">확인</button> <button type="button" onclick="$j('#layerMultiNode').hide();">취소</button>
 											</div>
 										</div>
 									</div>
@@ -621,13 +621,14 @@
 											<div class="to-item after">
 												<span class="title">결재 <span class="point_color bold" id="sp_selectApprovalFirstLine">1</span></span>
 												<div class="updown-wrap first js-move-approval-first-line" style="width: 55px;">
-													<span class="blind icon down" onclick="Approval.downUser('selectApprovalFirstLine');"></span>
-													<span class="blind icon up" onclick="Approval.upUser('selectApprovalFirstLine');"></span>
+													<span class="blind icon down"></span>
+													<span class="blind icon up"></span>
 												</div>
 											</div>
 											<div class="list">
 												<select multiple="multiple" id="selectApprovalFirstLine">
-												<option value="57511" node_id="45295" title="전재광 (cocoaTest)" disabled="" edit="N" old_new="old" enable_delete="Y">전재광 (cocoaTest)</option></select>
+													<option value="57511" node_id="45295" title="전재광 (cocoaTest)" disabled="" edit="N" old_new="old" enable_delete="Y">전재광 (cocoaTest)</option>
+												</select>
 											</div>
 						
 										</div>
@@ -643,8 +644,8 @@
 											<div class="to-item after">
 												<span class="title">합의 <span class="point_color bold" id="sp_selectApprovalSecondLine">0</span></span>
 												<div class="updown-wrap first js-move-approval-second-line" style="width: 55px;">
-													<span class="blind icon down" onclick="Approval.downUser('selectApprovalSecondLine');"></span>
-													<span class="blind icon up" onclick="Approval.upUser('selectApprovalSecondLine');"></span>
+													<span class="blind icon down"></span>
+													<span class="blind icon up"></span>
 												</div>
 											</div>
 											<div class="list">
@@ -658,8 +659,8 @@
 											<div class="to-item after">
 												<span class="title">재무합의 <span class="point_color bold" id="sp_selectApprovalThirdLine">0</span></span>
 												<div class="updown-wrap first js-move-approval-third-line" style="width: 55px;">
-													<span class="blind icon down" onclick="Approval.downUser('selectApprovalThirdLine');"></span>
-													<span class="blind icon up" onclick="Approval.upUser('selectApprovalThirdLine');"></span>
+													<span class="blind icon down"></span>
+													<span class="blind icon up"></span>
 												</div>
 											</div>
 											<div class="list">
@@ -679,12 +680,12 @@
 											<div class="to-item after">
 												<span class="title">참조 <span class="point_color bold" id="sp_selectApprovalFourthLine">0</span></span>
 												<div class="updown-wrap first js-move-approval-fourth-line" style="width: 55px;">
-													<span class="blind icon down" onclick="Approval.downUser('selectApprovalFourthLine');"></span>
-													<span class="blind icon up" onclick="Approval.upUser('selectApprovalFourthLine');"></span>
+													<span class="blind icon down"></span>
+													<span class="blind icon up"></span>
 												</div>
 											</div>
-											<div class="list" style="height: 54px;>
-												<select multiple="multiple" id="selectApprovalFourthLine"">
+											<div class="list" style="height: 54px;">
+												<select multiple="multiple" id="selectApprovalFourthLine">
 												</select>
 										   </div>
 										</div>
@@ -693,9 +694,9 @@
 								</div>
 							</div>
 							<div class="layer_button">
-								<button type="button" class="btn_variables" onclick="addressbook.btnApply();">확인</button> <button type="button" class="closeBtn" onclick="addressbook.closeAddressbook();">취소</button>
+								<button type="button" class="btn_variables">확인</button> <button type="button" class="closeBtn">취소</button>
 							</div>
-							<a href="javascript:void(0);" class="icon btn_closelayer closeBtn" onclick="addressbook.closeAddressbook();" title="레이어 닫기"></a>
+							<a class="icon btn_closelayer closeBtn" title="레이어 닫기"></a>
 						</div>
 						
 						
@@ -1075,7 +1076,7 @@
 		});
 		
 
-		
+		/* 에디터 */
 		$("#summernote").hide();
 		
 		$("#documentTypeSelect").on('change',function(){
@@ -1166,7 +1167,6 @@
 				$("#approval_address_layer").addClass("show");
 			});
 			
-			
 			$("#addDealInfo").click(function(){
 				$("#add_account_layer").addClass("show");				
 			});
@@ -1222,9 +1222,7 @@
 					$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'">').text(emp.empName+" "+emp.jobName);
 					$("#rightList").append($op);
 				}
-
 			});
-			
 		});
 		
 		// 직원이름 여러개 선택 하는거
@@ -1237,10 +1235,18 @@
 		//전체선택
 		$("#selectAll").on('click',function(){
 			$("#rightList option").attr('selected',true);
+			$("#rightList option").css({
+				'background-color':'#e8ecee',
+				'color':'#676767'
+			});
 		});
 		//전체선택취소
 		$("#cancelAll").on('click',function(){
 			$("#rightList option").attr('selected',false);
+			$("#rightList option").css({
+				'background-color':'white',
+				'color':'#676767'
+			})
 		});
 		//정렬 버튼
 		$('#anchorApprovalUserOrder').on('click',function(){
@@ -1300,8 +1306,7 @@
 			
 			$("#orderApprovalDropdown").toggleClass('show');
 		});
-		
-		
+				
 		
 		 
 		 
