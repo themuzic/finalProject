@@ -1253,22 +1253,22 @@
 			
 			if(document.getElementById('rightList').innerHTML != ""){
 				
-				console.log('if문 통과1');
+				//console.log('if문 통과1');
 				
 				if($(this).hasClass('sortByName')){	//이름정렬
-					console.log('if문 통과2');
+					//console.log('if문 통과2');
 					sortArr.sort(function(a, b){
 						return a.empName < b.empName ? -1 : a.empName > b.empName ? 1: 0;
 					});
 					
 				} else{	//직급정렬
-					console.log('if문 통과3');
+					//console.log('if문 통과3');
 					sortArr.sort(function(a, b){
 						return a.jobCode - b.jobCode;
 					});
 					
 				}
-				console.log(sortArr);
+				//console.log(sortArr);
 				
 				$("#rightList").html("");
 				
