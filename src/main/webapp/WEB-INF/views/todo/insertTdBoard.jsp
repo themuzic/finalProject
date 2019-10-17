@@ -74,7 +74,7 @@
 						 	
 						 	<br><br>
 						 	
-						 	<h4 style="padding: 2px 0 15px 0;">상세내용</h4>
+						 	<h4 style="padding: 2px 0 15px 0;">설명 (선택사항)</h4>
 						 	<textarea class="form-control" placeholder="상세내용을 입력해주세요" rows="4"></textarea>
 						 	
 						 	<br><br>
