@@ -414,10 +414,8 @@ $.datepicker.setDefaults({
 					}
 					function openStatus(){
 						if(message == null || message.closed){
-							console.log('false : ' +messenger);
 							return false;
 						}else{
-							console.log('true : ' +messenger);
 							return true;
 						}
 					}
