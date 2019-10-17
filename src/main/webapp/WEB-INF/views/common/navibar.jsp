@@ -401,10 +401,31 @@ $.datepicker.setDefaults({
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
 				
+				<script>
+					var message;
+					
+					function messenger(){
+						
+						if(openStatus()){
+							message.focus();
+						}else{
+							message = window.open("chat.do","messenger", "width=500,height=561", "false");
+						}
+					}
+					function openStatus(){
+						if(message == null || message.closed){
+							console.log('false : ' +messenger);
+							return false;
+						}else{
+							console.log('true : ' +messenger);
+							return true;
+						}
+					}
+				</script>
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<a href="chat.do"><i class="lnr lnr-envelope"></i>메신저 입니다 하하하하</a>
+							<a onclick="messenger();"><i class="lnr lnr-envelope"></i>메신저 입니다 하하하하</a>
 						</li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">

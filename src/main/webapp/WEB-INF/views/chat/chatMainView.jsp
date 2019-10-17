@@ -91,7 +91,7 @@ body{
 .left-section{
 	width: 98%;
 	float: left;
-	height: 500px;
+	height: 450px;
 	border-right:1px solid #E6E6E6;
 	background-color: #FFF;
 	z-index: 1;
