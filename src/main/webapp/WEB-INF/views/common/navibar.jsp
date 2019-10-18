@@ -382,6 +382,10 @@ $.datepicker.setDefaults({
 	    background-position: -96px -380px;
 	}
 	
+	#messenger:hover{
+		cursor:pointer;
+	}
+	
 </style>
 
 </head>
@@ -423,7 +427,7 @@ $.datepicker.setDefaults({
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<a onclick="messenger();"><i class="lnr lnr-envelope"></i>메신저 입니다 하하하하</a>
+							<a id="messenger" onclick="messenger();"><i class="lnr lnr-envelope"></i>메신저 입니다 하하하하</a>
 						</li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">

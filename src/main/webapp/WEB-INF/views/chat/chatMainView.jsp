@@ -151,6 +151,11 @@ ul li:hover{
 	color: #c1c1c1;
 }
 
+.item:hover{
+	color:black;
+	cursor:pointer;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -265,15 +270,21 @@ ul li:hover{
 
 </head>
 <body>
-	<div class="ui left demo vertical inverted very thin sidebar labeled icon menu">
-		<div class="item">
-	    	<i class="fa fa-user"></i>
+	<div class="ui left demo vertical inverted very thin sidebar labeled icon menu" style="background:#e1e1e1; text-align:center; color:rgb(166, 166, 166);">
+		<br>
+		<div class="item" style="color:black;">
+	    	<i class="fa fa-2x fa-user"></i>
+	    	<br>친구
 	    </div>
-	    <div class="item">
-	  		<i class="fa fa-comment"></i>
+	    <br>
+	    <div class="item" onclick="location.href='chatList.do';">
+	  		<i class="fa fa-2x fa-comment"></i>
+	  		<br>채팅
 	  	</div>
+	  	<br>
 	  	<div class="item">
-	    	<i class="fa fa-ellipsis-h"></i>
+	    	<i class="fa fa-2x fa-ellipsis-h"></i>
+	    	<br>더보기
 	  	</div>
 	</div>
 	<div class="pusher">
@@ -293,11 +304,11 @@ ul li:hover{
 								<div class="chatList">
 									<div class="img">
 										<i class="fa fa-circle"></i>
-										<img src="/demo/man01.png">
+										<img src="resources/images/${loginUser.profilePath}">
 									</div>
 									<div class="desc">
-										<h5>유현규 사원</h5>
-										<small>오늘 하루도 화이팅!!</small>
+										<h5>${loginUser.empName } ${loginUser.jobName }</h5>
+										<small>${loginUser.statusMsg }</small>
 									</div>
 								</div>
 							</li>

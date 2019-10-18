@@ -19,7 +19,7 @@ import lombok.ToString;
 public class Chat {
 	
 	private int chatId;						// 채팅방 번호
-	private ArrayList<Employee> empList;	// 사원 이름
+	private Employee emp;					// 사원 이름
 	private Date createDate;				// 생성일자 
 	private Date modifyDate;				// 갱신일자
 	
