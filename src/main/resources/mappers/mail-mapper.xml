@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mailMapper">
+	
+	<resultMap id="MailResultSet" type="Mail">
+		<id property="mailNum" column="mail_num"/>
+		<result property="empId" column="emp_id"/>
+		<result property="mailFrom" column="mail_from"/>
+		<result property="mailTo" column="mail_to"/>
+		<result property="mailTitle" column="mail_title"/>
+		<result property="mailContent" column="mail_content"/>
+		<result property="originalFileName" column="original_filename"/>
+		<result property="renameFileName" column="rename_filename"/>
+		<result property="mailDate" column="mail_date"/>
+		<result property="mailType" column="mail_type"/>
+		<result property="mailImportant" column="mail_important"/>
+		<result property="mailStatus" column="mail_status"/>
+	</resultMap>
+	
+
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from Mail
+		where mail_status='Y'
+	</select>
+	
+	<select id="receiveMailList" resultMap="MailResultSet">
+		select *
+		from Mail
+		where mail_status='Y'
+		order by mail_num desc
+	</select>
+
+	<insert id="insertMail" parameterType="Mail">
+		insert into Mail
+		values (mail_seq.nextval,#{empId},#{mailFrom},#{mailTo},#{mailTitle},#{mailContent},
+		        #{originalFileName},#{renameFileName},sysdate,default,default,default)
+	</insert>
+
+</mapper>

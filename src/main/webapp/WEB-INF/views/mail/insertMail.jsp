@@ -81,19 +81,20 @@
 					
 				<form action="mailSending.do" id="uploadForm" name="uploadForm" method="post" enctype="multipart/form-data">
 					<span class="detail_select">
-					<input type="submit" value="보내기" style="font-size:16px;">
-<!-- 						<a href="" onclick="" style="font-size:16px;">보내기</a> -->
+						<input type="hidden" name="empId" value="${ loginUser.empId }">
+						<input type="hidden" name="mailFrom" value="${ loginUser.email }">
+						<input type="submit" value="보내기" style="font-size:14px; width:82px; height:37px;" class="ui primary button">
 					</span> &nbsp;
 					<span class="earlyView" id="earlyView">
-						<a href="#myModal" data-target="#myModal" data-toggle="modal" onclick="" style="font-size:16px;">미리보기</a>
+						<a href="#myModal" data-target="#myModal" data-toggle="modal" style="font-size:16px; padding-left:10px;">미리보기</a>
 					</span>
 					<hr>
 					<div class="write_input">
 						<p style="width:80px; position:absolute;top:4px;">받는 사람</p>
 						<div class="txt" style="margin-left:80px; position:relative;">
 							<div class="position">
-								<input type="email" class="cc_addr autocomplete" name="mailTo" id='to_addr' placeholder="메일 주소를 입력하세요." 
-									style="width:97%; height:30px; padding-top:5px; padding-left:3px;">
+								<textarea class="cc_addr autocomplete" name="mailTo" id='to_addr' placeholder="메일 주소를 입력하세요." 
+									style="width:97%; height:30px; padding-top:5px; padding-left:3px;"></textarea>
 								<button type="button" class="" id="addressSelect" onclick="" style="display:inline-block;padding:0; font-size:20px">
 									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
 								</button>
@@ -107,35 +108,21 @@
 					</div>
 									
 					<div class="write_input js-approval-input docuTitle">
-						<p style="width:80px; position:absolute;top:4px;">참조 
-							<span class="add-sendlist">+</span>
-						</p>
+						<p style="width:80px; position:absolute;top:4px;">참조 </p>
 						<div class="txt title" style="margin-left:80px; position:relative;">
 							<div class="position">
-								<input type="email" name="title" id="approval_document_title" style="width:97%; height:30px;">
+								<textarea  id="approval_document_title" style="width:97%; height:30px;"></textarea>
 								<button type="button" class="" id="select" onclick="" style="display:inline-block;padding:0; font-size:20px">
 									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
 								</button>
 							</div>
-						</div>
-					
-					<div class="write_input" style='display:none' id='divBCC'>
-						<p style="width:80px; position:absolute;top:4px;">숨은 참조</p>
-						<div class="txt" style="margin-left:80px; margin-top:10px; position:relative;">
-							<div class="position">
-								<input type="email" class="cc_addr autocomplete" name="bcc_addr" id='bcc_addr' style="width:97%; height:30px;">
-								<button type="button" class="" id="hideSelect" onclick="" style="display:inline-block;padding:0; font-size:20px">
-									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
-								</button>
-							</div>
-						</div>
 					</div>
 					
 					<div class="write_input js-approval-input docuTitle">
 						<label style="width:80px; position:absolute;top:4px;">제목</label>
 						<div class="txt title" style="margin-left:80px; margin-top:10px; position:relative;">
 							<div class="position">
-								<input type="text" name="mailTitle" id="approval_document_title" value="" style="width:97%; height:30px;">
+								<textarea name="mailTitle" id="approval_document_title" value="" style="width:97%; height:30px;"></textarea>
 							</div>
 						</div>
 					</div>
@@ -581,7 +568,7 @@
 		        console.log($("#test"));
 		        
 		        // input file 숨기기
-		        $("#test").css("display", "none");
+		        $("#test").css("display", "block");
 		    }
 		
 		 

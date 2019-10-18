@@ -44,6 +44,14 @@
 	    border: 1px solid #999;
 	    z-index: 130;
     }
+    .icon.file {
+	    display: block;
+	    width: 9px;
+	    height: 14px;
+	    background-position: -210px -15px;
+	    margin-top: 3px;
+	    cursor: pointer;
+    }
 	
 </style>
 
@@ -69,14 +77,14 @@
 			<div id="searchArea" align="right">
 				<form action="search.bo">
 					<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray">
-					       <option>------</option>
-					       <option value="writer">이름</option>
-					       <option value="title">제목</option>
-					       <option value="content">내용</option>
-					    </select>
-					    <div class="ui input">
-					<input type="search" name="search" value="" placeholder="Search..." style="height:32px;">
-					<i class="circular search link"></i>
+					    <option>------</option>
+					    <option value="writer">이름</option>
+					    <option value="title">제목</option>
+					    <option value="content">내용</option>
+					</select>
+					<div class="ui input">
+						<input type="search" name="search" value="" placeholder="Search..." style="height:32px;">
+						<i class="circular search link"></i>
 					</div>	         
 					<button type="submit" onclick="return validate();" style="color:#3287B2">검색하기</button>
 				</form>
@@ -162,9 +170,9 @@
 			<colgroup>
 				<col style="width:2%;">
 				<col style="width:4%;">
-				<col style="width:8%;">
+				<col style="width:18%;">
 				<col style="width:60%;">
-				<col style="width:12%;">
+				<col style="width:6%;">
 				<col style="width:15%;">
 			</colgroup>
 				<thead>
@@ -178,61 +186,73 @@
 					</tr>
 				</thead>
 				<tbody class="select_subject">
+				<c:forEach items="${ list }" var="m">
 					<tr>
 						<td>
-							<input type="hidden">
+							<input type="hidden" value="${ m.mailNum }">
 							<input type="checkbox" class="check chkBox">
 						</td>
 						<td><i class="far fa-star"></i></td>
-						<td class="mName">전재광</td>
-						<td class="mTitle"><a href="receiveDetail.do" style="color:black;">메일제목입니다.</a></td>
-						<td align="right">첨부파일</td>
-						<td class="aa">19-09-16 09:47</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="hidden">
-							<input type="checkbox" class="check chkBox">
+						<td class="mName">${ m.mailFrom }</td>
+						<td class="mTitle"><a href="receiveDetail.do" style="color:black;"></a>
+							<c:url value="receiveDetail.do" var="mdetail">
+								<c:param name="mailNum" value="${ m.mailNum }"/>						
+							</c:url>
+							<a href="${ mdetail }" style="color:gray">${ m.mailTitle }</a>
 						</td>
-						<td><i class="far fa-star"></i></td>
-						<td class="mName">유현규</td>
-						<td class="mTitle">메일제목입니다.</td>
-						<td align="right">첨부파일</td>
-						<td class="aa">19-09-17 10:43</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="hidden">
-							<input type="checkbox" class="check chkBox">
+						<td align="right">
+							<c:if test="${ !empty m.renameFileName }">
+								<div class="icon file" style="width:20px; height:20px;">
+								
+								</div>
+							</c:if>
+							<c:if test="${ empty m.renameFileName }">
+								<div></div>
+							</c:if>
 						</td>
-						<td><i class="far fa-star"></i></td>
-						<td class="mName">설용환</td>
-						<td class="mTitle">메일제목입니다.</td>
-						<td align="right">첨부파일</td>
-						<td class="aa">19-09-18 11:53</td>
+						<td class="mDate aa">${ m.mailDate }</td>
 					</tr>
-					<tr>
-						<td>
-							<input type="hidden">
-							<input type="checkbox" class="check chkBox">
-						</td>
-						<td><i class="far fa-star"></i></td>
-						<td class="mName">김상윤</td>
-						<td class="mTitle">메일제목입니다.</td>
-						<td align="right">첨부파일</td>
-						<td class="aa">19-09-19 14:00</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="hidden">
-							<input type="checkbox" class="check chkBox">
-						</td>
-						<td><i class="far fa-star"></i></td>
-						<td class="mName">원영주</td>
-						<td class="mTitle">메일제목입니다.</td>
-						<td align="right">첨부파일</td>
-						<td class="aa">19-09-19 15:43</td>
-					</tr>
+			
+				</c:forEach>
+					
+					<tr align="center" height="20">
+						<td colspan="6">
+							<!-- [이전] -->
+							<c:if test="${ pi.currentPage eq 1 }">
+								[이전]
+							</c:if>
+							<c:if test="${ pi.currentPage ne 1 }">
+								<c:url value="receiveMail.do" var="before">
+									<c:param name="currentPage" value="${ pi.currentPage -1 }"/>
+								</c:url>
+								<a href="${ before }" style="color:gray;">[이전]</a>
+							</c:if>
+							
+							<!-- [번호들] -->
+							<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+								<c:if test="${ p eq pi.currentPage }">
+									<font color="#3287B2" size="3">${ p }</font>
+								</c:if>
+								<c:if test="${ p ne pi.currentPage }">
+									<c:url value="receiveMail.do" var="page">
+										<c:param name="currentPage" value="${ p }"/>
+									</c:url>
+									<a href="${ page }" style="color:gray;">${ p }</a>
+								</c:if>
+							</c:forEach>
+							
+							<!-- [다음] -->
+							<c:if test="${ pi.currentPage eq pi.maxPage }">
+								[다음]
+							</c:if>	
+							<c:if test="${ pi.currentPage ne pi.maxPage }">
+								<c:url value="receiveMail.do" var="next">
+									<c:param name="currentPage" value="${ pi.currentPage +1 }"/>
+								</c:url>
+								<a href="${ next }" style="color:gray;">[다음]</a>					
+							</c:if>
+<!-- 						</td> -->
+					</tr>	
 				</tbody>
 		</table>
 
