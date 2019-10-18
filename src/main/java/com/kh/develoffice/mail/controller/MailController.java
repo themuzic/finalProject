@@ -67,11 +67,6 @@ public class MailController {
 		return "mail/insertMail";
 	}
 	
-	@RequestMapping("receiveDetail.do")
-	public String receiveDetail() {
-		return "mail/receiveDetail";
-	}
-	
 	// mailSending 코드
 	@RequestMapping("mailSending.do")
 	public String mailSending(Mail m, HttpServletRequest request, Model model, HttpSession session,
@@ -104,67 +99,59 @@ public class MailController {
 //		  	} catch(Exception e){
 //		      System.out.println(e);
 //		  	}
-	    
-	    //////////////// ????????????????????
 	    	
-		
-		
-		
-	    	if(uploadFile!=null && !uploadFile.getOriginalFilename().equals("")) {	// 첨부파일이 넘어온 경우
-			
-	    	System.out.println("파일유무 조건문 통과");
-	    	
-			// 서버에 파일 등록(폴더에 저장)
-			// 내가 저장하고자 하는 파일, request 전달하고 실제로 저장된 파일명 돌려주는 saveFile
-			
-			String filename = saveFile(uploadFile, request);
-//			String filename = "D:/test.txt";                   	   	// 파일 경로
-			
-			System.out.println("바뀐 파일명 : "+filename);
-			   
-		    try {
-		      MimeMessage message = mailSender.createMimeMessage();
-		      MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-		 
-		      messageHelper.setFrom(m.getMailFrom());  			// 보내는사람 생략하거나 하면 정상작동을 안함
-		      messageHelper.setTo(m.getMailTo());      			// 받는사람 이메일
-		      messageHelper.setSubject(m.getMailTitle());   	// 메일제목은 생략이 가능하다
-		      messageHelper.setText(m.getMailContent());   		// 메일 내용
-		      
-		      String root = request.getSession().getServletContext().getRealPath("resources");
-			  String savePath = root + "\\mupload";
-			  
-			  System.out.println(savePath + "\\" + filename);
-		 
-		      // 파일첨부
-			  FileSystemResource fsr = new FileSystemResource(savePath + "\\" + filename); // 파일 경로
-			  messageHelper.addAttachment(uploadFile.getOriginalFilename(), fsr);
-			     
-			      mailSender.send(message);
-			  	} catch(Exception e){
-			      System.out.println(e);
-			  	}
 
-			if(filename != null) {	// 파일이 잘 저장된 경우
-				m.setOriginalFileName(uploadFile.getOriginalFilename());
-				m.setRenameFileName(filename);
-				}
+    	if(uploadFile!=null && !uploadFile.getOriginalFilename().equals("")) {	// 첨부파일이 넘어온 경우
+		
+    	System.out.println("파일유무 조건문 통과");
+		
+		String filename = saveFile(uploadFile, request);
+		
+		System.out.println("바뀐 파일명 : "+filename);
+		   
+	    try {
+	      MimeMessage message = mailSender.createMimeMessage();
+	      MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+	 
+	      messageHelper.setFrom(m.getMailFrom());  			// 보내는사람 생략하거나 하면 정상작동을 안함
+	      messageHelper.setTo(m.getMailTo());      			// 받는사람 이메일
+	      messageHelper.setSubject(m.getMailTitle());   	// 메일제목은 생략이 가능하다
+	      messageHelper.setText(m.getMailContent());   		// 메일 내용
+	      
+	      String root = request.getSession().getServletContext().getRealPath("resources");
+		  String savePath = root + "\\mupload";
+		  
+		  System.out.println(savePath + "\\" + filename);
+	 
+	      // 파일첨부
+		  FileSystemResource fsr = new FileSystemResource(savePath + "\\" + filename); // 파일 경로
+		  messageHelper.addAttachment(uploadFile.getOriginalFilename(), fsr);
+		     
+		      mailSender.send(message);
+		  	} catch(Exception e){
+		      System.out.println(e);
+		  	}
+
+		if(filename != null) {	// 파일이 잘 저장된 경우
+			m.setOriginalFileName(uploadFile.getOriginalFilename());
+			m.setRenameFileName(filename);
 			}
-	    	
-	    	// mailfile 테이블에 insert
-//	    	MailFile mf = new MailFile();
-	    	
-	    	
-			// mail 테이블에 insert
-			int result = mService.insertMail(m);
-			
-			if(result > 0) {
-				return "mail/successMail";
-			}else {
-				model.addAttribute("msg", "메일전송 실패!");
-				return "common/errorPage";
-			}		
 		}
+    	
+    	// mailfile 테이블에 insert
+//	    	MailFile mf = new MailFile();
+    	
+    	
+		// mail 테이블에 insert
+		int result = mService.insertMail(m);
+		
+		if(result > 0) {
+			return "mail/successMail";
+		}else {
+			model.addAttribute("msg", "메일전송 실패!");
+			return "common/errorPage";
+		}		
+	}
 	 
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
 		
@@ -198,5 +185,20 @@ public class MailController {
 		
 		return renameFileName;	// 수정명 반환
 	}	
+	
+	@RequestMapping("receiveDetail.do")
+	public ModelAndView receiveDetail(int mailNum, ModelAndView mv) {
+		
+		Mail m = mService.receiveDetail(mailNum);
+		
+		if(m != null) {
+			mv.addObject("m", m).setViewName("mail/receiveDetail");
+		}else {
+			mv.addObject("msg", "메일 상세조회 실패").setViewName("common/errorPage");
+		}
+		
+		return mv;
+	}
+	
 
 }

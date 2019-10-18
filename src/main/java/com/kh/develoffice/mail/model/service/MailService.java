@@ -13,5 +13,7 @@ public interface MailService {
 	
 	int insertMail(Mail m);
 	
+	Mail receiveDetail(int mailNum);
+	
 
 }

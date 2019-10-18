@@ -34,5 +34,10 @@ public class MailDao {
 		
 		return sqlSession.insert("mailMapper.insertMail", m);
 	}
+	
+	public Mail receiveDetail(int mailNum) {
+		
+		return sqlSession.selectOne("mailMapper.receiveDetail", mailNum);
+	}
 
 }

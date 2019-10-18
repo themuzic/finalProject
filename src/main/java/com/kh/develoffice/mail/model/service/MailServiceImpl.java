@@ -32,4 +32,10 @@ public class MailServiceImpl implements MailService{
 		return mDao.insertMail(m);
 	}
 
+	@Override
+	public Mail receiveDetail(int mailNum) {
+		
+		return mDao.receiveDetail(mailNum);
+	}
+
 }
