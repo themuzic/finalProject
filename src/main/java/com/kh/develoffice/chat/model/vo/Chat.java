@@ -22,6 +22,7 @@ public class Chat {
 	private Employee emp;					// 사원 이름
 	private Date createDate;				// 생성일자 
 	private Date modifyDate;				// 갱신일자
+	private int chatType;					// 단톡인지 아닌지
 	
 
 	
