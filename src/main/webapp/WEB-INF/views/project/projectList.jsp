@@ -21,6 +21,10 @@
 		padding-right:50px;
 		font-size:14px;
 	}
+	.top-nav{
+		margin-top:5px;
+		margin-bottom:25px;
+	}
 	
 
 </style>
@@ -43,10 +47,130 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
+					<div class="top-nav">
+						<table id="top-table">
+							<tr id="content-table">
+								<td>
+									<select class="form-control input-lg" style="width:40%;">
+										<option value="cheese">Final Project</option>
+										<option value="tomatoes">Semi Project</option>
+										<option value="mozarella">Mini Project</option>
+										<option value="mushrooms">Mushrooms</option>
+										<option value="pepperoni">Pepperoni</option>
+										<option value="onions">Onions</option>
+									</select>
+								</td>
+								<td>
+									<div class="ui inverted segment">
+									  <button type="button" style="background-color:#3287B2; color:white; float:right;" class="btn btn-lg" id="insertTdBoard" onclick="location.href='insertTodoBoard.do'">
+									  	<i class="fas fa-plus-circle"></i> 새 프로젝트
+									  </button>
+									</div>
+								</td>
+							</tr>
+						</table>
+					
+					</div>
+					
+					<div class="ui three cards" id="project-list">
+					
+						<div class="ui cards">
+						
+						  <div class="card">
+						    <div class="content">
+						      <div class="header" style="padding:0 0 10px 0;">Final Project</div>
+						      <div class="meta" style="float:right; padding:0 0 10px 0;">
+						        <i class="fas fa-user-cog"></i>
+						        <span>전재광</span>
+						      </div>
+						      <div class="description">
+						        <i class="fas fa-users"></i>
+						        <span>원영주 | 유현규 | 김상윤 | 설용환</span>
+						      </div>
+						    </div>
+						    <div class="ui bottom attached button" onclick="location.href='projectDetail.do'">
+						      <i class="fas fa-sign-in-alt"></i>
+						      입장
+						    </div>
+						  </div>
+						  
+						  <div class="card">
+						    <div class="content">
+						      <div class="header" style="padding:0 0 10px 0;">Semi Project</div>
+						      <div class="meta" style="float:right; padding:0 0 10px 0;">
+						        <i class="fas fa-user-cog"></i>
+						        <span>원영주</span>
+						      </div>
+						      <div class="description">
+						        <i class="fas fa-users"></i>
+						        <span>Elliot Fu is a film-maker from New York.</span>
+						      </div>
+						    </div>
+						    <div class="ui bottom attached button">
+						      <i class="fas fa-sign-in-alt"></i>
+						      입장
+						    </div>
+						  </div>
+						  
+						  <div class="card">
+						    <div class="content">
+						      <div class="header" style="padding:0 0 10px 0;">Mini Project</div>
+						      <div class="meta" style="float:right; padding:0 0 10px 0;">
+						        <i class="fas fa-user-cog"></i>
+						        <span>원영주</span>
+						      </div>
+						      <div class="description">
+						        <i class="fas fa-users"></i>
+						        <span>Elliot Fu is a film-maker from New York.</span>
+						      </div>
+						    </div>
+						    <div class="ui bottom attached button">
+						      <i class="fas fa-sign-in-alt"></i>
+						      입장
+						    </div>
+						  </div>
+						  
+						  <div class="card">
+						    <div class="content">
+						      <div class="header" style="padding:0 0 10px 0;">Mini Project</div>
+						      <div class="meta" style="float:right; padding:0 0 10px 0;">
+						        <i class="fas fa-user-cog"></i>
+						        <span>원영주</span>
+						      </div>
+						      <div class="description">
+						        <i class="fas fa-users"></i>
+						        <span>Elliot Fu is a film-maker from New York.</span>
+						      </div>
+						    </div>
+						    <div class="ui bottom attached button">
+						      <i class="fas fa-sign-in-alt"></i>
+						      입장
+						    </div>
+						  </div>
+						  
+						  <div class="card">
+						    <div class="content">
+						      <div class="header" style="padding:0 0 10px 0;">Mini Project</div>
+						      <div class="meta" style="float:right; padding:0 0 10px 0;">
+						        <i class="fas fa-user-cog"></i>
+						        <span>원영주</span>
+						      </div>
+						      <div class="description">
+						        <i class="fas fa-users"></i>
+						        <span>Elliot Fu is a film-maker from New York.</span>
+						      </div>
+						    </div>
+						    <div class="ui bottom attached button">
+						      <i class="fas fa-sign-in-alt"></i>
+						      입장
+						    </div>
+						  </div>
+						  
+						  
+						</div>
 					
 					
-					
-					
+					<div class="ui three cards">
 					
 					
 					

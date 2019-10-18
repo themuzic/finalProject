@@ -32,7 +32,7 @@
 		margin-right:15px;
 	}
 	
-	#top-table{
+	.top-nav{
 		margin-top:5px;
 		margin-bottom:5px;
 	}
@@ -62,91 +62,49 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
-					<table id="top-table">
-						<tr id="content-table">
-							<td>
-								<!-- <div class="ui compact menu">
-								  <div class="ui simple dropdown item">
-								    Dropdown
-								    <i class="dropdown icon"></i>
-								    <div class="menu">
-								      <div class="item">Choice 1</div>
-								      <div class="item">Choice 2</div>
-								      <div class="item">Choice 3</div>
-								    </div>
-								  </div>
-								</div> -->
-								
-								<select class="form-control input-lg" style="width:40%;">
-									<option value="cheese">2019년 10월</option>
-									<option value="tomatoes">2019년 9월</option>
-									<option value="mozarella">2019년 8월</option>
-									<option value="mushrooms">Mushrooms</option>
-									<option value="pepperoni">Pepperoni</option>
-									<option value="onions">Onions</option>
-								</select>
-							</td>
-							<td>
-								<div class="ui inverted segment">
-								  <button type="button" style="background-color:#3287B2; color:white;" class="btn btn-lg" id="insertTdBoard" onclick="location.href='insertTodoBoard.do'">
-								  	<i class="fas fa-plus-circle"></i> Board
-								  </button>
-								</div>
-							</td>
-						</tr>
-					</table>
+					<div class="top-nav">
+						<table id="top-table">
+							<tr id="content-table">
+								<td>
+									<select class="form-control input-lg" style="width:40%;">
+										<option value="cheese">2019년 10월</option>
+										<option value="tomatoes">2019년 9월</option>
+										<option value="mozarella">2019년 8월</option>
+										<option value="mushrooms">Mushrooms</option>
+										<option value="pepperoni">Pepperoni</option>
+										<option value="onions">Onions</option>
+									</select>
+								</td>
+								<td>
+									<div class="ui inverted segment">
+									  <button type="button" style="background-color:#3287B2; color:white;" class="btn btn-lg" id="insertTdBoard" onclick="location.href='insertTodoBoard.do'">
+									  	<i class="fas fa-plus-circle"></i> Board
+									  </button>
+									</div>
+								</td>
+							</tr>
+						</table>
+					
+					</div>
+					
 					
 					<br><br>
 					
 					<div class="ui three cards">
-					
-						<div class="ui link cards" onclick="location.href='todoList.do'" >
-						  <div class="card">
+				
+						<div class="ui link cards">
+						
+						  <div class="card" onclick="location.href='todoList.do'">
 						    <div class="image">
-						      <img src="resources/images/square-image.png">
+						      <img src="resources/images/sky1.jpg">
 						    </div>
 						    <div class="content">
 						      <div class="header">2019년 10월</div>
 						      <div class="meta">
+						        <a>원영주</a>
+						      </div>
+						      <div class="description">
 						        2019년 10월 서비스팀 업무 관리
-						      </div>
-						    </div>
-						    <div class="extra content">
-						      <span class="right floated">
-						        2019-10-13
-						      </span>
-						    </div>
-						  </div>
-					  	</div>
-					  	
-					  	<div class="ui link cards" onclick="location.href='todoList.do'">
-						  <div class="card">
-						    <div class="image">
-						      <img src="resources/images/default_profile.png">
-						    </div>
-						    <div class="content">
-						      <div class="header">2019년 9월</div>
-						      <div class="meta">
-						        2019년 9월 업무 관리
-						      </div>
-						    </div>
-						    <div class="extra content">
-						      <span class="right floated">
-						        2019-09-02
-						      </span>
-						    </div>
-						  </div>
-					  	</div>
-					  	
-					  	<div class="ui link cards" onclick="location.href='todoList.do'">
-						  <div class="card">
-						    <div class="image">
-						      <img src="resources/images/confRoom.jpg">
-						    </div>
-						    <div class="content">
-						      <div class="header">Matt Giampietro</div>
-						      <div class="meta">
-						        Matthew is an interior designer living in New York.
 						      </div>
 						    </div>
 						    <div class="extra content">
@@ -155,28 +113,69 @@
 						      </span>
 						    </div>
 						  </div>
-					  	</div>
-					  	
-					  	<div class="ui link cards" onclick="location.href='todoList.do'">
+						  
 						  <div class="card">
 						    <div class="image">
 						      <img src="resources/images/default_profile.png">
 						    </div>
 						    <div class="content">
-						      <div class="header">2019년 9월</div>
+						      <div class="header">Molly</div>
 						      <div class="meta">
-						        2019년 9월 업무 관리
+						        <span class="date">Coworker</span>
+						      </div>
+						      <div class="description">
+						        Molly is a personal assistant living in Paris.
 						      </div>
 						    </div>
 						    <div class="extra content">
 						      <span class="right floated">
-						        2019-09-02
+						        Joined in 2011
 						      </span>
 						    </div>
 						  </div>
-					  	</div>
-					  	
-					
+						  
+						  <div class="card">
+						    <div class="image">
+						      <img src="resources/images/confRoom.jpg">
+						    </div>
+						    <div class="content">
+						      <div class="header">Elyse</div>
+						      <div class="meta">
+						        <a>Coworker</a>
+						      </div>
+						      <div class="description">
+						        Elyse is a copywriter working in New York.
+						      </div>
+						    </div>
+						    <div class="extra content">
+						      <span class="right floated">
+						        Joined in 2014
+						      </span>
+						    </div>
+						  </div>
+						  
+						  <div class="card">
+						    <div class="image">
+						      <img src="resources/images/default_profile.png">
+						    </div>
+						    <div class="content">
+						      <div class="header">Elyse</div>
+						      <div class="meta">
+						        <a>Coworker</a>
+						      </div>
+						      <div class="description">
+						        Elyse is a copywriter working in New York.
+						      </div>
+						    </div>
+						    <div class="extra content">
+						      <span class="right floated">
+						        Joined in 2014
+						      </span>
+						    </div>
+						  </div>
+						  
+						</div>
+						
 					</div>
 					
 				

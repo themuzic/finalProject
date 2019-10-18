@@ -154,6 +154,7 @@
 						<div class="pContent1" >
 						
 							<!-- progress 바 -->
+							<!-- PM만 수정가능 , 나머지는 readonly -->
 							<div class="prgress-bar" style="float:right; border:1px solid #F2E9E1;">
 								<p align="center" style="font-size:23px; color:#53777A; font-weight:bold; padding:10px 0 0 0;" >진행률</p>
 								<div class="progress-circle p50">
@@ -165,9 +166,19 @@
 								</div>
 							</div>
 							
-							<div class="addButtonArea" style="float:left; padding:120px 0 0 0;">
+							<div class="btnArea" style="float:left; padding:120px 0 0 0;">
 								<button type="button" class="btn btn-default">
 									<i class="fa fa-plus-square"></i> 업무리스트 추가
+								</button>
+								&nbsp;
+								
+								<!-- PM만 보이게 -->
+								<button type="button" class="btn btn-success">
+									<i class="fas fa-user-plus"></i>&nbsp;팀원 추가
+								</button>
+								&nbsp;
+								<button type="button" class="btn btn-danger">
+									<i class="fas fa-user-times"></i>&nbsp;팀원 삭제
 								</button>
 							</div>
 							
