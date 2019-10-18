@@ -381,8 +381,10 @@ $.datepicker.setDefaults({
 	    padding-top: 2px;
 	    background-position: -96px -380px;
 	}
-	
 	#messenger:hover{
+		cursor:pointer;
+	}
+	.closeBtn{
 		cursor:pointer;
 	}
 	

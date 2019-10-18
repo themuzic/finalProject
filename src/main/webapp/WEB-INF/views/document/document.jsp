@@ -45,7 +45,9 @@
 		border: 1px solid #ccc !important;
 		background:white !important;
 		box-shadow: none !important;
-		
+	}
+	.btn-add, .btn-del{
+		cursor:pointer;
 	}
 	
 	/* 에디터 CSS 끝 */
@@ -332,7 +334,7 @@
 							</colgroup>
 							<tbody>
 								<tr>
-									<th scope="row" class="sign"><div style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">결재<span class="spr-approval set addPlus" title="결재" onclick="ApprovalDocument.approvalLineSetting('approval_first_line', 'A');"></span></div></th>
+									<th scope="row" class="sign"><div style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">결재<span class="spr-approval set addPlus" title="결재"></span></div></th>
 									<td class="sign vt" id="approvalFirstLine">
 										<table style="width:100%;table-layout:fixed"><colgroup><col><col><col><col><col><col><col></colgroup>
 											<tbody>
@@ -532,7 +534,7 @@
 									<div class="after">
 										<div class="fl" id="searchMessage" style="display: none;"><span id="searchKeyword"></span> 검색결과 : <span id="searchCount"></span></div>
 										<div class="fr">
-											<a class="icon order" title="정렬" id="anchorApprovalUserOrder"></a>
+											<a class="icon order" title="정렬" id="anchorApprovalUserOrder" style="cursor:pointer;"></a>
 											<ul class="dropdown-menu hide" id="orderApprovalDropdown" style="width: 70px; top: 124px; left: 314px;">
 												<li><a class="js-approval-node-order sortByName">이름순</a></li>
 												<li><a class="js-approval-node-order sortByJob">직급순</a></li>
@@ -575,10 +577,12 @@
 										<a class="icon btn-add js-btn-approval-first-line"><span class="blind"></span></a>
 										<a class="icon btn-del js-btn-approval-first-line"><span class="blind"></span></a>
 									</div>
-									<div class="middle" style="margin-top: 50px;">
-										<a class="icon btn-add js-btn-approval-second-line"><span class="blind"></span></a>
-										<a class="icon btn-del js-btn-approval-second-line"><span class="blind"></span></a>
+									<div class="middle" style="margin-top: 60px;">
+										<a class="icon btn-add js-btn-approval-third-line"><span class="blind"></span></a>
+										<a class="icon btn-del js-btn-approval-third-line"><span class="blind"></span></a>
 									</div>
+									
+									<!-- 
 									<div class="bottom" style="margin-top: 34px;">
 										<a class="icon btn-add js-btn-approval-third-line"><span class="blind"></span></a>
 										<a class="icon btn-del js-btn-approval-third-line"><span class="blind"></span></a>
@@ -587,6 +591,8 @@
 										<a class="icon btn-add js-btn-approval-fourth-line"><span class="blind"></span></a>
 										<a class="icon btn-del js-btn-approval-fourth-line"><span class="blind"></span></a>
 									</div>
+									 -->
+									
 								</div>
 								<div class="fr mgb20">
 									<div class="dropdown hide show" style="top:60px;right:0">
@@ -619,15 +625,14 @@
 									<div class="first-line four-line after">
 										<div class="fl">
 											<div class="to-item after">
-												<span class="title">결재 <span class="point_color bold" id="sp_selectApprovalFirstLine">1</span></span>
+												<span class="title">결재 <span class="point_color bold" id="sp_selectApprovalFirstLine">0</span></span>
 												<div class="updown-wrap first js-move-approval-first-line" style="width: 55px;">
 													<span class="blind icon down"></span>
 													<span class="blind icon up"></span>
 												</div>
 											</div>
 											<div class="list">
-												<select multiple="multiple" id="selectApprovalFirstLine">
-													<option value="57511" node_id="45295" title="전재광 (cocoaTest)" disabled="" edit="N" old_new="old" enable_delete="Y">전재광 (cocoaTest)</option>
+												<select multiple="multiple" id="selectApprovalFirstLine" style="overflow-y: hidden !important;">
 												</select>
 											</div>
 						
@@ -639,6 +644,9 @@
 											향<br>
 										</div>
 									</div>
+									
+									
+									<!-- 
 									<div class="three-line after">
 										<div class="fl">
 											<div class="to-item after">
@@ -654,17 +662,21 @@
 											</div>
 										</div>
 									</div>
+									 -->
+									
+									
+									
 									<div class="three-line after">
 										<div class="fl">
 											<div class="to-item after">
-												<span class="title">재무합의 <span class="point_color bold" id="sp_selectApprovalThirdLine">0</span></span>
+												<span class="title">참조 <span class="point_color bold" id="sp_selectApprovalThirdLine">0</span></span>
 												<div class="updown-wrap first js-move-approval-third-line" style="width: 55px;">
 													<span class="blind icon down"></span>
 													<span class="blind icon up"></span>
 												</div>
 											</div>
 											<div class="list">
-												<select multiple="multiple" id="selectApprovalThirdLine">
+												<select multiple="multiple" id="selectApprovalThirdLine" style="overflow-y: hidden !important;">
 												</select>
 										   </div>
 										</div>
@@ -675,6 +687,8 @@
 											향<br>
 										</div>
 									</div>
+									
+									<!-- 
 									<div class="last-line two-line after">
 										<div class="fl">
 											<div class="to-item after">
@@ -689,21 +703,19 @@
 												</select>
 										   </div>
 										</div>
-						
 									</div>
+									 -->
+									
 								</div>
 							</div>
 							<div class="layer_button">
-								<button type="button" class="btn_variables">확인</button> <button type="button" class="closeBtn">취소</button>
+								<button type="button" class="btn_variables confirmBtn">확인</button> <button type="button" class="closeBtn">취소</button>
 							</div>
 							<a class="icon btn_closelayer closeBtn" title="레이어 닫기"></a>
 						</div>
 						
-						
 						<div class="layer_back" style="position: fixed;width: 100%;height: 100%;z-index: 1000;background-color: rgb(0, 0, 0);opacity: 0.3;top: 0px;left: 0px;margin: 0px;padding: 0px;"></div>
 					</div>
-						
-						
 						
 						
 						
@@ -941,9 +953,9 @@
 									</tbody>
 								</table>
 								<div class="layer_button">
-									<button type="button" class="btn_variables" onclick="ApprovalDocument.saveDealInformation('SAVE');">저장</button>
-									<button type="button" class="btn_variables" onclick="ApprovalDocument.saveDealInformation('REPEAT');">저장 후 추가</button>
-									<button type="button" class="closeBtn" onclick="hideLayer();">취소</button>
+									<button type="button" class="btn_variables">저장</button>
+									<button type="button" class="btn_variables">저장 후 추가</button>
+									<button type="button" class="closeBtn">취소</button>
 								</div>
 								<a href="javascript:void(0)" class="icon btn_closelayer closeBtn" onclick="hideLayer();" title="레이어 닫기"></a>
 							
@@ -1153,27 +1165,21 @@
 				$(".filezone").addClass("show");
 			}
 			
-			
-			
 		});
 		
+		/* 모달 close 버튼 */
+		$(".closeBtn").click(function(){
+			$('.layer_box').removeClass("show");
+		});
+		/* 결제선 모달 on */
+		$("#btnApprovalSelect").click(function(){
+			$("#approval_address_layer").addClass("show");
+		});
+		/* 지출내역 추가 모달 on */
+		$("#addDealInfo").click(function(){
+			$("#add_account_layer").addClass("show");				
+		});
 		
-		
-			$(".closeBtn").click(function(){
-				$('.layer_box').removeClass("show");
-			});
-			
-			$("#btnApprovalSelect").click(function(){
-				$("#approval_address_layer").addClass("show");
-			});
-			
-			$("#addDealInfo").click(function(){
-				$("#add_account_layer").addClass("show");				
-			});
-		
-		
-		
-			
 			
 		/* 결재선 창 기능 시작 */
 		
@@ -1203,7 +1209,7 @@
 			
 			$.each(${empList}, function(index, emp){
 				
-				$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'">').text(emp.empName+" "+emp.jobName);
+				$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'" title="'+emp.deptName+'">').text(emp.empName+" "+emp.jobName);
 				$("#rightList").append($op);
 			});
 		});
@@ -1219,7 +1225,7 @@
 			$.each(${empList}, function(index, emp){
 				
 				if(dept == emp.deptName){
-					$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'">').text(emp.empName+" "+emp.jobName);
+					$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'" title="'+emp.deptName+'">').text(emp.empName+" "+emp.jobName);
 					$("#rightList").append($op);
 				}
 			});
@@ -1293,11 +1299,11 @@
 				
 				$.each(sortArr, function(index, emp){
 					if(conditionName == ""){	//파란색으로 선택된 부서명이 없으면 => 전체 직원 선택이면
-						$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'">').text(emp.empName+" "+emp.jobName);
+						$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'" title="'+emp.deptName+'">').text(emp.empName+" "+emp.jobName);
 						$("#rightList").append($op);
 					} else {	// 파란색으로 선택된 부서명이 있으면
 						if(conditionName == emp.deptName){
-							$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'">').text(emp.empName+" "+emp.jobName);
+							$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'" title="'+emp.deptName+'">').text(emp.empName+" "+emp.jobName);
 							$("#rightList").append($op);
 						}
 					}
@@ -1306,7 +1312,85 @@
 			
 			$("#orderApprovalDropdown").toggleClass('show');
 		});
+
+		
+		/* 결제선 추가 버튼 */
+		$(".btn-add").on('click',function(){
+			
+			var selectedArr = $("#rightList option:selected");
+			var approval;
+			var num;
+			
+			if($(this).hasClass('js-btn-approval-first-line')){
+				approval = $("#selectApprovalFirstLine");
+				num = $("#sp_selectApprovalFirstLine");
+			} else if($(this).hasClass('js-btn-approval-second-line')){
+				approval = $("#selectApprovalSecondLine");
 				
+			} else if($(this).hasClass('js-btn-approval-third-line')){
+				approval = $("#selectApprovalThirdLine");
+				num = $("#sp_selectApprovalThirdLine");
+			} else if($(this).hasClass('js-btn-approval-fourth-line')){
+				approval = $("#selectApprovalFourthLine");
+			}
+			
+			$.each(selectedArr, function(index, value){
+				var $op = $('<option value="'+value.value+'" disabled>').text(value.text+'('+value.title+')');
+				approval.append($op);
+			});
+				num.text(approval.children().length);
+		});
+		
+		/* 결제선 삭제 버튼 */
+		$(".btn-del").on('click',function(){
+			
+			var selectedArr = $("#rightList option:selected");
+			var zone;
+			var approvalArr;
+			var num;
+			
+			if($(this).hasClass('js-btn-approval-first-line')){
+				approvalArr = $("#selectApprovalFirstLine option");
+				zone = $("#selectApprovalFirstLine");
+				num = $("#sp_selectApprovalFirstLine");
+			} else if($(this).hasClass('js-btn-approval-second-line')){
+				approvalArr = $("#selectApprovalSecondLine option");
+				zone = $("#selectApprovalSecondLine");
+				
+			} else if($(this).hasClass('js-btn-approval-third-line')){
+				approvalArr = $("#selectApprovalThirdLine option");
+				zone = $("#selectApprovalThirdLine");
+				num = $("#sp_selectApprovalThirdLine");
+			} else if($(this).hasClass('js-btn-approval-fourth-line')){
+				approvalArr = $("#selectApprovalFourthLine option");
+				zone = $("#selectApprovalFourthLine");
+			}
+			
+			console.log(approvalArr);
+			console.log(zone.children());
+			$.each(approvalArr, function(i, value1){
+				$.each(selectedArr, function(j, value2){
+					
+					if(value1.value == value2.value){
+						value1.remove();
+					}
+				});
+			});
+			
+			num.text(zone.children().length)
+		});
+		
+		/* 확인 버튼 */
+		$(".confirmBtn").on('click',function(){
+			
+		});
+		
+		
+		
+		
+		
+		
+		
 		
 		 
 		 

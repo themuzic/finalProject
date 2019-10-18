@@ -317,7 +317,7 @@ body, html {height: 100%;}
 .layer_box.address.line .line-list-wrap > .fr .list .unit:hover {background: #e8ecee}
 .layer_box.address.line .line-list-wrap > .fr.one .list li:hover {background:none;}
 .layer_box.address.line .line-list-wrap > .fr .list li:hover .file_delete {visibility:visible;}
-.layer_box.address.line .line-list-wrap > .fr .list {float: left;width:203px;height:103px;margin-bottom:20px;padding:0 0 0 0;border:1px solid #cdcdcc;overflow-y: auto;overflow-x: hidden;}
+.layer_box.address.line .line-list-wrap > .fr .list {float: left;width:203px;height:103px;margin-bottom:20px;padding:0 0 0 0;border:1px solid #cdcdcc;overflow-y: hidden;overflow-x: hidden;}
 .layer_box.address.line .line-list-wrap > .fr .finance-agree .list {height:72px;margin-bottom: 0;}
 .layer_box.address.line .line-list-wrap > .fr .finance-agree .list select {height:72px;}
 .layer_box.address.line .line-list-wrap > .fr .approval {margin-top: 38px;}
@@ -358,11 +358,11 @@ body, html {height: 100%;}
 .layer_box.address.line .line-list-wrap > .fr .two-line .list {height: 42px;}
 .layer_box.address.line .line-list-wrap > .fr .three-line {}
 .layer_box.address.line .line-list-wrap > .fr .three-line select,
-.layer_box.address.line .line-list-wrap > .fr .three-line .list {height: 62px;}
+.layer_box.address.line .line-list-wrap > .fr .three-line .list {height: 81px;}
 .layer_box.address.line .line-list-wrap > .fr .three-line .approval-direction {height: 56px;padding-top: 6px;background-position: -96px -374px;}
 .layer_box.address.line .line-list-wrap > .fr .four-line {}
 .layer_box.address.line .line-list-wrap > .fr .four-line select,
-.layer_box.address.line .line-list-wrap > .fr .four-line .list {height: 82px;}
+.layer_box.address.line .line-list-wrap > .fr .four-line .list {height: 81px;}
 .layer_box.address.line .line-list-wrap > .fr .four-line .approval-direction {height: 78px;padding-top: 12px;background-position: -96px -353px;}
 .layer_box.address.line .line-list-wrap > .fr .five-line {}
 .layer_box.address.line .line-list-wrap > .fr .five-line select,
