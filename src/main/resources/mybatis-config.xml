@@ -24,6 +24,8 @@
 		<typeAlias type="com.kh.develoffice.chat.model.vo.Message" alias="Message"/>
 		<typeAlias type="com.kh.develoffice.free.model.vo.Free" alias="Free"/>
 		<typeAlias type="com.kh.develoffice.common.Department" alias="Department"/>
+		<typeAlias type="com.kh.develoffice.todo.model.vo.TodoBoard" alias="TodoBoard"/>
+		<typeAlias type="com.kh.develoffice.todo.model.vo.Todo" alias="Todo"/>
 	</typeAliases>
 	
 	
@@ -33,6 +35,7 @@
 		<mapper resource="mappers/reservation-mapper.xml"/>
 		<mapper resource="mappers/chat-mapper.xml"/>
 		<mapper resource="mappers/free-mapper.xml"/>	
+		<mapper resource="mappers/todo-mapper.xml"/>
 	</mappers>
 
 </configuration>
