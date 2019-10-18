@@ -19,9 +19,10 @@ import lombok.ToString;
 public class Chat {
 	
 	private int chatId;						// 채팅방 번호
-	private Employee emp;					// 사원 이름
+	private String chatName;				// 채팅방 이름
 	private Date createDate;				// 생성일자 
 	private Date modifyDate;				// 갱신일자
+	private int chatType;					// 단톡인지 아닌지
 	
 
 	

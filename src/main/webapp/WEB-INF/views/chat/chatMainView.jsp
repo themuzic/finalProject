@@ -320,116 +320,21 @@ ul li:hover{
 			<div class="body-section">
 				<div class="left-section" data-mcs-theme="minimal-dark">
 					<ul>
-						<li>
-							<div class="chatList">
-								<div class="img">
-									<i class="fa fa-circle"></i>
-									<img src="/demo/man01.png">
+						<c:forEach items="${ empList }" var="emp">
+							<li>
+								<div class="chatList">
+									<input type="hidden" value="${emp.empId }">
+									<div class="img">
+										<i class="fa fa-circle"></i>
+										<img src="resources/images/${emp.profilePath}">
+									</div>
+									<div class="desc">
+										<h5>${ emp.empName } ${emp.jobName }</h5>
+										<small>${emp.statusMsg }</small>
+									</div>
 								</div>
-								<div class="desc">
-									<small class="time">05:30 am</small>
-									<h5>Luis Yankee</h5>
-									<small>Lorem ipsum dolor sit amet...</small>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="chatList">
-								<div class="img">
-									<i class="fa fa-circle"></i>
-									<img src="/demo/man01.png">
-								</div>
-								<div class="desc">
-									<h5>유현규 사원</h5>
-									<small>오늘 하루도 화이팅!!</small>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="chatList">
-								<div class="img">
-									<img src="/demo/man03.png">
-								</div>
-								<div class="desc">
-									<small class="time">4 day</small>
-									<h5>Lajy Ion</h5>
-									<small>Lorem ipsum dolor sit amet...</small>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="chatList">
-								<div class="img">
-									<img src="/demo/man04.png">
-								</div>
-								<div class="desc">
-									<small class="time">18 day</small>
-									<h5>Lod Kine</h5>
-									<small>Lorem ipsum dolor sit amet...</small>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="chatList">
-								<div class="img">
-									<i class="fa fa-circle"></i>
-									<img src="/demo/man01.png">
-								</div>
-								<div class="desc">
-									<small class="time">11:50 am</small>
-									<h5>Nik Minaj</h5>
-									<small>Lorem ipsum dolor sit amet...</small>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="chatList">
-								<div class="img">
-									<img src="/demo/man02.png">
-								</div>
-								<div class="desc">
-									<small class="time">20 day</small>
-									<h5>Win Sina</h5>
-									<small>Lorem ipsum dolor sit amet...</small>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="chatList">
-								<div class="img">
-									<img src="/demo/man03.png">
-								</div>
-								<div class="desc">
-									<small class="time">18 day</small>
-									<h5>Jack Clerk</h5>
-									<small>Lorem ipsum dolor sit amet...</small>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="chatList">
-								<div class="img">
-									<img src="/demo/man02.png">
-								</div>
-								<div class="desc">
-									<small class="time">20 day</small>
-									<h5>Win Sina</h5>
-									<small>Lorem ipsum dolor sit amet...</small>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="chatList">
-								<div class="img">
-									<img src="/demo/man03.png">
-								</div>
-								<div class="desc">
-									<small class="time">18 day</small>
-									<h5>Jack Clerk</h5>
-									<small>Lorem ipsum dolor sit amet...</small>
-								</div>
-							</div>
-						</li>
+							</li>
+						</c:forEach>
 					</ul>
 				</div>
 	
