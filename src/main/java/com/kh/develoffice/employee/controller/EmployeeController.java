@@ -46,9 +46,9 @@ public class EmployeeController {
 			   int id = loginUser.getEmpId();
 			   session.setAttribute("loginUser", loginUser);	// 세션에 로그인 객체 담기
 			   
-//			   SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+//			   SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
 //			   Date currentTime = new Date ();
-//			   String today = mSimpleDateFormat.format ( currentTime );
+//			   String today = sdf.format ( currentTime );
 //			   
 //			   session.setAttribute("today", today);	// 세션에 오늘 날짜 담기
 			   

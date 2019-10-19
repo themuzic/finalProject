@@ -714,4 +714,8 @@ fieldset, img {
 .time-div.rs-time-title.time_table_tbody_area{
 	border: 1px solid #ddd;
 }
+.recent-time {
+    position: absolute;
+    left: 8px;
+}
 /*# sourceMappingURL=maps/style.css.map */

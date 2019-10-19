@@ -32,7 +32,7 @@
 
 
 </head>
-<body>
+<body onload="setToday();">
 	<!-- WRAPPER -->
 	<div id="wrapper">
 	<!--  -->
@@ -65,12 +65,12 @@
 								<input type="hidden" value="T" id="resource_type_hidden">
 								<div class="cal_head" id="cal_head_fixed_div" style="padding-right: 42px; padding-left: 20px;">
 									<div id="cal_head_fixed_div_area">
-										<button type="button" class="icon directleft" onclick="bookingResourceListTime.moveDate('previous');"><span class="blind">전일 이동</span></button>
-										<input type="text" class="num datepicker" id="booking_date" value="오늘날짜" style="width:110px;border:none;margin-right:5px;" readonly="">
-										<span id="week_name_span">(화)</span>
+										<button type="button" class="icon directleft" onclick="moveDate('prev');"><span class="blind">전일 이동</span></button>
+										<input type="text" class="num datepicker" id="booking_date" value="" style="width:110px;border:none;margin-right:5px;" readonly>
+										<span id="week_name_span"></span>
 										<button type="button" class="icon month" onclick="$('#booking_date').focus();"><span class="blind">예약 날짜 선택</span></button>
-										<button type="button" class="icon directright" onclick="bookingResourceListTime.moveDate('next');"><span class="blind">익일 이동</span></button>
-										<button type="button" class="today-btn vt" onclick="bookingResourceListTime.setToday();">오늘</button>
+										<button type="button" class="icon directright" onclick="moveDate('next');"><span class="blind">익일 이동</span></button>
+										<button type="button" class="today-btn vt" onclick="setToday();">오늘</button>
 									</div>
 									<div id="tbl_head_fixed_div_area">
 										<table class="rs-cal-table" id="booking_clone_tbl">
@@ -128,21 +128,22 @@
 												<td style="border-bottom:none;">
 													<table>
 														<tbody class="time-div rs-time-title h1032 time_table_tbody_area">
-															<tr><th class="rs-time-pri"><span id="rs-scroll-position"></span>오전 9시</th></tr>
-															<tr><th class="rs-time-pri">오전 10시</th></tr>
-															<tr><th class="rs-time-pri">오전 11시</th></tr>
-															<tr><th class="rs-time-pri">오후 12시</th></tr>
-															<tr><th class="rs-time-pri">오후 1시</th></tr>
-															<tr><th class="rs-time-pri">오후 2시</th></tr>
-															<tr><th class="rs-time-pri">오후 3시</th></tr>
-															<tr><th class="rs-time-pri"><span class="recent-time"><img src="/static/ui/images/resource/icon_time.png" alt=""></span>오후 4시</th></tr>
-															<tr><th class="rs-time-pri">오후 5시</th></tr>
+															<tr><th class="rs-time-pri timeLabel" name="09"><span id="rs-scroll-position"></span>오전 9시</th></tr>
+															<tr><th class="rs-time-pri timeLabel" name="10">오전 10시</th></tr>
+															<tr><th class="rs-time-pri timeLabel" name="11">오전 11시</th></tr>
+															<tr><th class="rs-time-pri timeLabel" name="12">오후 12시</th></tr>
+															<tr><th class="rs-time-pri timeLabel" name="13">오후 1시</th></tr>
+															<tr><th class="rs-time-pri timeLabel" name="14">오후 2시</th></tr>
+															<tr><th class="rs-time-pri timeLabel" name="15">오후 3시</th></tr>
+															<tr><th class="rs-time-pri timeLabel" name="16">오후 4시</th></tr>
+															<tr><th class="rs-time-pri timeLabel" name="17">오후 5시</th></tr>
 														</tbody>
 													</table>
 												</td>
 												<td style="border-bottom:none;">
-													<table class="rs-resource-tbl" id="time-table" no="5109">
+													<table class="rs-resource-tbl" id="time-table">
 														<tbody class="marker-wrapper resource_selectable_area h1032 time_table_tbody_area ui-selectable">
+														
 															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="0"></td></tr>
 															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="0"></td></tr>
 															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="1"></td></tr>
@@ -161,6 +162,7 @@
 															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="7"></td></tr>
 															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="8"></td></tr>
 															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="8"></td></tr>
+															
 														</tbody>
 													</table>
 												</td>
@@ -318,12 +320,7 @@
 	<!-- script 작성 -->
 	<script>
 	
-		/* $('#booking_date').datepicker(); */
-		/* $("#booking_date_in_layer").datepicker(); */
-	
 		$(function(){
-			
-			
 			
 			/* 사이드바의 해당 메뉴 활성화 유지하기 */
 			$("#menu5").addClass("in");
@@ -337,12 +334,118 @@
 				$("#booking_time_layer").addClass('show');
 			});
 			
-			
-			
-			
 		});
-	
-	
+		
+		/* 페이지 열리면 세팅해주기 */		
+		function setToday(){
+			/* 오늘 날짜 세팅 */
+			var today = new Date();
+			var dd = today.getDate();
+			var MM = today.getMonth()+1;	// 1월 = 0
+			var yyyy = today.getFullYear();
+			var hh = today.getHours();
+
+			if(dd<10) {
+			    dd='0'+dd
+			} 
+
+			if(MM<10) {
+				MM='0'+MM
+			} 
+
+			if(hh<10) {
+				hh='0'+hh
+			} 
+			
+			today = yyyy+'-'+MM+'-'+dd;
+			
+			$("#booking_date").val(today);	// 날짜 세팅
+			
+			var week = ['일', '월', '화', '수', '목', '금', '토'];
+			var dotw = week[new Date(today).getDay()];
+			
+			$("#week_name_span").text('('+dotw+')');	// 요일 세팅
+			
+			/* 현재 시간 표시해주기 */
+			var timeArr = $(".timeLabel");
+			var $timeSpan = $('<span class="recent-time">');
+			var $timeImg = $('<img src="resources/images/icon_time.png">');
+			
+			$timeSpan.append($timeImg);
+			
+			$.each(timeArr, function(index, value){
+				
+				if(value.getAttribute('name') == hh){
+					
+					var img = document.createElement("img");
+					img.src = 'resources/images/icon_time.png';
+					
+					var span = document.createElement("span");
+					span.setAttribute('class','recent-time');
+					
+					span.appendChild(img);
+					value.appendChild(span);
+				}
+			});
+			
+			/* 예약이 있으면 표시해주기 */
+			console.log($("#time-table td"));
+			
+			if(reservList != null){
+				
+				
+				
+			}
+			
+			
+		}
+		
+		/* 달력 열어서 날짜 바꿀때 마다 요일 구하기 */
+		$("#booking_date").on('change',function(){
+			
+			var bookingDay = $("#booking_date").val();
+			
+			var week = ['일', '월', '화', '수', '목', '금', '토'];
+			var dotw = week[new Date(bookingDay).getDay()];
+			
+			$("#week_name_span").text('('+dotw+')');
+		});
+		
+		/* < , > 버튼 누를때 마다 하루 전, 하루 뒤 날짜 출력하기 */
+		function moveDate(condition) {
+			
+			var oldDate = new Date($("#booking_date").val());
+			var newDate = new Date();
+			
+			if(condition == "next"){
+				
+				newDate.setDate(oldDate.getDate()+1);
+				
+			} else{
+				
+				newDate.setDate(oldDate.getDate()-1);
+			}
+			
+			var year = newDate.getFullYear();
+ 	    	var month = newDate.getMonth()+1;
+ 	    	var day = newDate.getDate();
+ 	    	
+ 	    	if(month < 10){
+ 	    		month = "0"+month;
+ 	    	}
+ 	    	if(day < 10){
+ 	    		day = "0"+day;
+ 	    	}
+ 	    	
+	    	var newDate = (year + "-" + month + "-" + day);
+	    	$("#booking_date").val(newDate);			
+		}
+		
+		
+		
+		
+		
+		
 	
 	</script>
 	
