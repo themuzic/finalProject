@@ -6,8 +6,10 @@
 		<id property="reservNum" column="reserv_num"/>
 		<result property="empId" column="emp_id"/>
 		<result property="reservType" column="reserv_type"/>
-		<result property="startDate" column="start_date"/>
-		<result property="endDate" column="end_date"/>
+		<result property="reservDate" column="reserv_date"/>
+		<result property="startTime" column="start_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="reason" column="reason"/>
 	</resultMap>
 	
 	
@@ -31,5 +33,18 @@
 		select * from payment where emp_id=#{empId}
 	</select>
 
-
+	
+	<insert id="insertReserv" parameterType="Reservation">
+		insert into reservation
+		values(reservation_seq.nextval,#{empId},#{reservType},#{reservDate},#{startTime},#{endTime},#{reason})
+	</insert>
+	
+	
+	<select id="selectReserv" parameterType="Reservation" resultMap="reservResultSet">
+		select * from reservation
+		where reserv_type=#{reservType}
+	</select>
+	
+	
+	
 </mapper>

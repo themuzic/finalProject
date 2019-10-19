@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.develoffice.reservation.model.vo.Payment;
+import com.kh.develoffice.reservation.model.vo.Reservation;
 
 @Repository("rDao")
 public class ReservationDao {
@@ -20,12 +21,19 @@ public class ReservationDao {
 	}
 	
 	
-	
 	public ArrayList<Payment> selectPayList(int empId){
 		
 		return (ArrayList)sqlSession.selectList("reservationMapper.selectPayment", empId);
 	}
 	
 	
+	public int insertReserv(Reservation reserv) {
+		return sqlSession.insert("reservationMapper.insertReserv", reserv);
+	}
+	
+	
+	public ArrayList<Reservation> selectReserv(Reservation reserv){
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectReserv", reserv);
+	}
 	
 }

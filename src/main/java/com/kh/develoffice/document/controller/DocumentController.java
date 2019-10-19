@@ -29,8 +29,8 @@ public class DocumentController {
 		ArrayList<Department> deptList = dService.selectDept();
 		ArrayList<Employee> empList = eService.selectAllEmp();
 		
-		System.out.println(deptList);
-		System.out.println(empList);
+		//System.out.println(deptList);
+		//System.out.println(empList);
 		
 		JSONArray deptArr = new JSONArray();
 		JSONArray empArr = new JSONArray();

@@ -28,6 +28,9 @@
 	#time-table tr:hover{
 		background:#ebf9fc;
 	}
+	.time-div.rs-time-title.h1032.time_table_tbody_area th{
+		border-right:none;
+	}
 </style>
 
 
@@ -144,24 +147,24 @@
 													<table class="rs-resource-tbl" id="time-table">
 														<tbody class="marker-wrapper resource_selectable_area h1032 time_table_tbody_area ui-selectable">
 														
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="0"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="0"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="1"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="1"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="2"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="2"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="3"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="3"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="4"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="4"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="5"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="5"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="6"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="6"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="7"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="7"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="8"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="8"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="09:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="09:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="10:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="10:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="11:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="11:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="12:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="12:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="13:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="13:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="14:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="14:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="15:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="15:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="16:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="16:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="17:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="17:30"></td></tr>
 															
 														</tbody>
 													</table>
@@ -200,20 +203,20 @@
 					<div id="booking_time_layer" class="booking_layer_div layer_box hide">
 						<div class="layer_box rs-booking-layer popup1 " style="margin-left: -221px; margin-top: -193.5px; display: block; z-index: 105;">
 							<form id="booking_resource_frm">
-								<input type="hidden" name="categoryNo" value="4769">
 								<div class="title_layer text_variables">예약하기</div>
 								<div class="to-add detail-search">
 									<dl class="after">
 										<dt><label for="">자원 이름</label></dt>
 										<dd>
-											<select name="resource_no[]" id="resource_list_select" cate_no="4769" resource_type="T" class="select-box" style="width:270px"><option value="5109">회의실</option></select>
+											<input type="text" name="reservType" id="resource_list_select" style="width:270px" value="회의실" readonly>
+											<input type="hidden" name="empId" value="${ loginUser.empId }">
 										</dd>
 									</dl>
 									<dl class="after">
 										<dt><label for="">날짜</label></dt>
 										<dd>
 											<div class="fl">
-												<input type="text" name="date" id="booking_date_in_layer" class="datepicker" style="width:147px;" value="2019-10-14" readonly>
+												<input type="text" name="reservDate" id="booking_date_in_layer" class="datepicker" style="width:147px;" value="" readonly>
 												<button type="button" class="icon month" onclick="$('#booking_date_in_layer').focus();"></button>
 											</div>
 										</dd>
@@ -222,46 +225,46 @@
 										<dt><label for="">예약 시간</label></dt>
 										<dd class="after">
 											<div class="fl">
-												<select id="start" class="select-box" style="width:125px;" defaulttime="2019-10-14 09:00:00">
-													<option value="09:00:00">오전 09:00</option>
-													<option value="09:30:00">오전 09:30</option>
-													<option value="10:00:00">오전 10:00</option>
-													<option value="10:30:00">오전 10:30</option>
-													<option value="11:00:00">오전 11:00</option>
-													<option value="11:30:00">오전 11:30</option>
-													<option value="12:00:00">오후 12:00</option>
-													<option value="12:30:00">오후 12:30</option>
-													<option value="13:00:00">오후 01:00</option>
-													<option value="13:30:00">오후 01:30</option>
-													<option value="14:00:00">오후 02:00</option>
-													<option value="14:30:00">오후 02:30</option>
-													<option value="15:00:00">오후 03:00</option>
-													<option value="15:30:00">오후 03:30</option>
-													<option value="16:00:00">오후 04:00</option>
-													<option value="16:30:00">오후 04:30</option>
-													<option value="17:00:00">오후 05:00</option>
-													<option value="17:30:00">오후 05:30</option>
+												<select id="start" name="startTime" class="select-box" style="width:125px;">
+													<option value="09:00">오전 09:00</option>
+													<option value="09:30">오전 09:30</option>
+													<option value="10:00">오전 10:00</option>
+													<option value="10:30">오전 10:30</option>
+													<option value="11:00">오전 11:00</option>
+													<option value="11:30">오전 11:30</option>
+													<option value="12:00">오후 12:00</option>
+													<option value="12:30">오후 12:30</option>
+													<option value="13:00">오후 01:00</option>
+													<option value="13:30">오후 01:30</option>
+													<option value="14:00">오후 02:00</option>
+													<option value="14:30">오후 02:30</option>
+													<option value="15:00">오후 03:00</option>
+													<option value="15:30">오후 03:30</option>
+													<option value="16:00">오후 04:00</option>
+													<option value="16:30">오후 04:30</option>
+													<option value="17:00">오후 05:00</option>
+													<option value="17:30">오후 05:30</option>
 												</select>
 												 ~
-												<select id="end" class="select-box" style="width:125px;" defaulttime="2019-10-14 09:30:00">
-													<option value="09:30:00">오전 09:30</option>
-													<option value="10:00:00">오전 10:00</option>
-													<option value="10:30:00">오전 10:30</option>
-													<option value="11:00:00">오전 11:00</option>
-													<option value="11:30:00">오전 11:30</option>
-													<option value="12:00:00">오후 12:00</option>
-													<option value="12:30:00">오후 12:30</option>
-													<option value="13:00:00">오후 01:00</option>
-													<option value="13:30:00">오후 01:30</option>
-													<option value="14:00:00">오후 02:00</option>
-													<option value="14:30:00">오후 02:30</option>
-													<option value="15:00:00">오후 03:00</option>
-													<option value="15:30:00">오후 03:30</option>
-													<option value="16:00:00">오후 04:00</option>
-													<option value="16:30:00">오후 04:30</option>
-													<option value="17:00:00">오후 05:00</option>
-													<option value="17:30:00">오후 05:30</option>
-													<option value="18:00:00">오후 06:00</option>
+												<select id="end" name="endTime" class="select-box" style="width:125px;">
+													<option value="09:30">오전 09:30</option>
+													<option value="10:00">오전 10:00</option>
+													<option value="10:30">오전 10:30</option>
+													<option value="11:00">오전 11:00</option>
+													<option value="11:30">오전 11:30</option>
+													<option value="12:00">오후 12:00</option>
+													<option value="12:30">오후 12:30</option>
+													<option value="13:00">오후 01:00</option>
+													<option value="13:30">오후 01:30</option>
+													<option value="14:00">오후 02:00</option>
+													<option value="14:30">오후 02:30</option>
+													<option value="15:00">오후 03:00</option>
+													<option value="15:30">오후 03:30</option>
+													<option value="16:00">오후 04:00</option>
+													<option value="16:30">오후 04:30</option>
+													<option value="17:00">오후 05:00</option>
+													<option value="17:30">오후 05:30</option>
+													<option value="18:00">오후 06:00</option>
 												</select>
 											</div>
 										</dd>
@@ -269,18 +272,22 @@
 									<dl class="after">
 										<dt><label for="">사용 용도</label></dt>
 										<dd class="after">
-											<textarea class="rs-layer-textarea" name="booking_reason"></textarea>
+											<textarea class="rs-layer-textarea" name="reason"></textarea>
 										</dd>
 									</dl>
+									
+									<!-- 
 									<dl class="after hide" id="add_resource_dl">
 										<dt><label for="">복수 자원</label></dt>
 										<dd class="after">
 											<ul class="multi-select" id="resource_list_layer">   </ul>
 										</dd>
 									</dl>
+									 -->
+									
 								</div>
 								<div class="layer_button">
-									<button type="button" class="btn_variables" onclick="bookingResourceList.addBooking();">저장</button>
+									<button type="submit" class="btn_variables saveBtn">저장</button>
 									<button type="button" class="booking_layer_close closeBtn">취소</button>
 								</div>
 								<a href="javascript:void(0)" class="icon btn_close layer booking_layer_close closeBtn" title="레이어 닫기"><span class="blind">레이어 닫기</span></a>
@@ -360,6 +367,8 @@
 			today = yyyy+'-'+MM+'-'+dd;
 			
 			$("#booking_date").val(today);	// 날짜 세팅
+			$("#booking_date_in_layer").val(today);	// 날짜 세팅
+			
 			
 			var week = ['일', '월', '화', '수', '목', '금', '토'];
 			var dotw = week[new Date(today).getDay()];
@@ -391,25 +400,11 @@
 			/* 예약이 있으면 표시해주기 */
 			console.log($("#time-table td"));
 			
-			if(reservList != null){
-				
-				
-				
-			}
+			showReserv();
 			
 			
 		}
 		
-		/* 달력 열어서 날짜 바꿀때 마다 요일 구하기 */
-		$("#booking_date").on('change',function(){
-			
-			var bookingDay = $("#booking_date").val();
-			
-			var week = ['일', '월', '화', '수', '목', '금', '토'];
-			var dotw = week[new Date(bookingDay).getDay()];
-			
-			$("#week_name_span").text('('+dotw+')');
-		});
 		
 		/* < , > 버튼 누를때 마다 하루 전, 하루 뒤 날짜 출력하기 */
 		function moveDate(condition) {
@@ -438,11 +433,110 @@
  	    	}
  	    	
 	    	var newDate = (year + "-" + month + "-" + day);
-	    	$("#booking_date").val(newDate);			
+	    	$("#booking_date").val(newDate);
+	    	$("#booking_date_in_layer").val(newDate);
+	    	
+	    	/* 바뀐 요일 표시 */
+			var bookingDay = $("#booking_date").val();
+			
+			var week = ['일', '월', '화', '수', '목', '금', '토'];
+			var dotw = week[new Date(bookingDay).getDay()];
+			
+			$("#week_name_span").text('('+dotw+')');
+	    	
+	    	showReserv();
 		}
 		
+			
+		/* 예약하기 - ajax */
+		$("#booking_resource_frm").submit(function(event){
+			//form submit 작동 취소
+			event.preventDefault();
+			
+			var $form = $(this);
+			var $close = $('.closeBtn');
+			
+			$.ajax({
+				url:"insertReserv.do",
+				type:"POST",
+				data:$form.serialize(),
+				success:function(data){
+					
+					if(data == "success"){
+						alertify.alert('', '예약 성공');
+						$close.click();
+    				} else{
+    					alertify.alert('', '예약 실패');
+    				}
+				},
+				error:function(){
+					alertify.alert('', '통신 실패 : 다시 시도해 주세요.');
+				}
+			});
+			
+		});
 		
 		
+		/* 해당 날짜에 예약이 있으면 보여주기 */
+		function showReserv() {
+			var $timePanel = $("#time-table td");
+			var temp = $("#booking_date").val(); 
+			var startTD;
+			var endTD;
+			var startPoint;
+			var endPoint;
+			
+			if(${reservList} != null){
+				
+				$.each(${reservList}, function(i, r){
+					
+					if(r.reservDate == temp){
+						
+						$.each($timePanel, function(j, td){
+							
+							if(r.startTime == td.getAttribute('time')){
+								startTD = td;
+							}
+							if(r.endTime == td.getAttribute('time')){
+								endTD = td;
+							}
+						});
+						
+						startPoint = $timePanel.index(startTD);	//5
+						endPoint = $timePanel.index(endTD);		//8
+						
+						for(var i in $timePanel){
+							if(i >= startPoint && i <= endPoint-1){
+								$timePanel[i].style.background='lightblue';
+								$timePanel[i].style.border='1px solid lightblue';
+							} else{
+								$timePanel[i].style.background='white';
+								$timePanel[i].style.border='1px solid #ddd';
+							}
+							console.log($timePanel[i].style.background);
+						}
+						
+					} else{
+						for(var i in $timePanel){
+							$timePanel[i].style.background='white';
+							$timePanel[i].style.border='1px solid #ddd';
+							
+						}
+					}
+				});
+				
+			}
+			
+		}
+				
+			
+				
+				
+				
+				
+				
+				
+				
 		
 		
 		

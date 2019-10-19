@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.develoffice.reservation.model.dao.ReservationDao;
 import com.kh.develoffice.reservation.model.vo.Payment;
+import com.kh.develoffice.reservation.model.vo.Reservation;
 
 @Service("rService")
 public class ReservationServiceImpl implements ReservationService{
@@ -24,6 +25,16 @@ public class ReservationServiceImpl implements ReservationService{
 	public ArrayList<Payment> selectPayList(int empId) {
 		
 		return rDao.selectPayList(empId);
+	}
+
+	@Override
+	public int insertReserv(Reservation reserv) {
+		return rDao.insertReserv(reserv);
+	}
+
+	@Override
+	public ArrayList<Reservation> selectReserv(Reservation reserv) {
+		return rDao.selectReserv(reserv);
 	}
 
 }

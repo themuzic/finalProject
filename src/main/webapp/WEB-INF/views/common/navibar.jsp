@@ -533,7 +533,13 @@ $.datepicker.setDefaults({
 										</c:url>
 										<a href="${myReservListView}" class="" id="m5_1">내 예약 보기</a>
 									</li>
-									<li><a href="conferenceRoom.do" class="" id="m5_2">회의실</a></li>
+									<li>
+										<c:url value="conferenceRoom.do" var="conferenceRoom">
+											<c:param name="empId" value="${loginUser.empId}"/>
+											<c:param name="reservType" value="회의실"/>
+										</c:url>
+										<a href="${conferenceRoom}" class="" id="m5_2">회의실</a>
+									</li>
 									<li><a href="car.do" class="" id="m5_3">차량</a></li>
 									<li><a href="massage.do" class="" id="m5_4">안마의자</a></li>
 									<li><a href="cafe.do" class="" id="m5_5">카페</a></li>									

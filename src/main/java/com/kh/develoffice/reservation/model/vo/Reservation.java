@@ -1,6 +1,8 @@
 package com.kh.develoffice.reservation.model.vo;
 
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +17,13 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Reservation {
 	
-	private String reservNum;		//예약번호
+	private int reservNum;			//예약번호
 	private int empId;				//예약한 직원ID
 	private String reservType;		//예약한것 종류
-	private String startDate;			//예약시작시간
-	private String endDate;			//예약종료시간
+	private Date reservDate;		//예약한 날짜
+	private String startTime;		//예약시작시간
+	private String endTime;			//예약종료시간
+	private String reason;			//사용용도
 	
 
 }
