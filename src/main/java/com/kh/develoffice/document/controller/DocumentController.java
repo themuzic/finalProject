@@ -71,8 +71,8 @@ public class DocumentController {
 		
 	@RequestMapping("documentDetailView.do")
 	public String documentDetailView() {
-		/* return "document/dcDetailA"; */
-		return "common/test";
+		return "document/dcDetailA";
+		/* return "common/test"; */
 	}
 	
 	

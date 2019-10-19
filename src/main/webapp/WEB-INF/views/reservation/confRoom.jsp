@@ -51,7 +51,7 @@
 					
 					<div id="contents">
 						<div class="setting_title">
-							<h3>회의실 <span class="show-rs-info category_detail_view" r_type="C" no="4769">i</span></h3>
+							<h3>회의실 </h3>
 						</div>
 						<div class="content_inbox" style="overflow-y:hidden;">
 							<!-- Contents -->
@@ -66,7 +66,8 @@
 								<div class="cal_head" id="cal_head_fixed_div" style="padding-right: 42px; padding-left: 20px;">
 									<div id="cal_head_fixed_div_area">
 										<button type="button" class="icon directleft" onclick="bookingResourceListTime.moveDate('previous');"><span class="blind">전일 이동</span></button>
-										<input type="text" class="num datepicker" id="booking_date" value="2019-10-08" style="width:110px;border:none;margin-right:5px;" readonly=""><span id="week_name_span">(화)</span>
+										<input type="text" class="num datepicker" id="booking_date" value="오늘날짜" style="width:110px;border:none;margin-right:5px;" readonly="">
+										<span id="week_name_span">(화)</span>
 										<button type="button" class="icon month" onclick="$('#booking_date').focus();"><span class="blind">예약 날짜 선택</span></button>
 										<button type="button" class="icon directright" onclick="bookingResourceListTime.moveDate('next');"><span class="blind">익일 이동</span></button>
 										<button type="button" class="today-btn vt" onclick="bookingResourceListTime.setToday();">오늘</button>
@@ -92,7 +93,7 @@
 													<td style="border-bottom:none;">
 														<table class="rs-resource-tbl" no="5109">
 															<thead class="rs-view booking_resource_img_top">
-																<tr><th scope="col"><span class="resource_name_span" title="회의실" style="text-align: center;">회의실</span> <span class="show-rs-info category_detail_view" r_type="R" no="5109">i</span></th></tr>
+																<tr><th scope="col"><span class="resource_name_span" title="회의실" style="text-align: center;">회의실</span></th></tr>
 																<tr class="rs-bg"><td class=""><img src="resources/images/confRoom.jpg" alt=""></td></tr>
 																<tr><td class="rs-divider-td"><hr class="rs-divider"></td></tr>
 															</thead>
@@ -346,7 +347,7 @@
 	</script>
 	
 	<!-- Javascript -->
-	
+	<script src="resources/assets/scripts/klorofil-common.js"></script>
 
 
 </body>

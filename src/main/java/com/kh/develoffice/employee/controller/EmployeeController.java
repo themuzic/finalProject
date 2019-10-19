@@ -1,6 +1,9 @@
 package com.kh.develoffice.employee.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -41,7 +44,15 @@ public class EmployeeController {
 		   if(loginUser != null) {
 			   
 			   int id = loginUser.getEmpId();
-			   session.setAttribute("loginUser", loginUser);
+			   session.setAttribute("loginUser", loginUser);	// 세션에 로그인 객체 담기
+			   
+//			   SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+//			   Date currentTime = new Date ();
+//			   String today = mSimpleDateFormat.format ( currentTime );
+//			   
+//			   session.setAttribute("today", today);	// 세션에 오늘 날짜 담기
+			   
+			   
 			   ArrayList<Widget> widgetList = eService.selectWidget(id);	// 해당 계정의 위젯 정보 호출
 			   
 //			   System.out.println(widgetList);

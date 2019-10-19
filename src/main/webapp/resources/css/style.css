@@ -711,5 +711,7 @@ fieldset, img {
     resize: none;
     width: 270px;
 }
-
+.time-div.rs-time-title.time_table_tbody_area{
+	border: 1px solid #ddd;
+}
 /*# sourceMappingURL=maps/style.css.map */

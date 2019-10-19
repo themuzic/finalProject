@@ -394,7 +394,7 @@
 						</table>
 
 
-
+						<!-- 
 						<table class="cal_table1 approve-write js-approval-line">
 							<colgroup>
 								<col style="width:12.09%;">
@@ -482,7 +482,9 @@
 							</tr>
 							</tbody>
 						</table>
-
+						 -->
+						 
+						 
 						<table class="cal_table1 approve-write refer">
 								<colgroup>
 									<col style="width:12.09%;">
@@ -491,10 +493,13 @@
 								<tbody>
 									<tr>
 										<th scope="row" style="text-align:center">참조</th>
-										<td id="approvalThirdLine" style="padding: 8px 0 8px 12px;border-bottom: 1px solid #cdcdcd;text-align: left;">
+										<td id="approvalThirdLine" style="padding: 8px 0 8px 12px;border-bottom: 1px solid #cdcdcd;text-align: left;height:40px;">
+											
+											<!-- 
 											<input type="text" class="refer-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputApprovalThirdLine" autocomplete="off">
 											<span class="refer-list" user_no="" old_new="" node_id="">참조인 생기기<span class="lnr lnr-cross-circle" style="padding-left:7px;cursor:pointer;"></span></span>
-										
+											 -->
+											 
 										</td>
 									</tr>
 								</tbody>
