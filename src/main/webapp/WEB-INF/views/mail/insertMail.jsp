@@ -77,7 +77,7 @@
 				<div class="container-fluid">
 					<div class="contentWrap">
 					
-					<!-- 이 아래부터 내용 작성 -->
+				<!-- 이 아래부터 내용 작성 -->
 					
 				<form action="mailSending.do" id="uploadForm" name="uploadForm" method="post" enctype="multipart/form-data">
 					<span class="detail_select">
@@ -568,7 +568,7 @@
 		        console.log($("#test"));
 		        
 		        // input file 숨기기
-		        $("#test").css("display", "block");
+		        $("#test").css("display", "none");
 		    }
 		
 		 

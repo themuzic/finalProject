@@ -112,26 +112,42 @@
 			                    <a href="" onclick="" star="N"  class="icon impt " id="aStar" >
 			                    	<span class="blind">중요 메일 표시</span>
 			                    </a>
-			                    <span class="title">메일입니다</span>
+			                    <span class="title">${ m.mailTitle }</span>
 			                </h3>
 			                <br>
-			                <p class="date">2019-09-23 21:06:13 - 보낸 시간 </p>
+			                <p class="date">${ m.mailDate } </p>
 			                <br>
 			                <div class="top_link">
 			                    <a href="javascript:void(0)" id="spMemoDisplayOrigin" onclick="" class="memo"></a>
 			                </div>
 			                <div class="sender">
-		                    		보낸 사람: <span id="from_addr" name ="이름" &lt> &lt;아이디&gt;</span> 
+		                    		보낸 사람: <span id="from_addr" name ="mailFrom" &lt> &lt;${ m.mailFrom }&gt;</span> 
 			                </div>
 			                <div class="addressee">              
-			                    	받는 사람: &quot;이름&quot; &lt;아이디&gt;                
+			                    	받는 사람: <span name="mailTo">&quot;이름&quot; &lt;${ m.mailTo }&gt;</span>                
 			                </div>
+			                <hr>
+	                		 
+	                		<div>
+		                		<c:if test="${ !empty m.renameFileName }">
+		                			첨부파일:
+		                			
+									<a href="${ contextPath }/resources/mupload/${ m.renameFileName }" download>
+										${ m.originalFileName }
+									</a>				
+								</c:if>
+							</div>
+							<div>
+								<c:if test="${ empty m.renameFileName }">
+								</c:if>
+	                		</div>
 			                <hr>
 			
 				            <div class="mailbody" id="mailbody" style="padding-right:30px;">
+				            	<div name="mailContent">${ m.mailContent }</div>
 				            	<!-- src : 불러올 주소 이름(불러올 메일) -->
-				                <iframe src="receiveMail.jsp" height="300px" style="width:100%" scrolling="no" frameborder=0 id="ifMailContent" name="ifMailContent">
-				                </iframe>                                
+<!-- 				                <iframe src="receiveMail.jsp" height="300px" style="width:100%" scrolling="no" frameborder=0 id="ifMailContent" name="ifMailContent"> -->
+<!-- 				                </iframe>                                 -->
 				            </div>
 			            </div>
        				 </form>

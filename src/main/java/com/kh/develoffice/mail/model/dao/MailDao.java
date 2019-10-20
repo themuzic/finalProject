@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.develoffice.mail.model.vo.Mail;
 import com.kh.develoffice.mail.model.vo.PageInfo;
+import com.kh.develoffice.mail.model.vo.SearchCondition;
 
 @Repository("mDao")
 public class MailDao {
@@ -38,6 +39,19 @@ public class MailDao {
 	public Mail receiveDetail(int mailNum) {
 		
 		return sqlSession.selectOne("mailMapper.receiveDetail", mailNum);
+	}
+	
+	public int getSearchListCount(SearchCondition sc) {
+		
+		return sqlSession.selectOne("mailMapper.selectSearchCount", sc);
+	}
+	
+	public ArrayList<Mail> selectSearchList(SearchCondition sc, PageInfo pi){
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("mailMapper.selectSearchList", sc, rowBounds);
 	}
 
 }

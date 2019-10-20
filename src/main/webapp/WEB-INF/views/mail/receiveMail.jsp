@@ -75,15 +75,15 @@
 
 		<fieldset>
 			<div id="searchArea" align="right">
-				<form action="search.bo">
+				<form action="search.do">
 					<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray">
 					    <option>------</option>
-					    <option value="writer">이름</option>
+					    <option value="writer">이메일</option>
 					    <option value="title">제목</option>
 					    <option value="content">내용</option>
 					</select>
 					<div class="ui input">
-						<input type="search" name="search" value="" placeholder="Search..." style="height:32px;">
+						<input type="search" name="search" value="${ search }" placeholder="Search..." style="height:32px;">
 						<i class="circular search link"></i>
 					</div>	         
 					<button type="submit" onclick="return validate();" style="color:#3287B2">검색하기</button>
@@ -170,9 +170,9 @@
 			<colgroup>
 				<col style="width:2%;">
 				<col style="width:4%;">
-				<col style="width:18%;">
+				<col style="width:17%;">
 				<col style="width:60%;">
-				<col style="width:6%;">
+				<col style="width:8%;">
 				<col style="width:15%;">
 			</colgroup>
 				<thead>
@@ -194,68 +194,99 @@
 						</td>
 						<td><i class="far fa-star"></i></td>
 						<td class="mName">${ m.mailFrom }</td>
-						<td class="mTitle"><a href="receiveDetail.do" style="color:black;"></a>
-							<c:url value="receiveDetail.do" var="mdetail">
-								<c:param name="mailNum" value="${ m.mailNum }"/>						
-							</c:url>
-							<a href="${ mdetail }" style="color:gray">${ m.mailTitle }</a>
+						<td class="mTitle">
+							<c:if test="${ empty loginUser }">
+								${ m.mailTitle }
+							</c:if>
+							<c:if test="${ !empty loginUser }">
+								<c:url value="receiveDetail.do" var="mdetail">
+									<c:param name="mailNum" value="${ m.mailNum }"/>						
+								</c:url>
+								<a href="${ mdetail }" style="color:gray;">${ m.mailTitle }</a>
+							</c:if>
 						</td>
+						
 						<td align="right">
 							<c:if test="${ !empty m.renameFileName }">
 								<div class="icon file" style="width:20px; height:20px;">
-								
 								</div>
 							</c:if>
 							<c:if test="${ empty m.renameFileName }">
-								<div></div>
+								<div>
+								</div>
 							</c:if>
 						</td>
 						<td class="mDate aa">${ m.mailDate }</td>
 					</tr>
-			
 				</c:forEach>
-					
-					<tr align="center" height="20">
-						<td colspan="6">
-							<!-- [이전] -->
-							<c:if test="${ pi.currentPage eq 1 }">
-								[이전]
-							</c:if>
-							<c:if test="${ pi.currentPage ne 1 }">
-								<c:url value="receiveMail.do" var="before">
-									<c:param name="currentPage" value="${ pi.currentPage -1 }"/>
-								</c:url>
-								<a href="${ before }" style="color:gray;">[이전]</a>
-							</c:if>
-							
-							<!-- [번호들] -->
-							<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-								<c:if test="${ p eq pi.currentPage }">
-									<font color="#3287B2" size="3">${ p }</font>
-								</c:if>
-								<c:if test="${ p ne pi.currentPage }">
-									<c:url value="receiveMail.do" var="page">
-										<c:param name="currentPage" value="${ p }"/>
-									</c:url>
-									<a href="${ page }" style="color:gray;">${ p }</a>
-								</c:if>
-							</c:forEach>
-							
-							<!-- [다음] -->
-							<c:if test="${ pi.currentPage eq pi.maxPage }">
-								[다음]
-							</c:if>	
-							<c:if test="${ pi.currentPage ne pi.maxPage }">
-								<c:url value="receiveMail.do" var="next">
-									<c:param name="currentPage" value="${ pi.currentPage +1 }"/>
-								</c:url>
-								<a href="${ next }" style="color:gray;">[다음]</a>					
-							</c:if>
-<!-- 						</td> -->
-					</tr>	
-				</tbody>
+			</tbody>
 		</table>
 
+		<div id="pagingArea" align="center">
+ 			<!-- [이전] -->
+			<c:if test="${ pi.currentPage == 1 }">
+				이전&nbsp;
+			</c:if>
+			<c:if test="${ pi.currentPage > 1 }">
+				<c:if test="${ !empty sc }">
+					<c:url var="mlistBack" value="search.do">
+						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
+						<c:param name="condition" value="${ condition }"/>
+						<c:param name="search" value="${ search }"/>
+					</c:url>
+				</c:if>
+				<c:if test="${ empty sc }">
+					<c:url var="mlistBack" value="receiveMail.do">
+						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
+					</c:url>
+				</c:if>
+				<a href="${ mlistBack }">이전</a>
+			 </c:if>
+         
+	         <!-- [번호들] -->
+	         <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+	            <c:if test="${ p eq pi.currentPage }">
+	               <font color="#3287B2" size="3">${ p }</font>
+	            </c:if>
+	            <c:if test="${ p ne pi.currentPage }">
+	               <c:if test="${ !empty sc }"> <!-- 검색결과 있으면 -->
+	                  <c:url var="mlistPage" value="search.do">
+	                     <c:param name="currentPage" value="${ p }"/>
+	                     <c:param name="condition" value="${ condition }"/>
+	                     <c:param name="search" value="${ search }"/>
+	                  </c:url>
+	               </c:if>
+	               <c:if test="${ empty sc }"> <!-- 검색 결과 없으면 -->
+		               <c:url var="mlistPage" value="receiveMail.do">
+		                  <c:param name="currentPage" value="${ p }"/>
+		               </c:url>                  
+	               </c:if>
+	               <a href="${ mlistPage }">${ p }</a>
+	            </c:if>
+	         </c:forEach>
+         
+        	<!-- [다음] -->
+			<c:if test="${ pi.currentPage == pi.maxPage }">
+				&nbsp;다음
+			</c:if>
+			<c:if test="${ pi.currentPage < pi.maxPage }">
+				<c:if test="${ !empty sc }">
+					<c:url var="mlistNext" value="search.do">
+						<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
+						<c:param name="condition" value="${ condition }"/>
+						<c:param name="search" value="${ search }"/>
+					</c:url>
+				</c:if>
+				<c:if test="${ empty sc }">
+					<c:url var="mlistNext" value="receiveMail.do">
+						<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+					</c:url>
+				</c:if>
+				<a href="${ mlistNext }">[다음]</a>
+			</c:if>
+		</div>
+	</div>
+		
 		<!-- 이 위까지 내용작성 -->
 					
 				</div>

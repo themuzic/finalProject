@@ -24,9 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.develoffice.common.Pagination;
 import com.kh.develoffice.mail.model.service.MailService;
+import com.kh.develoffice.mail.model.service.MailServiceImpl;
 import com.kh.develoffice.mail.model.vo.Mail;
-import com.kh.develoffice.mail.model.vo.MailFile;
 import com.kh.develoffice.mail.model.vo.PageInfo;
+import com.kh.develoffice.mail.model.vo.SearchCondition;
 
 @Controller
 public class MailController {
@@ -196,6 +197,36 @@ public class MailController {
 		}else {
 			mv.addObject("msg", "메일 상세조회 실패").setViewName("common/errorPage");
 		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("search.do")
+	public ModelAndView receiveMailList(ModelAndView mv, HttpServletRequest request,
+					@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+		
+		String condition = request.getParameter("condition"); // writer, title, content
+		String search = request.getParameter("search");
+		
+		SearchCondition sc = new SearchCondition();
+		
+		if(condition.equals("writer")) {
+			sc.setWriter(search);
+		}else if(condition.equals("title")) {
+			sc.setTitle(search);
+		}else {
+			sc.setContent(search);
+		}
+		
+		// 게시글 총 개수
+		int listCount = mService.getSearchListCount(sc);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Mail> list = mService.selectSearchList(sc, pi);
+		
+		mv.addObject("pi", pi).addObject("list", list).addObject("sc", sc).addObject("condition", condition)
+							  .addObject("search", search).setViewName("mail/receiveMail");
 		
 		return mv;
 	}

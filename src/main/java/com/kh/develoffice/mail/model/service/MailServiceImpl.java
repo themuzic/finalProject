@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.kh.develoffice.mail.model.dao.MailDao;
 import com.kh.develoffice.mail.model.vo.Mail;
 import com.kh.develoffice.mail.model.vo.PageInfo;
+import com.kh.develoffice.mail.model.vo.SearchCondition;
 
 @Service("mService")
 public class MailServiceImpl implements MailService{
@@ -36,6 +37,18 @@ public class MailServiceImpl implements MailService{
 	public Mail receiveDetail(int mailNum) {
 		
 		return mDao.receiveDetail(mailNum);
+	}
+
+	@Override
+	public int getSearchListCount(SearchCondition sc) {
+		
+		return mDao.getSearchListCount(sc);
+	}
+
+	@Override
+	public ArrayList<Mail> selectSearchList(SearchCondition sc, PageInfo pi) {
+		
+		return mDao.selectSearchList(sc, pi);
 	}
 
 }

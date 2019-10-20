@@ -20,21 +20,64 @@
 
 	<select id="getListCount" resultType="_int">
 		select count(*)
-		from Mail
+		from mail
 		where mail_status='Y'
 	</select>
 	
 	<select id="receiveMailList" resultMap="MailResultSet">
 		select *
-		from Mail
+		from mail
 		where mail_status='Y'
 		order by mail_num desc
 	</select>
 
 	<insert id="insertMail" parameterType="Mail">
-		insert into Mail
+		insert into mail
 		values (mail_seq.nextval,#{empId},#{mailFrom},#{mailTo},#{mailTitle},#{mailContent},
 		        #{originalFileName},#{renameFileName},sysdate,default,default,default)
 	</insert>
+	
+	<select id="receiveDetail" parameterType="_int" resultMap="MailResultSet">
+		select *
+		from mail
+		where mail_num=#{mailNum}
+	</select>
+	
+	<!-- 메일 검색결과 게시글 수 조회용 쿼리문 -->
+	<select id="selectSearchCount" resultType="_int">
+		select count(*)
+		from mail
+		where mail_status='Y'
+		<choose>
+			<when test="writer != null">
+				and mail_from like '%' || #{writer} || '%'
+			</when>
+			<when test="title != null">
+				and mail_title like '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				and mail_content like '%' || #{content} || '%'
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 메일 검색결과에 해당하는 게시글 목록 조회 -->
+	<select id="selectSearchList" resultMap="MailResultSet">
+		select *
+		from mail
+		where mail_status='Y'
+		<choose>
+			<when test="writer != null">
+				and mail_from like '%' || #{writer} || '%'
+			</when>
+			<when test="title != null">
+				and mail_title like '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				and mail_content like '%' || #{content} || '%'
+			</otherwise>
+		</choose>
+		order by mail_num desc
+	</select>
 
 </mapper>
