@@ -31,6 +31,11 @@
 	.time-div.rs-time-title.h1032.time_table_tbody_area th{
 		border-right:none;
 	}
+	.reserv{
+		background:lightblue;
+		border:1px solid lightblue;
+		cursor:pointer;
+	}
 </style>
 
 
@@ -147,24 +152,24 @@
 													<table class="rs-resource-tbl" id="time-table">
 														<tbody class="marker-wrapper resource_selectable_area h1032 time_table_tbody_area ui-selectable">
 														
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="09:00"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="09:30"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="10:00"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="10:30"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="11:00"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="11:30"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="12:00"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="12:30"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="13:00"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="13:30"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="14:00"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="14:30"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="15:00"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="15:30"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="16:00"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="16:30"></td></tr>
-															<tr><td class="rs-dualmarker rs_time_before ui-selectee" time="17:00"></td></tr>
-															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee" time="17:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee blank" time="09:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee blank" time="09:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee blank" time="10:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee blank" time="10:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee blank" time="11:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee blank" time="11:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee blank" time="12:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee blank" time="12:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee blank" time="13:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee blank" time="13:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee blank" time="14:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee blank" time="14:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee blank" time="15:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee blank" time="15:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee blank" time="16:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee blank" time="16:30"></td></tr>
+															<tr><td class="rs-dualmarker rs_time_before ui-selectee blank" time="17:00"></td></tr>
+															<tr class="rs-dualmarker-21"><td class="rs_time_after ui-selectee blank" time="17:30"></td></tr>
 															
 														</tbody>
 													</table>
@@ -298,8 +303,49 @@
 					
 					
 					<!-- 예약 모달창 끝 ----------------------------------------------------->
+
+					
+					<!-- 예약 확인 모달창 시작 ----------------------------------------------------->
 					
 					
+					<div id="booking_info_detail_layer" class="booking_layer_div layer_box hide">
+						<div class="layer_box" style="z-index: 1005;">
+							<div class="layer_box mid_large popup3" style="margin-left: -256px; margin-top: -205px; display: block; z-index: 1005;">
+								<div class="title_layer text_variables">예약 확인</div>
+								<div class="to-add">
+									<dl class="after">
+										<dt><label for="">자원 이름</label></dt>
+										<dd>회의실</dd>
+									</dl>
+									<dl class="after">
+										<dt><label for="">예약 시간</label></dt>
+										<dd class="dd1"></dd>
+									</dl>
+									<dl class="after">
+										<dt><label for="">등록자</label></dt>
+										<dd class="dd2"></dd>
+									</dl>
+									<dl class="after">
+										<dt><label for="">사용 용도</label></dt>
+										<dd class="dd3">설계 회의</dd>
+									</dl>
+									<dl class="after">
+										<dt><label for="">예약 상태</label></dt>
+										<dd>예약 완료</dd>
+									</dl>
+								</div>
+							
+								<div class="layer_button">
+									<button type="button" class="btn_variables booking_layer_close closeBtn">확인</button>
+								</div>
+								<a href="javascript:void(0)" class="icon btn_closelayer booking_layer_close closeBtn" title="레이어 닫기"><span class="blind">닫기</span></a>
+							</div>
+						</div>
+						<div class="layer_back" style="position: fixed; width: 100%; height: 100%; z-index: 1000; background-color: rgb(0, 0, 0); opacity: 0.3; top: 0px; left: 0px; margin: 0px; padding: 0px;"></div>
+					</div>
+										
+					
+					<!-- 예약 확인 모달창 끝 ----------------------------------------------------->
 					
 					
 					
@@ -335,11 +381,6 @@
 			$("#menu5_1").addClass("active");
 			$("#menu5_1").attr('aria-expanded',true);
 			$("#m5_2").addClass("active");
-			
-			
-			$("#time-table tr").on('click',function(){
-				$("#booking_time_layer").addClass('show');
-			});
 			
 		});
 		
@@ -398,26 +439,26 @@
 			});
 			
 			/* 예약이 있으면 표시해주기 */
-			console.log($("#time-table td"));
+			//console.log($("#time-table td"));
 			
 			showReserv();
-			
-			
 		}
 		
 		
 		/* < , > 버튼 누를때 마다 하루 전, 하루 뒤 날짜 출력하기 */
 		function moveDate(condition) {
 			
-			var oldDate = new Date($("#booking_date").val());
-			var newDate = new Date();
+			var oldDate = $("#booking_date").val();
+			var newDate = new Date($("#booking_date").val());
+			
+			var dateArr = oldDate.split('-');
+			
+			oldDate = new Date(dateArr[0], dateArr[1]-1, dateArr[2]);
 			
 			if(condition == "next"){
-				
 				newDate.setDate(oldDate.getDate()+1);
 				
 			} else{
-				
 				newDate.setDate(oldDate.getDate()-1);
 			}
 			
@@ -433,6 +474,7 @@
  	    	}
  	    	
 	    	var newDate = (year + "-" + month + "-" + day);
+			
 	    	$("#booking_date").val(newDate);
 	    	$("#booking_date_in_layer").val(newDate);
 	    	
@@ -486,11 +528,25 @@
 			var startPoint;
 			var endPoint;
 			
+			$.each($timePanel, function(i, td){
+				if(td.classList.contains('reserv')){
+					td.classList.remove('reserv');
+				}
+			});
+			
+			
 			if(${reservList} != null){
+				
+					console.log(${reservList});
 				
 				$.each(${reservList}, function(i, r){
 					
+					console.log(${reservList});
+					console.log(temp);
+					console.log(r.reservDate);
+					
 					if(r.reservDate == temp){
+						console.log("오늘의 예약 : "+r.reservNum);
 						
 						$.each($timePanel, function(j, td){
 							
@@ -502,37 +558,52 @@
 							}
 						});
 						
-						startPoint = $timePanel.index(startTD);	//5
-						endPoint = $timePanel.index(endTD);		//8
+						startPoint = $timePanel.index(startTD);
+						endPoint = $timePanel.index(endTD);
+						console.log(startTD);
+						console.log(startPoint);
+						console.log(endTD);
+						console.log(endPoint);
 						
 						for(var i in $timePanel){
 							if(i >= startPoint && i <= endPoint-1){
-								$timePanel[i].style.background='lightblue';
-								$timePanel[i].style.border='1px solid lightblue';
-							} else{
-								$timePanel[i].style.background='white';
-								$timePanel[i].style.border='1px solid #ddd';
+								$timePanel[i].classList.add('reserv');
+								/* $timePanel[i].className += ' reserv'; */
+								$timePanel[i].classList.remove('blank');
+								$timePanel[i].setAttribute('value',r.reservNum);
 							}
-							console.log($timePanel[i].style.background);
-						}
-						
-					} else{
-						for(var i in $timePanel){
-							$timePanel[i].style.background='white';
-							$timePanel[i].style.border='1px solid #ddd';
-							
 						}
 					}
 				});
-				
-			}
-			
+			}			
 		}
+		
+		//예약창 on
+		$('#time-table').on('click','.blank',function(){
+			$("#booking_time_layer").addClass('show');
+		});
+		//예약확인창 on
+		$('#time-table').on('click','.reserv',function(){
+			var thisTD = $(this);
+			
+			var $dd1 = $(".dd1");
+			var $dd2 = $(".dd2");
+			var $dd3 = $(".dd3");
+			
+			$.each(${reservList}, function(i, r){
 				
+				if(r.reservNum == thisTD[0].getAttribute('value')){
+					
+					$dd1.text(r.reservDate+' '+r.startTime+' ~ '+r.endTime);
+					$dd2.text(r.empName+' '+r.jobName+' ('+r.insertDate+')');
+					$dd3.text(r.reason);
+				}
+			});
+			$("#booking_info_detail_layer").addClass('show');
+		});
 			
 				
-				
-				
+		
 				
 				
 				
@@ -545,7 +616,7 @@
 	
 	<!-- Javascript -->
 	<script src="resources/assets/scripts/klorofil-common.js"></script>
-
+	<script src="resources/js/classList.js"></script>
 
 </body>
 </html>

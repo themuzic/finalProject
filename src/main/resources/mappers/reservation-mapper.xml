@@ -5,7 +5,10 @@
 	<resultMap id="reservResultSet" type="Reservation">
 		<id property="reservNum" column="reserv_num"/>
 		<result property="empId" column="emp_id"/>
+		<result property="empName" column="emp_name"/>
+		<result property="jobName" column="job_name"/>
 		<result property="reservType" column="reserv_type"/>
+		<result property="insertDate" column="insert_date"/>
 		<result property="reservDate" column="reserv_date"/>
 		<result property="startTime" column="start_time"/>
 		<result property="endTime" column="end_time"/>
@@ -36,15 +39,20 @@
 	
 	<insert id="insertReserv" parameterType="Reservation">
 		insert into reservation
-		values(reservation_seq.nextval,#{empId},#{reservType},#{reservDate},#{startTime},#{endTime},#{reason})
+		values(reservation_seq.nextval,#{empId},#{reservType},#{insertDate},#{reservDate},#{startTime},#{endTime},#{reason})
 	</insert>
 	
 	
 	<select id="selectReserv" parameterType="Reservation" resultMap="reservResultSet">
-		select * from reservation
+		select * from reserv
 		where reserv_type=#{reservType}
 	</select>
 	
+	
+	<select id="selectMyReserv" parameterType="_int" resultMap="reservResultSet">
+		select * from reserv
+		where emp_id=#{empId}
+	</select>
 	
 	
 </mapper>

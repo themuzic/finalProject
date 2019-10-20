@@ -36,4 +36,8 @@ public class ReservationDao {
 		return (ArrayList)sqlSession.selectList("reservationMapper.selectReserv", reserv);
 	}
 	
+	
+	public ArrayList<Reservation> selectMyReserv(int empId){
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectMyReserv", empId);
+	}
 }

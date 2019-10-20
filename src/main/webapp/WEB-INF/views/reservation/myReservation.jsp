@@ -69,16 +69,30 @@
 											</tr>
 										</thead>
 										<tbody id="booking_list_tbody">
-											<tr>    
-												<td>회의실</td>
-												<td>회의실</td>
-												<td>2019-10-09 03:00 ~ 2019-10-09 04:00</td>
-												<td>
-													<button type="button" name="button" class="weakblue del_booking_layer_btn" booking_no="11203">삭제</button>
-													<span class="grey_bar">|</span>
-													<button type="button" name="button" class="weakblue booking_detail_view" booking_no="11203">상세보기</button>
-												</td>
-											</tr>
+											
+												<c:if test="${ empty reservList }">
+													<tr>
+														<td colspan="4" class="center">예약 내역이 존재하지 않습니다.</td>
+													</tr>
+												</c:if>
+												
+												<c:if test="${ !empty reservList }">
+													<c:forEach items="${ reservList }" var="r">
+														<tr>
+															<td>${r.reservType}</td>
+															<td>${r.reservType}</td>
+															<td>${r.reservDate} ${r.startTime} ~ ${r.endTime}</td>
+															<td>
+																<button type="button" name="button" class="weakblue del_booking_layer_btn" reservnum="${r.reservNum}">삭제</button>
+																<span class="grey_bar">|</span>
+																<button type="button" name="button" class="weakblue booking_detail_view" reservnum="${r.reservNum}">상세보기</button>
+															</td>
+														</tr>
+													</c:forEach>
+												</c:if>
+											
+												
+											
 										</tbody>
 									</table>
 								</div>
@@ -103,7 +117,7 @@
 										
 											<c:if test="${ empty payList }">
 												<tr>
-													<td colspan="4" class="center">리스트가 존재하지 않습니다.</td>
+													<td colspan="4" class="center">결제 내역이 존재하지 않습니다.</td>
 												</tr>
 											</c:if>
 											
@@ -128,7 +142,7 @@
 					</div>
 					
 		
-		<!-- 상세보기 모달 시작 ----------------------------------------------------->
+		<!-- 예약 상세보기 모달 시작 ----------------------------------------------------->
 		
 		<div id="booking_detail_layer" class="booking_layer_div layer_box hide">
 			<div class="layer_box detail_layer" style="z-index: 1005;">
@@ -137,36 +151,30 @@
 				<div class="to-add">
 						<dl class="after">
 							<dt><label for="">자원 이름</label></dt>
-							<dd>
-								회의실				</dd>
+							<dd>회의실</dd>
 						</dl>
 						<dl class="after">
 							<dt><label for="">예약 시간</label></dt>
-							<dd>
-								2019-10-09 오전 03:00 ~ 오전 04:00				</dd>
+							<dd class="dd1"></dd>
 						</dl>
 						<dl class="after">
 							<dt><label for="">등록자</label></dt>
-							<dd>
-								전재광(2019-10-08 15:33:07)
-							</dd>
+							<dd class="dd2"></dd>
 						</dl>
 						<dl class="after">
 							<dt><label for="">사용 용도</label></dt>
-							<dd>
-								회의				</dd>
+							<dd class="dd3"></dd>
 						</dl>
 						<dl class="after">
 							<dt><label for="">예약 상태</label></dt>
-							<dd>
-								예약 완료				</dd>
+							<dd>예약 완료</dd>
 						</dl>
 				</div>
 			
 				<div class="layer_button">
 					<button type="button" class="btn_variables booking_layer_close closeBtn">확인</button>
 							<!--button type="button" class="btn_variables">수정</button--> 
-					<button type="button" class="warning del_booking_layer_btn" booking_no="11203">삭제</button>
+					<button type="button" class="warning del_booking_layer_btn" reservnum="">삭제</button>
 				</div>
 				<a href="javascript:void(0)" class="icon btn_closelayer booking_layer_close closeBtn" title="레이어 닫기"><span class="blind">닫기</span></a>
 			</div></div>
@@ -174,9 +182,9 @@
 			<div class="layer_back" style="position: fixed;width: 100%;height: 100%;z-index: 1000;background-color: rgb(0, 0, 0);opacity: 0.3;top: 0px;left: 0px;margin: 0px;padding: 0px;"></div>
 		</div>
 					
-		<!-- 상세보기 모달 끝 ----------------------------------------------------->
+		<!-- 예약 상세보기 모달 끝 ----------------------------------------------------->
 					
-		<!-- 삭제 모달 시작 ----------------------------------------------------->
+		<!-- 예약 삭제 모달 시작 ----------------------------------------------------->
 		
 		<div id="booking_del_layer" class="booking_layer_div layer_box hide">
 			<div class="layer_box" style="z-index: 1005;">
@@ -187,7 +195,7 @@
 					</div>
 
 					<div class="layer_button">
-						<button type="button" class="btn_variables del_booking_btn" booking_no="11203">확인</button>
+						<button type="button" class="btn_variables del_booking_btn" id="delBtn" reservnum="">확인</button>
 						<button type="button" class="booking_layer_close closeBtn">취소</button>
 					</div>
 					<a href="javascript:void(0)" class="icon btn_closelayer booking_layer_close closeBtn" title="레이어 닫기"><span class="blind">닫기</span></a>
@@ -197,7 +205,7 @@
 		</div>
 		
 		
-		<!-- 삭제 모달 끝 ----------------------------------------------------->
+		<!-- 예약 삭제 모달 끝 ----------------------------------------------------->
 					
 					
 					
@@ -240,26 +248,42 @@
 			$("#menu5_1").attr('aria-expanded',true);
 			$("#m5_1").addClass("active");
 			
-			
-			$(".booking_detail_view").on('click',function(){
-				$("#booking_detail_layer").addClass('show');
-			});
-			
-			$(".del_booking_layer_btn").on('click',function(){
-				$("#booking_del_layer").addClass('show');
-			});
-			
-			
-			
-			
-			
-			
-			
-			
 		});
 		
-		
-		
+		/* 예약 상세 보기 창 on */
+		$(".booking_detail_view").on('click',function(){
+			
+			var thisTD = $(this);
+			
+			var $dd1 = $(".dd1");
+			var $dd2 = $(".dd2");
+			var $dd3 = $(".dd3");
+			var $del = $(".del_booking_layer_btn");
+			
+			$.each(${rList}, function(i, r){
+				
+				if(r.reservNum == thisTD[0].getAttribute('reservnum')){
+					
+					$dd1.text(r.reservDate+' '+r.startTime+' ~ '+r.endTime);
+					$dd2.text(r.empName+' '+r.jobName+' ('+r.insertDate+')');
+					$dd3.text(r.reason);
+					$del.attr('reservnum',r.reservNum);
+				}
+			});
+			
+			$("#booking_detail_layer").addClass('show');
+		});
+		/* 예약 삭제 창 on */
+		$(".del_booking_layer_btn").on('click',function(){
+			
+			$(".delBtn").attr('reservnum',$(this).attr('reservnum'));
+			
+			$("#booking_del_layer").addClass('show');
+		});
+		/* 삭제 버튼 */
+		$("#delBtn").on('click',function(){
+			
+		});
 		
 		
 		

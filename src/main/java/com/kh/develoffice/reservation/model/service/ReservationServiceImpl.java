@@ -37,4 +37,9 @@ public class ReservationServiceImpl implements ReservationService{
 		return rDao.selectReserv(reserv);
 	}
 
+	@Override
+	public ArrayList<Reservation> selectMyReserv(int empId) {
+		return rDao.selectMyReserv(empId);
+	}
+
 }

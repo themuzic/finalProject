@@ -1,5 +1,6 @@
 package com.kh.develoffice.reservation.controller;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -25,13 +26,33 @@ public class ReservationController {
 	
 	@RequestMapping("myReservListView.do")
 	public ModelAndView myReservListView(int empId, ModelAndView mv) {
-		
-		
+		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+		ArrayList<Reservation> reservList = rService.selectMyReserv(empId);
 		ArrayList<Payment> payList = rService.selectPayList(empId);
+		
+		JSONArray rArr = new JSONArray();
+		
+		for(Reservation r : reservList) {
+			JSONObject jObj = new JSONObject();
+			
+			jObj.put("reservNum", r.getReservNum());
+			jObj.put("empId", r.getEmpId());
+			jObj.put("empName", r.getEmpName());
+			jObj.put("jobName", r.getJobName());
+			jObj.put("reservType", r.getReservType());
+			jObj.put("insertDate", r.getInsertDate());
+			jObj.put("reservDate", sdf.format(r.getReservDate()));
+			jObj.put("startTime", r.getStartTime());
+			jObj.put("endTime", r.getEndTime());
+			jObj.put("reason", r.getReason());
+			
+			rArr.add(jObj);			
+		}
 		
 		System.out.println(empId);
 		System.out.println(payList);
-		
+		mv.addObject("reservList", reservList);
+		mv.addObject("rList", rArr);
 		mv.addObject("payList", payList).setViewName("reservation/myReservation");
 		
 		return mv;
@@ -52,7 +73,10 @@ public class ReservationController {
 			
 			jObj.put("reservNum", r.getReservNum());
 			jObj.put("empId", r.getEmpId());
+			jObj.put("empName", r.getEmpName());
+			jObj.put("jobName", r.getJobName());
 			jObj.put("reservType", r.getReservType());
+			jObj.put("insertDate", r.getInsertDate());
 			jObj.put("reservDate", sdf.format(r.getReservDate()));
 			jObj.put("startTime", r.getStartTime());
 			jObj.put("endTime", r.getEndTime());
@@ -102,6 +126,12 @@ public class ReservationController {
 	@ResponseBody
 	@RequestMapping("insertReserv.do")
 	public String insertReserv(Reservation reserv) {
+		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss", Locale.KOREA );
+		Date nowDate = new Date(new java.util.Date().getTime());
+
+		String insertDate = sdf.format(nowDate);
+		
+		reserv.setInsertDate(insertDate);
 		
 		System.out.println(reserv);
 		

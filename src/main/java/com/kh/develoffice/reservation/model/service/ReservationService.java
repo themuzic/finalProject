@@ -16,6 +16,11 @@ public interface ReservationService {
 	// 예약 하기
 	int insertReserv(Reservation reserv);
 	
-	// 로그인한 유져의 예약 내역 호출하기
+	// 타입에 따른 모든 예약 내역 호출하기
 	ArrayList<Reservation> selectReserv(Reservation reserv);
+	
+	// 내 예약 내역 호출하기
+	ArrayList<Reservation> selectMyReserv(int empId);
+	
+	
 }
