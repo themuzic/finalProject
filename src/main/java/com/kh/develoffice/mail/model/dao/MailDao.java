@@ -53,5 +53,10 @@ public class MailDao {
 		
 		return (ArrayList)sqlSession.selectList("mailMapper.selectSearchList", sc, rowBounds);
 	}
+	
+	public int deleteMail(int mailNum) {
+		
+		return sqlSession.update("mailMapper.deleteMail", mailNum);
+	}
 
 }

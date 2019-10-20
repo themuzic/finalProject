@@ -20,5 +20,11 @@ public interface MailService {
 	
 	ArrayList<Mail> selectSearchList(SearchCondition sc, PageInfo pi);
 	
+	// 단순히 메일만 조회
+	Mail selectMail(int mailNum);
+	
+	// 메일 완전히 삭제
+	int deleteMail(int mailNum);
+	
 
 }

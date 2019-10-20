@@ -73,11 +73,15 @@
 						<a href="" onclick="" style="font-size:16px;">삭제</a>
 					</span> &nbsp; &nbsp; &nbsp;
 					<span class="absol_delete menu" id="absol_delete">
-						<a href="" onclick="" style="font-size:16px;">완전삭제</a>
+						<c:url var="mdelete" value="mdelete.do">
+							<c:param name="mailNum" value="${m.mailNum }"/>
+						</c:url>
+						
+						<c:if test ="${ loginUser.empId eq m.empId }">
+							<a href="${ mdelete }" style="font-size:16px;">완전삭제</a>
+						</c:if>
 					</span> &nbsp; &nbsp; &nbsp;
-					
-					
-					
+
 					<span class="move menu" id="move">
 		                <a href="javascript:void(0)" id='m_view_move_mbox' >이동
 		                	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif" alt="이동 드롭다운 메뉴 열기" class="open_drop">

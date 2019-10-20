@@ -228,5 +228,37 @@ public class MailController {
 		return mv;
 	}
 	
+	@RequestMapping("mdelete.do")
+	public String mailDelete(int mailNum, HttpServletRequest request, Model model) {
+		
+		Mail m = mService.selectMail(mailNum);
+		
+		if(m.getRenameFileName() != null) {
+			
+			deleteFile(m.getRenameFileName(), request);
+		}
+		
+		int result = mService.deleteMail(mailNum);
+		
+		if(result > 0) {
+			return "redirect:receiveMail.do";
+		}else {
+			model.addAttribute("msg", "메일 삭제 실패");
+			
+			return ("common/errorPage");
+		}		
+	}
+	
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\mupload";
+		
+		File f = new File(savePath + "\\" + fileName);
+		
+		if(f.exists()) {
+			f.delete();
+		}
+	}
+
 
 }

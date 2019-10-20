@@ -51,4 +51,16 @@ public class MailServiceImpl implements MailService{
 		return mDao.selectSearchList(sc, pi);
 	}
 
+	@Override
+	public Mail selectMail(int mailNum) {
+		
+		return mDao.receiveDetail(mailNum);
+	}
+
+	@Override
+	public int deleteMail(int mailNum) {
+		
+		return mDao.deleteMail(mailNum);
+	}
+
 }
