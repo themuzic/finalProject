@@ -116,6 +116,7 @@ public class MailController {
 	 
 	      messageHelper.setFrom(m.getMailFrom());  			// 보내는사람 생략하거나 하면 정상작동을 안함
 	      messageHelper.setTo(m.getMailTo());      			// 받는사람 이메일
+	      messageHelper.setCc(m.getMailCc()); 				// 참조 이메일
 	      messageHelper.setSubject(m.getMailTitle());   	// 메일제목은 생략이 가능하다
 	      messageHelper.setText(m.getMailContent());   		// 메일 내용
 	      
@@ -137,11 +138,7 @@ public class MailController {
 			m.setOriginalFileName(uploadFile.getOriginalFilename());
 			m.setRenameFileName(filename);
 			}
-		}
-    	
-    	// mailfile 테이블에 insert
-//	    	MailFile mf = new MailFile();
-    	
+		}  	
     	
 		// mail 테이블에 insert
 		int result = mService.insertMail(m);

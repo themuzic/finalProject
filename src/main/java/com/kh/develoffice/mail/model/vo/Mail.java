@@ -19,6 +19,7 @@ public class Mail {
 	private int empId;
 	private String mailFrom;
 	private String mailTo;
+	private String mailCc;
 	private String mailTitle;
 	private String mailContent;
 	private String originalFileName;

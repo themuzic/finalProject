@@ -93,8 +93,8 @@
 	       <script>
 		       function validate(){
 		           if($("option:selected").val() == "------"){
-		              alert("검색 조건을 체크해주세요");
-// 		              alertify.alert("검색 조건을 체크해주세요");
+// 		              alert("검색 조건을 체크해주세요");
+		              alertify.alert("검색 조건을 체크해주세요");
 		           return false;
 		           }
 		        }
@@ -282,7 +282,7 @@
 						<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 					</c:url>
 				</c:if>
-				<a href="${ mlistNext }">[다음]</a>
+				<a href="${ mlistNext }">다음</a>
 			</c:if>
 		</div>
 	</div>

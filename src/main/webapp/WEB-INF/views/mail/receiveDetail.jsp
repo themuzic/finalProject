@@ -123,8 +123,17 @@
 			                <div class="sender">
 		                    		보낸 사람: <span id="from_addr" name ="mailFrom" &lt> &lt;${ m.mailFrom }&gt;</span> 
 			                </div>
-			                <div class="addressee">              
+			                <div class="address">              
 			                    	받는 사람: <span name="mailTo">&quot;이름&quot; &lt;${ m.mailTo }&gt;</span>                
+			                </div>
+			                
+			                <!-- 왜 안되니.. -->
+			                <div class="mailCc">
+			                	<c:if test="${ !empty m.mailCc }">
+			                		참조인 : <span name="mailCc">&quot;이름&quot; &lt;${ m.mailCc }&gt;</span>
+			                	</c:if>
+			                	<c:if test="${ empty m.mailCc }">
+			                	</c:if>
 			                </div>
 			                <hr>
 	                		 
@@ -136,12 +145,12 @@
 										${ m.originalFileName }
 									</a>				
 								</c:if>
+				                <hr>
 							</div>
 							<div>
 								<c:if test="${ empty m.renameFileName }">
 								</c:if>
 	                		</div>
-			                <hr>
 			
 				            <div class="mailbody" id="mailbody" style="padding-right:30px;">
 				            	<div name="mailContent">${ m.mailContent }</div>

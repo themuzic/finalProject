@@ -111,7 +111,7 @@
 						<p style="width:80px; position:absolute;top:4px;">참조 </p>
 						<div class="txt title" style="margin-left:80px; position:relative;">
 							<div class="position">
-								<textarea  id="approval_document_title" style="width:97%; height:30px;"></textarea>
+								<textarea  id="" name="mailCc" style="width:97%; height:30px;"></textarea>
 								<button type="button" class="" id="select" onclick="" style="display:inline-block;padding:0; font-size:20px">
 									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
 								</button>
@@ -166,14 +166,13 @@
 					      </div>
 					      <div class="modal-body" style="height:450px; width:600px; padding-left:20px;">
 					      <br>
-							<p>보낸사람  : 	</p><br>
-							<p>받는사람  : 	</p><br>
-							<p>참조  :		</p><br>
-							<p>숨은참조:		</p><br>
+							<p>보낸사람  : ${ loginUser.email }</p><br>
+							<p>받는사람  : ${ m.mailTo }</p><br>
+							<p>참조  : ${ m.mailCc }</p><br>
 							<hr>
-							<p>제목  : 		</p><br>
+							<p>제목  : ${m.mailTitle }</p><br>
 							<hr>
-							<p>내용  :	 	</p><br>
+							<p>내용  : ${m.mailContent }</p><br>
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
