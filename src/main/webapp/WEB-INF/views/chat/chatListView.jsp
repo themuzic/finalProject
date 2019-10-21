@@ -313,7 +313,6 @@ body{
 								<c:forEach items="${chatProfileList }" var="profile">
 								<c:if test="${profile.chatId == c.chatId && profile.empId ne loginUser.empId }">
 									<img src="resources/images/${profile.profilePath }">
-									<img src="resources/images/${profile.profilePath }">
 								</c:if>
 								</c:forEach>
 								</div>
