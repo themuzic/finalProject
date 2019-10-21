@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +68,7 @@
 						<a href="replyMail.do?mailFrom=${ m.mailFrom }" onclick="" style="font-size:16px;">답장</a>
 					</span> &nbsp; &nbsp; &nbsp;
 					<span class="allSend menu" id="allSend">
-						<a href="" onclick="" style="font-size:16px;">전체답장</a>
+						<a href="allReplyMail.do?mailFrom=${ m.mailFrom }&mailCc=${ m.mailCc }" onclick="" style="font-size:16px;">전체답장</a>
 					</span> &nbsp; &nbsp; &nbsp;
 					<span class="delete menu" id="delete">
 						<a href="" onclick="" style="font-size:16px;">삭제</a>
@@ -90,7 +91,11 @@
 		                    <div class="dropscroll-menu" style="width:150px;">
 		                        <ul style="min-width:220px; border-color:#2985db;" id="ul">
 						            <li class="li">
-		                                <a href="" id="move_b0" style="color:gray;">받은 편지함</a>
+						            	<!-- 음... -->
+						            	<c:url value="receiveMail.do" var="receieveList">
+											<c:param name="mailNum" value="${m.mailNum}"/>
+										</c:url>
+										<a href="${receieveList}" id="move_b0" class="">받은 편지함</a>
 		                            </li>
 						            <li class="li">
 		                                <a href="" id="move_b1" style="color:gray;">보낸 편지함</a>
@@ -119,7 +124,7 @@
 			                    <a href="javascript:void(0)" id="spMemoDisplayOrigin" onclick="" class="memo"></a>
 			                </div>
 			                <div class="sender">
-		                    		보낸 사람: <span id="from_addr" name ="mailFrom" &lt> &lt;${ m.mailFrom }&gt;</span>
+		                    		보낸 사람: <span id="from_addr" name ="mailFrom" &lt>&quot;${ loginUser.empName }&quot; &lt;${ m.mailFrom }&gt;</span>
 		                    		 
 			                </div>
 			                <div class="address">              

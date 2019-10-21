@@ -77,17 +77,26 @@ public class MailController {
 	public String insertMailForm() {
 		return "mail/insertMail";
 	}
+	
+	// 메일 답장
 	@RequestMapping("replyMail.do")
 	public ModelAndView replyMail(ModelAndView mv, Mail m) {
-		
-		System.out.println(m.getMailFrom());
 		
 		mv.addObject("m", m).setViewName("mail/insertMail");
 		
 		return mv;
 	}
 	
-	// mailSending 코드
+	// 메일 전체 답장
+	@RequestMapping("allReplyMail.do")
+	public ModelAndView allReplyMail(ModelAndView mv, Mail m) {
+		
+		mv.addObject("m", m).setViewName("mail/insertMail");
+		
+		return mv;
+	}
+	
+	// 메일 보내기 
 	@RequestMapping("mailSending.do")
 	public String mailSending(Mail m, HttpServletRequest request, Model model, HttpSession session,
 								@RequestParam(name="uploadFile", required=false) MultipartFile uploadFile) {
@@ -177,20 +186,6 @@ public class MailController {
 		return renameFileName;	// 수정명 반환
 	}	
 	
-	@RequestMapping("receiveDetail.do")
-	public ModelAndView receiveDetail(int mailNum, ModelAndView mv) {
-		
-		Mail m = mService.receiveDetail(mailNum);
-		
-		if(m != null) {
-			mv.addObject("m", m).setViewName("mail/receiveDetail");
-		}else {
-			mv.addObject("msg", "메일 상세조회 실패").setViewName("common/errorPage");
-		}
-		
-		return mv;
-	}
-	
 	@RequestMapping("search.do")
 	public ModelAndView receiveMailList(ModelAndView mv, HttpServletRequest request,
 					@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
@@ -217,6 +212,20 @@ public class MailController {
 		
 		mv.addObject("pi", pi).addObject("list", list).addObject("sc", sc).addObject("condition", condition)
 							  .addObject("search", search).setViewName("mail/receiveMail");
+		
+		return mv;
+	}
+	
+	@RequestMapping("receiveDetail.do")
+	public ModelAndView receiveDetail(int mailNum, ModelAndView mv) {
+		
+		Mail m = mService.receiveDetail(mailNum);
+		
+		if(m != null) {
+			mv.addObject("m", m).setViewName("mail/receiveDetail");
+		}else {
+			mv.addObject("msg", "메일 상세조회 실패").setViewName("common/errorPage");
+		}
 		
 		return mv;
 	}

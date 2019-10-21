@@ -112,7 +112,7 @@
 						<p style="width:80px; position:absolute;top:4px;">참조 </p>
 						<div class="txt title" style="margin-left:80px; position:relative;">
 							<div class="position">
-								<textarea  id="mailCc" name="mailCc" style="width:97%; height:30px;"></textarea>
+								<textarea  id="mailCc" name="mailCc" style="width:97%; height:30px;">${m.mailCc}</textarea>
 								<button type="button" class="" id="select" onclick="" style="display:inline-block;padding:0; font-size:20px">
 									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
 								</button>

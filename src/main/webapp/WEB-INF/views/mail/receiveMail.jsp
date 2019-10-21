@@ -190,6 +190,7 @@
 					<tr>
 						<td>
 							<input type="hidden" value="${ m.mailNum }">
+							<input type="hidden" value="${ m.mailCc }">
 							<input type="checkbox" class="check chkBox">
 						</td>
 						<td><i class="far fa-star"></i></td>
