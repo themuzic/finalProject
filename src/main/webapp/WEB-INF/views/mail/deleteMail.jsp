@@ -7,77 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<title>DEVELOFFICE</title>
+<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-<link rel="stylesheet" type="text/css" href="resources/assets/Semantic-UI-CSS-master/semantic.css"> 
-<link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> 
-<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
-
-<script>
-   jQuery(function($){
-   	$("#myTable").DataTable({
-   		
-   		
-   		responsive:true,
-   		info: false,
-   		 "language": {
-	        "emptyTable": "글이 없습니다.",
-	        "lengthMenu": "페이지당 _MENU_ 개씩 보기",
-	        "info": "현재 _START_ - _END_ / _TOTAL_건",
-	        "infoEmpty": "데이터 없음",
-	        "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
-	        "search": "메일검색: ",
-	        "zeroRecords": "일치하는 결과가 없습니다.",
-	        "loadingRecords": "로딩중...",
-	        "processing":     "잠시만 기다려 주세요...",
-	        "paginate": {
-	            "next": "다음",
-	            "previous": "이전"
-	        }
-	    },
-	    
-	    
-	  		/* columns: [
-            {"data": "no"},
-            {"data": "title"},
-            {"data": "writer"}, 
-            {"data": "count"}, 
-            {"data": "date"}
-            ],  */
-	    
-	    
-   	});
-   	
-   /*  $('#myTable_filter').prepend('<select id="select"></select>');
-    $('#myTable > thead > tr').children().each(function (indexInArray, valueOfElement) { 
-        $('#select').append('<option>'+valueOfElement.innerHTML+'</option>');
-    });
- 
-    	$('.dataTables_filter input').unbind().bind('keyup', function () {
-        var colIndex = document.querySelector('#select').selectedIndex;
-        table.column(colIndex).search(this.value).draw();
-        
-      	
-    }); */
- 
-   	   
-   	$(document).ready(function() {
-   	    $('#myTable').DataTable();
-   	} );
-   	
-   	
-
-   });
-</script>
-
-
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous">
-</script>
-<script src="resources/assets/Semantic-UI-CSS-master/semantic.js"></script>
 
 <style>
 	.contentWrap{
@@ -90,20 +21,38 @@
 		padding-right:50px;
 		font-size:14px;
 	}
-	.date{
-		text-align:right;
-	}
-	.person{
-		text-align:center;
-	}
-	.subject{
-		padding-left:30px;
-	}
-	table.table-bordered.dataTable tbody td{
-		border:none;
-		font-size:15px;
-	}	
-
+	#ul{
+    	margin:8px;
+    	line-height:2;
+    }
+    .li{
+    	width:140px;
+    }
+    .dropscroll-menu1 {
+	    position: absolute;
+	    float: left;
+	    font-size: 14px;
+	    background-color: #fff;
+	    border: 1px solid #999;
+	    z-index: 130;
+    }
+    .dropscroll-menu2 {
+	    position: absolute;
+	    float: left;
+	    font-size: 14px;
+	    background-color: #fff;
+	    border: 1px solid #999;
+	    z-index: 130;
+    }
+    .icon.file {
+	    display: block;
+	    width: 9px;
+	    height: 14px;
+	    background-position: -210px -15px;
+	    margin-top: 3px;
+	    cursor: pointer;
+    }
+	
 </style>
 
 
@@ -122,179 +71,232 @@
 				<div class="container-fluid">
 					<div class="contentWrap" style="width:1210px;">
 					
-					<!-- 이 아래부터 내용 작성 -->
-					
-					
-					<table id="myTable" class="table table-bordered" style="border:none;">
-					
-						<colgroup>
-							<col style="width:2%;">
-							<col style="width:4%;">
-							<col style="width:12%;">
-							<col style="width:61%;">
-							<col style="width:7%;">
-							<col style="width:15%;">
-						</colgroup>
-					
-				        <thead>
-				            <tr>
-				             	<th data-orderable="false" style="text-align:left;"><i><input type="checkbox" id="chkAll"></i></th>
-					      		<th style="text-align:center;"><i class="fas fa-list-ol"></i></th>
-						  		<th data-orderable="false" id="writer" style="text-align:center;"><i class="fa fa-user"></i></th>
-						  		<th id="title" width="300" style="text-align:center;"></th>
-						  		<th data-orderable="false" style="text-align:center;"><i class="fa fa-eye"></i></th>
-						  		<th data-orderable="false" style="text-align:center;"><i class="far fa-clock"></i></th>
-				    		</tr>
-				        </thead>
-				        <tbody class="select_subject">
-				            <tr>
-				            	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><i class="star icon"></i></td>
-				            	<td class="person">설용환</td>
-				            	<td style="padding-left:60px;">!!!긴급</td>
-				            	<td>첨부파일</td>
-				            	<td class="date">19-09-16 09:47</td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td class="person">전재광</td>
-				            	<td style="padding-left:60px;">급한메일입니다.</td>
-				            	<td>첨부파일</td>
-				            	<td class="date">19-09-17 10:43</td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td class="person">유현규</td>
-				            	<td style="padding-left:60px;">당신뭐야!!!</td>
-				            	<td>첨부파일</td>
-				            	<td class="date">19-09-18 11:53</td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td class="person">원영주</td>
-				            	<td style="padding-left:60px;">뭐하잔 거죠</td>
-				            	<td>첨부파일</td>
-				            	<td class="date">19-09-19 14:00</td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td class="person">유현규</td>
-				            	<td style="padding-left:60px;">보는 즉시 연락해</td>
-				            	<td>첨부파일</td>
-				            	<td class="date">19-09-19 15:43</td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td class="person">원영주</td>
-				            	<td style="padding-left:60px;">2019년 신입교육 안내</td>
-				            	<td>첨부파일</td>
-				            	<td class="date"></td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td class="person">설용환</td>
-				            	<td style="padding-left:60px;">개발팀 회식 안내</td>
-				            	<td>첨부파일</td>
-				            	<td class="date"></td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td class="person">전재광</td>
-				            	<td style="padding-left:60px;">2019년 10월 급여안내</td>
-				            	<td>첨부파일</td>
-				            	<td class="date"></td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td class="person">전재광</td>
-				            	<td style="padding-left:60px;">(긴급) 공지사항 확인</td>
-				            	<td>첨부파일</td>
-				            	<td class="date"></td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td class="person">유현규</td>
-				            	<td style="padding-left:60px;">점심 뭐 먹을래요?</td>
-				            	<td>첨부파일</td>
-				            	<td class="date"></td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td class="person">설용환</td>
-				            	<td style="padding-left:60px;">아 빡치네</td>
-				            	<td>첨부파일</td>
-				            	<td class="date"></td>
-				            </tr>
-				        </tbody> 
-					</table>
+		<!-- 이 아래부터 내용 작성 -->
 
-					 
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					<!-- 이 위까지 내용작성 -->
-					
+		<fieldset>
+			<div id="searchArea" align="right">
+				<form action="search.do">
+					<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray">
+					    <option>------</option>
+					    <option value="writer">이메일</option>
+					    <option value="title">제목</option>
+					    <option value="content">내용</option>
+					</select>
+					<div class="ui input">
+						<input type="search" name="search" value="${ search }" placeholder="Search..." style="height:32px;">
+						<i class="circular search link"></i>
+					</div>	         
+					<button type="submit" onclick="return validate();" style="color:#3287B2">검색하기</button>
+				</form>
+	       </div>
+	       
+	       <script>
+		       function validate(){
+		           if($("option:selected").val() == "------"){
+// 		              alert("검색 조건을 체크해주세요");
+		              alertify.alert("검색 조건을 체크해주세요");
+		           return false;
+		           }
+		        }
+	       </script>
+	       
+		 	<div id='m_list_default_menu'>
+	            <span class="detail_select menu">
+					<a href="javascript:void(0)" id="lookAll" class="lookAll" style="color:#3287B2; font-size:15px;">보기: 모두
+					 	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif">
+				 	</a>
+		            <div class="dropdown1 hide" id="m_view_move_mbox_detail">
+	                    <div class="dropscroll-menu1" style="width:150px; border:1px solid #999; z-index: 110;">
+	                        <ul style="min-width:220px; border-color:#2985db;" id="ul" class="ul">
+					            <li class="li" class="li">
+	                                <a href="javascript:void(0)" id="move_b0" onclick="" style="color:gray;">모두</a>
+	                            </li>
+					            <li class="li" class="li">
+	                                <a href="javascript:void(0)" id="move_b1" onclick="" style="color:gray;">별 표시</a>
+	                            </li>
+					            <li class="li" class="li">
+	                                <a href="javascript:void(0)" id="move_b2" onclick="" style="color:gray;">첨부 있음</a>
+	                            </li>
+					            <li class="li" class="li">
+	                                <a href="javascript:void(0)" id="move_b3" onclick="" style="color:gray;">안 읽은 메일</a>
+	                            </li>
+					            <li class="li" class="li">
+	                                <a href="javascript:void(0)" id="move_b5" onclick="" style="color:gray;">읽은 메일</a>
+	                            </li>
+							</ul>
+	                     </div>  
 					</div>
+	            </span>
+	        </div>
+
+	        
+	        
+	        <div id='chkMenu' class="chkMenu hide" name="chkMenu" style="font-size:15px; display:none">
+	            <span class="detail_select" id="m_list_checked_menu_delete">
+	                <a href="javascript:void(0)" onclick="">삭제</a>&nbsp;&nbsp;
+	            </span>
+	            <span class="detail_select">
+	                <a href="javascript:void(0)" onclick="">완전삭제</a>&nbsp;&nbsp;
+	            </span>
+	            <span class="detail_select" id="m_list_checked_menu_resend">
+	                <a href="javascript:void(0)" onclick="">재발송</a>&nbsp;&nbsp;
+	            </span>
+	        
+	            <span class="detail_select move">
+	                <a href="javascript:void(0)" id='m_list_move_mbox' >이동
+	                	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif" alt="이동 드롭다운 메뉴 열기" class="open_drop">
+	                </a>
+	                <div class="dropdown2 hide" id='m_list_move_mbox_detail' style= "margin-left:180px;">
+	                    <div class="dropscroll-menu2">
+	                        <ul style="min-width:110px; border-color:#2985db; margin:10px; line-height:2">
+	                            <li>
+	                                <a href="" id="receive"onclick="" style="color:gray">받은 편지함</a>
+	                            </li>
+	                            <li>
+	                                <a href="" id="send"onclick="" style="color:gray"> 보낸 편지함</a>
+	                            </li>
+	                            <li>
+	                                <a href="" id="delete"onclick="" style="color:gray">휴지통</a>
+	                            </li>
+	                        </ul>
+	                    </div>
+	                </div>
+            	</span>
+            </div>   
+	 	</fieldset>
+	 	
+			
+		<table class="ui selectable celled table">
+			<colgroup>
+				<col style="width:2%;">
+				<col style="width:4%;">
+				<col style="width:17%;">
+				<col style="width:60%;">
+				<col style="width:8%;">
+				<col style="width:15%;">
+			</colgroup>
+				<thead>
+					<tr>
+						<th><input type="checkbox" id="chkAll" class="chkBox" name="chkAll" onclick=""></th>
+						<th><i class="far fa-star"></i></th>
+						<th>보낸사람</th>
+						<th>메일제목</th>
+						<th class="aa">첨부파일</th>
+						<th class="aa">날짜</th>
+					</tr>
+				</thead>
+				<tbody class="select_subject">
+				<c:forEach items="${ list }" var="m">
+					<tr>
+						<td>
+							<input type="hidden" value="${ m.mailNum }">
+							<input type="checkbox" class="check chkBox">
+						</td>
+						<td><i class="far fa-star"></i></td>
+						<td class="mName">${ m.mailFrom }</td>
+						<td class="mTitle">
+							<c:if test="${ empty loginUser }">
+								${ m.mailTitle }
+							</c:if>
+							<c:if test="${ !empty loginUser }">
+								<c:url value="receiveDetail.do" var="mdetail">
+									<c:param name="mailNum" value="${ m.mailNum }"/>						
+								</c:url>
+								<a href="${ mdetail }" style="color:gray;">${ m.mailTitle }</a>
+							</c:if>
+						</td>
+						
+						<td align="right">
+							<c:if test="${ !empty m.renameFileName }">
+								<div class="icon file" style="width:20px; height:20px;">
+								</div>
+							</c:if>
+							<c:if test="${ empty m.renameFileName }">
+								<div>
+								</div>
+							</c:if>
+						</td>
+						<td class="mDate aa">${ m.mailDate }</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+
+		<div id="pagingArea" align="center">
+ 			<!-- [이전] -->
+			<c:if test="${ pi.currentPage == 1 }">
+				이전&nbsp;
+			</c:if>
+			<c:if test="${ pi.currentPage > 1 }">
+				<c:if test="${ !empty sc }">
+					<c:url var="mlistBack" value="search.do">
+						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
+						<c:param name="condition" value="${ condition }"/>
+						<c:param name="search" value="${ search }"/>
+					</c:url>
+				</c:if>
+				<c:if test="${ empty sc }">
+					<c:url var="mlistBack" value="receiveMail.do">
+						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
+					</c:url>
+				</c:if>
+				<a href="${ mlistBack }">이전</a>
+			 </c:if>
+         
+	         <!-- [번호들] -->
+	         <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+	            <c:if test="${ p eq pi.currentPage }">
+	               <font color="#3287B2" size="3">${ p }</font>
+	            </c:if>
+	            <c:if test="${ p ne pi.currentPage }">
+	               <c:if test="${ !empty sc }"> <!-- 검색결과 있으면 -->
+	                  <c:url var="mlistPage" value="search.do">
+	                     <c:param name="currentPage" value="${ p }"/>
+	                     <c:param name="condition" value="${ condition }"/>
+	                     <c:param name="search" value="${ search }"/>
+	                  </c:url>
+	               </c:if>
+	               <c:if test="${ empty sc }"> <!-- 검색 결과 없으면 -->
+		               <c:url var="mlistPage" value="receiveMail.do">
+		                  <c:param name="currentPage" value="${ p }"/>
+		               </c:url>                  
+	               </c:if>
+	               <a href="${ mlistPage }">${ p }</a>
+	            </c:if>
+	         </c:forEach>
+         
+        	<!-- [다음] -->
+			<c:if test="${ pi.currentPage == pi.maxPage }">
+				&nbsp;다음
+			</c:if>
+			<c:if test="${ pi.currentPage < pi.maxPage }">
+				<c:if test="${ !empty sc }">
+					<c:url var="mlistNext" value="search.do">
+						<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
+						<c:param name="condition" value="${ condition }"/>
+						<c:param name="search" value="${ search }"/>
+					</c:url>
+				</c:if>
+				<c:if test="${ empty sc }">
+					<c:url var="mlistNext" value="receiveMail.do">
+						<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+					</c:url>
+				</c:if>
+				<a href="${ mlistNext }">다음</a>
+			</c:if>
+		</div>
+	</div>
+		
+		<!-- 이 위까지 내용작성 -->
+					
 				</div>
 			</div>
-			<!-- END MAIN CONTENT -->
 		</div>
-		<!-- END MAIN -->
+		<!-- END MAIN CONTENT -->
+	</div>
+	<!-- END MAIN -->
 		
-		<div class="clearfix"></div>
+	<div class="clearfix"></div>
 		
 
 	<!--  -->
@@ -314,7 +316,14 @@
 	<script>
 	
 		$(function(){
-		
+			
+			/* 호버 기능 */
+		    $("#listArea").find("td").mouseenter(function(){
+		       $(this).parent().css({"background":"#ddd","cursor":"pointer"});
+		    }).mouseout(function(){
+		       $(this).parent().css("background","white");
+		    });
+			
 			/* 사이드바의 해당 메뉴 활성화 유지하기 */
 			$("#menu2").addClass("in");
 			$("#menu2").attr('aria-expanded',true);
@@ -322,22 +331,94 @@
 			$("#menu2_1").attr('aria-expanded',true);
 			$("#m2_4").addClass("active");	
 			
-			/* 체크박스 전체 선택하기 */
+			/* 체크박스 선택하기 */
 			$("#chkAll").click(function(){
 				var chk = $(this).is(":checked");
 				if(chk) $(".select_subject input").prop('checked', true);
-				else  $(".select_subject input").prop('checked', false);
+				else $(".select_subject input").prop('checked', false);
+				
+				$(".chkMenu").addClass("show");
+				$("#lookAll").addClass("hide");
+				$("#lookAll").css("display","none");
+				$(".chkMenu").css("display", "block");
 			});
 			
-			 $("#myTable").find("td").mouseenter(function(){
-			       $(this).parent().css({"background":"#ddd","cursor":"pointer"});
-			    }).mouseout(function(){
-			       $(this).parent().css("background","white");
-			 });
+			/* 체크박스 하나라도 선택되면 메뉴바 변경 */
+			$(".chkBox").change(function() {			
+				var checked = $(this).prop('checked');
+				if(checked)
+			        $(".chkMenu").addClass("show"); 
+					$(".chkMenu").css("display","block");
+					$("#lookAll").addClass("hide");
+			});
 			
+			
+// 			if($(".chkBox").is(":checked") == false) {
+// 				  $("#lookAll").addClass("show");
+// 				  $(".chkMenu").addClass("hide");
+// 				  $(".chkMenu").css("display","none");
+// 				  $("#lookAll").css("display","block");
+// 				}
+			
+			if($(".chkBox").is(":checked") == true) {
+				  $("#lookAll").addClass("hide");
+				  $(".chkMenu").addClass("show");
+				  $(".chkMenu").css("display","block");
+				  $("#lookAll").css("display","none");
+				}
+
+			
+			/* 호버 기능 */
+			$(".dropscroll-menu1").find("li").mouseenter(function(){
+			       $(this).css({"background":"#ddd","cursor":"pointer"});
+			    }).mouseout(function(){
+			       $(this).css("background","white");
+			});
+			
+			$(".dropscroll-menu2").find("li").mouseenter(function(){
+			       $(this).css({"background":"#ddd","cursor":"pointer"});
+			    }).mouseout(function(){
+			       $(this).css("background","white");
+			});
+			
+			/* 드롭바 나타내기 */
+			$("#lookAll").click(function(){
+				$(".dropdown1").addClass("show");
+			});
+			
+			/* 드롭바 마우스 이벤트 */
+			$('.dropdown1').on({
+			    mouseover: function(){
+			        $(this).addClass("show");
+			    },
+			     mouseleave: function(){
+			    	$(this).removeClass("show");
+			        $(this).addClass("hide");
+ 			    }
+			});
+
+			/* 드롭바 나타내기 */
+			$(".move").click(function(){
+				if($(".dropdown2").addClass("show")){
+					
+				}else{
+					$(".dropdown2").removeClass("show");
+				}			
+			});
+			
+			/* 드롭바 마우스 이벤트 */
+			$('.dropdown2').on({
+			    mouseover: function(){
+			        $(this).addClass("show");
+			    },
+			     mouseleave: function(){
+			    	$(this).removeClass("show");
+			        $(this).addClass("hide");
+ 			    }
+			});
+
 		});
-	
-	
+
 	</script>
 
 </body>

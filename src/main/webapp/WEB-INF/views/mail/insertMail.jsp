@@ -184,7 +184,7 @@
 					
 					
 					
-					<!-- 결제선 주소록 테스트 -->
+						<!---------- 결제선 주소록 시작 ------------------------>
 						
 						<div id="approval_address_layer" class="booking_layer_div layer_box hide typeD">
 						
@@ -192,9 +192,9 @@
 							<div class="title_layer text_variables" id="titleApprovalLineSetting">결재선 설정</div>
 							<div class="line-search after" id="searchP" style="display: block;">
 								<ul class="after">
-												<li><label for="rdo_sch_name"><input type="radio" value="name" name="searchField" id="rdo_sch_name" onclick="$j('#keyword').focus();" checked="checked"> 이름</label></li>
-												<li><label for="rdo_sch_const"><input type="radio" value="const" name="searchField" id="rdo_sch_const" onclick="$j('#keyword').focus();"> 조직</label></li>
-											</ul>
+									<li><label for="rdo_sch_name"><input type="radio" value="name" name="searchField" id="rdo_sch_name" onclick="$j('#keyword').focus();" checked="checked"> 이름</label></li>
+									<li><label for="rdo_sch_const"><input type="radio" value="const" name="searchField" id="rdo_sch_const" onclick="$j('#keyword').focus();"> 조직</label></li>
+								</ul>
 								<div class="fl input-area">
 									<input type="text" style="width:203px;position: absolute;" class="text-box vm" id="keyword" onkeypress="if(event.keyCode == 13){ event.preventDefault(); addressbook.click_searchBtn();}">
 									<span class="icon h_detail vm"></span>
@@ -210,27 +210,37 @@
 									<div class="after">
 										<div class="fl" id="searchMessage" style="display: none;"><span id="searchKeyword"></span> 검색결과 : <span id="searchCount"></span></div>
 										<div class="fr">
-											<a class="icon order" href="javascript:void(0);" title="정렬" id="anchorApprovalUserOrder"></a>
+											<a class="icon order" title="정렬" id="anchorApprovalUserOrder" style="cursor:pointer;"></a>
 											<ul class="dropdown-menu hide" id="orderApprovalDropdown" style="width: 70px; top: 124px; left: 314px;">
-												<li><a href="javascript:void(0);" class="js-approval-node-order" onclick="addressbook.click_orderBtn('name', 'ASC');$j('#orderApprovalDropdown').toggleClass('show');">이름순</a></li>
-												<li><a href="javascript:void(0);" class="js-approval-node-order" onclick="addressbook.click_orderBtn('position', 'DESC');$j('#orderApprovalDropdown').toggleClass('show');">직급순</a></li>
-												<li><a href="javascript:void(0);" class="js-approval-node-order" onclick="addressbook.click_orderBtn('priority', '');$j('#orderApprovalDropdown').toggleClass('show');">설정순</a></li>
+												<li><a class="js-approval-node-order sortByName">이름순</a></li>
+												<li><a class="js-approval-node-order sortByJob">직급순</a></li>
 											</ul>
 										</div>
 									</div>
 									<div class="after">
 										<div class="category-list" style="height: 397px;width: 205px;">
-											<select id="leftList" size="19" frameborder="0" style="display:none;" onclick="addressbook.click_leftList(this)">
+											<select id="leftList" size="19" frameborder="0" style="display:none;">
 																	</select>
-											<div id="treeDiv" style="white-space: nowrap;float: none;" class="treeDiv OrgTree"><ul><li id="addressTreeNode_45295" class="last"><div class="Container"><img onclick="addressbook.ToggleTree(this);" src="https://approval.office.hiworks.com/assets/images/common/tree_images/tree_m.gif" class="plus"><strong onclick="addressbook.selectNode(this);" class="selectedNode">cocoaTest <span style="font-weight:normal; color:silver; font-size:8pt">(6)</span></strong></div><ul style=""><li id="addressTreeNode_46498"><div class="Container"><strong onclick="addressbook.selectNode(this);">경영지원팀 <span style="font-weight:normal; color:silver; font-size:8pt">(1)</span></strong></div></li><li id="addressTreeNode_46499"><div class="Container"><strong onclick="addressbook.selectNode(this);">개발팀 <span style="font-weight:normal; color:silver; font-size:8pt">(1)</span></strong></div></li><li id="addressTreeNode_46500"><div class="Container"><strong onclick="addressbook.selectNode(this);">서비스팀 <span style="font-weight:normal; color:silver; font-size:8pt">(2)</span></strong></div></li><li id="addressTreeNode_46501" class="last"><div class="Container"><strong onclick="addressbook.selectNode(this);">영업팀 <span style="font-weight:normal; color:silver; font-size:8pt">(1)</span></strong></div></li></ul></li></ul></div>
+											<div id="treeDiv" style="white-space: nowrap;float: none;" class="treeDiv OrgTree">
+												<ul>
+													<li id="" class="last">
+														<div class="Container">
+															<img onclick="" src="https://approval.office.hiworks.com/assets/images/common/tree_images/tree_m.gif" class="plus">
+															<strong onclick="" id="subOffice" class="selectedNode">DEVELOFFICE <span style="font-weight:normal; color:silver; font-size:8pt">(${deptSize})</span></strong>
+														</div>
+														<ul style="" id="subDept">
+														</ul>
+													</li>
+												</ul>
+											</div>
 											<div id="leftProgressDiv" style="display: none;" class="progressDiv"><img src="resources/images/progress_big.gif"></div>
 										</div>
 										<div class="name-list" style="width: auto;">
-											<select multiple="multiple" id="rightList" style="">
-																	<option value="56672" title="sfsfy1 (개발팀)" node_id="46499">sfsfy1 (개발팀)</option><option value="56675" title="김상윤 (서비스팀)" node_id="46500">김상윤 (서비스팀)</option><option value="56674" title="김성은 (영업팀)" node_id="46501">김성은 (영업팀)</option><option value="57462" title="원영주 (경영지원팀)" node_id="46498">원영주 (경영지원팀)</option><option value="56673" title="유현규 (서비스팀)" node_id="46500">유현규 (서비스팀)</option><option value="57511" title="전재광 (cocoaTest)" node_id="45295">전재광 (cocoaTest)</option></select>
+											<select multiple="multiple" id="rightList" style=""></select>
 						
 											<div class="choice-area" style="width: 203px;font-size: 12px;padding: 5px;">
-																		<a href="javascript:void(0);" class="text_variables fl mgr_20" onclick="addressbook.click_rightSelect('select');">전체</a> <a href="javascript:void(0);" class="text_variables mgr_20" onclick="addressbook.click_rightSelect('deselect');">선택안함</a>
+												<a class="text_variables fl mgr_20" id="selectAll" style="cursor:pointer">전체</a>
+												<a class="text_variables mgr_20" id="cancelAll" style="cursor:pointer">선택안함</a>
 												<span id="pagingP"></span>
 											</div>
 											<div id="rightProgressDiv" style="display: none;" class="progressDiv"><img src="resources/images/progress_big.gif"></div>
@@ -240,22 +250,15 @@
 								</div>
 								<div class="add-del-btn with-fourline">
 									<div class="top" style="margin-top: 70px;">
-										<a href="javascript:void(0);" class="icon btn-add js-btn-approval-first-line" onclick="Approval.addUser('selectApprovalFirstLine');"><span class="blind"></span></a>
-										<a href="javascript:void(0);" class="icon btn-del js-btn-approval-first-line" onclick="Approval.deleteUser('selectApprovalFirstLine');"><span class="blind"></span></a>
+										<a class="icon btn-add js-btn-approval-first-line"><span class="blind"></span></a>
+										<a class="icon btn-del js-btn-approval-first-line"><span class="blind"></span></a>
 									</div>
-									<div class="middle" style="margin-top: 50px;">
-										<a href="javascript:void(0);" class="icon btn-add js-btn-approval-second-line" onclick="Approval.addUser('selectApprovalSecondLine');"><span class="blind"></span></a>
-										<a href="javascript:void(0);" class="icon btn-del js-btn-approval-second-line" onclick="Approval.deleteUser('selectApprovalSecondLine');"><span class="blind"></span></a>
-									</div>
-									<div class="bottom" style="margin-top: 34px;">
-										<a href="javascript:void(0);" class="icon btn-add js-btn-approval-third-line" onclick="Approval.addUser('selectApprovalThirdLine');"><span class="blind"></span></a>
-										<a href="javascript:void(0);" class="icon btn-del js-btn-approval-third-line" onclick="Approval.deleteUser('selectApprovalThirdLine');"><span class="blind"></span></a>
-									</div>
-									<div class="last" style="margin-top: 25px;">
-										<a href="javascript:void(0);" class="icon btn-add js-btn-approval-fourth-line" onclick="Approval.addUser('selectApprovalFourthLine');"><span class="blind"></span></a>
-										<a href="javascript:void(0);" class="icon btn-del js-btn-approval-fourth-line" onclick="Approval.deleteUser('selectApprovalFourthLine');"><span class="blind"></span></a>
+									<div class="middle" style="margin-top: 60px;">
+										<a class="icon btn-add js-btn-approval-third-line"><span class="blind"></span></a>
+										<a class="icon btn-del js-btn-approval-third-line"><span class="blind"></span></a>
 									</div>
 								</div>
+								
 								<div class="fr mgb20">
 									<div class="dropdown hide show" style="top:60px;right:0">
 										<div class="dropdown-menu multi-team hide" id="layerMultiNode" style="width:290px">
@@ -280,22 +283,22 @@
 											</div>
 						
 											<div class="layer_button">
-												<button type="button" class="btn_variables" onclick="Approval.selectMultiNodeUser();">확인</button> <button type="button" onclick="$j('#layerMultiNode').hide();">취소</button>
+												<button type="button" class="btn_variables">확인</button> <button type="button" onclick="$j('#layerMultiNode').hide();">취소</button>
 											</div>
 										</div>
 									</div>
 									<div class="first-line four-line after">
 										<div class="fl">
 											<div class="to-item after">
-												<span class="title">결재 <span class="point_color bold" id="sp_selectApprovalFirstLine">1</span></span>
+												<span class="title">결재 <span class="point_color bold" id="sp_selectApprovalFirstLine">0</span></span>
 												<div class="updown-wrap first js-move-approval-first-line" style="width: 55px;">
-													<span class="blind icon down" onclick="Approval.downUser('selectApprovalFirstLine');"></span>
-													<span class="blind icon up" onclick="Approval.upUser('selectApprovalFirstLine');"></span>
+													<span class="blind icon down"></span>
+													<span class="blind icon up"></span>
 												</div>
 											</div>
 											<div class="list">
-												<select multiple="multiple" id="selectApprovalFirstLine">
-												<option value="57511" node_id="45295" title="전재광 (cocoaTest)" disabled="" edit="N" old_new="old" enable_delete="Y">전재광 (cocoaTest)</option></select>
+												<select multiple="multiple" id="selectApprovalFirstLine" style="overflow-y: hidden !important;">
+												</select>
 											</div>
 						
 										</div>
@@ -306,32 +309,18 @@
 											향<br>
 										</div>
 									</div>
+											
 									<div class="three-line after">
 										<div class="fl">
 											<div class="to-item after">
-												<span class="title">합의 <span class="point_color bold" id="sp_selectApprovalSecondLine">0</span></span>
-												<div class="updown-wrap first js-move-approval-second-line" style="width: 55px;">
-													<span class="blind icon down" onclick="Approval.downUser('selectApprovalSecondLine');"></span>
-													<span class="blind icon up" onclick="Approval.upUser('selectApprovalSecondLine');"></span>
-												</div>
-											</div>
-											<div class="list">
-												<select multiple="multiple" id="selectApprovalSecondLine">
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="three-line after">
-										<div class="fl">
-											<div class="to-item after">
-												<span class="title">재무합의 <span class="point_color bold" id="sp_selectApprovalThirdLine">0</span></span>
+												<span class="title">참조 <span class="point_color bold" id="sp_selectApprovalThirdLine">0</span></span>
 												<div class="updown-wrap first js-move-approval-third-line" style="width: 55px;">
-													<span class="blind icon down" onclick="Approval.downUser('selectApprovalThirdLine');"></span>
-													<span class="blind icon up" onclick="Approval.upUser('selectApprovalThirdLine');"></span>
+													<span class="blind icon down"></span>
+													<span class="blind icon up"></span>
 												</div>
 											</div>
 											<div class="list">
-												<select multiple="multiple" id="selectApprovalThirdLine">
+												<select multiple="multiple" id="selectApprovalThirdLine" style="overflow-y: hidden !important;">
 												</select>
 										   </div>
 										</div>
@@ -341,36 +330,25 @@
 											방<br>
 											향<br>
 										</div>
-									</div>
-									<div class="last-line two-line after">
-										<div class="fl">
-											<div class="to-item after">
-												<span class="title">참조 <span class="point_color bold" id="sp_selectApprovalFourthLine">0</span></span>
-												<div class="updown-wrap first js-move-approval-fourth-line" style="width: 55px;">
-													<span class="blind icon down" onclick="Approval.downUser('selectApprovalFourthLine');"></span>
-													<span class="blind icon up" onclick="Approval.upUser('selectApprovalFourthLine');"></span>
-												</div>
-											</div>
-											<div class="list" style="height: 54px;>
-												<select multiple="multiple" id="selectApprovalFourthLine"">
-												</select>
-										   </div>
-										</div>
-						
-									</div>
+									</div>								
+									
 								</div>
 							</div>
 							<div class="layer_button">
-								<button type="button" class="btn_variables" onclick="addressbook.btnApply();">확인</button> <button type="button" class="closeBtn" onclick="addressbook.closeAddressbook();">취소</button>
+								<button type="button" class="btn_variables confirmBtn">확인</button> <button type="button" class="closeBtn">취소</button>
 							</div>
-							<a href="javascript:void(0);" class="icon btn_closelayer closeBtn" onclick="addressbook.closeAddressbook();" title="레이어 닫기"></a>
+							<a class="icon btn_closelayer closeBtn" title="레이어 닫기"></a>
 						</div>
-						
 						
 						<div class="layer_back" style="position: fixed;width: 100%;height: 100%;z-index: 1000;background-color: rgb(0, 0, 0);opacity: 0.3;top: 0px;left: 0px;margin: 0px;padding: 0px;"></div>
 					</div>
-
-						<!-- 결제선 주소록 테스트 -->
+						
+						
+						
+						
+						
+						
+				<!---------- 결제선 주소록 끝 ------------------------>
 					
 					
 					
@@ -635,8 +613,14 @@
 		        }
 		    }
 		    
-			
 			/*------------------------- 파일 드랍 끝 ---------------------------  */
+			
+			
+			
+			/* 결재선 스크립트 */
+			$(function(){
+				
+			})
 	
 	</script>
 

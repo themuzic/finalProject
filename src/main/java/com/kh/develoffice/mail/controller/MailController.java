@@ -6,7 +6,14 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Properties;
 
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Store;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -75,32 +82,6 @@ public class MailController {
 		
 		System.out.println("넘어온 메일 객체 : "+m);
 		System.out.println("넘어온 파일 정보 : "+uploadFile);
-		
-//	    String setfrom = "sangyoon2ya@gmail.com";          		// 보내는 사람 이메일
-//	    String tomail = request.getParameter("mailTo");    		// 받는 사람 이메일
-//		String title = request.getParameter("mailTitle");      	// 메일 제목
-//		String content = request.getParameter("mailContent");  	// 메일 내용
-//		
-//		String filename = "D:/test.txt";                   	   	// 파일 경로
-//		   
-//	    try {
-//	      MimeMessage message = mailSender.createMimeMessage();
-//	      MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-//	 
-//	      messageHelper.setFrom(setfrom);   // 보내는사람 생략하거나 하면 정상작동을 안함
-//	      messageHelper.setTo(tomail);      // 받는사람 이메일
-//	      messageHelper.setSubject(title);  // 메일제목은 생략이 가능하다
-//	      messageHelper.setText(content);   // 메일 내용
-//	 
-//	      // 파일첨부
-//		  FileSystemResource fsr = new FileSystemResource(filename);
-//		  messageHelper.addAttachment("test2.txt", fsr);
-//		     
-//		      mailSender.send(message);
-//		  	} catch(Exception e){
-//		      System.out.println(e);
-//		  	}
-	    	
 
     	if(uploadFile!=null && !uploadFile.getOriginalFilename().equals("")) {	// 첨부파일이 넘어온 경우
 		
@@ -259,6 +240,89 @@ public class MailController {
 			f.delete();
 		}
 	}
+	
+	@RequestMapping("transfer.do")
+	public ModelAndView mailTransfer(int mailNum, HttpServletRequest request, ModelAndView mv) {
+		
+		Mail m = mService.selectMail(mailNum);
+		
+		int result = mService.transferMail(mailNum);
+		
+		if(result == 0) {
+			mv.addObject("m", m).setViewName("mail/receiveMail");
+		}else if(result == 1) {
+			mv.addObject("m", m).setViewName("mail/sendMail");
+		}else if(result == 2) {
+			mv.addObject("m", m).setViewName("mail/deletemail");
+		}else {
+			mv.addObject("m", m).setViewName("common/errorPage");
+		}				
+		return mv;
+	}
+	
+	
+	
+	
+	
+	
+	
+//	// pop3 메일 수신
+//	@RequestMapping("receiveMail.do")
+//	public static void open() throws AddressException, MessagingException {
+//
+//        String host = "pop.gmail.com";
+//
+//        final String username = "sangyoon2ya"; // @naver.com 은 제외하고 아이디만.
+//        final String password = "12Rjwlfua!";
+//        int port=995;
+//
+//        Properties props = System.getProperties();
+//
+//        props.put("mail.pop3.host", host);
+//        props.put("mail.pop3.port", port);
+//        props.put("mail.pop3.auth", "true");
+//        props.put("mail.pop3.ssl.enable", "true");
+//        props.put("mail.pop3.ssl.trust", host);
+//
+//        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+//
+//            String un=username;
+//            String pw=password;
+//
+//            protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+//
+//                return new javax.mail.PasswordAuthentication(un, pw);
+//            }
+//        });
+//
+//        session.setDebug(false);
+//        
+//        Store store = session.getStore("pop3");
+//        store.connect();
+//
+//        Folder folder = store.getFolder("INBOX");
+//        folder.open(Folder.READ_ONLY);
+//
+//        Message[] messages = folder.getMessages();
+//
+//        if (messages.length == 0) System.out.println("No messages found.");
+//
+//        for(Message message : messages) {
+//
+//            System.out.println(":::::::::::::::::::::::::::::::::::");
+//            
+//            System.out.println("제목: " + message.getSubject());
+//            System.out.println("보낸시간: " + message.getSentDate());
+////          System.out.println(message.getDataHandler());
+//            System.out.println("보낸사람 이메일: " + message.getFrom()[0].toString().split("=? <")[1].split(">")[0]);
+//            try {
+//				System.out.println("내용: " + message.getContent());
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//        }
+//        store.close();
+//    }
 
 
 }

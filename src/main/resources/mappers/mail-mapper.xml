@@ -79,5 +79,17 @@
 		</choose>
 		order by mail_num desc
 	</select>
+	
+	<update id="deleteMail" parameterType="_int">
+		update mail
+		set mail_status='N'
+		where mail_num=#{mailNum}
+	</update>
+	
+	<update id="transferMail" parameterType="_int">
+		update mail
+		set mail_type=#{mailType}
+		where mail_num=#{mailNum}
+	</update>
 
 </mapper>

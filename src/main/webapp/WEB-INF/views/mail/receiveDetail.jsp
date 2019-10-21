@@ -89,21 +89,22 @@
 		                <div class="dropdown hide" id="m_view_move_mbox_detail" style="margin-left:330px;">
 		                    <div class="dropscroll-menu" style="width:150px;">
 		                        <ul style="min-width:220px; border-color:#2985db;" id="ul">
-						            <li class="li">
-		                                <a href="javascript:void(0)" id="move_b0" onclick="" style="color:gray;">받은 편지함</a>
-		                            </li>
-						            <li class="li">
-		                                <a href="javascript:void(0)" id="move_b1" onclick="" style="color:gray;">보낸 편지함</a>
-		                            </li>
-						            <li class="li">
-		                                <a href="javascript:void(0)" id="move_b2" onclick="" style="color:gray;">보낼 편지함</a>
-		                            </li>
-						            <li class="li">
-		                                <a href="javascript:void(0)" id="move_b3" onclick="" style="color:gray;">임시 보관함</a>
-		                            </li>
-						            <li class="li">
-		                                <a href="javascript:void(0)" id="move_b5" onclick="" style="color:gray;">휴지통</a>
-		                            </li>
+		                        
+		                        	<c:url var="mtransfer" value="transfer.do">
+										<c:param name="mailNum" value="${m.mailNum }"/>
+									</c:url>
+									
+									<c:if test ="${ loginUser.empId eq m.empId }">
+							            <li class="li">
+			                                <a href="${ mtransfer }" id="move_b0" style="color:gray;">받은 편지함</a>
+			                            </li>
+							            <li class="li">
+			                                <a href="${ mtransfer }" id="move_b1" style="color:gray;">보낸 편지함</a>
+			                            </li>
+							            <li class="li">
+			                                <a href="${ mtransfer }" id="move_b5" style="color:gray;">휴지통</a>
+			                            </li>
+		                            </c:if>
 								</ul>
 		                     </div>  
 						</div>
@@ -138,18 +139,17 @@
 			                	</c:if>
 			                	<c:if test="${ empty m.mailCc }">
 			                	</c:if>
+				                <hr>
 			                </div>
-			                <hr>
 	                		 
 	                		<div>
 		                		<c:if test="${ !empty m.renameFileName }">
 		                			첨부파일:
-		                			
 									<a href="${ contextPath }/resources/mupload/${ m.renameFileName }" download>
 										${ m.originalFileName }
 									</a>				
-								</c:if>
 				                <hr>
+								</c:if>
 							</div>
 							<div>
 								<c:if test="${ empty m.renameFileName }">
@@ -158,9 +158,6 @@
 			
 				            <div class="mailbody" id="mailbody" style="padding-right:30px;">
 				            	<div name="mailContent">${ m.mailContent }</div>
-				            	<!-- src : 불러올 주소 이름(불러올 메일) -->
-<!-- 				                <iframe src="receiveMail.jsp" height="300px" style="width:100%" scrolling="no" frameborder=0 id="ifMailContent" name="ifMailContent"> -->
-<!-- 				                </iframe>                                 -->
 				            </div>
 			            </div>
        				 </form>
@@ -212,12 +209,8 @@
 			        $(this).addClass("hide");
  			    }
 			});
-
-			
 		});
-	
-	
-	
+
 	</script>
 	
 	

@@ -63,4 +63,10 @@ public class MailServiceImpl implements MailService{
 		return mDao.deleteMail(mailNum);
 	}
 
+	@Override
+	public int transferMail(int mailNum) {
+		
+		return mDao.transferMail(mailNum);
+	}
+
 }

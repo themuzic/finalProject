@@ -26,5 +26,8 @@ public interface MailService {
 	// 메일 완전히 삭제
 	int deleteMail(int mailNum);
 	
+	// 메일 이동
+	int transferMail(int mailNum);
+	
 
 }

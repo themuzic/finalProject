@@ -58,5 +58,10 @@ public class MailDao {
 		
 		return sqlSession.update("mailMapper.deleteMail", mailNum);
 	}
+	
+	public int transferMail(int mailNum) {
+		
+		return sqlSession.update("mailMapper.transferMail", mailNum);
+	}
 
 }

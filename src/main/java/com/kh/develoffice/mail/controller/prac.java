@@ -23,7 +23,7 @@ public class prac {
 
         String host = "pop.gmail.com";
 
-        final String username = "sangyoon2ya"; // @naver.com 은 제외하고 아이디만.
+        final String username = "sangyoon2ya"; // @는 제외하고 아이디만
         final String password = "12Rjwlfua!";
         int port=995;
 
@@ -60,11 +60,20 @@ public class prac {
 
         for(Message message : messages) {
 
+        	message.getSubject();		// 제목
+        	message.getSentDate();		// 보낸시간
+        	message.getFrom();			// 보낸사람 이메일
+        	try {
+				message.getContent();	// 내용
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+        	
+        			
             System.out.println(":::::::::::::::::::::::::::::::::::");
             
             System.out.println("제목: " + message.getSubject());
             System.out.println("보낸시간: " + message.getSentDate());
-//          System.out.println(message.getDataHandler());
             System.out.println("보낸사람 이메일: " + message.getFrom()[0].toString().split("=? <")[1].split(">")[0]);
             try {
 				System.out.println("내용: " + message.getContent());
