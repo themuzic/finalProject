@@ -28,13 +28,13 @@ public class TodoController {
 	@RequestMapping("insertTodoBoard.do")
 	public String insertTodoBoard(TodoBoard t, HttpServletRequest request, Model model) {
 		
-		int result = tService.insertTodoBoard(t);
-		
-		if(result > 0) {
-			return "redirect.todoBoardList.do";
-		} else {
-			
-		}
+		/*
+		 * int result = tService.insertTodoBoard(t);
+		 * 
+		 * if(result > 0) { return "redirect.todoBoardList.do"; } else {
+		 * 
+		 * }
+		 */
 		
 		
 		return "todo/insertTdBoard";

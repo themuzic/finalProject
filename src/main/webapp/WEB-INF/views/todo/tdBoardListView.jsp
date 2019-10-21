@@ -94,9 +94,9 @@
 				
 						<div class="ui link cards">
 						
-						  <div class="card" onclick="location.href='todoList.do'">
-						    <div class="image">
-						      <img src="resources/images/sky1.jpg">
+						  <div class="card" onclick="location.href='todoList.do'" style="height:200px; border:solid 10px orange;">
+						    <div class="image" style="background-color:; height:10px;">
+						      
 						    </div>
 						    <div class="content">
 						      <div class="header">2019년 10월</div>
