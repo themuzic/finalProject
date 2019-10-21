@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.develoffice.common.Department;
+import com.kh.develoffice.employee.model.vo.Employee;
 
 @Repository("dDao")
 public class DocumentDao {
@@ -18,6 +19,10 @@ public class DocumentDao {
 		
 		return (ArrayList)sqlSession.selectList("documentMapper.selectDept");
 	}
+	
+	
+	
+	
 	
 
 }

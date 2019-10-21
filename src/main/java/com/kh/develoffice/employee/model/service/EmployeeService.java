@@ -18,5 +18,8 @@ public interface EmployeeService {
 	
 	// 모든 직원 목록 호출
 	ArrayList<Employee> selectAllEmp();
+	
+	// 자동완성 결과 호출
+	ArrayList<Employee> autocomplete(String key);
 
 }

@@ -34,5 +34,10 @@ public class EmployeeDao {
 	public ArrayList<Employee> selectAllEmp(){
 		return (ArrayList)sqlSession.selectList("employeeMapper.selectAllEmp");
 	}
+	
+	
+	public ArrayList<Employee> autocomplete(String key){
+		return (ArrayList)sqlSession.selectList("employeeMapper.autocomplete",key);
+	}
 
 }

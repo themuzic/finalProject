@@ -38,6 +38,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public ArrayList<Employee> selectAllEmp() {
 		return eDao.selectAllEmp();
 	}
+
+	@Override
+	public ArrayList<Employee> autocomplete(String key) {
+		return eDao.autocomplete(key);
+	}
 	
 	
 	

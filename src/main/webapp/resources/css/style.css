@@ -23,21 +23,21 @@ body, button, input, select, td, textarea, th {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    background: url(resources/assets/img/tree_bg4.gif) repeat-y -1px 0;
+    background: url(../images/tree_bg4.gif) repeat-y -1px 0;
 }
 .OrgTree>ul>li.last {
     background-image: none!important;
     padding: 0;
 }
 .OrgTree li.last {
-    background-image: url(resources/assets/img/tree_bg3.gif)!important;
+    background-image: url(../images/tree_bg3.gif)!important;
     background-color: #fff;
     padding-top: 1px!important;
 }
 .OrgTree li {
     padding: 0 0 0 20px!important;
     margin: 7px 0!important;
-    background-image: url(resources/assets/img/tree_bg2.gif)!important;
+    background-image: url(../images/tree_bg2.gif)!important;
     background-repeat: no-repeat;
     background-position: -1px -2px!important;
 }
@@ -717,5 +717,16 @@ fieldset, img {
 .recent-time {
     position: absolute;
     left: 8px;
+}
+.ui-widget-content {
+    overflow-y: hidden;
+}
+.approval-autocomplete {
+    z-index: 1211;
+}
+.ui-widget-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 315px;
 }
 /*# sourceMappingURL=maps/style.css.map */

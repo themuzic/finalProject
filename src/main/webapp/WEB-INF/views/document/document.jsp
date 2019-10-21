@@ -49,7 +49,17 @@
 	.btn-add, .btn-del{
 		cursor:pointer;
 	}
-	
+	.popup_li:hover{
+		background:#b9dcee;
+	}
+	.team-membername {
+	    display: inline-block;
+	    color: #333;
+	    width: 130px !important;
+	}
+	.team-name{
+		margin-right: 10px;
+	}
 	/* 에디터 CSS 끝 */
 	
 </style>
@@ -112,7 +122,7 @@
 										<input type="hidden" id="prevApprovalFormTitle" value="">										
 									</td>
 									<th>작성자</th>
-									<td><span>이름 직급</span></td>
+									<td><span>${loginUser.empName} ${loginUser.jobName}</span></td>
 								</tr>
 								<tr>
 									<th>보존연한</th>
@@ -189,7 +199,7 @@
 							<tbody>
 								<tr>
 									<th scope="row" class="agree">
-										<div class="choice" style="height:162px;display:table-cell;width:112px;vertical-align:middle;text-align:center;line-height:normal;position:relative;">신청<span class="spr-approval set addPlus" title="신청" onclick=""></span></div>
+										<div class="choice" style="height:162px;display:table-cell;width:112px;vertical-align:middle;text-align:center;line-height:normal;position:relative;">신청</div>
 									</th>
 									<td class="confer vt" id="approvalFirstLine">
 										<table>
@@ -222,6 +232,7 @@
 												</tr>
 												<tr>
 													<td class="name">
+														${loginUser.empName}
 													</td>
 													<td class="name">
 													</td>
@@ -234,7 +245,7 @@
 										</table>
 									</td>
 									<th scope="row" class="confer">
-										<div class="choice" style="height:162px;display:table-cell;width:112px;vertical-align:middle;text-align:center;line-height:normal;position:relative;">처리<span class="spr-approval set addPlus" title="처리" onclick=""></span></div>
+										<div class="choice" style="height:162px;display:table-cell;width:112px;vertical-align:middle;text-align:center;line-height:normal;position:relative;">처리</div>
 									</th>
 									<td class="confer vt" id="approvalSecondLine">
 										<table>
@@ -286,10 +297,11 @@
 								<tbody>
 									<tr>
 										<th scope="row" style="text-align:center">참조</th>
-										<td id="approvalThirdLine" style="padding: 8px 0 8px 12px;border-bottom: 1px solid #cdcdcd;text-align: left;">
+										<td id="approvalThirdLine" style="padding: 8px 0 8px 12px;border-bottom: 1px solid #cdcdcd;text-align: left;height: 40px;">
+											<!-- 
 											<input type="text" class="refer-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputApprovalThirdLine" autocomplete="off">
 											<span class="refer-list" user_no="" old_new="" node_id="">참조인 생기기<span class="lnr lnr-cross-circle" style="padding-left:7px;cursor:pointer;"></span></span>
-										
+											 -->
 										</td>
 									</tr>
 								</tbody>
@@ -312,9 +324,11 @@
 								<tbody>
 									<tr>
 										<th scope="row" style="text-align:center">회람</th>
-										<td id="approvalThirdLine" style="padding: 8px 0 8px 12px;border-bottom: 1px solid #cdcdcd;text-align: left;">
+										<td id="approvalThirdLine" style="padding: 8px 0 8px 12px;border-bottom: 1px solid #cdcdcd;text-align: left;height: 40px;">
+											<!-- 
 											<input type="text" class="refer-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputApprovalThirdLine" autocomplete="off">
 											<span class="refer-list" user_no="" old_new="" node_id="">참조인 생기기<span class="lnr lnr-cross-circle" style="padding-left:7px;cursor:pointer;"></span></span>
+											 -->
 										</td>
 									</tr>
 								</tbody>
@@ -334,7 +348,7 @@
 							</colgroup>
 							<tbody>
 								<tr>
-									<th scope="row" class="sign"><div style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">결재<span class="spr-approval set addPlus" title="결재"></span></div></th>
+									<th scope="row" class="sign"><div style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">결재</div></th>
 									<td class="sign vt" id="approvalFirstLine">
 										<table style="width:100%;table-layout:fixed"><colgroup><col><col><col><col><col><col><col></colgroup>
 											<tbody>
@@ -519,6 +533,8 @@
 						
 						<div class="layer_box large address line " id="div_approval_view_one" style="margin-left: -400px; margin-top: -311px; display: block;width: 800px;">
 							<div class="title_layer text_variables" id="titleApprovalLineSetting">결재선 설정</div>
+							
+							<!-- 
 							<div class="line-search after" id="searchP" style="display: block;">
 								<ul class="after">
 									<li><label for="rdo_sch_name"><input type="radio" value="name" name="searchField" id="rdo_sch_name" onclick="$j('#keyword').focus();" checked="checked"> 이름</label></li>
@@ -533,6 +549,7 @@
 									<option value="">자주 쓰는 결재선</option>
 								</select>
 							</div>
+							 -->
 						
 							<div class="after line-list-wrap">
 								<div class="fl">
@@ -826,11 +843,43 @@
 							<tr>
 								<th scope="row">지출자</th>
 								<td>
-									<input type="text" name="spenderName" class="account-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputSpenderName">
-									<span class="hide" id="textSpenderName"> </span>
-									<button class="weakblue mgl_20 vt hide" id="modifySpenderName" onclick="ApprovalDocument.modifySpenderName();">변경</button>
+									<input type="text" name="spenderName" class="account-add js-complete ui-autocomplete-input hide" value="" id="inputSpenderName" >
+									<span class="" id="textSpenderName">${loginUser.empName}</span>
+									<button type="button" class="weakblue mgl_20" id="modifySpenderName">변경</button>
+
+									
+									<!-- 자동 완성 팝업창 시작 -->
+						
+									<ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content dropdown-menu block approval-autocomplete" id="ui-id" tabindex="0" style="display:none; position:absolute; top:836px; left:198px; width:285px; padding:0;z-index:1500;">
+										
+										<!-- 
+										<li class="ui-menu-item popup_li" id="ui-id-5" tabindex="-1">
+											<div>
+												<span class="team-membername">김상윤</span>
+												<span class="team-name">서비스팀</span>
+											</div>
+										</li>
+										<li class="ui-menu-item popup_li" id="ui-id-6" tabindex="-1">
+											<div>
+												<span class="team-membername">김성은</span>
+												<span class="team-name">영업팀</span>
+											</div>
+										</li>
+										 -->
+										
+									</ul>
+									
+									<!-- 자동 완성 팝업창 끝 -->
+									
+									
 								</td>
 							</tr>
+							<tr>
+								<th scope="row">계좌 정보</th>
+									<td id="accountTd">
+										IBK기업은행 / ${loginUser.account}
+									</td>
+								</tr>
 							
 							<!-- 
 							<tr id="infoEmployeeAccount">
@@ -853,6 +902,7 @@
 							<h4 class="fl" style="float:left;">거래 내역</h4>
 							<button type="button" class="weakblue mgl_20 vt" id="addDealInfo" onclick="">추가</button>
 						</div>
+						
 						
 						
 						<script>
@@ -1188,24 +1238,64 @@
 			
 		/* 결재선 창 기능 시작 */
 		
+		//console.log(${deptList}.length);
 		/* 제일 왼쪽 div에 모든 부서명 출력 */
 		$.each(${deptList}, function(index, dept){
 			
 			if(index != 0){
-				$subDeptLi = $('<li class="subDept_li" id="subDept'+index+'">');
-				$subDeptDiv = $('<div class="Container">');
-				$subDeptStrong = $('<strong>')
-				$subDeptSpan1 = $('<span class="subDeptName">').text(dept.deptName);
-				$subDeptSpan2 = $('<span style="font-weight:normal; color:silver; font-size:8pt">').text('('+dept.count+')');
 				
-				$subDeptStrong.append($subDeptSpan1);
-				$subDeptStrong.append($subDeptSpan2);
-				$subDeptDiv.append($subDeptStrong);
-				$subDeptLi.append($subDeptDiv);
+				if(index != ${deptList}.length-1){	// 마지막 인덱스가 아니면
+					
+					$subDeptLi = $('<li class="subDept_li" id="subDept'+index+'">');
+					$subDeptDiv = $('<div class="Container">');
+					$subDeptStrong = $('<strong>')
+					$subDeptSpan1 = $('<span class="subDeptName">').text(dept.deptName);
+					$subDeptSpan2 = $('<span style="font-weight:normal; color:silver; font-size:8pt">').text('('+dept.count+')');
+					
+					$subDeptStrong.append($subDeptSpan1);
+					$subDeptStrong.append($subDeptSpan2);
+					$subDeptDiv.append($subDeptStrong);
+					$subDeptLi.append($subDeptDiv);
+				} else{		// 마지막 인덱스이면
+					
+					$subDeptLi = $('<li class="subDept_li last" id="subDept'+index+'">');
+					$subDeptDiv = $('<div class="Container">');
+					$subDeptStrong = $('<strong>')
+					$subDeptSpan1 = $('<span class="subDeptName">').text(dept.deptName);
+					$subDeptSpan2 = $('<span style="font-weight:normal; color:silver; font-size:8pt">').text('('+dept.count+')');
+					
+					$subDeptStrong.append($subDeptSpan1);
+					$subDeptStrong.append($subDeptSpan2);
+					$subDeptDiv.append($subDeptStrong);
+					$subDeptLi.append($subDeptDiv);
+				}
+				
 				
 				$("#subDept").append($subDeptLi);
 			}
 		});
+		
+		var imgFlag = 0;	// 기본 : -
+		/* 조직도 펼치기 / 접기 */
+		$(".plus").on('click',function(){
+			
+			if(imgFlag == 0){	// - 일때
+				imgFlag = 1;	// + 로 바꿈
+			} else if(imgFlag == 1){	// + 일때
+				imgFlag = 0;	// - 로 바꿈
+			}
+			
+			if(imgFlag == 0){	// + > - 로 변환
+				$(this).attr('src','resources/images/tree_m.gif');
+				$("#subDept").css('display','block');
+			} else if(imgFlag == 1){	// - > + 로 변환
+				$(this).attr('src','resources/images/tree_p.gif');
+				$("#subDept").css('display','none');
+			}
+			
+		});
+		
+		
 		
 		/* 부서명들 중 가장 상단의 회사명 클릭 시 */
 		$("#subOffice").click(function(){
@@ -1331,17 +1421,38 @@
 				num = $("#sp_selectApprovalFirstLine");
 			} else if($(this).hasClass('js-btn-approval-second-line')){
 				approval = $("#selectApprovalSecondLine");
-				
+				num = $("#sp_selectApprovalSecondLine");
 			} else if($(this).hasClass('js-btn-approval-third-line')){
 				approval = $("#selectApprovalThirdLine");
 				num = $("#sp_selectApprovalThirdLine");
 			} else if($(this).hasClass('js-btn-approval-fourth-line')){
 				approval = $("#selectApprovalFourthLine");
+				num = $("#sp_selectApprovalFourthLine");
 			}
 			
 			$.each(selectedArr, function(index, value){
-				var $op = $('<option value="'+value.value+'" disabled>').text(value.text+'('+value.title+')');
-				approval.append($op);
+				
+				if(approval.children('option').length > 0){	// 비어있지 않을때
+					var flag = 0;
+					
+					$.each(approval.children('option'), function(i, op){
+						
+						if(value.value == op.value){
+							flag = 1;
+						}
+					});
+					
+					if(flag == 0){
+						var $op = $('<option value="'+value.value+'" disabled>').text(value.text+'('+value.title+')');
+						approval.append($op);
+					}
+					
+				} else{
+					
+					var $op = $('<option value="'+value.value+'" disabled>').text(value.text+'('+value.title+')');
+					approval.append($op);
+				}
+				
 			});
 				num.text(approval.children().length);
 		});
@@ -1390,11 +1501,86 @@
 			
 		});
 		
+		/* 지출자 변경 버튼 */
+		$("#modifySpenderName").on('click',function(){
+			
+			$(this).addClass('hide');
+			$("#textSpenderName").addClass('hide');
+			$("#inputSpenderName").addClass('show');
+			$("#inputSpenderName").val("");
+			$("#inputSpenderName").focus();
+			$("#accountTd").text("");
+		});
 		
+		/* 지출자 변경 자동완성 */
+		$("#inputSpenderName").keyup(function(e){
+			
+			console.log($(this).val());
+			var key = $(this).val();
+			var $ui = $("#ui-id");
+			
+			if(key != ""){
+				
+				$ui.html("");
+				
+				$.ajax({
+					url:"autocomplete.do",
+					type:"POST",
+					data:{key:key},
+					success:function(data){
+						
+						if(data != null){
+							
+							$.each(data, function(i, e){
+								
+								var li = document.createElement('li');
+									li.classList.add('ui-menu-item','popup_li');
+									li.setAttribute('tabindex','-1');
+								
+								var div = document.createElement('div');
+								
+								var span1 = document.createElement('span');
+									span1.classList.add('team-membername','fl');
+									span1.setAttribute('id',e.account);
+									span1.innerHTML = e.empName;
+									
+								var span2 = document.createElement('span');
+									span2.classList.add('team-name','fr');
+									span2.innerHTML = e.deptName;
+								
+								div.appendChild(span1);		//js
+								div.appendChild(span2);		//js
+								li.appendChild(div);		//js
+								
+								$ui.append(li);				//jquery
+								
+							});
+						}
+					},
+					error:function(){
+						alertify.alert('', 'AJAX통신 실패');
+					}
+				});
+				
+				$("#ui-id").addClass('show');
+				
+			} else{
+				$("#ui-id").removeClass('show');
+			}
+			
+			
+		});
 		
-		
-		
-		
+		/* 자동완성으로 출력한 리스트를 선택하면 */
+		$("#ui-id").on('click','li',function(){
+			
+			$("#textSpenderName").text($(this).find(".team-membername").text());
+			$("#textSpenderName").removeClass('hide');			
+			$("#modifySpenderName").removeClass('hide');
+			$("#inputSpenderName").removeClass('show');
+			$("#accountTd").text('IBK기업은행 / '+$(this).find(".team-membername").attr('id'));
+			$("#ui-id").removeClass('show');
+		});
 		
 		
 		 

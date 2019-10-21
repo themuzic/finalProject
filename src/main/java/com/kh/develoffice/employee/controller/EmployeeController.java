@@ -2,7 +2,6 @@ package com.kh.develoffice.employee.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -11,6 +10,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -138,7 +138,53 @@ public class EmployeeController {
 		} else {
 			return "fail";
 		}
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping("autocomplete.do")
+	public JSONArray autocomplete(String key, Model model) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+		ArrayList<Employee> list = eService.autocomplete(key);
+		System.out.println(list);
+		
+		JSONArray jArr = new JSONArray();
+		
+		if(list != null) {
+			
+			for(Employee e : list) {
+				JSONObject jObj = new JSONObject();
+				jObj.put("empId", e.getEmpId());
+				jObj.put("empName", e.getEmpName());
+				jObj.put("empPwd", e.getEmpPwd());
+				jObj.put("gender", e.getGender());
+				jObj.put("birth", sdf.format(e.getBirth()));
+				jObj.put("deptCode", e.getDeptCode());
+				jObj.put("deptName", e.getDeptName());
+				jObj.put("jobCode", e.getJobCode());
+				jObj.put("jobName", e.getJobName());
+				jObj.put("phone", e.getPhone());
+				jObj.put("email", e.getEmail());
+				jObj.put("address", e.getAddress());
+				jObj.put("salary", e.getSalary());
+				jObj.put("account", e.getAccount());
+				jObj.put("star", e.getStar());
+				jObj.put("enrollDate", sdf.format(e.getEnrollDate()));
+				jObj.put("empStatus", e.getEmpStatus());
+				jObj.put("profilePath", e.getProfilePath());
+				
+				jArr.add(jObj);
+			}
+			
+			return jArr;
+			
+		}else {
+			return jArr;
+		}
 		
 	}
+	
 
 }
