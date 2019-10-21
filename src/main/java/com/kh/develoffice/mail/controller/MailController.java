@@ -6,14 +6,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Properties;
 
-import javax.mail.Folder;
 import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.develoffice.common.Pagination;
 import com.kh.develoffice.mail.model.service.MailService;
-import com.kh.develoffice.mail.model.service.MailServiceImpl;
 import com.kh.develoffice.mail.model.vo.Mail;
 import com.kh.develoffice.mail.model.vo.PageInfo;
 import com.kh.develoffice.mail.model.vo.SearchCondition;
@@ -61,8 +54,18 @@ public class MailController {
 	}
 	
 	@RequestMapping("sendMail.do")
-	public String sendMailList() {
-		return "mail/sendMail";
+	public ModelAndView sendMailList(ModelAndView mv, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+		
+		// 게시글 총 개수
+		int listCount = mService.getListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Mail> list = mService.sendMailList(pi);
+		
+		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/sendMail");
+		
+		return mv;
 	}
 	
 	@RequestMapping("deleteMail.do")
@@ -73,6 +76,15 @@ public class MailController {
 	@RequestMapping("insertMail.do")
 	public String insertMailForm() {
 		return "mail/insertMail";
+	}
+	@RequestMapping("replyMail.do")
+	public ModelAndView replyMail(ModelAndView mv, Mail m) {
+		
+		System.out.println(m.getMailFrom());
+		
+		mv.addObject("m", m).setViewName("mail/insertMail");
+		
+		return mv;
 	}
 	
 	// mailSending 코드
@@ -96,8 +108,8 @@ public class MailController {
 	      MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 	 
 	      messageHelper.setFrom(m.getMailFrom());  			// 보내는사람 생략하거나 하면 정상작동을 안함
-	      messageHelper.setTo(m.getMailTo());      			// 받는사람 이메일
-	      messageHelper.setCc(m.getMailCc()); 				// 참조 이메일
+	      message.setRecipients(Message.RecipientType.TO, m.getMailTo()); 	// 받는사람
+	      message.setRecipients(Message.RecipientType.CC, m.getMailCc()); 	// 참조    
 	      messageHelper.setSubject(m.getMailTitle());   	// 메일제목은 생략이 가능하다
 	      messageHelper.setText(m.getMailContent());   		// 메일 내용
 	      
@@ -248,15 +260,7 @@ public class MailController {
 		
 		int result = mService.transferMail(mailNum);
 		
-		if(result == 0) {
-			mv.addObject("m", m).setViewName("mail/receiveMail");
-		}else if(result == 1) {
-			mv.addObject("m", m).setViewName("mail/sendMail");
-		}else if(result == 2) {
-			mv.addObject("m", m).setViewName("mail/deletemail");
-		}else {
-			mv.addObject("m", m).setViewName("common/errorPage");
-		}				
+		
 		return mv;
 	}
 	

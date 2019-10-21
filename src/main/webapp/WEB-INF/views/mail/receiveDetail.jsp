@@ -64,7 +64,7 @@
 					
 					
 					<span class="send menu" id="send">
-						<a href="" onclick="" style="font-size:16px;">답장</a>
+						<a href="replyMail.do?mailFrom=${ m.mailFrom }" onclick="" style="font-size:16px;">답장</a>
 					</span> &nbsp; &nbsp; &nbsp;
 					<span class="allSend menu" id="allSend">
 						<a href="" onclick="" style="font-size:16px;">전체답장</a>
@@ -89,22 +89,15 @@
 		                <div class="dropdown hide" id="m_view_move_mbox_detail" style="margin-left:330px;">
 		                    <div class="dropscroll-menu" style="width:150px;">
 		                        <ul style="min-width:220px; border-color:#2985db;" id="ul">
-		                        
-		                        	<c:url var="mtransfer" value="transfer.do">
-										<c:param name="mailNum" value="${m.mailNum }"/>
-									</c:url>
-									
-									<c:if test ="${ loginUser.empId eq m.empId }">
-							            <li class="li">
-			                                <a href="${ mtransfer }" id="move_b0" style="color:gray;">받은 편지함</a>
-			                            </li>
-							            <li class="li">
-			                                <a href="${ mtransfer }" id="move_b1" style="color:gray;">보낸 편지함</a>
-			                            </li>
-							            <li class="li">
-			                                <a href="${ mtransfer }" id="move_b5" style="color:gray;">휴지통</a>
-			                            </li>
-		                            </c:if>
+						            <li class="li">
+		                                <a href="" id="move_b0" style="color:gray;">받은 편지함</a>
+		                            </li>
+						            <li class="li">
+		                                <a href="" id="move_b1" style="color:gray;">보낸 편지함</a>
+		                            </li>
+						            <li class="li">
+		                                <a href="" id="move_b5" style="color:gray;">휴지통</a>
+		                            </li>
 								</ul>
 		                     </div>  
 						</div>
@@ -126,7 +119,8 @@
 			                    <a href="javascript:void(0)" id="spMemoDisplayOrigin" onclick="" class="memo"></a>
 			                </div>
 			                <div class="sender">
-		                    		보낸 사람: <span id="from_addr" name ="mailFrom" &lt> &lt;${ m.mailFrom }&gt;</span> 
+		                    		보낸 사람: <span id="from_addr" name ="mailFrom" &lt> &lt;${ m.mailFrom }&gt;</span>
+		                    		 
 			                </div>
 			                <div class="address">              
 			                    	받는 사람: <span name="mailTo">&quot;이름&quot; &lt;${ m.mailTo }&gt;</span>                

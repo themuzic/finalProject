@@ -236,7 +236,7 @@
 					</c:url>
 				</c:if>
 				<c:if test="${ empty sc }">
-					<c:url var="mlistBack" value="receiveMail.do">
+					<c:url var="mlistBack" value="sendMail.do">
 						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
 					</c:url>
 				</c:if>
@@ -257,7 +257,7 @@
 	                  </c:url>
 	               </c:if>
 	               <c:if test="${ empty sc }"> <!-- 검색 결과 없으면 -->
-		               <c:url var="mlistPage" value="receiveMail.do">
+		               <c:url var="mlistPage" value="sendMail.do">
 		                  <c:param name="currentPage" value="${ p }"/>
 		               </c:url>                  
 	               </c:if>
@@ -278,7 +278,7 @@
 					</c:url>
 				</c:if>
 				<c:if test="${ empty sc }">
-					<c:url var="mlistNext" value="receiveMail.do">
+					<c:url var="mlistNext" value="sendMail.do">
 						<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 					</c:url>
 				</c:if>

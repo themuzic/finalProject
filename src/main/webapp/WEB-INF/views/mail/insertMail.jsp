@@ -86,15 +86,16 @@
 						<input type="submit" value="보내기" style="font-size:14px; width:82px; height:37px;" class="ui primary button">
 					</span> &nbsp;
 					<span class="earlyView" id="earlyView">
-						<a href="#myModal" data-target="#myModal" data-toggle="modal" style="font-size:16px; padding-left:10px;">미리보기</a>
+						<a href="#myModal" data-target="#myModal" data-toggle="modal" 
+						onclick="preview();" style="font-size:16px; padding-left:10px;">미리보기</a>
 					</span>
 					<hr>
 					<div class="write_input">
 						<p style="width:80px; position:absolute;top:4px;">받는 사람</p>
 						<div class="txt" style="margin-left:80px; position:relative;">
 							<div class="position">
-								<textarea class="cc_addr autocomplete" name="mailTo" id='to_addr' placeholder="메일 주소를 입력하세요." 
-									style="width:97%; height:30px; padding-top:5px; padding-left:3px;"></textarea>
+								<textarea class="cc_addr autocomplete" name="mailTo" id='mailTo' placeholder="메일 주소를 입력하세요." 
+									style="width:97%; height:30px; padding-top:5px; padding-left:3px;">${m.mailFrom}</textarea>
 								<button type="button" class="" id="addressSelect" onclick="" style="display:inline-block;padding:0; font-size:20px">
 									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
 								</button>
@@ -111,7 +112,7 @@
 						<p style="width:80px; position:absolute;top:4px;">참조 </p>
 						<div class="txt title" style="margin-left:80px; position:relative;">
 							<div class="position">
-								<textarea  id="" name="mailCc" style="width:97%; height:30px;"></textarea>
+								<textarea  id="mailCc" name="mailCc" style="width:97%; height:30px;"></textarea>
 								<button type="button" class="" id="select" onclick="" style="display:inline-block;padding:0; font-size:20px">
 									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
 								</button>
@@ -122,7 +123,7 @@
 						<label style="width:80px; position:absolute;top:4px;">제목</label>
 						<div class="txt title" style="margin-left:80px; margin-top:10px; position:relative;">
 							<div class="position">
-								<textarea name="mailTitle" id="approval_document_title" value="" style="width:97%; height:30px;"></textarea>
+								<textarea name="mailTitle" id="mailTitle" value="" style="width:97%; height:30px;"></textarea>
 							</div>
 						</div>
 					</div>
@@ -165,14 +166,29 @@
 					        </button>
 					      </div>
 					      <div class="modal-body" style="height:450px; width:600px; padding-left:20px;">
-					      <br>
-							<p>보낸사람  : ${ loginUser.email }</p><br>
-							<p>받는사람  : ${ m.mailTo }</p><br>
-							<p>참조  : ${ m.mailCc }</p><br>
-							<hr>
-							<p>제목  : ${m.mailTitle }</p><br>
-							<hr>
-							<p>내용  : ${m.mailContent }</p><br>
+					      	<br>
+					      	<div style="padding:3px;">
+								<p><b>보낸사람  : </b> 
+									<span style="padding-left:7px;"> ${ loginUser.email }</span>
+								</p>
+								<p style="padding-top:10px;"><b>받는사람  : </b>
+									<span id="toMail" style="padding-left:7px;">  ${ m.mailTo }</span>
+								</p>
+								<p style="padding-top:10px;"><b>참조인  : </b> 
+									<span id="ccMail" style="padding-left:7px;">  ${ m.mailCc }</span>
+								</p>
+								<hr>
+								<p style="padding-top:10px;"><b>제목  : </b> 
+									<span id="titleMail" style="padding-left:7px;">  ${ m.mailTitle }</span>
+								</p>
+								<p style="padding-top:10px;"><b>내용  : </b> 
+									<span id="contentMail">${ m.mailContent }</span>
+								</p>
+								<hr>
+								<p style="padding-top:10px;"><b>첨부파일  : </b> 
+									<span id="loadFile" style="padding-left:7px;"> ${ m.originalFileName }</span>
+								</p>
+							</div>
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -411,6 +427,23 @@
 				$("#approval_address_layer").addClass("show");				
 			});
 		});
+		
+		// 메일 미리보기
+		function preview(){
+			var toMail = $("#mailTo").val();
+			var ccMail = $("#mailCc").val();
+			var titleMail = $("#mailTitle").val();
+			var contentMail = $("#summernote").val();
+			var loadFile = $("#test").val();
+			
+			$("#toMail").html(toMail);
+			$("#ccMail").html(ccMail);
+			$("#titleMail").html(titleMail);
+			$("#contentMail").html(contentMail);
+			$("#loadFile").html(loadFile);
+			
+			
+		}
 		
 		
 	

@@ -28,6 +28,12 @@ public class MailServiceImpl implements MailService{
 	}
 	
 	@Override
+	public ArrayList<Mail> sendMailList(PageInfo pi) {
+		
+		return mDao.sendMailList(pi);
+	}
+	
+	@Override
 	public int insertMail(Mail m) {
 		
 		return mDao.insertMail(m);

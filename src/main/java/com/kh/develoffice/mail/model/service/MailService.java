@@ -12,6 +12,8 @@ public interface MailService {
 	
 	ArrayList<Mail> receiveMailList(PageInfo pi);
 	
+	ArrayList<Mail> sendMailList(PageInfo pi);
+	
 	int insertMail(Mail m);
 	
 	Mail receiveDetail(int mailNum);

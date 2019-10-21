@@ -30,6 +30,14 @@ public class MailDao {
 		return (ArrayList)sqlSession.selectList("mailMapper.receiveMailList", null, rowBounds);
 	}
 	
+	public ArrayList<Mail> sendMailList(PageInfo pi){
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("mailMapper.receiveMailList", null, rowBounds);
+	}
+	
 	
 	public int insertMail(Mail m) {
 		
