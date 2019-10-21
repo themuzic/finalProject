@@ -531,7 +531,7 @@
 						
 						<div id="approval_address_layer" class="booking_layer_div layer_box hide typeD">
 						
-						<div class="layer_box large address line " id="div_approval_view_one" style="margin-left: -400px; margin-top: -311px; display: block;width: 800px;">
+						<div class="layer_box large address line " id="div_approval_view_one" style="margin-left: -400px; margin-top: -311px; display: block;width: 770px;">
 							<div class="title_layer text_variables" id="titleApprovalLineSetting">결재선 설정</div>
 							
 							<!-- 
