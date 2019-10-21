@@ -6,6 +6,12 @@
 	<resultMap id="todoBoardResultSet" type="TodoBoard">
 		<id property="tdBoardNo" column="td_board_no"/>
 		<result property="empId" column="emp_id"/>
+		<result property="tdBoardName" column="td_board_name"/>
+		<result property="tdBoardContent" column="td_board_content"/>
+		<result property="tdBoardEnrollDate" column="td_board_enroll_date"/>
+		<result property="tdBoardModifyDate" column="td_board_modify_date"/>
+		<result property="tdBoardStatus" column="td_board_status"/>
+		<result property="" column=""/>
 	</resultMap>
   
   

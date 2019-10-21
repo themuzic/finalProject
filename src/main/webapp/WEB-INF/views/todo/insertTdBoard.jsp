@@ -10,6 +10,9 @@
 <title>DEVELOFFICE</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+
+<link rel='stylesheet' href='resources/css/spectrum.css' />
+
 <style>
 	.contentWrap{
 		float:left;
@@ -69,12 +72,19 @@
 						 <form action="insertTodoBoard.do" method="post" encType="multipart/form-data" class="insertForm">
 						 
 						 	<h4 style="padding: 2px 0 15px 0;">Color</h4>
-						 	<div id="imgArea" style="width:259px; height:100px; border:solid 1px lightgray;">
-								<img id="tdBoardImg" >
-							</div>
 						 	
-						 	<!-- <img class="ui medium rounded image" src="resources/images/square-image.png" style="padding: 2px 0 15px 0;"> -->
-						 	
+						 	<div style="text-align:center;">
+    							<input id="color" style="display: none;">
+    							<!-- <div class="sp-replacer sp-light">
+    								<div class="sp-preview">
+    									<div class="sp-preview-inner" style="background-color: rgb(238, 204, 204);">
+    									</div>
+    								</div>
+    								<div class="sp-dd">▼</div>
+    							</div> -->
+    						</div>
+    						
+    		
 						 	<br>
 						 	
 						 	<h4 style="padding: 2px 0 15px 0;">제목</h4>
@@ -98,10 +108,6 @@
 							 </div>
 					 	</form>
 				    
-					</div>
-					
-					<div id="fileArea">
-						<input type="file" multiple name="uploadImg" id="uploadImg" onchange="loadImg(this, 1);">
 					</div>
 					
 					<!-- 이 위까지 내용작성 -->
@@ -134,45 +140,99 @@
 			$("#m3_2").addClass("active");	
 			
 			
-			/* Image 영역 클릭할 때 파일 첨부 창이 뜨도록 */
-			$("#fileArea").hide();
 			
-			$("#imgArea").click(function(){
-				$("#uploadImg").click();
+			
+			
+			// color 스펙트럼 생성
+			/* $("#color").spectrum({
+				// allowEmpty:true,		// 색 없음 가능 여부 default : false
+				// showButtons:false,	// 하단에 close, chose 버튼
+				preferredFormat: "hex",	// 색 포맷 형식 지정
+				color: "#f00",			// 초기 색 지정
+				showPalette: true,		// 왼쪽 색 파레트 사용 여부
+				palette: [
+					['#000000', '#ffffff'],	// 한 줄에 두 가지 색상씩 두 줄로 표시됨
+					['#00ff00', '#ff0000']	
+				],
+				showInitial: true,		// 왼쪽 색 파레트 초기 색
+				showInput: true,		// 현재 색 보여줄지 여부
+				showAlpha: false,		// 문자로 입력 가능하도록 input 추가
+				maxSelectionSize: 3,	// 이전 선택한 색 최대 몇 개까지 보여줄지 갯수
+				show: function(color){	// 파레트 보여줄 때 이벤트
+					
+				},
+				change: function(color){ // 색 선택시 이벤트
+					color.toHexString()
+				},
+				hide: function(color){	// 파레트 닫을 때 이벤트
+					
+				}
+			}); */
+			
+			$("#color").spectrum({
+				
+				
+				showPalette:true,
+			    showPaletteOnly: true,
+			    showButtons:true,
+			    showSelectionPalette: true,
+			    togglePaletteOnly: true,
+			    /* togglePaletteMoreText: 'more',
+			    togglePaletteLessText: 'less', */
+			    chooseText: "choose",
+			    cancelText: "cancel",
+			    color: 'blanchedalmond',
+			    palette: [
+			        ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
+			        ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
+			        ["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
+			        ["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
+			        ["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0"],
+			        ["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
+			        ["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
+			        ["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
+			    ],
+			    change: function(color){
+			    	
+			    	var colorValue = color.toHexString();
+			    	
+			    	console.log(colorValue);
+			    }
+			    
 			});
+			
+		
+			
+			
+			
+			
+			
+			/* $("#color").on("click", function(){
+				spectrum("show");
+			});
+			
+			// 파레트 이벤트
+			$("#color").spectrum("show");	// 파레트 열기
+			$("#color").spectrum("hide");	// 파레트 닫기
+			$("#color").spectrum("toggle");	// 파레트 열려있으면 닫고 닫혀있으면 열기 */
 			
 			
 		});
 		
 		
 		
-		// 파일 첨부했을 때 미리보기 공간에 미리보기 가능하게 하는 함수
-			// [참고] https://developer.mozilla.org/ko/docs/Web/API/FileReader
-			function loadImg(value, num){
-				// value => input태그
-				// num => 조건문으로 작업
-				// file이 존재하는지 
-				if(value.files && value.files[0]){
-					// 파일을 읽어들일 FileReader객체 생성
-					var reader = new FileReader();
-					// 파일 읽기가 다 완료되었을 때 실행되는 메소드
-					reader.onload = function(e){
-						switch(num){
-						case 1: $("#tdBoardImg").attr("src", e.target.result); break; // data:URL
-						}
-					}
-					// 파일 읽어주는 메소드
-					reader.readAsDataURL(value.files[0]);
-					
-					
-				}
-			}
+
 	
 	
 	
 	</script>
 	
 	
+
+
+	
+	<script src='resources/js/spectrum.js'></script>
+	<script type="text/javascript" src="resources/js/spectrum.js"></script>
 	
 	<!-- Javascript -->
 	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
