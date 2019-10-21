@@ -42,4 +42,9 @@ public class ReservationServiceImpl implements ReservationService{
 		return rDao.selectMyReserv(empId);
 	}
 
+	@Override
+	public int deleteReserv(Reservation reserv) {
+		return rDao.deleteReserv(reserv);
+	}
+
 }

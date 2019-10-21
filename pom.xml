@@ -255,6 +255,8 @@
 		    <version>2.9.5</version>
 		</dependency>
 		
+		
+		
 		<!-- 웹소켓 라이브러리 -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -276,6 +278,15 @@
 		    <artifactId>spring-context-support</artifactId>
 		    <version>${org.springframework-version}</version>
 		</dependency>
+		
+		
+		<!-- 7. aop관련된 라이브러리 -->
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId>
+		    <version>${org.aspectj-version}</version>
+		</dependency>
+		
 
 		     
 	</dependencies>

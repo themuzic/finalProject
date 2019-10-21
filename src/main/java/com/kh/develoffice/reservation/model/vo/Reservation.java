@@ -27,6 +27,7 @@ public class Reservation {
 	private String startTime;		//예약시작시간
 	private String endTime;			//예약종료시간
 	private String reason;			//사용용도
+	private String delStatus;		//삭제상태
 	
 
 }

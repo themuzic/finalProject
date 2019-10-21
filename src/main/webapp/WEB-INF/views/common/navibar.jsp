@@ -540,8 +540,20 @@ $.datepicker.setDefaults({
 										</c:url>
 										<a href="${conferenceRoom}" class="" id="m5_2">회의실</a>
 									</li>
-									<li><a href="car.do" class="" id="m5_3">차량</a></li>
-									<li><a href="massage.do" class="" id="m5_4">안마의자</a></li>
+									<li>
+										<c:url value="car.do" var="car">
+											<c:param name="empId" value="${loginUser.empId}"/>
+											<c:param name="reservType" value="차량"/>
+										</c:url>
+										<a href="${car}" class="" id="m5_3">차량</a>
+									</li>
+									<li>
+										<c:url value="massage.do" var="massage">
+											<c:param name="empId" value="${loginUser.empId}"/>
+											<c:param name="reservType" value="안마의자"/>
+										</c:url>
+										<a href="${massage}" class="" id="m5_4">안마의자</a>
+									</li>
 									<li><a href="cafe.do" class="" id="m5_5">카페</a></li>									
 								</ul>
 							</div>

@@ -40,4 +40,9 @@ public class ReservationDao {
 	public ArrayList<Reservation> selectMyReserv(int empId){
 		return (ArrayList)sqlSession.selectList("reservationMapper.selectMyReserv", empId);
 	}
+	
+	
+	public int deleteReserv(Reservation reserv) {
+		return sqlSession.update("reservationMapper.deleteReserv", reserv);
+	}
 }

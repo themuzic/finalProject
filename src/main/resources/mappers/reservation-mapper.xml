@@ -13,6 +13,7 @@
 		<result property="startTime" column="start_time"/>
 		<result property="endTime" column="end_time"/>
 		<result property="reason" column="reason"/>
+		<result property="delStatus" column="del_status"/>
 	</resultMap>
 	
 	
@@ -39,13 +40,13 @@
 	
 	<insert id="insertReserv" parameterType="Reservation">
 		insert into reservation
-		values(reservation_seq.nextval,#{empId},#{reservType},#{insertDate},#{reservDate},#{startTime},#{endTime},#{reason})
+		values(reservation_seq.nextval,#{empId},#{reservType},#{insertDate},#{reservDate},#{startTime},#{endTime},#{reason},default)
 	</insert>
 	
 	
 	<select id="selectReserv" parameterType="Reservation" resultMap="reservResultSet">
 		select * from reserv
-		where reserv_type=#{reservType}
+		where reserv_type=#{reservType} and del_status='N'
 	</select>
 	
 	
@@ -53,6 +54,11 @@
 		select * from reserv
 		where emp_id=#{empId}
 	</select>
+	
+	
+	<update id="deleteReserv" parameterType="Reservation">
+		update reservation set del_status='Y' where reserv_num=#{reservNum} and emp_id=#{empId}
+	</update>
 	
 	
 </mapper>

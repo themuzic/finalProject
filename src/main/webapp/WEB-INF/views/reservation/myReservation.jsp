@@ -78,16 +78,28 @@
 												
 												<c:if test="${ !empty reservList }">
 													<c:forEach items="${ reservList }" var="r">
-														<tr>
-															<td>${r.reservType}</td>
-															<td>${r.reservType}</td>
-															<td>${r.reservDate} ${r.startTime} ~ ${r.endTime}</td>
-															<td>
-																<button type="button" name="button" class="weakblue del_booking_layer_btn" reservnum="${r.reservNum}">삭제</button>
-																<span class="grey_bar">|</span>
-																<button type="button" name="button" class="weakblue booking_detail_view" reservnum="${r.reservNum}">상세보기</button>
-															</td>
-														</tr>
+														<c:if test="${r.delStatus eq 'N'}">
+															<tr reservnum="${r.reservNum}">
+																<td>${r.reservType}</td>
+																<td>${r.reservType}</td>
+																<td>${r.reservDate} ${r.startTime} ~ ${r.endTime}</td>
+																<td>
+																	<button type="button" name="button" class="weakblue del_booking_layer_btn" reservnum="${r.reservNum}">삭제</button>
+																	<span class="grey_bar">|</span>
+																	<button type="button" name="button" class="weakblue booking_detail_view" reservnum="${r.reservNum}">상세보기</button>
+																</td>
+															</tr>
+														</c:if>
+														<c:if test="${r.delStatus eq 'Y'}">
+															<tr reservnum="${r.reservNum}">
+																<td style="color:lightgray">${r.reservType}</td>
+																<td style="color:lightgray">${r.reservType}</td>
+																<td style="color:lightgray">${r.reservDate} ${r.startTime} ~ ${r.endTime}</td>
+																<td>
+																	<button type="button" name="button" class="weakblue booking_detail_view" reservnum="${r.reservNum}">상세보기</button>
+																</td>
+															</tr>
+														</c:if>
 													</c:forEach>
 												</c:if>
 											
@@ -167,7 +179,7 @@
 						</dl>
 						<dl class="after">
 							<dt><label for="">예약 상태</label></dt>
-							<dd>예약 완료</dd>
+							<dd class="dd4"></dd>
 						</dl>
 				</div>
 			
@@ -195,7 +207,7 @@
 					</div>
 
 					<div class="layer_button">
-						<button type="button" class="btn_variables del_booking_btn" id="delBtn" reservnum="">확인</button>
+						<button type="button" class="btn_variables del_booking_btn" id="delBtn" >확인</button>
 						<button type="button" class="booking_layer_close closeBtn">취소</button>
 					</div>
 					<a href="javascript:void(0)" class="icon btn_closelayer booking_layer_close closeBtn" title="레이어 닫기"><span class="blind">닫기</span></a>
@@ -258,7 +270,8 @@
 			var $dd1 = $(".dd1");
 			var $dd2 = $(".dd2");
 			var $dd3 = $(".dd3");
-			var $del = $(".del_booking_layer_btn");
+			var $dd4 = $(".dd4");
+			var $del = $("#booking_detail_layer").find(".del_booking_layer_btn");
 			
 			$.each(${rList}, function(i, r){
 				
@@ -268,20 +281,72 @@
 					$dd2.text(r.empName+' '+r.jobName+' ('+r.insertDate+')');
 					$dd3.text(r.reason);
 					$del.attr('reservnum',r.reservNum);
+					
+					if(r.delStatus == 'N'){
+						$dd4.css('color','#676767');
+						$dd4.text('예약 완료');
+						
+						if($del.hasClass('hide')){
+							$del.removeClass('hide');
+						}
+						
+					} else{
+						$dd4.text('예약 삭제 완료');
+						$dd4.css('color','red');
+						$del.addClass('hide');
+					}
 				}
 			});
 			
 			$("#booking_detail_layer").addClass('show');
 		});
+		
 		/* 예약 삭제 창 on */
 		$(".del_booking_layer_btn").on('click',function(){
 			
-			$(".delBtn").attr('reservnum',$(this).attr('reservnum'));
+			$("#delBtn").attr('reservnum',$(this).attr('reservnum'));
 			
 			$("#booking_del_layer").addClass('show');
 		});
+		
 		/* 삭제 버튼 */
 		$("#delBtn").on('click',function(){
+			
+			var $close = $("#booking_del_layer .closeBtn");
+			var rNum = $(this).attr('reservnum');
+			var $tr = $("#booking_list_tbody tr");
+			
+			$.ajax({
+				url:"deleteReserv.do",
+				type:"POST",
+				data:{reservNum:rNum,
+					  empId:${loginUser.empId}					
+				},
+				success:function(data){
+					
+					if(data == "success"){
+						
+						$.each($tr, function(index, tr){
+							if(tr.getAttribute('reservnum') == rNum){
+								tr.childNodes[1].style.color = 'lightgray';
+								tr.childNodes[3].style.color = 'lightgray';
+								tr.childNodes[5].style.color = 'lightgray';
+								tr.childNodes[7].childNodes[1].classList.add('hide');
+								tr.childNodes[7].childNodes[3].classList.add('hide');
+							}
+						});
+						$close.click();
+						
+    				} else{
+    					alertify.alert('', '예약 내역 삭제 실패');
+    				}
+				},
+				error:function(){
+					alertify.alert('', '통신 실패 : 다시 시도해 주세요.');
+				}
+			});
+			
+			
 			
 		});
 		

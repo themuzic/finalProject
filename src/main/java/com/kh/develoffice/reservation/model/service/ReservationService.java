@@ -22,5 +22,7 @@ public interface ReservationService {
 	// 내 예약 내역 호출하기
 	ArrayList<Reservation> selectMyReserv(int empId);
 	
+	// 예약 내역 삭제하기
+	int deleteReserv(Reservation reserv);
 	
 }

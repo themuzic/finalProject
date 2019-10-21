@@ -45,6 +45,7 @@ public class ReservationController {
 			jObj.put("startTime", r.getStartTime());
 			jObj.put("endTime", r.getEndTime());
 			jObj.put("reason", r.getReason());
+			jObj.put("delStatus", r.getDelStatus());
 			
 			rArr.add(jObj);			
 		}
@@ -81,6 +82,7 @@ public class ReservationController {
 			jObj.put("startTime", r.getStartTime());
 			jObj.put("endTime", r.getEndTime());
 			jObj.put("reason", r.getReason());
+			jObj.put("delStatus", r.getDelStatus());
 			
 			rArr.add(jObj);			
 		}
@@ -92,14 +94,68 @@ public class ReservationController {
 	
 	
 	@RequestMapping("car.do")
-	public String car() {
-		return "reservation/car";
+	public ModelAndView car(Reservation reserv, ModelAndView mv) {
+
+		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+		
+		ArrayList<Reservation> reservList = rService.selectReserv(reserv);
+		
+		JSONArray rArr = new JSONArray();
+		
+		for(Reservation r : reservList) {
+			JSONObject jObj = new JSONObject();
+			
+			jObj.put("reservNum", r.getReservNum());
+			jObj.put("empId", r.getEmpId());
+			jObj.put("empName", r.getEmpName());
+			jObj.put("jobName", r.getJobName());
+			jObj.put("reservType", r.getReservType());
+			jObj.put("insertDate", r.getInsertDate());
+			jObj.put("reservDate", sdf.format(r.getReservDate()));
+			jObj.put("startTime", r.getStartTime());
+			jObj.put("endTime", r.getEndTime());
+			jObj.put("reason", r.getReason());
+			jObj.put("delStatus", r.getDelStatus());
+			
+			rArr.add(jObj);			
+		}
+		
+		mv.addObject("reservList", rArr).setViewName("reservation/car");
+		
+		return mv;
 	}
 	
 	
 	@RequestMapping("massage.do")
-	public String massage() {
-		return "reservation/massage";
+	public ModelAndView massage(Reservation reserv, ModelAndView mv) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+		
+		ArrayList<Reservation> reservList = rService.selectReserv(reserv);
+		
+		JSONArray rArr = new JSONArray();
+		
+		for(Reservation r : reservList) {
+			JSONObject jObj = new JSONObject();
+			
+			jObj.put("reservNum", r.getReservNum());
+			jObj.put("empId", r.getEmpId());
+			jObj.put("empName", r.getEmpName());
+			jObj.put("jobName", r.getJobName());
+			jObj.put("reservType", r.getReservType());
+			jObj.put("insertDate", r.getInsertDate());
+			jObj.put("reservDate", sdf.format(r.getReservDate()));
+			jObj.put("startTime", r.getStartTime());
+			jObj.put("endTime", r.getEndTime());
+			jObj.put("reason", r.getReason());
+			jObj.put("delStatus", r.getDelStatus());
+			
+			rArr.add(jObj);			
+		}
+		
+		mv.addObject("reservList", rArr).setViewName("reservation/massage");
+		
+		return mv;
 	}
 	
 	
@@ -145,6 +201,18 @@ public class ReservationController {
 	}
 	
 	
+	@ResponseBody
+	@RequestMapping("deleteReserv.do")
+	public String deleteReserv(Reservation reserv) {
+		
+		int result = rService.deleteReserv(reserv);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
 	
 
 }

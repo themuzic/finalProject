@@ -444,6 +444,20 @@
 			showReserv();
 		}
 		
+		/* 달력 열어서 날짜 바꿨을 때 */
+		$("#booking_date").on('change',function(){
+			
+			/* 바뀐 요일 표시 */
+			var bookingDay = $("#booking_date").val();
+			
+			var week = ['일', '월', '화', '수', '목', '금', '토'];
+			var dotw = week[new Date(bookingDay).getDay()];
+			
+			$("#week_name_span").text('('+dotw+')');
+	    	
+	    	showReserv();
+		});
+		
 		
 		/* < , > 버튼 누를때 마다 하루 전, 하루 뒤 날짜 출력하기 */
 		function moveDate(condition) {
@@ -537,16 +551,16 @@
 			
 			if(${reservList} != null){
 				
-					console.log(${reservList});
+					//console.log(${reservList});
 				
 				$.each(${reservList}, function(i, r){
 					
-					console.log(${reservList});
-					console.log(temp);
-					console.log(r.reservDate);
+					//console.log(${reservList});
+					//console.log(temp);
+					//console.log(r.reservDate);
 					
 					if(r.reservDate == temp){
-						console.log("오늘의 예약 : "+r.reservNum);
+						//console.log("오늘의 예약 : "+r.reservNum);
 						
 						$.each($timePanel, function(j, td){
 							
@@ -560,15 +574,14 @@
 						
 						startPoint = $timePanel.index(startTD);
 						endPoint = $timePanel.index(endTD);
-						console.log(startTD);
-						console.log(startPoint);
-						console.log(endTD);
-						console.log(endPoint);
+						//console.log(startTD);
+						//console.log(startPoint);
+						//console.log(endTD);
+						//console.log(endPoint);
 						
 						for(var i in $timePanel){
 							if(i >= startPoint && i <= endPoint-1){
 								$timePanel[i].classList.add('reserv');
-								/* $timePanel[i].className += ' reserv'; */
 								$timePanel[i].classList.remove('blank');
 								$timePanel[i].setAttribute('value',r.reservNum);
 							}
