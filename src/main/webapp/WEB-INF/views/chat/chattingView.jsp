@@ -286,14 +286,15 @@ body{
     }
 
 	function formatAMPM(date) {
-	  var hours = date.getHours();
-	  var minutes = date.getMinutes();
-	  var ampm = hours >= 12 ? '오후' : '오전';
-	  hours = hours % 12;
-	  hours = hours ? hours : 12; // the hour '0' should be '12'
-	  minutes = minutes < 10 ? '0'+minutes : minutes;
-	  var strTime = ampm + " " + hours + ':' + minutes;
-	  return strTime;
+		var hours = date.getHours();
+		var minutes = date.getMinutes();
+		
+		var ampm = hours >= 12 ? '오후' : '오전';
+		hours = hours % 12;
+		hours = hours ? hours : 12; // the hour '0' should be '12'
+		minutes = minutes < 10 ? '0'+minutes : minutes;
+		var strTime = ampm + " " + hours + ':' + minutes;
+		return strTime;
 	}
     //evt 파라미터는 웹소켓을 보내준 데이터다.(자동으로 들어옴)
     function onMessage(evt) {

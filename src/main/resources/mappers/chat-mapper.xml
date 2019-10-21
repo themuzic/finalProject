@@ -11,10 +11,31 @@
 		<result property="chatType" column="chat_type"/>
 	</resultMap>
 	
+	<resultMap id="chatProfileResult" type="Message">
+		<id property="chatId" column="chat_id"/>
+		<id property="empId" column="emp_id"/>
+		<result property="profilePath" column="profile_path"/>
+	</resultMap>
+	
+	<!-- <resultMap id="chatListResult" type="Message">
+	</resultMap> -->
+	
 	<select id="selectChatList" parameterType="_int" resultMap="chatListResult">
 		select *
 		from chatlist_view
 		where emp_id = #{empId}
 	</select>
+	
+	<select id="selectChatProfile" resultMap="chatProfileResult">
+		SELECT J.CHAT_ID, J.EMP_ID, PROFILE_PATH
+		FROM JOIN_CHAT J
+		JOIN CHAT C ON(J.CHAT_ID = C.CHAT_ID)
+		JOIN EMPLOYEE E ON(J.EMP_ID = E.EMP_ID)
+		WHERE CHAT_STATUS = 'Y'
+	</select>
+	<!-- 
+	<select id="selectMsgList" parameterType="_int" resultMap="messageListResult">
+		
+	</select> -->
 
 </mapper>

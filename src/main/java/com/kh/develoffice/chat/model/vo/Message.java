@@ -17,7 +17,9 @@ public class Message {
 	
 	private int msgId;			// 메세지번호
 	private int chatId;			// 채팅방번호
+	private int empId;			// 사번
 	private String empName;		// 작성자 이름
+	private String profilePath;	// 프로필 경로
 	private String mContent;	// 작성 내용 or 사진 경로
 	private String originName;	// (파일일 경우)원본명
 	private String changeName;	// (파일일 경우)수정명

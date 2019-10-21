@@ -11,7 +11,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <!-- sockjs 라이브러리 -->
-<script type="text/javascript" src="resources/js/sockjs-0.3.4.js"></script>
+<script type="text/javascript" src="resources/chat/js/sockjs-0.3.4.js"></script>
 
 <!-- 제이쿼리 이벤트 라이브러리 cdn -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -113,7 +113,7 @@ body{
 	overflow: hidden;
 }
 .left-section .chatList .img{
-	width: 60px;
+	width: 50px;
 	float: left;
 	text-align: center;
 	position: relative;
@@ -143,6 +143,10 @@ body{
 	position: absolute;
 	right: 15px;
 	color: #c1c1c1;
+}
+.item:hover{
+	color:black;
+	cursor:pointer;
 }
 
 	
@@ -182,7 +186,12 @@ body{
         $("#menu").on("click", function(){		// 메뉴 아이콘 클릭했을때
         	$('.ui.labeled.icon.sidebar').sidebar('toggle');	// 사이드바 토글 이벤트
         });
-
+		
+        $(".chatList").on("dblclick", function(){
+        	console.log($(this).children().first().val());
+        	chatId = $(this).children().first().val();
+        	window.open("chatting.do?chatId=" + chatId, chatId + "chatting", "width=500,height=600", "false");
+        });
 
     });
 
@@ -260,15 +269,21 @@ body{
 
 </head>
 <body>
-	<div class="ui left demo vertical inverted very thin sidebar labeled icon menu">
-		<div class="item">
-	    	<i class="fa fa-user"></i>
+	<div class="ui left demo vertical inverted very thin sidebar labeled icon menu" style="background:#e1e1e1; text-align:center; color:rgb(166, 166, 166);">
+		<br>
+		<div class="item" onclick="location.href='chat.do';">
+	    	<i class="fa fa-2x fa-user"></i>
+	    	<br>친구
 	    </div>
-	    <div class="item">
-	  		<i class="fa fa-comment"></i>
+	    <br>
+	    <div class="item" style="color:black;">
+	  		<i class="fa fa-2x fa-comment"></i>
+	  		<br>채팅
 	  	</div>
+	  	<br>
 	  	<div class="item">
-	    	<i class="fa fa-ellipsis-h"></i>
+	    	<i class="fa fa-2x fa-ellipsis-h"></i>
+	    	<br>더보기
 	  	</div>
 	</div>
 	<div class="pusher">
@@ -293,43 +308,23 @@ body{
 						<c:forEach items="${chatList }" var="c">
 						<li>
 							<div class="chatList">
+								<input type="hidden" name="chatId" value="${c.chatId }" >
 								<div class="img">
-									<i class="fa fa-circle"></i>
-									<img src="resources/image/sitelogo.png">
+								<c:forEach items="${chatProfileList }" var="profile">
+								<c:if test="${profile.chatId == c.chatId && loginUser.empId ne profile.empId }">
+									<img src="resources/images/${profile.profilePath }">
+								</c:if>
+								</c:forEach>
 								</div>
+								
 								<div class="desc">
-									<small class="time">05:30 am</small>
-									<h5>김상윤 상무</h5>
-									<small>현규씨 뭐해요?</small>
+									<small class="time">${c.modifyDate }</small>
+									<h5>${c.chatName }</h5>
+									<small>${c.lastMsg }</small>
 								</div>
 							</div>
 						</li>
 						</c:forEach>
-						<li>
-							<div class="chatList">
-								<div class="img">
-									<i class="fa fa-circle"></i>
-									<img src="/demo/man02.png">
-								</div>
-								<div class="desc">
-									<small class="time">3 day</small>
-									<h5>설용환 대리</h5>
-									<small>내가 뭐라고 했죠?</small>
-								</div>
-							</div>
-						</li>
-						<li>
-							<div class="chatList">
-								<div class="img">
-									<img src="/demo/man03.png">
-								</div>
-								<div class="desc">
-									<small class="time">4 day</small>
-									<h5>Lajy Ion</h5>
-									<small>Lorem ipsum dolor sit amet...</small>
-								</div>
-							</div>
-						</li>
 					</ul>
 				</div>
 			</div>

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.develoffice.chat.model.service.ChatService;
 import com.kh.develoffice.chat.model.vo.Chat;
+import com.kh.develoffice.chat.model.vo.Message;
 import com.kh.develoffice.employee.model.vo.Employee;
 
 @Controller
@@ -41,9 +42,20 @@ public class ChatController {
 		
 		ArrayList<Chat> chatList = cService.selectChatList(empId);
 		
-		mv.addObject("chatList", chatList).setViewName("chat/chatListView");
+		ArrayList<Message> chatProfileList = cService.selectChatProfile();
+		
+		mv.addObject("chatList", chatList).addObject("chatProfileList", chatProfileList).setViewName("chat/chatListView");
 		
 		return mv;
+	}
+	@RequestMapping("chatting.do")
+	public ModelAndView chattingList(ModelAndView mv, int chatId) {
 		
+		ArrayList<Message> msgList = cService.selectMsgList(chatId);
+		
+		
+		mv.addObject("msgList", msgList).setViewName("chat/chattingView");
+		
+		return mv;
 	}
 }
