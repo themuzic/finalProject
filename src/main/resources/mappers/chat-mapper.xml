@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="chatMapper">
 	
+	<resultMap id="chatListResult" type="Chat">
+		<id property="chatId" column="chat_id"/>
+		<result property="chatName" column="chat_name"/>
+		<result property="createDate" column="create_date"/>
+		<result property="modifyDate" column="modify_date"/>
+		<result property="lastMsg" column="m_content"/>
+		<result property="chatType" column="chat_type"/>
+	</resultMap>
 	
+	<select id="selectChatList" parameterType="_int" resultMap="chatListResult">
+		select *
+		from chatlist_view
+		where emp_id = #{empId}
+	</select>
 
 </mapper>

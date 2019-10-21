@@ -22,6 +22,7 @@ public class Chat {
 	private String chatName;				// 채팅방 이름
 	private Date createDate;				// 생성일자 
 	private Date modifyDate;				// 갱신일자
+	private String lastMsg;					// 마지막 메세지
 	private int chatType;					// 단톡인지 아닌지
 	
 
