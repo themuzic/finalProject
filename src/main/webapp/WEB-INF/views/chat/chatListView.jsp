@@ -113,13 +113,13 @@ body{
 	overflow: hidden;
 }
 .left-section .chatList .img{
-	width: 50px;
+	width: 60px;
 	float: left;
 	text-align: center;
 	position: relative;
 }
 .left-section .chatList .img img{
-	width: 30px;
+	width: 25px;
 	border-radius: 50%;
 }
 .left-section .chatList .img i{
@@ -311,7 +311,8 @@ body{
 								<input type="hidden" name="chatId" value="${c.chatId }" >
 								<div class="img">
 								<c:forEach items="${chatProfileList }" var="profile">
-								<c:if test="${profile.chatId == c.chatId && loginUser.empId ne profile.empId }">
+								<c:if test="${profile.chatId == c.chatId && profile.empId ne loginUser.empId }">
+									<img src="resources/images/${profile.profilePath }">
 									<img src="resources/images/${profile.profilePath }">
 								</c:if>
 								</c:forEach>
