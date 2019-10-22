@@ -1,5 +1,7 @@
 package com.kh.develoffice.todo.model.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,12 @@ public class TodoServiceImpl implements TodoService {
 	@Override
 	public int insertTodoBoard(TodoBoard t) {
 		return tDao.insertTodoBoard(t);
+	}
+
+	
+	///////////	TODO Board List 불러오기 ///////////
+	@Override
+	public ArrayList<TodoBoard> selectBoardList() {
+		return tDao.selectBoardList();
 	}
 }

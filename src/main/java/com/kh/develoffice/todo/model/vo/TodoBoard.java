@@ -8,6 +8,7 @@ public class TodoBoard {
 	private String tdBoardName;
 	private int empId;
 	private String tdBoardContent;
+	private String tdBoardColor;
 	private Date tdBoardEnrollDate;
 	private Date tdBoardModifyDate;
 	private String tdBoardStatus;
@@ -16,13 +17,14 @@ public class TodoBoard {
 		
 	}
 
-	public TodoBoard(int tdBoardNo, String tdBoardName, int empId, String tdBoardContent, Date tdBoardEnrollDate,
-			Date tdBoardModifyDate, String tdBoardStatus) {
+	public TodoBoard(int tdBoardNo, String tdBoardName, int empId, String tdBoardContent, String tdBoardColor,
+			Date tdBoardEnrollDate, Date tdBoardModifyDate, String tdBoardStatus) {
 		super();
 		this.tdBoardNo = tdBoardNo;
 		this.tdBoardName = tdBoardName;
 		this.empId = empId;
 		this.tdBoardContent = tdBoardContent;
+		this.tdBoardColor = tdBoardColor;
 		this.tdBoardEnrollDate = tdBoardEnrollDate;
 		this.tdBoardModifyDate = tdBoardModifyDate;
 		this.tdBoardStatus = tdBoardStatus;
@@ -60,6 +62,14 @@ public class TodoBoard {
 		this.tdBoardContent = tdBoardContent;
 	}
 
+	public String getTdBoardColor() {
+		return tdBoardColor;
+	}
+
+	public void setTdBoardColor(String tdBoardColor) {
+		this.tdBoardColor = tdBoardColor;
+	}
+
 	public Date getTdBoardEnrollDate() {
 		return tdBoardEnrollDate;
 	}
@@ -87,11 +97,13 @@ public class TodoBoard {
 	@Override
 	public String toString() {
 		return "TodoBoard [tdBoardNo=" + tdBoardNo + ", tdBoardName=" + tdBoardName + ", empId=" + empId
-				+ ", tdBoardContent=" + tdBoardContent + ", tdBoardEnrollDate=" + tdBoardEnrollDate
-				+ ", tdBoardModifyDate=" + tdBoardModifyDate + ", tdBoardStatus=" + tdBoardStatus + "]";
+				+ ", tdBoardContent=" + tdBoardContent + ", tdBoardColor=" + tdBoardColor + ", tdBoardEnrollDate="
+				+ tdBoardEnrollDate + ", tdBoardModifyDate=" + tdBoardModifyDate + ", tdBoardStatus=" + tdBoardStatus
+				+ "]";
 	}
 	
 	
 	
-
 }
+
+	

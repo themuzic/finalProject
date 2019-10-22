@@ -1,5 +1,7 @@
 package com.kh.develoffice.todo.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,7 +16,15 @@ public class TodoDao {
 	
 	///////////	TODO Board 생성 ///////////
 	public int insertTodoBoard(TodoBoard t) {
-		return sqlSession.insert("todo-Mapper.insertTodoBoard", t);
+		
+		//System.out.println(t.getEmpId());
+		return sqlSession.insert("todoMapper.insertTodoBoard", t);
+	}
+	
+	
+	///////////	TODO Board List 불러오기 ///////////
+	public ArrayList<TodoBoard> selectBoardList(){
+		return (ArrayList)sqlSession.selectList("todoMapper.selectBoardList");
 	}
 	
 }

@@ -62,6 +62,8 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
+					
+					<!-- 상단 드롭다운 & 보드생성 버튼 -->
 					<div class="top-nav">
 						<table id="top-table">
 							<tr id="content-table">
@@ -77,7 +79,7 @@
 								</td>
 								<td>
 									<div class="ui inverted segment">
-									  <button type="button" style="background-color:#3287B2; color:white;" class="btn btn-lg" id="insertTdBoard" onclick="location.href='insertTodoBoard.do'">
+									  <button type="button" style="background-color:#3287B2; color:white;" class="btn btn-lg" id="insertTdBoard" onclick="location.href='insertTodoBoardView.do'">
 									  	<i class="fas fa-plus-circle"></i> Board
 									  </button>
 									</div>
@@ -90,89 +92,69 @@
 					
 					<br><br>
 					
+					
+					<!-- 보드 리스트 -->
 					<div class="ui three cards">
 				
 						<div class="ui link cards">
 						
-						  <div class="card" onclick="location.href='todoList.do'" style="height:200px; border:solid 10px orange;">
-						    <div class="image" style="background-color:; height:10px;">
-						      
-						    </div>
-						    <div class="content">
-						      <div class="header">2019년 10월</div>
-						      <div class="meta">
-						        <a>원영주</a>
-						      </div>
-						      <div class="description">
-						        2019년 10월 서비스팀 업무 관리
-						      </div>
-						    </div>
-						    <div class="extra content">
-						      <span class="right floated">
-						        Joined in 2013
-						      </span>
-						    </div>
+						<c:forEach items="${ list }" var="b">
+						
+							<div class="card" onclick="location.href='todoList.do'" style="height:200px; /* border:solid 10px; */">
+							   
+							    <div class="image" style="height:20px; background-color:${ b.tdBoardColor };">
+							      <%-- <input type="color" value="${ b.tdBoardColor }"> --%>
+							    </div>
+							    <div class="content" style="padding:10px 0 10px 10px;">
+							      <div class="header">${ b.tdBoardName }</div>
+							      <div class="meta" style="padding:10px 0 10px 0;">
+							        <a>${ b.empId }</a>
+							      </div>
+							      <div class="description" style="padding:10px 0 0 0">
+							       	<span>${ b.tdBoardContent }</span>
+							      </div>
+							    </div>
+							    <div class="extra content">
+							      <span class="right floated">
+							        ${ b.tdBoardEnrollDate }
+							      </span>
+							    </div>
+							   
+						    
 						  </div>
+							
+						
+						
+						
+						</c:forEach>
+						
+						
+						
+						  <%-- <div class="card" onclick="location.href='todoList.do'" style="height:200px; /* border:solid 10px; */">
+							   
+							    <div class="image" style="height:20px;">
+							      <input type="color" value="${ b.tdBoardColor }">
+							    </div>
+							    <div class="content">
+							      <div class="header">2019년 10월</div>
+							      <div class="meta">
+							        <a>원영주</a>
+							      </div>
+							      <div class="description">
+							        2019년 10월 서비스팀 업무 관리
+							      </div>
+							    </div>
+							    <div class="extra content">
+							      <span class="right floated">
+							        Joined in 2013
+							      </span>
+							    </div>
+						  </div> --%>
 						  
-						  <div class="card">
-						    <div class="image">
-						      <img src="resources/images/default_profile.png">
-						    </div>
-						    <div class="content">
-						      <div class="header">Molly</div>
-						      <div class="meta">
-						        <span class="date">Coworker</span>
-						      </div>
-						      <div class="description">
-						        Molly is a personal assistant living in Paris.
-						      </div>
-						    </div>
-						    <div class="extra content">
-						      <span class="right floated">
-						        Joined in 2011
-						      </span>
-						    </div>
-						  </div>
 						  
-						  <div class="card">
-						    <div class="image">
-						      <img src="resources/images/confRoom.jpg">
-						    </div>
-						    <div class="content">
-						      <div class="header">Elyse</div>
-						      <div class="meta">
-						        <a>Coworker</a>
-						      </div>
-						      <div class="description">
-						        Elyse is a copywriter working in New York.
-						      </div>
-						    </div>
-						    <div class="extra content">
-						      <span class="right floated">
-						        Joined in 2014
-						      </span>
-						    </div>
-						  </div>
 						  
-						  <div class="card">
-						    <div class="image">
-						      <img src="resources/images/default_profile.png">
-						    </div>
-						    <div class="content">
-						      <div class="header">Elyse</div>
-						      <div class="meta">
-						        <a>Coworker</a>
-						      </div>
-						      <div class="description">
-						        Elyse is a copywriter working in New York.
-						      </div>
-						    </div>
-						    <div class="extra content">
-						      <span class="right floated">
-						        Joined in 2014
-						      </span>
-						    </div>
-						  </div>
+						  
+						  
 						  
 						</div>
 						

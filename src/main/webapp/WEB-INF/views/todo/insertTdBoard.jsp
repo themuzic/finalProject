@@ -31,9 +31,7 @@
 		font-weight:700;
 	}
 	
-	#imgArea:hover{
-		cursor:pointer;
-	}
+	
 	
 	
 </style>
@@ -70,11 +68,23 @@
 					    </div> -->
 					    
 						 <form action="insertTodoBoard.do" method="post" encType="multipart/form-data" class="insertForm">
+						 	
+						 	
+						 	<div class="writer-area" style="float:right;">
+						 		<span style="padding: 2px 0px 15px 0; font-weight:bold; font-size:15px;">작성자<i class="fas fa-user-edit"></i></span>
+						 		<input type="hidden" name="empId" value="${loginUser.empId }">
+						 		<input type="text" readonly name="empName" value="${ loginUser.empName }" 
+						 			   style="width:60px; border:solid 0px black; font-size:15px;">
+						 		
+						 	</div>
+						 	
+						 	<br><br><br>
 						 
 						 	<h4 style="padding: 2px 0 15px 0;">Color</h4>
 						 	
+						 	
 						 	<div style="text-align:center;">
-    							<input id="color" style="display: none;">
+    							<input id="tdBoardColor" name="tdBoardColor" style="display: none;">
     							<!-- <div class="sp-replacer sp-light">
     								<div class="sp-preview">
     									<div class="sp-preview-inner" style="background-color: rgb(238, 204, 204);">
@@ -169,7 +179,7 @@
 				}
 			}); */
 			
-			$("#color").spectrum({
+			$("#tdBoardColor").spectrum({
 				
 				
 				showPalette:true,
@@ -181,7 +191,8 @@
 			    togglePaletteLessText: 'less', */
 			    chooseText: "choose",
 			    cancelText: "cancel",
-			    color: 'blanchedalmond',
+			    preferredFormat: "hex",
+			    color: '#b4a7d6',
 			    palette: [
 			        ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
 			        ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
@@ -194,9 +205,9 @@
 			    ],
 			    change: function(color){
 			    	
-			    	var colorValue = color.toHexString();
+			    	var tdColor = color.toHexString();
 			    	
-			    	console.log(colorValue);
+			    	console.log(tdColor);
 			    }
 			    
 			});

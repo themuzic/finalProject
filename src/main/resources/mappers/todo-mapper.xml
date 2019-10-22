@@ -5,19 +5,29 @@
 
 	<resultMap id="todoBoardResultSet" type="TodoBoard">
 		<id property="tdBoardNo" column="td_board_no"/>
-		<result property="empId" column="emp_id"/>
 		<result property="tdBoardName" column="td_board_name"/>
+		<result property="empId" column="emp_id"/>
 		<result property="tdBoardContent" column="td_board_content"/>
+		<result property="tdBoardColor" column="td_board_color"/>
 		<result property="tdBoardEnrollDate" column="td_board_enroll_date"/>
 		<result property="tdBoardModifyDate" column="td_board_modify_date"/>
 		<result property="tdBoardStatus" column="td_board_status"/>
-		<result property="" column=""/>
 	</resultMap>
   
   
+  	<insert id="insertTodoBoard" parameterType="TodoBoard">
+  		insert into todo_board
+		values(todo_board_seq.nextval, #{tdBoardName}, #{empId}, #{tdBoardContent}, 
+			   #{tdBoardColor}, sysdate, sysdate, default)
+  	</insert>
   
-  
-  
+
+	<select id="selectBoardList" resultMap="todoBoardResultSet">
+		select *
+		from todo_board
+		where td_board_status='Y'
+		order by td_board_no desc
+	</select>
   
   
   
