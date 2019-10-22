@@ -2,6 +2,7 @@ package com.kh.develoffice.mail.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.mail.model.vo.Mail;
 import com.kh.develoffice.mail.model.vo.PageInfo;
 import com.kh.develoffice.mail.model.vo.SearchCondition;
@@ -10,16 +11,25 @@ public interface MailService {
 	
 	int getListCount();
 	
-	ArrayList<Mail> receiveMailList(PageInfo pi);
+	// 받은 메일함
+	ArrayList<Mail> receiveMailList(PageInfo pi, Employee e);
 	
-	ArrayList<Mail> sendMailList(PageInfo pi);
+	// 보낸 메일함
+	ArrayList<Mail> sendMailList(PageInfo pi, Employee e);
 	
+	// 휴지통
+	ArrayList<Mail> deleteMailList(PageInfo pi);
+	
+	// 메일 보내기
 	int insertMail(Mail m);
 	
+	// 메일함 상세페이지
 	Mail receiveDetail(int mailNum);
 	
+	// 검색처리 리스트 불러오기
 	int getSearchListCount(SearchCondition sc);
 	
+	// 검색처리 게시글 불러오기
 	ArrayList<Mail> selectSearchList(SearchCondition sc, PageInfo pi);
 	
 	// 단순히 메일만 조회
@@ -29,7 +39,12 @@ public interface MailService {
 	int deleteMail(int mailNum);
 	
 	// 메일 이동
-	int transferMail(int mailNum);
+	int updateMail(int mailNum);
+
+	int selectEmpId(String toEmail);
+
+	int insertStatusMail(int empId);
+
 	
 
 }

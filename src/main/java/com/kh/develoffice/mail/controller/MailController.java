@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.develoffice.common.Pagination;
+import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.mail.model.service.MailService;
 import com.kh.develoffice.mail.model.vo.Mail;
 import com.kh.develoffice.mail.model.vo.PageInfo;
@@ -38,41 +39,63 @@ public class MailController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
+	// 받은 메일함 리스트
 	@RequestMapping("receiveMail.do")
-	public ModelAndView receiveMailList(ModelAndView mv, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+	public ModelAndView receiveMailList(ModelAndView mv, HttpSession session,
+			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		
 		// 게시글 총 개수
 		int listCount = mService.getListCount();
 		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Mail> list = mService.receiveMailList(pi);
+		ArrayList<Mail> list = mService.receiveMailList(pi, e);
 		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/receiveMail");
 		
 		return mv;
 	}
 	
+	// 보낸 메일함 리스트
 	@RequestMapping("sendMail.do")
-	public ModelAndView sendMailList(ModelAndView mv, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+	public ModelAndView sendMailList(ModelAndView mv, HttpSession session,
+			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		
 		// 게시글 총 개수
 		int listCount = mService.getListCount();
 		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Mail> list = mService.sendMailList(pi);
+		
+		
+		ArrayList<Mail> list = mService.sendMailList(pi, e);
 		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/sendMail");
 		
 		return mv;
 	}
 	
+	// 휴지통 리스트
 	@RequestMapping("deleteMail.do")
-	public String deleteMailList() {
-		return "mail/deleteMail";
+	public ModelAndView deleteMailList(ModelAndView mv,
+						@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+		// 게시글 총 개수
+		int listCount = mService.getListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Mail> list = mService.deleteMailList(pi);
+		
+		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/deleteMail");
+		
+		return mv;
 	}
 	
+	// 메일쓰기 이동
 	@RequestMapping("insertMail.do")
 	public String insertMailForm() {
 		return "mail/insertMail";
@@ -145,8 +168,27 @@ public class MailController {
 		// mail 테이블에 insert
 		int result = mService.insertMail(m);
 		
+		// 받는 메일과 from, to empId 불러오기
+		String toEmail = m.getMailTo();
+		int fromEmpId = m.getEmpId();
+		int toEmpId = mService.selectEmpId(toEmail);
+		
 		if(result > 0) {
-			return "mail/successMail";
+			
+			int result1 = mService.insertStatusMail(fromEmpId);
+			
+			int result2 = 1;
+			
+			if(toEmpId != 0) {
+				result2 = mService.insertStatusMail(toEmpId);
+			}
+			
+			if(result1 > 0 && result2 > 0) {
+				return "mail/successMail";
+			}else {
+				model.addAttribute("msg", "메일전송 실패!");
+				return "common/errorPage";
+			}
 		}else {
 			model.addAttribute("msg", "메일전송 실패!");
 			return "common/errorPage";
@@ -216,6 +258,7 @@ public class MailController {
 		return mv;
 	}
 	
+	// 메일함 상세조회
 	@RequestMapping("receiveDetail.do")
 	public ModelAndView receiveDetail(int mailNum, ModelAndView mv) {
 		
@@ -230,6 +273,22 @@ public class MailController {
 		return mv;
 	}
 	
+	// 메일 지우기(휴지통으로)
+	@RequestMapping("delete.do")
+	public String delete(int mailNum, HttpServletRequest request, Model model) {
+		
+		int result = mService.updateMail(mailNum);
+		
+		if(result > 0) {
+			return "redirect:deleteMail.do";
+		}else {
+			model.addAttribute("msg", "메일 이동 실패");
+			
+			return ("common/errorPage");
+		}
+	}
+	
+	// 메일 완전 삭제
 	@RequestMapping("mdelete.do")
 	public String mailDelete(int mailNum, HttpServletRequest request, Model model) {
 		
@@ -262,22 +321,7 @@ public class MailController {
 		}
 	}
 	
-	@RequestMapping("transfer.do")
-	public ModelAndView mailTransfer(int mailNum, HttpServletRequest request, ModelAndView mv) {
-		
-		Mail m = mService.selectMail(mailNum);
-		
-		int result = mService.transferMail(mailNum);
-		
-		
-		return mv;
-	}
-	
-	
-	
-	
-	
-	
+
 	
 //	// pop3 메일 수신
 //	@RequestMapping("receiveMail.do")

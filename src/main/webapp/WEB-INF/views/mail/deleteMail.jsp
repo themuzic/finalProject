@@ -117,36 +117,22 @@
 					            <li class="li" class="li">
 	                                <a href="javascript:void(0)" id="move_b2" onclick="" style="color:gray;">첨부 있음</a>
 	                            </li>
-					            <li class="li" class="li">
-	                                <a href="javascript:void(0)" id="move_b3" onclick="" style="color:gray;">안 읽은 메일</a>
-	                            </li>
-					            <li class="li" class="li">
-	                                <a href="javascript:void(0)" id="move_b5" onclick="" style="color:gray;">읽은 메일</a>
-	                            </li>
 							</ul>
 	                     </div>  
 					</div>
 	            </span>
 	        </div>
 
-	        
-	        
 	        <div id='chkMenu' class="chkMenu hide" name="chkMenu" style="font-size:15px; display:none">
-	            <span class="detail_select" id="m_list_checked_menu_delete">
-	                <a href="javascript:void(0)" onclick="">삭제</a>&nbsp;&nbsp;
-	            </span>
 	            <span class="detail_select">
 	                <a href="javascript:void(0)" onclick="">완전삭제</a>&nbsp;&nbsp;
-	            </span>
-	            <span class="detail_select" id="m_list_checked_menu_resend">
-	                <a href="javascript:void(0)" onclick="">재발송</a>&nbsp;&nbsp;
 	            </span>
 	        
 	            <span class="detail_select move">
 	                <a href="javascript:void(0)" id='m_list_move_mbox' >이동
 	                	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif" alt="이동 드롭다운 메뉴 열기" class="open_drop">
 	                </a>
-	                <div class="dropdown2 hide" id='m_list_move_mbox_detail' style= "margin-left:180px;">
+	                <div class="dropdown2 hide" id='m_list_move_mbox_detail' style= "margin-left:75px;">
 	                    <div class="dropscroll-menu2">
 	                        <ul style="min-width:110px; border-color:#2985db; margin:10px; line-height:2">
 	                            <li>
@@ -154,9 +140,6 @@
 	                            </li>
 	                            <li>
 	                                <a href="" id="send"onclick="" style="color:gray"> 보낸 편지함</a>
-	                            </li>
-	                            <li>
-	                                <a href="" id="delete"onclick="" style="color:gray">휴지통</a>
 	                            </li>
 	                        </ul>
 	                    </div>

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.mail.model.dao.MailDao;
 import com.kh.develoffice.mail.model.vo.Mail;
 import com.kh.develoffice.mail.model.vo.PageInfo;
@@ -22,21 +24,29 @@ public class MailServiceImpl implements MailService{
 	}
 
 	@Override
-	public ArrayList<Mail> receiveMailList(PageInfo pi) {
+	public ArrayList<Mail> receiveMailList(PageInfo pi, Employee e) {
 		
-		return mDao.receiveMailList(pi);
+		return mDao.receiveMailList(pi, e);
 	}
 	
 	@Override
-	public ArrayList<Mail> sendMailList(PageInfo pi) {
+	public ArrayList<Mail> sendMailList(PageInfo pi, Employee e) {
 		
-		return mDao.sendMailList(pi);
+		return mDao.sendMailList(pi, e);
+	}
+
+	@Override
+	public ArrayList<Mail> deleteMailList(PageInfo pi) {
+		
+		return mDao.deleteMailList(pi);
 	}
 	
 	@Override
 	public int insertMail(Mail m) {
 		
-		return mDao.insertMail(m);
+		int result = mDao.insertMail(m);
+		
+		return result;
 	}
 
 	@Override
@@ -62,17 +72,29 @@ public class MailServiceImpl implements MailService{
 		
 		return mDao.receiveDetail(mailNum);
 	}
+	
+	@Override
+	public int updateMail(int mailNum) {
+		
+		return mDao.updateMail(mailNum);
+	}
 
 	@Override
 	public int deleteMail(int mailNum) {
 		
 		return mDao.deleteMail(mailNum);
 	}
+	
+	@Override
+	public int selectEmpId(String toEmail) {
+		return mDao.selectEmpId(toEmail);
+		
+	}
 
 	@Override
-	public int transferMail(int mailNum) {
-		
-		return mDao.transferMail(mailNum);
+	public int insertStatusMail(int empId) {
+		return mDao.insertStatusMail(empId);
 	}
+
 
 }

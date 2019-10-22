@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.mail.model.vo.Mail;
 import com.kh.develoffice.mail.model.vo.PageInfo;
 import com.kh.develoffice.mail.model.vo.SearchCondition;
@@ -22,20 +23,28 @@ public class MailDao {
 		return sqlSession.selectOne("mailMapper.getListCount");
 	}
 	
-	public ArrayList<Mail> receiveMailList(PageInfo pi){
+	public ArrayList<Mail> receiveMailList(PageInfo pi, Employee e){
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("mailMapper.receiveMailList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("mailMapper.receiveMailList", e, rowBounds);
 	}
 	
-	public ArrayList<Mail> sendMailList(PageInfo pi){
+	public ArrayList<Mail> sendMailList(PageInfo pi, Employee e){
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("mailMapper.receiveMailList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("mailMapper.sendMailList", e, rowBounds);
+	}
+	
+	public ArrayList<Mail> deleteMailList(PageInfo pi){
+		
+		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("mailMapper.deleteMailList", null, rowBounds);
 	}
 	
 	
@@ -62,14 +71,30 @@ public class MailDao {
 		return (ArrayList)sqlSession.selectList("mailMapper.selectSearchList", sc, rowBounds);
 	}
 	
-	public int deleteMail(int mailNum) {
+	public int updateMail(int mailNum) {
 		
-		return sqlSession.update("mailMapper.deleteMail", mailNum);
+		return sqlSession.update("mailMapper.updateMail", mailNum);
 	}
 	
-	public int transferMail(int mailNum) {
+	public int deleteMail(int mailNum) {
 		
-		return sqlSession.update("mailMapper.transferMail", mailNum);
+		return sqlSession.delete("mailMapper.deleteMail", mailNum);
 	}
+	
+	public int selectEmpId(String toEmail) {
+		if(sqlSession.selectOne("mailMapper.selectEmpId", toEmail) == null) {
+		
+			return 0;
+			
+		}else {
+			
+			return sqlSession.selectOne("mailMapper.selectEmpId", toEmail);
+		}
+	}
+
+	public int insertStatusMail(int empId) {
+		return sqlSession.insert("mailMapper.insertStatusMail", empId);
+	}
+
 
 }

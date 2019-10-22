@@ -70,43 +70,42 @@
 					<span class="allSend menu" id="allSend">
 						<a href="allReplyMail.do?mailFrom=${ m.mailFrom }&mailCc=${ m.mailCc }" onclick="" style="font-size:16px;">전체답장</a>
 					</span> &nbsp; &nbsp; &nbsp;
+					
 					<span class="delete menu" id="delete">
-						<a href="" onclick="" style="font-size:16px;">삭제</a>
+						<c:url var="delete" value="delete.do">
+							<c:param name="mailNum" value="${ m.mailNum }"/>
+						</c:url>
+						<a href="${ delete }" style="font-size:16px;">삭제</a>
 					</span> &nbsp; &nbsp; &nbsp;
+					
 					<span class="absol_delete menu" id="absol_delete">
 						<c:url var="mdelete" value="mdelete.do">
 							<c:param name="mailNum" value="${m.mailNum }"/>
 						</c:url>
-						
-						<c:if test ="${ loginUser.empId eq m.empId }">
-							<a href="${ mdelete }" style="font-size:16px;">완전삭제</a>
-						</c:if>
+						<a href="${ mdelete }" style="font-size:16px;">완전삭제</a>
 					</span> &nbsp; &nbsp; &nbsp;
 
-					<span class="move menu" id="move">
-		                <a href="javascript:void(0)" id='m_view_move_mbox' >이동
-		                	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif" alt="이동 드롭다운 메뉴 열기" class="open_drop">
-		                </a>
-		                <div class="dropdown hide" id="m_view_move_mbox_detail" style="margin-left:330px;">
-		                    <div class="dropscroll-menu" style="width:150px;">
-		                        <ul style="min-width:220px; border-color:#2985db;" id="ul">
-						            <li class="li">
-						            	<!-- 음... -->
-						            	<c:url value="receiveMail.do" var="receieveList">
-											<c:param name="mailNum" value="${m.mailNum}"/>
-										</c:url>
-										<a href="${receieveList}" id="move_b0" class="">받은 편지함</a>
-		                            </li>
-						            <li class="li">
-		                                <a href="" id="move_b1" style="color:gray;">보낸 편지함</a>
-		                            </li>
-						            <li class="li">
-		                                <a href="" id="move_b5" style="color:gray;">휴지통</a>
-		                            </li>
-								</ul>
-		                     </div>  
-						</div>
-		            </span>
+<!-- 					<span class="move menu" id="move"> -->
+<!-- 		                <a href="javascript:void(0)" id='m_view_move_mbox' >이동 -->
+<!-- 		                	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif" alt="이동 드롭다운 메뉴 열기" class="open_drop"> -->
+<!-- 		                </a> -->
+<!-- 		                <div class="dropdown hide" id="m_view_move_mbox_detail" style="margin-left:330px;"> -->
+<!-- 		                    <div class="dropscroll-menu" style="width:150px;"> -->
+<!-- 		                        <ul style="min-width:220px; border-color:#2985db;" id="ul"> -->
+<!-- 						            <li class="li"> -->
+						            
+<%-- 										<a href="${receieveList}" id="move_b0" class="">받은 편지함</a> --%>
+<!-- 		                            </li> -->
+<!-- 						            <li class="li"> -->
+<!-- 		                                <a href="" id="move_b1" style="color:gray;">보낸 편지함</a> -->
+<!-- 		                            </li> -->
+<!-- 						            <li class="li"> -->
+<!-- 		                                <a href="" id="move_b5" style="color:gray;">휴지통</a> -->
+<!-- 		                            </li> -->
+<!-- 								</ul> -->
+<!-- 		                     </div>   -->
+<!-- 						</div> -->
+<!-- 		            </span> -->
 		            <hr>
 		            
 					<form action="" method="post" encType="multipart/form-data">
@@ -115,7 +114,10 @@
 			                    <a href="" onclick="" star="N"  class="icon impt " id="aStar" >
 			                    	<span class="blind">중요 메일 표시</span>
 			                    </a>
-			                    <span class="title">${ m.mailTitle }</span>
+			                    <span class="title">
+			                    	${ m.mailTitle }
+			                    	<input type="hidden" value="${ m.mailNum }">
+			                    </span>
 			                </h3>
 			                <br>
 			                <p class="date">${ m.mailDate } </p>
