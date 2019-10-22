@@ -729,4 +729,9 @@ fieldset, img {
     overflow-y: auto;
     max-height: 315px;
 }
+#spendTbody td {
+    padding: 12px 10px 12px 15px;
+    border: 0;
+    border-bottom: 1px solid #ffffff00;
+}
 /*# sourceMappingURL=maps/style.css.map */
