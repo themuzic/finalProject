@@ -187,10 +187,12 @@ body{
         	$('.ui.labeled.icon.sidebar').sidebar('toggle');	// 사이드바 토글 이벤트
         });
 		
-        $(".chatList").on("dblclick", function(){
+        var i = 0;
+        $(".chatList").on("dblclick", function(){	// 채팅방 더블클릭 했을때
         	console.log($(this).children().first().val());
-        	chatId = $(this).children().first().val();
-        	window.open("chatting.do?chatId=" + chatId, chatId + "chatting", "width=500,height=600", "false");
+        	chatId = $(this).children().first().val();	// 더블클릭한 채팅방의 chatId
+        	messenger = window.open("chatting.do?chatId=" + chatId, chatId + "chatting", "width=500,height=545", "false");
+        	
         });
 
     });
@@ -310,11 +312,22 @@ body{
 							<div class="chatList">
 								<input type="hidden" name="chatId" value="${c.chatId }" >
 								<div class="img">
-								<c:forEach items="${chatProfileList }" var="profile">
-								<c:if test="${profile.chatId == c.chatId && profile.empId ne loginUser.empId }">
-									<img src="resources/images/${profile.profilePath }">
-								</c:if>
-								</c:forEach>
+									<c:if test="${c.chatType == 1 &&c.count <= 2}">
+										<c:forEach items="${c.profileList }" var="profile">
+											<c:if test="${profile.chatId == c.chatId && profile.empId ne loginUser.empId }">
+												<img src="resources/images/${profile.profilePath }">
+											</c:if>
+										</c:forEach>
+									</c:if>
+									<c:if test="${c.chatType == 2 && c.count >= 2 }">
+										<c:forEach items="${c.profileList }" var="profile" varStatus="status">
+											<c:if test="${status.index < 4}">
+												<c:if test="${profile.chatId == c.chatId}">
+													<img style="width:20px;" src="resources/images/${profile.profilePath }">
+												</c:if>
+											</c:if>
+										</c:forEach>
+									</c:if>
 								</div>
 								
 								<div class="desc">

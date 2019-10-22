@@ -26,6 +26,12 @@ public class ChatDao {
 		return (ArrayList)sqlSession.selectList("chatMapper.selectChatList", empId);
 		
 	}
+	
+	public ArrayList<Message> selectChatProfile(int empId) {
+		
+		return (ArrayList)sqlSession.selectList("chatMapper.selectChatProfile", empId);
+		
+	}
 
 	public ArrayList<Message> selectMsgList(int chatId) {
 		
@@ -33,11 +39,6 @@ public class ChatDao {
 		
 	}
 
-	public ArrayList<Message> selectChatProfile() {
-		
-		return (ArrayList)sqlSession.selectList("chatMapper.selectChatProfile");
-		
-	}
 
 	
 }

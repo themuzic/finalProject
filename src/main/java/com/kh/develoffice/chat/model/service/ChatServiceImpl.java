@@ -29,6 +29,13 @@ public class ChatServiceImpl implements ChatService {
 		return cDao.selectChatList(empId);
 		
 	}
+	
+	@Override
+	public ArrayList<Message> selectChatProfile(int empId) {
+		
+		return cDao.selectChatProfile(empId);
+		
+	}
 
 	@Override
 	public ArrayList<Message> selectMsgList(int chatId) {
@@ -37,11 +44,5 @@ public class ChatServiceImpl implements ChatService {
 		
 	}
 
-	@Override
-	public ArrayList<Message> selectChatProfile() {
-		
-		return cDao.selectChatProfile();
-		
-	}
 
 }

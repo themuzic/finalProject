@@ -41,20 +41,29 @@ public class ChatController {
 		int empId = ((Employee)session.getAttribute("loginUser")).getEmpId();
 		
 		ArrayList<Chat> chatList = cService.selectChatList(empId);
+		ArrayList<Message> chatProfileList = cService.selectChatProfile(empId);
+		for(Chat c:chatList) {
+			ArrayList<Message> profile = new ArrayList<>();
+			for(Message m:chatProfileList) {
+				if(c.getChatId() == m.getChatId()) {
+					profile.add(m);
+				}
+			}
+			c.setProfileList(profile);
+			
+		}
 		
-		ArrayList<Message> chatProfileList = cService.selectChatProfile();
-		
-		mv.addObject("chatList", chatList).addObject("chatProfileList", chatProfileList).setViewName("chat/chatListView");
+		mv.addObject("chatList", chatList).setViewName("chat/chatListView");
 		
 		return mv;
 	}
 	@RequestMapping("chatting.do")
 	public ModelAndView chattingList(ModelAndView mv, int chatId) {
 		
-		ArrayList<Message> msgList = cService.selectMsgList(chatId);
+//		ArrayList<Message> msgList = cService.selectMsgList(chatId);
 		
 		
-		mv.addObject("msgList", msgList).setViewName("chat/chattingView");
+		mv.addObject("chatId", chatId).setViewName("chat/chattingView");
 		
 		return mv;
 	}

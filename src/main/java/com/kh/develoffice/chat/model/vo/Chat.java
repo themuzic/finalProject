@@ -24,6 +24,8 @@ public class Chat {
 	private Date modifyDate;				// 갱신일자
 	private String lastMsg;					// 마지막 메세지
 	private int chatType;					// 단톡인지 아닌지
+	private int count;						// 채팅방 인원수
+	private ArrayList<Message> profileList;	// 채팅방 프로필 경로들
 	
 
 	

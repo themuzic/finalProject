@@ -9,6 +9,7 @@
 		<result property="modifyDate" column="modify_date"/>
 		<result property="lastMsg" column="m_content"/>
 		<result property="chatType" column="chat_type"/>
+		<result property="count" column="chat_count"/>
 	</resultMap>
 	
 	<resultMap id="chatProfileResult" type="Message">
@@ -26,12 +27,12 @@
 		where emp_id = #{empId}
 	</select>
 	
-	<select id="selectChatProfile" resultMap="chatProfileResult">
+	<select id="selectChatProfile" parameterType="_int" resultMap="chatProfileResult">
 		SELECT J.CHAT_ID, J.EMP_ID, PROFILE_PATH
 		FROM JOIN_CHAT J
 		JOIN CHAT C ON(J.CHAT_ID = C.CHAT_ID)
 		JOIN EMPLOYEE E ON(J.EMP_ID = E.EMP_ID)
-		WHERE CHAT_STATUS = 'Y'
+		WHERE CHAT_STATUS = 'Y' AND J.EMP_ID != #{empId}
 	</select>
 	<!-- 
 	<select id="selectMsgList" parameterType="_int" resultMap="messageListResult">

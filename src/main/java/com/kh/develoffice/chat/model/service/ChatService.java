@@ -13,9 +13,11 @@ public interface ChatService {
 
 	// 채팅방 조회 서비스
 	ArrayList<Chat> selectChatList(int empId);
-
+	
+	// 자기 자신을 제외한 프로필 조회 서비스
+	ArrayList<Message> selectChatProfile(int empId);
+	
+	// 메세지 내역 조회 서비스
 	ArrayList<Message> selectMsgList(int chatId);
-
-	ArrayList<Message> selectChatProfile();
 
 }

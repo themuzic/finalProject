@@ -12,7 +12,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 <!-- sockjs 라이브러리 -->
-<script type="text/javascript" src="<c:url value="/resources/js/sockjs-0.3.4.js"/>"></script>
+<script type="text/javascript" src="resources/chat/js/sockjs-0.3.4.js"></script>
 
 <!-- 폰트 -->
 <link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap" rel="stylesheet">
@@ -251,6 +251,7 @@ body{
 	sock.onopen = onopen;
     function onopen(){
     	console.log("오픈");
+    	sock.send("chatId:${chatId}");
     	
     }
     //자바스크립트 안에 function을 집어넣을 수 있음.
@@ -277,7 +278,7 @@ body{
 			
 		}else{							// 메세지 내용이 있으면
         	/*소켓으로 보내겠다.  */
-	        sock.send($("#message").val());	// 메세지를 소켓에 보내고
+	        sock.send("chatId:${chatId}:" + $("#message").val());	// 메세지를 소켓에 보내고
 	        $("#message").val("");			// 메세지 내용을 비운다.
 			
 		}
