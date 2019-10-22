@@ -188,6 +188,7 @@
 						
 						<!--------------------------------------------------------------------------------->
 						
+						<!-- 
 						<div id="approvalDocumentLine" class="typeA hide">
 						<table class="cal_table1 approve-write js-approval-line typeA hide" style="text-align:center">
 							<colgroup>
@@ -298,23 +299,24 @@
 									<tr>
 										<th scope="row" style="text-align:center">참조</th>
 										<td id="approvalThirdLine" style="padding: 8px 0 8px 12px;border-bottom: 1px solid #cdcdcd;text-align: left;height: 40px;">
-											<!-- 
+											<span class="refer-list" empId="">참조인 생기기</span>
+											
 											<input type="text" class="refer-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputApprovalThirdLine" autocomplete="off">
-											<span class="refer-list" user_no="" old_new="" node_id="">참조인 생기기<span class="lnr lnr-cross-circle" style="padding-left:7px;cursor:pointer;"></span></span>
-											 -->
+											<span class="lnr lnr-cross-circle" style="padding-left:7px;cursor:pointer;"></span></span>
+											
 										</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
+						 -->
 						
 						
 						
+						<!-- 회람 -------------------------------------------------------->
 						
 						
-						
-						
-						<div id="approvalDocumentLine" class="typeB hide">
+						<div id="approvalDocumentLine" class="referTable2 hide">
 						
 							<table class="cal_table1 approve-write refer">
 								<colgroup>
@@ -324,23 +326,22 @@
 								<tbody>
 									<tr>
 										<th scope="row" style="text-align:center">회람</th>
-										<td id="approvalThirdLine" style="padding: 8px 0 8px 12px;border-bottom: 1px solid #cdcdcd;text-align: left;height: 40px;">
-											<!-- 
-											<input type="text" class="refer-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputApprovalThirdLine" autocomplete="off">
-											<span class="refer-list" user_no="" old_new="" node_id="">참조인 생기기<span class="lnr lnr-cross-circle" style="padding-left:7px;cursor:pointer;"></span></span>
-											 -->
+										<td id="approvalThirdLine" class="referRow2" style="padding: 8px 0 8px 12px;border-bottom: 1px solid #cdcdcd;text-align: left;height: 40px;">
+											
 										</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 						
+						 
+						<!-- 회람 -------------------------------------------------------->
 						
 						
 						
+						<div id="approvalDocumentLine" class="approvalTable hide">
 						
-						<div id="approvalDocumentLine" class="typeC hide">
-						
+						<!-- 결제 -->
 						<table class="cal_table1 approve-write js-approval-line">
 							<colgroup>
 								<col style="width:12.09%;">
@@ -351,54 +352,33 @@
 									<th scope="row" class="sign"><div style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">결재</div></th>
 									<td class="sign vt" id="approvalFirstLine">
 										<table style="width:100%;table-layout:fixed"><colgroup><col><col><col><col><col><col><col></colgroup>
-											<tbody>
+											<tbody id="apTbody">
 											<tr>
-												<td class="team name">											
-												</td>
-												<td class="team name">
-												</td>
-												<td class="team name">
-												</td>
-												<td class="team name">
-												</td>
-												<td class="team name">
-												</td>
-												<td class="team name">
-												</td>
-												<td class="team name">
-												</td>
+												<td class="team name"></td>
+												<td class="team name"></td>
+												<td class="team name"></td>
+												<td class="team name"></td>
+												<td class="team name"></td>
+												<td class="team name"></td>
+												<td class="team name"></td>
 											</tr>
 											<tr>
-												<td class="stamp">											
-												</td>
-												<td class="stamp">
-												</td>
-												<td class="stamp">
-												</td>
-												<td class="stamp">
-												</td>
-												<td class="stamp">
-												</td>
-												<td class="stamp">
-												</td>
-												<td class="stamp">
-												</td>
+												<td class="stamp"></td>
+												<td class="stamp"></td>
+												<td class="stamp"></td>
+												<td class="stamp"></td>
+												<td class="stamp"></td>
+												<td class="stamp"></td>
+												<td class="stamp"></td>
 											</tr>
-											<tr>
-												<td class="name">
-												</td>
-												<td class="name">
-												</td>
-												<td class="name">
-												</td>
-												<td class="name">
-												</td>
-												<td class="name">
-												</td>
-												<td class="name">
-												</td>
-												<td class="name">
-												</td>
+											<tr id="nameRow">
+												<td class="name"></td>
+												<td class="name"></td>
+												<td class="name"></td>
+												<td class="name"></td>
+												<td class="name"></td>
+												<td class="name"></td>
+												<td class="name"></td>
 											</tr>
 											</tbody>
 										</table>
@@ -406,100 +386,9 @@
 								</tr>
 							</tbody>
 						</table>
-
-
-						<!-- 
-						<table class="cal_table1 approve-write js-approval-line">
-							<colgroup>
-								<col style="width:12.09%;">
-								<col style="width:37.62%;">
-								<col style="width:9.02%;">
-								<col style="width:41.27%;">
-							</colgroup>
-						<tbody>
-							<tr>
-								<th scope="row" class="agree"><div style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">합의<span class="spr-approval set addPlus" title="합의" onclick="ApprovalDocument.approvalLineSetting('approval_second_line', 'D');"></span></div>
-							</th>
-								<td class="agree vt" id="approvalSecondLine">
-									<table>
-										<colgroup>
-											<col style="width:12.54%;">
-											<col style="width:12.54%;">
-										</colgroup>
-										<tbody>
-										<tr>
-											<td class="gt-ph-20 gt-align-left gt-border-0" style="height:53px;">
-											</td>
-											<td class="gt-ph-20 gt-align-left gt-border-0" style="height:53px;">
-											</td>
-										</tr>
-										<tr>
-											<td class="gt-ph-20 gt-align-left gt-border-0" style="height:53px;">
-											</td>
-											<td class="gt-ph-20 gt-align-left gt-border-0" style="height:53px;">
-											</td>
-										</tr>
-										<tr>
-											<td class="gt-ph-20 gt-align-left gt-border-0" style="height:53px;">
-											</td>
-											<td class="gt-ph-20 gt-align-left gt-border-0" style="height:53px;">
-											</td>
-										</tr>
-										</tbody>
-									</table>
-								</td>
-								<th scope="row" class="confer">
-									<div class="choice" style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">재무 합의<span class="spr-approval set addPlus" title="재무 합의" onclick="ApprovalDocument.approvalLineSetting('approval_third_line', 'E');"></span></div>
-								</th>
-								<td class="confer vt" id="approvalThirdLine">
-									<table>
-										<colgroup>
-											<col width="">
-											<col width="">
-											<col width="">
-											<col width="">
-										</colgroup>
-										<tbody>
-										<tr>
-											<td class="team name">
-											</td>
-											<td class="team name">
-											</td>
-											<td class="team name">
-											</td>
-											<td class="team name">
-											</td>
-										</tr>
-										<tr>
-											<td class="stamp">
-											</td>
-											<td class="stamp">
-											</td>
-											<td class="stamp">
-											</td>
-											<td class="stamp">
-											</td>
-										</tr>
-										<tr>
-											<td class="name">
-											</td>
-											<td class="name">
-											</td>
-											<td class="name">
-											</td>
-											<td class="name">
-											</td>
-										</tr>
-										</tbody>
-									</table>
-								</td>
-							</tr>
-							</tbody>
-						</table>
-						 -->
 						 
-						 
-						<table class="cal_table1 approve-write refer">
+						<!-- 참조 -->
+						<table class="cal_table1 approve-write refer" id="referTable1">
 								<colgroup>
 									<col style="width:12.09%;">
 									<col style="width:87.91%;">
@@ -507,13 +396,7 @@
 								<tbody>
 									<tr>
 										<th scope="row" style="text-align:center">참조</th>
-										<td id="approvalThirdLine" style="padding: 8px 0 8px 12px;border-bottom: 1px solid #cdcdcd;text-align: left;height:40px;">
-											
-											<!-- 
-											<input type="text" class="refer-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputApprovalThirdLine" autocomplete="off">
-											<span class="refer-list" user_no="" old_new="" node_id="">참조인 생기기<span class="lnr lnr-cross-circle" style="padding-left:7px;cursor:pointer;"></span></span>
-											 -->
-											 
+										<td id="approvalThirdLine" class="referRow" style="padding: 8px 0 8px 12px;border-bottom: 1px solid #cdcdcd;text-align: left;height:40px;">
 										</td>
 									</tr>
 								</tbody>
@@ -767,7 +650,7 @@
 							<label style="width:80px;position:absolute;top:4px;">제목</label>
 							<div class="txt title" style="margin-left: 80px;position:relative;">
 								<div class="position">
-									<input type="text" name="title" id="approval_document_title" value="" style="width:100%;">
+									<input type="text" name="title" id="approval_document_title" value="" style="width:100%; height:26px;">
 								</div>
 							</div>
 						</div>
@@ -794,11 +677,13 @@
 								<th scope="row">구분</th>
 								<td>
 									<label>
-										<input type="radio" name="accountingType" value="P" checked="" onchange="ApprovalDocument.changeSpendingReportType();">
-										개인							</label>
+										<input type="radio" name="accountingType" value="P" checked="" onchange="">
+										개인
+									</label>
 									<label style="margin-left: 20px;">
-										<input type="radio" name="accountingType" value="C" onchange="ApprovalDocument.changeSpendingReportType();">
-										법인							</label>
+										<input type="radio" name="accountingType" value="C" onchange="">
+										법인
+									</label>
 								</td>
 							</tr>
 							<tr>
@@ -811,7 +696,7 @@
 											<option value="2016">2016</option>
 											<option value="2017">2017</option>
 											<option value="2018">2018</option>
-											<option value="2019" selected="">2019</option>
+											<option value="2019">2019</option>
 										</select>
 										년
 										<select class="write-select" name="spendingMonth" style="width: 55px;" onchange="ApprovalDocument.changeFixedDate();" id="selectFixedMonth">
@@ -824,7 +709,7 @@
 											<option value="7">7</option>
 											<option value="8">8</option>
 											<option value="9">9</option>
-											<option value="10" selected="">10</option>
+											<option value="10">10</option>
 											<option value="11">11</option>
 											<option value="12">12</option>
 										</select>
@@ -874,12 +759,12 @@
 									
 								</td>
 							</tr>
-							<tr>
+							<tr id="accountRow">
 								<th scope="row">계좌 정보</th>
-									<td id="accountTd">
-										IBK기업은행 / ${loginUser.account}
-									</td>
-								</tr>
+								<td id="accountTd">
+									IBK기업은행 / ${loginUser.account}
+								</td>
+							</tr>
 							
 							<!-- 
 							<tr id="infoEmployeeAccount">
@@ -931,11 +816,13 @@
 											<th scope="row">계정과목</th>
 											<td>
 												<label>
-													<input type="text" class="account-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputAccountingAccount" maxlength="20" autocomplete="off">
-													<button id="btnAccountingAccountSearchLayer" onclick="ApprovalDocument.getAccountSearchLayer();"><span class="icon src"><em class="blind">검색</em></span></button>
-												</label>
-												<span class="hide" id="textAccountingAccount"></span>
-												<button class="weakblue vm hide" id="btnAccountingAccount" onclick="ApprovalDocument.setAccountingAccount('', '', true);">변경</button>
+													<select id="inputAccountingAccount">
+														<option value="">항목</option>
+														<option value="A">차량유지비</option>
+														<option value="B">복리후생비</option>
+														<option value="C">사무용품비</option>
+														<option value="E">기타</option>
+													</select>
 											</td>
 											<th scope="row">지출일자</th>
 											<td>
@@ -951,34 +838,37 @@
 										<tr>
 											<th scope="row">코스트센터</th>
 											<td>
-												<label>
-													<input type="text" class="account-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputAccountingDepartment" maxlength="20" autocomplete="off">
-													<button id="btnAccountingDepartmentSearchLayer" onclick="ApprovalDocument.getDepartmentSearchLayer();"><span class="icon src"><em class="blind">검색</em></span></button>
-												</label>
-												<span class="hide" id="textAccountingDepartment"></span>
-												<button class="weakblue vm hide" id="btnAccountingDepartment" onclick="ApprovalDocument.setAccountingDepartment('', '', true);">변경</button>
+												<select class="" id="selectAccountingDept" onchange="">
+													<option value="">부서</option>
+													<c:forEach var="d" items="${deptList}">
+														
+														<option value="${d.deptCode}">${d.deptName}</option>
+														
+													</c:forEach>
+													
+												</select>
 											</td>
 											<th scope="row">증빙</th>
 											<td>
-												<select class="" id="selectAccountingProof" onchange="ApprovalDocument.changeAccountingProof();">
+												<select class="" id="selectAccountingProof" onchange="">
 													<option value="">증빙</option>
-																			<option value="receipt">일반 영수증</option>
-																			<option value="card">개인 카드</option>
-																			<option value="tax_bill">세금 계산서</option>
-																			<option value="bill">계산서</option>
-																			<option value="cash_receipt">현금 영수증</option>
-																			<option value="etc">기타</option>
-																		</select>
+													<option value="receipt">일반 영수증</option>
+													<option value="card">개인 카드</option>
+													<option value="tax_bill">세금 계산서</option>
+													<option value="bill">계산서</option>
+													<option value="cash_receipt">현금 영수증</option>
+													<option value="etc">기타</option>
+												</select>
 											</td>
 										</tr>
 										<tr>
-											<th scope="row">공급가액</th>
+											<th scope="row">금액</th>
 											<td>
 												<label><input type="text" id="inputSupplyPrice" maxlength="20"></label>
 											</td>
-											<th scope="row">세액</th>
+											<th scope="row">적요</th>
 											<td>
-												<label><input type="text" id="inputTaxAmount" disabled="true" maxlength="20"></label>
+												<label><input type="text" id="inputBrief"></label>
 											</td>
 										</tr>
 										<tr>
@@ -992,27 +882,17 @@
 												<span class="hide" id="textAccountingCustomer"></span>
 												<button class="weakblue vm hide" id="btnAccountingCustomer" onclick="ApprovalDocument.setAccountingCustomer('', '', '', true);">변경</button>
 											</td>
-											<th scope="row">사업자등록번호</th>
-											<td>
-												<label><input type="text" id="inputCompanyNum" disabled="true" readonly=""></label>
-											</td>
+											
 										</tr>
-										<tr>
-											<th scope="row">현금영수증 번호</th>
-											<td><label><input type="text" id="inputCashReceiptsNum" disabled="true" maxlength="20"></label></td>
-											<th scope="row">적요</th>
-											<td>
-												<label><input type="text" id="inputBrief"></label>
-											</td>
-										</tr>
+										
 									</tbody>
 								</table>
 								<div class="layer_button">
-									<button type="button" class="btn_variables">저장</button>
-									<button type="button" class="btn_variables">저장 후 추가</button>
+									<button type="button" class="btn_variables" id="saveBtn">저장</button>
+									<button type="button" class="btn_variables" id="addBtn">저장 후 추가</button>
 									<button type="button" class="closeBtn">취소</button>
 								</div>
-								<a href="javascript:void(0)" class="icon btn_closelayer closeBtn" onclick="hideLayer();" title="레이어 닫기"></a>
+								<a href="javascript:void(0)" class="icon btn_closelayer closeBtn" title="레이어 닫기"></a>
 							
 							</div>
 							
@@ -1041,10 +921,67 @@
 									<th scope="col"><a href="javascript:void(0);" class="js-approval-spending-order js-approval-order black" value="price">금액<span class="down hide"></span></a></th>
 									<th scope="col"><a href="javascript:void(0);" class="js-approval-spending-order js-approval-order black" value="customer_name">거래처<span class="down hide"></span></a></th>
 									<th scope="col"><a href="javascript:void(0);" class="js-approval-spending-order js-approval-order black" value="brief">적요<span class="down hide"></span></a></th>
+									<th scope="col"><a href="javascript:void(0);" class="js-approval-spending-order js-approval-order black" value="">관리<span class="down hide"></span></a></th>
 								</tr>
 							</thead>
+							
+							<!-- 
 							<tbody id="spendTb">
 							</tbody>
+							 -->
+							 
+							 
+							 <tbody id="spendTbody">
+							 
+							 
+							 <!-- 
+								<tr>
+								<td>유류비</td>
+								<td>2019-10-21</td>
+								<td>
+									<span class="fl">영업부</span>
+									<a href="javascript:void(0);" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
+									<span class="tooltip hide" style="left:0;top:0;color:#676767;">
+										<div class="tooltip-box" style="width:230px;">
+											<p>코드 : 001&nbsp;코스트센터명 : 영업부</p>
+										</div>
+									</span>
+								</td>
+								<td>30,000</td>
+								<td>
+									<span class="fl">주유소</span>
+									<a href="javascript:void(0);" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
+									<span class="tooltip hide" style="left:0;top:0;color:#676767;">
+										<div class="tooltip-box" style="width:230px;">
+											<p>코드 : -&nbsp;거래처명 : 주유소</p>
+										</div>
+									</span>
+								</td>
+								<td>유류비</td>
+								<td>
+									<button type="button" name="button" class="weakblue" onclick="">수정</button>
+									<span class="weakgray"> | </span>
+									<button type="button" name="button" class="weakblue" onclick="removeRow(this);">삭제</button>
+								</td>
+							</tr>
+							<tr id="sumRow">
+								<td></td>
+								<td></td>
+								<td></td>
+								<td class="account-total" style="text-align: left;">총 30,000</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							 -->
+							
+							
+							
+						</tbody>
+							 
+							 
+							 
+							 
 						</table>
 			
 					</div>				
@@ -1134,7 +1071,27 @@
 		$("#m1_1").addClass("active");
 		
 		
+		
+		/* 오늘 날짜 구해서 년/월 세팅 */
+		var today = new Date();
+		var year = today.getFullYear();
+		var month = today.getMonth()+1;
+
+		$.each($("select[name=spendingYear] option"), function(i, op){
 			
+			if(op.value == year){
+				op.selected = true;
+			}
+		});
+
+		$.each($("select[name=spendingMonth] option"), function(i, op){
+			if(op.value == month){
+				op.selected = true;
+			}
+		});
+
+		
+		/* ?에 마우스 올리면 툴팁 보이기 */
 		$(".detailQ").mouseenter(function(){
 			$(this).css("cursor","pointer");
 			$(this).siblings('.toolTip').addClass("show");			
@@ -1146,42 +1103,66 @@
 		/* 에디터 */
 		$("#summernote").hide();
 		
+		/* 문서 타입 바꿀 때 마다 */
 		$("#documentTypeSelect").on('change',function(){
+			
+			/* 각종 초기화 */
+			$(".referRow").html("");
+			$(".referRow2").html("");
+			
+			$.each($("#nameRow").children(), function(i, td){
+				td.innerHTML = "";
+			});
+			$("#rightList").html("");
+			$("#selectApprovalFirstLine").html("");
+			$("#selectApprovalThirdLine").html("");
+			$("#sp_selectApprovalFirstLine").html("0");
+			$("#sp_selectApprovalThirdLine").html("0");
+			
+			
 			if( $("#documentTypeSelect option:selected").val() == 'N' ){
+				
+				$("#approval_document_title").val("");
+				
 				$(".guide").css("display","block");
-				$(".docuTitle").removeClass("show");
-				$("#btnApprovalSelect").removeClass("show");
-				$(".typeA").removeClass("show");
-				$(".typeB").removeClass("show");
-				$(".typeC").removeClass("show");
-				$(".filezone").removeClass("show");
-				$("#editor_layer").removeClass("show");
+				$(".docuTitle").removeClass("show");			//제목
+				$("#btnApprovalSelect").removeClass("show");	//결제선 추가창 버튼
+				$(".approvalTable").removeClass("show");		//결제선 테이블
+				$(".referTable2").removeClass("show");			//회람 테이블
+				$(".typeA").removeClass("show");				//지출 테이블
+				$(".filezone").removeClass("show");				//첨부파일
 								
 				// 에디터 off-----------------------------
 				$("#summernote").summernote('destroy');	
 				//--------------------------------------
 				$("#summernote").hide();
 			}
-			if( $("#documentTypeSelect option:selected").val() == 'AP' ){
+			if( $("#documentTypeSelect option:selected").val() == 'AP' ){	// 지출결의서
+				
+				$("#approval_document_title").val('2019년 '+month+'월 지출 결의서 - 개인');
+				
 				$(".guide").css("display","none");
 				$(".docuTitle").addClass("show");
 				$("#btnApprovalSelect").addClass("show");
+				$(".approvalTable").addClass("show");
+				$(".referTable2").removeClass("show");
 				$(".typeA").addClass("show");
-				$(".typeB").removeClass("show");
-				$(".typeC").removeClass("show");
 				$(".filezone").addClass("show");
 				
 				$("#summernote").summernote('destroy');
 				$("#summernote").hide();
 				
 			}
-			if( $("#documentTypeSelect option:selected").val() == 'CN' ){
+			if( $("#documentTypeSelect option:selected").val() == 'CN' ){	// 회람
+				
+				$("#approval_document_title").val("");
+				
 				$(".guide").css("display","none");
 				$(".docuTitle").addClass("show");
 				$("#btnApprovalSelect").addClass("show");
+				$(".approvalTable").removeClass("show");
 				$(".typeA").removeClass("show");
-				$(".typeB").addClass("show");
-				$(".typeC").removeClass("show");
+				$(".referTable2").addClass("show");
 				$(".filezone").addClass("show");
 				
 				// 에디터 on--------------------
@@ -1194,13 +1175,16 @@
 				//--------------------------
 				
 			}
-			if( $("#documentTypeSelect option:selected").val() == 'CF' ){
+			if( $("#documentTypeSelect option:selected").val() == 'CF' ){	// 참조
+				
+				$("#approval_document_title").val("");
+				
 				$(".guide").css("display","none");
 				$(".docuTitle").addClass("show");
 				$("#btnApprovalSelect").addClass("show");
+				$(".approvalTable").addClass("show");
 				$(".typeA").removeClass("show");
-				$(".typeB").removeClass("show");
-				$(".typeC").addClass("show");
+				$(".referTable2").removeClass("show");
 				$(".filezone").addClass("show");
 
 				$("#summernote").summernote({
@@ -1496,10 +1480,73 @@
 			num.text(zone.children().length)
 		});
 		
-		/* 확인 버튼 */
+		/* 결제선 추가 창 확인 버튼 */
 		$(".confirmBtn").on('click',function(){
 			
+			var approvalList = $("#selectApprovalFirstLine").children('option');	//결제라인
+			var referList = $("#selectApprovalThirdLine").children('option');	//참조라인
+			var apTbody = $("#nameRow").children();	//이름들어갈 td들
+			
+			/* 결제선 이름 넣기 */
+			$.each(approvalList,function(i, op){
+				$.each(apTbody,function(j, td){
+					if(i == j){
+						var str = op.text.split(' ');
+						td.innerHTML = str[0];
+						
+						var hiddenId = $('<input type="hidden" name="empId">');
+						hiddenId[0].value = op.value;
+						td.append(hiddenId[0]);
+					}
+				});
+			});
+			
+			
+			/* 참조인 이름 넣기 */
+			
+			var docuType = $("#documentTypeSelect option:selected").val();
+			//$("#documentTypeSelect option:selected").val()
+			
+			if(docuType == 'AP' || docuType == 'CF'){
+				
+				var referRow = $(".referRow");
+				referRow.html('');
+				
+				$.each(referList,function(i, op){
+					var str = op.text.split(' ');
+					var referSpan = $('<span class="refer-list ml-20" empId="">');
+					
+					referSpan[0].setAttribute('empId',op.value);
+					referSpan[0].innerHTML = str[0];
+					referRow[0].append(referSpan[0]);
+				});
+			} else{
+				
+				var referRow = $(".referRow2");
+				referRow.html('');
+				
+				$.each(referList,function(i, op){
+					var str = op.text.split(' ');
+					var referSpan = $('<span class="refer-list ml-20" empId="">');
+					
+					referSpan[0].setAttribute('empId',op.value);
+					referSpan[0].innerHTML = str[0];
+					referRow[0].append(referSpan[0]);
+				});
+			}
+			
+			$(".closeBtn").click();
 		});
+		
+		
+		
+		/* 결재선 창 기능 끝 */
+		
+		
+		
+		
+		
+		
 		
 		/* 지출자 변경 버튼 */
 		$("#modifySpenderName").on('click',function(){
@@ -1567,8 +1614,6 @@
 			} else{
 				$("#ui-id").removeClass('show');
 			}
-			
-			
 		});
 		
 		/* 자동완성으로 출력한 리스트를 선택하면 */
@@ -1582,13 +1627,138 @@
 			$("#ui-id").removeClass('show');
 		});
 		
+		/* 개인 / 법인 선택(라디오버튼) */
+		$(document).on('change','input[name=accountingType]',function(){
+			console.log($(this));
+			if($(this).val() == 'C'){
+				$("#approval_document_title").val('2019년 10월 지출 결의서 - 법인');
+				$("#accountRow").hide();
+			}else{
+				$("#approval_document_title").val('2019년 10월 지출 결의서 - 개인');
+				$("#accountRow").show();
+			}
+			
+		});
 		
-		 
-		 
-		/* 결재선 창 기능 끝 */
-	
-	
 	})
+		
+		/* 결제 추가 모달창 기능 */
+		
+		/* 저장 버튼 */
+		$("#saveBtn").on('click',function(){
+			$("#spRow").remove();
+			addSpendRow();
+			sumPriceRow();
+			initSpend();
+			$("#add_account_layer").removeClass("show");
+		});
+		
+		$("#addBtn").on('click',function(){
+			$("#spRow").remove();
+			addSpendRow();
+			sumPriceRow();
+			initSpend();
+		});
+	
+	
+		/* 추가하는 메소드 */
+		function addSpendRow() {
+			
+			var $tr = $('<tr>');
+			
+			var $td1 = $('<td>').text( $("#inputAccountingAccount option:selected").text() );
+			var $h1 = $('<input type="hidden" name="accountName">').val($("#inputAccountingAccount option:selected").text());
+			$td1.append($h1);
+			
+			var $td2 = $('<td>').text( $("#textExpenseDate").val() );
+			var $h2 = $('<input type="hidden" name="expenseDate">').val();
+			$td2.append($h2);
+			
+			var $td3 = $('<td>').text( $("#selectAccountingDept option:selected").text() );
+			var $h3 = $('<input type="hidden" name="departmentName">').val($("#selectAccountingDept option:selected").text());
+			$td3.append($h3);
+			
+			var $td4 = $('<td>').text( $("#inputSupplyPrice").val() );
+			var $h4 = $('<input type="hidden" name="price1">').val($("#inputSupplyPrice").val());
+			$td4.append($h4);
+			
+			var $td5 = $('<td>').text( $("#inputDealCustomer").val() );
+			var $h5 = $('<input type="hidden" name="customer">').val($("#inputDealCustomer").val());
+			$td5.append($h5);
+			
+			var $td6 = $('<td>').text( $("#inputBrief").val() );
+			var $h6 = $('<input type="hidden" name="brief">').val($("#inputBrief").val());
+			$td6.append($h6);
+			
+			var $td7 = $('<td>');
+			var $btn1 = $('<button type="button" name="button" class="weakblue" onclick="">').text('수정');
+			var $span = $('<span class="weakgray">').text(' | ');
+			var $btn2 = $('<button type="button" name="button" class="weakblue" onclick="removeRow(this);">').text('삭제');
+			$td7.append($btn1);
+			$td7.append($span);
+			$td7.append($btn2);
+			
+			$tr.append($td1);
+			$tr.append($td2);
+			$tr.append($td3);
+			$tr.append($td4);
+			$tr.append($td5);
+			$tr.append($td6);
+			$tr.append($td7);
+			
+			$("#spendTbody").append($tr);
+		}
+	
+		/* 결제 추가 창 초기화  */
+		function initSpend() {
+			$("#inputAccountingAccount option:eq(0)").prop('selected',true);
+			$("#textExpenseDate").val("");
+			$("#selectAccountingDept option:eq(0)").prop('selected',true);
+			$("#selectAccountingProof option:eq(0)").prop('selected',true);
+			$("#inputSupplyPrice").val("");
+			$("#inputBrief").val("");
+			$("#inputDealCustomer").val("");
+		}
+		
+		/* 결제 정보 한줄 지우기 */
+		function removeRow(obj) {
+			$(obj).parent().parent().remove();
+		}
+		
+		/* 지출 가격 총 합 나타내기 */
+		
+		function sumPriceRow() {
+			
+			var sumPrice = 0;
+			
+			$.each($("input[name=price1]"), function(i, price){
+				sumPrice += Number(price.value);
+			});
+			
+			var $tr = $('<tr id="spRow">');
+			var $td1 = $('<td>');
+			var $td2 = $('<td>');
+			var $td3 = $('<td>');
+			var $td4 = $('<td>').text('총 '+sumPrice);
+			var $h = $('<input type="hidden" name="price">').val(sumPrice);
+			$td4.append($h);
+			var $td5 = $('<td>');
+			var $td6 = $('<td>');
+			var $td7 = $('<td>');
+			
+			$tr.append($td1);
+			$tr.append($td2);
+			$tr.append($td3);
+			$tr.append($td4);
+			$tr.append($td5);
+			$tr.append($td6);
+			$tr.append($td7);
+			
+			$("#spendTbody").append($tr);			
+		}
+		
+		
+	
 	
 	
 	

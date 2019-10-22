@@ -91,7 +91,7 @@ body, html {height: 100%;}
 .approval-wrap .cal_table1.reception,
 .approval-wrap .cal_table1.refer2 {border-top:0;border-bottom:1px solid #cdcdcd}
 .approval-wrap .cal_table1.reception.margin {margin-top: 15px;border-top:1px solid #cdcdcd;}
-.refer-list {display:inline-block;margin-right: 5px;line-height:2;}
+.refer-list {display:inline-block;margin-right: 10px;line-height:2;}
 .refer-list .icon.file_delete {position: relative;top:-2px;margin-left:10px;visibility:hidden;cursor: pointer;}
 .refer-list:hover .icon.file_delete {visibility:visible;}
 .approval-wrap .write_input label,

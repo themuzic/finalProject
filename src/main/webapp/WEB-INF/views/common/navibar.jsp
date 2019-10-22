@@ -31,8 +31,8 @@
 <link rel="stylesheet" href="resources/css/slick.css">
 <link rel="stylesheet" href="resources/css/style_new.css">
 <link rel="stylesheet" href="resources/css/style_tutorial.css">
-<link rel="stylesheet" href="resources/css/style.css">
-<link rel="stylesheet" href="resources/css/style_approval.css">
+<link rel="stylesheet" href="resources/css/style_approval.css?ver=1">
+<link rel="stylesheet" href="resources/css/style.css?ver=1">
 
 
 
