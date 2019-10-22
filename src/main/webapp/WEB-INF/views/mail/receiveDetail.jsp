@@ -74,6 +74,7 @@
 					<span class="delete menu" id="delete">
 						<c:url var="delete" value="delete.do">
 							<c:param name="mailNum" value="${ m.mailNum }"/>
+							<c:param name="empId" value="${ loginUser.empId }"/>
 						</c:url>
 						<a href="${ delete }" style="font-size:16px;">삭제</a>
 					</span> &nbsp; &nbsp; &nbsp;
@@ -84,28 +85,6 @@
 						</c:url>
 						<a href="${ mdelete }" style="font-size:16px;">완전삭제</a>
 					</span> &nbsp; &nbsp; &nbsp;
-
-<!-- 					<span class="move menu" id="move"> -->
-<!-- 		                <a href="javascript:void(0)" id='m_view_move_mbox' >이동 -->
-<!-- 		                	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif" alt="이동 드롭다운 메뉴 열기" class="open_drop"> -->
-<!-- 		                </a> -->
-<!-- 		                <div class="dropdown hide" id="m_view_move_mbox_detail" style="margin-left:330px;"> -->
-<!-- 		                    <div class="dropscroll-menu" style="width:150px;"> -->
-<!-- 		                        <ul style="min-width:220px; border-color:#2985db;" id="ul"> -->
-<!-- 						            <li class="li"> -->
-						            
-<%-- 										<a href="${receieveList}" id="move_b0" class="">받은 편지함</a> --%>
-<!-- 		                            </li> -->
-<!-- 						            <li class="li"> -->
-<!-- 		                                <a href="" id="move_b1" style="color:gray;">보낸 편지함</a> -->
-<!-- 		                            </li> -->
-<!-- 						            <li class="li"> -->
-<!-- 		                                <a href="" id="move_b5" style="color:gray;">휴지통</a> -->
-<!-- 		                            </li> -->
-<!-- 								</ul> -->
-<!-- 		                     </div>   -->
-<!-- 						</div> -->
-<!-- 		            </span> -->
 		            <hr>
 		            
 					<form action="" method="post" encType="multipart/form-data">

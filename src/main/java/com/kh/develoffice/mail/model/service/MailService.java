@@ -18,7 +18,7 @@ public interface MailService {
 	ArrayList<Mail> sendMailList(PageInfo pi, Employee e);
 	
 	// 휴지통
-	ArrayList<Mail> deleteMailList(PageInfo pi);
+	ArrayList<Mail> deleteMailList(PageInfo pi, Employee e);
 	
 	// 메일 보내기
 	int insertMail(Mail m);
@@ -39,7 +39,7 @@ public interface MailService {
 	int deleteMail(int mailNum);
 	
 	// 메일 이동
-	int updateMail(int mailNum);
+	int updateMail(int mailNum, int empId);
 
 	int selectEmpId(String toEmail);
 

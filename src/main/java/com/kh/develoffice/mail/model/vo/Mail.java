@@ -27,7 +27,7 @@ public class Mail {
 	private Date mailDate;
 	private int mailType;
 	private int mailImportant;
-	private String mailStatus;
+	private String status;
 	
 
 }

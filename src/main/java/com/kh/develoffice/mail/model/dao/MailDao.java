@@ -39,12 +39,12 @@ public class MailDao {
 		return (ArrayList)sqlSession.selectList("mailMapper.sendMailList", e, rowBounds);
 	}
 	
-	public ArrayList<Mail> deleteMailList(PageInfo pi){
+	public ArrayList<Mail> deleteMailList(PageInfo pi, Employee e){
 		
 		int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("mailMapper.deleteMailList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("mailMapper.deleteMailList", e, rowBounds);
 	}
 	
 	
@@ -71,9 +71,14 @@ public class MailDao {
 		return (ArrayList)sqlSession.selectList("mailMapper.selectSearchList", sc, rowBounds);
 	}
 	
-	public int updateMail(int mailNum) {
+	public int updateMail(int mailNum, int empId) {
 		
-		return sqlSession.update("mailMapper.updateMail", mailNum);
+		Mail m = new Mail();
+		
+		m.setMailNum(mailNum);
+		m.setEmpId(empId);
+		
+		return sqlSession.update("mailMapper.updateMail", m);
 	}
 	
 	public int deleteMail(int mailNum) {

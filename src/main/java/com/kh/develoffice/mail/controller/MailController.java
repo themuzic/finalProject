@@ -70,8 +70,6 @@ public class MailController {
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		
-		
 		ArrayList<Mail> list = mService.sendMailList(pi, e);
 		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/sendMail");
@@ -81,14 +79,16 @@ public class MailController {
 	
 	// 휴지통 리스트
 	@RequestMapping("deleteMail.do")
-	public ModelAndView deleteMailList(ModelAndView mv,
+	public ModelAndView deleteMailList(ModelAndView mv, HttpSession session,
 						@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		// 게시글 총 개수
 		int listCount = mService.getListCount();
 		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Mail> list = mService.deleteMailList(pi);
+		ArrayList<Mail> list = mService.deleteMailList(pi, e);
 		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/deleteMail");
 		
@@ -260,7 +260,7 @@ public class MailController {
 	
 	// 메일함 상세조회
 	@RequestMapping("receiveDetail.do")
-	public ModelAndView receiveDetail(int mailNum, ModelAndView mv) {
+	public ModelAndView receiveDetail(int mailNum, String empName, ModelAndView mv) {
 		
 		Mail m = mService.receiveDetail(mailNum);
 		
@@ -275,9 +275,9 @@ public class MailController {
 	
 	// 메일 지우기(휴지통으로)
 	@RequestMapping("delete.do")
-	public String delete(int mailNum, HttpServletRequest request, Model model) {
+	public String delete(int mailNum, int empId, HttpServletRequest request, Model model) {
 		
-		int result = mService.updateMail(mailNum);
+		int result = mService.updateMail(mailNum, empId);
 		
 		if(result > 0) {
 			return "redirect:deleteMail.do";

@@ -187,38 +187,40 @@
 				</thead>
 				<tbody class="select_subject">
 				<c:forEach items="${ list }" var="m">
-					<tr>
-						<td>
-							<input type="hidden" value="${ m.mailNum }">
-							<input type="hidden" value="${ m.mailCc }">
-							<input type="checkbox" class="check chkBox">
-						</td>
-						<td><i class="far fa-star"></i></td>
-						<td class="mName">${ m.mailFrom }</td>
-						<td class="mTitle">
-							<c:if test="${ empty loginUser }">
-								${ m.mailTitle }
-							</c:if>
-							<c:if test="${ !empty loginUser }">
-								<c:url value="receiveDetail.do" var="mdetail">
-									<c:param name="mailNum" value="${ m.mailNum }"/>						
-								</c:url>
-								<a href="${ mdetail }" style="color:gray;">${ m.mailTitle }</a>
-							</c:if>
-						</td>
-						
-						<td align="right">
-							<c:if test="${ !empty m.renameFileName }">
-								<div class="icon file" style="width:20px; height:20px;">
-								</div>
-							</c:if>
-							<c:if test="${ empty m.renameFileName }">
-								<div>
-								</div>
-							</c:if>
-						</td>
-						<td class="mDate aa">${ m.mailDate }</td>
-					</tr>
+					<c:if test="${ m.mailTo == loginUser.email }">
+							<tr>
+								<td>
+									<input type="hidden" value="${ m.mailNum }">
+									<input type="hidden" value="${ m.mailCc }">
+									<input type="checkbox" class="check chkBox">
+								</td>
+								<td><i class="far fa-star"></i></td>
+								<td class="mName">${ m.mailFrom }</td>
+								<td class="mTitle">
+									<c:if test="${ empty loginUser }">
+										${ m.mailTitle }
+									</c:if>
+									<c:if test="${ !empty loginUser }">
+										<c:url value="receiveDetail.do" var="mdetail">
+											<c:param name="mailNum" value="${ m.mailNum }"/>
+										</c:url>
+										<a href="${ mdetail }" style="color:gray;">${ m.mailTitle }</a>
+									</c:if>
+								</td>
+								
+								<td align="right">
+									<c:if test="${ !empty m.renameFileName }">
+										<div class="icon file" style="width:20px; height:20px;">
+										</div>
+									</c:if>
+									<c:if test="${ empty m.renameFileName }">
+										<div>
+										</div>
+									</c:if>
+								</td>
+								<td class="mDate aa">${ m.mailDate }</td>
+							</tr>
+					</c:if>
 				</c:forEach>
 			</tbody>
 		</table>
@@ -255,6 +257,7 @@
 	                     <c:param name="currentPage" value="${ p }"/>
 	                     <c:param name="condition" value="${ condition }"/>
 	                     <c:param name="search" value="${ search }"/>
+	                     <c:param name="type" value="receive"/>
 	                  </c:url>
 	               </c:if>
 	               <c:if test="${ empty sc }"> <!-- 검색 결과 없으면 -->

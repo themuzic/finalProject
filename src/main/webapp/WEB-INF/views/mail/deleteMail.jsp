@@ -170,6 +170,7 @@
 				</thead>
 				<tbody class="select_subject">
 				<c:forEach items="${ list }" var="m">
+<%-- 					<c:if test="${ m.mailFrom  == loginUser.email }"></c:if> --%>
 					<tr>
 						<td>
 							<input type="hidden" value="${ m.mailNum }">

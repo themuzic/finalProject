@@ -36,9 +36,9 @@ public class MailServiceImpl implements MailService{
 	}
 
 	@Override
-	public ArrayList<Mail> deleteMailList(PageInfo pi) {
+	public ArrayList<Mail> deleteMailList(PageInfo pi, Employee e) {
 		
-		return mDao.deleteMailList(pi);
+		return mDao.deleteMailList(pi, e);
 	}
 	
 	@Override
@@ -74,9 +74,9 @@ public class MailServiceImpl implements MailService{
 	}
 	
 	@Override
-	public int updateMail(int mailNum) {
+	public int updateMail(int mailNum, int empId) {
 		
-		return mDao.updateMail(mailNum);
+		return mDao.updateMail(mailNum, empId);
 	}
 
 	@Override
@@ -95,6 +95,7 @@ public class MailServiceImpl implements MailService{
 	public int insertStatusMail(int empId) {
 		return mDao.insertStatusMail(empId);
 	}
+
 
 
 }
