@@ -18,25 +18,25 @@ public class MailDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public int getlistCount() {
+	public int getlistCount(Mail m) {
 		
-		return sqlSession.selectOne("mailMapper.getListCount");
+		return sqlSession.selectOne("mailMapper.getListCount", m);
 	}
 	
-	public ArrayList<Mail> receiveMailList(PageInfo pi, Employee e){
+	public ArrayList<Mail> receiveMailList(PageInfo pi, Mail m){
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("mailMapper.receiveMailList", e, rowBounds);
+		return (ArrayList)sqlSession.selectList("mailMapper.receiveMailList", m, rowBounds);
 	}
 	
-	public ArrayList<Mail> sendMailList(PageInfo pi, Employee e){
+	public ArrayList<Mail> sendMailList(PageInfo pi, Mail m){
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("mailMapper.sendMailList", e, rowBounds);
+		return (ArrayList)sqlSession.selectList("mailMapper.sendMailList", m, rowBounds);
 	}
 	
 	public ArrayList<Mail> deleteMailList(PageInfo pi, Employee e){

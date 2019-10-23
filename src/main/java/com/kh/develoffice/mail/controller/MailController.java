@@ -45,14 +45,21 @@ public class MailController {
 	public ModelAndView receiveMailList(ModelAndView mv, HttpSession session,
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		
-		// 게시글 총 개수
-		int listCount = mService.getListCount();
-		
 		Employee e = (Employee)session.getAttribute("loginUser");
+	
+		Mail m = new Mail();
+		
+		m.setEmpId(e.getEmpId());
+		m.setMailTo(e.getEmail());
+		
+		// 게시글 총 개수
+		int listCount = mService.getListCount(m);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Mail> list = mService.receiveMailList(pi, e);
+//		System.out.println(pi);
+		
+		ArrayList<Mail> list = mService.receiveMailList(pi, m);
 		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/receiveMail");
 		
@@ -64,14 +71,20 @@ public class MailController {
 	public ModelAndView sendMailList(ModelAndView mv, HttpSession session,
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		
-		// 게시글 총 개수
-		int listCount = mService.getListCount();
-		
 		Employee e = (Employee)session.getAttribute("loginUser");
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		Mail m = new Mail();
 		
-		ArrayList<Mail> list = mService.sendMailList(pi, e);
+		m.setEmpId(e.getEmpId());
+		m.setMailFrom(e.getEmail());
+		
+		// 게시글 총 개수
+		int listCount = mService.getListCount(m);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+//		System.out.println(pi);
+		
+		ArrayList<Mail> list = mService.sendMailList(pi, m);
 		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/sendMail");
 		
@@ -82,10 +95,16 @@ public class MailController {
 	@RequestMapping("deleteMail.do")
 	public ModelAndView deleteMailList(ModelAndView mv, HttpSession session,
 						@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
-		// 게시글 총 개수
-		int listCount = mService.getListCount();
 		
 		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		Mail m = new Mail();
+		
+		m.setEmpId(e.getEmpId());
+		m.setStatus("N");
+		
+		// 게시글 총 개수
+		int listCount = mService.getListCount(m);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
@@ -143,8 +162,8 @@ public class MailController {
 	      messageHelper.setFrom(m.getMailFrom());  			// 보내는사람 생략하거나 하면 정상작동을 안함
 	      message.setRecipients(Message.RecipientType.TO, m.getMailTo()); 	// 받는사람
 	      message.setRecipients(Message.RecipientType.CC, m.getMailCc()); 	// 참조    
-	      messageHelper.setSubject(m.getMailTitle());   	// 메일제목은 생략이 가능하다
-	      messageHelper.setText(m.getMailContent());   		// 메일 내용
+	      messageHelper.setSubject(m.getMailTitle());   		// 메일제목은 생략이 가능하다
+	      messageHelper.setText(m.getMailContent());   			// 메일 내용
 	      
 	      String root = request.getSession().getServletContext().getRealPath("resources");
 		  String savePath = root + "\\mupload";

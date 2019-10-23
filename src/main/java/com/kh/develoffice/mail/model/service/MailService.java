@@ -9,13 +9,13 @@ import com.kh.develoffice.mail.model.vo.SearchCondition;
 
 public interface MailService {
 	
-	int getListCount();
+	int getListCount(Mail m);
 	
 	// 받은 메일함
-	ArrayList<Mail> receiveMailList(PageInfo pi, Employee e);
+	ArrayList<Mail> receiveMailList(PageInfo pi, Mail m);
 	
 	// 보낸 메일함
-	ArrayList<Mail> sendMailList(PageInfo pi, Employee e);
+	ArrayList<Mail> sendMailList(PageInfo pi, Mail m);
 	
 	// 휴지통
 	ArrayList<Mail> deleteMailList(PageInfo pi, Employee e);

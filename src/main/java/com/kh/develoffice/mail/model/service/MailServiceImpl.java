@@ -18,21 +18,21 @@ public class MailServiceImpl implements MailService{
 	private MailDao mDao;
 
 	@Override
-	public int getListCount() {
+	public int getListCount(Mail m) {
 
-		return mDao.getlistCount();
+		return mDao.getlistCount(m);
 	}
 
 	@Override
-	public ArrayList<Mail> receiveMailList(PageInfo pi, Employee e) {
+	public ArrayList<Mail> receiveMailList(PageInfo pi, Mail m) {
 		
-		return mDao.receiveMailList(pi, e);
+		return mDao.receiveMailList(pi, m);
 	}
 	
 	@Override
-	public ArrayList<Mail> sendMailList(PageInfo pi, Employee e) {
+	public ArrayList<Mail> sendMailList(PageInfo pi, Mail m) {
 		
-		return mDao.sendMailList(pi, e);
+		return mDao.sendMailList(pi, m);
 	}
 
 	@Override
