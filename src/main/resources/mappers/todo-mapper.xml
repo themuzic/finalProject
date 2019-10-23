@@ -47,10 +47,10 @@
 	</select>
 	
 	<!-- 전체 Todo 리스트 조회 -->
-	<select id="selectTodoList" parameterType="_int" resultMap="todoResultSet">
+	<select id="selectTodoList" parameterType="Todo" resultMap="todoResultSet">
 		select *
 		from todo
-		where emp_id=#{empId} and todo_status='ongoing'
+		where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status='ongoing'
 		order by todo_no desc
 	</select>
   

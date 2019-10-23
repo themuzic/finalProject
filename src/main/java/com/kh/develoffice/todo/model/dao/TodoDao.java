@@ -36,21 +36,21 @@ public class TodoDao {
 	}
 	
 	/////////// TODO 리스트 조회 ///////////
-	public ArrayList<Todo> selectTodoList(/* PageInfo pi, */Employee e){
+	public ArrayList<Todo> selectTodoList(/* PageInfo pi, */Todo t){
 		
-		System.out.println(e);
+		System.out.println(t);
 		
 		/*
 		 * int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); RowBounds
 		 * rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		 */
-		int i = e.getEmpId();
-		System.out.println(i);
-		ArrayList<Todo> list = (ArrayList)sqlSession.selectList("todoMapper.selectTodoList", i/* , rowBounds */);
+		//int i = e.getEmpId();
+		//System.out.println(i);
+		//ArrayList<Todo> list = (ArrayList)sqlSession.selectList("todoMapper.selectTodoList", t/* , rowBounds */);
 		
-		System.out.println(list);
+		//System.out.println(list);
 		
-		return list;
+		return (ArrayList)sqlSession.selectList("todoMapper.selectTodoList", t/* , rowBounds */);
 		
 	}
 	

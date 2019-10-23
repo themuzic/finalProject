@@ -9,16 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.develoffice.common.Pagination;
 import com.kh.develoffice.employee.model.vo.Employee;
-import com.kh.develoffice.mail.model.vo.PageInfo;
 import com.kh.develoffice.todo.model.service.TodoService;
 import com.kh.develoffice.todo.model.vo.Todo;
 import com.kh.develoffice.todo.model.vo.TodoBoard;
 
+@SessionAttributes("TodoBoardList")
 @Controller
 public class TodoController {
 	
@@ -55,11 +54,13 @@ public class TodoController {
 	
 	/////////// TODO Board 리스트로 이동 ///////////
 	@RequestMapping("todoBoardList.do")
-	public ModelAndView todoBoardList(ModelAndView mv) {
+	public ModelAndView todoBoardList(ModelAndView mv, HttpSession session) {
 		
-		ArrayList<TodoBoard> list = tService.selectBoardList();
+		ArrayList<TodoBoard> TodoBoardList = tService.selectBoardList();
 		
-		mv.addObject("list", list).setViewName("todo/tdBoardListView");
+		mv.addObject("TodoBoardList", TodoBoardList).setViewName("todo/tdBoardListView");
+		
+		session.setAttribute("TodoBoardList", TodoBoardList);
 		
 		return mv;
 	}
@@ -74,15 +75,24 @@ public class TodoController {
 		//int listCount = tService.getListCount();
 		
 		Employee e = (Employee)session.getAttribute("loginUser");
+		TodoBoard tb = (TodoBoard)session.getAttribute("TodoBoardList");
+		
+		Todo t = new Todo();
+		
+		t.setEmpId(e.getEmpId());
+		t.setTdBoardNo(tb.getTdBoardNo());
+		
 		
 		//PageInfo pi = Pagination.getPageInfo(currentPage,  listCount);
 		
-		ArrayList<Todo> list = tService.selectTodoList(/* pi, */ e);
+		ArrayList<Todo> TodoList = tService.selectTodoList(/* pi, */ t);
 		
-		System.out.println(e);
-		System.out.println(list);
+		System.out.println(t);
+		System.out.println(TodoList);
 		
-		mv./* addObject("pi", pi). */addObject("list", list).setViewName("todo/todoListView");
+		mv./* addObject("pi", pi). */addObject("TodoList", TodoList).setViewName("todo/todoListView");
+		
+		System.out.println(TodoList);
 		
 		return mv;
 		

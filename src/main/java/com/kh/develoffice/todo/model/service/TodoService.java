@@ -19,7 +19,7 @@ public interface TodoService {
 	int getListCount();
 	
 	/////////// TODO 리스트 조회 ///////////
-	ArrayList<Todo> selectTodoList(/* PageInfo pi, */Employee e);
+	ArrayList<Todo> selectTodoList(/* PageInfo pi, */Todo t);
 	
 
 }

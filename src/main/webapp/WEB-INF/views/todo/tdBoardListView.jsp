@@ -98,7 +98,7 @@
 				
 						<div class="ui link cards">
 						
-						<c:forEach items="${ list }" var="b">
+						<c:forEach items="${ TodoBoardList }" var="b">
 						
 							<div class="card" onclick="location.href='todoList.do'" style="height:250px; /* border:solid 10px; */">
 							   

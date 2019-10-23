@@ -40,7 +40,7 @@ public class TodoServiceImpl implements TodoService {
 
 	/////////// TODO 리스트 조회 ///////////
 	@Override
-	public ArrayList<Todo> selectTodoList(/* PageInfo pi, */Employee e) {
-		return tDao.selectTodoList(/* pi, */ e);
+	public ArrayList<Todo> selectTodoList(/* PageInfo pi, */Todo t) {
+		return tDao.selectTodoList(/* pi, */ t);
 	}
 }

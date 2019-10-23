@@ -88,7 +88,7 @@
 							
 							<tbody>
 							
-								<c:forEach items="${ list }" var="t">
+								<c:forEach items="${ todoList }" var="t">
 								
 									<c:if test="${ t.empId == loginUser.empId }">
 									
