@@ -34,6 +34,8 @@ import com.kh.develoffice.mail.model.vo.SearchCondition;
 @Controller
 public class MailController {
 	
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd (E) hh:mm");
+	
 	@Autowired
 	private MailService mService;
 	
@@ -118,6 +120,7 @@ public class MailController {
 	// 메일쓰기 이동
 	@RequestMapping("insertMail.do")
 	public String insertMailForm() {
+		
 		return "mail/insertMail";
 	}
 	
@@ -191,7 +194,7 @@ public class MailController {
 		// 받는 To메일과 from,to empId 불러오기
 		String toEmail = m.getMailTo();
 		int fromEmpId = m.getEmpId();
-		int toEmpId = mService.selectEmpId(toEmail); // 받는 사람 empId 왜 가져오더라,,?
+		int toEmpId = mService.selectEmpId(toEmail); 
 		
 		if(result > 0) {
 			
@@ -249,7 +252,7 @@ public class MailController {
 	}	
 	
 	@RequestMapping("search.do")
-	public ModelAndView receiveMailList(ModelAndView mv, HttpServletRequest request,
+	public ModelAndView receiveMailList(ModelAndView mv, HttpServletRequest request, HttpSession session,
 					@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		
 		String condition = request.getParameter("condition"); // writer, title, content
@@ -281,10 +284,11 @@ public class MailController {
 	// 메일함 상세조회
 	@RequestMapping("receiveDetail.do")
 	public ModelAndView receiveDetail(int mailNum, ModelAndView mv) {
-	
+		
 		Mail m = mService.receiveDetail(mailNum);
 		
 		if(m != null) {
+			m.setFormatDate(sdf.format(m.getMailDate()));
 			mv.addObject("m", m).setViewName("mail/receiveDetail");
 		}else {
 			mv.addObject("msg", "메일 상세조회 실패").setViewName("common/errorPage");
@@ -388,6 +392,25 @@ public class MailController {
 		}
 	}
 	
+	// 메일 전달
+	@RequestMapping("transfer.do")
+	public ModelAndView transfer(int mailNum, ModelAndView mv) {
+		System.out.println(mailNum);
+		
+		Mail m = mService.receiveDetail(mailNum);
+//		
+//		System.out.println(m.getMailTo());
+		
+		if(m != null) {
+			m.setFormatDate(sdf.format(m.getMailDate()));
+			mv.addObject("m", m).setViewName("mail/transfer");
+
+		}else {
+			mv.addObject("msg", "메일전달 실패").setViewName("common/errorPage");
+		}
+
+		return mv;
+	}
 
 	
 //	// pop3 메일 수신

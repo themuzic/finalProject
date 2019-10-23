@@ -64,7 +64,10 @@
 					<!-- 이 아래부터 내용 작성 -->
 					
 					<span class="transfer menu" id="transfer">
-						<a href="transfermail.do" style="font-size:16px">전달</a>
+						<c:url var="transfer" value="transfer.do">
+							<c:param name="mailNum" value="${ m.mailNum }"/>
+						</c:url>
+						<a href="${ transfer }" style="font-size:16px">전달</a>
 					</span>&nbsp; &nbsp; &nbsp;
 					
 					<span class="send menu" id="send">
@@ -105,7 +108,7 @@
 			                    </span>
 			                </h3>
 			                <br>
-			                <p class="date">${ m.mailDate } </p>
+			                <p class="date">${ m.formatDate } </p>
 			                <br>
 			                <div class="top_link">
 			                    <a href="javascript:void(0)" id="spMemoDisplayOrigin" onclick="" class="memo"></a>
@@ -115,13 +118,12 @@
 		                    		 
 			                </div>
 			                <div class="address">              
-			                    	받는 사람: <span name="mailTo">&quot;이름&quot; &lt;${ m.mailTo }&gt;</span>                
+			                    	받는 사람: <span name="mailTo">&lt;${ m.mailTo }&gt;</span>                
 			                </div>
 			                
-			                <!-- 왜 안되니.. -->
 			                <div class="mailCc">
 			                	<c:if test="${ !empty m.mailCc }">
-			                		참조인 : <span name="mailCc">&quot;이름&quot; &lt;${ m.mailCc }&gt;</span>
+			                		참조인 : <span name="mailCc">&lt;${ m.mailCc }&gt;</span>
 			                	</c:if>
 			                	<c:if test="${ empty m.mailCc }">
 			                	</c:if>

@@ -95,7 +95,7 @@
 						<div class="txt" style="margin-left:80px; position:relative;">
 							<div class="position">
 								<textarea class="cc_addr autocomplete" name="mailTo" id='mailTo' placeholder="메일 주소를 입력하세요." 
-									style="width:97%; height:30px; padding-top:5px; padding-left:3px;">${m.mailFrom}</textarea>
+									style="width:97%; height:30px; padding-top:5px; padding-left:3px;"></textarea>
 								<button type="button" class="" id="addressSelect" onclick="" style="display:inline-block;padding:0; font-size:20px">
 									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
 								</button>
@@ -112,7 +112,7 @@
 						<p style="width:80px; position:absolute;top:4px;">참조 </p>
 						<div class="txt title" style="margin-left:80px; position:relative;">
 							<div class="position">
-								<textarea  id="mailCc" name="mailCc" style="width:97%; height:30px;">${m.mailCc}</textarea>
+								<textarea  id="mailCc" name="mailCc" style="width:97%; height:30px;"></textarea>
 								<button type="button" class="" id="select" onclick="" style="display:inline-block;padding:0; font-size:20px">
 									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
 								</button>
@@ -123,13 +123,14 @@
 						<label style="width:80px; position:absolute;top:4px;">제목</label>
 						<div class="txt title" style="margin-left:80px; margin-top:10px; position:relative;">
 							<div class="position">
-								<textarea name="mailTitle" id="mailTitle" value="" style="width:97%; height:30px;"></textarea>
+								<textarea name="mailTitle" id="mailTitle" value="" style="width:97%; height:30px;">FW: ${ m.mailTitle }</textarea>
 							</div>
 						</div>
 					</div>
 	
 					<!-------------- 첨부파일존 시작 ---------------------------------------------------------->
 					
+<!-- 					<form name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">	 -->
 						<div class="filezone">
 					        <table class="table" width="100%" style="border: 2px dashed #e4e4e4;height: 50px;">
 					            <tbody id="fileTableTbody">
@@ -141,12 +142,25 @@
 					            </tbody>
 					        </table>
 					    </div>
+<!-- 				    </form> -->
 						
 					<!-------------- 첨부파일존 끝 ---------------------------------------------------------->
 					
 					<!-------------- 에디터 -------------------->
 					
 					<textarea id="summernote" name="mailContent">
+						-----Original Message-----
+						<p><b>From:</b>&nbsp; &#171;${ loginUser.email }&#187;</p> 
+						<p><b>To:</b>&nbsp; &#171;${ m.mailTo }&#187;</p> 
+						
+						<c:if test="${ !empty m.mailCc }">
+							<p><b>Cc:</b>&nbsp; &#171;${ m.mailcc }&#187;</p> 
+						</c:if>
+						<c:if test="${ empty m.mailCc }">
+							<p><b>Cc:</b>&nbsp;</p> 
+						</c:if>
+						<p><b>Sent:</b>&nbsp; ${ m.formatDate }</p> 
+						<p><b>Subject:</b>&nbsp; ${ m.mailContent }</p>
 					</textarea>
 				</form>
 					
