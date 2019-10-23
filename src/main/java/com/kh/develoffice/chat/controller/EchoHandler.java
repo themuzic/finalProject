@@ -85,6 +85,7 @@ public class EchoHandler extends TextWebSocketHandler{
 				if(result2 > 0) {	// 저장 됐으면
 					for(WebSocketSession sess : list) {									// 그 방에 있는 세션 전체 반복문 실행
 						int otherId = ((Employee)sess.getAttributes().get("loginUser")).getEmpId();	// 받는사람 아이디 출력
+						System.out.println(otherId);
 						for(WebSocketSession sess2 : sessionList) {						// 채팅방 리스트에 접속한 세션 전체 반복문 실행
 							if(((Employee)sess.getAttributes().get("loginUser")).getEmpId() == ((Employee)sess2.getAttributes().get("loginUser")).getEmpId()){
 								// 방에 있는 세션의 empId와 채팅방 리스트에 접속한 세션의 empId가 같으면

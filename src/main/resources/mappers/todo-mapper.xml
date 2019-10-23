@@ -13,20 +13,45 @@
 		<result property="tdBoardModifyDate" column="td_board_modify_date"/>
 		<result property="tdBoardStatus" column="td_board_status"/>
 	</resultMap>
+	
+	
+	<resultMap id="todoResultSet" type="Todo">
+		<id property="todoNo" column="todo_no"/>
+		<result property="tdBoardNo" column="td_board_no"/>
+		<result property="empId" column="emp_id"/>
+		<result property="todoName" column="todo_name"/>
+		<result property="todoContent" column="todo_content"/>
+		<result property="todoEnrollDate" column="todo_enroll_date"/>
+		<result property="todoStatus" column="todo_status"/>
+	</resultMap>
   
-  
+  	<!-- TO-DO Board 생성 -->
   	<insert id="insertTodoBoard" parameterType="TodoBoard">
   		insert into todo_board
 		values(todo_board_seq.nextval, #{tdBoardName}, #{empId}, #{tdBoardContent}, 
 			   #{tdBoardColor}, sysdate, sysdate, default)
   	</insert>
   
-
+  	<!-- TO-Do Board 조회 -->
 	<select id="selectBoardList" resultMap="todoBoardResultSet">
 		select *
 		from todo_board
 		where td_board_status='Y'
 		order by td_board_no desc
+	</select>
+	
+	<!-- 페이징 처리 -->
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from todo
+	</select>
+	
+	<!-- 전체 Todo 리스트 조회 -->
+	<select id="selectTodoList" parameterType="_int" resultMap="todoResultSet">
+		select *
+		from todo
+		where emp_id=#{empId} and todo_status='ongoing'
+		order by todo_no desc
 	</select>
   
   

@@ -58,8 +58,19 @@
 					  </div>
 					</div> -->
 					
+					<c:if test="${ empty sessionScope.loginUser }">
+						<h1>로그인 해주세요.</h1>
+					</c:if>
+					
+					<c:if test="${ !empty sessionScope.loginUser }">
+					
+						
+					
 					<div class="allContentWrap" style="padding:0 30px 0 10px">
-						<table class="table table-hover">
+					
+						<form action="deleteTodo.do" method="post">
+						
+							<table class="table table-hover">
 						
 							<button class="large ui button" onclick="location.href='allTodo.do'" style="margin:0 0 5px 0; background-color:#337ab7; color:white; font-size: 1.5rem;">
 							  	<i class="fas fa-globe"></i> &nbsp;전체보기
@@ -67,35 +78,55 @@
 							
 							<thead>
 								<tr>
-									<th width="5%"></th>
+									<th width="5%"><input type="checkbox" id="chkAll" class="chkBox" name="chkAll" onclick=""></th>
 									<th width="5%">#</th>
 									<th width="48%">제목</th>
 									<th width="18%">상태</th>
 									<th width="24%">등록날짜</th>
 								</tr>
 							</thead>
+							
 							<tbody>
-								<tr>
+							
+								<c:forEach items="${ list }" var="t">
+								
+									<c:if test="${ t.empId == loginUser.empId }">
+									
+										<tr>
+											<td align="center"><input type="checkbox"></td>
+											<td align="center">${ t.todoNo }</td>
+											<td align="left">
+												<c:if test="${ empty loginUser }">
+													로그인 해주세요.
+												</c:if>
+												<c:if test="${ !empty loginUser }">
+													<c:url value="todoDetail.do" var="todoDetail">
+														<c:param name="todoNo" value="${ t.todoNo }"/>
+													</c:url>
+													<a href="${ todoDetail }">${ t.todoName }</a>
+												</c:if>
+											</td>
+											<td align="center">
+												<c:if test="${ t.todoStatus eq 'ongoing' }">진행중</c:if>
+												<c:if test="${ t.todoStatus eq 'waiting' }">대기</c:if>
+												<c:if test="${ t.todoStatus eq 'completion' }">완료</c:if>
+											</td>
+											<td align="center">${ t.todoEnrollDate }</td>
+										</tr>
+									
+									</c:if>
+								</c:forEach>
+							
+								<!-- <tr>
 									<td><input type="checkbox"></td>
 									<td>1</td>
 									<td>Steve</td>
 									<td>진행중</td>
 									<td>@steve</td>
 								</tr>
-								<tr>
-									<td><input type="checkbox"></td>
-									<td>2</td>
-									<td>Simon</td>
-									<td>대기</td>
-									<td>@simon</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox"></td>
-									<td>3</td>
-									<td>Jane</td>
-									<td>완료</td>
-									<td>@jane</td>
-								</tr>
+								 -->
+								
+								
 							</tbody>
 						</table>
 						
@@ -103,13 +134,15 @@
 							<button type="button" class="btn btn-default">
 								<i class="fa fa-plus-square"></i> 추가하기 
 							</button>
-							<button type="reset" class="btn btn-danger">
+							<button type="submit" class="btn btn-danger">
 								<i class="far fa-trash-alt"></i> 삭제하기
 							</button>
 						</div>
 						
+						</form>
 						
 					</div>
+						
 					
 					<div class="statusContentWrap" style="padding:0 10px 0 30px">
 	
@@ -143,6 +176,72 @@
 									</tr>
 								</tbody>
 							</table>
+							
+							<%-- <div id="pagingArea" align="center">
+					 			<!-- [이전] -->
+								<c:if test="${ pi.currentPage == 1 }">
+									이전&nbsp;
+								</c:if>
+								<c:if test="${ pi.currentPage > 1 }">
+									<c:if test="${ !empty sc }">
+										<c:url var="mlistBack" value="search.do">
+											<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
+											<c:param name="condition" value="${ condition }"/>
+											<c:param name="search" value="${ search }"/>
+										</c:url>
+									</c:if>
+									<c:if test="${ empty sc }">
+										<c:url var="mlistBack" value="receiveMail.do">
+											<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
+										</c:url>
+									</c:if>
+									<a href="${ mlistBack }">이전</a>
+								 </c:if>
+					         
+						         <!-- [번호들] -->
+						         <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+						            <c:if test="${ p eq pi.currentPage }">
+						               <font color="#3287B2" size="3">${ p }</font>
+						            </c:if>
+						            <c:if test="${ p ne pi.currentPage }">
+						               <c:if test="${ !empty sc }"> <!-- 검색결과 있으면 -->
+						                  <c:url var="mlistPage" value="search.do">
+						                     <c:param name="currentPage" value="${ p }"/>
+						                     <c:param name="condition" value="${ condition }"/>
+						                     <c:param name="search" value="${ search }"/>
+						                     <c:param name="type" value="receive"/>
+						                  </c:url>
+						               </c:if>
+						               <c:if test="${ empty sc }"> <!-- 검색 결과 없으면 -->
+							               <c:url var="mlistPage" value="receiveMail.do">
+							                  <c:param name="currentPage" value="${ p }"/>
+							               </c:url>                  
+						               </c:if>
+						               <a href="${ mlistPage }">${ p }</a>
+						            </c:if>
+						         </c:forEach>
+					         
+					        	<!-- [다음] -->
+								<c:if test="${ pi.currentPage == pi.maxPage }">
+									&nbsp;다음
+								</c:if>
+								<c:if test="${ pi.currentPage < pi.maxPage }">
+									<c:if test="${ !empty sc }">
+										<c:url var="mlistNext" value="search.do">
+											<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
+											<c:param name="condition" value="${ condition }"/>
+											<c:param name="search" value="${ search }"/>
+										</c:url>
+									</c:if>
+									<c:if test="${ empty sc }">
+										<c:url var="mlistNext" value="receiveMail.do">
+											<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+										</c:url>
+									</c:if>
+									<a href="${ mlistNext }">다음</a>
+								</c:if>
+							</div> --%>
+							 
 						</div>
 						
 						<div class="waitingTD">
@@ -222,7 +321,7 @@
 					
 					
 					
-					
+					</c:if>
 					
 					<!-- 이 위까지 내용작성 -->
 					

@@ -100,23 +100,23 @@
 						
 						<c:forEach items="${ list }" var="b">
 						
-							<div class="card" onclick="location.href='todoList.do'" style="height:200px; /* border:solid 10px; */">
+							<div class="card" onclick="location.href='todoList.do'" style="height:250px; /* border:solid 10px; */">
 							   
 							    <div class="image" style="height:20px; background-color:${ b.tdBoardColor };">
 							      <%-- <input type="color" value="${ b.tdBoardColor }"> --%>
 							    </div>
-							    <div class="content" style="padding:10px 0 10px 10px;">
+							    <div class="content" style="padding:15px 0 10px 10px;">
 							      <div class="header">${ b.tdBoardName }</div>
-							      <div class="meta" style="padding:10px 0 10px 0;">
-							        <a>${ b.empId }</a>
+							      <div class="meta" style="padding:8px 15px 10px 0; text-align:right;">
+							        <a><i class="fas fa-user"></i>&nbsp;${ loginUser.empName }</a>
 							      </div>
-							      <div class="description" style="padding:10px 0 0 0">
+							      <div class="description" style="padding:7px 0 0 0">
 							       	<span>${ b.tdBoardContent }</span>
 							      </div>
 							    </div>
 							    <div class="extra content">
 							      <span class="right floated">
-							        ${ b.tdBoardEnrollDate }
+							       <i class="far fa-calendar-alt"></i>&nbsp;${ b.tdBoardEnrollDate }
 							      </span>
 							    </div>
 							   
