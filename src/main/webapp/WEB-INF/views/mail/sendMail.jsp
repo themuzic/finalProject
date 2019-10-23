@@ -99,69 +99,14 @@
 		           }
 		        }
 	       </script>
-	       
-		 	<div id='m_list_default_menu'>
-	            <span class="detail_select menu">
-					<a href="javascript:void(0)" id="lookAll" class="lookAll" style="color:#3287B2; font-size:15px;">보기: 모두
-					 	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif">
-				 	</a>
-		            <div class="dropdown1 hide" id="m_view_move_mbox_detail">
-	                    <div class="dropscroll-menu1" style="width:150px; border:1px solid #999; z-index: 110;">
-	                        <ul style="min-width:220px; border-color:#2985db;" id="ul" class="ul">
-					            <li class="li" class="li">
-	                                <a href="javascript:void(0)" id="move_b0" onclick="" style="color:gray;">모두</a>
-	                            </li>
-					            <li class="li" class="li">
-	                                <a href="javascript:void(0)" id="move_b1" onclick="" style="color:gray;">별 표시</a>
-	                            </li>
-					            <li class="li" class="li">
-	                                <a href="javascript:void(0)" id="move_b2" onclick="" style="color:gray;">첨부 있음</a>
-	                            </li>
-					            <li class="li" class="li">
-	                                <a href="javascript:void(0)" id="move_b3" onclick="" style="color:gray;">안 읽은 메일</a>
-	                            </li>
-					            <li class="li" class="li">
-	                                <a href="javascript:void(0)" id="move_b5" onclick="" style="color:gray;">읽은 메일</a>
-	                            </li>
-							</ul>
-	                     </div>  
-					</div>
-	            </span>
-	        </div>
-
-	        
-	        
+	         
 	        <div id='chkMenu' class="chkMenu hide" name="chkMenu" style="font-size:15px; display:none">
 	            <span class="detail_select" id="m_list_checked_menu_delete">
-	                <a href="javascript:void(0)" onclick="">삭제</a>&nbsp;&nbsp;
+	               <a href="javascript:void(0)" onclick="deleteM();">삭제</a>&nbsp;&nbsp;
 	            </span>
 	            <span class="detail_select">
-	                <a href="javascript:void(0)" onclick="">완전삭제</a>&nbsp;&nbsp;
+	                <a href="javascript:void(0)" onclick="deleteAll();">완전삭제</a>&nbsp;&nbsp;
 	            </span>
-	            <span class="detail_select" id="m_list_checked_menu_resend">
-	                <a href="javascript:void(0)" onclick="">재발송</a>&nbsp;&nbsp;
-	            </span>
-	        
-	            <span class="detail_select move">
-	                <a href="javascript:void(0)" id='m_list_move_mbox' >이동
-	                	<img src="https://office.hiworks.com/static/ui/images/btn_drop.gif" alt="이동 드롭다운 메뉴 열기" class="open_drop">
-	                </a>
-	                <div class="dropdown2 hide" id='m_list_move_mbox_detail' style= "margin-left:180px;">
-	                    <div class="dropscroll-menu2">
-	                        <ul style="min-width:110px; border-color:#2985db; margin:10px; line-height:2">
-	                            <li>
-	                                <a href="" id="receive"onclick="" style="color:gray">받은 편지함</a>
-	                            </li>
-	                            <li>
-	                                <a href="" id="send"onclick="" style="color:gray"> 보낸 편지함</a>
-	                            </li>
-	                            <li>
-	                                <a href="" id="delete"onclick="" style="color:gray">휴지통</a>
-	                            </li>
-	                        </ul>
-	                    </div>
-	                </div>
-            	</span>
             </div>   
 	 	</fieldset>
 	 	
@@ -177,7 +122,7 @@
 			</colgroup>
 				<thead>
 					<tr>
-						<th><input type="checkbox" id="chkAll" class="chkBox" name="chkAll" onclick=""></th>
+						<th><input type="checkbox" id="chkAll" class="chkBox" name="chkAll" value="${ m.mailNum }"></th>
 						<th><i class="far fa-star"></i></th>
 						<th>받은사람</th>
 						<th>메일제목</th>
@@ -191,7 +136,8 @@
 						<tr>
 							<td>
 								<input type="hidden" value="${ m.mailNum }">
-								<input type="checkbox" class="check chkBox">
+								<input type="hidden" value="${ m.mailCc }">
+								<input type="checkbox" name="check" class="check chkBox" value="${ m.mailNum }">
 							</td>
 							<td><i class="far fa-star"></i></td>
 							<td class="mName">${ m.mailTo }</td>
@@ -420,6 +366,64 @@
 			});
 
 		});
+		
+		// 체크박스 선택 삭제
+		function deleteM(){
+			
+			var dd = $("input:checkbox[name=check]:checked");
+
+			$.each(dd, function(i, ck){
+				
+				var tr = ck.parentNode.parentNode;
+				
+				$.ajax({
+					url: "trash.do",
+					type: "POST",
+					data: {mailNum: ck.value,
+						   empId:"${loginUser.empId}"
+					},
+					success: function(data){
+						if(data == "success"){
+							tr.remove();
+						}else{
+							alertify.alert("", "삭제실패");
+						}
+					},
+					error: function(){
+						alertify.alert("", "통신실패");
+					}
+				});
+			});
+		};
+		
+		function deleteAll(){
+			
+			var dd = $("input:checkbox[name=check]:checked");
+
+			$.each(dd, function(i, ck){
+				
+				var tr = ck.parentNode.parentNode;
+				
+				$.ajax({
+					url: "deleteAll.do",
+					type: "POST",
+					data: {mailNum: ck.value,
+						   empId:"${loginUser.empId}"
+					},
+					success: function(data){
+						if(data == "success"){
+							tr.remove();
+						}else{
+							alertify.alert("", "삭제실패");
+						}
+					},
+					error: function(){
+						alertify.alert("", "통신실패");
+					}
+				});
+			});
+			
+		};
 
 	</script>
 

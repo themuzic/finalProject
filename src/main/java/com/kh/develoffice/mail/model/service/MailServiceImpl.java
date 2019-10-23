@@ -70,30 +70,38 @@ public class MailServiceImpl implements MailService{
 	@Override
 	public Mail selectMail(int mailNum) {
 		
-		return mDao.receiveDetail(mailNum);
+		return mDao.selectMail(mailNum);
 	}
 	
 	@Override
-	public int updateMail(int mailNum, int empId) {
+	public int updateMail(Mail m) {
 		
-		return mDao.updateMail(mailNum, empId);
+		return mDao.updateMail(m);
 	}
 
 	@Override
-	public int deleteMail(int mailNum) {
+	public int deleteMail(Mail m) {
 		
-		return mDao.deleteMail(mailNum);
+		return mDao.deleteMail(m);
 	}
 	
 	@Override
 	public int selectEmpId(String toEmail) {
+		
 		return mDao.selectEmpId(toEmail);
 		
 	}
 
 	@Override
 	public int insertStatusMail(int empId) {
+		
 		return mDao.insertStatusMail(empId);
+	}
+
+	@Override
+	public int restoreMail(Mail m) {
+		
+		return mDao.restoreMail(m);
 	}
 
 

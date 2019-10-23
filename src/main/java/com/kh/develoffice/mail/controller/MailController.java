@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -168,10 +169,10 @@ public class MailController {
 		// mail 테이블에 insert
 		int result = mService.insertMail(m);
 		
-		// 받는 메일과 from, to empId 불러오기
+		// 받는 To메일과 from,to empId 불러오기
 		String toEmail = m.getMailTo();
 		int fromEmpId = m.getEmpId();
-		int toEmpId = mService.selectEmpId(toEmail);
+		int toEmpId = mService.selectEmpId(toEmail); // 받는 사람 empId 왜 가져오더라,,?
 		
 		if(result > 0) {
 			
@@ -260,8 +261,8 @@ public class MailController {
 	
 	// 메일함 상세조회
 	@RequestMapping("receiveDetail.do")
-	public ModelAndView receiveDetail(int mailNum, String empName, ModelAndView mv) {
-		
+	public ModelAndView receiveDetail(int mailNum, ModelAndView mv) {
+	
 		Mail m = mService.receiveDetail(mailNum);
 		
 		if(m != null) {
@@ -275,9 +276,9 @@ public class MailController {
 	
 	// 메일 지우기(휴지통으로)
 	@RequestMapping("delete.do")
-	public String delete(int mailNum, int empId, HttpServletRequest request, Model model) {
+	public String delete(Mail m, HttpServletRequest request, Model model) {
 		
-		int result = mService.updateMail(mailNum, empId);
+		int result = mService.updateMail(m);
 		
 		if(result > 0) {
 			return "redirect:deleteMail.do";
@@ -288,18 +289,65 @@ public class MailController {
 		}
 	}
 	
-	// 메일 완전 삭제
-	@RequestMapping("mdelete.do")
-	public String mailDelete(int mailNum, HttpServletRequest request, Model model) {
+	//체크된 메일 지우기(휴지통으로)
+	@ResponseBody // String으로 반환 --> 이거 없으면 아래에서 jsp로 찾음
+	@RequestMapping("trash.do")
+	public String trash(Mail m) {
 		
-		Mail m = mService.selectMail(mailNum);
+		int result = mService.updateMail(m);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	// 체크된 메일 완전 삭제
+	@ResponseBody
+	@RequestMapping("deleteAll.do")
+	public String deleteAll(Mail m, HttpServletRequest request) {
 		
 		if(m.getRenameFileName() != null) {
 			
 			deleteFile(m.getRenameFileName(), request);
 		}
 		
-		int result = mService.deleteMail(mailNum);
+		int result = mService.deleteMail(m);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	// 체크된 메일 복구
+	@ResponseBody
+	@RequestMapping("restore")
+	public String restore(Mail m) {
+		
+		int result = mService.restoreMail(m);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	// 메일 완전 삭제
+	@RequestMapping("mdelete.do")
+	public String mailDelete(Mail m, HttpServletRequest request, Model model) {
+		
+//		Mail m = mService.selectMail(mailNum);
+		
+		if(m.getRenameFileName() != null) {
+			
+			deleteFile(m.getRenameFileName(), request);
+		}
+		
+		int result = mService.deleteMail(m);
 		
 		if(result > 0) {
 			return "redirect:receiveMail.do";

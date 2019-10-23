@@ -52,7 +52,14 @@
 		
 	</select>
 	
-	<!-- tomail 받아오기 -->
+	<!-- 메일 완전 삭제시, 메일 셀렉 -->
+	<select id="selectMail" parameterType="Mail" resultMap="MailResultSet">
+		select *
+		from mail
+		where mail_num=#{mailNum}
+	</select>
+	
+	<!-- tomail empid 받아오기 -->
 	<select id="selectEmpId" parameterType="String" resultType="_int">
 		select emp_id
 		from employee
@@ -126,9 +133,15 @@
 	</update>
 	
 	<!-- 메일 완전 삭제 -->
-	<delete id="deleteMail" parameterType="_int">
-		delete from mail
-		where mail_num=#{mailNum}
+	<delete id="deleteMail" parameterType="Mail">
+		delete from mail_del
+		where mail_num=#{mailNum} and emp_id=#{empId}
 	</delete>
+	
+	<update id="restoreMail" parameterType="Mail">
+		update mail_del
+		set status='Y'
+		where mail_num=#{mailNum} and emp_id=#{empId}
+	</update>
 
 </mapper>

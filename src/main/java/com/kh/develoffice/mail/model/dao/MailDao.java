@@ -71,19 +71,20 @@ public class MailDao {
 		return (ArrayList)sqlSession.selectList("mailMapper.selectSearchList", sc, rowBounds);
 	}
 	
-	public int updateMail(int mailNum, int empId) {
-		
-		Mail m = new Mail();
-		
-		m.setMailNum(mailNum);
-		m.setEmpId(empId);
+	public int updateMail(Mail m) {
 		
 		return sqlSession.update("mailMapper.updateMail", m);
 	}
 	
-	public int deleteMail(int mailNum) {
+	public int deleteMail(Mail m) {
 		
-		return sqlSession.delete("mailMapper.deleteMail", mailNum);
+		return sqlSession.delete("mailMapper.deleteMail", m);
+	}
+	
+	public Mail selectMail(int mailNum) {
+		
+		
+		return sqlSession.selectOne("mailMapper.receiveDetail", mailNum);
 	}
 	
 	public int selectEmpId(String toEmail) {
@@ -99,6 +100,11 @@ public class MailDao {
 
 	public int insertStatusMail(int empId) {
 		return sqlSession.insert("mailMapper.insertStatusMail", empId);
+	}
+
+	public int restoreMail(Mail m) {
+		
+		return sqlSession.update("mailMapper.restoreMail", m);
 	}
 
 

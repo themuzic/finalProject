@@ -395,13 +395,14 @@
 	
 	<!-- script 작성 -->
 	<script>
-		
+		/* 에디터 */
 		$(function(){
 			$("#summernote").summernote({
 				tabsize: 2,
 		        height: 300,
 		        lang: 'ko-KR'
 			});
+			$('.dropdown-toggle').dropdown();
 			
 			$("#menu2").addClass("in");
 			$("#menu2").attr('aria-expanded',true);
@@ -568,7 +569,7 @@
 		        html += "<tr id='fileTr_" + fIndex + "'>";
 		        html += "    <td class='left' >";
 		        html +=         fileName + " / " + fileSize + "MB "  + "&nbsp;<a href='#' onclick='deleteFile(" + fIndex + "); return false;' class='btn small bg_02' style='box-shadow:none; border:1px solid #ececec;'>삭제</a>"
-		        html +=	"       <input type='file' name='uploadFile' id='test'>"
+		        html +=	"       <input type='file' name='uploadFile' id='test' multiple='multiple'>"
 		        //html += inFile
 		        html += "    </td>"
 		        html += "</tr>"

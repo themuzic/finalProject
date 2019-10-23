@@ -36,14 +36,16 @@ public interface MailService {
 	Mail selectMail(int mailNum);
 	
 	// 메일 완전히 삭제
-	int deleteMail(int mailNum);
+	int deleteMail(Mail m);
 	
 	// 메일 이동
-	int updateMail(int mailNum, int empId);
+	int updateMail(Mail m);
 
 	int selectEmpId(String toEmail);
 
 	int insertStatusMail(int empId);
+	
+	int restoreMail(Mail m);
 
 	
 

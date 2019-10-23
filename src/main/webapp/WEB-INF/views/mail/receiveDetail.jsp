@@ -63,10 +63,14 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
+					<span class="transfer menu" id="transfer">
+						<a href="transfermail.do" style="font-size:16px">전달</a>
+					</span>&nbsp; &nbsp; &nbsp;
 					
 					<span class="send menu" id="send">
 						<a href="replyMail.do?mailFrom=${ m.mailFrom }" onclick="" style="font-size:16px;">답장</a>
 					</span> &nbsp; &nbsp; &nbsp;
+					
 					<span class="allSend menu" id="allSend">
 						<a href="allReplyMail.do?mailFrom=${ m.mailFrom }&mailCc=${ m.mailCc }" onclick="" style="font-size:16px;">전체답장</a>
 					</span> &nbsp; &nbsp; &nbsp;
@@ -82,6 +86,7 @@
 					<span class="absol_delete menu" id="absol_delete">
 						<c:url var="mdelete" value="mdelete.do">
 							<c:param name="mailNum" value="${m.mailNum }"/>
+							<c:param name="empId" value="${ loginUser.empId }"/>
 						</c:url>
 						<a href="${ mdelete }" style="font-size:16px;">완전삭제</a>
 					</span> &nbsp; &nbsp; &nbsp;
@@ -96,6 +101,7 @@
 			                    <span class="title">
 			                    	${ m.mailTitle }
 			                    	<input type="hidden" value="${ m.mailNum }">
+			                    	<input type="hidden" value="${ m.mailDate }">
 			                    </span>
 			                </h3>
 			                <br>
