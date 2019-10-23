@@ -253,7 +253,7 @@ body{
 	sock.onopen = onopen;
     function onopen(){
     	console.log("오픈");
-    	sock.send("chatId:${chatId}");
+    	sock.send("chatId:${c.chatId}");
     	
     }
     //자바스크립트 안에 function을 집어넣을 수 있음.
@@ -280,7 +280,7 @@ body{
 			
 		}else{							// 메세지 내용이 있으면
         	/*소켓으로 보내겠다.  */
-	        sock.send("chatId:${chatId}:" + $("#message").val());	// 메세지를 소켓에 보내고
+	        sock.send("chatId:${c.chatId}:" + $("#message").val());	// 메세지를 소켓에 보내고
 	        $("#message").val("");			// 메세지 내용을 비운다.
 			
 		}
@@ -304,7 +304,7 @@ body{
 
         var data = (evt.data).split(":");
         var date = formatAMPM(new Date());
-        var profilePath = ${loginUser.profilePath};
+        var profilePath = "${loginUser.profilePath}";
 		var html = '';
         if(data[0] == "나"){
         	html = "<li class='msg-right'>" +
@@ -323,7 +323,7 @@ body{
         }else if(data[0] == "상대방"){
         	html = "<li class='msg-left'>" +
 			   "<div class='msg-left-sub'>" +
-			   "<img src='resources/images/ +
+			   "<img src='resources/images/" +
 			   data[3] +
 			   "'>" +
 			   "<div class='msg-desc'>" +

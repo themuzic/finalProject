@@ -191,8 +191,10 @@ body{
         $(".chatList").on("dblclick", function(){	// 채팅방 더블클릭 했을때
         	console.log($(this).children().first().val());
         	var chatId = $(this).children().first().val();	// 더블클릭한 채팅방의 chatId
-        	var chatName = $("#chatName")
-        	messenger = window.open("chatting.do?chatId=" + chatId + "&chatName=" + chatName, chatId + "chatting", "width=500,height=545", "false");
+        	var chatName = $("#" +chatId);
+        	/* var chatName = encodeURI(chatName); */
+        	console.log(chatName.html());
+        	messenger = window.open("chatting.do?chatId=" + chatId + "&chatName=" + chatName.html(), chatId + "chatting", "width=500,height=545", "false");
         	
         });
 
@@ -331,7 +333,7 @@ body{
 								
 								<div class="desc">
 									<small class="time">${c.modifyDate }</small>
-									<h5 id="chatName">${c.chatName }</h5>
+									<h5 id="${c.chatId}">${c.chatName }</h5>
 									<small>${c.lastMsg }</small>
 								</div>
 							</div>

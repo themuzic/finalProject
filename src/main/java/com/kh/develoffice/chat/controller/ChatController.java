@@ -59,7 +59,7 @@ public class ChatController {
 	}
 	@RequestMapping("chatting.do")
 	public ModelAndView chattingList(ModelAndView mv, int chatId, String chatName) {
-		
+		System.out.println(chatId + "=" + chatName);
 		ArrayList<Message> msgList = cService.selectMsgList(chatId);
 		Chat c = new Chat();
 		c.setChatId(chatId);
