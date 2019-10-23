@@ -49,6 +49,10 @@ public class ChatDao {
 		return sqlSession.update("chatMapper.updateChatMod",chatId);
 	}
 
+	public int updateJoinMod(Message m) {
+		return sqlSession.update("chatMapper.updateJoinMod",m);
+	}
+
 
 	
 }

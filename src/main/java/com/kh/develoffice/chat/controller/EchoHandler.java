@@ -56,26 +56,39 @@ public class EchoHandler extends TextWebSocketHandler{
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
     	
     	String[] messageList = message.getPayload().split(":"); //받은 메세지를 :을 구분자로 스플릿
-    	System.out.println(message.getPayload());
+    	System.out.println("받은 메세지 = " +message.getPayload());
     	
     	if(messageList.length == 2 && messageList[0].equals("chatId")) {// 스플릿한 배열의 길이가 2(chatId:15)면서 0번 인덱스가 chatId일때
-    		ArrayList<WebSocketSession> list;	
+    		
+    		ArrayList<WebSocketSession> list;
+    		int empId = ((Employee)session.getAttributes().get("loginUser")).getEmpId();	// 채팅창 연 아이디 출력
     		if(!chatList.containsKey(messageList[1])) {	// chatId에 키값이 존재하지 않을때
     			list = new ArrayList<>();				// 새로 ArrayList생성
     		}else {										// 존재할때
     			list = chatList.get(messageList[1]);	// 기존 map에서 ArrayList 추출
     		}
-    		list.add(session);					// ArrayList에 세션을 담는다.
-			chatList.put(messageList[1], list);	// 채팅방 리스트에 chatId와 웹소켓세션을 담는다
+			Message m = new Message();			// 메세지 객체 생성
+			m.setEmpId(empId);					// 채팅방 연 아이디 담음
+			m.setChatId(Integer.parseInt(messageList[1]));	// 채팅방 번호 담음
+			
+			int update = cService.updateJoinMod(m);	// 채팅방 확인 갱신
+			if(update > 0) {
+				System.out.println("연결 갱신됨");
+				list.add(session);					// ArrayList에 세션을 담는다.
+				chatList.put(messageList[1], list);	// 채팅방 리스트에 chatId와 웹소켓세션을 담는다
+			}
+			
+			
     	}
-    	if(message.getPayload().equals("채팅방 연결")) {
-    		messengerList.add(session);
+    	if(message.getPayload().equals("채팅방 연결")) {		// 채팅방 리스트가 연결되었으면
+    		messengerList.add(session);					// 세션을 messengerList에 저장
     	}
     	if(messageList.length == 3 && messageList[0].equals("chatId")) {	// 스플릿한 배열의 길이가 3이고, 0번 인덱스가 chatId일때
-    		
+
 			ArrayList<WebSocketSession> list = chatList.get(messageList[1]);	// 방에 들어있는 소켓 ArrayList를 가져온다.
 			int empId = ((Employee)session.getAttributes().get("loginUser")).getEmpId();	// 보낸사람 아이디 출력
 			String profilePath = ((Employee)session.getAttributes().get("loginUser")).getProfilePath();	// 보낸사람 프로필경로 출력
+			
 			Message m = new Message();
 			m.setChatId(Integer.parseInt(messageList[1]));
 			m.setEmpId(empId);
@@ -89,9 +102,17 @@ public class EchoHandler extends TextWebSocketHandler{
 						int otherId = ((Employee)sess.getAttributes().get("loginUser")).getEmpId();	// 받는사람 아이디 출력
 						System.out.println(otherId);
 						if(empId == otherId){		// 보낸사람과 받는사람이 아이디가 같으면
-							sess.sendMessage(new TextMessage("나:"+ messageList[2]));	//메세지 출력
+							int update = cService.updateJoinMod(m);	// 채팅방 확인 갱신
+							if(update > 0) {					// 갱신됐으면
+								System.out.println("나 갱신됨");
+								sess.sendMessage(new TextMessage("나:"+ messageList[2]));	//메세지 출력								
+							}
 						}else {						// 다르면
-							sess.sendMessage(new TextMessage("상대방:"+ messageList[2] + ":" + profilePath));	// 메세지 출력
+							int update = cService.updateJoinMod(m);	// 채팅방 확인 갱신
+							if(update > 0) {					// 갱신됐으면
+								System.out.println("상대방 갱신됨");
+								sess.sendMessage(new TextMessage("상대방:"+ messageList[2] + ":" + profilePath));	// 메세지 출력
+							}
 						}
 						
 						for(WebSocketSession sess2 : messengerList) {						// 채팅방 리스트에 접속한 세션 전체 반복문 실행

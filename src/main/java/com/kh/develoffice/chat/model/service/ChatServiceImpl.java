@@ -55,5 +55,10 @@ public class ChatServiceImpl implements ChatService {
 		return cDao.updateChatMod(chatId);
 	}
 
+	@Override
+	public int updateJoinMod(Message m) {
+		return cDao.updateJoinMod(m);
+	}
+
 
 }

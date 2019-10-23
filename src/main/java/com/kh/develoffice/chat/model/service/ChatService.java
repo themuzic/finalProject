@@ -24,4 +24,6 @@ public interface ChatService {
 
 	int updateChatMod(int chatId);
 
+	int updateJoinMod(Message m);
+
 }

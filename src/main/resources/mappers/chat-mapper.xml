@@ -33,12 +33,14 @@
 		<result property="validity" column="validity"/>
 	</resultMap>
 	
+	<!-- 채팅방 리스트 출력용 서비스 -->
 	<select id="selectChatList" parameterType="_int" resultMap="chatListResult">
 		select *
 		from chatlist_view
 		where emp_id = #{empId}
 	</select>
 	
+	<!-- 채팅방 사람들 프로필 경로 출력용 서비스 -->
 	<select id="selectChatProfile" parameterType="_int" resultMap="chatProfileResult">
 		SELECT J.CHAT_ID, J.EMP_ID, PROFILE_PATH
 		FROM JOIN_CHAT J
@@ -47,11 +49,13 @@
 		WHERE CHAT_STATUS = 'Y' AND J.EMP_ID != #{empId}
 	</select>
 	
+	<!-- 채팅 삽입 -->
 	<insert id="insertMessage" parameterType="Message">
 		INSERT INTO MESSAGE
 		VALUES(MSG_SEQ.NEXTVAL, #{chatId}, #{empId}, #{content}, SYSDATE, DEFAULT)
 	</insert>
 	
+	<!-- 채팅방 갱신 -->
 	<update id="updateChatMod" parameterType="_int">
 		UPDATE CHAT
 		SET MODIFY_DATE = (SELECT MAX(M_CREATE_DATE)
@@ -61,6 +65,14 @@
 		WHERE CHAT_ID = #{chatId}
 	</update>
 	
+	<!-- 채팅방 확인 갱신 -->
+	<update id="updateJoinMod" parameterType="Message">
+		UPDATE JOIN_CHAT
+		SET MODIFY_DATE = SYSDATE
+		WHERE CHAT_ID = #{chatId} AND EMP_ID = #{empId}
+	</update>
+	
+	<!-- 채팅 리스트 출력용 서비스 -->
 	<select id="selectMsgList" parameterType="_int" resultMap="messageListResult">
 		SELECT *
 		FROM MESSAGE_LIST
