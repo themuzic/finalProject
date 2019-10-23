@@ -48,19 +48,10 @@
 							<form>
 								<fieldset>
 									<span class="detail_select">
-										<a href="javascript:void(0);" class="fl" onclick="ApprovalProcess.copyDocument();">기안복사</a><a href="javascript:void(0);" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
-										<div class="tooltip hide" style="left:0;top:0;color:#676767;">
-											<div class="tooltip-box" style="width:300px;">
-												<p>ㆍ기안한 문서를 복사해서 문서를 작성할 수 있습니다.</p>
-												<p>ㆍ결재선과 결재 양식 정보가 입력된 채로 작성을 할 수 있습니다.</p>
-											</div>
-										</div>
+										<a href="javascript:void(0);" onclick="">결재선변경</a>
 									</span>
 									<span class="detail_select">
-										<a href="javascript:void(0);" onclick="ApprovalProcess.getApprovalLineLayer();">결재선변경</a>
-									</span>
-									<span class="detail_select">
-										<a href="javascript:void(0);" onclick="ApprovalProcess.documentPrint();">인쇄</a>
+										<a href="javascript:void(0);" onclick="printDocument();">인쇄</a>
 									</span>
 								</fieldset>
 							</form>
@@ -80,7 +71,7 @@
 						<input type="hidden" name="approval_security_level" value="A">
 						<input type="hidden" name="approval_list_view" value="/cocoa-test1.onhiworks.com/approval/document/box/writer/?&amp;box_mode=writer">
 			
-						<div class="content_inbox">
+						<div class="content_inbox" id="content_inbox">
 							<!-- Contents -->
 							<div class="cont_box view">
 								<div class="approval-wrap write view">
@@ -128,98 +119,48 @@
 									<table class="cal_table1 approve-write js-approval-line">
 										<colgroup>
 											<col style="width:12.09%;">
-											<col style="width:37.62%;">
-											<col style="width:12.09%;">
-											<col style="width:38.02%;">
+											<col style="width:87.91%;">
 										</colgroup>
 										<tbody>
 											<tr>
-												<th scope="row" class="agree">
-													<div class="choice" style="height: 162px; display: table-cell; width: 116.01px; vertical-align: middle; text-align: center;">
-														신청
-													</div>
-												</th>
-												<td class="confer vt" id="approvalFirstLine">
-													<table style="height: 163px;">
-														<colgroup>
-															<col width=""><col width=""><col width=""><col width="">
-														</colgroup>
-									<tbody><tr>
-									<td class="team name">
-									
-									</td>
-									<td class="team name">
-									</td>
-									<td class="team name">
-									</td>
-									<td class="team name">
-									</td>
-									</tr>
-									<tr>
-									<td class="stamp">
-									<img src="resources/images/stamp_approval.png" alt="결재"><p class="date" title="2019-10-08 15:10:51">2019-10-08 </p>
-									</td>
-									<td class="stamp">
-									</td>
-									<td class="stamp">
-									</td>
-									<td class="stamp">
-									</td>
-									</tr>
-									<tr>
-									<td class="name">
-									전재광
-									</td>
-									<td class="name">
-									</td>
-									<td class="name">
-									</td>
-									<td class="name">
-									</td>
-									</tr>
-									</tbody></table>
-												</td>
-												<th scope="row" class="confer">
-													<div class="choice" style="height: 162px; display: table-cell; width: 116.01px; vertical-align: middle; text-align: center;">
-														처리									</div>
-												</th>
-												<td class="confer vt" id="approvalSecondLine">
-													<table style="height: 163px;"><colgroup><col width=""><col width=""><col width=""><col width=""></colgroup>
-									<tbody><tr>
-									<td class="team name">
-									</td>
-									<td class="team name">
-									</td>
-									<td class="team name">
-									</td>
-									<td class="team name">
-									</td>
-									</tr>
-									<tr>
-									<td class="stamp">
-									</td>
-									<td class="stamp">
-									</td>
-									<td class="stamp">
-									</td>
-									<td class="stamp">
-									</td>
-									</tr>
-									<tr>
-									<td class="name">
-									</td>
-									<td class="name">
-									</td>
-									<td class="name">
-									</td>
-									<td class="name">
-									</td>
-									</tr>
-									</tbody></table>
+												<th scope="row" class="sign"><div style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">결재</div></th>
+												<td class="sign vt" id="approvalFirstLine">
+													<table style="width:100%;table-layout:fixed"><colgroup><col><col><col><col><col><col><col></colgroup>
+														<tbody id="apTbody">
+														<tr>
+															<td class="team name"></td>
+															<td class="team name"></td>
+															<td class="team name"></td>
+															<td class="team name"></td>
+															<td class="team name"></td>
+															<td class="team name"></td>
+															<td class="team name"></td>
+														</tr>
+														<tr>
+															<td class="stamp"></td>
+															<td class="stamp"></td>
+															<td class="stamp"></td>
+															<td class="stamp"></td>
+															<td class="stamp"></td>
+															<td class="stamp"></td>
+															<td class="stamp"></td>
+														</tr>
+														<tr id="nameRow">
+															<td class="name"></td>
+															<td class="name"></td>
+															<td class="name"></td>
+															<td class="name"></td>
+															<td class="name"></td>
+															<td class="name"></td>
+															<td class="name"></td>
+														</tr>
+														</tbody>
+													</table>
 												</td>
 											</tr>
 										</tbody>
-								</table>
+									</table>
+								
 								<table class="cal_table1 approve-write refer">
 									<colgroup>
 										<col style="width:12.09%;">
@@ -229,12 +170,12 @@
 										<tr>
 											<th scope="row">
 												<div class="choice" style="min-height: 45px; height: 44.0104px; display: table-cell; width: 115.01px; vertical-align: middle; text-align: center;">
-												참조									<span class="spr-approval set" title="참조" onclick="ApprovalProcess.showApprovalInput('approvalThirdLine', 'inputApprovalThirdLine');"></span>
-																</div>
+												참조	
+												</div>
 											</th>
 											<td id="approvalThirdLine">
 												<input type="text" class="refer-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputApprovalThirdLine" style="display: none;" approval_type="F" autocomplete="off">
-															</td>
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -294,32 +235,10 @@
 															<td>2019-10-08</td>
 															<td>
 																<span class="">영업부</span>
-																<!-- 
-																<a href="javascript:void(0);" class="icon question tipsIcon" style="position: relative;top:2px;margin-left:10px"><span class="blind">세부 설명</span></a>
-																<span class="tooltip hide" style="left:0;top:0;color:#676767;">
-																	<div class="tooltip-box" style="width:230px;">
-																		<p>
-																			코드 : 001&nbsp;
-																			코스트센터 : 영업부
-																		</p>
-																	</div>
-																</span>
-																 -->
 															</td>
 															<td class="ta_r">30,000</td>
 															<td>
 																<span class="">주유소</span>
-																<!-- 
-																<a href="javascript:void(0);" class="icon question tipsIcon" style="position: relative;top:2px;margin-left:10px"><span class="blind">세부 설명</span></a>
-																<span class="tooltip hide" style="left:0;top:0;color:#676767;">
-																	<div class="tooltip-box" style="width:230px;">
-																		<p>
-																			코드 : -&nbsp;
-																			거래처명 : 주유소
-																		</p>
-																	</div>
-																</span>
-																 -->
 															</td>
 															<td>유류비</td>
 														</tr>
@@ -336,34 +255,21 @@
 											</div>
 										</div>
 						
+						
+									<!-- 파일 존  -->
+									
+									
 										<div class="file after">
 											<div class="top">
 												<span class="body-color mgr_20">별첨</span>
-													<a href="javascript:void(0);" class="addfile" onclick="ApprovalProcess.getAttchedFileLayer();">파일 첨부</a>
+												<a href="javascript:void(0);" class="addfile" onclick="">파일 첨부</a>
 											</div>
 										<div class="filebox"></div>
 										</div>
 									</div>
 								</div>
-								
-								<div class="board_comment_tab" id="approvalCommentsTab">
-									<a href="javascript:void(0);" class="gt-nav-item gt-active approval-comments-tab1" data-id="tab1-1" onclick="ApprovalProcess.getApprovalComments();">의견</a>
-								</div>
-								<div id="divApprovalComments" class="board_comment approval">
-									<p class="top number_comments">
-							    		<span class="point_color bold" id="approvalCommentsCount">0</span>개의 의견	    	</p>
-									<ul id="approvalComments"></ul>
-												<div class="comment_write">
-										<label for="commentInput" class="blind">댓글 입력란</label>
-										<textarea id="approvalDocumentComment" placeholder="댓글을 남겨주세요." title="댓글을 남겨주세요." class="comment-texarea" style="overflow: hidden; overflow-wrap: break-word; height: 37px;"></textarea>
-										<button type="button" class="bt_left" onclick="ApprovalProcess.addApprovalComment();">등록</button>
-									</div>
-											</div>
-								<div id="divApprovalCommentsHistory" class="board_comment approval hide" style="display: none;">
-									<ul id="approvalCommentsHistory"></ul>
-								</div>
-									</div>
-						</div>
+							</div>
+							
 			
 			<script>
 				ApprovalProcess._documentNo = '283009';
@@ -437,7 +343,7 @@
 				});
 				
 			</script>
-			</div>
+			
 					
 					
 					
@@ -465,21 +371,56 @@
 	<!-- END WRAPPER -->
 	
 	
-	<!-- Javascript -->
-	<script src="resources/assets/vendor/jquery/jquery.min.js"></script>
-	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
-	<script src="resources/assets/scripts/klorofil-common.js"></script>
-	
 	<!-- script 작성 -->
 	<script>
-	
-	
+		
+		/* 인쇄  시작 */
+		
+		function printDocument() {
+			const completeParam = makeHtml();
+		    reportPrint(completeParam);
+		}
+		
+		function makeHtml(){
+			
+			var content = document.getElementById('content_inbox').innerHTML;
+			
+		    const obj = {html : ''};
+		    let html = '<div class="printPop">';
+		    html += content;
+		    html += '</div>';    
+		    obj.html = html;
+		    return obj;
+		}
+		
+		function reportPrint(param){
+		    const setting = "width=890, height=841";
+		    const objWin = window.open('', 'print', setting);
+		    objWin.document.open();
+		    objWin.document.write('<html><head><title>DEVELOFFICE</title>');
+		    objWin.document.write('<link rel="stylesheet" href="resources/css/style.css">');
+		    objWin.document.write('<link rel="stylesheet" href="resources/css/style_approval.css"/>');
+		    objWin.document.write('</head><body>');
+		    objWin.document.write(param.html);
+		    objWin.document.write('</body></html>');
+		    objWin.focus(); 
+		    objWin.document.close();
+		 	
+		    setTimeout(function(){objWin.print();objWin.close();}, 100);
+		}
+		
+		/* 인쇄 끝 */
+
+
 	
 	
 	</script>
 
+	<!-- Javascript -->
+	<script src="resources/assets/vendor/jquery/jquery.min.js"></script>
+	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="resources/assets/scripts/klorofil-common.js"></script>
+	
 </body>
 </html>

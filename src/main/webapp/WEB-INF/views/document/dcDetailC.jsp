@@ -59,7 +59,7 @@
 								<fieldset>
 									<span class="detail_select">
 										<a href="javascript:void(0);" class="fl" onclick="ApprovalProcess.modifyDocument();">내용수정</a><a href="javascript:void(0)" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
-										<div class="tooltip hide" style="left:45px;top:0;color:#676767;">
+										<div class="tooltip hide" style="left:45px;top:0;color:#676767;display:none">
 											<div class="tooltip-box" style="width:400px;">
 												<p>ㆍ기안자가 기안 내용 수정이 필요하다고 판단했을 경우 결재 진행 중에도<br>&nbsp;&nbsp; 할 수 있습니다.</p>
 												<p>ㆍ내용을 수정하는 동안에는 결재가 진행되지만, 내용 수정이 완료되면, <br>&nbsp;&nbsp; 기존 결재 내역은 모두 초기화됩니다.</p>
@@ -76,19 +76,10 @@
 										</div>
 									</span>
 									<span class="detail_select">
-										<a href="javascript:void(0);" class="fl" onclick="ApprovalProcess.copyDocument();">기안복사</a><a href="javascript:void(0);" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
-										<div class="tooltip hide" style="left:0;top:0;color:#676767;">
-											<div class="tooltip-box" style="width:300px;">
-												<p>ㆍ기안한 문서를 복사해서 문서를 작성할 수 있습니다.</p>
-												<p>ㆍ결재선과 결재 양식 정보가 입력된 채로 작성을 할 수 있습니다.</p>
-											</div>
-										</div>
+										<a href="javascript:void(0);" onclick="">결재선변경</a>
 									</span>
-															<span class="detail_select">
-										<a href="javascript:void(0);" onclick="ApprovalProcess.getApprovalLineLayer();">결재선변경</a>
-									</span>
-																		<span class="detail_select">
-										<a href="javascript:void(0);" onclick="ApprovalProcess.documentPrint();">인쇄</a>
+									<span class="detail_select">
+										<a href="javascript:void(0);" onclick="printDocument();">인쇄</a>
 									</span>
 								</fieldset>
 							</form>
@@ -107,7 +98,7 @@
 						<input type="hidden" name="approval_security_level" value="A">
 						<input type="hidden" name="approval_list_view" value="/cocoa-test1.onhiworks.com/approval/document/lists/P/?&amp;list_mode=P">
 			
-					<div class="content_inbox">
+					<div class="content_inbox" id="content_inbox">
 						<!-- Contents -->
 						<div class="cont_box view">
 							<div class="approval-wrap write view">
@@ -146,7 +137,7 @@
 													<option value="C">C등급</option>
 												</select>
 												<a href="javascript:void(0)" class="icon question tipsIcon" style="position: relative;top:4px;margin-left:10px"><span class="blind">세부 설명</span></a>
-												<div class="tooltip hide" style="left:-290px;top:0">
+												<div class="tooltip hide" style="left:-290px;top:0;display:none;">
 													<div class="tooltip-box" style="width:570px;">
 														<p>보존 연한</p>
 														<p>ㆍ1년: 경미한 연결 문서 및 일시적인 사용 또는 처리에 그치는 문서</p>
@@ -176,7 +167,6 @@
 											<th scope="row" class="sign">
 												<div style="height: 162px; display: table-cell; width: 116px; vertical-align: middle; text-align: center;">
 												결재
-												<span class="spr-approval set addPlus" title="결재" onclick="ApprovalProcess.getApprovalUserInfoLayer('A', 'approval_first_line');"></span>
 												</div>
 											</th>
 											<td class="sign vt" id="approvalFirstLine">
@@ -248,25 +238,25 @@
 							<tr>
 								<th scope="row" class="agree">
 									<div style="height: 54px; display: table-cell; width: 116px; vertical-align: middle; text-align: center;">
-									합의									<span class="spr-approval set addPlus" title="합의" onclick="ApprovalProcess.getApprovalUserInfoLayer('D', 'approval_second_line');"></span>
-													</div>
+									합의
+									</div>
 								</th>
 								<td class="agree vt" id="approvalSecondLine">
 									<table><colgroup><col><col><col><col><col></colgroup><tbody>
-					<tr>
-					<td class="gt-ph-20 gt-align-left gt-border-0">
-					<span class="">원영주</span>
-					</td>
-					<td class="gt-ph-20 gt-align-left gt-border-0">
-					</td>
-					<td class="gt-ph-20 gt-align-left gt-border-0">
-					</td>
-					<td class="gt-ph-20 gt-align-left gt-border-0">
-					</td>
-					<td class="gt-ph-20 gt-align-left gt-border-0">
-					</td>
-					</tr>
-					</tbody></table>
+										<tr>
+										<td class="gt-ph-20 gt-align-left gt-border-0">
+										<span class="">원영주</span>
+										</td>
+										<td class="gt-ph-20 gt-align-left gt-border-0">
+										</td>
+										<td class="gt-ph-20 gt-align-left gt-border-0">
+										</td>
+										<td class="gt-ph-20 gt-align-left gt-border-0">
+										</td>
+										<td class="gt-ph-20 gt-align-left gt-border-0">
+										</td>
+										</tr>
+										</tbody></table>
 								</td>
 							</tr>
 						</tbody>
@@ -280,8 +270,8 @@
 							<tr>
 								<th scope="row">
 									<div class="choice" style="min-height: 45px; height: 44px; display: table-cell; width: 116px; vertical-align: middle; text-align: center;">
-									참조									<span class="spr-approval set addPlus" title="참조" onclick="ApprovalProcess.showApprovalInput('approvalFourthLine', 'inputApprovalFourthLine');"></span>
-													</div>
+									참조
+									</div>
 								</th>
 								<td id="approvalFourthLine">
 													<input type="text" class="refer-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputApprovalFourthLine" style="display: none;" approval_type="F" autocomplete="off">
@@ -303,7 +293,7 @@
 										</div>
 										<div class="filebox">
 											<span class="cont_file" style="float: left;">
-												<img src="/static/images/common/icon/pptx.png"><a href="/cocoa-test1.onhiworks.com/approval/download_file/298041">개발자의 삶이란_DB설계(수정3).pptx</a> (3.8MB)
+												<img src="resources/images/pptx.png"><a href="/cocoa-test1.onhiworks.com/approval/download_file/298041">개발자의 삶이란_DB설계(수정3).pptx</a> (3.8MB)
 												<a href="/cocoa-test1.onhiworks.com/common/poc/conv/approval/278570/298041" class="btn_search" style="vertical-align:middle;display:inline-block; margin-top:2px;" target="_blank"><span class="icon preview"><em class="blind">미리보기</em></span></a>
 												<a href="javascript:void(0)" class="icon file_delete" onclick="ApprovalProcess.deleteAttachedFile(298041, '개발자의 삶이란_DB설계(수정3).pptx');"><span class="blind"></span></a>
 											</span>
@@ -312,26 +302,9 @@
 									
 								</div>
 							</div>
-							
-							<div class="board_comment_tab" id="approvalCommentsTab">
-								<a href="javascript:void(0);" class="gt-nav-item gt-active approval-comments-tab1" data-id="tab1-1" onclick="ApprovalProcess.getApprovalComments();">의견</a>
-							</div>
-							<div id="divApprovalComments" class="board_comment approval">
-								<p class="top number_comments">
-						    		<span class="point_color bold" id="approvalCommentsCount">0</span>개의 의견	    	</p>
-								<ul id="approvalComments"></ul>
-								<div class="comment_write">
-									<label for="commentInput" class="blind">댓글 입력란</label>
-									<textarea id="approvalDocumentComment" placeholder="댓글을 남겨주세요." title="댓글을 남겨주세요." class="comment-texarea" style="overflow: hidden; overflow-wrap: break-word; height: 36px;"></textarea>
-									<button type="button" class="bt_left" onclick="ApprovalProcess.addApprovalComment();" style="float:right;">등록</button>
-								</div>
-							</div>
-							<div id="divApprovalCommentsHistory" class="board_comment approval hide" style="display: none;">
-								<ul id="approvalCommentsHistory"></ul>
-							</div>
 						</div>
 					</div>
-			
+				</div>
 			<script>
 			ApprovalProcess._documentNo = '278570';
 			ApprovalProcess._firstLine = '57511';
@@ -393,7 +366,7 @@
 				}
 			});
 			</script>
-					</div>
+					
 					
 					
 					
@@ -421,14 +394,6 @@
 	<!-- END WRAPPER -->
 	
 	
-	<!-- Javascript -->
-	<script src="resources/assets/vendor/jquery/jquery.min.js"></script>
-	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
-	<script src="resources/assets/scripts/klorofil-common.js"></script>
-	
 	<!-- script 작성 -->
 	<script>
 		$(function(){
@@ -439,12 +404,56 @@
 				$(this).siblings('.toolTip').removeClass("show");
 			});
 			
-			
 		})
+		
+		
+		
+		/* 인쇄  시작 */
+		
+		function printDocument() {
+			const completeParam = makeHtml();
+		    reportPrint(completeParam);
+		}
+		
+		function makeHtml(){
+			
+			var content = document.getElementById('content_inbox').innerHTML;
+			
+		    const obj = {html : ''};
+		    let html = '<div class="printPop">';
+		    html += content;
+		    html += '</div>';    
+		    obj.html = html;
+		    return obj;
+		}
+		
+		function reportPrint(param){
+		    const setting = "width=890, height=841";
+		    const objWin = window.open('', 'print', setting);
+		    objWin.document.open();
+		    objWin.document.write('<html><head><title>DEVELOFFICE</title>');
+		    objWin.document.write('<link rel="stylesheet" href="resources/css/style.css">');
+		    objWin.document.write('<link rel="stylesheet" href="resources/css/style_approval.css"/>');
+		    objWin.document.write('</head><body>');
+		    objWin.document.write(param.html);
+		    objWin.document.write('</body></html>');
+		    objWin.focus(); 
+		    objWin.document.close();
+		 	
+		    setTimeout(function(){objWin.print();objWin.close();}, 100);
+		}
+		
+		/* 인쇄 끝 */
 	
 	
 	
 	</script>
 
+	<!-- Javascript -->
+	<script src="resources/assets/vendor/jquery/jquery.min.js"></script>
+	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="resources/assets/scripts/klorofil-common.js"></script>
+	
 </body>
 </html>

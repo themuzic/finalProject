@@ -148,7 +148,7 @@ public class EmployeeController {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
 		ArrayList<Employee> list = eService.autocomplete(key);
-		System.out.println(list);
+		//System.out.println(list);
 		
 		JSONArray jArr = new JSONArray();
 		

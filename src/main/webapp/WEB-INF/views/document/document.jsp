@@ -90,8 +90,8 @@
 						
 						
 						<div style="padding-bottom:15px;">
-							<span style="padding-right:20px;"><a href=""><b>기안하기</b></a></span>
-							<span><a href=""><b>임시저장</b></a></span>
+							<span style="padding-right:20px;"><a href="javascript:void(0);" onclick="insertDocument();"><b>기안하기</b></a></span>
+							<span><a href="javascript:void(0);"><b>임시저장</b></a></span>
 						</div>
 						
 						<!--------------------------------------------------------------------------------->
@@ -924,68 +924,11 @@
 									<th scope="col"><a href="javascript:void(0);" class="js-approval-spending-order js-approval-order black" value="">관리<span class="down hide"></span></a></th>
 								</tr>
 							</thead>
-							
-							<!-- 
-							<tbody id="spendTb">
-							</tbody>
-							 -->
 							 
-							 
-							 <tbody id="spendTbody">
-							 
-							 
-							 <!-- 
-								<tr>
-								<td>유류비</td>
-								<td>2019-10-21</td>
-								<td>
-									<span class="fl">영업부</span>
-									<a href="javascript:void(0);" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
-									<span class="tooltip hide" style="left:0;top:0;color:#676767;">
-										<div class="tooltip-box" style="width:230px;">
-											<p>코드 : 001&nbsp;코스트센터명 : 영업부</p>
-										</div>
-									</span>
-								</td>
-								<td>30,000</td>
-								<td>
-									<span class="fl">주유소</span>
-									<a href="javascript:void(0);" class="icon question tipsIcon" style="position: relative;top:0;margin-left:10px"><span class="blind">세부 설명</span></a>
-									<span class="tooltip hide" style="left:0;top:0;color:#676767;">
-										<div class="tooltip-box" style="width:230px;">
-											<p>코드 : -&nbsp;거래처명 : 주유소</p>
-										</div>
-									</span>
-								</td>
-								<td>유류비</td>
-								<td>
-									<button type="button" name="button" class="weakblue" onclick="">수정</button>
-									<span class="weakgray"> | </span>
-									<button type="button" name="button" class="weakblue" onclick="removeRow(this);">삭제</button>
-								</td>
-							</tr>
-							<tr id="sumRow">
-								<td></td>
-								<td></td>
-								<td></td>
-								<td class="account-total" style="text-align: left;">총 30,000</td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							 -->
-							
-							
-							
-						</tbody>
-							 
-							 
-							 
+						<tbody id="spendTbody"></tbody>
 							 
 						</table>
-			
 					</div>				
-					
 					
 					<!------------------------------------------------------------------------>
 					
@@ -1578,6 +1521,8 @@
 						
 						if(data != null){
 							
+								$ui.html("");
+								
 							$.each(data, function(i, e){
 								
 								var li = document.createElement('li');
@@ -1601,7 +1546,10 @@
 								
 								$ui.append(li);				//jquery
 								
+								$("#ui-id").addClass('show');
 							});
+						} else{
+							return;
 						}
 					},
 					error:function(){
@@ -1609,7 +1557,7 @@
 					}
 				});
 				
-				$("#ui-id").addClass('show');
+				
 				
 			} else{
 				$("#ui-id").removeClass('show');
@@ -1671,7 +1619,7 @@
 			$td1.append($h1);
 			
 			var $td2 = $('<td>').text( $("#textExpenseDate").val() );
-			var $h2 = $('<input type="hidden" name="expenseDate">').val();
+			var $h2 = $('<input type="hidden" name="expenseDate">').val($("#textExpenseDate").val());
 			$td2.append($h2);
 			
 			var $td3 = $('<td>').text( $("#selectAccountingDept option:selected").text() );
@@ -1757,11 +1705,54 @@
 			$("#spendTbody").append($tr);			
 		}
 		
+	
+		/* 기안하기 */
+		function insertDocument() {
+			
+			/* 통합문서 테이블 */
+			var docuType = $("#documentTypeSelect option:selected").val();
+			var docuCode;
+			var empId = ${loginUser.empId};
+			var saveTerm = $("#set_preserved_term_y option:selected").val();
+			var security = $("#set_security_level_y option:selected").val();
+			
+			/* 지출결의서 테이블 */
+			var title = $("#approval_document_title").val();
+			var accountingType = $('input[name=accountingType]:checked').val();
+			var spendingYear = $("#selectFixedYear option:selected").val();
+			var spendingMonth = $("#selectFixedMonth option:selected").val();
+			var spenderName = $("#textSpenderName").text();
+			
+			if($("#spendTbody tr") > 0){	// 거래내역 입력이 없으면
+				alertify.alert('', '거래내역이 없습니다.');
+				return;
+			}
+			
+			var accountName = $("input[name=accountName]").val();
+			var expenseDate = $("input[name=expenseDate]").val();
+			var departmentName = $("input[name=departmentName]").val();
+			var price = $("input[name=price1]").val();
+			var customer = $("input[name=customer]").val();
+			var brief = $("input[name=brief]").val();
+			
+			
+			
+			
+			
+			
+		}
 		
 	
 	
-	
-	
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 	
 	
@@ -1962,9 +1953,6 @@
 	
 <!-- Javascript -->
 	
-	<!-- <script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.js"></script> -->
-	<!-- <script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script> -->
-	<!-- <script src="resources/assets/vendor/chartist/js/chartist.min.js"></script> -->
 	<script src="resources/assets/scripts/klorofil-common.js"></script>
 
 
@@ -1973,14 +1961,5 @@
 	<script src="resources/js/main.js"></script>
  	<script src="resources/js/common_new.js"></script>
 	<script src="resources/js/approval_table.js"></script>
-	<!-- <script src="resources/js/approval_dext.js"></script> -->
-	<!-- <script src="resources/js/complete.js"></script> -->
-	<!-- <script src="resources/js/document_dext.js"></script> -->
-	<!-- <script src="resources/js/jaddressbook.js"></script> -->
-	<!-- <script src="resources/js/jajaxBasic.js"></script> -->
-	<!-- <script src="resources/js/jquery.fileupload.js"></script> -->
-	<!-- <script src="resources/js/jquery.toastmessage.js"></script> -->
-	<!-- <script src="resources/js/jvalidateMessage.js"></script> -->
-	<!-- <script src="resources/js/Sly.js"></script> -->
 </body>
 </html>
