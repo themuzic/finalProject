@@ -62,7 +62,7 @@
 								</td>
 								<td>
 									<div class="ui inverted segment">
-									  <button type="button" style="background-color:#3287B2; color:white; float:right;" class="btn btn-lg" id="insertTdBoard" onclick="location.href='insertTodoBoard.do'">
+									  <button type="button" style="background-color:#3287B2; color:white; float:right;" class="btn btn-lg" id="insertTdBoard" onclick="location.href='insertProject.do'">
 									  	<i class="fas fa-plus-circle"></i> 새 프로젝트
 									  </button>
 									</div>
