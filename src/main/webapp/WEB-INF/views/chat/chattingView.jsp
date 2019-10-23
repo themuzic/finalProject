@@ -324,7 +324,7 @@ body{
         	html = "<li class='msg-left'>" +
 			   "<div class='msg-left-sub'>" +
 			   "<img src='resources/images/" +
-			   data[3] +
+			   data[2] +
 			   "'>" +
 			   "<div class='msg-desc'>" +
 			   data[1] +
@@ -345,7 +345,6 @@ body{
 
 
     function onClose(evt) {
-
         $("#msg-area").append("연결 끊김");
 
     }

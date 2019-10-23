@@ -213,8 +213,13 @@ body{
     var sock;
 
     //웸소켓을 지정한 url로 연결한다.
-   	sock = new SockJS("<c:url value="/echo"/>");
-
+    sock = new SockJS("<c:url value="/echo"/>");
+	sock.onopen = onopen;
+    function onopen(){
+    	console.log("오픈");
+    	sock.send("채팅방 연결");
+    	
+    }
 
 
     //자바스크립트 안에 function을 집어넣을 수 있음.
@@ -231,11 +236,7 @@ body{
 
 
 
-    sock.onopen = function(){
-
-        sock.send("채팅방 연결");
-
-    };
+ 
 
     function sendMessage() {
 	
@@ -249,8 +250,9 @@ body{
     function onMessage(evt) {
 
         var data = evt.data;
-		
+		console.log(data);
         if(data == "채팅방 갱신"){
+        	console.log("채팅방을 갱신하세요");
         	refresh();
         }
 
@@ -258,12 +260,64 @@ body{
 
 	function refresh(){
 		$.ajax({
-			
+			url:"refresh.do",
+			type:"POST",
+			data:{empId:"${loginUser.empId}"},
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+				var html = ""
+				var empId =	${loginUser.empId}
+				$.each(data, function(indel, c){
+					
+				console.log("refresh실행");
+					html += "<li>" +
+						    "<div class='chatList'>" +
+						    "<input type='hidden' name='chatId' value=" + 
+						    c.chatId + 
+						    " >" +
+						    "<div class='img'>";
+					if(c.chatType == 1 || c.count <= 2){
+						$.each(c.profileList, function(index, profile){
+							if(profile.chatId == c.chatId && profile.empId != empId){
+								html += "<img src='resources/images/" +
+										profile.profilePath + 
+										"'>";
+							}
+						});
+					}
+					if(c.chatType == 2 && c.count >= 2){
+						$.each(c.profileList, function(index, profile){
+							if(index < 4){
+								if(profile.chatId == c.chatId){
+									html += "<img style='width:20px;' src='resources/images/" +
+											profile.profilePath + 
+											"'>";
+								}
+							}
+						});
+					}
+					
+					html += "</div>" +
+							"<div class='desc'>" +
+							"<small class='time'>" +
+							c.modifyDate +
+							"</small>" +
+							"<h5 id=" + c.chatId + ">" + c.chatName + "</h5>" +
+							"<small>" + c.lastMsg + "</small>" +
+							"</div>" +
+							"</div>" +
+							"</li>";
+				});
+				$("#allList").html(html);
+			},
+			error:function(){
+				
+			}
 		});
 	}
 	
     function onClose(evt) {
-		
         $("#data").append("연결 끊김");
 
     }
@@ -307,13 +361,13 @@ body{
 			
 			<div class="body-section" style="overflow:auto;">
 				<div class="left-section" data-mcs-theme="minimal-dark">
-					<ul>
+					<ul id="allList">
 						<c:forEach items="${chatList }" var="c">
 						<li>
 							<div class="chatList">
 								<input type="hidden" name="chatId" value="${c.chatId }" >
 								<div class="img">
-									<c:if test="${c.chatType == 1 &&c.count <= 2}">
+									<c:if test="${c.chatType == 1 || c.count <= 2}">
 										<c:forEach items="${c.profileList }" var="profile">
 											<c:if test="${profile.chatId == c.chatId && profile.empId ne loginUser.empId }">
 												<img src="resources/images/${profile.profilePath }">

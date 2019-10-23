@@ -29,7 +29,7 @@ public class EchoHandler extends TextWebSocketHandler{
 	
     private static List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
     private static Map<String, ArrayList<WebSocketSession>> chatList = new HashMap<>();
-    private static Map<String, ArrayList<WebSocketSession>> messengerList = new HashMap<>();
+    private static List<WebSocketSession> messengerList = new ArrayList<WebSocketSession>();
 
     /**
 
@@ -40,7 +40,7 @@ public class EchoHandler extends TextWebSocketHandler{
     @Override
 
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-    	
+    	sessionList.add(session);
 
         logger.info("{} 연결됨", session.getId());
     }
@@ -56,6 +56,7 @@ public class EchoHandler extends TextWebSocketHandler{
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
     	
     	String[] messageList = message.getPayload().split(":"); //받은 메세지를 :을 구분자로 스플릿
+    	System.out.println(message.getPayload());
     	
     	if(messageList.length == 2 && messageList[0].equals("chatId")) {// 스플릿한 배열의 길이가 2(chatId:15)면서 0번 인덱스가 chatId일때
     		ArrayList<WebSocketSession> list;	
@@ -66,8 +67,9 @@ public class EchoHandler extends TextWebSocketHandler{
     		}
     		list.add(session);					// ArrayList에 세션을 담는다.
 			chatList.put(messageList[1], list);	// 채팅방 리스트에 chatId와 웹소켓세션을 담는다
-    	}else if(messageList.length == 0 && message.getPayload().equals("채팅방 연결")) {
-    		sessionList.add(session);
+    	}
+    	if(message.getPayload().equals("채팅방 연결")) {
+    		messengerList.add(session);
     	}
     	if(messageList.length == 3 && messageList[0].equals("chatId")) {	// 스플릿한 배열의 길이가 3이고, 0번 인덱스가 chatId일때
     		
@@ -86,16 +88,17 @@ public class EchoHandler extends TextWebSocketHandler{
 					for(WebSocketSession sess : list) {									// 그 방에 있는 세션 전체 반복문 실행
 						int otherId = ((Employee)sess.getAttributes().get("loginUser")).getEmpId();	// 받는사람 아이디 출력
 						System.out.println(otherId);
-						for(WebSocketSession sess2 : sessionList) {						// 채팅방 리스트에 접속한 세션 전체 반복문 실행
-							if(((Employee)sess.getAttributes().get("loginUser")).getEmpId() == ((Employee)sess2.getAttributes().get("loginUser")).getEmpId()){
-								// 방에 있는 세션의 empId와 채팅방 리스트에 접속한 세션의 empId가 같으면
-								sess2.sendMessage(new TextMessage("채팅방 갱신")); // 메세지 전달
-							}
-						}
 						if(empId == otherId){		// 보낸사람과 받는사람이 아이디가 같으면
 							sess.sendMessage(new TextMessage("나:"+ messageList[2]));	//메세지 출력
 						}else {						// 다르면
 							sess.sendMessage(new TextMessage("상대방:"+ messageList[2] + ":" + profilePath));	// 메세지 출력
+						}
+						
+						for(WebSocketSession sess2 : messengerList) {						// 채팅방 리스트에 접속한 세션 전체 반복문 실행
+							if(((Employee)sess.getAttributes().get("loginUser")).getEmpId() == ((Employee)sess2.getAttributes().get("loginUser")).getEmpId()){
+								// 방에 있는 세션의 empId와 채팅방 리스트에 접속한 세션의 empId가 같으면
+								sess2.sendMessage(new TextMessage("채팅방 갱신")); // 메세지 전달
+							}
 						}
 					}
 					
@@ -122,7 +125,17 @@ public class EchoHandler extends TextWebSocketHandler{
 
             CloseStatus status) throws Exception {
         sessionList.remove(session);
-        
+        messengerList.remove(session);
+        for(String key : chatList.keySet()) {
+        	ArrayList<WebSocketSession> list = chatList.get(key);
+        	for(WebSocketSession sess : list) {
+        		if(sess.getId() == session.getId()){
+        			list.remove(sess);
+        			break;
+        		}
+        	}
+        	chatList.put(key, list);
+        }
         logger.info("{} 연결 끊김", session.getId());
 
     }

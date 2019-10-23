@@ -1,7 +1,9 @@
 package com.kh.develoffice.chat.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kh.develoffice.chat.model.service.ChatService;
 import com.kh.develoffice.chat.model.vo.Chat;
 import com.kh.develoffice.chat.model.vo.Message;
@@ -56,6 +60,29 @@ public class ChatController {
 		mv.addObject("chatList", chatList).setViewName("chat/chatListView");
 		
 		return mv;
+	}
+	
+	@RequestMapping("refresh.do")
+	public void refresh(int empId, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<Chat> chatList = cService.selectChatList(empId);
+		
+		ArrayList<Message> chatProfileList = cService.selectChatProfile(empId);
+		for(Chat c:chatList) {
+			ArrayList<Message> profile = new ArrayList<>();
+			for(Message m:chatProfileList) {
+				if(c.getChatId() == m.getChatId()) {
+					profile.add(m);
+				}
+			}
+			c.setProfileList(profile);
+		}
+		
+		response.setContentType("application/json; charset=utf-8");
+		
+		Gson gson = new Gson();
+		gson.toJson(chatList, response.getWriter());
+		
 	}
 	@RequestMapping("chatting.do")
 	public ModelAndView chattingList(ModelAndView mv, int chatId, String chatName) {
