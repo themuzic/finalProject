@@ -20,4 +20,8 @@ public interface ChatService {
 	// 메세지 내역 조회 서비스
 	ArrayList<Message> selectMsgList(int chatId);
 
+	int insertMessage(Message m);
+
+	int updateChatMod(int chatId);
+
 }

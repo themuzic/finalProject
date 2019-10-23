@@ -58,12 +58,14 @@ public class ChatController {
 		return mv;
 	}
 	@RequestMapping("chatting.do")
-	public ModelAndView chattingList(ModelAndView mv, int chatId) {
+	public ModelAndView chattingList(ModelAndView mv, int chatId, String chatName) {
 		
-//		ArrayList<Message> msgList = cService.selectMsgList(chatId);
+		ArrayList<Message> msgList = cService.selectMsgList(chatId);
+		Chat c = new Chat();
+		c.setChatId(chatId);
+		c.setChatName(chatName);
 		
-		
-		mv.addObject("chatId", chatId).setViewName("chat/chattingView");
+		mv.addObject("msgList", msgList).addObject("c", c).setViewName("chat/chattingView");
 		
 		return mv;
 	}

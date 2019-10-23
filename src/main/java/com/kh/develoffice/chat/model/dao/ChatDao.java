@@ -39,6 +39,16 @@ public class ChatDao {
 		
 	}
 
+	public int insertMessage(Message m) {
+		
+		return sqlSession.insert("chatMapper.insertMessage", m);
+	}
+
+	public int updateChatMod(int chatId) {
+		
+		return sqlSession.update("chatMapper.updateChatMod",chatId);
+	}
+
 
 	
 }

@@ -44,5 +44,16 @@ public class ChatServiceImpl implements ChatService {
 		
 	}
 
+	@Override
+	public int insertMessage(Message m) {
+		return cDao.insertMessage(m);
+		
+	}
+
+	@Override
+	public int updateChatMod(int chatId) {
+		return cDao.updateChatMod(chatId);
+	}
+
 
 }

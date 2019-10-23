@@ -18,8 +18,20 @@
 		<result property="profilePath" column="profile_path"/>
 	</resultMap>
 	
-	<!-- <resultMap id="chatListResult" type="Message">
-	</resultMap> -->
+	<resultMap id="messageListResult" type="Message">
+		<id property="msgId" column="msg_id"/>
+		<result property="chatId" column="chat_id"/>
+		<result property="empId" column="emp_id"/>
+		<result property="empName" column="emp_name"/>
+		<result property="jobName" column="job_name"/>
+		<result property="profilePath" column="profile_path"/>
+		<result property="content" column="m_content"/>
+		<result property="createDate" column="m_create_date"/>
+		<result property="originName" column="origin_name"/>
+		<result property="changeName" column="change_name"/>
+		<result property="status" column="m_status"/>
+		<result property="validity" column="validity"/>
+	</resultMap>
 	
 	<select id="selectChatList" parameterType="_int" resultMap="chatListResult">
 		select *
@@ -34,9 +46,25 @@
 		JOIN EMPLOYEE E ON(J.EMP_ID = E.EMP_ID)
 		WHERE CHAT_STATUS = 'Y' AND J.EMP_ID != #{empId}
 	</select>
-	<!-- 
+	
+	<insert id="insertMessage" parameterType="Message">
+		INSERT INTO MESSAGE
+		VALUES(MSG_SEQ.NEXTVAL, #{chatId}, #{empId}, #{content}, SYSDATE, DEFAULT)
+	</insert>
+	
+	<update id="updateChatMod" parameterType="_int">
+		UPDATE CHAT
+		SET MODIFY_DATE = (SELECT MAX(M_CREATE_DATE)
+		                   FROM MESSAGE
+		                   WHERE CHAT_ID = #{chatId}
+		                   GROUP BY CHAT_ID)
+		WHERE CHAT_ID = #{chatId}
+	</update>
+	
 	<select id="selectMsgList" parameterType="_int" resultMap="messageListResult">
-		
-	</select> -->
+		SELECT *
+		FROM MESSAGE_LIST
+		WHERE CHAT_ID = #{chatId}
+	</select>
 
 </mapper>

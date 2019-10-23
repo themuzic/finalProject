@@ -190,8 +190,9 @@ body{
         var i = 0;
         $(".chatList").on("dblclick", function(){	// 채팅방 더블클릭 했을때
         	console.log($(this).children().first().val());
-        	chatId = $(this).children().first().val();	// 더블클릭한 채팅방의 chatId
-        	messenger = window.open("chatting.do?chatId=" + chatId, chatId + "chatting", "width=500,height=545", "false");
+        	var chatId = $(this).children().first().val();	// 더블클릭한 채팅방의 chatId
+        	var chatName = $("#chatName")
+        	messenger = window.open("chatting.do?chatId=" + chatId + "&chatName=" + chatName, chatId + "chatting", "width=500,height=545", "false");
         	
         });
 
@@ -228,22 +229,15 @@ body{
 
 
 
-    /* sock.onopen = function(){
+    sock.onopen = function(){
 
-        sock.send($("#message").val());
+        sock.send("채팅방 연결");
 
-    }; */
+    };
 
     function sendMessage() {
 	
-		if($("#message").val() == ""){	// 메세지 내용이 없으면 실행되는 부분
-			
-		}else{							// 메세지 내용이 있으면
-        	/*소켓으로 보내겠다.  */
-	        sock.send($("#message").val());	// 메세지를 소켓에 보내고
-	        $("#message").val("");			// 메세지 내용을 비운다.
-			
-		}
+		
         
 
     }
@@ -254,13 +248,18 @@ body{
 
         var data = evt.data;
 		
-        $("#data").append(data + "<br/>");
-        document.body.scrollIntoView(false);	// 스크롤을 제일 아래로
-        //sock.close();
+        if(data == "채팅방 갱신"){
+        	refresh();
+        }
 
     }
 
-
+	function refresh(){
+		$.ajax({
+			
+		});
+	}
+	
     function onClose(evt) {
 		
         $("#data").append("연결 끊김");
@@ -332,7 +331,7 @@ body{
 								
 								<div class="desc">
 									<small class="time">${c.modifyDate }</small>
-									<h5>${c.chatName }</h5>
+									<h5 id="chatName">${c.chatName }</h5>
 									<small>${c.lastMsg }</small>
 								</div>
 							</div>

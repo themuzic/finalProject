@@ -108,6 +108,7 @@ body{
 	position: absolute;
 	width: 40px;
 	bottom: 30px;
+	border-radius:50%;
 }
 .message ul li.msg-left .msg-desc{
 	margin-left: 70px;
@@ -121,8 +122,8 @@ body{
 	position: absolute;
 	content: '';
 	border:10px solid transparent;
-	border-bottom-color: #E8E8E8;
-	bottom: 0px;
+	border-top-color: #E8E8E8;
+	top: 0px;
 	left: -10px;
 }
 .message ul li.msg-left small{
@@ -138,6 +139,7 @@ body{
 	width: 40px;
 	right: 0px;
 	bottom: 30px;
+	border-radius: 50%;
 }
 .message ul li.msg-right .msg-desc{
 	margin-right: 70px;
@@ -152,8 +154,8 @@ body{
 	position: absolute;
 	content: '';
 	border:10px solid transparent;
-	border-bottom-color: #cce5ff;
-	bottom: 0px;
+	border-top-color: #cce5ff;
+	top: 0px;
 	right: -10px;
 }
 .message ul li.msg-right small{
@@ -238,8 +240,8 @@ body{
                 sendMessage();	// 메소드 실행
             }
         });
-
-
+		
+        $("#messageArea").scrollTop(9999999);
 
     });
 
@@ -302,11 +304,14 @@ body{
 
         var data = (evt.data).split(":");
         var date = formatAMPM(new Date());
+        var profilePath = ${loginUser.profilePath};
 		var html = '';
         if(data[0] == "나"){
         	html = "<li class='msg-right'>" +
 			   "<div class='msg-right-sub'>" +
-			   "<img src='resources/image/sitelogo.png'>" +
+			   "<img src='resources/images/" +
+			   profilePath + 
+			   "'>" +
 			   "<div class='msg-desc'>" +
 			   data[1] +
 			   "</div>" +
@@ -315,10 +320,12 @@ body{
 			   "</small>" +
 			   "</div>" +
 			   "</li>";
-        }else{
+        }else if(data[0] == "상대방"){
         	html = "<li class='msg-left'>" +
 			   "<div class='msg-left-sub'>" +
-			   "<img src='resources/image/sitelogo.png'>" +
+			   "<img src='resources/images/ +
+			   data[3] +
+			   "'>" +
 			   "<div class='msg-desc'>" +
 			   data[1] +
 			   "</div>" +
@@ -352,7 +359,7 @@ body{
 		<div class="head-section">
 			<div class="headRight-section">
 				<div class="headRight-sub">
-					<h3>유현규 사원</h3>
+					<h3>${c.chatName }</h3>
 					<small>2019-10-14</small>
 				</div>
 			</div>
@@ -361,7 +368,39 @@ body{
 			<div class="right-section">
 				<div id="messageArea" class="message" data-mcs-theme="minimal-dark" style="overflow:auto;">
 					<ul id="msg-area">
-						<li class="msg-left">
+						<c:forEach items="${msgList}" var="msg">
+							<c:if test="${date eq null}">
+								<li class="msg-day"><small>${msg.createDate}</small></li>
+							</c:if>
+							<c:if test="${date < msg.createDate }">
+								<li class="msg-day"><small>${msg.createDate}</small></li>
+								<li class="msg-day"><small>수요일</small></li>
+							</c:if>
+							<c:set var="date" value="${msg.createDate}"/>
+							<c:if test="${msg.empId == loginUser.empId }">
+								<li class="msg-right">
+									<div class="msg-left-sub">
+										<img src="resources/images/${msg.profilePath}">
+										<div class="msg-desc">
+											${msg.content}
+										</div>
+										<small>${msg.createDate}</small>
+									</div>
+								</li>
+							</c:if>
+							<c:if test="${msg.empId ne loginUser.empId }">
+								<li class="msg-left">
+									<div class="msg-left-sub">
+										<img src="resources/images/${msg.profilePath}">
+										<div class="msg-desc">
+											${msg.content}
+										</div>
+										<small>${msg.createDate}</small>
+									</div>
+								</li>
+							</c:if>
+						</c:forEach>
+						<!-- <li class="msg-left">
 							<div class="msg-left-sub">
 								<img src="resources/image/sitelogo.png">
 								<div class="msg-desc">
@@ -389,7 +428,7 @@ body{
 							</div>
 						</li>
 						
-						<li class="msg-day"><small>수요일</small></li>
+						<li class="msg-day"><small>수요일</small></li> -->
 						
 					</ul>
 				</div>
