@@ -578,12 +578,9 @@
 			
 			$div1.append($span1_1);
 			$div1.append($span1_2);
-			
 			$div2.append($p2_1);
-			
 			$div.append($div1);
 			$div.append($div2);
-			
 			
 			
 			/* 버튼 생성 */
@@ -607,14 +604,10 @@
 			$bDiv.append($bDiv2);
 			
 			
-			/* $(this).closest('.item').next('.item').children('.content').append($div); */
-			/* $(this).closest('.item').next('.item').children('a').click() */
-			
 			$("#cDiv").append($div);
 			$("#cDiv").append($bDiv);
 			
 			$("#tab4").parent('a').click();
-			
 			
 			$("#step3").css('background','white');
 			$("#step3").removeClass('active');
@@ -673,7 +666,6 @@
 		    				} else{
 		    					alertify.alert('', '결제 실패');
 		    				}
-		    				
 		    			},
 		    			error:function(){
 		    				alertify.alert('', '통신 실패 : 다시 시도해 주세요.');
@@ -682,16 +674,10 @@
 		    		});	/* ajax close */
 		    	});		/* function(rsp) close */
 		    
-		    
 		}	<!--  이니시스 결제 close   -->
 		
 		
-		
-		
-		
 	</script>
-	
-	
 	
 	<!-- Javascript -->
 	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>

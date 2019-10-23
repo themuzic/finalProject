@@ -19,13 +19,14 @@ public class Document {
 	private String docuType;	// 문서종류
 	private int docuCode;		// 문서번호
 	private int empId;			// 작성한직원ID
-	private int saveTerm;		// 보존연한
-	private int security;		// 보안등급
+	private String saveTerm;		// 보존연한
+	private String security;		// 보안등급
 	private Date docuDate;		// 작성날짜
 	private String status;		// 활성화 상태
+	private String fileStatus;		//파일유무
 	
 	
-	public Document(int docuNum, String docuType, int docuCode, int empId, int saveTerm, int security, Date docuDate) {
+	public Document(int docuNum, String docuType, int docuCode, int empId, String saveTerm, String security, Date docuDate) {
 		super();
 		this.docuNum = docuNum;
 		this.docuType = docuType;
@@ -37,7 +38,7 @@ public class Document {
 	}
 
 
-	public Document(String docuType, int docuCode, int empId, int saveTerm, int security, Date docuDate) {
+	public Document(String docuType, int docuCode, int empId, String saveTerm, String security, Date docuDate) {
 		super();
 		this.docuType = docuType;
 		this.docuCode = docuCode;

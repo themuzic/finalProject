@@ -11,6 +11,7 @@
 		<result property="security" column="security"/>
 		<result property="docuDate" column="docu_date"/>
 		<result property="status" column="status"/>
+		<result property="fileStatus" column="file_status"/>
 	</resultMap>
 	
 	
@@ -83,6 +84,44 @@
 		group by dept_code, dept_name
         order by dept_code
 	</select>
+	
+	
+	<insert id="insertDocument" parameterType="Document">
+		insert into document
+		values(docu_seq.nextval,#{docuType},#{docuCode},#{empId},#{saveTerm},#{security},sysdate,default,#{fileStatus})
+	</insert>
+	
+	
+	<insert id="insertDocuA" parameterType="DocuA">
+		insert into docuA
+		values(docu_seq.currval,#{title},#{accountingType},#{spendingYear},#{spendingMonth},#{spenderName},#{accountName},#{expenseDate},#{departmentName},#{price},#{customer},#{brief},default)
+	</insert>
+	
+	
+	<insert id="insertDocuB" parameterType="DocuB">
+		insert into docuB
+		values(docu_seq.currval,#{title},#{content},default)
+	</insert>
+	
+	
+	<insert id="insertApproval" parameterType="_int">
+		insert into approval
+		values(docu_seq.currval,#{empId},default,null)
+	</insert>
+	
+	
+	<insert id="insertReference" parameterType="_int">
+		insert into reference
+		values(docu_seq.currval,#{empId},default,null)
+	</insert>
+	
+	
+	<insert id="insertFile" parameterType="DocumentFile">
+		insert into document_file
+		values(docu_file_seq.nextval,docu_seq.currval,#{filePath},#{originName},#{changeName},sysdate,default)
+	</insert>
+	
+	
 
 
 </mapper>

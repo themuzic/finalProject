@@ -88,7 +88,6 @@
 					
 						<form action="" name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">
 						
-						
 						<div style="padding-bottom:15px;">
 							<span style="padding-right:20px;"><a href="javascript:void(0);" onclick="insertDocument();"><b>기안하기</b></a></span>
 							<span><a href="javascript:void(0);"><b>임시저장</b></a></span>
@@ -660,7 +659,8 @@
 						
 						
 						
-						<textarea id="summernote" name="content" value=""></textarea>
+						<textarea id="summernote" class="summernote" name="content" value=""></textarea>
+						<!-- <div id="summernote" class="summernote" name="content" value=""></div> -->
 						
 						
 						
@@ -728,15 +728,17 @@
 							<tr>
 								<th scope="row">지출자</th>
 								<td>
-									<input type="text" name="spenderName" class="account-add js-complete ui-autocomplete-input hide" value="" id="inputSpenderName" >
+									<input type="text" class="account-add js-complete ui-autocomplete-input hide" value="" id="inputSpenderName" >
 									<span class="" id="textSpenderName">${loginUser.empName}</span>
+									<input type="hidden" name="spenderName" value="${loginUser.empName}" id="spenderName">
 									<button type="button" class="weakblue mgl_20" id="modifySpenderName">변경</button>
 
 									
 									<!-- 자동 완성 팝업창 시작 -->
 						
-									<ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content dropdown-menu block approval-autocomplete" id="ui-id" tabindex="0" style="display:none; position:absolute; top:836px; left:198px; width:285px; padding:0;z-index:1500;">
-										
+									<ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content dropdown-menu block approval-autocomplete" id="ui-id" tabindex="0" style="display:none; position:absolute; top:838px; left:198px; width:285px; padding:0;z-index:1500;">
+										<!-- top:836px; left:198px; -->
+										<!-- top:854px; left:145px; -->
 										<!-- 
 										<li class="ui-menu-item popup_li" id="ui-id-5" tabindex="-1">
 											<div>
@@ -955,7 +957,7 @@
 						
 					<!-------------- 첨부파일존 끝 ---------------------------------------------------------->
 					
-				    </form>
+				</form>
 						
 						
 						
@@ -1052,6 +1054,7 @@
 			/* 각종 초기화 */
 			$(".referRow").html("");
 			$(".referRow2").html("");
+			$("#summernote").html("");
 			
 			$.each($("#nameRow").children(), function(i, td){
 				td.innerHTML = "";
@@ -1504,8 +1507,9 @@
 		
 		/* 지출자 변경 자동완성 */
 		$("#inputSpenderName").keyup(function(e){
-			
+			$('#dfs').prop('checked')
 			console.log($(this).val());
+			console.log(e);
 			var key = $(this).val();
 			var $ui = $("#ui-id");
 			
@@ -1568,7 +1572,8 @@
 		$("#ui-id").on('click','li',function(){
 			
 			$("#textSpenderName").text($(this).find(".team-membername").text());
-			$("#textSpenderName").removeClass('hide');			
+			$("#spenderName").val($(this).find(".team-membername").text());
+			$("#textSpenderName").removeClass('hide');
 			$("#modifySpenderName").removeClass('hide');
 			$("#inputSpenderName").removeClass('show');
 			$("#accountTd").text('IBK기업은행 / '+$(this).find(".team-membername").attr('id'));
@@ -1711,34 +1716,233 @@
 			
 			/* 통합문서 테이블 */
 			var docuType = $("#documentTypeSelect option:selected").val();
-			var docuCode;
+			
+			var date = new Date(); 
+			var year = date.getFullYear(); 
+			var month = new String(date.getMonth()+1); 
+			var day = new String(date.getDate()); 
+
+			// 한자리수일 경우 0을 채워준다. 
+			if(month.length == 1){ 
+			  month = "0" + month; 
+			} 
+			if(day.length == 1){ 
+			  day = "0" + day; 
+			} 
+
+			var docuCode = year + "" + month + "" + day;
 			var empId = ${loginUser.empId};
 			var saveTerm = $("#set_preserved_term_y option:selected").val();
 			var security = $("#set_security_level_y option:selected").val();
+
 			
-			/* 지출결의서 테이블 */
+			
+			var formData = new FormData();
+			/* 첨부 파일 */
+			if($('input[name=uploadFile]').length > 0){		//첨부파일이 있으면
+				formData.append('uploadFile',$('input[name=uploadFile]')[0].files[0]);
+			}
+		
+			formData.append('docuType',docuType);
+			formData.append('docuCode',docuCode);
+			formData.append('empId',empId);
+			formData.append('saveTerm',saveTerm);
+			formData.append('security',security);
+			
+			
+			/* 제목 */
 			var title = $("#approval_document_title").val();
-			var accountingType = $('input[name=accountingType]:checked').val();
-			var spendingYear = $("#selectFixedYear option:selected").val();
-			var spendingMonth = $("#selectFixedMonth option:selected").val();
-			var spenderName = $("#textSpenderName").text();
 			
-			if($("#spendTbody tr") > 0){	// 거래내역 입력이 없으면
-				alertify.alert('', '거래내역이 없습니다.');
-				return;
+			/* 첨부파일 */
+			
+			formData.append('title',title);
+			
+			if(docuType == 'AP'){	//지출결의서
+				
+				/* 결재라인(배열) */
+				var apArr = "";
+				var apNames = $('#nameRow input[name=empId]');
+				$.each(apNames,function(i, id){
+					if(i == 0){
+						apArr += id.value;
+					}else{
+						apArr += ","+id.value;
+					}
+				});
+				if(apArr == null){
+					alertify.alert('', '결재 라인이 지정되지 않았습니다.');
+					return;
+				}
+				formData.append('apArr',apArr);
+				
+				if($("#spendTbody tr") > 0){	// 거래내역 입력이 없으면
+					alertify.alert('', '거래내역이 없습니다.');
+					return;
+				}
+				
+				/* 참조라인(배열) */
+				var rfArr = "";
+				var rfNames = $('.referRow span');
+				$.each(rfNames,function(i, id){
+					if(i == 0){
+						rfArr += id.getAttribute('empId');
+					}else{
+						rfArr += ","+id.getAttribute('empId');
+					}
+				});
+				formData.append('rfArr',rfArr);
+			
+				/* 지출결의서 테이블 */
+				var accountingType = $('input[name=accountingType]:checked').val();
+				var spendingYear = $("#selectFixedYear option:selected").val();
+				var spendingMonth = $("#selectFixedMonth option:selected").val();
+				var spenderName = $("#textSpenderName").text();
+				
+				/* 지출 내역 */
+				var accountName = "";
+				var tempArr = $("input[name=accountName]");
+				$.each(tempArr,function(i, v){
+					if(i == 0){
+						accountName += v.value;
+					}else{
+						accountName += ','+v.value;
+					}
+				});
+				
+				var expenseDate = "";
+				tempArr = $("input[name=accountName]");
+				$.each(tempArr,function(i, v){
+					if(i == 0){
+						expenseDate += v.value;
+					}else{
+						expenseDate += ','+v.value;
+					}
+				});
+				
+				var departmentName = "";				
+				tempArr = $("input[name=departmentName]");
+				$.each(tempArr,function(i, v){
+					if(i == 0){
+						departmentName += v.value;
+					}else{
+						departmentName += ','+v.value;
+					}
+				});
+				
+				var price = "";
+				tempArr = $("input[name=price1]");
+				$.each(tempArr,function(i, v){
+					if(i == 0){
+						price += v.value;
+					}else{
+						price += ','+v.value;
+					}
+				});
+				
+				var customer = "";
+				tempArr = $("input[name=customer]");
+				$.each(tempArr,function(i, v){
+					if(i == 0){
+						customer += v.value;
+					}else{
+						customer += ','+v.value;
+					}
+				});
+				
+				var brief = "";
+				tempArr = $("input[name=brief]");
+				$.each(tempArr,function(i, v){
+					if(i == 0){
+						brief += v.value;
+					}else{
+						brief += ','+v.value;
+					}
+				});
+				
+				formData.append('accountingType',accountingType);
+				formData.append('spendingYear',spendingYear);
+				formData.append('spendingMonth',spendingMonth);
+				formData.append('spenderName',spenderName);
+				formData.append('accountName',accountName);
+				formData.append('expenseDate',expenseDate);
+				formData.append('departmentName',departmentName);
+				formData.append('price',price);
+				formData.append('customer',customer);
+				formData.append('brief',brief);
+				
+			}else if(docuType == 'CN'){	//회람
+				
+				/* 참조라인(배열) */
+				var rfArr = "";
+				var rfNames = $('.referRow2 span');
+				$.each(rfNames,function(i, id){
+					if(i == 0){
+						rfArr += id.getAttribute('empId');
+					}else{
+						rfArr += ","+id.getAttribute('empId');
+					}
+				});
+				formData.append('rfArr',rfArr);
+				
+				/* 에디터 내용 */
+				var content = $(".summernote").val();
+				formData.append('content',content);
+				
+			}else if(docuType == 'CF'){	//품의서
+				
+				/* 에디터 내용 */
+				var content = $("#summernote").val();
+				formData.append('content',content);
+				
+				/* 결재라인(배열) */
+				var apArr = "";
+				var apNames = $('#nameRow input[name=empId]');
+				$.each(apNames,function(i, id){
+					if(i == 0){
+						apArr += id.value;
+					}else{
+						apArr += ","+id.value;
+					}
+				});
+				if(apArr == null){
+					alertify.alert('', '결재 라인이 지정되지 않았습니다.');
+					return;
+				}
+				formData.append('apArr',apArr);
+				
+				/* 참조라인(배열) */
+				var rfArr = "";
+				var rfNames = $('.referRow span');
+				$.each(rfNames,function(i, id){
+					if(i == 0){
+						rfArr += id.getAttribute('empId');
+					}else{
+						rfArr += ","+id.getAttribute('empId');
+					}
+				});
+				formData.append('rfArr',rfArr);
 			}
 			
-			var accountName = $("input[name=accountName]").val();
-			var expenseDate = $("input[name=expenseDate]").val();
-			var departmentName = $("input[name=departmentName]").val();
-			var price = $("input[name=price1]").val();
-			var customer = $("input[name=customer]").val();
-			var brief = $("input[name=brief]").val();
 			
-			
-			
-			
-			
+			$.ajax({
+				url:"insertDocument.do",
+				type:"POST",
+				processData:false,
+				contentType:false,
+				data:formData,
+				success:function(data){
+					
+					if(data == "success"){
+    					location.href="documentTable.do";
+    					
+    				} else{
+    					alertify.alert('', '기안 실패');
+    				}
+				},
+				error:function(){
+					alertify.alert('', 'AJAX통신 실패');
+				}
+			});
 			
 		}
 		
@@ -1850,7 +2054,7 @@
 		                    fileSizeList[fileIndex] = fileSize;
 		 
 		                    // 업로드 파일 목록 생성
-		                    addFileList(fileIndex, fileName, fileSize);
+		                    addFileList(fileIndex, fileName, fileSize, files);
 		 
 		                    // 파일 번호 증가
 		                    fileIndex++;
@@ -1860,18 +2064,28 @@
 		            alert("ERROR");
 		        }
 		    }
-		 
-		    // 업로드 파일 목록 생성
-		    function addFileList(fIndex, fileName, fileSize){
+		 	
+			// 업로드 파일 목록 생성
+		    function addFileList(fIndex, fileName, fileSize, files){
+				
+				console.log(files);
+				
 		        var html = "";
 		        html += "<tr id='fileTr_" + fIndex + "'>";
 		        html += "    <td class='left' >";
-		        html +=         fileName + " / " + fileSize + "MB "  + "<a href='#' onclick='deleteFile(" + fIndex + "); return false;' class='btn small bg_02' style='box-shadow:none; border:1px solid #ececec;'>삭제</a>"
+		        html +=         fileName + " / " + fileSize + "MB "  + "&nbsp;<a href='#' onclick='deleteFile(" + fIndex + "); return false;' class='btn small bg_02' style='box-shadow:none; border:1px solid #ececec;'>삭제</a>"
+		        html +=	"       <input type='file' name='uploadFile' id='test' multiple='multiple'>"
 		        html += "    </td>"
 		        html += "</tr>"
-		 
 		        $('#fileTableTbody').append(html);
+		        
+		        $("#test").prop("files", files);
+		        console.log($("#test"));
+		        
+		        // input file 숨기기
+		        $("#test").css("display", "none");
 		    }
+		 
 		 
 		    // 업로드 파일 삭제
 		    function deleteFile(fIndex){
