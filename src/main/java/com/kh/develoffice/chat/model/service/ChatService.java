@@ -20,10 +20,16 @@ public interface ChatService {
 	// 메세지 내역 조회 서비스
 	ArrayList<Message> selectMsgList(int chatId);
 
+	// 메세지 등록 서비스
 	int insertMessage(Message m);
 
+	// 채팅방 갱신 서비스
 	int updateChatMod(int chatId);
 
+	// 채팅방 인원 확인 갱신 서비스
 	int updateJoinMod(Message m);
+
+	// 채팅방 소속 사람들 조회 서비스
+	ArrayList<Message> selectUsers(int chatId);
 
 }

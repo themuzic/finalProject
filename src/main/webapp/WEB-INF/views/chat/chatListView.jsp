@@ -195,7 +195,6 @@ body{
         	/* var chatName = encodeURI(chatName); */
         	console.log(chatName.html());
         	messenger = window.open("chatting.do?chatId=" + chatId + "&chatName=" + chatName.html(), chatId + "chatting", "width=500,height=545", "false");
-        	
         });
 
     });
@@ -269,7 +268,7 @@ body{
 				var html = ""
 				var empId =	${loginUser.empId}
 				$.each(data, function(indel, c){
-					
+				
 				console.log("refresh실행");
 					html += "<li>" +
 						    "<div class='chatList'>" +
@@ -304,8 +303,15 @@ body{
 							c.modifyDate +
 							"</small>" +
 							"<h5 id=" + c.chatId + ">" + c.chatName + "</h5>" +
-							"<small>" + c.lastMsg + "</small>" +
-							"</div>" +
+							"<small>" + c.lastMsg + "</small>";
+					if(c.unRead > 0){
+						html += "<div style='width:5%; text-align:center; float:right; border-radius:50%; background-color:red; color:white;'>" +
+								c.unRead +
+								"</div>";
+						
+					}
+							
+					html += "</div>" +
 							"</div>" +
 							"</li>";
 				});
@@ -389,6 +395,9 @@ body{
 									<small class="time">${c.modifyDate }</small>
 									<h5 id="${c.chatId}">${c.chatName }</h5>
 									<small>${c.lastMsg }</small>
+									<c:if test="${c.unRead > 0}">
+										<div style="width:5%; text-align:center; float:right; border-radius:50%; background-color:red; color:white;">${c.unRead }</div>
+									</c:if>
 								</div>
 							</div>
 						</li>

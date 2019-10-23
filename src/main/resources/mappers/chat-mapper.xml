@@ -10,6 +10,7 @@
 		<result property="lastMsg" column="m_content"/>
 		<result property="chatType" column="chat_type"/>
 		<result property="count" column="chat_count"/>
+		<result property="unRead" column="join_count"/>
 	</resultMap>
 	
 	<resultMap id="chatProfileResult" type="Message">
@@ -76,6 +77,12 @@
 	<select id="selectMsgList" parameterType="_int" resultMap="messageListResult">
 		SELECT *
 		FROM MESSAGE_LIST
+		WHERE CHAT_ID = #{chatId}
+	</select>
+	
+	<select id="selectUsers" parameterType="_int" resultMap="chatProfileResult">
+		SELECT EMP_ID
+		FROM JOIN_CHAT
 		WHERE CHAT_ID = #{chatId}
 	</select>
 

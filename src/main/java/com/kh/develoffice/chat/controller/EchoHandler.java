@@ -78,6 +78,13 @@ public class EchoHandler extends TextWebSocketHandler{
 				chatList.put(messageList[1], list);	// 채팅방 리스트에 chatId와 웹소켓세션을 담는다
 			}
 			
+			for(WebSocketSession sess : messengerList) {					// 채팅방 리스트에 접속한 세션 전체 반복문 실행
+					if(empId == ((Employee)sess.getAttributes().get("loginUser")).getEmpId()){
+						// 방에 있는 세션의 empId와 채팅방 리스트에 접속한 세션의 empId가 같으면
+						sess.sendMessage(new TextMessage("채팅방 갱신")); // 메세지 전달
+					}
+					
+			}
 			
     	}
     	if(message.getPayload().equals("채팅방 연결")) {		// 채팅방 리스트가 연결되었으면
@@ -95,6 +102,8 @@ public class EchoHandler extends TextWebSocketHandler{
 			m.setContent(messageList[2]);
 			System.out.println(m);
 			int result = cService.insertMessage(m);		// 메세지 db에 저장
+			ArrayList<Message> people = cService.selectUsers(Integer.parseInt(messageList[1]));	// 방에 소속된 사람들 id 담을 ArrayList
+			
 			if(result > 0) {	// 저장 됐으면
 				int result2 = cService.updateChatMod(Integer.parseInt(messageList[1]));	// 채팅방 갱신날짜 db에 저장
 				if(result2 > 0) {	// 저장 됐으면
@@ -115,11 +124,14 @@ public class EchoHandler extends TextWebSocketHandler{
 							}
 						}
 						
-						for(WebSocketSession sess2 : messengerList) {						// 채팅방 리스트에 접속한 세션 전체 반복문 실행
-							if(((Employee)sess.getAttributes().get("loginUser")).getEmpId() == ((Employee)sess2.getAttributes().get("loginUser")).getEmpId()){
+					}
+					for(WebSocketSession sess2 : messengerList) {						// 채팅방 리스트에 접속한 세션 전체 반복문 실행
+						for(Message user : people) {
+							if(user.getEmpId() == ((Employee)sess2.getAttributes().get("loginUser")).getEmpId()){
 								// 방에 있는 세션의 empId와 채팅방 리스트에 접속한 세션의 empId가 같으면
 								sess2.sendMessage(new TextMessage("채팅방 갱신")); // 메세지 전달
 							}
+							
 						}
 					}
 					

@@ -60,5 +60,10 @@ public class ChatServiceImpl implements ChatService {
 		return cDao.updateJoinMod(m);
 	}
 
+	@Override
+	public ArrayList<Message> selectUsers(int chatId) {
+		return cDao.selectUsers(chatId);
+	}
+
 
 }

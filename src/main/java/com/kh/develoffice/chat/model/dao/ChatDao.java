@@ -53,6 +53,10 @@ public class ChatDao {
 		return sqlSession.update("chatMapper.updateJoinMod",m);
 	}
 
+	public ArrayList<Message> selectUsers(int chatId) {
+		return (ArrayList)sqlSession.selectList("chatMapper.selectUsers", chatId);
+	}
+
 
 	
 }
