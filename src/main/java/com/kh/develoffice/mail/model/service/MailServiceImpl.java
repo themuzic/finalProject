@@ -56,15 +56,21 @@ public class MailServiceImpl implements MailService{
 	}
 
 	@Override
-	public int getSearchListCount(SearchCondition sc) {
+	public int getSearchListCount(Mail m) {
 		
-		return mDao.getSearchListCount(sc);
+		return mDao.getSearchListCount(m);
 	}
 
 	@Override
-	public ArrayList<Mail> selectSearchList(SearchCondition sc, PageInfo pi) {
+	public ArrayList<Mail> selectSearchList(Mail m, PageInfo pi) {
 		
-		return mDao.selectSearchList(sc, pi);
+		return mDao.selectSearchList(m, pi);
+	}
+	
+	@Override
+	public ArrayList<Mail> deleteSearchList(Mail m, PageInfo pi) {
+		
+		return mDao.deleteSearchList(m, pi);
 	}
 
 	@Override

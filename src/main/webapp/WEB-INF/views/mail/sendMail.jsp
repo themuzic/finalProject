@@ -94,7 +94,7 @@
 		       function validate(){
 		           if($("option:selected").val() == "------"){
 // 		              alert("검색 조건을 체크해주세요");
-		              alertify.alert("검색 조건을 체크해주세요");
+		              alertify.alert("", "검색 조건을 체크해주세요");
 		           return false;
 		           }
 		        }
@@ -176,14 +176,16 @@
 				이전&nbsp;
 			</c:if>
 			<c:if test="${ pi.currentPage > 1 }">
-				<c:if test="${ !empty sc }">
+				<c:if test="${ !empty m }">
 					<c:url var="mlistBack" value="search.do">
 						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
 						<c:param name="condition" value="${ condition }"/>
 						<c:param name="search" value="${ search }"/>
+						<c:param name="mailFrom" value="${ m.mailFrom }"/>
+						<c:param name="mailTo" value="${ m.mailTo }"/>
 					</c:url>
 				</c:if>
-				<c:if test="${ empty sc }">
+				<c:if test="${ empty m }">
 					<c:url var="mlistBack" value="sendMail.do">
 						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
 					</c:url>
@@ -197,14 +199,16 @@
 	               <font color="#3287B2" size="3">${ p }</font>
 	            </c:if>
 	            <c:if test="${ p ne pi.currentPage }">
-	               <c:if test="${ !empty sc }"> <!-- 검색결과 있으면 -->
+	               <c:if test="${ !empty m }"> <!-- 검색결과 있으면 -->
 	                  <c:url var="mlistPage" value="search.do">
 	                     <c:param name="currentPage" value="${ p }"/>
 	                     <c:param name="condition" value="${ condition }"/>
 	                     <c:param name="search" value="${ search }"/>
+	                     <c:param name="mailFrom" value="${ m.mailFrom }"/>
+						 <c:param name="mailTo" value="${ m.mailTo }"/>
 	                  </c:url>
 	               </c:if>
-	               <c:if test="${ empty sc }"> <!-- 검색 결과 없으면 -->
+	               <c:if test="${ empty m }"> <!-- 검색 결과 없으면 -->
 		               <c:url var="mlistPage" value="sendMail.do">
 		                  <c:param name="currentPage" value="${ p }"/>
 		               </c:url>                  
@@ -218,14 +222,16 @@
 				&nbsp;다음
 			</c:if>
 			<c:if test="${ pi.currentPage < pi.maxPage }">
-				<c:if test="${ !empty sc }">
+				<c:if test="${ !empty m }">
 					<c:url var="mlistNext" value="search.do">
 						<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
 						<c:param name="condition" value="${ condition }"/>
 						<c:param name="search" value="${ search }"/>
+						<c:param name="mailFrom" value="${ m.mailFrom }"/>
+						<c:param name="mailTo" value="${ m.mailTo }"/>
 					</c:url>
 				</c:if>
-				<c:if test="${ empty sc }">
+				<c:if test="${ empty m }">
 					<c:url var="mlistNext" value="sendMail.do">
 						<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 					</c:url>
@@ -396,6 +402,7 @@
 			});
 		};
 		
+		// 체크박스 선택 완전 삭제
 		function deleteAll(){
 			
 			var dd = $("input:checkbox[name=check]:checked");

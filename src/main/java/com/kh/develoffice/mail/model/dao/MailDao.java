@@ -58,17 +58,25 @@ public class MailDao {
 		return sqlSession.selectOne("mailMapper.receiveDetail", mailNum);
 	}
 	
-	public int getSearchListCount(SearchCondition sc) {
+	public int getSearchListCount(Mail m) {
 		
-		return sqlSession.selectOne("mailMapper.selectSearchCount", sc);
+		return sqlSession.selectOne("mailMapper.selectSearchCount", m);
 	}
 	
-	public ArrayList<Mail> selectSearchList(SearchCondition sc, PageInfo pi){
+	public ArrayList<Mail> selectSearchList(Mail m, PageInfo pi){
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("mailMapper.selectSearchList", sc, rowBounds);
+		return (ArrayList)sqlSession.selectList("mailMapper.selectSearchList", m, rowBounds);
+	}
+	
+	public ArrayList<Mail> deleteSearchList(Mail m, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("mailMapper.deleteSearchList", m, rowBounds);
 	}
 	
 	public int updateMail(Mail m) {
@@ -82,7 +90,6 @@ public class MailDao {
 	}
 	
 	public Mail selectMail(int mailNum) {
-		
 		
 		return sqlSession.selectOne("mailMapper.receiveDetail", mailNum);
 	}
@@ -99,6 +106,7 @@ public class MailDao {
 	}
 
 	public int insertStatusMail(int empId) {
+		
 		return sqlSession.insert("mailMapper.insertStatusMail", empId);
 	}
 

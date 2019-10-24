@@ -27,10 +27,13 @@ public interface MailService {
 	Mail receiveDetail(int mailNum);
 	
 	// 검색처리 리스트 불러오기
-	int getSearchListCount(SearchCondition sc);
+	int getSearchListCount(Mail m);
 	
 	// 검색처리 게시글 불러오기
-	ArrayList<Mail> selectSearchList(SearchCondition sc, PageInfo pi);
+	ArrayList<Mail> selectSearchList(Mail m, PageInfo pi);
+	
+	// 검색처리 휴지통 게시글 불러오기
+	ArrayList<Mail> deleteSearchList(Mail m, PageInfo pi);
 	
 	// 단순히 메일만 조회
 	Mail selectMail(int mailNum);

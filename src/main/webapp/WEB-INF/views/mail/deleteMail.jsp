@@ -75,7 +75,7 @@
 
 		<fieldset>
 			<div id="searchArea" align="right">
-				<form action="search.do">
+				<form action="search3.do">
 					<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray">
 					    <option>------</option>
 					    <option value="writer">이메일</option>
@@ -94,7 +94,7 @@
 		       function validate(){
 		           if($("option:selected").val() == "------"){
 // 		              alert("검색 조건을 체크해주세요");
-		              alertify.alert("검색 조건을 체크해주세요");
+		              alertify.alert("","검색 조건을 체크해주세요");
 		           return false;
 		           }
 		        }
@@ -156,7 +156,7 @@
 								${ m.mailTitle }
 							</c:if>
 							<c:if test="${ !empty loginUser }">
-								<c:url value="receiveDetail.do" var="mdetail">
+								<c:url value="deleteDetail.do" var="mdetail">
 									<c:param name="mailNum" value="${ m.mailNum }"/>						
 								</c:url>
 								<a href="${ mdetail }" style="color:gray;">${ m.mailTitle }</a>
@@ -186,10 +186,12 @@
 			</c:if>
 			<c:if test="${ pi.currentPage > 1 }">
 				<c:if test="${ !empty sc }">
-					<c:url var="mlistBack" value="search.do">
+					<c:url var="mlistBack" value="search3.do">
 						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
 						<c:param name="condition" value="${ condition }"/>
 						<c:param name="search" value="${ search }"/>
+						<c:param name="mailFrom" value="${ m.mailFrom }"/>
+						<c:param name="mailTo" value="${ m.mailTo }"/>
 					</c:url>
 				</c:if>
 				<c:if test="${ empty sc }">
@@ -207,10 +209,12 @@
 	            </c:if>
 	            <c:if test="${ p ne pi.currentPage }">
 	               <c:if test="${ !empty sc }"> <!-- 검색결과 있으면 -->
-	                  <c:url var="mlistPage" value="search.do">
+	                  <c:url var="mlistPage" value="search3.do">
 	                     <c:param name="currentPage" value="${ p }"/>
 	                     <c:param name="condition" value="${ condition }"/>
 	                     <c:param name="search" value="${ search }"/>
+	                     <c:param name="mailFrom" value="${ m.mailFrom }"/>
+					     <c:param name="mailTo" value="${ m.mailTo }"/> 
 	                  </c:url>
 	               </c:if>
 	               <c:if test="${ empty sc }"> <!-- 검색 결과 없으면 -->
@@ -228,10 +232,12 @@
 			</c:if>
 			<c:if test="${ pi.currentPage < pi.maxPage }">
 				<c:if test="${ !empty sc }">
-					<c:url var="mlistNext" value="search.do">
+					<c:url var="mlistNext" value="search3.do">
 						<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
 						<c:param name="condition" value="${ condition }"/>
 						<c:param name="search" value="${ search }"/>
+						<c:param name="mailFrom" value="${ m.mailFrom }"/>
+						<c:param name="mailTo" value="${ m.mailTo }"/>
 					</c:url>
 				</c:if>
 				<c:if test="${ empty sc }">

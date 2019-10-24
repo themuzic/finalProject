@@ -251,37 +251,115 @@ public class MailController {
 		return renameFileName;	// 수정명 반환
 	}	
 	
+	// 보낸 메일함 검색
 	@RequestMapping("search.do")
-	public ModelAndView receiveMailList(ModelAndView mv, HttpServletRequest request, HttpSession session,
+	public ModelAndView searchMailList(ModelAndView mv, HttpServletRequest request, HttpSession session,
 					@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		Mail m = new Mail();
+		
+		m.setEmpId(e.getEmpId());
+		m.setMailFrom(e.getEmail());
 		
 		String condition = request.getParameter("condition"); // writer, title, content
 		String search = request.getParameter("search");
 		
-		SearchCondition sc = new SearchCondition();
-		
 		if(condition.equals("writer")) {
-			sc.setWriter(search);
+			m.setWriter(search);
 		}else if(condition.equals("title")) {
-			sc.setTitle(search);
+			m.setTitle(search);
 		}else {
-			sc.setContent(search);
+			m.setContent(search);
 		}
 		
 		// 게시글 총 개수
-		int listCount = mService.getSearchListCount(sc);
+		int listCount = mService.getSearchListCount(m);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Mail> list = mService.selectSearchList(sc, pi);
+		ArrayList<Mail> list = mService.selectSearchList(m, pi);
 		
-		mv.addObject("pi", pi).addObject("list", list).addObject("sc", sc).addObject("condition", condition)
-							  .addObject("search", search).setViewName("mail/receiveMail");
+		mv.addObject("pi", pi).addObject("list", list).addObject("m", m).addObject("condition", condition)
+							  .addObject("search", search).setViewName("mail/sendMail");
+
+		return mv;
+	}
+	
+	// 받은 메일함 검색
+	@RequestMapping("search2.do")
+	public ModelAndView searchMailList2(ModelAndView mv, HttpServletRequest request, HttpSession session,
+					@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		Mail m = new Mail();
+		
+		m.setEmpId(e.getEmpId());
+		m.setMailTo(e.getEmail());
+		
+		String condition = request.getParameter("condition"); // writer, title, content
+		String search = request.getParameter("search");
+		
+		if(condition.equals("writer")) {
+			m.setWriter(search);
+		}else if(condition.equals("title")) {
+			m.setTitle(search);
+		}else {
+			m.setContent(search);
+		}
+		
+		// 게시글 총 개수
+		int listCount = mService.getSearchListCount(m);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Mail> list = mService.selectSearchList(m, pi);
+			
+		mv.addObject("pi", pi).addObject("list", list).addObject("m", m).addObject("condition", condition)
+		  .addObject("search", search).setViewName("mail/receiveMail");
 		
 		return mv;
 	}
 	
-	// 메일함 상세조회
+	// 휴지통 검색
+	@RequestMapping("search3.do")
+	public ModelAndView searchMailList3(ModelAndView mv, HttpServletRequest request, HttpSession session,
+					@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		Mail m = new Mail();
+		
+		m.setEmpId(e.getEmpId());
+		m.setStatus("N");
+		
+		String condition = request.getParameter("condition"); // writer, title, content
+		String search = request.getParameter("search");
+		
+		if(condition.equals("writer")) {
+			m.setWriter(search);
+		}else if(condition.equals("title")) {
+			m.setTitle(search);
+		}else {
+			m.setContent(search);
+		}
+		
+		// 게시글 총 개수
+		int listCount = mService.getSearchListCount(m);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Mail> list = mService.deleteSearchList(m, pi);
+			
+		mv.addObject("pi", pi).addObject("list", list).addObject("m", m).addObject("condition", condition)
+		  .addObject("search", search).setViewName("mail/deleteMail");
+		
+		return mv;
+	}
+	
+	// 받은, 보낸 메일함 상세조회
 	@RequestMapping("receiveDetail.do")
 	public ModelAndView receiveDetail(int mailNum, ModelAndView mv) {
 		
@@ -296,6 +374,22 @@ public class MailController {
 		
 		return mv;
 	}
+	
+	// 휴지통 메일함 상세조회
+	@RequestMapping("deleteDetail.do")
+	public ModelAndView deleteDetail(int mailNum, ModelAndView mv) {
+		
+		Mail m = mService.receiveDetail(mailNum);
+		
+		if(m != null) {
+			m.setFormatDate(sdf.format(m.getMailDate()));
+			mv.addObject("m", m).setViewName("mail/deleteDetail");
+		}else {
+			mv.addObject("msg", "메일 상세조회 실패").setViewName("common/errorpage");
+		}
+		return mv;
+	}
+	
 	
 	// 메일 지우기(휴지통으로)
 	@RequestMapping("delete.do")
@@ -363,8 +457,6 @@ public class MailController {
 	@RequestMapping("mdelete.do")
 	public String mailDelete(Mail m, HttpServletRequest request, Model model) {
 		
-//		Mail m = mService.selectMail(mailNum);
-		
 		if(m.getRenameFileName() != null) {
 			
 			deleteFile(m.getRenameFileName(), request);
@@ -373,7 +465,7 @@ public class MailController {
 		int result = mService.deleteMail(m);
 		
 		if(result > 0) {
-			return "redirect:receiveMail.do";
+			return "redirect:deleteMail.do";
 		}else {
 			model.addAttribute("msg", "메일 삭제 실패");
 			
@@ -382,6 +474,7 @@ public class MailController {
 	}
 	
 	public void deleteFile(String fileName, HttpServletRequest request) {
+	
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "\\mupload";
 		
@@ -395,11 +488,8 @@ public class MailController {
 	// 메일 전달
 	@RequestMapping("transfer.do")
 	public ModelAndView transfer(int mailNum, ModelAndView mv) {
-		System.out.println(mailNum);
 		
 		Mail m = mService.receiveDetail(mailNum);
-//		
-//		System.out.println(m.getMailTo());
 		
 		if(m != null) {
 			m.setFormatDate(sdf.format(m.getMailDate()));

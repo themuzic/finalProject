@@ -30,5 +30,9 @@ public class Mail {
 	private int mailImportant;
 	private String status;
 	
+	private String writer;
+	private String title;
+	private String content;
+	
 
 }

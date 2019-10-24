@@ -583,7 +583,6 @@
 		        html += "    <td class='left' >";
 		        html +=         fileName + " / " + fileSize + "MB "  + "&nbsp;<a href='#' onclick='deleteFile(" + fIndex + "); return false;' class='btn small bg_02' style='box-shadow:none; border:1px solid #ececec;'>삭제</a>"
 		        html +=	"       <input type='file' name='uploadFile' id='test' multiple='multiple'>"
-		        //html += inFile
 		        html += "    </td>"
 		        html += "</tr>"
 		        $('#fileTableTbody').append(html);

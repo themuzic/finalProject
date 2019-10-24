@@ -61,7 +61,6 @@
 		JOIN MAIL_DEL USING(MAIL_NUM)
 		WHERE STATUS='N' AND EMP_ID=#{empId}
 		ORDER BY MAIL_NUM DESC
-		
 	</select>
 	
 	<!-- 메일 완전 삭제시, 메일 셀렉 -->
@@ -100,11 +99,20 @@
 	</select>
 	
 	<!-- 메일 검색결과 게시글 수 조회용 쿼리문 -->
-	<select id="selectSearchCount" resultType="_int">
-		SELECT COUNT(*)
-		FROM MAIL
-		JOIN MAIL_DEL USING(MAIL_NUM)
-		WHERE EMP_ID=#{empId}
+	<select id="selectSearchCount" parameterType="Mail" resultType="_int">
+		select count(*)
+		from mail
+		join mail_del using(mail_num)
+		where emp_id=#{empId}
+		<if test="mailFrom != null "> <!-- 보낸메일 -->
+			and mail_from=#{mailFrom} and status='Y'
+		</if>
+		<if test="mailTo != null"> <!-- 받은메일 -->
+			and mail_to=#{mailTo} and status='Y'
+		</if>
+		<if test="status != null">
+				and status = #{status}
+			</if>
 		<choose>
 			<when test="writer != null">
 				and mail_from like '%' || #{writer} || '%'
@@ -116,14 +124,35 @@
 				and mail_content like '%' || #{content} || '%'
 			</otherwise>
 		</choose>
+		order by mail_num desc
 	</select>
 	
-	<!-- 메일 검색결과에 해당하는 게시글 목록 조회 -->
+	<!-- 메일 검색결과에 해당하는 받은, 보낸 메일함 목록 조회 -->
 	<select id="selectSearchList" resultMap="MailResultSet">
 		SELECT MAIL_NUM, EMP_ID, MAIL_FROM, MAIL_TO, MAIL_TITLE, MAIL_DATE, MAIL_IMPORTANT, RENAME_FILENAME, STATUS
 		FROM MAIL
 		JOIN MAIL_DEL USING(MAIL_NUM)
-		WHERE EMP_ID=#{empId}
+		WHERE EMP_ID=#{empId} and status='Y'
+		<choose>
+			<when test="writer != null">
+				and mail_from like '%' || #{writer} || '%'
+			</when>
+			<when test="title != null">
+				and mail_title like '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				and mail_content like '%' || #{content} || '%'
+			</otherwise>
+		</choose>
+		order by mail_num desc
+	</select>
+	
+	<!-- 메일 검색결과에 해당하는 휴지통 목록 조회 -->
+	<select id="deleteSearchList" parameterType="Mail" resultMap="MailResultSet">
+		SELECT MAIL_NUM, EMP_ID, MAIL_FROM, MAIL_TO, MAIL_TITLE, MAIL_DATE, MAIL_IMPORTANT, RENAME_FILENAME, STATUS
+		FROM MAIL
+		JOIN MAIL_DEL USING(MAIL_NUM)
+		WHERE EMP_ID=#{empId} and status='N'
 		<choose>
 			<when test="writer != null">
 				and mail_from like '%' || #{writer} || '%'
