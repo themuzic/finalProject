@@ -63,10 +63,10 @@
 					</c:if>
 					
 					<c:if test="${ !empty sessionScope.loginUser }">
-					
 						
 					
 					<div class="allContentWrap" style="padding:0 30px 0 10px">
+					
 					
 						<form action="deleteTodo.do" method="post">
 						
@@ -78,7 +78,9 @@
 							
 							<thead>
 								<tr>
-									<th width="5%"><input type="checkbox" id="chkAll" class="chkBox" name="chkAll" onclick=""></th>
+									<th width="5%">
+										 <input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"/>
+									</th>
 									<th width="5%">#</th>
 									<th width="48%">제목</th>
 									<th width="18%">상태</th>
@@ -93,7 +95,10 @@
 									<c:if test="${ t.empId == loginUser.empId }">
 									
 										<tr>
-											<td align="center"><input type="checkbox"></td>
+											<td align="center">
+												<input type="checkbox" name="checkRow" value="${ t.todoNo }" />
+												<input type="hidden" value="${ t.todoNo }">
+											</td>
 											<td align="center">${ t.todoNo }</td>
 											<td align="left">
 												<c:if test="${ empty loginUser }">
@@ -131,10 +136,10 @@
 						</table>
 						
 						<div class="btnArea" align="center">
-							<button type="button" class="btn btn-default">
+							<button type="button" onclick="location.href='insertTodoView.do'" class="btn btn-default">
 								<i class="fa fa-plus-square"></i> 추가하기 
 							</button>
-							<button type="submit" class="btn btn-danger">
+							<button type="button" href="javascript:void(0)" onclick="deleteTodo();" class="btn btn-danger">
 								<i class="far fa-trash-alt"></i> 삭제하기
 							</button>
 						</div>
@@ -177,71 +182,6 @@
 								</tbody>
 							</table>
 							
-							<%-- <div id="pagingArea" align="center">
-					 			<!-- [이전] -->
-								<c:if test="${ pi.currentPage == 1 }">
-									이전&nbsp;
-								</c:if>
-								<c:if test="${ pi.currentPage > 1 }">
-									<c:if test="${ !empty sc }">
-										<c:url var="mlistBack" value="search.do">
-											<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
-											<c:param name="condition" value="${ condition }"/>
-											<c:param name="search" value="${ search }"/>
-										</c:url>
-									</c:if>
-									<c:if test="${ empty sc }">
-										<c:url var="mlistBack" value="receiveMail.do">
-											<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
-										</c:url>
-									</c:if>
-									<a href="${ mlistBack }">이전</a>
-								 </c:if>
-					         
-						         <!-- [번호들] -->
-						         <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-						            <c:if test="${ p eq pi.currentPage }">
-						               <font color="#3287B2" size="3">${ p }</font>
-						            </c:if>
-						            <c:if test="${ p ne pi.currentPage }">
-						               <c:if test="${ !empty sc }"> <!-- 검색결과 있으면 -->
-						                  <c:url var="mlistPage" value="search.do">
-						                     <c:param name="currentPage" value="${ p }"/>
-						                     <c:param name="condition" value="${ condition }"/>
-						                     <c:param name="search" value="${ search }"/>
-						                     <c:param name="type" value="receive"/>
-						                  </c:url>
-						               </c:if>
-						               <c:if test="${ empty sc }"> <!-- 검색 결과 없으면 -->
-							               <c:url var="mlistPage" value="receiveMail.do">
-							                  <c:param name="currentPage" value="${ p }"/>
-							               </c:url>                  
-						               </c:if>
-						               <a href="${ mlistPage }">${ p }</a>
-						            </c:if>
-						         </c:forEach>
-					         
-					        	<!-- [다음] -->
-								<c:if test="${ pi.currentPage == pi.maxPage }">
-									&nbsp;다음
-								</c:if>
-								<c:if test="${ pi.currentPage < pi.maxPage }">
-									<c:if test="${ !empty sc }">
-										<c:url var="mlistNext" value="search.do">
-											<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
-											<c:param name="condition" value="${ condition }"/>
-											<c:param name="search" value="${ search }"/>
-										</c:url>
-									</c:if>
-									<c:if test="${ empty sc }">
-										<c:url var="mlistNext" value="receiveMail.do">
-											<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
-										</c:url>
-									</c:if>
-									<a href="${ mlistNext }">다음</a>
-								</c:if>
-							</div> --%>
-							 
 						</div>
 						
 						<div class="waitingTD">
@@ -312,15 +252,6 @@
 					
 					
 					
-					
-					
-					
-					
-					
-					
-					
-					
-					
 					</c:if>
 					
 					<!-- 이 위까지 내용작성 -->
@@ -346,6 +277,7 @@
 	<script>
 		$(function(){
 			
+			/* 사이드바 해당 메뉴 활성화 유지 */
 			$("#menu3").addClass("in");
 			$("#menu3").attr('aria-expanded',true);
 			$("#menu3_1").addClass("active");
@@ -353,7 +285,59 @@
 			$("#m3_2").addClass("active");	
 			
 			
+			/* 체크박스 선택하기 */
+			$("#chkAll").click(function(){
+				var chk = $(this).is(":checked");
+				if(chk) $(".select_subject input").prop('checked', true);
+				else $(".select_subject input").prop('checked', false);
+				
+				$(".chkMenu").addClass("show");
+				$("#lookAll").addClass("hide");
+				$("#lookAll").css("display","none");
+				$(".chkMenu").css("display", "block");
+			});
+			
+			
 		});
+		
+		/* 체크박스 전체선택, 전체해제 */
+		function checkAll(){
+		      if( $("#th_checkAll").is(':checked') ){
+		        $("input[name=checkRow]").prop("checked", true);
+		      }else{
+		        $("input[name=checkRow]").prop("checked", false);
+		      }
+		}
+
+
+		// 체크박스 선택 삭제
+		function deleteTodo(){
+			
+			var dd = $("input:checkbox[name=check]:checked");
+
+			$.each(dd, function(i, ck){
+				
+				var tr = ck.parentNode.parentNode;
+				
+				$.ajax({
+					url: "deleteTodo.do",
+					type: "POST",
+					data: {todoNo: ck.value,
+						   empId:"${loginUser.empId}"
+					},
+					success: function(data){
+						if(data == "success"){
+							tr.remove();
+						}else{
+							alertify.alert("", "삭제실패");
+						}
+					},
+					error: function(){
+						alertify.alert("", "통신실패");
+					}
+				});
+			});
+		};
 	
 	
 	

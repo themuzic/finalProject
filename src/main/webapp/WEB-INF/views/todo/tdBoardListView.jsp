@@ -98,9 +98,11 @@
 				
 						<div class="ui link cards">
 						
-						<c:forEach items="${ TodoBoardList }" var="b">
+						<c:forEach items="${ todoBoardList }" var="b">
 						
-							<div class="card" onclick="location.href='todoList.do'" style="height:250px; /* border:solid 10px; */">
+							<c:if test="${ b.empId == loginUser.empId }">
+						
+							<div class="card" onclick="location.href='todoList.do'" style="height:250px;">
 							   
 							    <div class="image" style="height:20px; background-color:${ b.tdBoardColor };">
 							      <%-- <input type="color" value="${ b.tdBoardColor }"> --%>
@@ -124,7 +126,7 @@
 						  </div>
 							
 						
-						
+							</c:if>
 						
 						</c:forEach>
 						

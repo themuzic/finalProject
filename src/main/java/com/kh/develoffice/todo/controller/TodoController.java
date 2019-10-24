@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.develoffice.employee.model.vo.Employee;
@@ -17,7 +16,6 @@ import com.kh.develoffice.todo.model.service.TodoService;
 import com.kh.develoffice.todo.model.vo.Todo;
 import com.kh.develoffice.todo.model.vo.TodoBoard;
 
-@SessionAttributes("TodoBoardList")
 @Controller
 public class TodoController {
 	
@@ -56,11 +54,19 @@ public class TodoController {
 	@RequestMapping("todoBoardList.do")
 	public ModelAndView todoBoardList(ModelAndView mv, HttpSession session) {
 		
-		ArrayList<TodoBoard> TodoBoardList = tService.selectBoardList();
+		Employee e = (Employee)session.getAttribute("loginUser");
 		
-		mv.addObject("TodoBoardList", TodoBoardList).setViewName("todo/tdBoardListView");
+		TodoBoard tb = new TodoBoard();
 		
-		session.setAttribute("TodoBoardList", TodoBoardList);
+		tb.setEmpId(e.getEmpId());
+		
+		//System.out.println(tb);
+		
+		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		
+		mv.addObject("todoBoardList", todoBoardList).setViewName("todo/tdBoardListView");
+		
+		//System.out.println(todoBoardList);
 		
 		return mv;
 	}
@@ -68,35 +74,65 @@ public class TodoController {
 	
 	/////////// Todo 리스트뷰로 이동 ///////////
 	@RequestMapping("todoList.do")
-	public ModelAndView selectTodoList(ModelAndView mv, HttpSession session/*, 
-									   @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage*/) {
-
-		// 게시글 총 갯수
-		//int listCount = tService.getListCount();
+	public ModelAndView selectTodoList(ModelAndView mv, HttpSession session, Todo t) {
 		
 		Employee e = (Employee)session.getAttribute("loginUser");
-		TodoBoard tb = (TodoBoard)session.getAttribute("TodoBoardList");
 		
-		Todo t = new Todo();
+		TodoBoard tb = new TodoBoard();
+		tb.setEmpId(e.getEmpId());
+		
+		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		int tbNo = todoBoardList.get(0).getTdBoardNo();
+		//System.out.println(tbNo);
 		
 		t.setEmpId(e.getEmpId());
-		t.setTdBoardNo(tb.getTdBoardNo());
+		t.setTdBoardNo(tbNo);
 		
+		//System.out.println(t);
 		
-		//PageInfo pi = Pagination.getPageInfo(currentPage,  listCount);
+		ArrayList<Todo> todoList = tService.selectTodoList(t);
 		
-		ArrayList<Todo> TodoList = tService.selectTodoList(/* pi, */ t);
-		
-		System.out.println(t);
-		System.out.println(TodoList);
-		
-		mv./* addObject("pi", pi). */addObject("TodoList", TodoList).setViewName("todo/todoListView");
-		
-		System.out.println(TodoList);
+		mv.addObject("todoList", todoList).setViewName("todo/todoListView");
+		//System.out.println(todoList);
 		
 		return mv;
 		
 	}
+	
+	/////////// TODO 생성 뷰로 이동 ///////////
+	@RequestMapping("insertTodoView.do")
+	public String insertTodoView() {
+		return "todo/insertTodo";
+	}
+	
+	/////////// TODO 생성 ///////////
+	@RequestMapping("insertTodo.do")
+	public String insertTodo(Todo t, HttpServletRequest request, Model model) {
+		
+		int result = tService.insertTodo(t);
+		
+		if(result > 0) {
+			return "redirect:todoList.do";
+		} else {
+			model.addAttribute("msg", "TO-DO 생성에 실패하였습니다.");
+			return "common/blankPage";
+		}
+	}
+	
+	
+	/////////// 체크된 todo 삭제 ///////////
+	@RequestMapping("deleteTodo.do")
+	public String delteTodo(Todo t) {
+		
+		int result = tService.deleteTodo(t);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+	
 	
 	///////////
 	@RequestMapping("allTodo.do")
@@ -128,9 +164,5 @@ public class TodoController {
 		return "todo/todoDetailView";
 	}
 	
-	///////////
-	@RequestMapping("insertTodo.do")
-	public String insertTodo() {
-		return "todo/insertTodo";
-	}
+	
 }

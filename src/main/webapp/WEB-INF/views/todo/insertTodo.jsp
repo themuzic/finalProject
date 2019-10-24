@@ -43,7 +43,8 @@
 					
 					<!-- alert로~~ -->
 					
-					<div class="insertForm">
+					<form action="insertTodo.do" method="post" encType="multipart/form-data" class="insertForm">				
+					
 					
 						<div class="top-insertForm" align="center">
 							<h3 style="color:#3287B2; font-size:20px; font-weight:bold; ">
@@ -56,17 +57,28 @@
 					 	<br><br>
 					 	
 					 	<div class="content-insertForm">
+					 	
+					 		<input type="hidden" name="empId" value="${loginUser.empId }">
+					 		<input type="hidden" name="tdBoardNo" value="${ todoBoardList.tdBoardNo }">
 					 		
 					 		<h4 style="padding: 2px 0 15px 0;">제목</h4>
-						 	<input class="form-control input-lg" placeholder="제목을 입력해주세요" type="text">
+						 	<input class="form-control input-lg" id="todoName" name="todoName" placeholder="제목을 입력해주세요" type="text">
 						 	
 						 	<br><br>
 						 	
 						 	<h4 style="padding: 2px 0 15px 0;">설명 (선택사항)</h4>
-						 	<textarea class="form-control" placeholder="상세내용을 입력해주세요" rows="4"></textarea>
+						 	<textarea class="form-control" id="todoContent" name="todoContent" placeholder="상세내용을 입력해주세요" rows="4"></textarea>
 						 	
 						 	<br><br>
 						 	
+						 	<!-- <form id="todoStatus" method="post" >
+						 		<label for = "todoStatus">상태 : </label>
+						        <input type = "radio" name = "todoStatus" value = "대기" checked = "checked"> 대기  
+						        <input type = "radio" name = "todoStatus" value = "진행중"> 진행중<br>
+
+						 	</form> -->
+						 	
+						 	대기 상태를 자동으로...
 						 	
 						 	
 						 	
@@ -75,7 +87,7 @@
 						 		<button type="reset" class="btn btn-danger">
 									<i class="far fa-trash-alt"></i> 취소하기
 								</button>
-								<button type="button" class="btn btn-success">
+								<button type="submit" class="btn btn-success">
 							 		<i class="fa fa-check-circle"></i> 생성하기
 							 	</button>
 						 	
@@ -86,7 +98,7 @@
 					 	
 						
 					 	
-					 </div>
+					 </form>
 					
 					
 					

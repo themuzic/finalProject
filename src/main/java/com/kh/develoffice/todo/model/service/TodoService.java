@@ -13,13 +13,18 @@ public interface TodoService {
 	int insertTodoBoard(TodoBoard t);
 	
 	///////////	TODO Board List 불러오기 ///////////
-	ArrayList<TodoBoard> selectBoardList();
+	ArrayList<TodoBoard> selectBoardList(TodoBoard tb);
 	
 	/////////// 게시판 총 갯수 조회 ///////////
 	int getListCount();
 	
 	/////////// TODO 리스트 조회 ///////////
-	ArrayList<Todo> selectTodoList(/* PageInfo pi, */Todo t);
+	ArrayList<Todo> selectTodoList(Todo t);
 	
+	/////////// 체크된 todo 삭제 ///////////
+	int deleteTodo(Todo t);
+	
+	/////////// TODO 생성 ///////////
+	int insertTodo(Todo t);
 
 }

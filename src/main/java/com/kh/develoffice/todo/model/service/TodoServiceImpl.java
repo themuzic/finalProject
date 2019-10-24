@@ -26,8 +26,8 @@ public class TodoServiceImpl implements TodoService {
 	
 	///////////	TODO Board List 불러오기 ///////////
 	@Override
-	public ArrayList<TodoBoard> selectBoardList() {
-		return tDao.selectBoardList();
+	public ArrayList<TodoBoard> selectBoardList(TodoBoard tb) {
+		return tDao.selectBoardList(tb);
 	}
 
 
@@ -40,7 +40,20 @@ public class TodoServiceImpl implements TodoService {
 
 	/////////// TODO 리스트 조회 ///////////
 	@Override
-	public ArrayList<Todo> selectTodoList(/* PageInfo pi, */Todo t) {
-		return tDao.selectTodoList(/* pi, */ t);
+	public ArrayList<Todo> selectTodoList(Todo t) {
+		return tDao.selectTodoList(t);
+	}
+
+	/////////// 체크된 todo 삭제 ///////////
+	@Override
+	public int deleteTodo(Todo t) {
+		return tDao.deleteTodo(t);
+	}
+
+
+	/////////// TODO 생성 ///////////
+	@Override
+	public int insertTodo(Todo t) {
+		return tDao.insertTodo(t);
 	}
 }

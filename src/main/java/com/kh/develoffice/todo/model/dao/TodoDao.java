@@ -26,8 +26,12 @@ public class TodoDao {
 	
 	
 	///////////	TODO Board List 불러오기 ///////////
-	public ArrayList<TodoBoard> selectBoardList(){
-		return (ArrayList)sqlSession.selectList("todoMapper.selectBoardList");
+	public ArrayList<TodoBoard> selectBoardList(TodoBoard tb){
+		ArrayList<TodoBoard> list = (ArrayList)sqlSession.selectList("todoMapper.selectBoardList", tb);
+		//return (ArrayList)sqlSession.selectList("todoMapper.selectBoardList", tb);
+		//System.out.println(list);
+		
+		return list;	
 	}
 	
 	/////////// 게시판 총 갯수 조회 ///////////
@@ -36,22 +40,38 @@ public class TodoDao {
 	}
 	
 	/////////// TODO 리스트 조회 ///////////
-	public ArrayList<Todo> selectTodoList(/* PageInfo pi, */Todo t){
+	public ArrayList<Todo> selectTodoList(Todo t){
 		
-		System.out.println(t);
+		//System.out.println(t);
 		
-		/*
-		 * int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit(); RowBounds
-		 * rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		 */
-		//int i = e.getEmpId();
-		//System.out.println(i);
-		//ArrayList<Todo> list = (ArrayList)sqlSession.selectList("todoMapper.selectTodoList", t/* , rowBounds */);
-		
+		ArrayList<Todo> list = (ArrayList)sqlSession.selectList("todoMapper.selectTodoList", t);
 		//System.out.println(list);
 		
-		return (ArrayList)sqlSession.selectList("todoMapper.selectTodoList", t/* , rowBounds */);
-		
+		return (ArrayList)sqlSession.selectList("todoMapper.selectTodoList", t);
 	}
+	
+	/////////// 체크된 todo 삭제 ///////////
+	public int deleteTodo(Todo t) {
+		return sqlSession.update("todoMapper.deleteTodo", t);
+	}
+	
+	/////////// TODO 생성 ///////////
+	public int insertTodo(Todo t) {
+		return sqlSession.insert("todoMapper.insertTodo", t);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
