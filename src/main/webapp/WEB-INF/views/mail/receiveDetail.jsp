@@ -101,6 +101,17 @@
 			                    <a href="" onclick="" star="N"  class="icon impt " id="aStar" >
 			                    	<span class="blind">중요 메일 표시</span>
 			                    </a>
+			                    
+			                    <span class="important">
+			                    
+			                    <c:if test="${ m.mailImportant == 1 }">
+			                    	<i class="fas fa-star"></i>
+			                    </c:if>
+			                 	<c:if test="${ m.mailImportant == 0 }">
+			                 	</c:if>
+			                    
+			                    </span>
+			                    
 			                    <span class="title">
 			                    	${ m.mailTitle }
 			                    	<input type="hidden" value="${ m.mailNum }">

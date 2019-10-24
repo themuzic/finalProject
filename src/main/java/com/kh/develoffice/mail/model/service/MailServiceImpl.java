@@ -117,9 +117,9 @@ public class MailServiceImpl implements MailService{
 	}
 
 	@Override
-	public ArrayList<Mail> importantMailList(PageInfo pi, Mail m) {
+	public ArrayList<Mail> importantMailList(PageInfo pi, Employee e) {
 		
-		return mDao.importantMailList(pi, m);
+		return mDao.importantMailList(pi, e);
 	}
 
 	@Override

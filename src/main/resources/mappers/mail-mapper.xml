@@ -25,13 +25,16 @@
 		JOIN MAIL_DEL USING(MAIL_NUM)
 		WHERE emp_id=#{empId}
 			<if test="mailTo != null">
-				and mail_to = #{mailTo} and status='Y'
+				and mail_to = #{mailTo} 
 			</if>
 			<if test="mailFrom != null">
-				and mail_from = #{mailFrom} and status='Y'
+				and mail_from = #{mailFrom} 
 			</if>
 			<if test="status != null">
 				and status = #{status}
+			</if>
+			<if test="mailImportant != null">
+				and mail_important = #{mailImportant}
 			</if>
 		ORDER BY MAIL_NUM DESC
 	</select>
@@ -95,7 +98,6 @@
 		select *
 		from mail_detail
 		where mail_num=#{mailNum}
-<!-- 		select * from mail_detail -->
 	</select>
 	
 	<!-- 메일 검색결과 게시글 수 조회용 쿼리문 -->
@@ -195,7 +197,7 @@
 	</update>
 	
 	<!-- 중요메일함 셀렉 -->
-	<select id="importantMailList" parameterType="Mail" resultMap="MailResultSet">
+	<select id="importantMailList" parameterType="Employee" resultMap="MailResultSet">
 		SELECT MAIL_NUM, EMP_ID, MAIL_FROM, MAIL_TO, MAIL_TITLE, MAIL_DATE, MAIL_IMPORTANT, RENAME_FILENAME, STATUS
 		FROM MAIL
 		JOIN MAIL_DEL USING(MAIL_NUM)

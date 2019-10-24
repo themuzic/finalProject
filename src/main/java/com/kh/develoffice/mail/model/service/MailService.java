@@ -53,7 +53,7 @@ public interface MailService {
 	int updateImportant(Mail m);
 	
 	// 중요 메일함 셀렉
-	ArrayList<Mail> importantMailList(PageInfo pi, Mail m);
+	ArrayList<Mail> importantMailList(PageInfo pi, Employee e);
 	
 	// 증요 메일함 검색
 	ArrayList<Mail> importantSearchList(Mail m, PageInfo pi);

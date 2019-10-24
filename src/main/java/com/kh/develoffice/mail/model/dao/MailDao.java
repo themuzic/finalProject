@@ -120,12 +120,12 @@ public class MailDao {
 		return sqlSession.update("mailMapper.updateImportant", m);
 	}
 
-	public ArrayList<Mail> importantMailList(PageInfo pi, Mail m) {
+	public ArrayList<Mail> importantMailList(PageInfo pi, Employee e) {
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("mailMapper.importantMailList", m, rowBounds);
+		return (ArrayList)sqlSession.selectList("mailMapper.importantMailList", e, rowBounds);
 	}
 
 	public ArrayList<Mail> importantSearchList(Mail m, PageInfo pi) {

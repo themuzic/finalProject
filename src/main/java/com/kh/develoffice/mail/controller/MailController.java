@@ -130,7 +130,7 @@ public class MailController {
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Mail> list = mService.importantMailList(pi, m);
+		ArrayList<Mail> list = mService.importantMailList(pi, e);
 		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/importantMail");
 		
