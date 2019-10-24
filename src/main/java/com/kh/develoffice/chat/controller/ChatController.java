@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.develoffice.chat.model.service.ChatService;
 import com.kh.develoffice.chat.model.vo.Chat;
@@ -80,7 +81,7 @@ public class ChatController {
 		
 		response.setContentType("application/json; charset=utf-8");
 		
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(chatList, response.getWriter());
 		
 	}
@@ -91,9 +92,60 @@ public class ChatController {
 		Chat c = new Chat();
 		c.setChatId(chatId);
 		c.setChatName(chatName);
-		
-		mv.addObject("msgList", msgList).addObject("c", c).setViewName("chat/chattingView");
+		ArrayList<Employee> inviteList = cService.selectInviteList(chatId);
+		mv.addObject("msgList", msgList).addObject("inviteList", inviteList).addObject("c", c).setViewName("chat/chattingView");
 		
 		return mv;
+	}
+	
+	@RequestMapping("chatStatus.do")
+	public void chatStatus(HttpServletResponse response, int empId, int otherId) throws JsonIOException, IOException {
+		Message m = new Message();
+		m.setEmpId(empId);
+		m.setChatId(otherId);
+		Chat c = new Chat();
+		int count = cService.getChatStatus(m);
+		if(count == 0) {	// 채팅방이 없으면
+			// 채팅방 생성하고 채팅방 번호랑 이름 반환
+			c = insertChat(m);					// 채팅방 생성하고 내 채팅방 번호, 이름 조회
+		}else {		// 채팅방이 이미 있으면
+			// 채팅방 번호와 채팅방 이름 리턴
+			c = cService.selectChatId(m);		// 내 채팅방 번호, 이름 조회
+		}
+		response.setContentType("application/json; charset=utf-8");
+		
+		Gson gson = new Gson();
+		gson.toJson(c, response.getWriter());
+	}
+	
+	
+	public Chat insertChat(Message m) {
+		// 갠톡 채팅방 생성
+		int type=1;
+		int result = cService.insertChat(type);
+		
+		// 만들어진 채팅방, 채팅방 이름 반환할 Chat 객체 생성
+		Chat c = new Chat();
+		
+		if(result > 0) {
+			// 채팅방 사람들 테이블에 생성
+			int empId = m.getEmpId();		// 내 사번
+			int otherId = m.getChatId();	// 상대 사번
+			Chat myChat = new Chat();
+			myChat.setChatId(m.getEmpId());
+			myChat.setChatName(cService.selectChatName(otherId));			// 내 사번과 내 채팅방 이름 담음
+			
+			Chat otherChat = new Chat();
+			otherChat.setChatId(m.getChatId());
+			otherChat.setChatName(cService.selectChatName(empId));	// 상대 사번과 상대 채팅방 이름 담음
+			
+			int myResult = cService.insertJoinChat(myChat);			// 나에 대한 채팅방 인원 등록
+			int otherResult = cService.insertJoinChat(otherChat);	// 상대에 대한 채팅방 인원 등록
+			
+			if(myResult > 0 && otherResult > 0) {
+				c = cService.selectChatId(m);			// 내 채팅방 번호, 이름 조회
+			}
+		}
+		return c;
 	}
 }

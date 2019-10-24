@@ -65,5 +65,36 @@ public class ChatServiceImpl implements ChatService {
 		return cDao.selectUsers(chatId);
 	}
 
+	@Override
+	public int getChatStatus(Message m) {
+		return cDao.getChatStatus(m);
+		
+	}
+
+	@Override
+	public int insertChat(int type) {
+		return cDao.insertChat(type);
+	}
+
+	@Override
+	public Chat selectChatId(Message m) {
+		return cDao.selectChatId(m);
+	}
+
+	@Override
+	public String selectChatName(int empId) {
+		return cDao.selectChatName(empId);
+	}
+
+	@Override
+	public int insertJoinChat(Chat myChat) {
+		return cDao.insertJoinChat(myChat);
+	}
+
+	@Override
+	public ArrayList<Employee> selectInviteList(int chatId) {
+		return cDao.selectInviteList(chatId);
+	}
+
 
 }

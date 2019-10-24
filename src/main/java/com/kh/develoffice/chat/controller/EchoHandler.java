@@ -110,6 +110,7 @@ public class EchoHandler extends TextWebSocketHandler{
 					for(WebSocketSession sess : list) {									// 그 방에 있는 세션 전체 반복문 실행
 						int otherId = ((Employee)sess.getAttributes().get("loginUser")).getEmpId();	// 받는사람 아이디 출력
 						System.out.println(otherId);
+						m.setEmpId(otherId);
 						if(empId == otherId){		// 보낸사람과 받는사람이 아이디가 같으면
 							int update = cService.updateJoinMod(m);	// 채팅방 확인 갱신
 							if(update > 0) {					// 갱신됐으면

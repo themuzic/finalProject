@@ -2,6 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="chatMapper">
 	
+	<resultMap id="empResultSet" type="Employee">
+		<id property="empId" column="emp_id"/>
+		<result property="empName" column="emp_name"/>
+		<result property="empPwd" column="emp_pwd"/>
+		<result property="gender" column="gender"/>
+		<result property="birth" column="birth"/>
+		<result property="deptCode" column="dept_code"/>
+		<result property="deptName" column="dept_name"/>
+		<result property="jobCode" column="job_code"/>
+		<result property="jobName" column="job_name"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+		<result property="address" column="address"/>
+		<result property="salary" column="salary"/>
+		<result property="account" column="account"/>
+		<result property="star" column="star"/>
+		<result property="enrollDate" column="enroll_date"/>
+		<result property="retireDate" column="retire_date"/>
+		<result property="empStatus" column="emp_status"/>
+		<result property="profilePath" column="profile_path"/>
+	</resultMap>
+	
 	<resultMap id="chatListResult" type="Chat">
 		<id property="chatId" column="chat_id"/>
 		<result property="chatName" column="chat_name"/>
@@ -17,6 +39,11 @@
 		<id property="chatId" column="chat_id"/>
 		<id property="empId" column="emp_id"/>
 		<result property="profilePath" column="profile_path"/>
+	</resultMap>
+	
+	<resultMap id="chatIdNameResult" type="Chat">
+		<id property="chatId" column="chat_id"/>
+		<id property="chatName" column="chat_name"/>
 	</resultMap>
 	
 	<resultMap id="messageListResult" type="Message">
@@ -80,10 +107,56 @@
 		WHERE CHAT_ID = #{chatId}
 	</select>
 	
+	<!-- 채팅방에 속해있는 사람들 조회 서비스 -->
 	<select id="selectUsers" parameterType="_int" resultMap="chatProfileResult">
 		SELECT EMP_ID
 		FROM JOIN_CHAT
 		WHERE CHAT_ID = #{chatId}
+	</select>
+	
+	<!-- 갠톡 생성 유무 -->
+	<select id="getChatStatus" parameterType="Message" resultType="_int">
+		select count(*)
+		from join_chat j
+		join chat c on(c.chat_id = j.chat_id)
+		join join_chat j2 on(j.chat_id = j2.chat_id and j.emp_id != j2.emp_id)
+		where chat_type=1 and j.emp_id = #{empId} and j2.emp_id = #{chatId}
+	</select>
+	
+	<!-- 갠톡 채팅방번호, 이름 조회 -->
+	<select id="selectChatId" parameterType="Message" resultMap="chatIdNameResult">
+		select c.chat_id, j.chat_name
+		from join_chat j
+		join chat c on(c.chat_id = j.chat_id)
+		join join_chat j2 on(j.chat_id = j2.chat_id and j.emp_id != j2.emp_id)
+		where chat_type=1 and j.emp_id = #{empId} and j2.emp_id = #{chatId}
+	</select>
+	
+	<!-- 채팅방 생성 -->
+	<insert id="insertChat" parameterType="_int">
+		insert into chat values(CHAT_SEQ.NEXTVAL, DEFAULT, SYSDATE, 'Y', #{type})
+	</insert>
+	
+	<!-- 갠톡 상대 이름 직급 조회 -->
+	<select id="selectChatName" parameterType="_int" resultType="String">
+		select emp_name || ' ' || job_name
+		from employee
+		join job using(job_code)
+		where emp_id=#{empId}
+	</select>
+	
+	<!-- 채팅방 인원 생성 -->
+	<insert id="insertJoinChat">
+		INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, #{chatName}, #{chatId}, DEFAULT, DEFAULT, FN_KO_CHAR(#{chatName}))
+	</insert>
+	
+	<select id="selectInviteList" parameterType="_int" resultMap="empResultSet">
+		select *
+		from emp
+		where emp_id not in (SELECT EMP_ID
+		                     FROM JOIN_CHAT
+		                     WHERE CHAT_ID = #{chatId})
+	
 	</select>
 
 </mapper>

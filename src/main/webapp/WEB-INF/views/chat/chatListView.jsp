@@ -188,7 +188,8 @@ body{
         });
 		
         var i = 0;
-        $(".chatList").on("dblclick", function(){	// 채팅방 더블클릭 했을때
+
+        $(document).on("dblclick", ".chatList", function(){	// 채팅방 더블클릭 했을때
         	console.log($(this).children().first().val());
         	var chatId = $(this).children().first().val();	// 더블클릭한 채팅방의 chatId
         	var chatName = $("#" +chatId);
@@ -196,7 +197,6 @@ body{
         	console.log(chatName.html());
         	messenger = window.open("chatting.do?chatId=" + chatId + "&chatName=" + chatName.html(), chatId + "chatting", "width=500,height=545", "false");
         });
-
     });
 
 

@@ -42,32 +42,32 @@ body{
 	overflow: hidden;
 	width: 100%;
 }
-.headLeft-section{
+.headRight-section{
 	width: calc(30% - 1px);
-	float: left;
+	float: right;
 	border-right:1px solid #E6E6E6;
 }
-.headLeft-sub{
+.headRight-sub{
 	padding: 15px;
 	text-align: center;
 }
-.headLeft-sub input{
+.headRight-sub input{
 	width: 60%;
 	border-radius: 0px;
 	border:1px solid #E6E6E6;
 	padding: 7px;
 }
-.headLeft-sub button{
+.headRight-sub button{
 	background: #009EF7;
 	color: #fff;
 	border:1px solid #E6E6E6;
 	padding: 7px 15px;
 }
-.headRight-section{
+.headLeft-section{
 	width: 70%;
 	float: left;
 }
-.headRight-sub{
+.headLeft-sub{
 	padding: 10px 15px 0px 15px;
 }
 
@@ -356,10 +356,16 @@ body{
 
 	<div class="main-section">
 		<div class="head-section">
-			<div class="headRight-section">
-				<div class="headRight-sub">
+			<div class="headLeft-section">
+				<div class="headLeft-sub">
 					<h3>${c.chatName }</h3>
 					<small>2019-10-14</small>
+				</div>
+			</div>
+			<div class="headRight-section">
+				<div class="headRight-sub">
+				<button type="button">초대</button>
+				
 				</div>
 			</div>
 		</div>
@@ -368,6 +374,11 @@ body{
 				<div id="messageArea" class="message" data-mcs-theme="minimal-dark" style="overflow:auto;">
 					<ul id="msg-area">
 						<c:forEach items="${msgList}" var="msg">
+							<li class=msg-day>
+								<div class="msg-desc" style="text-align:center;width:100%;font-size: 12px;background: #E8E8E8;padding:10px 10px;border-radius: 5px 5px 5px 0px;position: relative;">
+									<b>유현규 사원</b>님이 <b>전재광 대표</b>님, <b>김상윤 이사</b>님을 초대하셨습니다.
+								</div>
+							</li>
 							<c:if test="${date eq null}">
 								<li class="msg-day"><small>${msg.createDate}</small></li>
 							</c:if>

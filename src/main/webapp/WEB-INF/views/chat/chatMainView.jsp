@@ -194,7 +194,24 @@ ul li:hover{
         	$('.ui.labeled.icon.sidebar').sidebar('toggle');
         });
 
-
+        $(document).on("dblclick", ".chatList", function(){	// 사원 목록에서 사원 더블클릭 했을때
+        	console.log($(this).children().first().val());
+        	var empId = ${loginUser.empId};
+        	var otherId = $(this).children().first().val();	// 더블클릭한 상대의 사번
+        	$.ajax({
+        		url:"chatStatus.do",
+    			type:"POST",
+    			data:{empId:empId,otherId:otherId},
+    			dataType:"json",
+    			success:function(data){
+    				console.log(data.chatId);
+    				messenger = window.open("chatting.do?chatId=" + data.chatId + "&chatName=" + data.chatName, data.chatId + "chatting", "width=500,height=545", "false");
+    			},
+    			error:function(){
+    				
+    			}
+        	});
+        });
 
     });
 
@@ -323,7 +340,7 @@ ul li:hover{
 						<c:forEach items="${ empList }" var="emp">
 							<li>
 								<div class="chatList">
-									<input type="hidden" value="${emp.empId }">
+									<input type="hidden" name="empId" value="${emp.empId }">
 									<div class="img">
 										<i class="fa fa-circle"></i>
 										<img src="resources/images/${emp.profilePath}">
