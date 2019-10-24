@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.mail.model.vo.Mail;
 import com.kh.develoffice.mail.model.vo.PageInfo;
-import com.kh.develoffice.mail.model.vo.SearchCondition;
 
 public interface MailService {
 	
@@ -49,6 +48,15 @@ public interface MailService {
 	int insertStatusMail(int empId);
 	
 	int restoreMail(Mail m);
+	
+	// 중요 메일함으로 엡데이트
+	int updateImportant(Mail m);
+	
+	// 중요 메일함 셀렉
+	ArrayList<Mail> importantMailList(PageInfo pi, Mail m);
+	
+	// 증요 메일함 검색
+	ArrayList<Mail> importantSearchList(Mail m, PageInfo pi);
 
 	
 

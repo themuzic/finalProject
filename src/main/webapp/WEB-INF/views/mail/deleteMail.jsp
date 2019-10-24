@@ -115,17 +115,17 @@
 		<table class="ui selectable celled table">
 			<colgroup>
 				<col style="width:2%;">
-				<col style="width:4%;">
-				<col style="width:17%;">
-				<col style="width:60%;">
-				<col style="width:8%;">
 				<col style="width:15%;">
+				<col style="width:15%;">
+				<col style="width:47%;">
+				<col style="width:8%;">
+				<col style="width:13%;">
 			</colgroup>
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="chkAll" class="chkBox" name="chkAll" value="${ m.mailNum }"></th>
-						<th><i class="far fa-star"></i></th>
-						<th>메일주소</th>
+	 					<th>보낸사람</th>
+						<th>받은사람</th>
 						<th>메일제목</th>
 						<th class="aa">첨부파일</th>
 						<th class="aa">날짜</th>
@@ -138,19 +138,8 @@
 							<input type="hidden" value="${ m.mailNum }">
 							<input type="checkbox" class="check chkBox" name="check" value="${ m.mailNum }">
 						</td>
-						<td><i class="far fa-star"></i></td>
-						<td class="mName">
-						
-						
-							<c:if test="${ m.mailFrom eq loginUser.email }">
-								${ m.mailTo }
-							</c:if>
-							<c:if test="${ m.mailFrom ne loginUser.email }">
-								${ m.mailFrom }
-							</c:if>
-							
-							
-						</td>
+						<td class="mFrom">${ loginUser.email }</td>
+						<td class="mTo">${ m.mailTo }</td>
 						<td class="mTitle">
 							<c:if test="${ empty loginUser }">
 								${ m.mailTitle }

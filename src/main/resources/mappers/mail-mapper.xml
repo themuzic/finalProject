@@ -81,13 +81,13 @@
 	<insert id="insertMail" parameterType="Mail">
 		insert into mail
 		values (mail_seq.nextval,#{mailFrom},#{mailTo},#{mailCc},#{mailTitle},#{mailContent},
-		        #{originalFileName},#{renameFileName},sysdate,default,default)
+		        #{originalFileName},#{renameFileName},sysdate,default)
 	</insert>
 	
 	<!-- 메일 삭제 테이블 인서트 -->
 	<insert id="insertStatusMail" parameterType="_int">
 		insert into mail_del
-		values (mail_seq.currval,#{empId},default)
+		values (mail_seq.currval,#{empId},default,default)
 	</insert>
 	
 	<!-- 메일함 디테일 -->
@@ -186,5 +186,41 @@
 		set status='Y'
 		where mail_num=#{mailNum} and emp_id=#{empId}
 	</update>
+	
+	<!-- 중요메일 변경 -->
+	<update id="updateImportant" parameterType="Mail">
+		update mail_del
+		set mail_important=#{mailImportant}
+		where mail_num=#{mailNum} and emp_id=#{empId} and status='Y'
+	</update>
+	
+	<!-- 중요메일함 셀렉 -->
+	<select id="importantMailList" parameterType="Mail" resultMap="MailResultSet">
+		SELECT MAIL_NUM, EMP_ID, MAIL_FROM, MAIL_TO, MAIL_TITLE, MAIL_DATE, MAIL_IMPORTANT, RENAME_FILENAME, STATUS
+		FROM MAIL
+		JOIN MAIL_DEL USING(MAIL_NUM)
+		WHERE MAIL_IMPORTANT=1 AND EMP_ID=#{empId} and status='Y'
+		ORDER BY MAIL_NUM DESC
+	</select>
+	
+	<!-- 중요메일함 검색 -->
+	<select id="importantSearchList" parameterType="Mail" resultMap="MailResultSet">
+		SELECT MAIL_NUM, EMP_ID, MAIL_FROM, MAIL_TO, MAIL_TITLE, MAIL_DATE, MAIL_IMPORTANT, RENAME_FILENAME, STATUS
+		FROM MAIL
+		JOIN MAIL_DEL USING(MAIL_NUM)
+		WHERE EMP_ID=#{empId} and mail_important=#{mailImportant} and status='Y'
+		<choose>
+			<when test="writer != null">
+				and mail_from like '%' || #{writer} || '%'
+			</when>
+			<when test="title != null">
+				and mail_title like '%' || #{title} || '%'
+			</when>
+			<otherwise>
+				and mail_content like '%' || #{content} || '%'
+			</otherwise>
+		</choose>
+		order by mail_num desc
+	</select>
 
 </mapper>

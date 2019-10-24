@@ -75,7 +75,7 @@
 
 		<fieldset>
 			<div id="searchArea" align="right">
-				<form action="search.do">
+				<form action="search4.do">
 					<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray">
 					    <option>------</option>
 					    <option value="writer">이메일</option>
@@ -93,7 +93,6 @@
 	       <script>
 		       function validate(){
 		           if($("option:selected").val() == "------"){
-// 		              alert("검색 조건을 체크해주세요");
 		              alertify.alert("", "검색 조건을 체크해주세요");
 		           return false;
 		           }
@@ -115,17 +114,20 @@
 			<colgroup>
 				<col style="width:2%;">
 				<col style="width:4%;">
-				<col style="width:17%;">
-				<col style="width:60%;">
-				<col style="width:8%;">
 				<col style="width:15%;">
+				<col style="width:15%;">
+				<col style="width:45%;">
+				<col style="width:8%;">
+				<col style="width:17%;">
 			</colgroup>
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="chkAll" class="chkBox" name="chkAll" value="${ m.mailNum }"></th>
 						<th>
 							<i class="far fa-star"></i>
+							<i class="fas fa-star" style="color:yellow; display:none;"></i>
 						</th>
+						<th>보낸사람</th>
 						<th>받은사람</th>
 						<th>메일제목</th>
 						<th class="aa">첨부파일</th>
@@ -134,12 +136,11 @@
 				</thead>
 				<tbody class="select_subject">
 				<c:forEach items="${ list }" var="m">
-					<c:if test="${ m.mailFrom == loginUser.email}">
 						<tr>
 							<td>
+								<input type="checkbox" name="check" class="check chkBox" value="${ m.mailNum }">
 								<input type="hidden" value="${ m.mailNum }">
 								<input type="hidden" value="${ m.mailCc }">
-								<input type="checkbox" name="check" class="check chkBox" value="${ m.mailNum }">
 							</td>
 							<td>
 								<div class="star">
@@ -153,7 +154,8 @@
 								</c:if>
 								</div>
 							</td>
-							<td class="mName">${ m.mailTo }</td>
+							<td class="mFrom">${ m.mailFrom }</td>
+							<td class="mTo">${ m.mailTo }</td>
 							<td class="mTitle">
 								<c:if test="${ empty loginUser }">
 									${ m.mailTitle }
@@ -178,7 +180,6 @@
 							</td>
 							<td class="mDate aa">${ m.mailDate }</td>
 						</tr>
-					</c:if>
 				</c:forEach>
 			</tbody>
 		</table>
@@ -190,7 +191,7 @@
 			</c:if>
 			<c:if test="${ pi.currentPage > 1 }">
 				<c:if test="${ !empty m }">
-					<c:url var="mlistBack" value="search.do">
+					<c:url var="mlistBack" value="search4.do">
 						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
 						<c:param name="condition" value="${ condition }"/>
 						<c:param name="search" value="${ search }"/>
@@ -199,7 +200,7 @@
 					</c:url>
 				</c:if>
 				<c:if test="${ empty m }">
-					<c:url var="mlistBack" value="sendMail.do">
+					<c:url var="mlistBack" value="importantMail.do">
 						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
 					</c:url>
 				</c:if>
@@ -213,7 +214,7 @@
 	            </c:if>
 	            <c:if test="${ p ne pi.currentPage }">
 	               <c:if test="${ !empty m }"> <!-- 검색결과 있으면 -->
-	                  <c:url var="mlistPage" value="search.do">
+	                  <c:url var="mlistPage" value="search4.do">
 	                     <c:param name="currentPage" value="${ p }"/>
 	                     <c:param name="condition" value="${ condition }"/>
 	                     <c:param name="search" value="${ search }"/>
@@ -222,7 +223,7 @@
 	                  </c:url>
 	               </c:if>
 	               <c:if test="${ empty m }"> <!-- 검색 결과 없으면 -->
-		               <c:url var="mlistPage" value="sendMail.do">
+		               <c:url var="mlistPage" value="importantMail.do">
 		                  <c:param name="currentPage" value="${ p }"/>
 		               </c:url>                  
 	               </c:if>
@@ -236,7 +237,7 @@
 			</c:if>
 			<c:if test="${ pi.currentPage < pi.maxPage }">
 				<c:if test="${ !empty m }">
-					<c:url var="mlistNext" value="search.do">
+					<c:url var="mlistNext" value="search4.do">
 						<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
 						<c:param name="condition" value="${ condition }"/>
 						<c:param name="search" value="${ search }"/>
@@ -245,7 +246,7 @@
 					</c:url>
 				</c:if>
 				<c:if test="${ empty m }">
-					<c:url var="mlistNext" value="sendMail.do">
+					<c:url var="mlistNext" value="importantMail.do">
 						<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 					</c:url>
 				</c:if>
@@ -296,7 +297,7 @@
 			$("#menu2").attr('aria-expanded',true);
 			$("#menu2_1").addClass("active");
 			$("#menu2_1").attr('aria-expanded',true);
-			$("#m2_3").addClass("active");	
+			$("#m2_5").addClass("active");	
 			
 			/* 체크박스 선택하기 */
 			$("#chkAll").click(function(){
@@ -435,51 +436,51 @@
 				});
 			});
 		};
+		
+		$(document).ready(function(){
+			
+			$(".star").on('click',function(){
+				
+				 var importantFlag;
+				 var mailNum = $(this).parent().prev().children().first().val();
+				 console.log(mailNum);
+				 if($(this).children().first().css('display') == 'inline-block'){
 					
-			$(document).ready(function(){
-				
-				$(".star").on('click',function(){
+					$(this).children().first().css('display','none');
+					$(this).children().first().next().css('display','inline-block');
+					importantFlag = 1;
 					
-					 var importantFlag;
-					 
-					 var mailNum = $(this).parent().prev().children().first().val();
-
-					 if($(this).children().first().css('display') == 'inline-block'){
-						
-						$(this).children().first().css('display','none');
-						$(this).children().first().next().css('display','inline-block');
-						importantFlag = 1;
-						
-					}else{
-						
-						$(this).children().first().next().css('display','none');
-						$(this).children().first().css('display','inline-block');
-						importantFlag = 0;
-					}
-				
-				$.ajax({
-					url: "updateImportant.do",
-					type:"POST",
-					data:{mailNum:mailNum,
-						  importantFlag:importantFlag,
-						  empId:"${loginUser.empId}"
-						
-					},
-					success: function(data){
-						/* ajax 통신 성공 */
-					},
-					error: function(){
-						alertify.alert("", "통신실패");		
-					}
-				
-				});
-				
+				}else{
+					
+					$(this).children().first().next().css('display','none');
+					$(this).children().first().css('display','inline-block');
+					importantFlag = 0;
+				}
+			
+				 var importantM = $(this).parent().parent();
+			$.ajax({
+				url: "updateImportant.do",
+				type:"POST",
+				data:{mailNum:mailNum,
+					  importantFlag:importantFlag,
+					  empId:"${loginUser.empId}"
+					
+				},
+				success: function(data){
+					
+					importantM.remove();
+					/* ajax 통신 성공 */
+				},
+				error: function(){
+					alertify.alert("", "통신실패");		
+				}
+			
 			});
-				
-				
-			});
-	
-
+			
+		});
+			
+			
+		});
 
 	</script>
 

@@ -115,5 +115,26 @@ public class MailDao {
 		return sqlSession.update("mailMapper.restoreMail", m);
 	}
 
+	public int updateImportant(Mail m) {
+		
+		return sqlSession.update("mailMapper.updateImportant", m);
+	}
+
+	public ArrayList<Mail> importantMailList(PageInfo pi, Mail m) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("mailMapper.importantMailList", m, rowBounds);
+	}
+
+	public ArrayList<Mail> importantSearchList(Mail m, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("mailMapper.importantSearchList", m, rowBounds);
+	}
+
 
 }

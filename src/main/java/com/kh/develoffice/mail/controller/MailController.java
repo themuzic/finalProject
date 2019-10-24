@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +29,6 @@ import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.mail.model.service.MailService;
 import com.kh.develoffice.mail.model.vo.Mail;
 import com.kh.develoffice.mail.model.vo.PageInfo;
-import com.kh.develoffice.mail.model.vo.SearchCondition;
 
 @Controller
 public class MailController {
@@ -40,7 +39,7 @@ public class MailController {
 	private MailService mService;
 	
 	@Autowired
-	private JavaMailSender mailSender;
+	private JavaMailSenderImpl mailSender;
 	
 	// 받은 메일함 리스트
 	@RequestMapping("receiveMail.do")
@@ -58,8 +57,6 @@ public class MailController {
 		int listCount = mService.getListCount(m);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-//		System.out.println(pi);
 		
 		ArrayList<Mail> list = mService.receiveMailList(pi, m);
 		
@@ -84,7 +81,6 @@ public class MailController {
 		int listCount = mService.getListCount(m);
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-//		System.out.println(pi);
 		
 		ArrayList<Mail> list = mService.sendMailList(pi, m);
 		
@@ -117,13 +113,37 @@ public class MailController {
 		return mv;
 	}
 	
+	// 중요 메일함 리스트
+	@RequestMapping("importantMail.do")
+	public ModelAndView importantMailList(ModelAndView mv, HttpSession session,
+			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		Mail m = new Mail();
+		
+		m.setEmpId(e.getEmpId());
+		m.setMailImportant(1);
+		
+		// 게시글 총 개수
+		int listCount = mService.getListCount(m);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Mail> list = mService.importantMailList(pi, m);
+		
+		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/importantMail");
+		
+		return mv;
+	}
+	
 	// 메일쓰기 이동
 	@RequestMapping("insertMail.do")
 	public String insertMailForm() {
 		
 		return "mail/insertMail";
 	}
-	
+
 	// 메일 답장
 	@RequestMapping("replyMail.do")
 	public ModelAndView replyMail(ModelAndView mv, Mail m) {
@@ -149,7 +169,7 @@ public class MailController {
 		
 		System.out.println("넘어온 메일 객체 : "+m);
 		System.out.println("넘어온 파일 정보 : "+uploadFile);
-
+		
     	if(uploadFile!=null && !uploadFile.getOriginalFilename().equals("")) {	// 첨부파일이 넘어온 경우
 		
     	System.out.println("파일유무 조건문 통과");
@@ -159,10 +179,13 @@ public class MailController {
 		System.out.println("바뀐 파일명 : "+filename);
 		   
 	    try {
+	      mailSender.setUsername("sangyoonsla@gmail.com"); 		// 디비에서 메일 아이디 담고
+	      mailSender.setPassword("rlatkddbs123");			// 디비에서 메일 비밀번호 담고
+	      
 	      MimeMessage message = mailSender.createMimeMessage();
 	      MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 	 
-	      messageHelper.setFrom(m.getMailFrom());  			// 보내는사람 생략하거나 하면 정상작동을 안함
+	      messageHelper.setFrom("sangyoonsla@gmail.com");
 	      message.setRecipients(Message.RecipientType.TO, m.getMailTo()); 	// 받는사람
 	      message.setRecipients(Message.RecipientType.CC, m.getMailCc()); 	// 참조    
 	      messageHelper.setSubject(m.getMailTitle());   		// 메일제목은 생략이 가능하다
@@ -359,6 +382,42 @@ public class MailController {
 		return mv;
 	}
 	
+	// 중요메일함 검색조회
+	@RequestMapping("search4.do")
+	public ModelAndView searchMailList4(ModelAndView mv, HttpServletRequest request, HttpSession session,
+			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		Mail m = new Mail();
+		
+		m.setEmpId(e.getEmpId());
+		m.setMailImportant(1);
+		
+		String condition = request.getParameter("condition"); // writer, title, content
+		String search = request.getParameter("search");
+		
+		if(condition.equals("writer")) {
+			m.setWriter(search);
+		}else if(condition.equals("title")) {
+			m.setTitle(search);
+		}else {
+			m.setContent(search);
+		}
+		
+		// 게시글 총 개수
+		int listCount = mService.getSearchListCount(m);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Mail> list = mService.importantSearchList(m, pi);
+			
+		mv.addObject("pi", pi).addObject("list", list).addObject("m", m).addObject("condition", condition)
+		  .addObject("search", search).setViewName("mail/importantMail");
+		
+		return mv;
+	}
+	
 	// 받은, 보낸 메일함 상세조회
 	@RequestMapping("receiveDetail.do")
 	public ModelAndView receiveDetail(int mailNum, ModelAndView mv) {
@@ -500,6 +559,30 @@ public class MailController {
 		}
 
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("updateImportant.do")
+	public String updateImportant(int mailNum, int importantFlag, int empId) {
+		
+		Mail m = new Mail();
+		
+		m.setMailNum(mailNum);
+		m.setMailImportant(importantFlag);
+		m.setEmpId(empId);
+		
+//		System.out.println(m);
+		
+		int result = mService.updateImportant(m);
+		
+		if(result > 0) {
+			System.out.println("성공");
+			return "success";
+		}else {
+			System.out.println("sdfdsfds");
+			return "fail";
+		}
+		
 	}
 
 	

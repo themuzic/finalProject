@@ -110,6 +110,23 @@ public class MailServiceImpl implements MailService{
 		return mDao.restoreMail(m);
 	}
 
+	@Override
+	public int updateImportant(Mail m) {
+		
+		return mDao.updateImportant(m);
+	}
+
+	@Override
+	public ArrayList<Mail> importantMailList(PageInfo pi, Mail m) {
+		
+		return mDao.importantMailList(pi, m);
+	}
+
+	@Override
+	public ArrayList<Mail> importantSearchList(Mail m, PageInfo pi) {
+		return mDao.importantSearchList(m, pi);
+	}
+
 
 
 }

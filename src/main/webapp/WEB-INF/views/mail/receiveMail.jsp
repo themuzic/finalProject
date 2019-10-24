@@ -140,7 +140,18 @@
 									<input type="hidden" value="${ m.mailNum }">
 									<input type="hidden" value="${ m.mailCc }">
 								</td>
-								<td><i class="far fa-star"></i></td>
+								<td>
+									<div class="star">
+									<c:if test="${ m.mailImportant == 0 }">
+										<i class="far fa-star"></i>
+										<i class="fas fa-star" style="color:yellow; display:none;"></i>
+									</c:if>
+									<c:if test="${ m.mailImportant == 1 }">
+										<i class="far fa-star" style="display:none;"></i>
+										<i class="fas fa-star" style="color:yellow; display:inline-block;"></i>
+									</c:if>
+									</div>
+								</td>
 								<td class="mName">${ m.mailFrom }</td>
 								<td class="mTitle">
 									<c:if test="${ empty loginUser }">
@@ -431,6 +442,50 @@
 			});
 			
 		};
+		
+		$(document).ready(function(){
+			
+			$(".star").on('click',function(){
+				
+				 var importantFlag;
+				 var mailNum = $(this).parent().prev().children().first().val();
+				 
+				 if($(this).children().first().css('display') == 'inline-block'){
+					
+					$(this).children().first().css('display','none');
+					$(this).children().first().next().css('display','inline-block');
+					
+					importantFlag = 1;
+					
+				}else{
+					
+					$(this).children().first().next().css('display','none');
+					$(this).children().first().css('display','inline-block');
+					
+					importantFlag = 0;
+				}
+			
+			$.ajax({
+				url: "updateImportant.do",
+				type:"POST",
+				data:{mailNum:mailNum,
+					  importantFlag:importantFlag,
+					  empId:"${loginUser.empId}"
+					
+				},
+				success: function(data){
+					/* ajax 통신 성공 */
+				},
+				error: function(){
+					alertify.alert("", "통신실패");		
+				}
+			
+			});
+			
+		});
+			
+			
+		});
 
 	</script>
 
