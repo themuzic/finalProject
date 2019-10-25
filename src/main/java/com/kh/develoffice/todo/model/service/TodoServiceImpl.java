@@ -31,13 +31,6 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 
-	/////////// 게시판 총 갯수 조회 ///////////
-	@Override
-	public int getListCount() {
-		return tDao.getListCount();
-	}
-
-
 	/////////// TODO 리스트 조회 ///////////
 	@Override
 	public ArrayList<Todo> selectTodoList(Todo t) {

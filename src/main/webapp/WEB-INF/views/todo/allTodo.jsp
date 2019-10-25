@@ -75,7 +75,7 @@
 <style>
 	.contentWrap{
 		float:left;
-		width:75%;
+		width:60%;
 		background: white;
 		padding-top:30px;
 		padding-bottom:30px;
@@ -147,6 +147,9 @@
 				    		</tr>
 				        </thead>
 				        <tbody class="select_subject">
+				        
+				        
+				        
 				            <tr>
 				            	<td>
 				            		<input type="hidden">
@@ -262,7 +265,7 @@
 					
 					<br>
 					
-					<button type="reset" class="btn btn-danger" style="margin:0 5px 0 5px;">
+					<button type="reset" onclick="deleteTodo();" class="btn btn-danger" style="margin:0 5px 0 5px;">
 						<i class="far fa-trash-alt"></i> 삭제하기
 					</button>
 					
@@ -310,11 +313,15 @@
 			else  $(".select_subject input").prop('checked', false);
 		});
 		
+		/* 테이블 행 호버 시 색 변화 */
 		 $("#myTable").find("td").mouseenter(function(){
 		       $(this).parent().css({"background":"#ddd","cursor":"pointer"});
 		    }).mouseout(function(){
 		       $(this).parent().css("background","white");
 		 });
+		
+		
+		
 	
 	
 	

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.develoffice.employee.model.vo.Employee;
@@ -130,8 +130,9 @@ public class TodoController {
 	
 	
 	/////////// 체크된 todo 삭제 ///////////
+	@ResponseBody
 	@RequestMapping("deleteTodo.do")
-	public String delteTodo(Todo t) {
+	public String deleteTodo(Todo t) {
 		
 		int result = tService.deleteTodo(t);
 		
@@ -144,25 +145,25 @@ public class TodoController {
 	
 	
 	///////////
-	@RequestMapping("allTodo.do")
+	@RequestMapping("allTodoView.do")
 	public String allTodo() {
 		return "todo/allTodo";
 	}
 	
 	///////////
-	@RequestMapping("ongoingTodo.do")
+	@RequestMapping("ongoingTodoView.do")
 	public String ongoingTodo() {
 		return "todo/ongoingTodo";
 	}
 	
 	///////////
-	@RequestMapping("completionTodo.do")
+	@RequestMapping("completionTodoView.do")
 	public String completionTodo() {
 		return "todo/completionTodo";
 	}
 	
 	///////////
-	@RequestMapping("waitingTodo.do")
+	@RequestMapping("waitingTodoView.do")
 	public String waitingTodo() {
 		return "todo/waitingTodo";
 	}
@@ -172,6 +173,12 @@ public class TodoController {
 	public String todoDetail() {
 		return "todo/todoDetailView";
 	}
+	
+	
+	
+		
+	
+
 	
 	
 }
