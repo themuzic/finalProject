@@ -34,6 +34,9 @@ body{
 	margin: 0px;
 	overflow: hidden;
 }
+body *{
+	-webkit-user-select: none;
+}
 .main-section small{
 	font-size: 12px;
 }

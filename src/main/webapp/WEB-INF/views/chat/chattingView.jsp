@@ -39,6 +39,9 @@ body{
 	margin: 0px;
 	overflow: hidden;
 }
+body *{
+	-webkit-user-select: none;
+}
 .main-section small{
 	font-size: 10px;
 }
@@ -283,11 +286,23 @@ body{
 .chatList .desc h5{
 	margin-top: 6px;
 	line-height: 5px;
+	margin-bottom: 5px;
 }
 .chatList .desc .time{
 	position: absolute;
 	right: 15px;
 	color: #c1c1c1;
+}
+.chatList-left-section{
+	float:left;
+	width:85%;
+}
+.chatList-left-section small{
+	font-size: 10px;
+}
+.chatList-right-section{
+	float:right;
+	width:15%;
 }
 .addList{
 	cursor:default;
@@ -310,6 +325,25 @@ body{
 	padding-right:5px;
 	cursor:pointer;
 }
+.checked{
+	background:#ffdf6d;
+	color:white;
+}
+.non-checked{
+	margin-top:6px;
+	border-radius:50%;
+	width:25px;
+	height:25px;
+	text-align:center;
+	border:1px solid #c8c8c8;
+	
+}
+.non-checked > .fa-check{
+	display:none;
+}
+.checked > .fa-check{
+	display: inline-block;
+}
 </style>
 
 <script type="text/javascript">
@@ -327,46 +361,57 @@ body{
             }
         });
 		
-        $(document).on('click', '.chatList', function(){
-        	var empId = $(this).children().first().val();
-        	var empName = $(this).find('h5').html();
-        	var profile = $(this).find('img').attr("src");
-        	console.log(empId + ':' + empName + profile);
-        	html = "";
+        
+        $(document).on('click', '.chatListForm', function(){	// 초대하기 모달에서 프로필이 눌렸을 때
+        	var empId = $(this).find('.chatList').attr("id");	// 눌린 사람의 empId 받아옴
+        	var empName = $(this).find('h5').html();			// 눌린 사람의 이름 받아옴
+        	var profile = $(this).find('img').attr("src");		// 눌린 사람의 프로필 경로 받아옴
+        	html = "";											// 넣을 값 초기화 해주고
+        	if($(this).find(".non-checked").hasClass('checked')){	// 초대목록에 그 사람의 리스트가 이미 올라가있으면(체크박스의 체크가 되었을 떄)
+        		$(this).find(".non-checked").removeClass('checked');// 체크박스 체크 해제
+        		$('#add_' + empId).parent().remove();				// 초대 목록에서 그 사람 삭제
+        	}else{													// 그게 아니면(초대목록에 없으면)
+        		$(this).find(".non-checked").addClass('checked')	// 체크박스 체크
+				html += "<li>" +									// 초대 목록에 넣을 값 입력
+						"<div class='addList' id='add_" +
+						empId +
+						"'>" +
+						"<img src='" +
+						profile +
+						"'>" +
+						"<span class='empName'>" +
+						empName + 
+						"</span>" +
+						"<span class='deleteList' data-id='" + 
+						empId +
+						"' aria-hidden='true'>&times;</span>" +
+						"</div>" +
+						"</li>";
+        	}
         	
-			html += "<li>" +
-					"<div class='addList'>" +
-					"<img src='" +
-					profile +
-					"'>" +
-					"<span class='empName'>" +
-					empName + 
-					"</span>" +
-					"<span class='deleteList' aria-hidden='true'>&times;</span>" +
-					"</div>" +
-					"</li>";
-			var addList = $(".empName");
-			var flag = 0;
-			$.each(addList, function(index, value){
-				if(value.innerHTML == empName){
-					flag = 1;
-				}
-			});
-			if(flag == 0){
-				$("#add-list").append(html);				
-			}
-			
+        	$("#add-list").append(html);							// 초대 목록에 입력
+			inviteYN();
         });
         
-        $(document).on('click', '.deleteList', function(){
-        	
-        	$(this).parent().parent().remove();
-        	
+        $(document).on('click', '.deleteList', function(){			// 초대목록에서 x키(지우기)가 눌렸을 때
+        	var empId = $(this).data('id');							// 그 사람에 empId 받아옴
+        	$("#check_" + empId).removeClass("checked");			// 프로필 목록에서 체크박스 체크 해제
+        	$(this).parent().parent().remove();						// 초대목록에서 그 사람을 삭제
+        	inviteYN();
         });
         
         $("#messageArea").scrollTop(9999999);
 
     });
+    
+    function inviteYN(){
+	    if($("#add-list").html() == ""){
+			$("#invite-submit").prop('disabled', true);
+		}else{
+			$("#invite-submit").prop('disabled', false);
+		}
+    	
+    }
 
 	// jQuery Scroll Plugin 적용
 	function fn_scroll_plugin() {
@@ -397,34 +442,41 @@ body{
 			data:{chatId:chatId},
 			dataType:"json",
 			success:function(data){
-				var html = "";
+				var html = "";					// 넣을 값 초기화
 		    	//$("#invite-list").html(html);
-				$.each(data, function(index, value){
-			    	html += "<li>" +
-						   "<div class='chatList'>" +
-						   "<input type='hidden' name='empId' value='" + 
-						   value.empId +
-						   "'>" + 
-						   "<div class='img'>" + 
-						   "<img src='resources/images/" + 
-						   value.profilePath + 
-						   "'>" +
-						   "</div>" + 
-						   "<div class='desc'>" + 
-						   "<h5>" + 
-						   value.empName + " " +  value.jobName +
-						   "</h5>" + 
-						   "<small>" + 
-						   value.deptName +
-						   "</small>" +
-						   "</div>" + 
-						   "</div>" + 
-						   "</li>";
+				$.each(data, function(index, value){	// 초대 가능한 목록에 들어갈 사람들 데이터 목록 반복문 돌림
+			    	html += "<li class='chatListForm'>" +	// chatListForm에 들어갈 데이터 입력
+						    "<div class='chatList' id='" +
+						    value.empId +
+						    "'>" +
+						    "<div class='img'>" + 
+						    "<img src='resources/images/" + 
+						    value.profilePath + 
+						    "'>" +
+						    "</div>" + 
+						    "<div class='desc'>" + 
+				   		    "<div class='chatList-left-section'>" +
+						    "<h5>" + 
+						    value.empName + " " +  value.jobName +
+						    "</h5>" + 
+						    "<small>" + 
+						    value.deptName +
+						    "</small>" +
+						    "</div>" + 
+				   		    "<div class='chatList-right-section'>" +
+				   		    "<div id='check_" + 
+				   		    value.empId +
+				   		    "' class='non-checked'>" +
+				   		    "<i class='fa fa-check'></i>" +
+				   		    "</div>" + 
+				   		    "</div>" +
+						    "</div>" + 
+						    "</div>" +
+						    "</li>";
 				});
-				
-				//$("#invite-list").html(html);
-				$("#invite-list").append(html);
-				$("#add-list").html("");
+				$("#invite-list").html(html);	// 초대 가능 목록 리스트에 값 입력
+				//$("#invite-list").append(html);
+				$("#add-list").html("");		// 초대목록 값 비워줌
 				
 				
 			},
@@ -569,15 +621,15 @@ body{
 						   				<img src='resources/images/default_profile.png'>
 						   			</div>
 						   			<div class='desc'>
-						   			<div style="float:left; width:85%;">
-						   				<h5>유현규 사원</h5> 
-						   				<small>영업지원부</small>
-						   			</div>
-						   			<div style="float:right; width:15%;">
-							   			<div style="margin-top:6px;border-radius:50%; width:25px; height:25px; background:black;">
-						   				</div>
-							   				
-							   		</div>
+							   			<div class='chatList-left-section' style='float:left; width:85%;'>
+							   				<h5>유현규 사원</h5> 
+							   				<small>영업지원부</small>
+							   			</div>
+							   			<div class='chatList-right-section' style='float:right; width:15%;'>
+								   			<div class='non-checked'>
+								   			<i class='fa fa-check'></i>
+							   				</div>
+								   		</div>
 						   			</div>
 						   		</div> 
 							</li>
@@ -596,7 +648,7 @@ body{
 					</div>
 	         	</div>
          		<div class="modal-footer">
-         			<button type="button" class="btn" style="background:#ffdf6d;color:black;" disabled>확인</button>
+         			<button type="button" class="btn" id="invite-submit" style="background:#ffdf6d;color:black;" disabled>확인</button>
            			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
          		</div>
        		</div>
