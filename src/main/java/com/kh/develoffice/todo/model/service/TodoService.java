@@ -15,9 +15,6 @@ public interface TodoService {
 	///////////	TODO Board List 불러오기 ///////////
 	ArrayList<TodoBoard> selectBoardList(TodoBoard tb);
 	
-	/////////// 게시판 총 갯수 조회 ///////////
-	int getListCount();
-	
 	/////////// TODO 리스트 조회 ///////////
 	ArrayList<Todo> selectTodoList(Todo t);
 	
