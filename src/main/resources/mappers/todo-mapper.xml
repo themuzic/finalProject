@@ -52,19 +52,20 @@
 		where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status!='N'
 		order by todo_no desc -->
 		
+		<![CDATA[
 		select *
 		from (select * from todo
       		  where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status!='N'
       		  order by todo_no desc)
-		where rownum <= 10
-
+		where rownum <= 15
+		]]>
 	</select>
 	
 	<!-- Todo 삭제 -->
 	<update id="deleteTodo" parameterType="Todo">
 		update todo
 		set todo_status='N'
-		where todo_no=#{todoNo}
+		where todo_no=#{todoNo} and emp_id=#{empId}
 	</update>
 	
 	
