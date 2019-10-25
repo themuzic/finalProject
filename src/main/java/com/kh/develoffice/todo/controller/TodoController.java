@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.todo.model.service.TodoService;
 import com.kh.develoffice.todo.model.vo.Todo;
 import com.kh.develoffice.todo.model.vo.TodoBoard;
+
 
 @Controller
 public class TodoController {
@@ -52,7 +54,7 @@ public class TodoController {
 	
 	/////////// TODO Board 리스트로 이동 ///////////
 	@RequestMapping("todoBoardList.do")
-	public ModelAndView todoBoardList(ModelAndView mv, HttpSession session) {
+	public ModelAndView todoBoardList(ModelAndView mv, HttpSession session, Model model) {
 		
 		Employee e = (Employee)session.getAttribute("loginUser");
 		
@@ -64,11 +66,16 @@ public class TodoController {
 		
 		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
 		
+//		session.setAttribute("todoBoardList", todoBoardList);
+//		model.addAttribute("todoBoardList", todoBoardList);
+		
 		mv.addObject("todoBoardList", todoBoardList).setViewName("todo/tdBoardListView");
 		
 		//System.out.println(todoBoardList);
 		
 		return mv;
+		
+		//return "todo/tdBoardListView";
 	}
 	
 	
@@ -91,6 +98,8 @@ public class TodoController {
 		//System.out.println(t);
 		
 		ArrayList<Todo> todoList = tService.selectTodoList(t);
+		
+		//session.setAttribute("todoList", todoList);
 		
 		mv.addObject("todoList", todoList).setViewName("todo/todoListView");
 		//System.out.println(todoList);

@@ -58,9 +58,14 @@
 					 	
 					 	<div class="content-insertForm">
 					 	
-					 		<input type="hidden" name="empId" value="${loginUser.empId }">
-					 		<input type="hidden" name="tdBoardNo" value="${ todoBoardList.tdBoardNo }">
+					 		<input type="hidden" name="empId" value="${ loginUser.empId }">
+					 		<input type="hidden" name="tdBoardNo" value="${ todoList[0].tdBoardNo }">
 					 		
+					 
+					 		<h1><c:out value="${ todoBoardList.tdBoardNo }"/></h1>
+					 		
+					 		
+					 						 		
 					 		<h4 style="padding: 2px 0 15px 0;">제목</h4>
 						 	<input class="form-control input-lg" id="todoName" name="todoName" placeholder="제목을 입력해주세요" type="text">
 						 	
@@ -71,20 +76,14 @@
 						 	
 						 	<br><br>
 						 	
-						 	<!-- <form id="todoStatus" method="post" >
-						 		<label for = "todoStatus">상태 : </label>
-						        <input type = "radio" name = "todoStatus" value = "대기" checked = "checked"> 대기  
-						        <input type = "radio" name = "todoStatus" value = "진행중"> 진행중<br>
-
-						 	</form> -->
 						 	
-						 	대기 상태를 자동으로...
+						 	<h5>(새 TO-DO는 자동으로 대기 상태로 생성됩니다)</h5>
 						 	
 						 	
 						 	
 						 	<br><br>
 						 	<div class="insertButton" align="center"> 
-						 		<button type="reset" class="btn btn-danger">
+						 		<button type="button" onclick="location.href='todoList.do'" class="btn btn-danger">
 									<i class="far fa-trash-alt"></i> 취소하기
 								</button>
 								<button type="submit" class="btn btn-success">

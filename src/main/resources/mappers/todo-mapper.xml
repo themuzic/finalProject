@@ -46,20 +46,18 @@
 		from todo
 	</select>
 	
-	<!-- Todo 리스트 조회 -->
+	<!-- Todo 리스트의 왼쪽 전체 리스트 최근 10개 조회 -->
 	<select id="selectTodoList" parameterType="Todo" resultMap="todoResultSet">
-		select * from todo
+		<!-- select * from todo
 		where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status!='N'
-		order by todo_no desc
+		order by todo_no desc -->
 		
-		<!-- <![CDATA[
-	    select todo_no, t.td_board_no, t.emp_id, todo_name, todo_content, todo_enroll_date, todo_status
-		from todo t
-		left join employee e on (t.emp_id = e.emp_id)
-		left join todo_board b on (t.td_board_no = b.td_board_no)
-		where t.emp_id=#{empId} and t.td_board_no=#{tdBoardNo} and todo_status='ongoing'
-		order by todo_no desc 
-		]]> -->
+		select *
+		from (select * from todo
+      		  where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status!='N'
+      		  order by todo_no desc)
+		where rownum <= 10
+
 	</select>
 	
 	<!-- Todo 삭제 -->
