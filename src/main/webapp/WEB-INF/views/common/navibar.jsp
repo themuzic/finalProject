@@ -497,6 +497,7 @@ $.datepicker.setDefaults({
 									<li><a href="insertMail.do" class="" id="m2_1">메일쓰기</a></li>
 									<li><a href="receiveMail.do" class="" id="m2_2">받은메일함</a></li>
 									<li><a href="sendMail.do" class="" id="m2_3">보낸메일함</a></li>
+									<li><a href="importantMail.do" class="" id="2_5">중요메일함</a>
 									<li><a href="deleteMail.do" class="" id="m2_4">휴지통</a></li>									
 								</ul>
 							</div>
