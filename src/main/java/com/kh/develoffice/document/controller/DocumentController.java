@@ -84,8 +84,6 @@ public class DocumentController {
 	@RequestMapping("documentTable.do")
 	public ModelAndView documentTableList(HttpSession session, ModelAndView mv) {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
-		
 		Employee emp = (Employee)session.getAttribute("loginUser");
 		ArrayList<Document> docuList = dService.selectDocuList(emp.getEmpId());
 		
@@ -110,53 +108,45 @@ public class DocumentController {
 			if(d.getDocuType().equals("CN")) {
 				d.setDv("회람");
 				d.setStatus("완료");
+				continue;
 			}
-			
 			if(d.getEmpId() == emp.getEmpId()) {	// 내가 작성한 문서 이면
 				d.setDv("기안");
 				
-				int flag2 = 0;
-				ArrayList<Approval> apArr = dService.approvalCheck(d.getDocuNum());
-				for(Approval a : apArr) {
-					if(a.getStatus().equals("Y")) {
-						flag2 += 1;
-					}
-				}
-				if(flag2 == apArr.size()) {
-					d.setStatus("완료");
-				} else {
-					d.setStatus("진행중");
-				}
-				
-			} else {	// 내가 올린 기안이 아니면
 				ArrayList<Approval> apArr = dService.approvalCheck(d.getDocuNum());
 				for(int i=0; i<apArr.size(); i++) {
-					int flag = 0;
-					if(apArr.get(i).getStatus().equals("Y")) {
-						flag += 1;
-					}
-					
-					if(apArr.get(i).getEmpId() == emp.getEmpId()) {	// 내가 결재라인에 있을때
-						if(apArr.get(i-1).getStatus().equals("Y") && apArr.get(i).getStatus().equals("N")) {
-							d.setStatus("결재 대기");
-						} else if(apArr.get(apArr.size()-1).getStatus().equals("Y")){
-							d.setStatus("완료");
-						} else {
-							d.setStatus("진행중");
-						}
-					}
-					
-					if(flag == apArr.size()){
+					if(apArr.get(apArr.size()-1).getStatus().equals("Y")) {
 						d.setStatus("완료");
 					} else {
 						d.setStatus("진행중");
 					}
 				}
+				
+			} else {	// 내가 올린 기안이 아니면
+				ArrayList<Approval> apArr = dService.approvalCheck(d.getDocuNum());
+				for(int i=0; i<apArr.size(); i++) {
+					
+					if(apArr.get(i).getEmpId() == emp.getEmpId()) {	// 내가 결재라인에 있을때
+						if( i != 0 && apArr.get(i-1).getStatus().equals("Y") && apArr.get(i).getStatus().equals("N")) {
+							d.setStatus("결재 대기");
+							break;
+						} else if(apArr.get(apArr.size()-1).getStatus().equals("Y")){
+							d.setStatus("완료");
+							
+						} else {
+							d.setStatus("진행중");
+						}
+					} else {	// 내가 결재라인에 없을때
+						if(apArr.get(apArr.size()-1).getStatus().equals("Y")) {
+							d.setStatus("완료");
+						} else {
+							d.setStatus("진행중");
+						}
+					}
+				}
 			}
-			
+			System.out.println(d);
 		}
-		
-		//System.out.println(docuList);
 		
 		mv.addObject("docuList", docuList).setViewName("document/dcTable");
 		return mv;
@@ -350,6 +340,29 @@ public class DocumentController {
 	}	
 	
 	
+	@ResponseBody
+	@RequestMapping("apCheck.do")
+	public String apCheck(Approval ap) {
+		
+		int result = dService.apCheck(ap);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
 	
-	
+	@ResponseBody
+	@RequestMapping("rfCheck.do")
+	public String rfCheck(Reference rf) {
+		
+		int result = dService.rfCheck(rf);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
 }

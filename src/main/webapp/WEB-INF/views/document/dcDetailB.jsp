@@ -58,15 +58,11 @@
 							</div>
 						</div>
 			
-						<input type="hidden" name="approval_document_no" value="281989">
-						<input type="hidden" name="approval_first_line" value="56675">
-						<input type="hidden" name="approval_second_line" value="">
-						<input type="hidden" name="approval_third_line" value="">
-						<input type="hidden" name="approval_fourth_line" value="">
-						<input type="hidden" name="approval_fifth_line" value="">
-						<input type="hidden" name="approval_preserved_term" value="5">
-						<input type="hidden" name="approval_security_level" value="C">
-						<input type="hidden" name="approval_list_view" value="/cocoa-test1.onhiworks.com/approval/document/box/all/?&amp;box_mode=all">
+						<input type="hidden" name="docuNum" value="${document.docuNum}">
+						<input type="hidden" name="title" value="">
+						<input type="hidden" name="saveTerm" value="">
+						<input type="hidden" name="security" value="">
+						<input type="hidden" name="content" value="">
 			
 						<div class="content_inbox" id="content_inbox">
 							<!-- Contents -->
@@ -106,13 +102,7 @@
 
 												<th scope="row">보안 등급</th>
 												<td>
-													<select name="security_level" class="fl write-select view" onchange="ApprovalProcess.modifyApprovalDocumentSetting('security_level');">
-														<option value="S">S등급</option>
-														<option value="A">A등급</option>
-														<option value="B">B등급</option>
-														<option value="C" selected="">C등급</option>
-													</select>
-															
+													<span id="security_span">${document.security}등급</span>
 												</td>			
 											</tr>
 											<tr>
@@ -141,9 +131,17 @@
 												회람
 												</div>
 											</th>
-											<td id="approvalFirstLine">
-												<input type="text" class="refer-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputApprovalFirstLine" style="display: none;" approval_type="I" autocomplete="off">
-												<span class="refer-list" user_no="56675" node_id="46500" type="I">김상윤<span class="icon file_delete js-approval-line-delete" style="display: none;"></span></span>			</td>
+											<td id="approvalFirstLine" style="padding-left:15px;">
+												
+												<c:if test="${!empty rfList}">
+									
+													<c:forEach var="rf" items="${rfList}">
+														<span class="refer-list mgl_20" empId="${rf.empId}">${rf.empName}</span>
+													</c:forEach>
+												
+												</c:if>
+											
+											</td>
 										</tr>
 									</tbody>
 									</table>
@@ -208,7 +206,7 @@
 	
 	<!-- script 작성 -->
 	<script>
-		
+	
 		/* 인쇄  시작 */
 		
 		function printDocument() {

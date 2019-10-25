@@ -101,6 +101,16 @@ public class DocumentServiceImpl implements DocumentService {
 		return dDao.selectDocuFile(docuNum);
 	}
 
+	@Override
+	public int apCheck(Approval ap) {
+		return dDao.apCheck(ap);
+	}
+
+	@Override
+	public int rfCheck(Reference rf) {
+		return dDao.rfCheck(rf);
+	}
+
 	
 
 }

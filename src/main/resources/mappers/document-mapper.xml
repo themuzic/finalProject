@@ -188,6 +188,26 @@
 	</select>
 	
 	
+	<update id="apCheck" parameterType="Approval">
+		update approval
+		set status='Y', approval_date=TO_DATE(sysdate,'yyyy-mm-dd hh24:mi:ss')
+		where docu_num=#{docuNum} and emp_id=#{empId}
+	</update>
+	
+	
+	<update id="rfCheck" parameterType="Approval">
+		update reference
+		set status='Y', check_date=sysdate
+		where docu_num=#{docuNum} and emp_id=#{empId}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 </mapper>

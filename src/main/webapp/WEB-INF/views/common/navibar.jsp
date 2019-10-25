@@ -236,12 +236,6 @@ $.datepicker.setDefaults({
 	.tableType02 tr:last-child > td {
 		border-bottom: 1px solid #cdcdcd;
 	}
-	.tableType02 tr:nth-last-of-type(2) > th{
-    	border-bottom: 1px solid #cdcdcd;
-	}
-	.tableType02 tr:nth-last-of-type(2) > td{
-    	border-bottom: 1px solid #cdcdcd;
-	}
 	.tableType01{
 		table-layout: fixed;
 		width: 100%;

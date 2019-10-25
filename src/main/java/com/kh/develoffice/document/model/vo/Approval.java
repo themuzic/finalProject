@@ -21,7 +21,7 @@ public class Approval {
 	private String empName;		// 결재선에 포함된 직원 이름
 	private String jobName;
 	private String status;		// 결재상태
-	private Date approvalDate;		// 결재한날짜
+	private String approvalDate;		// 결재한날짜
 	
 	
 	public Approval(int docuNum, int empId) {

@@ -102,6 +102,16 @@ public class DocumentDao {
 	}
 	
 	
+	public int apCheck(Approval ap) {
+		return sqlSession.update("documentMapper.apCheck",ap);
+	}
+	
+	
+	public int rfCheck(Reference rf) {
+		return sqlSession.update("documentMapper.rfCheck",rf);
+	}
+	
+	
 	
 	
 	

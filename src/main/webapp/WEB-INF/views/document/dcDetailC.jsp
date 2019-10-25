@@ -79,10 +79,6 @@
 						<input type="hidden" name="saveTerm" value="">
 						<input type="hidden" name="security" value="">
 						<input type="hidden" name="content" value="">
-						<input type="hidden" name="approval_fifth_line" value="">
-						<input type="hidden" name="approval_preserved_term" value="5">
-						<input type="hidden" name="approval_security_level" value="A">
-						<input type="hidden" name="approval_list_view" value="/cocoa-test1.onhiworks.com/approval/document/lists/P/?&amp;list_mode=P">
 			
 					<div class="content_inbox" id="content_inbox">
 						<!-- Contents -->
@@ -122,10 +118,6 @@
 												<th scope="row">보안 등급</th>
 												<td>
 													<span id="security_span">${document.security}등급</span>
-													<select name="security_level" class="fl write-select view hide" onchange="ApprovalProcess.modifyApprovalDocumentSetting('security_level');">
-														<option value="S">S등급</option>
-														<option value="A" selected="">A등급</option>
-													</select>															
 												</td>			
 											</tr>
 											<tr>
@@ -219,18 +211,28 @@
 							<col style="width:87.91%;">
 						</colgroup>
 						<tbody>
-							<tr>
+							<tr id="rfRow">
 								<th scope="row">
 									<div class="choice" style="min-height: 45px; height: 44px; display: table-cell; width: 116px; vertical-align: middle; text-align: center;">
 									참조
 									</div>
 								</th>
-								<td id="approvalFourthLine">
+								<td id="approvalFourthLine" style="padding-left:15px;">
 									
 									<c:if test="${!empty rfList}">
 									
 										<c:forEach var="rf" items="${rfList}">
-											<span class="refer-list" empId="${rf.empId}">${rf.empName}<span class="icon file_delete js-approval-line-delete" style="display: none;"></span></span>
+											<c:choose>
+												<c:when test="${rf.status eq 'Y'}">
+													<span class="refer-list mgl_20" empId="${rf.empId}">${rf.empName}</span><img src="resources/images/check.png">
+												</c:when>
+												<c:when test="${rf.status eq 'N' and rf.empId eq loginUser.empId}">
+													<span class="refer-list mgl_20" empId="${rf.empId}">${rf.empName}</span><button type="button" class="rfCheckBtn" style="color:#779ec0">확인</button>
+												</c:when>
+												<c:otherwise>
+													<span class="refer-list mgl_20" empId="${rf.empId}">${rf.empName}<span class="icon file_delete js-approval-line-delete"></span></span>
+												</c:otherwise>
+											</c:choose>
 										</c:forEach>
 									
 									</c:if>
@@ -304,8 +306,6 @@
 			var stampRow = $("#stampRow").children();
 			var nameRow = $("#nameRow").children();
 			
-			var btn = '<button type="button" class="confirm" style="background:#fff;padding:5px 16px 6px;border:1px solid #c8c8c8;color:#2c86dc;">결재</button>';
-			
 			for(var i = 0; i < 7; i++){
 				
 				for(var j = 0; j < ${apList}.length; j++){
@@ -313,10 +313,17 @@
 						jobRow[i].innerHTML = ${apList}[j].jobName;
 						nameRow[i].innerHTML = ${apList}[j].empName;
 						
-						if(${apList}[j].status == 'N'){
-							stampRow[i].innerHTML = btn;
-						}else{
+						if(j != 0 && ${apList}[j].empId == ${loginUser.empId} && ${apList}[j].status == 'N'){
+							
+							if(${apList}[j-1].status == 'N'){
+								stampRow[i].innerHTML = '<button type="button" class="confirm" style="background:#fff;padding:5px 16px 6px;border:1px solid #c8c8c8;color:#cdcdcd;" disabled>결재</button>';
+							} else{
+								stampRow[i].innerHTML = '<button type="button" class="confirm" style="background:#fff;padding:5px 16px 6px;border:1px solid #c8c8c8;color:#2c86dc;">결재</button>';
+							}
+						}else if(${apList}[j].status == 'Y'){
 							stampRow[i].innerHTML = '<img src="resources/images/stamp_approval.png"><p class="date">'+${apList}[j].approvalDate+'</p>';
+						}else if(j == 0 && ${apList}[j].empId == ${loginUser.empId} && ${apList}[j].status == 'N'){
+							stampRow[i].innerHTML = '<button type="button" class="confirm" style="background:#fff;padding:5px 16px 6px;border:1px solid #c8c8c8;color:#2c86dc;">결재</button>';
 						}
 					}
 				}
@@ -325,9 +332,57 @@
 		
 		/* 결재 버튼을 누르면 */
 		$("#stampRow").on('click','.confirm',function(){
-			$(this).hide();
-			var confirm = $('<img src="resources/images/stamp_approval.png"><p class="date">${now2}</p>');
-			$(this).parent('td').append(confirm);
+			var thisBtn = $(this);
+			var dNum = $("input[name=docuNum]").val(); 
+			
+			$.ajax({
+				url:"apCheck.do",
+				type:"POST",
+				data:{
+					docuNum:dNum,
+					empId:${loginUser.empId}
+				},
+				success:function(data){
+						
+					if(data == 'success'){
+						thisBtn.hide();
+						var confirm = $('<img src="resources/images/stamp_approval.png"><p class="date">${now2}</p>');
+						thisBtn.parent('td').append(confirm);
+					} else {
+						alertify.alert('', '결재 확인 실패');
+					}
+				},
+				error:function(){
+					alertify.alert('', 'AJAX통신 실패');
+				}
+			});
+		});
+		/* 참조 확인 버튼을 누르면 */
+		$("#rfRow").on('click','.rfCheckBtn',function(){
+			var thisBtn = $(this);
+			var dNum = $("input[name=docuNum]").val(); 
+			
+			$.ajax({
+				url:"rfCheck.do",
+				type:"POST",
+				data:{
+					docuNum:dNum,
+					empId:${loginUser.empId}
+				},
+				success:function(data){
+					
+					if(data == 'success'){
+						thisBtn.hide();
+						var checkImg = $('<img src="resources/images/check.png" style="magrin-left:5px;">');
+						thisBtn.prev().after(checkImg);
+					} else {
+						alertify.alert('', '결재 확인 실패');
+					}
+				},
+				error:function(){
+					alertify.alert('', 'AJAX통신 실패');
+				}
+			});
 		});
 		
 		
