@@ -150,11 +150,11 @@
 					
 					<textarea id="summernote" name="mailContent">
 						-----Original Message-----
-						<p><b>From:</b>&nbsp; &#171;${ loginUser.email }&#187;</p> 
-						<p><b>To:</b>&nbsp; &#171;${ m.mailTo }&#187;</p> 
+						<p><b>From:</b>&nbsp; "${ m.fromEmp }" &#171;${ loginUser.email }&#187;</p> 
+						<p><b>To:</b>&nbsp; "${ m.toEmp }" &#171;${ m.mailTo }&#187;</p> 
 						
 						<c:if test="${ !empty m.mailCc }">
-							<p><b>Cc:</b>&nbsp; &#171;${ m.mailcc }&#187;</p> 
+							<p><b>Cc:</b>&nbsp; "${ m.ccEmp }" &#171;${ m.mailCc }&#187;</p> 
 						</c:if>
 						<c:if test="${ empty m.mailCc }">
 							<p><b>Cc:</b>&nbsp;</p> 

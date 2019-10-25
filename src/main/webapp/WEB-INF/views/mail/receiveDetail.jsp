@@ -86,13 +86,6 @@
 						<a href="${ delete }" style="font-size:16px;">삭제</a>
 					</span> &nbsp; &nbsp; &nbsp;
 					
-<!-- 					<span class="absol_delete menu" id="absol_delete"> -->
-<%-- 						<c:url var="mdelete" value="mdelete.do"> --%>
-<%-- 							<c:param name="mailNum" value="${m.mailNum }"/> --%>
-<%-- 							<c:param name="empId" value="${ loginUser.empId }"/> --%>
-<%-- 						</c:url> --%>
-<%-- 						<a href="${ mdelete }" style="font-size:16px;">완전삭제</a> --%>
-<!-- 					</span> &nbsp; &nbsp; &nbsp; -->
 		            <hr>
 		            
 					<form action="" method="post" encType="multipart/form-data">
@@ -105,7 +98,7 @@
 			                    <span class="important">
 			                    
 			                    <c:if test="${ m.mailImportant == 1 }">
-			                    	<i class="fas fa-star"></i>
+			                    	<i class="fas fa-star" style="color:gold;"></i>
 			                    </c:if>
 			                 	<c:if test="${ m.mailImportant == 0 }">
 			                 	</c:if>
@@ -129,12 +122,17 @@
 		                    		 
 			                </div>
 			                <div class="address">              
-			                    	받는 사람: <span name="mailTo">&quot;${ m.toEmp }&quot; &lt;${ m.mailTo }&gt;</span>                
+			                    <c:if test="${ !empty m.toEmp }">
+			                    	받는 사람: <span name="mailTo">&quot;${ m.toEmp }&quot; &lt;${ m.mailTo }&gt;</span>                			                	
+			                	</c:if>
+			                	<c:if test="${ empty m.toEmp }">
+			                		받는 사람: <span name="mailTo">&lt;${ m.mailTo }&gt;</span>  
+			                	</c:if>                  
 			                </div>
 			                
 			                <div class="mailCc">
 			                	<c:if test="${ !empty m.mailCc }">
-			                		참조인 : <span name="mailCc">&lt;${ m.mailCc }&gt;</span>
+			                		참조인 : <span name="mailCc">&quot;${ m.ccEmp }&quot; &lt;${ m.mailCc }&gt;</span>
 			                	</c:if>
 			                	<c:if test="${ empty m.mailCc }">
 			                	</c:if>

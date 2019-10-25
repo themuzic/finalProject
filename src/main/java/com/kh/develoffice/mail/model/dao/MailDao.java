@@ -53,9 +53,9 @@ public class MailDao {
 		return sqlSession.insert("mailMapper.insertMail", m);
 	}
 	
-	public Mail receiveDetail(int mailNum) {
+	public Mail receiveDetail(Mail m) {
 		
-		return sqlSession.selectOne("mailMapper.receiveDetail", mailNum);
+		return sqlSession.selectOne("mailMapper.receiveDetail", m);
 	}
 	
 	public int getSearchListCount(Mail m) {
@@ -94,14 +94,14 @@ public class MailDao {
 		return sqlSession.selectOne("mailMapper.receiveDetail", mailNum);
 	}
 	
-	public int selectEmpId(String toEmail) {
-		if(sqlSession.selectOne("mailMapper.selectEmpId", toEmail) == null) {
+	public int selectEmpId(String email) {
+		if(sqlSession.selectOne("mailMapper.selectEmpId", email) == null) {
 		
 			return 0;
 			
 		}else {
 			
-			return sqlSession.selectOne("mailMapper.selectEmpId", toEmail);
+			return sqlSession.selectOne("mailMapper.selectEmpId", email);
 		}
 	}
 

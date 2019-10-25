@@ -145,11 +145,11 @@
 								<div class="star">
 								<c:if test="${ m.mailImportant == 0 }">
 									<i class="far fa-star"></i>
-									<i class="fas fa-star" style="color:yellow; display:none;"></i>
+									<i class="fas fa-star" style="color:gold; display:none;"></i>
 								</c:if>
 								<c:if test="${ m.mailImportant == 1 }">
 									<i class="far fa-star" style="display:none;"></i>
-									<i class="fas fa-star" style="color:yellow; display:inline-block;"></i>
+									<i class="fas fa-star" style="color:gold; display:inline-block;"></i>
 								</c:if>
 								</div>
 							</td>

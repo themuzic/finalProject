@@ -9,6 +9,7 @@
 		<result property="mailTo" column="mail_to"/>
 		<result property="fromEmp" column="from_Emp"/>
 		<result property="toEmp" column="to_Emp"/>
+		<result property="ccEmp" column="cc_Emp"/>
 		<result property="mailCc" column="mail_cc"/>
 		<result property="mailTitle" column="mail_title"/>
 		<result property="mailContent" column="mail_content"/>
@@ -43,7 +44,7 @@
 	
 	<!-- 받은 메일함 조회 -->
 	<select id="receiveMailList" parameterType="Mail" resultMap="MailResultSet">
-		SELECT MAIL_NUM, EMP_ID, MAIL_FROM, MAIL_TO, MAIL_TITLE, MAIL_DATE, MAIL_IMPORTANT, RENAME_FILENAME, STATUS
+		SELECT MAIL_NUM, EMP_ID, MAIL_FROM, MAIL_TO, MAIL_CC, MAIL_TITLE, MAIL_DATE, MAIL_IMPORTANT, RENAME_FILENAME, STATUS
 		FROM MAIL
 		JOIN MAIL_DEL USING(MAIL_NUM)
 		WHERE EMP_ID=#{empId} AND STATUS='Y'
@@ -61,7 +62,7 @@
 	
 	<!-- 휴지통 조회 -->
 	<select id="deleteMailList" parameterType="Employee" resultMap="MailResultSet">
-		SELECT MAIL_NUM, EMP_ID, MAIL_FROM, MAIL_TO, MAIL_TITLE, MAIL_DATE, MAIL_IMPORTANT, RENAME_FILENAME, STATUS
+		SELECT MAIL_NUM, EMP_ID, MAIL_FROM, MAIL_TO, MAIL_CC, MAIL_TITLE, MAIL_DATE, MAIL_IMPORTANT, RENAME_FILENAME, STATUS
 		FROM MAIL
 		JOIN MAIL_DEL USING(MAIL_NUM)
 		WHERE STATUS='N' AND EMP_ID=#{empId}
@@ -75,11 +76,11 @@
 		where mail_num=#{mailNum}
 	</select>
 	
-	<!-- tomail empid 받아오기 -->
+	<!-- tomail empid, ccMmail empid 받아오기 -->
 	<select id="selectEmpId" parameterType="String" resultType="_int">
 		select emp_id
 		from employee
-		where email = #{toEmail}
+		where email = #{email}
 	</select>
 	
 	<!-- 메일 보내기 -->
@@ -96,10 +97,10 @@
 	</insert>
 	
 	<!-- 메일함 디테일 -->
-	<select id="receiveDetail" parameterType="_int" resultMap="MailResultSet">
+	<select id="receiveDetail" parameterType="Mail" resultMap="MailResultSet">
 		select *
 		from mail_detail
-		where mail_num=#{mailNum}
+		where mail_num=#{mailNum} and emp_id=#{empId}
 	</select>
 	
 	<!-- 메일 검색결과 게시글 수 조회용 쿼리문 -->
@@ -200,7 +201,7 @@
 	
 	<!-- 중요메일함 셀렉 -->
 	<select id="importantMailList" parameterType="Employee" resultMap="MailResultSet">
-		SELECT MAIL_NUM, EMP_ID, MAIL_FROM, MAIL_TO, MAIL_TITLE, MAIL_DATE, MAIL_IMPORTANT, RENAME_FILENAME, STATUS
+		SELECT MAIL_NUM, EMP_ID, MAIL_FROM, MAIL_TO, MAIL_CC, MAIL_TITLE, MAIL_DATE, MAIL_IMPORTANT, RENAME_FILENAME, STATUS
 		FROM MAIL
 		JOIN MAIL_DEL USING(MAIL_NUM)
 		WHERE MAIL_IMPORTANT=1 AND EMP_ID=#{empId} and status='Y'

@@ -70,6 +70,13 @@
 						</c:url>
 						<a href="${ mdelete }" style="font-size:16px;">완전삭제</a>
 					</span> &nbsp; &nbsp; &nbsp;
+					<span>
+						<c:url var="restore" value="mRestore.do">
+							<c:param name="mailNum" value="${m.mailNum }"/>
+							<c:param name="empId" value="${ loginUser.empId }"/>
+						</c:url>
+						<a href="${ restore }" style="font-size:16px;">복구</a>
+					</span>
 		            <hr>
 		            
 					<form action="" method="post" encType="multipart/form-data">
@@ -91,16 +98,16 @@
 			                    <a href="javascript:void(0)" id="spMemoDisplayOrigin" onclick="" class="memo"></a>
 			                </div>
 			                <div class="sender">
-		                    		보낸 사람: <span id="from_addr" name ="mailFrom" &lt>&quot;${ loginUser.empName }&quot; &lt;${ m.mailFrom }&gt;</span>
+		                    		보낸 사람: <span id="from_addr" name ="mailFrom" &lt>&quot;${ m.fromEmp }&quot; &lt;${ m.mailFrom }&gt;</span>
 		                    		 
 			                </div>
 			                <div class="address">              
-			                    	받는 사람: <span name="mailTo">&lt;${ m.mailTo }&gt;</span>                
+			                    	받는 사람: <span name="mailTo">&quot;${ m.toEmp }&quot; &lt;${ m.mailTo }&gt;</span>                
 			                </div>
 			                
 			                <div class="mailCc">
 			                	<c:if test="${ !empty m.mailCc }">
-			                		참조인 : <span name="mailCc">&lt;${ m.mailCc }&gt;</span>
+			                		참조인 : <span name="mailCc">&quot;${ m.ccEmp }&quot; &lt;${ m.mailCc }&gt;</span>
 			                	</c:if>
 			                	<c:if test="${ empty m.mailCc }">
 			                	</c:if>

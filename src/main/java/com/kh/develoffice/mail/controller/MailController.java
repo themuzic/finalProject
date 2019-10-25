@@ -235,11 +235,19 @@ public class MailController {
 		// mail 테이블에 insert
 		int result = mService.insertMail(m);
 		
-		// 받는 To메일과 from,to empId 불러오기
+		// 받는메일과 / from,to empId 불러오기
 		String toEmail = m.getMailTo();
+		String ccEmail = m.getMailCc();
 		int fromEmpId = m.getEmpId();
-		int toEmpId = mService.selectEmpId(toEmail); 
+		int toEmpId = mService.selectEmpId(toEmail);
 		
+		int ccEmpId = 0; // 없을 때 저장 안함
+		
+		if(ccEmail != null) {
+			
+			ccEmpId = mService.selectEmpId(ccEmail);
+		}
+			
 		if(result > 0) {
 			
 			int result1 = mService.insertStatusMail(fromEmpId);
@@ -247,10 +255,17 @@ public class MailController {
 			int result2 = 1;
 			
 			if(toEmpId != 0) {
+				
 				result2 = mService.insertStatusMail(toEmpId);
 			}
 			
-			if(result1 > 0 && result2 > 0) {
+			int result3 = 1;
+			
+			if(ccEmpId !=0) {
+				result3 = mService.insertStatusMail(ccEmpId);
+			}
+			
+			if(result1 > 0 && result2 > 0 && result3 > 0) {
 				return "mail/successMail";
 			}else {
 				model.addAttribute("msg", "메일전송 실패!");
@@ -441,9 +456,11 @@ public class MailController {
 	
 	// 받은, 보낸 메일함 상세조회
 	@RequestMapping("receiveDetail.do")
-	public ModelAndView receiveDetail(int mailNum, ModelAndView mv) {
+	public ModelAndView receiveDetail(Mail mail, ModelAndView mv, HttpSession session) {
 		
-		Mail m = mService.receiveDetail(mailNum);
+		mail.setEmpId(((Employee)session.getAttribute("loginUser")).getEmpId());
+		
+		Mail m = mService.receiveDetail(mail);
 		
 		if(m != null) {
 			m.setFormatDate(sdf.format(m.getMailDate()));
@@ -457,9 +474,11 @@ public class MailController {
 	
 	// 휴지통 메일함 상세조회
 	@RequestMapping("deleteDetail.do")
-	public ModelAndView deleteDetail(int mailNum, ModelAndView mv) {
+	public ModelAndView deleteDetail(Mail mail, ModelAndView mv, HttpSession session) {
 		
-		Mail m = mService.receiveDetail(mailNum);
+		mail.setEmpId(((Employee)session.getAttribute("loginUser")).getEmpId());
+		
+		Mail m = mService.receiveDetail(mail);
 		
 		if(m != null) {
 			m.setFormatDate(sdf.format(m.getMailDate()));
@@ -519,9 +538,9 @@ public class MailController {
 		}
 	}
 	
-	// 체크된 메일 복구
+	// 체크된 메일 복구 ajax
 	@ResponseBody
-	@RequestMapping("restore")
+	@RequestMapping("restore.do")
 	public String restore(Mail m) {
 		
 		int result = mService.restoreMail(m);
@@ -530,6 +549,19 @@ public class MailController {
 			return "success";
 		}else {
 			return "fail";
+		}
+	}
+	
+	@RequestMapping("mRestore.do")
+	public String mRestore(Mail m, HttpServletRequest request, Model model) {
+		
+		int result = mService.restoreMail(m);
+		
+		if(result > 0) {
+			return "mail/deleteMail";
+		}else {
+			model.addAttribute("msg", "메일 복구 실패");
+			return "common/errorPage";
 		}
 	}
 	
@@ -549,7 +581,7 @@ public class MailController {
 		}else {
 			model.addAttribute("msg", "메일 삭제 실패");
 			
-			return ("common/errorPage");
+			return "common/errorPage";
 		}		
 	}
 	
@@ -567,9 +599,11 @@ public class MailController {
 	
 	// 메일 전달
 	@RequestMapping("transfer.do")
-	public ModelAndView transfer(int mailNum, ModelAndView mv) {
+	public ModelAndView transfer(Mail mail, ModelAndView mv, HttpSession session) {
 		
-		Mail m = mService.receiveDetail(mailNum);
+		mail.setEmpId(((Employee)session.getAttribute("loginUser")).getEmpId());
+		
+		Mail m = mService.receiveDetail(mail);
 		
 		if(m != null) {
 			m.setFormatDate(sdf.format(m.getMailDate()));

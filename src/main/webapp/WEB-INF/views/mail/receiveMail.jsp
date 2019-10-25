@@ -133,7 +133,7 @@
 				</thead>
 				<tbody class="select_subject">
 				<c:forEach items="${ list }" var="m">
-					<c:if test="${ m.mailTo == loginUser.email }">
+					<c:if test="${ m.mailTo == loginUser.email || m.mailCc == loginUser.email}">
 							<tr>
 								<td>
 									<input type="checkbox" id="check" name="check" class="check chkBox" value="${ m.mailNum }">
@@ -144,11 +144,11 @@
 									<div class="star">
 									<c:if test="${ m.mailImportant == 0 }">
 										<i class="far fa-star"></i>
-										<i class="fas fa-star" style="color:yellow; display:none;"></i>
+										<i class="fas fa-star" style="color:gold; display:none;"></i>
 									</c:if>
 									<c:if test="${ m.mailImportant == 1 }">
 										<i class="far fa-star" style="display:none;"></i>
-										<i class="fas fa-star" style="color:yellow; display:inline-block;"></i>
+										<i class="fas fa-star" style="color:gold; display:inline-block;"></i>
 									</c:if>
 									</div>
 								</td>

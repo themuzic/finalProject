@@ -23,7 +23,7 @@ public interface MailService {
 	int insertMail(Mail m);
 	
 	// 메일함 상세페이지
-	Mail receiveDetail(int mailNum);
+	Mail receiveDetail(Mail m);
 	
 	// 검색처리 리스트 불러오기
 	int getSearchListCount(Mail m);
@@ -43,7 +43,7 @@ public interface MailService {
 	// 메일 이동
 	int updateMail(Mail m);
 
-	int selectEmpId(String toEmail);
+	int selectEmpId(String email);
 
 	int insertStatusMail(int empId);
 	

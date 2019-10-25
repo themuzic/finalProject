@@ -50,9 +50,9 @@ public class MailServiceImpl implements MailService{
 	}
 
 	@Override
-	public Mail receiveDetail(int mailNum) {
+	public Mail receiveDetail(Mail m) {
 		
-		return mDao.receiveDetail(mailNum);
+		return mDao.receiveDetail(m);
 	}
 
 	@Override
@@ -92,9 +92,9 @@ public class MailServiceImpl implements MailService{
 	}
 	
 	@Override
-	public int selectEmpId(String toEmail) {
+	public int selectEmpId(String email) {
 		
-		return mDao.selectEmpId(toEmail);
+		return mDao.selectEmpId(email);
 		
 	}
 

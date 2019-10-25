@@ -21,6 +21,7 @@ public class Mail {
 	private String mailTo;
 	private String fromEmp;
 	private String toEmp;
+	private String ccEmp;
 	private String mailCc;
 	private String mailTitle;
 	private String mailContent;
