@@ -19,35 +19,16 @@ public class Document {
 	private String docuType;	// 문서종류
 	private int docuCode;		// 문서번호
 	private int empId;			// 작성한직원ID
-	private String saveTerm;		// 보존연한
-	private String security;		// 보안등급
-	private Date docuDate;		// 작성날짜
+	private String empName;		// 작성환직원이름
+	private String deptName;	// 부서이름
+	private String title;		// 문서제목
+	private int saveTerm;		// 보존연한
+	private String security;	// 보안등급
+	private String docuDate;		// 작성날짜
+	private String modifyDate;	// 수정된날짜
 	private String status;		// 활성화 상태
-	private String fileStatus;		//파일유무
-	
-	
-	public Document(int docuNum, String docuType, int docuCode, int empId, String saveTerm, String security, Date docuDate) {
-		super();
-		this.docuNum = docuNum;
-		this.docuType = docuType;
-		this.docuCode = docuCode;
-		this.empId = empId;
-		this.saveTerm = saveTerm;
-		this.security = security;
-		this.docuDate = docuDate;
-	}
-
-
-	public Document(String docuType, int docuCode, int empId, String saveTerm, String security, Date docuDate) {
-		super();
-		this.docuType = docuType;
-		this.docuCode = docuCode;
-		this.empId = empId;
-		this.saveTerm = saveTerm;
-		this.security = security;
-		this.docuDate = docuDate;
-	}
-	
+	private String fileStatus;	//파일유무
+	private String dv;			//구분
 	
 	
 	

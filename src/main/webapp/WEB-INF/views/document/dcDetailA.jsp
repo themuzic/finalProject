@@ -173,9 +173,7 @@
 												참조	
 												</div>
 											</th>
-											<td id="approvalThirdLine">
-												<input type="text" class="refer-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputApprovalThirdLine" style="display: none;" approval_type="F" autocomplete="off">
-											</td>
+											<td id="approvalThirdLine"></td>
 										</tr>
 									</tbody>
 								</table>
@@ -269,82 +267,8 @@
 									</div>
 								</div>
 							</div>
-							
-			
-			<script>
-				ApprovalProcess._documentNo = '283009';
-				ApprovalProcess._firstLine = '57511';
-				ApprovalProcess._secondLine = '';
-				ApprovalProcess._thirdLine = '';
-				ApprovalProcess._fourthLine = '';
-				ApprovalProcess._fifthLine = '';
-				ApprovalProcess._approvalMethod = 'BCF';
-				ApprovalProcess._registerNo = '57511';
-				ApprovalProcess._documentType = 'spending_report';
-				
-				var approvalRelatedDocumentTable = new approvalTableClass( {table:"tableRelatedDocument", row : [["action2", ""], ["star", ""], ["document_code", "docu-num"], ["none_link_title", "title"], ["register", "docu-register"]]} );
-				
-				$j(document).ready(function(){
-					autoComplete();
-					Approval.settingDblClickForDeleteApprovalSelectUser();
-						ApprovalProcess.getApprovalComments();
-					autosize(document.querySelector("#approvalDocumentComment"));
-					});
-				
-				$j(document).on("click", '.js-approval-line-delete', function(){
-					if($j(this).parent().attr("user_no") === undefined){
-						alert("다시 시도해주시기 바랍니다.");
-						return;
-					}
-				
-					if(ApprovalProcess.deleteApprovalLinUser($j(this).parent().attr("user_no"), $j(this).parent().contents().eq(0).text(), $j(this).parent().attr("type"), $j(this).closest('td').attr('id'))){
-						$j(this).parent().remove();
-					}
-				});
-				
-				$j(document).on("click", '.js-approval-circulation', function(){
-					$j(this).parent().remove();
-				});
-				
-				$j(document).on("mousedown", '.js-approval-li-types', function(event){
-					event.preventDefault();
-					$j('.js-approval-li-forms').removeClass("active");
-					$j(this).addClass("active");
-					$j('#anchorApprovalType').html("보기: " +$j(this).text());
-					$j("#menuApprovalTypeMode").toggleClass("show");
-					ApprovalProcess._searchRelatedDocument['type'] = $j(this).attr("value");
-					ApprovalProcess.getRelatedDocumentList();
-				});
-				
-				$j(document).on("keydown", '#textSearchRelatedDocument', function(e){
-					if(e.keyCode == 13){ // enter
-						e.preventDefault();
-						e.stopPropagation();
-				
-						ApprovalProcess.searchRelatedDocument();
-					}
-				});
-				
-				$j(document).on("click", '.js-approval-btn-box-mode', function(){
-					if($j(this).parent().children("ul").hasClass("dropdown-menu")){
-						$j(this).parent().children("ul").toggleClass("show");
-						$j(".js-approval-li-types").removeClass("active");
-					}
-				});
-				
-				$j('#m_view_more_menu').on('click', function(e){
-					e.preventDefault();
-					e.stopPropagation();
-					$j('#m_view_more_menu_detail').show();
-				});
-				
-				$j(document).on('click', function(){
-					$j('#m_view_more_menu_detail').hide();
-				});
-				
-			</script>
-			
-					
+						</div>
+					</div>
 					
 					
 					
@@ -355,7 +279,6 @@
 					
 					
 					<!-- 이 위까지 내용작성 -->
-					
 					</div>
 				</div>
 			</div>

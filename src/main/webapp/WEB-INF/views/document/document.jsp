@@ -1734,8 +1734,11 @@
 			var empId = ${loginUser.empId};
 			var saveTerm = $("#set_preserved_term_y option:selected").val();
 			var security = $("#set_security_level_y option:selected").val();
-
-			
+						
+			if(saveTerm == "" || security == ""){
+				alertify.alert('', '보존연한 및 보안등급을 설정해 주세요.');
+				return;
+			}
 			
 			var formData = new FormData();
 			/* 첨부 파일 */
@@ -1752,10 +1755,8 @@
 			
 			/* 제목 */
 			var title = $("#approval_document_title").val();
-			
-			/* 첨부파일 */
-			
 			formData.append('title',title);
+			
 			
 			if(docuType == 'AP'){	//지출결의서
 				

@@ -2,9 +2,11 @@ package com.kh.develoffice.document.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,10 +23,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.develoffice.common.Department;
 import com.kh.develoffice.document.model.service.DocumentService;
+import com.kh.develoffice.document.model.vo.Approval;
 import com.kh.develoffice.document.model.vo.DocuA;
 import com.kh.develoffice.document.model.vo.DocuB;
 import com.kh.develoffice.document.model.vo.Document;
 import com.kh.develoffice.document.model.vo.DocumentFile;
+import com.kh.develoffice.document.model.vo.Reference;
 import com.kh.develoffice.employee.model.service.EmployeeService;
 import com.kh.develoffice.employee.model.vo.Employee;
 
@@ -78,13 +82,135 @@ public class DocumentController {
 	}
 	
 	@RequestMapping("documentTable.do")
-	public String documentTableList() {
-		return "document/dcTable";
+	public ModelAndView documentTableList(HttpSession session, ModelAndView mv) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+		
+		Employee emp = (Employee)session.getAttribute("loginUser");
+		ArrayList<Document> docuList = dService.selectDocuList(emp.getEmpId());
+		
+		ArrayList<Approval> apList = dService.selectMyApproval(emp.getEmpId());
+		ArrayList<Reference> rfList = dService.selectMyReference(emp.getEmpId());
+			
+		for(Document d : docuList){
+			
+			String[] sArr = d.getDocuDate().split(" ");
+			d.setDocuDate(sArr[0]);
+			
+			for(Approval a : apList) {
+				if(d.getDocuNum() == a.getDocuNum()) {
+					d.setDv("결재");				
+				}
+			}
+			for(Reference r : rfList) {
+				if(d.getDocuNum() == r.getDocuNum()) {
+					d.setDv("참조");
+				}
+			}
+			if(d.getDocuType().equals("CN")) {
+				d.setDv("회람");
+				d.setStatus("완료");
+			}
+			
+			if(d.getEmpId() == emp.getEmpId()) {	// 내가 작성한 문서 이면
+				d.setDv("기안");
+				
+				int flag2 = 0;
+				ArrayList<Approval> apArr = dService.approvalCheck(d.getDocuNum());
+				for(Approval a : apArr) {
+					if(a.getStatus().equals("Y")) {
+						flag2 += 1;
+					}
+				}
+				if(flag2 == apArr.size()) {
+					d.setStatus("완료");
+				} else {
+					d.setStatus("진행중");
+				}
+				
+			} else {	// 내가 올린 기안이 아니면
+				ArrayList<Approval> apArr = dService.approvalCheck(d.getDocuNum());
+				for(int i=0; i<apArr.size(); i++) {
+					int flag = 0;
+					if(apArr.get(i).getStatus().equals("Y")) {
+						flag += 1;
+					}
+					
+					if(apArr.get(i).getEmpId() == emp.getEmpId()) {	// 내가 결재라인에 있을때
+						if(apArr.get(i-1).getStatus().equals("Y") && apArr.get(i).getStatus().equals("N")) {
+							d.setStatus("결재 대기");
+						} else if(apArr.get(apArr.size()-1).getStatus().equals("Y")){
+							d.setStatus("완료");
+						} else {
+							d.setStatus("진행중");
+						}
+					}
+					
+					if(flag == apArr.size()){
+						d.setStatus("완료");
+					} else {
+						d.setStatus("진행중");
+					}
+				}
+			}
+			
+		}
+		
+		//System.out.println(docuList);
+		
+		mv.addObject("docuList", docuList).setViewName("document/dcTable");
+		return mv;
 	}
 		
 	@RequestMapping("documentDetailView.do")
-	public String documentDetailView() {
-		return "document/dcDetailA";
+	public ModelAndView documentDetailView(int docuNum, ModelAndView mv) throws ParseException {
+		
+		Document document = dService.selectDocument(docuNum);
+		ArrayList<Approval> apList = dService.approvalCheck(docuNum);
+		ArrayList<Reference> rfList = dService.referenceCheck(docuNum);
+		
+		JSONArray apArr = new JSONArray();
+		for(Approval a : apList) {
+			JSONObject jObj = new JSONObject();
+			jObj.put("docuNum", a.getDocuNum());
+			jObj.put("empId", a.getEmpId());
+			jObj.put("empName", a.getEmpName());
+			jObj.put("jobName", a.getJobName());
+			jObj.put("status", a.getStatus());
+			jObj.put("approvalDate", a.getApprovalDate());
+			
+			apArr.add(jObj);
+		}
+		
+		System.out.println(document);
+		System.out.println(apList);
+		System.out.println(rfList);
+		
+		mv.addObject("document",document);
+		mv.addObject("apList",apArr);
+		mv.addObject("rfList",rfList);
+		
+		if(document.getFileStatus().equals("Y")) {
+			DocumentFile dFile = dService.selectDocuFile(docuNum);
+			mv.addObject("dFile",dFile);
+		}
+		
+		if(document.getDocuType().equals("AP")) {	//지출결의서
+			DocuA docu = dService.selectDocuA(docuNum);
+			mv.addObject("docu",docu);
+			mv.setViewName("document/dcDetailA");
+		} else if(document.getDocuType().equals("CN")){	//회람
+			DocuB docu = dService.selectDocuB(docuNum);
+			mv.addObject("docu",docu);
+			mv.setViewName("document/dcDetailB");
+		} else if(document.getDocuType().equals("CF")){	//품의서
+			DocuB docu = dService.selectDocuB(docuNum);
+			mv.addObject("docu",docu);
+			mv.setViewName("document/dcDetailC");
+		}
+		
+		return mv;
+		/* return "document/vacation"; */
 		/* return "common/test"; */
 	}
 	
@@ -92,18 +218,18 @@ public class DocumentController {
 	@RequestMapping("insertDocument.do")
 	public String insertDocument(Document document, DocuA docuA, DocuB docuB, 
 			HttpServletRequest request, HttpSession session,
-			@RequestParam(name="uploadFile", required=false) MultipartFile uploadFile) {
+			@RequestParam(name="uploadFile", required=false) MultipartFile uploadFile) throws Exception {
 		
-		System.out.println(document);
-		System.out.println(docuA);
-		System.out.println(docuB);
-		System.out.println(uploadFile);
+		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss", Locale.KOREA );
+		
 		String tempStr1 = request.getParameter("apArr");
 		String tempStr2 = request.getParameter("rfArr");
-		System.out.println("apArr : "+tempStr1);
-		System.out.println("rfArr : "+tempStr2);
+		
+		System.out.println(tempStr1);
+		System.out.println(tempStr2);
 		
 		Document docu = document;
+		
 		String filename = "";
 
 		if(uploadFile!=null && !uploadFile.getOriginalFilename().equals("")) {	// 첨부파일이 넘어온 경우
@@ -135,7 +261,7 @@ public class DocumentController {
 			
 			if(result2 > 0) { // 문서 타입별로 insert 성공
 				
-				if(tempStr1 != null) {	// 결제라인이 null 이 아니면
+				if(!(tempStr1.equals(""))) {	// 결제라인이 null 이 아니면
 					String[] Arr = tempStr1.split(",");
 					for(int i = 0; i < Arr.length; i++) {
 						int apResult = dService.insertApproval(Integer.parseInt(Arr[i]));
@@ -146,7 +272,7 @@ public class DocumentController {
 						}
 					}
 				}
-				if(tempStr2 != null) {	// 참조라인이 null 이 아니면
+				if(!(tempStr2.equals(""))) {	// 참조라인이 null 이 아니면
 					String[] Arr = tempStr2.split(",");
 					for(int i = 0; i < Arr.length; i++) {
 						int rfResult = dService.insertReference(Integer.parseInt(Arr[i]));

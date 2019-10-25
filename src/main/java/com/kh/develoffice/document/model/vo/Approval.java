@@ -15,8 +15,11 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Approval {
 	
+	private int apPk;
 	private int docuNum;		// 문서번호
 	private int empId;			// 결재선에 포함된 직원ID
+	private String empName;		// 결재선에 포함된 직원 이름
+	private String jobName;
 	private String status;		// 결재상태
 	private Date approvalDate;		// 결재한날짜
 	

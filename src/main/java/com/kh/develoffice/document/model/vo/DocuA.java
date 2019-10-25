@@ -15,7 +15,6 @@ import lombok.ToString;
 public class DocuA {
 	
 	private int docuNum;				//문서번호
-	private String title;				//문서제목
 	private String accountingType;		//결제타입(개인/법인)
 	private int spendingYear;			//회계기준년도
 	private int spendingMonth;			//회계기준월
@@ -27,25 +26,6 @@ public class DocuA {
 	private String customer;			//거래처
 	private String brief;				//적요(사유)
 	private String status;				//활성화상태
-	
-	
-	
-	public DocuA(String title, String accountingType, int spendingYear, int spendingMonth, String spenderName,
-			String accountName, String expenseDate, String departmentName, String price, String customer, String brief) {
-		super();
-		this.title = title;
-		this.accountingType = accountingType;
-		this.spendingYear = spendingYear;
-		this.spendingMonth = spendingMonth;
-		this.spenderName = spenderName;
-		this.accountName = accountName;
-		this.expenseDate = expenseDate;
-		this.departmentName = departmentName;
-		this.price = price;
-		this.customer = customer;
-		this.brief = brief;
-	}
-	
 	
 	
 

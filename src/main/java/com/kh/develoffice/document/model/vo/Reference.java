@@ -17,6 +17,7 @@ public class Reference {
 	
 	private int docuNum;		// 문서번호
 	private int empId;			// 참조인에 포함된 직원ID
+	private String empName;		// 결재선에 포함된 직원 이름
 	private String status;		// 확인상태
 	private Date checkDate;		// 확인한날짜
 	

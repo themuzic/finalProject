@@ -7,9 +7,13 @@
 		<result property="docuType" column="docu_type"/>
 		<result property="docuCode" column="docu_code"/>
 		<result property="empId" column="emp_id"/>
-		<result property="saveTerm" column="saveTerm"/>
+		<result property="empName" column="emp_name"/>
+		<result property="deptName" column="dept_name"/>
+		<result property="title" column="title"/>
+		<result property="saveTerm" column="save_term"/>
 		<result property="security" column="security"/>
 		<result property="docuDate" column="docu_date"/>
+		<result property="modifyDate" column="modify_date"/>
 		<result property="status" column="status"/>
 		<result property="fileStatus" column="file_status"/>
 	</resultMap>
@@ -17,7 +21,6 @@
 	
 	<resultMap id="docuAResultSet" type="DocuA">
 		<id property="docuNum" column="docu_num"/>
-		<result property="title" column="title"/>
 		<result property="accountingType" column="accounting_type"/>
 		<result property="spendingYear" column="spending_year"/>
 		<result property="spendingMouth" column="spending_mouth"/>
@@ -34,7 +37,6 @@
 	
 	<resultMap id="docuBResultSet" type="DocuB">
 		<id property="docuNum" column="docu_num"/>
-		<result property="title" column="title"/>
 		<result property="content" column="content"/>
 		<result property="status" column="status"/>
 	</resultMap>
@@ -52,8 +54,11 @@
 	
 	
 	<resultMap id="apResultSet" type="Approval">
-		<id property="docuNum" column="docu_num"/>
-		<id property="empId" column="emp_id"/>
+		<id property="apPk" column="ap_pk"/>
+		<result property="docuNum" column="docu_num"/>
+		<result property="empId" column="emp_id"/>
+		<result property="empName" column="emp_name"/>
+		<result property="jobName" column="job_name"/>
 		<result property="status" column="status"/>
 		<result property="approvalDate" column="approval_date"/>
 	</resultMap>
@@ -62,6 +67,7 @@
 	<resultMap id="rfResultSet" type="Reference">
 		<id property="docuNum" column="docu_num"/>
 		<id property="empId" column="emp_id"/>
+		<result property="empName" column="emp_name"/>
 		<result property="status" column="status"/>
 		<result property="checkDate" column="check_date"/>
 	</resultMap>
@@ -72,9 +78,6 @@
 		<result property="deptName" column="dept_name"/>
 		<result property="count" column="capacity"/>
 	</resultMap>
-
-
-
 
 
 	<select id="selectDept" resultMap="deptResultSet">
@@ -88,25 +91,25 @@
 	
 	<insert id="insertDocument" parameterType="Document">
 		insert into document
-		values(docu_seq.nextval,#{docuType},#{docuCode},#{empId},#{saveTerm},#{security},sysdate,default,#{fileStatus})
+		values(docu_seq.nextval,#{docuType},#{docuCode},#{empId},#{title},#{saveTerm},#{security},TO_DATE(sysdate,'yyyy-mm-dd hh24:mi:ss'),default,null,#{fileStatus})
 	</insert>
 	
 	
 	<insert id="insertDocuA" parameterType="DocuA">
 		insert into docuA
-		values(docu_seq.currval,#{title},#{accountingType},#{spendingYear},#{spendingMonth},#{spenderName},#{accountName},#{expenseDate},#{departmentName},#{price},#{customer},#{brief},default)
+		values(docu_seq.currval,#{accountingType},#{spendingYear},#{spendingMonth},#{spenderName},#{accountName},#{expenseDate},#{departmentName},#{price},#{customer},#{brief},default)
 	</insert>
 	
 	
 	<insert id="insertDocuB" parameterType="DocuB">
 		insert into docuB
-		values(docu_seq.currval,#{title},#{content},default)
+		values(docu_seq.currval,#{content},default)
 	</insert>
 	
 	
 	<insert id="insertApproval" parameterType="_int">
 		insert into approval
-		values(docu_seq.currval,#{empId},default,null)
+		values(ap_seq.nextval,docu_seq.currval,#{empId},default,null)
 	</insert>
 	
 	
@@ -122,6 +125,69 @@
 	</insert>
 	
 	
+	<select id="selectDocuList" parameterType="_int" resultMap="documentResultSet">
+		select distinct d.docu_num,docu_type,docu_code,d.emp_id,emp_name,title,save_term,security,TO_CHAR(docu_date,'yyyy-mm-dd hh24:mi:ss') docu_date,d.status,file_status
+		from document d
+		left join reference r on(d.docu_num = r.docu_num)
+		left join approval a on(a.docu_num = d.docu_num)
+		join employee e on(d.emp_id = e.emp_id)
+		where d.emp_id=#{empId} or r.emp_id=#{empId} or a.emp_id=#{empId}
+	</select>
+	
+	
+	<select id="selectMyApproval" parameterType="_int" resultMap="apResultSet">
+		select * from approval where emp_id=#{empId}
+	</select>
 
 
+	<select id="selectMyReference" parameterType="_int" resultMap="rfResultSet">
+		select * from reference where emp_id=#{empId}
+	</select>
+	
+	
+	<select id="approvalCheck" parameterType="_int" resultMap="apResultSet">
+		select ap_pk,docu_num,a.emp_id,emp_name,job_name,status,approval_date
+		from approval a
+		join employee e on(a.emp_id = e.emp_id)
+		join job j on(e.job_code = j.job_code)
+		where docu_num=#{docuNum}
+		order by ap_pk
+	</select>
+	
+	
+	<select id="referenceCheck" parameterType="_int" resultMap="rfResultSet">
+		select docu_num,r.emp_id,emp_name,status,check_date
+		from reference r
+		join employee e on(r.emp_id = e.emp_id)
+		where docu_num=#{docuNum}
+	</select>
+	
+	
+	<select id="selectDocument" parameterType="_int" resultMap="documentResultSet">
+		select docu_num,docu_type,docu_code,d.emp_id,emp_name,dept_name,title,save_term,security,TO_CHAR(docu_date,'yyyy-mm-dd hh24:mi:ss') docu_date,TO_CHAR(modify_date,'yyyy-mm-dd hh24:mi:ss') modify_date,status,file_status
+		from document d 
+		join employee e on(d.emp_id = e.emp_id)
+		join department dt on(e.dept_code = dt.dept_code)
+		where docu_num=#{docuNum}
+	</select>
+	
+	
+	<select id="selectDocuA" parameterType="_int" resultMap="docuAResultSet">
+		select * from docua where docu_num=#{docuNum}
+	</select>
+	
+	
+	<select id="selectDocuB" parameterType="_int" resultMap="docuBResultSet">
+		select * from docub where docu_num=#{docuNum}
+	</select>	
+	
+	
+	<select id="selectDocuFile" parameterType="_int" resultMap="docuFileResultSet">
+		select * from document_file
+		where docu_num=#{docuNum}
+	</select>
+	
+	
+	
+	
 </mapper>

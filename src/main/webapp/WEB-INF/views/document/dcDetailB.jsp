@@ -72,8 +72,8 @@
 							<!-- Contents -->
 							<div class="cont_box view">
 								<div class="approval-wrap write view">
-												<h1>회람</h1>
-												<table class="tableType02">
+									<h1>회람</h1>
+									<table class="tableType02">
 										<caption></caption>
 										<colgroup>
 											<col style="width:12.09%;">
@@ -86,17 +86,24 @@
 												<th scope="row">문서 종류</th>
 												<td>공용 &gt; 회람</td>
 												<th scope="row">문서 번호</th>
-												<td>CO-회람-20191007-0001</td>
+												<td>회람-${document.docuCode}-${document.docuNum}</td>
 											</tr>
 											<tr>
 												<th scope="row">기안 부서</th>
-												<td>cocoaTest</td>
+												<td>${document.deptName}</td>
 												<th scope="row">기안자</th>
-												<td>전재광</td>
+												<td>${document.empName}</td>
 											</tr>
 											<tr>
 												<th scope="row">보존 연한</th>
-												<td>5년</td>
+													
+													<c:if test="${document.saveTerm eq '0'}">
+														<td>영구</td>
+													</c:if>
+													<c:if test="${document.saveTerm ne '0'}">
+														<td>${document.saveTerm}년</td>
+													</c:if>
+
 												<th scope="row">보안 등급</th>
 												<td>
 													<select name="security_level" class="fl write-select view" onchange="ApprovalProcess.modifyApprovalDocumentSetting('security_level');">
@@ -110,9 +117,14 @@
 											</tr>
 											<tr>
 												<th scope="row">기안 일시</th>
-												<td>2019-10-07 19:20:06</td>
+												<td>${document.docuDate}</td>
 												<th scope="row">완료 일시</th>
-												<td>2019-10-07 19:20:06</td>
+												<c:if test="${document.modifyDate eq null}">
+													<td>${document.docuDate}</td>
+												</c:if>
+												<c:if test="${document.modifyDate ne null}">
+													<td>${document.modifyDate}</td>
+												</c:if>
 											</tr>
 										</tbody>
 									</table>
@@ -137,21 +149,27 @@
 									</table>
 						
 									<div class="docu-common-wrap">
-										<h2>
-											<a href="javascript:void(0)" class="icon impt " style="top:57px;" onclick="Approval.setFavorites(this, '281989')"><span class="blind"></span></a>
-											<span class="point_color"></span>
-											테스트 회람
-										</h2>
+										<h2>${document.title}</h2>
 										<div class="contents after">
-											<p style="font-family: &quot;맑은 고딕&quot;; font-size: 16px; line-height: 1.6; margin-top: 0px; margin-bottom: 0px;">테스트 회람</p>
+											<p style="font-family: &quot;맑은 고딕&quot;; font-size: 16px; line-height: 1.6; margin-top: 0px; margin-bottom: 0px;">${docu.content}</p>
 										</div>
 						
 										<div class="file after">
 											<div class="top">
 												<span class="body-color mgr_20">별첨</span>
-													<a href="javascript:void(0);" class="addfile" onclick="ApprovalProcess.getAttchedFileLayer();">파일 첨부</a>
+												<a href="javascript:void(0);" class="addfile" onclick="$('#fileApprovalAttach').click();">파일 첨부</a>
+												<input type="file" style="overflow: hidden; width:0px; height:0px;" name="approval_attach" id="fileApprovalAttach" multiple="multiple">
 											</div>
-											<div class="filebox"></div>
+											<div class="filebox">
+											
+												<c:if test="${document.fileStatus ne 'N'}">
+													<span class="cont_file" style="float: left;">
+														<img src="resources/images/pptx.png"><a href="${dFile.filePath}" download="${dFile.originName}">${dFile.originName}</a>
+														<a href="javascript:void(0)" class="icon file_delete" onclick=""><span class="blind"></span></a>
+													</span>
+												</c:if>
+											
+											</div>
 										</div>
 									</div>
 								</div>

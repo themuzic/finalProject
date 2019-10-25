@@ -10,6 +10,54 @@
 <title>DEVELOFFICE</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> 
+<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+<script>
+   jQuery(function($){
+   	$("#myTable").DataTable({
+   		responsive:true,
+   		info: false,
+   		 "language": {
+	        "emptyTable": "글이 없습니다.",
+	        "lengthMenu": "페이지당 _MENU_ 개씩 보기",
+	        "info": "현재 _START_ - _END_ / _TOTAL_건",
+	        "infoEmpty": "데이터 없음",
+	        "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+	        "search": "검색: ",
+	        "searchPlaceholder" :"키워드를 입력하세요.",
+	        "zeroRecords": "일치하는 결과가 없습니다.",
+	        "loadingRecords": "로딩중...",
+	        "processing":     "잠시만 기다려 주세요...",
+	        "paginate": {
+	            "next": "다음",
+	            "previous": "이전"
+	        },
+	    },
+	    order: [3, "desc"],
+   	});
+   	
+   	/* 검색바 */
+    $('#myTable_filter').prepend('<select id="select"></select>');
+    $('#myTable > thead > tr').children().each(function (indexInArray, valueOfElement) { 
+    	if(indexInArray == 1 || indexInArray == 2){
+        $('#select').append('<option>'+valueOfElement.innerHTML+'</option>');
+    	}
+    });
+    
+    $('.dataTables_filter input').unbind().bind('keyup', function () {
+    	var table = $('#myTable').DataTable();
+        var colIndex = document.querySelector('#select').selectedIndex;
+	    table.column(colIndex+1).search(this.value).draw();
+    });  
+
+   });
+</script>
+
+
+
 <style>
 	.contentWrap{
 		float:left;
@@ -20,6 +68,14 @@
 		padding-left:50px;
 		padding-right:50px;
 		font-size:14px;
+	}
+	
+	#myTable > tbody > tr{
+		text-align:center;
+	}
+	
+	.pagination {
+    float: left;
 	}
 </style>
 
@@ -41,59 +97,54 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
-					<b style="color:#3287B2;">전체 문서</b><br><br>
 					
-					<table class="ui selectable celled table">
-						<colgroup>
-							<col style="width:15%;">
-							<col style="width:40%;">
-							<col style="width:15%;">
-							<col style="width:12%;">
-							<col style="width:9%;">
-							<col style="width:9%;">
-						</colgroup>
-										<thead>
-											<tr>
-												<th>문서 번호</th>
-												<th>제목</th>
-												<th>기안자</th>
-												<th>기안일</th>
-												<th>구분</th>
-												<th>상태</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>1</td>
-												<td><a href="documentDetailView.do" style="color:black;">Steve</a></td>
-												<td>Jobs</td>
-												<td>@steve</td>
-												<td>@steve</td>
-												<td>@steve</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>Simon</td>
-												<td>Philips</td>
-												<td>@simon</td>
-												<td>@simon</td>
-												<td>@simon</td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>Jane</td>
-												<td>Doe</td>
-												<td>@jane</td>
-												<td>@jane</td>
-												<td>@jane</td>
-											</tr>
-										</tbody>
-									</table>
-					
-					
-					
-					
-					
+							<table id="myTable" class="table table-bordered">
+								<colgroup>
+									<col style="width:15%;">
+									<col style="width:40%;">
+									<col style="width:10%;">
+									<col style="width:15%;">
+									<col style="width:10%;">
+									<col style="width:10%;">
+								</colgroup>
+					        <thead>
+					            <tr>
+						      		<th data-orderable="false" style="text-align:center;">문서 번호</th>
+							  		<th data-orderable="false" id="title" style="text-align:center;">제목</th>
+							  		<th data-orderable="false" id="writer" width="100" style="text-align:center;">기안자</th>
+							  		<th style="text-align:center;" width="150">기안일</th>
+							  		<th data-orderable="true" style="text-align:center;" width="100">구분</th>
+							  		<th data-orderable="true" style="text-align:center;" width="100">상태</th>
+					    		</tr>
+					        </thead>
+					        <tbody>
+					        	<c:forEach items="${docuList}" var="d">
+						            <tr> 
+						            	<c:if test="${d.docuType eq 'AP'}">
+						            		<td>지결-${d.docuCode}-${d.docuNum}</td>
+						            	</c:if>
+						            	<c:if test="${d.docuType eq 'CN'}">
+						            		<td>회람-${d.docuCode}-${d.docuNum}</td>
+						            	</c:if>
+						            	<c:if test="${d.docuType eq 'CF'}">
+						            		<td>품의-${d.docuCode}-${d.docuNum}</td>
+						            	</c:if>
+						            	<td style="text-align:left;padding-left:30px;padding-right:30px;">
+												<c:url value="documentDetailView.do" var="documentDetailView">
+													<c:param name="docuNum" value="${d.docuNum}"/>
+												</c:url> 
+												<a href="${documentDetailView}">${d.title}</a>	<!-- 문서제목 -->
+						            	</td>
+						            	<td>${d.empName}</td>	<!-- 기안자 -->
+						            	<td>${d.docuDate}</td>	<!-- 기안일 -->
+						            	<td>${d.dv}</td>	<!-- 구분 -->
+						            	<td>${d.status}</td>	<!-- 상태 -->
+						            </tr>
+					        	</c:forEach>
+					            
+					        </tbody>
+					       
+					    </table>
 					
 					
 					
@@ -116,11 +167,6 @@
 	
 	
 	<!-- Javascript -->
-	<script src="resources/assets/vendor/jquery/jquery.min.js"></script>
-	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
 	<script src="resources/assets/scripts/klorofil-common.js"></script>
 	
 	<!-- script 작성 -->

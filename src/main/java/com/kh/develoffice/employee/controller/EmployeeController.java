@@ -171,7 +171,6 @@ public class EmployeeController {
 				jObj.put("salary", e.getSalary());
 				jObj.put("account", e.getAccount());
 				jObj.put("star", e.getStar());
-				jObj.put("enrollDate", sdf.format(e.getEnrollDate()));
 				jObj.put("empStatus", e.getEmpStatus());
 				jObj.put("profilePath", e.getProfilePath());
 				

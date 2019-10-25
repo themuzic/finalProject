@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.kh.develoffice.common.Department;
 import com.kh.develoffice.document.model.dao.DocumentDao;
+import com.kh.develoffice.document.model.vo.Approval;
 import com.kh.develoffice.document.model.vo.DocuA;
 import com.kh.develoffice.document.model.vo.DocuB;
 import com.kh.develoffice.document.model.vo.Document;
 import com.kh.develoffice.document.model.vo.DocumentFile;
+import com.kh.develoffice.document.model.vo.Reference;
 import com.kh.develoffice.employee.model.vo.Employee;
 
 @Service("dService")
@@ -52,6 +54,51 @@ public class DocumentServiceImpl implements DocumentService {
 	@Override
 	public int insertFile(DocumentFile dFile) {
 		return dDao.insertFile(dFile);
+	}
+
+	@Override
+	public ArrayList<Document> selectDocuList(int empId) {
+		return dDao.selectDocuList(empId);
+	}
+
+	@Override
+	public ArrayList<Approval> selectMyApproval(int empId) {
+		return dDao.selectMyApproval(empId);
+	}
+
+	@Override
+	public ArrayList<Reference> selectMyReference(int empId) {
+		return dDao.selectMyReference(empId);
+	}
+
+	@Override
+	public ArrayList<Approval> approvalCheck(int docuNum) {
+		return dDao.approvalCheck(docuNum);
+	}
+
+	@Override
+	public ArrayList<Reference> referenceCheck(int docuNum) {
+		return dDao.referenceCheck(docuNum);
+	}
+
+	@Override
+	public Document selectDocument(int docuNum) {
+		return dDao.selectDocument(docuNum);
+	}
+
+	@Override
+	public DocuA selectDocuA(int docuNum) {
+		return dDao.selectDocuA(docuNum);
+	}
+
+	@Override
+	public DocuB selectDocuB(int docuNum) {
+		return dDao.selectDocuB(docuNum);
+	}
+
+	@Override
+	public DocumentFile selectDocuFile(int docuNum) {
+		return dDao.selectDocuFile(docuNum);
 	}
 
 	
