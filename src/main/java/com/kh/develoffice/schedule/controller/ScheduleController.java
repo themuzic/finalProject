@@ -12,9 +12,14 @@ public class ScheduleController {
 	@Autowired
 	private ScheduleService sService;
 	
-	@RequestMapping("scheduleList.do")
-	public String scheduleList() {
-		return "schedule/scheduleList";
+	@RequestMapping("publicScheduleList.do")
+	public String publicScheduleList() {
+		return "schedule/publicScheduleList";
+	}
+	
+	@RequestMapping("teamScheduleList.do")
+	public String teamScheduleList() {
+		return "schedule/teamScheduleList";
 	}
 
 }
