@@ -104,9 +104,9 @@ public class TodoController {
 		mv.addObject("todoList", todoList).setViewName("todo/todoListView");
 		//System.out.println(todoList);
 		
-		return mv;
-		
+		return mv;	
 	}
+	
 	
 	/////////// TODO 생성 뷰로 이동 ///////////
 	@RequestMapping("insertTodoView.do")
@@ -144,25 +144,25 @@ public class TodoController {
 	}
 	
 	
-	///////////
+	/////////// 전체 TODO 리스트 뷰로 이동
 	@RequestMapping("allTodoView.do")
 	public String allTodo() {
 		return "todo/allTodo";
 	}
 	
-	///////////
+	/////////// 진행중인 TODO 리스트로 뷰로 이동
 	@RequestMapping("ongoingTodoView.do")
 	public String ongoingTodo() {
 		return "todo/ongoingTodo";
 	}
 	
-	///////////
+	/////////// 완료 TODO 리스트로 뷰로 이동
 	@RequestMapping("completionTodoView.do")
 	public String completionTodo() {
 		return "todo/completionTodo";
 	}
 	
-	///////////
+	/////////// 대기 TODO 리스트로 뷰로 이동
 	@RequestMapping("waitingTodoView.do")
 	public String waitingTodo() {
 		return "todo/waitingTodo";
