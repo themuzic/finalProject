@@ -145,7 +145,7 @@ public class DocumentController {
 					}
 				}
 			}
-			System.out.println(d);
+			//System.out.println(d);
 		}
 		
 		mv.addObject("docuList", docuList).setViewName("document/dcTable");
@@ -173,8 +173,8 @@ public class DocumentController {
 		}
 		
 		System.out.println(document);
-		System.out.println(apList);
-		System.out.println(rfList);
+		//System.out.println(apList);
+		//System.out.println(rfList);
 		
 		mv.addObject("document",document);
 		mv.addObject("apList",apArr);
@@ -188,6 +188,23 @@ public class DocumentController {
 		if(document.getDocuType().equals("AP")) {	//지출결의서
 			DocuA docu = dService.selectDocuA(docuNum);
 			mv.addObject("docu",docu);
+			
+			JSONObject jObj = new JSONObject();
+			jObj.put("docuNum", docu.getDocuNum());
+			jObj.put("accountingType", docu.getAccountingType());
+			jObj.put("spendingYear", docu.getSpendingYear());
+			jObj.put("spendingMonth", docu.getSpendingMonth());
+			jObj.put("spenderName", docu.getSpenderName());
+			jObj.put("accountName", docu.getAccountName());
+			jObj.put("expenseDate", docu.getExpenseDate());
+			jObj.put("departmentName", docu.getDepartmentName());
+			jObj.put("price", docu.getPrice());
+			jObj.put("customer", docu.getCustomer());
+			jObj.put("brief", docu.getBrief());
+			
+			System.out.println(jObj);
+			
+			mv.addObject("docuA",jObj);
 			mv.setViewName("document/dcDetailA");
 		} else if(document.getDocuType().equals("CN")){	//회람
 			DocuB docu = dService.selectDocuB(docuNum);
@@ -215,9 +232,6 @@ public class DocumentController {
 		String tempStr1 = request.getParameter("apArr");
 		String tempStr2 = request.getParameter("rfArr");
 		
-		System.out.println(tempStr1);
-		System.out.println(tempStr2);
-		
 		Document docu = document;
 		
 		String filename = "";
@@ -234,8 +248,6 @@ public class DocumentController {
 		} else {
 			docu.setFileStatus("N");
 		}
-		
-		System.out.println(docu);
 		
 		String type = document.getDocuType();
 		int result = dService.insertDocument(docu);	//통합문서 insert
@@ -302,7 +314,6 @@ public class DocumentController {
 			System.out.println("통합 문서 테이블 insert 실패");
 			return "fail";
 		}
-		
 	}
 	
 	

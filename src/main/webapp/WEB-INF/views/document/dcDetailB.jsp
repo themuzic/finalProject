@@ -82,7 +82,12 @@
 												<th scope="row">문서 종류</th>
 												<td>공용 &gt; 회람</td>
 												<th scope="row">문서 번호</th>
-												<td>회람-${document.docuCode}-${document.docuNum}</td>
+												<c:if test="${document.docuNum lt '10' }">
+							            			<td>회람-${document.docuCode}-000${document.docuNum}</td>
+							            		</c:if>
+							            		<c:if test="${document.docuNum ge '10' }">
+							            			<td>회람-${document.docuCode}-00${document.docuNum}</td>
+							            		</c:if>
 											</tr>
 											<tr>
 												<th scope="row">기안 부서</th>

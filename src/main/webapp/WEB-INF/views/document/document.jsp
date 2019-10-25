@@ -699,7 +699,7 @@
 											<option value="2019">2019</option>
 										</select>
 										년
-										<select class="write-select" name="spendingMonth" style="width: 55px;" onchange="ApprovalDocument.changeFixedDate();" id="selectFixedMonth">
+										<select class="write-select" name="spendingMonth" style="width: 55px;" id="selectFixedMonth">
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
@@ -1811,7 +1811,7 @@
 				});
 				
 				var expenseDate = "";
-				tempArr = $("input[name=accountName]");
+				tempArr = $("input[name=expenseDate]");
 				$.each(tempArr,function(i, v){
 					if(i == 0){
 						expenseDate += v.value;
@@ -1923,7 +1923,6 @@
 				});
 				formData.append('rfArr',rfArr);
 			}
-			
 			
 			$.ajax({
 				url:"insertDocument.do",

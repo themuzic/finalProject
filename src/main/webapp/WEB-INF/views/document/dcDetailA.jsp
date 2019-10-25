@@ -26,6 +26,9 @@
 
 </head>
 <body>
+	<fmt:formatDate var="now" value="<%=new java.util.Date() %>" pattern="yyyy-MM-dd HH:mm:ss"/>
+	<fmt:formatDate var="now2" value="<%=new java.util.Date() %>" pattern="yyyy-MM-dd"/>
+	
 	<!-- WRAPPER -->
 	<div id="wrapper">
 	<!--  -->
@@ -61,15 +64,15 @@
 							</div>
 						</div>
 			
-						<input type="hidden" name="approval_document_no" value="283009">
-						<input type="hidden" name="approval_first_line" value="57511">
-						<input type="hidden" name="approval_second_line" value="">
-						<input type="hidden" name="approval_third_line" value="">
-						<input type="hidden" name="approval_fourth_line" value="">
+						<input type="hidden" name="docuNum" value="${document.docuNum}">
+						<input type="hidden" name="title" value="">
+						<input type="hidden" name="saveTerm" value="">
+						<input type="hidden" name="security" value="">
+						<input type="hidden" name="" value="">
 						<input type="hidden" name="approval_fifth_line" value="">
-						<input type="hidden" name="approval_preserved_term" value="5">
-						<input type="hidden" name="approval_security_level" value="A">
-						<input type="hidden" name="approval_list_view" value="/cocoa-test1.onhiworks.com/approval/document/box/writer/?&amp;box_mode=writer">
+						<input type="hidden" name="approval_preserved_term" value="">
+						<input type="hidden" name="approval_security_level" value="">
+						<input type="hidden" name="approval_list_view" value="">
 			
 						<div class="content_inbox" id="content_inbox">
 							<!-- Contents -->
@@ -88,30 +91,44 @@
 												<th scope="row">문서 종류</th>
 												<td>공통 &gt; 지출 결의서</td>
 												<th scope="row">문서 번호</th>
-												<td>CO-지결-20191008-0001</td>
+												<c:if test="${document.docuNum lt '10' }">
+							            			<td>지결-${document.docuCode}-000${document.docuNum}</td>
+							            		</c:if>
+							            		<c:if test="${document.docuNum ge '10' }">
+							            			<td>지결-${document.docuCode}-00${document.docuNum}</td>
+							            		</c:if>
 											</tr>
 											<tr>
 												<th scope="row">기안 부서</th>
-												<td>cocoaTest</td>
+												<td>${document.deptName}</td>
 												<th scope="row">기안자</th>
-												<td>전재광</td>
+												<td>${document.empName}</td>
 											</tr>
 											<tr>
 												<th scope="row">보존 연한</th>
-												<td>5년</td>
+												
+												<c:if test="${document.saveTerm eq '0'}">
+													<td>영구</td>
+												</c:if>
+												<c:if test="${document.saveTerm ne '0'}">
+													<td>${document.saveTerm}년</td>
+												</c:if>
+												
 												<th scope="row">보안 등급</th>
 												<td>
-													<select name="security_level" class="fl write-select view" onchange="ApprovalProcess.modifyApprovalDocumentSetting('security_level');">
-														<option value="S">S등급</option>
-														<option value="A" selected="">A등급</option>
-													</select>															
+													<span id="security_span">${document.security}등급</span>
 												</td>			
 											</tr>
 											<tr>
 												<th scope="row">기안 일시</th>
-												<td>2019-10-08 15:10:51</td>
+												<td>${document.docuDate}</td>
 												<th scope="row">완료 일시</th>
-												<td>2019-10-08 15:10:51</td>
+												<c:if test="${document.modifyDate eq null}">
+													<td>${document.docuDate}</td>
+												</c:if>
+												<c:if test="${document.modifyDate ne null}">
+													<td>${document.modifyDate}</td>
+												</c:if>
 											</tr>
 										</tbody>
 									</table>
@@ -127,7 +144,7 @@
 												<td class="sign vt" id="approvalFirstLine">
 													<table style="width:100%;table-layout:fixed"><colgroup><col><col><col><col><col><col><col></colgroup>
 														<tbody id="apTbody">
-														<tr>
+														<tr id="jobRow">
 															<td class="team name"></td>
 															<td class="team name"></td>
 															<td class="team name"></td>
@@ -136,7 +153,7 @@
 															<td class="team name"></td>
 															<td class="team name"></td>
 														</tr>
-														<tr>
+														<tr id="stampRow">
 															<td class="stamp"></td>
 															<td class="stamp"></td>
 															<td class="stamp"></td>
@@ -167,23 +184,39 @@
 										<col style="width:87.91%;">
 									</colgroup>
 									<tbody>
-										<tr>
+										<tr id="rfRow">
 											<th scope="row">
 												<div class="choice" style="min-height: 45px; height: 44.0104px; display: table-cell; width: 115.01px; vertical-align: middle; text-align: center;">
 												참조	
 												</div>
 											</th>
-											<td id="approvalThirdLine"></td>
+											<td id="approvalFourthLine" style="padding-left:15px;">
+											
+												<c:if test="${!empty rfList}">
+									
+													<c:forEach var="rf" items="${rfList}">
+														<c:choose>
+															<c:when test="${rf.status eq 'Y'}">
+																<span class="refer-list mgl_20" empId="${rf.empId}">${rf.empName}</span><img src="resources/images/check.png">
+															</c:when>
+															<c:when test="${rf.status eq 'N' and rf.empId eq loginUser.empId}">
+																<span class="refer-list mgl_20" empId="${rf.empId}">${rf.empName}</span><button type="button" class="rfCheckBtn" style="color:#779ec0">확인</button>
+															</c:when>
+															<c:otherwise>
+																<span class="refer-list mgl_20" empId="${rf.empId}">${rf.empName}<span class="icon file_delete js-approval-line-delete"></span></span>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>
+												
+												</c:if>
+											
+											</td>
 										</tr>
 									</tbody>
 								</table>
 						
 									<div class="docu-common-wrap">
-										<h2>
-											<a href="javascript:void(0)" class="icon impt " style="top:57px;" onclick="Approval.setFavorites(this, '283009')"><span class="blind"></span></a>
-											<span class="point_color"></span>
-											2019년 10월 지출 결의서 - 개인
-										</h2>
+										<h2>${document.title}</h2>
 										<div class="contents after">
 											<div class="account-area">
 												<table class="tableType01 account">
@@ -192,20 +225,19 @@
 														<col>
 													</colgroup>
 													<tbody>
-																						<tr>
+														<tr>
 															<th>회계 기준월</th>
-															<td>2019년 10월</td>
+															<td>${docu.spendingYear}년 ${docu.spendingMonth}월</td>
 														</tr>
-																						
 														<tr>
 															<th>지출자</th>
-															<td>전재광</td>
+															<td>${docu.spenderName}</td>
 														</tr>
-																						<tr>
+														<tr>
 															<th>계좌 정보</th>
-															<td>IBK기업은행 / 01048992851</td>
+															<td>IBK기업은행 / ${docu.accountName}</td>
 														</tr>
-																					</tbody>
+													</tbody>
 												</table>
 												<h3>거래 내역</h3>
 												<table class="tableType01 account">
@@ -227,28 +259,7 @@
 															<th scope="col">적요</th>
 														</tr>
 													</thead>
-													<tbody align="center">
-														<tr>
-															<td>유류비</td>
-															<td>2019-10-08</td>
-															<td>
-																<span class="">영업부</span>
-															</td>
-															<td class="ta_r">30,000</td>
-															<td>
-																<span class="">주유소</span>
-															</td>
-															<td>유류비</td>
-														</tr>
-														<tr>
-															<td></td>
-															<td></td>
-															<td></td>
-															<td class="ta_r">총 30,000</td>
-															<td></td>
-															<td></td>
-														</tr>
-													</tbody>
+													<tbody align="center" id="spendInfo"></tbody>
 												</table>
 											</div>
 										</div>
@@ -257,12 +268,22 @@
 									<!-- 파일 존  -->
 									
 									
-										<div class="file after">
+										<div class="file after" style="padding-bottom: 30px;">
 											<div class="top">
 												<span class="body-color mgr_20">별첨</span>
-												<a href="javascript:void(0);" class="addfile" onclick="">파일 첨부</a>
+												<a href="javascript:void(0);" class="addfile" onclick="$('#fileApprovalAttach').click();">파일 첨부</a>
+												<input type="file" style="overflow: hidden; width:0px; height:0px;" name="approval_attach" id="fileApprovalAttach" multiple="multiple">
 											</div>
-										<div class="filebox"></div>
+										<div class="filebox">
+										
+											<c:if test="${document.fileStatus ne 'N'}">
+												<span class="cont_file" style="float: left;">
+													<img src="resources/images/pptx.png"><a href="${dFile.filePath}" download="${dFile.originName}">${dFile.originName}</a>
+													<a href="javascript:void(0)" class="icon file_delete" onclick=""><span class="blind"></span></a>
+												</span>
+											</c:if>
+										
+										</div>
 										</div>
 									</div>
 								</div>
@@ -296,9 +317,147 @@
 	
 	<!-- script 작성 -->
 	<script>
+	
+		$(function(){
+			/* 툴팁 */
+			$(".icon.question.tipsIcon").mouseenter(function(){
+				$(this).siblings('.toolTip').addClass("show");
+			}).mouseout(function(){
+				$(this).siblings('.toolTip').removeClass("show");
+			});
+			
+			/* 결제, 참조 라인 채우기 */
+			var jobRow = $("#jobRow").children();
+			var stampRow = $("#stampRow").children();
+			var nameRow = $("#nameRow").children();
+			
+			for(var i = 0; i < 7; i++){
+				
+				for(var j = 0; j < ${apList}.length; j++){
+					if(i == j){
+						jobRow[i].innerHTML = ${apList}[j].jobName;
+						nameRow[i].innerHTML = ${apList}[j].empName;
+						
+						if(j != 0 && ${apList}[j].empId == ${loginUser.empId} && ${apList}[j].status == 'N'){
+							
+							if(${apList}[j-1].status == 'N'){
+								stampRow[i].innerHTML = '<button type="button" class="confirm" style="background:#fff;padding:5px 16px 6px;border:1px solid #c8c8c8;color:#cdcdcd;" disabled>결재</button>';
+							} else{
+								stampRow[i].innerHTML = '<button type="button" class="confirm" style="background:#fff;padding:5px 16px 6px;border:1px solid #c8c8c8;color:#2c86dc;">결재</button>';
+							}
+						}else if(${apList}[j].status == 'Y'){
+							stampRow[i].innerHTML = '<img src="resources/images/stamp_approval.png"><p class="date">'+${apList}[j].approvalDate+'</p>';
+						}else if(j == 0 && ${apList}[j].empId == ${loginUser.empId} && ${apList}[j].status == 'N'){
+							stampRow[i].innerHTML = '<button type="button" class="confirm" style="background:#fff;padding:5px 16px 6px;border:1px solid #c8c8c8;color:#2c86dc;">결재</button>';
+						}
+					}
+				}
+			}
+			
+			
+			/* 결제 정보 채우기 */
+			var spendInfo = $("#spendInfo");
+			
+			var accountName = '${docuA.accountName}'.split(',');
+			var expenseDate = '${docuA.expenseDate}'.split(',');
+			var departmentName = '${docuA.departmentName}'.split(',');
+			var price = '${docuA.price}'.split(',');
+			var customer = '${docuA.customer}'.split(',');
+			var brief = '${docuA.brief}'.split(',');
+			
+			var sum = 0;
+			
+			for(var i = 0; i < accountName.length; i++){
+				/*
+				spendInfo.innerHTML += '<tr>';
+				spendInfo.innerHTML += '<td>'+accountName[i]+'</td>';
+				spendInfo.innerHTML += '<td>'+expenseDate[i]+'</td>';
+				spendInfo.innerHTML += '<td>'+departmentName[i]+'</td>';
+				spendInfo.innerHTML += '<td>'+price[i]+'</td>';
+				spendInfo.innerHTML += '<td>'+customer[i]+'</td>';
+				spendInfo.innerHTML += '<td>'+brief[i]+'</td>';
+				spendInfo.innerHTML += '</tr>';
+				*/
+				
+				spendInfo.append('<tr>');
+				spendInfo.append('<td>'+accountName[i]+'</td>');
+				spendInfo.append('<td>'+expenseDate[i]+'</td>');
+				spendInfo.append('<td>'+departmentName[i]+'</td>');
+				spendInfo.append('<td style="text-align:right;padding-right:25px;">'+price[i]+'</td>');
+				spendInfo.append('<td>'+customer[i]+'</td>');
+				spendInfo.append('<td>'+brief[i]+'</td>');
+				spendInfo.append('</tr>');
+				
+				
+				sum += Number(price[i]);
+				
+				if(i == accountName.length-1){
+					spendInfo.append('<tr>');
+					spendInfo.append('<td></td><td></td><td></td>');
+					spendInfo.append('<td style="text-align:right;padding-right:25px;">총 '+sum+'</td>');
+					spendInfo.append('<td></td><td></td></tr>');
+				}
+			}
+			
+		});
 		
+
+		/* 결재 버튼을 누르면 */
+		$("#stampRow").on('click','.confirm',function(){
+			var thisBtn = $(this);
+			var dNum = $("input[name=docuNum]").val(); 
+			
+			$.ajax({
+				url:"apCheck.do",
+				type:"POST",
+				data:{
+					docuNum:dNum,
+					empId:${loginUser.empId}
+				},
+				success:function(data){
+						
+					if(data == 'success'){
+						thisBtn.hide();
+						var confirm = $('<img src="resources/images/stamp_approval.png"><p class="date">${now2}</p>');
+						thisBtn.parent('td').append(confirm);
+					} else {
+						alertify.alert('', '결재 확인 실패');
+					}
+				},
+				error:function(){
+					alertify.alert('', 'AJAX통신 실패');
+				}
+			});
+		});
+		/* 참조 확인 버튼을 누르면 */
+		$("#rfRow").on('click','.rfCheckBtn',function(){
+			var thisBtn = $(this);
+			var dNum = $("input[name=docuNum]").val(); 
+			
+			$.ajax({
+				url:"rfCheck.do",
+				type:"POST",
+				data:{
+					docuNum:dNum,
+					empId:${loginUser.empId}
+				},
+				success:function(data){
+					
+					if(data == 'success'){
+						thisBtn.hide();
+						var checkImg = $('<img src="resources/images/check.png" style="magrin-left:5px;">');
+						thisBtn.prev().after(checkImg);
+					} else {
+						alertify.alert('', '결재 확인 실패');
+					}
+				},
+				error:function(){
+					alertify.alert('', 'AJAX통신 실패');
+				}
+			});
+		});
+	
 		/* 인쇄  시작 */
-		
 		function printDocument() {
 			const completeParam = makeHtml();
 		    reportPrint(completeParam);

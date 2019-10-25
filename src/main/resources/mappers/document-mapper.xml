@@ -91,7 +91,7 @@
 	
 	<insert id="insertDocument" parameterType="Document">
 		insert into document
-		values(docu_seq.nextval,#{docuType},#{docuCode},#{empId},#{title},#{saveTerm},#{security},TO_DATE(sysdate,'yyyy-mm-dd hh24:mi:ss'),default,null,#{fileStatus})
+		values(docu_seq.nextval,#{docuType},#{docuCode},#{empId},#{title},#{saveTerm},#{security},sysdate,default,null,#{fileStatus})
 	</insert>
 	
 	
@@ -132,6 +132,7 @@
 		left join approval a on(a.docu_num = d.docu_num)
 		join employee e on(d.emp_id = e.emp_id)
 		where d.emp_id=#{empId} or r.emp_id=#{empId} or a.emp_id=#{empId}
+		order by d.docu_num
 	</select>
 	
 	

@@ -97,7 +97,13 @@
 												<th scope="row">문서 종류</th>
 												<td>공통 &gt; 품의서</td>
 												<th scope="row">문서 번호</th>
-												<td>품의-${document.docuCode}-${document.docuNum}</td>
+												
+												<c:if test="${document.docuNum lt '10' }">
+							            			<td>품의-${document.docuCode}-000${document.docuNum}</td>
+							            		</c:if>
+							            		<c:if test="${document.docuNum ge '10' }">
+							            			<td>품의-${document.docuCode}-00${document.docuNum}</td>
+							            		</c:if>
 											</tr>
 											<tr>
 												<th scope="row">기안 부서</th>
@@ -152,52 +158,31 @@
 													<colgroup><col><col><col><col><col><col><col></colgroup>
 													<tbody>
 													<tr id="jobRow">
-														<td class="team name">
-														</td>
-														<td class="team name">
-														</td>
-														<td class="team name">
-														</td>
-														<td class="team name">
-														</td>
-														<td class="team name">
-														</td>
-														<td class="team name">
-														</td>
-														<td class="team name">
-														</td>
+														<td class="team name"></td>
+														<td class="team name"></td>
+														<td class="team name"></td>
+														<td class="team name"></td>
+														<td class="team name"></td>
+														<td class="team name"></td>
+														<td class="team name"></td>
 													</tr>
 													<tr id="stampRow">
-														<td class="stamp">
-														</td>
-														<td class="stamp">
-														</td>
-														<td class="stamp">
-														</td>
-														<td class="stamp">
-														</td>
-														<td class="stamp">
-														</td>
-														<td class="stamp">
-														</td>
-														<td class="stamp">
-														</td>
+														<td class="stamp"></td>
+														<td class="stamp"></td>
+														<td class="stamp"></td>
+														<td class="stamp"></td>
+														<td class="stamp"></td>
+														<td class="stamp"></td>
+														<td class="stamp"></td>
 													</tr>
 													<tr id="nameRow">
-														<td class="name">
-														</td>
-														<td class="name">
-														</td>
-														<td class="name">
-														</td>
-														<td class="name">
-														</td>
-														<td class="name">
-														</td>
-														<td class="name">
-														</td>
-														<td class="name">
-														</td>
+														<td class="name"></td>
+														<td class="name"></td>
+														<td class="name"></td>
+														<td class="name"></td>
+														<td class="name"></td>
+														<td class="name"></td>
+														<td class="name"></td>
 													</tr>
 													</tbody>
 												</table>

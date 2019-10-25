@@ -36,7 +36,7 @@
 	            "previous": "이전"
 	        },
 	    },
-	    order: [3, "desc"],
+	    order: [[3,"desc"],[0,"desc"]]
    	});
    	
    	/* 검색바 */
@@ -121,13 +121,28 @@
 					        	<c:forEach items="${docuList}" var="d">
 						            <tr> 
 						            	<c:if test="${d.docuType eq 'AP'}">
-						            		<td>지결-${d.docuCode}-${d.docuNum}</td>
+						            		<c:if test="${d.docuNum lt '10' }">
+						            			<td>지결-${d.docuCode}-000${d.docuNum}</td>
+						            		</c:if>
+						            		<c:if test="${d.docuNum ge '10' }">
+						            			<td>지결-${d.docuCode}-00${d.docuNum}</td>
+						            		</c:if>
 						            	</c:if>
 						            	<c:if test="${d.docuType eq 'CN'}">
-						            		<td>회람-${d.docuCode}-${d.docuNum}</td>
+						            		<c:if test="${d.docuNum lt '10' }">
+						            			<td>회람-${d.docuCode}-000${d.docuNum}</td>
+						            		</c:if>
+						            		<c:if test="${d.docuNum ge '10' }">
+						            			<td>회람-${d.docuCode}-00${d.docuNum}</td>
+						            		</c:if>
 						            	</c:if>
 						            	<c:if test="${d.docuType eq 'CF'}">
-						            		<td>품의-${d.docuCode}-${d.docuNum}</td>
+						            		<c:if test="${d.docuNum lt '10' }">
+						            			<td>품의-${d.docuCode}-000${d.docuNum}</td>
+						            		</c:if>
+						            		<c:if test="${d.docuNum ge '10' }">
+						            			<td>품의-${d.docuCode}-00${d.docuNum}</td>
+						            		</c:if>
 						            	</c:if>
 						            	<td style="text-align:left;padding-left:30px;padding-right:30px;">
 												<c:url value="documentDetailView.do" var="documentDetailView">
