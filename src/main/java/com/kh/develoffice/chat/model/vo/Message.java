@@ -27,4 +27,5 @@ public class Message {
 	private String changeName;	// (파일일 경우)수정명
 	private String status;		// 삭제 여부
 	private Date validity;		// 유효기간
+	private int msgType;		// 시스템 메세지인지 아닌지
 }
