@@ -25,14 +25,13 @@
 <script src="resources/chat/js/sidebar.min.js"></script>
 
 <!-- 폰트 관련 링크 -->
-<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 
 
 <style>
 body{
-	font-family: 'Noto Serif KR', serif;
+	font-family: 'Malgun Gothic';
 	margin: 0px;
 	overflow: hidden;
 }
@@ -125,7 +124,7 @@ ul li:hover{
 }
 .chatList .img img{
 	width: 30px;
-	border-radius: 50%;
+	border-radius: 40%;
 }
 .chatList .img i{
 	position: absolute;
@@ -150,6 +149,8 @@ ul li:hover{
 	right: 15px;
 	color: #c1c1c1;
 }
+
+
 
 .item:hover{
 	color:black;
@@ -325,7 +326,7 @@ ul li:hover{
 									</div>
 									<div class="desc">
 										<h5>${loginUser.empName } ${loginUser.jobName }</h5>
-										<small>${loginUser.statusMsg }</small>
+										<small>${loginUser.statusMsg }안녕하세요?</small>
 									</div>
 								</div>
 							</li>
@@ -351,8 +352,8 @@ ul li:hover{
 									</div>
 								</div>
 							</li>
+							
 						</c:forEach>
-						
 					</ul>
 				</div>
 	

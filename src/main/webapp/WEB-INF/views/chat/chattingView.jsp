@@ -11,17 +11,31 @@
 <!-- 제이쿼리 cdn -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
+<!-- 부트스트랩 cdn -->
+<link rel="stylesheet" href="resources/assets/vendor/bootstrap/css/bootstrap.min.css">
+<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+
 <!-- sockjs 라이브러리 -->
 <script type="text/javascript" src="resources/chat/js/sockjs-0.3.4.js"></script>
 
-<!-- 폰트 -->
-<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap" rel="stylesheet">
+<!-- 아이콘 -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
+<!-- 제이쿼리 이벤트 라이브러리 cdn -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- 커스텀 스크롤바 라이브러리 cdn -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.css">
 
+
+
+
+<!-- 시멘틱 모달창 -->
+<link href="resources/chat/css/modal.min.css" rel="stylesheet">
+<script src="resources/chat/js/modal.min.js"></script>
 <style>
 body{
-	font-family: 'Noto Serif KR', serif;
+	font-family: 'Malgun Gothic';
 	margin: 0px;
 	overflow: hidden;
 }
@@ -108,7 +122,7 @@ body{
 	position: absolute;
 	width: 40px;
 	bottom: 30px;
-	border-radius:50%;
+	border-radius:40%;
 }
 .message ul li.msg-left .msg-desc{
 	margin-left: 70px;
@@ -139,7 +153,7 @@ body{
 	width: 40px;
 	right: 0px;
 	bottom: 30px;
-	border-radius: 50%;
+	border-radius: 40%;
 }
 .message ul li.msg-right .msg-desc{
 	margin-right: 70px;
@@ -177,6 +191,13 @@ body{
 	padding: 3px 10px;
 	left: 50%;
 	transform: translateX(-50%);
+}
+.msg-day .msg-desc{
+	text-align:center;
+	width:100%;font-size:12px;
+	background: #E8E8E8;
+	padding:10px 10px;
+	position: relative;
 }
 .right-section-bottom{
 	background: #fff;
@@ -223,7 +244,72 @@ body{
   top: 0;
   opacity: 0;
 }
-	
+
+/* 여기는 초대 css */
+
+.modal-body ul{
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+}
+#invite-list li{
+	padding: 10px 0px;
+	cursor: pointer;
+}
+#invite-list li:hover{
+	background: #e1e1e1;
+	position: relative;
+}
+
+.chatList{
+	overflow: hidden;
+}
+.chatList .img{
+	width: 60px;
+	float: left;
+	text-align: center;
+	position: relative;
+}
+.chatList .img img{
+	width: 30px;
+	border-radius: 40%;
+}
+
+.chatList .desc{
+	width: calc(100% - 60px);
+	float: left;
+	position: relative;
+}
+.chatList .desc h5{
+	margin-top: 6px;
+	line-height: 5px;
+}
+.chatList .desc .time{
+	position: absolute;
+	right: 15px;
+	color: #c1c1c1;
+}
+.addList{
+	cursor:default;
+	font-size:13px;
+	text-align:center;
+	background:#3edec7;
+	color:white;
+	border-radius:20px;
+	display:inline-block;
+	margin-top:5px;
+	margin-left:5px;
+}
+.addList img{
+	padding:5px;
+	width:30px;
+	border-radius:40%;
+}
+.deleteList{
+	margin-left:5px;
+	padding-right:5px;
+	cursor:pointer;
+}
 </style>
 
 <script type="text/javascript">
@@ -241,10 +327,56 @@ body{
             }
         });
 		
+        $(document).on('click', '.chatList', function(){
+        	var empId = $(this).children().first().val();
+        	var empName = $(this).find('h5').html();
+        	var profile = $(this).find('img').attr("src");
+        	console.log(empId + ':' + empName + profile);
+        	html = "";
+        	
+			html += "<li>" +
+					"<div class='addList'>" +
+					"<img src='" +
+					profile +
+					"'>" +
+					"<span class='empName'>" +
+					empName + 
+					"</span>" +
+					"<span class='deleteList' aria-hidden='true'>&times;</span>" +
+					"</div>" +
+					"</li>";
+			var addList = $(".empName");
+			var flag = 0;
+			$.each(addList, function(index, value){
+				if(value.innerHTML == empName){
+					flag = 1;
+				}
+			});
+			if(flag == 0){
+				$("#add-list").append(html);				
+			}
+			
+        });
+        
+        $(document).on('click', '.deleteList', function(){
+        	
+        	$(this).parent().parent().remove();
+        	
+        });
+        
         $("#messageArea").scrollTop(9999999);
 
     });
 
+	// jQuery Scroll Plugin 적용
+	function fn_scroll_plugin() {
+		$(".modal-body-left").mCustomScrollbar({
+			theme : "minimal-dark", // 테마 적용
+			mouseWheelPixels : 300, // 마우스휠 속도
+			scrollInertia : 400 // 부드러운 스크롤 효과 적용
+		});
+	}
+    
     var sock;
 
     //웸소켓을 지정한 url로 연결한다.
@@ -255,6 +387,53 @@ body{
     	console.log("오픈");
     	sock.send("chatId:${c.chatId}");
     	
+    }
+	
+    function invite(){
+    	var chatId = ${c.chatId};
+    	$.ajax({
+    		url:"inviteList.do",
+			type:"POST",
+			data:{chatId:chatId},
+			dataType:"json",
+			success:function(data){
+				var html = "";
+		    	//$("#invite-list").html(html);
+				$.each(data, function(index, value){
+			    	html += "<li>" +
+						   "<div class='chatList'>" +
+						   "<input type='hidden' name='empId' value='" + 
+						   value.empId +
+						   "'>" + 
+						   "<div class='img'>" + 
+						   "<img src='resources/images/" + 
+						   value.profilePath + 
+						   "'>" +
+						   "</div>" + 
+						   "<div class='desc'>" + 
+						   "<h5>" + 
+						   value.empName + " " +  value.jobName +
+						   "</h5>" + 
+						   "<small>" + 
+						   value.deptName +
+						   "</small>" +
+						   "</div>" + 
+						   "</div>" + 
+						   "</li>";
+				});
+				
+				//$("#invite-list").html(html);
+				$("#invite-list").append(html);
+				$("#add-list").html("");
+				
+				
+			},
+			error:function(){
+				console.log("연결 실패");
+			}
+    	});
+		
+    	fn_scroll_plugin();		// 스크롤 생성 함수 실행
     }
     //자바스크립트 안에 function을 집어넣을 수 있음.
 
@@ -354,6 +533,75 @@ body{
 </head>
 <body>
 
+<!-- 			<script>
+							var empList = $(".empList");
+							var length = empList.length();
+							var html = "<b>${loginUser.empName} ${loginUser.jobName}</b>님이 ";
+							$.each(empList, function(index, value){
+								if(index != (length-1){
+								html += "<b>" + value.innerText "</b>님" + ", ";
+									
+								}else{
+									html += "<b>" + value.innerText "</b>님을 초대하셨습니다.";
+								}
+							});
+							sock.send(html);
+						</script> -->
+	<!---------------------- 미리보기창 모달 -------------------------->
+               
+    <!-- Modal -->
+	<div class="modal fade"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    	<div class="modal-dialog" role="document">
+    		<div class="modal-content">
+    			<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+     					<span aria-hidden="true">&times;</span>
+					</button>
+    				<h5 class="modal-title" id="exampleModalLabel" style="color:#3287B2; font-size:16px;">초대하기</h5>
+				</div>
+				<div class="modal-body" style="height:400px; width:100%; padding:0px; padding-top:15px;">
+					<div class="modal-body-left" data-mcs-theme="minimal-dark" style="width:70%; height:100%; float:left; overflow:hidden;">
+						<ul id="invite-list">
+							<li>
+						   		<div class='chatList'>
+						   			<input type='hidden' name='empId' value='10004'>
+						   			<div class='img'>
+						   				<img src='resources/images/default_profile.png'>
+						   			</div>
+						   			<div class='desc'>
+						   			<div style="float:left; width:85%;">
+						   				<h5>유현규 사원</h5> 
+						   				<small>영업지원부</small>
+						   			</div>
+						   			<div style="float:right; width:15%;">
+							   			<div style="margin-top:6px;border-radius:50%; width:25px; height:25px; background:black;">
+						   				</div>
+							   				
+							   		</div>
+						   			</div>
+						   		</div> 
+							</li>
+						</ul>
+					</div>
+					<div class="modal-body-right" style="width:30%; float:right;">
+						<ul id="add-list">
+							<!-- <li>
+								<div class="addList">
+									<img src="resources/images/default_profile.png">
+									<span class="empName">유현규 사원</span>
+									<span class="deleteList" aria-hidden="true" style="padding-right:5px; cursor:pointer;">&times;</span>
+								</div>
+							</li> -->
+						</ul>
+					</div>
+	         	</div>
+         		<div class="modal-footer">
+         			<button type="button" class="btn" style="background:#ffdf6d;color:black;" disabled>확인</button>
+           			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+         		</div>
+       		</div>
+	   	</div>
+    </div>
 	<div class="main-section">
 		<div class="head-section">
 			<div class="headLeft-section">
@@ -364,8 +612,7 @@ body{
 			</div>
 			<div class="headRight-section">
 				<div class="headRight-sub">
-				<button type="button">초대</button>
-				
+					<a href="#myModal" onclick="invite();" data-target="#myModal" data-toggle="modal">초대</a>
 				</div>
 			</div>
 		</div>
@@ -374,11 +621,6 @@ body{
 				<div id="messageArea" class="message" data-mcs-theme="minimal-dark" style="overflow:auto;">
 					<ul id="msg-area">
 						<c:forEach items="${msgList}" var="msg">
-							<li class=msg-day>
-								<div class="msg-desc" style="text-align:center;width:100%;font-size: 12px;background: #E8E8E8;padding:10px 10px;border-radius: 5px 5px 5px 0px;position: relative;">
-									<b>유현규 사원</b>님이 <b>전재광 대표</b>님, <b>김상윤 이사</b>님을 초대하셨습니다.
-								</div>
-							</li>
 							<c:if test="${date eq null}">
 								<li class="msg-day"><small>${msg.createDate}</small></li>
 							</c:if>
@@ -387,7 +629,7 @@ body{
 								<li class="msg-day"><small>수요일</small></li>
 							</c:if>
 							<c:set var="date" value="${msg.createDate}"/>
-							<c:if test="${msg.empId == loginUser.empId }">
+							<c:if test="${msg.empId == loginUser.empId  && msg.msgType == 1}">
 								<li class="msg-right">
 									<div class="msg-left-sub">
 										<img src="resources/images/${msg.profilePath}">
@@ -398,7 +640,7 @@ body{
 									</div>
 								</li>
 							</c:if>
-							<c:if test="${msg.empId ne loginUser.empId }">
+							<c:if test="${msg.empId ne loginUser.empId && msg.msgType == 1}">
 								<li class="msg-left">
 									<div class="msg-left-sub">
 										<img src="resources/images/${msg.profilePath}">
@@ -408,6 +650,13 @@ body{
 										<small>${msg.createDate}</small>
 									</div>
 								</li>
+							</c:if>
+							<c:if test="${msg.msgType == 2}">
+								<li class=msg-day>
+								<div class="msg-desc">
+									${msg.content}
+								</div>
+							</li>
 							</c:if>
 						</c:forEach>
 						<!-- <li class="msg-left">
@@ -450,7 +699,6 @@ body{
 						</div>
 						<input type="text" id="message" placeholder="type here...">
 						<button id="sendBtn" class="btn-send" type="button"><i class="fa fa-send"></i></button>
-
 				</div>
 			</div>
 		</div>

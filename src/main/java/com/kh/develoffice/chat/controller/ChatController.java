@@ -86,14 +86,12 @@ public class ChatController {
 		
 	}
 	@RequestMapping("chatting.do")
-	public ModelAndView chattingList(ModelAndView mv, int chatId, String chatName) {
-		System.out.println(chatId + "=" + chatName);
-		ArrayList<Message> msgList = cService.selectMsgList(chatId);
-		Chat c = new Chat();
-		c.setChatId(chatId);
-		c.setChatName(chatName);
-		ArrayList<Employee> inviteList = cService.selectInviteList(chatId);
-		mv.addObject("msgList", msgList).addObject("inviteList", inviteList).addObject("c", c).setViewName("chat/chattingView");
+	public ModelAndView chattingList(ModelAndView mv, HttpSession session, Chat c) {
+		int empId = ((Employee)session.getAttribute("loginUser")).getEmpId();
+		c.setEmpId(empId);
+		ArrayList<Message> msgList = cService.selectMsgList(c);
+		
+		mv.addObject("msgList", msgList).addObject("c", c).setViewName("chat/chattingView");
 		
 		return mv;
 	}
@@ -147,5 +145,14 @@ public class ChatController {
 			}
 		}
 		return c;
+	}
+	
+	@RequestMapping("inviteList.do")
+	public void selectInviteList(HttpServletResponse response, int chatId ) throws JsonIOException, IOException {
+		ArrayList<Employee> inviteList = cService.selectInviteList(chatId);
+		response.setContentType("application/json; charset=utf-8");
+		
+		Gson gson = new Gson();
+		gson.toJson(inviteList, response.getWriter());
 	}
 }

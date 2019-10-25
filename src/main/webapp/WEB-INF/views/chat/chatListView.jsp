@@ -24,14 +24,13 @@
 <script src="resources/chat/js/sidebar.min.js"></script>
 
 <!-- 폰트 관련 링크 -->
-<link href="https://fonts.googleapis.com/css?family=Noto+Serif+KR&display=swap" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 
 
 <style>
 body{
-	font-family: 'Noto Serif KR', serif;
+	font-family: 'Malgun Gothic';
 	margin: 0px;
 	overflow: hidden;
 }
@@ -120,16 +119,9 @@ body{
 }
 .left-section .chatList .img img{
 	width: 25px;
-	border-radius: 50%;
+	border-radius: 40%;
 }
-.left-section .chatList .img i{
-	position: absolute;
-	font-size: 10px;
-	color: #52E2A7;
-	border:1px solid #fff;
-	border-radius: 50%;
-	left: 10px;
-}
+
 .left-section .chatList .desc{
 	width: calc(100% - 60px);
 	float: left;
@@ -365,7 +357,7 @@ body{
 				</div>
 			</div>
 			
-			<div class="body-section" style="overflow:auto;">
+			<div class="body-section">
 				<div class="left-section" data-mcs-theme="minimal-dark">
 					<ul id="allList">
 						<c:forEach items="${chatList }" var="c">

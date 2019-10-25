@@ -100,6 +100,7 @@ public class EchoHandler extends TextWebSocketHandler{
 			m.setChatId(Integer.parseInt(messageList[1]));
 			m.setEmpId(empId);
 			m.setContent(messageList[2]);
+			m.setMsgType(1);
 			System.out.println(m);
 			int result = cService.insertMessage(m);		// 메세지 db에 저장
 			ArrayList<Message> people = cService.selectUsers(Integer.parseInt(messageList[1]));	// 방에 소속된 사람들 id 담을 ArrayList

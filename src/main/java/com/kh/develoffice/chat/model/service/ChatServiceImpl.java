@@ -38,9 +38,9 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public ArrayList<Message> selectMsgList(int chatId) {
+	public ArrayList<Message> selectMsgList(Chat c) {
 		
-		return cDao.selectMsgList(chatId);
+		return cDao.selectMsgList(c);
 		
 	}
 

@@ -18,7 +18,7 @@ public interface ChatService {
 	ArrayList<Message> selectChatProfile(int empId);
 	
 	// 메세지 내역 조회 서비스
-	ArrayList<Message> selectMsgList(int chatId);
+	ArrayList<Message> selectMsgList(Chat c);
 
 	// 메세지 등록 서비스
 	int insertMessage(Message m);

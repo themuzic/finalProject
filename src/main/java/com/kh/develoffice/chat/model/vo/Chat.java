@@ -20,6 +20,7 @@ public class Chat {
 	
 	private int chatId;						// 채팅방 번호
 	private String chatName;				// 채팅방 이름
+	private int empId;						// 사번
 	private Date createDate;				// 생성일자 
 	private Date modifyDate;				// 갱신일자
 	private String lastMsg;					// 마지막 메세지

@@ -33,9 +33,9 @@ public class ChatDao {
 		
 	}
 
-	public ArrayList<Message> selectMsgList(int chatId) {
-		
-		return (ArrayList)sqlSession.selectList("chatMapper.selectMsgList", chatId);
+	public ArrayList<Message> selectMsgList(Chat c) {
+		System.out.println(c.getChatId() + " " + c.getChatName() + " "  + c.getEmpId());
+		return (ArrayList)sqlSession.selectList("chatMapper.selectMsgList", c);
 		
 	}
 
