@@ -125,11 +125,11 @@
 			                    <a href="javascript:void(0)" id="spMemoDisplayOrigin" onclick="" class="memo"></a>
 			                </div>
 			                <div class="sender">
-		                    		보낸 사람: <span id="from_addr" name ="mailFrom" &lt>&quot;${ loginUser.empName }&quot; &lt;${ m.mailFrom }&gt;</span>
+		                    		보낸 사람: <span id="from_addr" name ="mailFrom">&quot;${ m.fromEmp }&quot; &lt;${ m.mailFrom }&gt;</span>
 		                    		 
 			                </div>
 			                <div class="address">              
-			                    	받는 사람: <span name="mailTo">&lt;${ m.mailTo }&gt;</span>                
+			                    	받는 사람: <span name="mailTo">&quot;${ m.toEmp }&quot; &lt;${ m.mailTo }&gt;</span>                
 			                </div>
 			                
 			                <div class="mailCc">

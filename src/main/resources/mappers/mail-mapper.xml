@@ -7,6 +7,8 @@
 		<result property="empId" column="emp_id"/>
 		<result property="mailFrom" column="mail_from"/>
 		<result property="mailTo" column="mail_to"/>
+		<result property="fromEmp" column="from_Emp"/>
+		<result property="toEmp" column="to_Emp"/>
 		<result property="mailCc" column="mail_cc"/>
 		<result property="mailTitle" column="mail_title"/>
 		<result property="mailContent" column="mail_content"/>

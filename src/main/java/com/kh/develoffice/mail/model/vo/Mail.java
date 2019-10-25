@@ -19,6 +19,8 @@ public class Mail {
 	private int empId;
 	private String mailFrom;
 	private String mailTo;
+	private String fromEmp;
+	private String toEmp;
 	private String mailCc;
 	private String mailTitle;
 	private String mailContent;
@@ -33,6 +35,7 @@ public class Mail {
 	private String writer;
 	private String title;
 	private String content;
+	
 	
 
 }

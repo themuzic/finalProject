@@ -200,7 +200,8 @@ public class MailController {
 		  FileSystemResource fsr = new FileSystemResource(savePath + "\\" + filename); // 파일 경로
 		  messageHelper.addAttachment(uploadFile.getOriginalFilename(), fsr);
 		     
-		      mailSender.send(message);
+		    mailSender.send(message);
+		    
 		  	} catch(Exception e){
 		      System.out.println(e);
 		  	}
@@ -209,7 +210,27 @@ public class MailController {
 			m.setOriginalFileName(uploadFile.getOriginalFilename());
 			m.setRenameFileName(filename);
 			}
-		}  	
+		
+		}else {
+			   
+		    try {
+		      mailSender.setUsername("sangyoonsla@gmail.com"); 		// 디비에서 메일 아이디 담고
+			  mailSender.setPassword("rlatkddbs123");			// 디비에서 메일 비밀번호 담고
+		      MimeMessage message = mailSender.createMimeMessage();
+		      MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+		 
+		      messageHelper.setFrom("sangyoonsla@gmail.com");
+		      message.setRecipients(Message.RecipientType.TO, m.getMailTo()); 	// 받는사람
+		      message.setRecipients(Message.RecipientType.CC, m.getMailCc()); 	// 참조    
+		      messageHelper.setSubject(m.getMailTitle());   		// 메일제목은 생략이 가능하다
+		      messageHelper.setText(m.getMailContent());   			// 메일 내용
+			     
+			    mailSender.send(message);
+			    
+			  	} catch(Exception e){
+			      System.out.println(e);
+			  	}	
+		}
     	
 		// mail 테이블에 insert
 		int result = mService.insertMail(m);
@@ -576,10 +597,10 @@ public class MailController {
 		int result = mService.updateImportant(m);
 		
 		if(result > 0) {
-			System.out.println("성공");
+//			System.out.println("성공");
 			return "success";
 		}else {
-			System.out.println("sdfdsfds");
+//			System.out.println("sdfdsfds");
 			return "fail";
 		}
 		
