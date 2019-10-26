@@ -46,12 +46,8 @@
 		from todo
 	</select>
 	
-	<!-- Todo 리스트의 왼쪽 전체 리스트 최근 10개 조회 -->
-	<select id="selectTodoList" parameterType="Todo" resultMap="todoResultSet">
-		<!-- select * from todo
-		where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status!='N'
-		order by todo_no desc -->
-		
+	<!-- Todo 리스트의 왼쪽 전체 리스트 최근 15개 조회 -->
+	<select id="selectTodoAList" parameterType="Todo" resultMap="todoResultSet">		
 		<![CDATA[
 		select *
 		from (select * from todo
@@ -60,6 +56,37 @@
 		where rownum <= 15
 		]]>
 	</select>
+	<!-- Todo 리스트의 오른쪽 진행중 리스트 최근 5개 조회 -->
+	<select id="selectTodoOList" parameterType="Todo" resultMap="todoResultSet">	
+		<![CDATA[
+		select *
+		from (select * from todo
+	   		  where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status='ongoing'
+	   		  order by todo_no desc)
+		where rownum <= 5
+		]]>
+	</select>
+	<!-- Todo 리스트의 오른쪽 대기 리스트 최근 5개 조회 -->
+	<select id="selectTodoWList" parameterType="Todo" resultMap="todoResultSet">	
+		<![CDATA[
+		select *
+		from (select * from todo
+	   		  where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status='waiting'
+	   		  order by todo_no desc)
+		where rownum <= 5
+		]]>
+	</select>
+	<!-- Todo 리스트의 오른쪽 완료 리스트 최근 5개 조회 -->
+	<select id="selectTodoCList" parameterType="Todo" resultMap="todoResultSet">	
+		<![CDATA[
+		select *
+		from (select * from todo
+	   		  where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status='completion'
+	   		  order by todo_no desc)
+		where rownum <= 5
+		]]>
+	</select>
+	
 	
 	<!-- Todo 삭제 -->
 	<update id="deleteTodo" parameterType="Todo">

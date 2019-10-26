@@ -3,7 +3,6 @@ package com.kh.develoffice.todo.model.service;
 import java.util.ArrayList;
 
 import com.kh.develoffice.employee.model.vo.Employee;
-import com.kh.develoffice.mail.model.vo.PageInfo;
 import com.kh.develoffice.todo.model.vo.Todo;
 import com.kh.develoffice.todo.model.vo.TodoBoard;
 
@@ -16,7 +15,14 @@ public interface TodoService {
 	ArrayList<TodoBoard> selectBoardList(TodoBoard tb);
 	
 	/////////// TODO 리스트 조회 ///////////
-	ArrayList<Todo> selectTodoList(Todo t);
+	// 전체 리스트 조회
+	ArrayList<Todo> selectTodoAList(Todo t);
+	// 진행중 리스트 조회
+	ArrayList<Todo> selectTodoOList(Todo t);
+	// 대기 리스트 조회
+	ArrayList<Todo> selectTodoWList(Todo t);
+	// 완료 리스트 조회
+	ArrayList<Todo> selectTodoCList(Todo t);
 	
 	/////////// 체크된 todo 삭제 ///////////
 	int deleteTodo(Todo t);

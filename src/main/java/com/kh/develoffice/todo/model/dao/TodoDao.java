@@ -40,14 +40,24 @@ public class TodoDao {
 	}
 	
 	/////////// TODO 리스트 조회 ///////////
-	public ArrayList<Todo> selectTodoList(Todo t){
-		
+	// 전체 리스트 조회
+	public ArrayList<Todo> selectTodoAList(Todo t){
 		//System.out.println(t);
-		
-		ArrayList<Todo> list = (ArrayList)sqlSession.selectList("todoMapper.selectTodoList", t);
+		ArrayList<Todo> list = (ArrayList)sqlSession.selectList("todoMapper.selectTodoAList", t);
 		//System.out.println(list);
-		
-		return (ArrayList)sqlSession.selectList("todoMapper.selectTodoList", t);
+		return list;
+	}
+	// 진행중 리스트 조회
+	public ArrayList<Todo> selectTodoOList(Todo t){
+		return (ArrayList)sqlSession.selectList("todoMapper.selectTodoOList", t);
+	}
+	// 대기 리스트 조회
+	public ArrayList<Todo> selectTodoWList(Todo t){
+		return (ArrayList)sqlSession.selectList("todoMapper.selectTodoWList", t);
+	}
+	// 완료 리스트 조회
+	public ArrayList<Todo> selectTodoCList(Todo t){
+		return (ArrayList)sqlSession.selectList("todoMapper.selectTodoCList", t);
 	}
 	
 	/////////// 체크된 todo 삭제 ///////////

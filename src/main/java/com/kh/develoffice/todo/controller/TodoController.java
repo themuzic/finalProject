@@ -97,11 +97,18 @@ public class TodoController {
 		
 		//System.out.println(t);
 		
-		ArrayList<Todo> todoList = tService.selectTodoList(t);
+		// 전체리스트
+		ArrayList<Todo> todoAList = tService.selectTodoAList(t);
+		// 진행중 리스트
+		ArrayList<Todo> todoOList = tService.selectTodoOList(t);
+		// 대기 리스트
+		ArrayList<Todo> todoWList = tService.selectTodoWList(t);
+		// 완료 리스트
+		ArrayList<Todo> todoCList = tService.selectTodoCList(t);
 		
-		//session.setAttribute("todoList", todoList);
 		
-		mv.addObject("todoList", todoList).setViewName("todo/todoListView");
+		mv.addObject("todoAList", todoAList).addObject("todoOList", todoOList)
+		.addObject("todoWList", todoWList).addObject("todoCList", todoCList).setViewName("todo/todoListView");
 		//System.out.println(todoList);
 		
 		return mv;	

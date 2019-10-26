@@ -152,14 +152,14 @@
 						
 							<tbody class="select_subject">
 							
-								<c:forEach items="${ todoList }" var="t">
+								<c:forEach items="${ todoAList }" var="a">
 								
-									<c:if test="${ t.empId == loginUser.empId }">
+									<c:if test="${ a.empId == loginUser.empId }">
 									
 										<tr>
 											<td align="center">
-												<input type="hidden" value="${ t.todoNo }">
-												<input type="checkbox" name="check" class="check chkBox" value="${ t.todoNo }" />
+												<input type="hidden" value="${ a.todoNo }">
+												<input type="checkbox" name="check" class="check chkBox" value="${ a.todoNo }" />
 											</td>
 											<td align="left">
 												<c:if test="${ empty loginUser }">
@@ -167,17 +167,17 @@
 												</c:if>
 												<c:if test="${ !empty loginUser }">
 													<c:url value="todoDetail.do" var="todoDetail">
-														<c:param name="todoNo" value="${ t.todoNo }"/>
+														<c:param name="todoNo" value="${ a.todoNo }"/>
 													</c:url>
-													<a href="${ todoDetail }">${ t.todoName }</a>
+													<a href="${ todoDetail }">${ a.todoName }</a>
 												</c:if>
 											</td>
 											<td align="center">
-												<c:if test="${ t.todoStatus eq 'ongoing' }">진행중</c:if>
-												<c:if test="${ t.todoStatus eq 'waiting' }">대기</c:if>
-												<c:if test="${ t.todoStatus eq 'completion' }">완료</c:if>
+												<c:if test="${ a.todoStatus eq 'ongoing' }">진행중</c:if>
+												<c:if test="${ a.todoStatus eq 'waiting' }">대기</c:if>
+												<c:if test="${ a.todoStatus eq 'completion' }">완료</c:if>
 											</td>
-											<td align="center">${ t.todoEnrollDate }</td>
+											<td align="center">${ a.todoEnrollDate }</td>
 										</tr>
 									
 									</c:if>
@@ -208,13 +208,11 @@
 							</button>
 							
 							<table id="yourTable2" class="table table-bordered" style="border:none;">
-							
 								<colgroup>
 									<col style="width:6%;">
 									<col style="width:69%;">
 									<col style="width:25%;">
 								</colgroup>
-								
 								<thead>
 									<tr>
 										<th style="text-align:center; font-weight:bold;"><i class="fas fa-tasks"></i></th>
@@ -226,17 +224,24 @@
 								<tbody class="select_subject">
 								
 								<!-- 컨트롤러 selectTodoList에 어레이리스트 3개 더 추가
-									 mv.addObject("todoList", todoList).addObject("진행중리스트", ).addObject("대기 리스트", ).addObject("완료리스트", ).setViewName("todo/todoListView"); -->
+									 mv.addObject("todoList", todoList).addObject("진행중리스트", )
+									 .addObject("대기 리스트", ).addObject("완료리스트", ).setViewName("todo/todoListView"); -->
 								
-									<c:forEach items="${ todoList }" var="t">
-								
-									<c:if test="${ t.empId == loginUser.empId }">
-										<tr>
-											<td style="text-align:center;"><i class="fas fa-tasks"></i></td>
-											<td>${ t.todoName }</td>
-											<td>${ t.todoEnrollDate }</td>
-										</tr>
-									</c:if>
+									<c:forEach items="${ todoOList }" var="o">
+										<c:if test="${ o.empId == loginUser.empId }">
+											<tr>
+												<td style="text-align:center;"><i class="fas fa-tasks"></i></td>
+												<td>
+													<c:if test="${ !empty loginUser }">
+														<c:url value="todoDetail.do" var="todoDetail">
+															<c:param name="todoNo" value="${ o.todoNo }"/>
+														</c:url>
+														<a href="${ todoDetail }">${ o.todoName }</a>
+													</c:if>
+												</td>
+												<td>${ o.todoEnrollDate }</td>
+											</tr>
+										</c:if>
 									</c:forEach>
 								</tbody>
 							</table>
@@ -248,20 +253,38 @@
 							  	<i class="fas fa-spinner"></i> &nbsp;대기
 							</button>
 							<table id="yourTable3" class="table table-bordered" style="border:none;">
+							
+								<colgroup>
+									<col style="width:6%;">
+									<col style="width:69%;">
+									<col style="width:25%;">
+								</colgroup>
+								
 								<thead>
 									<tr>
-										<th width="7%">#</th>
-										<th width="50%">제목</th>
-										<th width="20%">등록날짜</th>
+										<th style="text-align:center; font-weight:bold;"><i class="fas fa-spinner"></i></th>
+										<th style="text-align:center; font-weight:bold;">제목</th>
+										<th style="text-align:center; font-weight:bold;">등록날짜</th>
 									</tr>
 								</thead>
-								<tbody>
-									
-									<tr>
-										<td>3</td>
-										<td>Jane</td>
-										<td>@jane</td>
-									</tr>
+								<tbody class="select_subject">
+									<c:forEach items="${ todoWList }" var="w">
+								
+										<c:if test="${ w.empId == loginUser.empId }">
+											<tr>
+												<td style="text-align:center;"><i class="fas fa-spinner"></i></td>
+												<td>
+													<c:if test="${ !empty loginUser }">
+														<c:url value="todoDetail.do" var="todoDetail">
+															<c:param name="todoNo" value="${ w.todoNo }"/>
+														</c:url>
+														<a href="${ todoDetail }">${ w.todoName }</a>
+													</c:if>
+												</td>
+												<td>${ w.todoEnrollDate }</td>
+											</tr>
+										</c:if>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>
@@ -271,23 +294,40 @@
 							 	<i class="fas fa-check"></i> &nbsp;완료
 							</button>
 							<table id="yourTable4" class="table table-bordered" style="border:none;">
+								<colgroup>
+									<col style="width:6%;">
+									<col style="width:69%;">
+									<col style="width:25%;">
+								</colgroup>
+								
 								<thead>
 									<tr>
-										<th width="7%">#</th>
-										<th width="50%">제목</th>
-										<th width="20%">등록날짜</th>
+										<th style="text-align:center; font-weight:bold;"><i class="fas fa-check"></i></th>
+										<th style="text-align:center; font-weight:bold;">제목</th>
+										<th style="text-align:center; font-weight:bold;">등록날짜</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td>1</td>
-										<td>Steve</td>
-										<td>@steve</td>
-									</tr>
-									
-									</tr>
+								<tbody class="select_subject">
+									<c:forEach items="${ todoCList }" var="c">
+								
+									<c:if test="${ c.empId == loginUser.empId }">
+										<tr>
+											<td style="text-align:center;"><i class="fas fa-check"></i></td>
+											<td>
+												<c:if test="${ !empty loginUser }">
+													<c:url value="todoDetail.do" var="todoDetail">
+														<c:param name="todoNo" value="${ c.todoNo }"/>
+													</c:url>
+													<a href="${ todoDetail }">${ c.todoName }</a>
+												</c:if>
+											</td>
+											<td>${ c.todoEnrollDate }</td>
+										</tr>
+									</c:if>
+									</c:forEach>
 								</tbody>
 							</table>
+							
 						</div>					
 					
 					</div>
@@ -322,7 +362,7 @@
 			$("#menu3_1").attr('aria-expanded',true);
 			$("#m3_2").addClass("active");	
 			
-		});
+		
 		
 		/* 체크박스 전체 선택하기 */
 		$("#chkAll").click(function(){
@@ -332,30 +372,42 @@
 
 		});
 		
-		/* 테이블 행 호버 시 색 변화 */
+		/* 테이블 행 호버 시 색 변화, 행 선택 시 링크 이동 */
 		 $("#yourTable").find("td").mouseenter(function(){
 		       $(this).parent().css({"background":"#ddd","cursor":"pointer"});
 		    }).mouseout(function(){
 		       $(this).parent().css("background","white");
-		 });
+		 	}).click(function(){
+		 		var aa = $(this).parent()
+		 		aa.location.href="todoDetail.do";
+		 	});
 		 $("#yourTable2").find("td").mouseenter(function(){
 		       $(this).parent().css({"background":"#ddd","cursor":"pointer"});
 		    }).mouseout(function(){
 		       $(this).parent().css("background","white");
-		 });
+		 	}).click(function(){
+		 		location.href("todoDetail.do");
+		 	});
 		 $("#yourTable3").find("td").mouseenter(function(){
 		       $(this).parent().css({"background":"#ddd","cursor":"pointer"});
 		    }).mouseout(function(){
 		       $(this).parent().css("background","white");
-		 });
+		 	}).click(function(){
+		 		location.href("todoDetail.do");
+		 	});
 		 $("#yourTable4").find("td").mouseenter(function(){
 		       $(this).parent().css({"background":"#ddd","cursor":"pointer"});
 		    }).mouseout(function(){
 		       $(this).parent().css("background","white");
-		 });
+		 	}).click(function(){
+		 		location.href("todoDetail.do");
+		 	});
 		 
-
-
+		});
+		
+		
+		
+		
 		// 체크박스 선택 삭제
 		function deleteTodo(){
 			
@@ -373,7 +425,8 @@
 					},
 					success: function(data){
 						if(data == "success"){
-							tr.remove();
+							//tr.remove();
+							 location.reload();
 						}else{
 							alert("삭제실패");
 						}

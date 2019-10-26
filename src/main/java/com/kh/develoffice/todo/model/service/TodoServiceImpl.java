@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.develoffice.employee.model.vo.Employee;
-import com.kh.develoffice.mail.model.vo.PageInfo;
 import com.kh.develoffice.todo.model.dao.TodoDao;
 import com.kh.develoffice.todo.model.vo.Todo;
 import com.kh.develoffice.todo.model.vo.TodoBoard;
@@ -32,9 +31,25 @@ public class TodoServiceImpl implements TodoService {
 
 
 	/////////// TODO 리스트 조회 ///////////
+	// 전체 리스트 조회
 	@Override
-	public ArrayList<Todo> selectTodoList(Todo t) {
-		return tDao.selectTodoList(t);
+	public ArrayList<Todo> selectTodoAList(Todo t) {
+		return tDao.selectTodoAList(t);
+	}
+	// 진행중 리스트 조회
+	@Override
+	public ArrayList<Todo> selectTodoOList(Todo t) {
+		return tDao.selectTodoOList(t);
+	}
+	// 대기 리스트 조회
+	@Override
+	public ArrayList<Todo> selectTodoWList(Todo t) {
+		return tDao.selectTodoWList(t);
+	}
+	// 완료 리스트 조회
+	@Override
+	public ArrayList<Todo> selectTodoCList(Todo t) {
+		return tDao.selectTodoCList(t);
 	}
 
 	/////////// 체크된 todo 삭제 ///////////
@@ -49,4 +64,10 @@ public class TodoServiceImpl implements TodoService {
 	public int insertTodo(Todo t) {
 		return tDao.insertTodo(t);
 	}
+
+
+	
+
+
+	
 }
