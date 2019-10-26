@@ -65,6 +65,30 @@ public class TodoServiceImpl implements TodoService {
 		return tDao.insertTodo(t);
 	}
 
+	/////////// allTodo ///////////
+	@Override
+	public ArrayList<Todo> allTodo(Todo t) {
+		return tDao.allTodo(t);
+	}
+
+	/////////// onTodo ///////////
+	@Override
+	public ArrayList<Todo> onTodo(Todo t) {
+		return tDao.onTodo(t);
+	}
+
+	/////////// waitingTodo ///////////
+	@Override
+	public ArrayList<Todo> waTodo(Todo t) {
+		return tDao.waTodo(t);
+	}
+
+	/////////// completionTodo ///////////
+	@Override
+	public ArrayList<Todo> comTodo(Todo t) {
+		return tDao.comTodo(t);
+	}
+
 
 	
 

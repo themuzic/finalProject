@@ -2,7 +2,7 @@ package com.kh.develoffice.todo.model.service;
 
 import java.util.ArrayList;
 
-import com.kh.develoffice.employee.model.vo.Employee;
+
 import com.kh.develoffice.todo.model.vo.Todo;
 import com.kh.develoffice.todo.model.vo.TodoBoard;
 
@@ -29,5 +29,19 @@ public interface TodoService {
 	
 	/////////// TODO 생성 ///////////
 	int insertTodo(Todo t);
+	
+	/////////// 전체 TODO 리스트 이동 ///////////
+	ArrayList<Todo> allTodo(Todo t);
+	
+	/////////// 진행중 TODO 리스트 이동 ///////////
+	ArrayList<Todo> onTodo(Todo t);
+	
+	/////////// 대기 TODO 리스트 이동 ///////////
+	ArrayList<Todo> waTodo(Todo t);
+	
+	/////////// 완료 TODO 리스트 이동 ///////////
+	ArrayList<Todo> comTodo(Todo t);
+	
+	
 
 }

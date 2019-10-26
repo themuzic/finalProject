@@ -130,112 +130,57 @@
 					<br><br>
 					
 					<table id="myTable" class="table table-bordered" style="border:none;">
-					
 						<colgroup>
 							<col style="width:2%;">
-							<col style="width:4%;">
 							<col style="width:65%;">
 							<col style="width:14%;">
-							<col style="width:15%;">
+							<col style="width:19%;">
 						</colgroup>
-					
-				        <thead>
+						<thead>
 				            <tr>
-				             	<th data-orderable="false" style="text-align:left;"><i><input type="checkbox" id="chkAll"></i></th>
-					      		<th style="text-align:center;"><i class="fas fa-list-ol"></i></th>
-						  		<th id="title" width="300" style="text-align:center;"></th>
+				             	<th data-orderable="false" style="text-align:center;"><i><input type="checkbox" id="chkAll"></i></th>
+						  		<th id="title" width="300" style="text-align:center; font-weight:bold;">My TO-DO</th>
 						  		<th data-orderable="false" style="text-align:center;"><i class="fa fa-eye"></i></th>
-						  		<th data-orderable="false" style="text-align:center;"><i class="far fa-clock"></i></th>
+						  		<th style="text-align:center;"><i class="far fa-clock"></i></th>
 				    		</tr>
 				        </thead>
+				        
 				        <tbody class="select_subject">
-				            <tr>
-				            	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><i class="star icon"></i></td>
-				            	<td style="padding-left:60px;">!!!이번주 점심 정하기!!!</td>
-				            	<td>완료</td>
-				            	<td class="date">19-10-13 09:47</td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td style="padding-left:60px;">11/05 원고 마감</td>
-				            	<td>완료</td>
-				            	<td class="date">19-09-17 10:43</td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td style="padding-left:60px;">9월 정산</td>
-				            	<td>완료</td>
-				            	<td class="date">19-10-01 14:00</td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td style="padding-left:60px;">워크샵 준비</td>
-				            	<td>완료</td>
-				            	<td class="date">19-09-19 15:43</td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td style="padding-left:60px;">ㅂㅂ</td>
-				            	<td>완료</td>
-				            	<td class="date"></td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td style="padding-left:60px;">ㄷㄷ</td>
-				            	<td>완료</td>
-				            	<td class="date"></td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td style="padding-left:60px;">ㅁㅁ</td>
-				            	<td>완료</td>
-				            	<td class="date"></td>
-				            </tr>
-				             <tr>
-				             	<td>
-				            		<input type="hidden">
-				            		<input type="checkbox">
-				            	</td>
-				            	<td><img src=""></td>
-				            	<td style="padding-left:60px;">ㅇㅇ</td>
-				            	<td>완료</td>
-				            	<td class="date"></td>
-				            </tr>
+				            <c:forEach items="${ comTodo }" var="t">
+				        		<c:if test="${ t.empId == loginUser.empId }">
+				        		
+				        		<tr>
+									<td align="center">
+										<input type="hidden" value="${ t.todoNo }">
+										<input type="checkbox" name="check" class="check chkBox" value="${ t.todoNo }" />
+									</td>
+									<td align="left">
+										<c:if test="${ empty loginUser }">
+											로그인 해주세요.
+										</c:if>
+										<c:if test="${ !empty loginUser }">
+											<c:url value="todoDetail.do" var="todoDetail">
+												<c:param name="todoNo" value="${ t.todoNo }"/>
+											</c:url>
+											<a href="${ todoDetail }">${ t.todoName }</a>
+										</c:if>
+									</td>
+									<td align="center">
+										<c:if test="${ t.todoStatus eq 'ongoing' }">진행중</c:if>
+										<c:if test="${ t.todoStatus eq 'waiting' }">대기</c:if>
+										<c:if test="${ t.todoStatus eq 'completion' }">완료</c:if>
+									</td>
+									<td align="center">${ t.todoEnrollDate }</td>
+								</tr>
+				        		</c:if>
+				        	</c:forEach>
 				        </tbody> 
 					</table>
 					
 					<br>
 					
 					
-					<button type="reset" class="btn btn-danger" style="margin:0 5px 0 5px;">
+					<button type="reset" onclick="deleteTodo();" class="btn btn-danger" style="margin:0 5px 0 5px;">
 						<i class="far fa-trash-alt"></i> 삭제하기
 					</button>
 					
@@ -287,6 +232,38 @@
 		       $(this).parent().css("background","white");
 		 });
 	
+		// 체크박스 선택 삭제
+			function deleteTodo(){
+				
+				var dd = $("input:checkbox[name=check]:checked");
+
+				$.each(dd, function(i, ck){
+					
+					var tr = ck.parentNode.parentNode;
+					
+					$.ajax({
+						url: "deleteTodo.do",
+						type: "POST",
+						data: {todoNo: ck.value,
+							   empId:"${loginUser.empId}"
+						},
+						success: function(data){
+							if(data == "success"){
+								//tr.remove();
+								 location.reload();
+							}else{
+								alert("삭제실패");
+							}
+						},
+						error: function(request,status,error){
+					        alert("error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					        console.log("에러에러")
+					       
+						}
+
+					});
+				});
+			};
 	
 	
 	</script>

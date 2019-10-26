@@ -70,7 +70,25 @@ public class TodoDao {
 		return sqlSession.insert("todoMapper.insertTodo", t);
 	}
 	
+	/////////// allTodo /////////// 
+	public ArrayList<Todo> allTodo(Todo t){
+		return (ArrayList)sqlSession.selectList("todoMapper.allTodo", t);
+	}
 	
+	/////////// onTodo /////////// 
+	public ArrayList<Todo> onTodo(Todo t){
+		return (ArrayList)sqlSession.selectList("todoMapper.onTodo", t);
+	}
+	
+	/////////// waitingTodo /////////// 
+	public ArrayList<Todo> waTodo(Todo t){
+		return (ArrayList)sqlSession.selectList("todoMapper.waTodo", t);
+	}
+	
+	/////////// completionTodo /////////// 
+	public ArrayList<Todo> comTodo(Todo t){
+	return (ArrayList)sqlSession.selectList("todoMapper.comTodo", t);
+	}
 	
 	
 	

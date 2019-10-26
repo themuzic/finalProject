@@ -151,29 +151,90 @@ public class TodoController {
 	}
 	
 	
-	/////////// 전체 TODO 리스트 뷰로 이동
+	/////////// allTodo
 	@RequestMapping("allTodoView.do")
-	public String allTodo() {
-		return "todo/allTodo";
+	public ModelAndView allTodo(ModelAndView mv, HttpSession session, Todo t) {
+		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		TodoBoard tb = new TodoBoard();
+		tb.setEmpId(e.getEmpId());
+		
+		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		int tbNo = todoBoardList.get(0).getTdBoardNo();
+		
+		t.setEmpId(e.getEmpId());
+		t.setTdBoardNo(tbNo);
+		
+		ArrayList<Todo> allTodo = tService.allTodo(t);
+		
+		mv.addObject("allTodo", allTodo).setViewName("todo/allTodo");
+		return mv;
 	}
 	
 	/////////// 진행중인 TODO 리스트로 뷰로 이동
 	@RequestMapping("ongoingTodoView.do")
-	public String ongoingTodo() {
-		return "todo/ongoingTodo";
-	}
-	
-	/////////// 완료 TODO 리스트로 뷰로 이동
-	@RequestMapping("completionTodoView.do")
-	public String completionTodo() {
-		return "todo/completionTodo";
+	public ModelAndView onTodo(ModelAndView mv, HttpSession session, Todo t) {
+		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		TodoBoard tb = new TodoBoard();
+		tb.setEmpId(e.getEmpId());
+		
+		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		int tbNo = todoBoardList.get(0).getTdBoardNo();
+		
+		t.setEmpId(e.getEmpId());
+		t.setTdBoardNo(tbNo);
+		
+		ArrayList<Todo> onTodo = tService.onTodo(t);
+		
+		mv.addObject("onTodo", onTodo).setViewName("todo/ongoingTodo");
+		return mv;
 	}
 	
 	/////////// 대기 TODO 리스트로 뷰로 이동
 	@RequestMapping("waitingTodoView.do")
-	public String waitingTodo() {
-		return "todo/waitingTodo";
+	public ModelAndView waTodo(ModelAndView mv, HttpSession session, Todo t) {
+			
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		TodoBoard tb = new TodoBoard();
+		tb.setEmpId(e.getEmpId());
+		
+		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		int tbNo = todoBoardList.get(0).getTdBoardNo();
+		
+		t.setEmpId(e.getEmpId());
+		t.setTdBoardNo(tbNo);
+		
+		ArrayList<Todo> waTodo = tService.waTodo(t);
+		
+		mv.addObject("waTodo", waTodo).setViewName("todo/waitingTodo");
+		return mv;
 	}
+	
+	/////////// 완료 TODO 리스트로 뷰로 이동
+	@RequestMapping("completionTodoView.do")
+	public ModelAndView comTodo(ModelAndView mv, HttpSession session, Todo t) {
+			
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		TodoBoard tb = new TodoBoard();
+		tb.setEmpId(e.getEmpId());
+		
+		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		int tbNo = todoBoardList.get(0).getTdBoardNo();
+		
+		t.setEmpId(e.getEmpId());
+		t.setTdBoardNo(tbNo);
+		
+		ArrayList<Todo> comTodo = tService.comTodo(t);
+		
+		mv.addObject("comTodo", comTodo).setViewName("todo/completionTodo");
+		return mv;
+	}
+	
 	
 	///////////
 	@RequestMapping("todoDetail.do")

@@ -87,6 +87,31 @@
 		]]>
 	</select>
 	
+	<!-- allTodo -->
+	<select id="allTodo" parameterType="Todo" resultMap="todoResultSet">
+		select * from todo
+	  	where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status!='N'
+	  	order by todo_no desc
+	</select>
+	<!-- ongoingTodo -->
+	<select id="onTodo" parameterType="Todo" resultMap="todoResultSet">
+		select * from todo
+	  	where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status='ongoing'
+	  	order by todo_no desc
+	</select>	
+	<!-- waitingTodo -->
+	<select id="waTodo" parameterType="Todo" resultMap="todoResultSet">
+		select * from todo
+	  	where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status='waiting'
+	  	order by todo_no desc
+	</select>	
+	<!-- completionTodo -->
+	<select id="comTodo" parameterType="Todo" resultMap="todoResultSet">
+		select * from todo
+	  	where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status='completion'
+	  	order by todo_no desc
+	</select>	
+	
 	
 	<!-- Todo 삭제 -->
 	<update id="deleteTodo" parameterType="Todo">
