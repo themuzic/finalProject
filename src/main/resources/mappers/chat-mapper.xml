@@ -44,6 +44,7 @@
 	<resultMap id="chatIdNameResult" type="Chat">
 		<id property="chatId" column="chat_id"/>
 		<id property="chatName" column="chat_name"/>
+		<result property="chatType" column="chat_type"/>
 	</resultMap>
 	
 	<resultMap id="messageListResult" type="Message">
@@ -129,13 +130,20 @@
 		where chat_type=1 and j.emp_id = #{empId} and j2.emp_id = #{chatId}
 	</select>
 	
+	<!-- 마지막 채팅방 번호 -->
+	<select id="selectNewChatId" resultType="_int">
+		select chat_seq.currval
+		from chat
+		where rownum = 1
+	</select>
+	
 	<!-- 갠톡 채팅방번호, 이름 조회 -->
 	<select id="selectChatId" parameterType="Message" resultMap="chatIdNameResult">
-		select c.chat_id, j.chat_name
+		select j.chat_id, j.chat_name, c.chat_type
 		from join_chat j
 		join chat c on(c.chat_id = j.chat_id)
-		join join_chat j2 on(j.chat_id = j2.chat_id and j.emp_id != j2.emp_id)
-		where chat_type=1 and j.emp_id = #{empId} and j2.emp_id = #{chatId}
+		join join_chat j2 on(c.chat_id = j2.chat_id and j.emp_id != j2.emp_id)
+		where chat_type = #{msgType} and j.emp_id = #{empId} and j2.emp_id = #{chatId}
 	</select>
 	
 	<!-- 채팅방 생성 -->
@@ -143,7 +151,7 @@
 		insert into chat values(CHAT_SEQ.NEXTVAL, DEFAULT, SYSDATE, 'Y', #{type})
 	</insert>
 	
-	<!-- 갠톡 상대 이름 직급 조회 -->
+	<!-- 사원 이름 직급 조회 -->
 	<select id="selectChatName" parameterType="_int" resultType="String">
 		select emp_name || ' ' || job_name
 		from employee
@@ -151,10 +159,31 @@
 		where emp_id=#{empId}
 	</select>
 	
+	<!-- 단톡에 속해있는 사람들 이름 직급 조회 -->
+	<select id="selectChatNameList" parameterType="_int" resultType="String">
+		select emp_name || ' ' || job_name
+		from employee
+		join join_chat using(emp_id)
+		join job using(job_code)
+		where chat_id=#{chatId}
+	</select>
+	
 	<!-- 채팅방 인원 생성 -->
-	<insert id="insertJoinChat">
-		INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, #{chatName}, #{chatId}, DEFAULT, DEFAULT, FN_KO_CHAR(#{chatName}))
+	<insert id="insertJoinChat" parameterType="Chat">
+		INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, #{chatName}, DEFAULT, #{empId}, DEFAULT, DEFAULT, FN_KO_CHAR(#{chatName}))
 	</insert>
+	
+	<!-- 채팅방 인원 추가 -->
+	<insert id="inviteJoinChat" parameterType="Chat">
+		INSERT INTO JOIN_CHAT VALUES(#{chatId}, #{chatName}, DEFAULT, #{empId}, DEFAULT, DEFAULT, FN_KO_CHAR(#{chatName}))
+	</insert>
+	
+	<!-- 채팅방 인원 추가시 기존 인원 채팅방 이름 변경 -->
+	<update id="updateDefaultChatName" parameterType="Chat">
+		UPDATE JOIN_CHAT
+		SET CHAT_NAME = #{chatName}
+		WHERE CHAT_ID = #{chatId} AND NAME_STATUS = 'N'
+	</update>
 	
 	<!-- 초대 목록 인원 생성 -->
 	<select id="selectInviteList" parameterType="_int" resultMap="empResultSet">
@@ -163,7 +192,13 @@
 		where emp_id not in (SELECT EMP_ID
 		                     FROM JOIN_CHAT
 		                     WHERE CHAT_ID = #{chatId})
+	</select>
 	
+	<!-- 방 번호에 해당하는 사원의 방 이름 -->
+	<select id="selectUserChatName" parameterType="Chat" resultMap="chatIdNameResult">
+		select chat_id, chat_name
+		from join_chat
+		where chat_id = #{chatId} and emp_id = #{empId}
 	</select>
 
 </mapper>

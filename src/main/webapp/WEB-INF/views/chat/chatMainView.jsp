@@ -129,14 +129,14 @@ ul li:hover{
 	width: 30px;
 	border-radius: 40%;
 }
-.chatList .img i{
+/* .chatList .img i{
 	position: absolute;
 	font-size: 10px;
 	color: #52E2A7;
 	border:1px solid #fff;
 	border-radius: 50%;
 	left: 10px;
-}
+} */
 
 .chatList .desc{
 	width: calc(100% - 60px);
@@ -209,7 +209,7 @@ ul li:hover{
     			dataType:"json",
     			success:function(data){
     				console.log(data.chatId);
-    				messenger = window.open("chatting.do?chatId=" + data.chatId + "&chatName=" + data.chatName, data.chatId + "chatting", "width=500,height=545", "false");
+    				messenger = window.open("chatting.do?chatId=" + data.chatId + "&chatName=" + data.chatName + "&chatType=1", data.chatId + "chatting", "width=500,height=545", "false");
     			},
     			error:function(){
     				
@@ -324,7 +324,6 @@ ul li:hover{
 							<li>
 								<div class="chatList">
 									<div class="img">
-										<i class="fa fa-circle"></i>
 										<img src="resources/images/${loginUser.profilePath}">
 									</div>
 									<div class="desc">
@@ -346,7 +345,6 @@ ul li:hover{
 								<div class="chatList">
 									<input type="hidden" name="empId" value="${emp.empId }">
 									<div class="img">
-										<i class="fa fa-circle"></i>
 										<img src="resources/images/${emp.profilePath}">
 									</div>
 									<div class="desc">

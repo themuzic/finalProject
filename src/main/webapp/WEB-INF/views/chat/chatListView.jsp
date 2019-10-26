@@ -130,6 +130,16 @@ body *{
 	float: left;
 	position: relative;
 }
+.content-area{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    width: 80%;
+    margin-top:5px;
+    margin-left:5px;
+	
+}
 .left-section .chatList .desc h5{
 	margin-top: 6px;
 	line-height: 5px;
@@ -184,13 +194,14 @@ body *{
 		
         var i = 0;
 
-        $(document).on("dblclick", ".chatList", function(){	// 채팅방 더블클릭 했을때
-        	console.log($(this).children().first().val());
-        	var chatId = $(this).children().first().val();	// 더블클릭한 채팅방의 chatId
+        $(document).on("dblclick", ".chatListForm", function(){	// 채팅방 더블클릭 했을때
+        	console.log($(this).find("input[name=chatId]").val());
+        	var chatId = $(this).find("input[name=chatId]").val();	// 더블클릭한 채팅방의 chatId
         	var chatName = $("#" +chatId);
+        	var chatType = $(this).find("input[name=chatType]").val()
         	/* var chatName = encodeURI(chatName); */
-        	console.log(chatName.html());
-        	messenger = window.open("chatting.do?chatId=" + chatId + "&chatName=" + chatName.html(), chatId + "chatting", "width=500,height=545", "false");
+        	console.log(chatType);
+        	messenger = window.open("chatting.do?chatId=" + chatId + "&chatName=" + chatName.html() + "&chatType=" + chatType, chatId + "chatting", "width=500,height=545", "false");
         });
     });
 
@@ -265,11 +276,14 @@ body *{
 				$.each(data, function(indel, c){
 				
 				console.log("refresh실행");
-					html += "<li>" +
+					html += "<li class='chatListForm'>" +
 						    "<div class='chatList'>" +
 						    "<input type='hidden' name='chatId' value=" + 
 						    c.chatId + 
 						    " >" +
+						    "<input type='hidden' name='chatType' value='" + 
+						    c.chatType + 
+						    "'>" +
 						    "<div class='img'>";
 					if(c.chatType == 1 || c.count <= 2){
 						$.each(c.profileList, function(index, profile){
@@ -298,7 +312,7 @@ body *{
 							c.modifyDate +
 							"</small>" +
 							"<h5 id=" + c.chatId + ">" + c.chatName + "</h5>" +
-							"<small>" + c.lastMsg + "</small>";
+							"<small class='content-area'>" + c.lastMsg + "</small>";
 					if(c.unRead > 0){
 						html += "<div style='width:5%; text-align:center; float:right; border-radius:50%; background-color:red; color:white;'>" +
 								c.unRead +
@@ -364,9 +378,10 @@ body *{
 				<div class="left-section" data-mcs-theme="minimal-dark">
 					<ul id="allList">
 						<c:forEach items="${chatList }" var="c">
-						<li>
+						<li class="chatListForm">
 							<div class="chatList">
 								<input type="hidden" name="chatId" value="${c.chatId }" >
+								<input type="hidden" name="chatType" value="${c.chatType }">
 								<div class="img">
 									<c:if test="${c.chatType == 1 || c.count <= 2}">
 										<c:forEach items="${c.profileList }" var="profile">
@@ -389,7 +404,7 @@ body *{
 								<div class="desc">
 									<small class="time">${c.modifyDate }</small>
 									<h5 id="${c.chatId}">${c.chatName }</h5>
-									<small>${c.lastMsg }</small>
+									<small class="content-area">${c.lastMsg }</small>
 									<c:if test="${c.unRead > 0}">
 										<div style="width:5%; text-align:center; float:right; border-radius:50%; background-color:red; color:white;">${c.unRead }</div>
 									</c:if>

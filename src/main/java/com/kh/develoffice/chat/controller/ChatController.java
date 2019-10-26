@@ -19,7 +19,7 @@ import com.kh.develoffice.chat.model.vo.Chat;
 import com.kh.develoffice.chat.model.vo.Message;
 import com.kh.develoffice.employee.model.vo.Employee;
 
-@Controller
+@Controller("cController")
 public class ChatController {
 	
 	@Autowired
@@ -101,14 +101,15 @@ public class ChatController {
 		Message m = new Message();
 		m.setEmpId(empId);
 		m.setChatId(otherId);
+		m.setMsgType(1);
 		Chat c = new Chat();
 		int count = cService.getChatStatus(m);
 		if(count == 0) {	// 채팅방이 없으면
-			// 채팅방 생성하고 채팅방 번호랑 이름 반환
-			c = insertChat(m);					// 채팅방 생성하고 내 채팅방 번호, 이름 조회
+			// 채팅방 생성하고 채팅방 번호랑 이름 ,타입 반환
+			c = insertChat(m);					// 채팅방 생성하고 내 채팅방 번호, 이름, 타입 조회
 		}else {		// 채팅방이 이미 있으면
 			// 채팅방 번호와 채팅방 이름 리턴
-			c = cService.selectChatId(m);		// 내 채팅방 번호, 이름 조회
+			c = cService.selectChatId(m);		// 내 채팅방 번호, 이름, 타입 조회
 		}
 		response.setContentType("application/json; charset=utf-8");
 		
@@ -118,30 +119,33 @@ public class ChatController {
 	
 	
 	public Chat insertChat(Message m) {
-		// 갠톡 채팅방 생성
-		int type=1;
+		// 채팅방 생성
+		int type= m.getMsgType();
+		System.out.println("m:" + m + " type : " + type);
 		int result = cService.insertChat(type);
 		
 		// 만들어진 채팅방, 채팅방 이름 반환할 Chat 객체 생성
 		Chat c = new Chat();
-		
+		c.setEmpId(m.getEmpId());
+		c.setChatType(type);
+		c.setChatId(cService.selectNewChatId());
 		if(result > 0) {
 			// 채팅방 사람들 테이블에 생성
 			int empId = m.getEmpId();		// 내 사번
 			int otherId = m.getChatId();	// 상대 사번
 			Chat myChat = new Chat();
-			myChat.setChatId(m.getEmpId());
+			myChat.setEmpId(empId);
 			myChat.setChatName(cService.selectChatName(otherId));			// 내 사번과 내 채팅방 이름 담음
 			
 			Chat otherChat = new Chat();
-			otherChat.setChatId(m.getChatId());
+			otherChat.setEmpId(m.getChatId());
 			otherChat.setChatName(cService.selectChatName(empId));	// 상대 사번과 상대 채팅방 이름 담음
 			
 			int myResult = cService.insertJoinChat(myChat);			// 나에 대한 채팅방 인원 등록
 			int otherResult = cService.insertJoinChat(otherChat);	// 상대에 대한 채팅방 인원 등록
 			
 			if(myResult > 0 && otherResult > 0) {
-				c = cService.selectChatId(m);			// 내 채팅방 번호, 이름 조회
+				c = cService.selectUserChatName(c);			// 내 채팅방 번호, 이름 조회
 			}
 		}
 		return c;

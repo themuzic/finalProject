@@ -96,5 +96,30 @@ public class ChatServiceImpl implements ChatService {
 		return cDao.selectInviteList(chatId);
 	}
 
+	@Override
+	public ArrayList<String> selectChatNameList(int chatId) {
+		return cDao.selectChatNameList(chatId);
+	}
+
+	@Override
+	public int inviteJoinChat(Chat c) {
+		return cDao.inviteJoinChat(c);
+	}
+
+	@Override
+	public int updateDefaultChatName(Chat c) {
+		return cDao.updateDefaultChatName(c);
+	}
+
+	@Override
+	public Chat selectUserChatName(Chat c) {
+		return cDao.selectUserChatName(c);
+	}
+
+	@Override
+	public int selectNewChatId() {
+		return cDao.selectNewChatId();
+	}
+
 
 }

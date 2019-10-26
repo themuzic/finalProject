@@ -29,7 +29,7 @@ public interface ChatService {
 	// 채팅방 인원 확인 갱신 서비스
 	int updateJoinMod(Message m);
 
-	// 채팅방 소속 사람들 조회 서비스
+	// 채팅방 소속 사람들 사번 조회 서비스
 	ArrayList<Message> selectUsers(int chatId);
 
 	// 갠톡 생성 유무 서비스
@@ -38,15 +38,30 @@ public interface ChatService {
 	// 채팅방 생성 서비스
 	int insertChat(int type);
 
-	// 갠톡 채팅방 번호, 이름 조회 서비스
-	Chat selectChatId(Message m);
-	
 	// 갠톡 상대 이름 조회
 	String selectChatName(int empId);
 
 	// 갠톡 채팅방 인원 등록 서비스
 	int insertJoinChat(Chat myChat);
 
+	// 초대 할 인원 조회 서비스
 	ArrayList<Employee> selectInviteList(int chatId);
+	
+	// 단톡에 속해있는 사람들 이름 직급 조회 서비스
+	ArrayList<String> selectChatNameList(int chatId);
+	
+	// 채팅방 초대 인원 추가 서비스
+	int inviteJoinChat(Chat c);
+	
+	// 채팅방 인원 추가시 이름 변경
+	int updateDefaultChatName(Chat c);
+
+	// 채팅방 이름 조회
+	Chat selectUserChatName(Chat c);
+
+	// 마지막에 생성한 채팅방
+	int selectNewChatId();
+
+	Chat selectChatId(Message m);
 
 }

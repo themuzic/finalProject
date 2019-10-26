@@ -2,6 +2,7 @@ package com.kh.develoffice.chat.controller;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.kh.develoffice.chat.model.service.ChatService;
+import com.kh.develoffice.chat.model.vo.Chat;
 import com.kh.develoffice.chat.model.vo.Message;
 import com.kh.develoffice.employee.model.vo.Employee;
 
@@ -23,6 +25,8 @@ public class EchoHandler extends TextWebSocketHandler{
 
 	private static Logger logger = LoggerFactory.getLogger(EchoHandler.class);
 
+    @Autowired
+    private ChatController cController;
     
 	@Autowired
 	private ChatService cService;
@@ -58,7 +62,73 @@ public class EchoHandler extends TextWebSocketHandler{
     	String[] messageList = message.getPayload().split(":"); //받은 메세지를 :을 구분자로 스플릿
     	System.out.println("받은 메세지 = " +message.getPayload());
     	
-    	if(messageList.length == 2 && messageList[0].equals("chatId")) {// 스플릿한 배열의 길이가 2(chatId:15)면서 0번 인덱스가 chatId일때
+    	if(message.getPayload().equals("채팅방 연결")) {		// 채팅방 리스트가 연결되었으면
+    		messengerList.add(session);					// 세션을 messengerList에 저장
+    		
+    	}else if(messageList[0].equals("system")) {	// 시스템 메세지가 전달 됐을 때
+    		int chatId = Integer.parseInt(messageList[2]);	// 기본 chatId는 초대한 방 번호
+    		int empId = ((Employee)session.getAttributes().get("loginUser")).getEmpId();	// 보낸사람 아이디 출력
+    		
+    		if(messageList[5].equals("1")) {		// 초대한 방이 갠톡이면
+    			ArrayList<Message> users = cService.selectUsers(chatId);	// 갠톡 두명 사번 따와서
+    			Message m = new Message();			// Message객체 생성
+    			m.setEmpId(empId);					// empId에는 내 사번 넣고
+    			m.setMsgType(2);					// chatType이 들어갈 msgType에는 2(단톡)넣고
+    			for(Message user : users) {			// 갠톡 두명 돌려서
+    				if(user.getEmpId() != empId) {	// 나랑 empId다르면
+    					m.setChatId(user.getEmpId());	// chatId에 상대 사번 넣고
+    				}
+    			}
+    			System.out.println(m);
+    			Chat c = cController.insertChat(m);	// 일단 갠톡 두명으로 방 만들고
+    			chatId = c.getChatId();				// 생성한 방 번호 가져옴
+    		}
+    		
+    		String[] empList = messageList[3].split("_");	// 초대 받은 사람들 아이디 배열에 저장
+    		Message m = new Message();						
+			m.setChatId(chatId);							// 채팅방 번호 담고
+			m.setEmpId(empId);								// 보낸사람 아이디 담고
+			m.setContent(messageList[4]);					// 시스템 메세지 내용 담고
+			m.setMsgType(2);								// 메세지 타입 설정 하고
+			int result = cService.insertMessage(m);		// 메세지 db에 저장
+			if(result > 0) {
+				ArrayList<String> chatNameList = cService.selectChatNameList(chatId);	// 채팅방 이름 설정할 arraylist
+				
+				for(String emp:empList) {		// 추가할 인원들 수만큼 반복문
+					String empName = cService.selectChatName(Integer.parseInt(emp));	// 그 인원 이름 직급 추출
+					chatNameList.add(empName);		// 채팅방 이름에 담음
+				}
+				Collections.sort(chatNameList);		// 오름차순 정렬
+				
+				String chatName = String.join(", ", chatNameList);	// 채팅방 이름 설정
+				Chat c = new Chat();		
+				for(String emp:empList) {		// 추가할 인원들 수만큼 반복문
+					c.setChatId(chatId);		// 채팅방 번호
+					c.setChatName(chatName);	// 채팅방 이름
+					c.setEmpId(Integer.parseInt(emp));	// 사번
+					int result2 = cService.inviteJoinChat(c);	// 채팅방 인원 db에 저장
+				}
+				int result3 = cService.updateDefaultChatName(c);	// 채팅방에 속해있는 인원들 중 채팅방 이름 설정을 따로 안했을 경우 바꿔줌
+			}
+			if(messageList[5].equals("1")) {
+				Chat c = new Chat();
+				c.setChatId(chatId);
+				c.setEmpId(empId);
+				c = cService.selectUserChatName(c);
+				for(WebSocketSession sess : chatList.get(messageList[2])) {
+					if(empId == ((Employee)sess.getAttributes().get("loginUser")).getEmpId()) {
+						sess.sendMessage(new TextMessage("chatId:" + c.getChatId() + ":chatName:" +  c.getChatName()));
+					}
+				}
+				
+			}else {
+				ArrayList<WebSocketSession> list = chatList.get(String.valueOf(chatId));	// 방에 들어있는 소켓 ArrayList를 가져온다.
+				for(WebSocketSession sess : list) {
+					sess.sendMessage(new TextMessage("system:" + messageList[4]));
+				}
+			}
+			
+    	}else if(messageList.length == 2 && messageList[0].equals("chatId")) {// 스플릿한 배열의 길이가 2(chatId:15)면서 0번 인덱스가 chatId일때
     		
     		ArrayList<WebSocketSession> list;
     		int empId = ((Employee)session.getAttributes().get("loginUser")).getEmpId();	// 채팅창 연 아이디 출력
@@ -85,21 +155,17 @@ public class EchoHandler extends TextWebSocketHandler{
 					}
 					
 			}
+    	}else if(messageList.length >= 3 && messageList[0].equals("chatId")) {	// 스플릿한 배열의 길이가 3이상이고, 0번 인덱스가 chatId일때
 			
-    	}
-    	if(message.getPayload().equals("채팅방 연결")) {		// 채팅방 리스트가 연결되었으면
-    		messengerList.add(session);					// 세션을 messengerList에 저장
-    	}
-    	if(messageList.length == 3 && messageList[0].equals("chatId")) {	// 스플릿한 배열의 길이가 3이고, 0번 인덱스가 chatId일때
-
-			ArrayList<WebSocketSession> list = chatList.get(messageList[1]);	// 방에 들어있는 소켓 ArrayList를 가져온다.
+    		String content = message.getPayload().substring(message.getPayload().indexOf(":",message.getPayload().indexOf(":")+1)+1);
+    		ArrayList<WebSocketSession> list = chatList.get(messageList[1]);	// 방에 들어있는 소켓 ArrayList를 가져온다.
 			int empId = ((Employee)session.getAttributes().get("loginUser")).getEmpId();	// 보낸사람 아이디 출력
 			String profilePath = ((Employee)session.getAttributes().get("loginUser")).getProfilePath();	// 보낸사람 프로필경로 출력
 			
 			Message m = new Message();
 			m.setChatId(Integer.parseInt(messageList[1]));
 			m.setEmpId(empId);
-			m.setContent(messageList[2]);
+			m.setContent(content);
 			m.setMsgType(1);
 			System.out.println(m);
 			int result = cService.insertMessage(m);		// 메세지 db에 저장
@@ -110,19 +176,16 @@ public class EchoHandler extends TextWebSocketHandler{
 				if(result2 > 0) {	// 저장 됐으면
 					for(WebSocketSession sess : list) {									// 그 방에 있는 세션 전체 반복문 실행
 						int otherId = ((Employee)sess.getAttributes().get("loginUser")).getEmpId();	// 받는사람 아이디 출력
-						System.out.println(otherId);
 						m.setEmpId(otherId);
 						if(empId == otherId){		// 보낸사람과 받는사람이 아이디가 같으면
 							int update = cService.updateJoinMod(m);	// 채팅방 확인 갱신
 							if(update > 0) {					// 갱신됐으면
-								System.out.println("나 갱신됨");
-								sess.sendMessage(new TextMessage("나:"+ messageList[2]));	//메세지 출력								
+								sess.sendMessage(new TextMessage("나:"+ content));	//메세지 출력								
 							}
 						}else {						// 다르면
 							int update = cService.updateJoinMod(m);	// 채팅방 확인 갱신
 							if(update > 0) {					// 갱신됐으면
-								System.out.println("상대방 갱신됨");
-								sess.sendMessage(new TextMessage("상대방:"+ messageList[2] + ":" + profilePath));	// 메세지 출력
+								sess.sendMessage(new TextMessage("상대방:"+ profilePath + ":" + content));	// 메세지 출력
 							}
 						}
 						

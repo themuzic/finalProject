@@ -28,20 +28,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.css">
 
 
-
-
-<!-- 시멘틱 모달창 -->
-<link href="resources/chat/css/modal.min.css" rel="stylesheet">
-<script src="resources/chat/js/modal.min.js"></script>
 <style>
 body{
 	font-family: 'Malgun Gothic';
 	margin: 0px;
 	overflow: hidden;
 }
-body *{
-	-webkit-user-select: none;
-}
+
 .main-section small{
 	font-size: 10px;
 }
@@ -400,6 +393,36 @@ body *{
         	inviteYN();
         });
         
+        $("#invite-submit").on('click', function(){
+        	var empName = $('.empName');
+        	var empId = $('.checked');
+        	var chatType = ${c.chatType};
+        	var empIdHtml = '';
+        	var empLength = empName.length;
+        	var inviteHtml = "<b>${loginUser.empName} ${loginUser.jobName}</b>님이 ";
+        	console.log(empId);
+        	$.each(empId, function(index, value){
+        		if(index != (empLength-1)){
+        			empIdHtml += $(value).attr('id').split('_')[1] + '_';
+        		}else{
+        			empIdHtml += $(value).attr('id').split('_')[1];
+        		}
+        	});
+        	
+			$.each(empName, function(index, value){
+				if(index != (empLength-1)){
+					inviteHtml += "<b>" + value.innerText + "</b>님, ";
+					
+				}else{
+					inviteHtml += "<b>" + value.innerText + "</b>님을 초대하였습니다.";
+				}
+        	});
+			
+			sock.send("system:chatId:${c.chatId}:" + empIdHtml + ":" + inviteHtml + ":" + chatType);
+
+			$(this).attr("data-dismiss", "modal");
+        });
+        
         $("#messageArea").scrollTop(9999999);
 
     });
@@ -532,8 +555,8 @@ body *{
 	}
     //evt 파라미터는 웹소켓을 보내준 데이터다.(자동으로 들어옴)
     function onMessage(evt) {
-
-        var data = (evt.data).split(":");
+    	var str = evt.data;
+        var data = str.split(":");
         var date = formatAMPM(new Date());
         var profilePath = "${loginUser.profilePath}";
 		var html = '';
@@ -544,7 +567,7 @@ body *{
 			   profilePath + 
 			   "'>" +
 			   "<div class='msg-desc'>" +
-			   data[1] +
+			   str.substring(str.indexOf(":")+1,str.length) +
 			   "</div>" +
 			   "<small>" +
 			   date +
@@ -555,22 +578,28 @@ body *{
         	html = "<li class='msg-left'>" +
 			   "<div class='msg-left-sub'>" +
 			   "<img src='resources/images/" +
-			   data[2] +
+			   data[1] +
 			   "'>" +
 			   "<div class='msg-desc'>" +
-			   data[1] +
+			   str.substring(str.indexOf(":", str.indexOf(":")+1)+1,str.length) +
 			   "</div>" +
 			   "<small>" +
 			   date +
 			   "</small>" +
 			   "</div>" +
 			   "</li>";
+        }else if(data[0] == "system"){
+        	html = "<li class='msg-day'>" +
+        		   "<div class='msg-desc'>" +
+        		   data[1] +
+        		   "</div>" + 
+        		   "</li>";
+        }else{
+        	messenger = window.open("chatting.do?chatId=" + data[1] + "&chatName=" + data[3] + "&chatType=" + 2, data[1] + "chatting", "width=500,height=545", "false");
         }
 
         $("#msg-area").append(html);
         $("#messageArea").scrollTop(9999999);
-		console.log($(document).height());
-        //sock.close();
 
     }
 
@@ -704,11 +733,11 @@ body *{
 								</li>
 							</c:if>
 							<c:if test="${msg.msgType == 2}">
-								<li class=msg-day>
-								<div class="msg-desc">
-									${msg.content}
-								</div>
-							</li>
+								<li class='msg-day'>
+									<div class="msg-desc">
+										${msg.content}
+									</div>
+								</li>
 							</c:if>
 						</c:forEach>
 						<!-- <li class="msg-left">
