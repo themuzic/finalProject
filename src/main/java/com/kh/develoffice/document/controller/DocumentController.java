@@ -83,8 +83,8 @@ public class DocumentController {
 	}
 	
 	@RequestMapping("documentTable.do")
-	public ModelAndView documentTableList(HttpSession session, ModelAndView mv) {
-		
+	public ModelAndView documentTableList(HttpSession session, ModelAndView mv, String condition) {
+		System.out.println(condition);
 		Employee emp = (Employee)session.getAttribute("loginUser");
 		ArrayList<Document> docuList = dService.selectDocuList(emp.getEmpId());
 		
@@ -151,6 +151,32 @@ public class DocumentController {
 			//System.out.println(d);
 		}
 		
+		if(condition.equals("진행중")) {
+			for(int i = 0; i < docuList.size(); i++) {
+				if(!(docuList.get(i).getStatus().equals("진행중")) && !(docuList.get(i).getStatus().equals("결재 대기"))) {
+					docuList.remove(i);
+				}
+			}
+		}else if(condition.equals("완료")) {
+			for(int i = 0; i < docuList.size(); i++) {
+				if(!(docuList.get(i).getStatus().equals(condition))) {
+					docuList.remove(i);
+				}
+			}
+		}else if(condition.equals("참조")) {
+			for(int i = 0; i < docuList.size(); i++) {
+				if(!(docuList.get(i).getStatus().equals(condition))) {
+					docuList.remove(i);
+				}
+			}
+		}else if(condition.equals("내가")) {
+			for(int i = 0; i < docuList.size(); i++) {
+				if(!(docuList.get(i).getDv().equals("기안"))) {
+					docuList.remove(i);
+				}
+			}
+		}
+		mv.addObject("condition", condition);
 		mv.addObject("docuList", docuList).setViewName("document/dcTable");
 		return mv;
 	}
@@ -403,6 +429,20 @@ public class DocumentController {
 	public String rfCheck(Reference rf) {
 		
 		int result = dService.rfCheck(rf);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("deleteDocument.do")
+	public String deleteDocument(int docuNum) {
+		
+		int result = dService.deleteDocument(docuNum);
 		
 		if(result > 0) {
 			return "success";

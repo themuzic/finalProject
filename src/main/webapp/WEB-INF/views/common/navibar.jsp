@@ -367,7 +367,19 @@
 	.closeBtn{
 		cursor:pointer;
 	}
-	
+	.ajs-close{
+		float: right;
+		display:none !important;
+	}
+	.ajs-primary.ajs-buttons{
+		text-align:right !important;
+	}
+	.ajs-ok{
+		color:#2985db;
+	}
+	.ajs-cancel{
+		color:red;
+	}
 </style>
 
 </head>
@@ -461,11 +473,36 @@
 							<div id="menu1" class="collapse ">
 								<ul class="nav">
 									<li><a href="insertDocumentForm.do" class="" id="m1_1">작성하기</a></li>
-									<li><a href="documentTable.do" class="" id="m1_2">전체문서</a></li>
-									<li><a href="" class="" id="m1_3">진행중인문서</a></li>
-									<li><a href="" class="" id="m1_4">완료된문서</a></li>
-									<li><a href="" class="" id="m1_5">참조문서</a></li>
-									<li><a href="" class="" id="m1_6">휴가내역</a></li>
+									<li>
+										<c:url value="documentTable.do" var="documentTable">
+											<c:param name="condition" value="전체"/>
+										</c:url>
+										<a href="${documentTable}" class="" id="m1_2">전체문서</a>
+									</li>
+									<li>
+										<c:url value="documentTable.do" var="documentTable">
+											<c:param name="condition" value="진행중"/>
+										</c:url>
+										<a href="${documentTable}" class="" id="m1_3">진행중인문서</a>
+									</li>
+									<li>
+										<c:url value="documentTable.do" var="documentTable">
+											<c:param name="condition" value="완료"/>
+										</c:url>
+										<a href="${documentTable}" class="" id="m1_4">완료된문서</a>
+									</li>
+									<li>
+										<c:url value="documentTable.do" var="documentTable">
+											<c:param name="condition" value="참조"/>
+										</c:url>
+										<a href="${documentTable}" class="" id="m1_5">참조문서</a>
+									</li>
+									<li>
+										<c:url value="documentTable.do" var="documentTable">
+											<c:param name="condition" value="내가"/>
+										</c:url>
+										<a href="${documentTable}" class="" id="m1_6">내가 작성한 문서</a>
+									</li>
 								</ul>
 							</div>
 						</li>

@@ -127,6 +127,11 @@ public class DocumentServiceImpl implements DocumentService {
 		return dDao.selectVacation(docuNum);
 	}
 
+	@Override
+	public int deleteDocument(int docuNum) {
+		return dDao.deleteDocument(docuNum);
+	}
+
 	
 
 }

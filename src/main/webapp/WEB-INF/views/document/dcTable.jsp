@@ -203,13 +203,38 @@
 	<script>
 	
 	$(function(){
-		
 		/* 사이드바의 해당 메뉴 활성화 유지하기 */
-		$("#menu1").addClass("in");
-		$("#menu1").attr('aria-expanded',true);
-		$("#menu1_1").addClass("active");
-		$("#menu1_1").attr('aria-expanded',true);
-		$("#m1_2").addClass("active");
+		if('${condition}' == '전체'){
+			$("#menu1").addClass("in");
+			$("#menu1").attr('aria-expanded',true);
+			$("#menu1_1").addClass("active");
+			$("#menu1_1").attr('aria-expanded',true);
+			$("#m1_2").addClass("active");
+		}else if('${condition}' == '진행중'){
+			$("#menu1").addClass("in");
+			$("#menu1").attr('aria-expanded',true);
+			$("#menu1_1").addClass("active");
+			$("#menu1_1").attr('aria-expanded',true);
+			$("#m1_3").addClass("active");
+		}else if('${condition}' == '완료'){
+			$("#menu1").addClass("in");
+			$("#menu1").attr('aria-expanded',true);
+			$("#menu1_1").addClass("active");
+			$("#menu1_1").attr('aria-expanded',true);
+			$("#m1_4").addClass("active");
+		}else if('${condition}' == '참조'){
+			$("#menu1").addClass("in");
+			$("#menu1").attr('aria-expanded',true);
+			$("#menu1_1").addClass("active");
+			$("#menu1_1").attr('aria-expanded',true);
+			$("#m1_5").addClass("active");
+		}else if('${condition}' == '내가'){
+			$("#menu1").addClass("in");
+			$("#menu1").attr('aria-expanded',true);
+			$("#menu1_1").addClass("active");
+			$("#menu1_1").attr('aria-expanded',true);
+			$("#m1_6").addClass("active");
+		}
 		
 		
 	});

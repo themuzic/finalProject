@@ -45,9 +45,11 @@
 						<div class="content_title">
 							<form>
 								<fieldset>
-									<span class="detail_select">
-										<a href="javascript:void(0);" onclick="">결재선변경</a>
-									</span>
+									<c:if test="${document.empId eq loginUser.empId}">
+										<span class="detail_select">
+											<a href="javascript:void(0);" onclick="cancelDocument();">기안취소</a>
+										</span>
+									</c:if>
 									<span class="detail_select">
 										<a href="javascript:void(0);" onclick="printDocument();">인쇄</a>
 									</span>
@@ -212,7 +214,42 @@
 	<!-- script 작성 -->
 	<script>
 	
-	
+		/* 기안 취소 버튼을 누르면 */
+		function cancelDocument() {
+			
+			alertify.confirm('DEVELOFFICE', '문서는 완전히 삭제되며 복구 되지 않습니다. 계속 하시겠습니까?', function(){deleteDocument();}
+	            , function(){});
+			
+			if($("#stampRow img").length == 0 && $("#approvalFourthLine img").length == 0){
+				console.log('변경가능');
+			}else{
+				console.log('변경불가능');
+			}
+		}
+		
+		function deleteDocument() {
+			var dNum = $('input[name=docuNum]').val();
+			console.log(dNum);
+			
+			$.ajax({
+				url:"deleteDocument.do",
+				type:"POST",
+				data:{docuNum:dNum},
+				success:function(data){
+					
+					if(data == 'success'){
+						location.href="documentTable.do";
+					} else {
+						alertify.alert('', '기안 취소 실패');
+					}
+					
+				},
+				error:function(){
+					alertify.alert('', 'AJAX통신 실패');
+				}
+			});
+			
+		}
 	
 	</script>
 	

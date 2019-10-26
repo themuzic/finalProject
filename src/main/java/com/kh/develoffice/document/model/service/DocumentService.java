@@ -76,5 +76,7 @@ public interface DocumentService {
 	// 휴가원 불러오기
 	Vacation selectVacation(int docuNum);
 	
+	// 문서 삭제
+	int deleteDocument(int docuNum);
 	
 }

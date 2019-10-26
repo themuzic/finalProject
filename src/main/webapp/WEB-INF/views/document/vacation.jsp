@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,6 +40,7 @@
 
 </head>
 <body>
+<fmt:formatDate var="now" value="<%=new java.util.Date() %>" pattern="yyyy-MM-dd"/>
 	<!-- WRAPPER -->
 	<div id="wrapper">
 	<!--  -->
@@ -59,9 +61,12 @@
 						<div class="content_title">
 							<form>
 								<fieldset>
+								
+								<c:if test="${document.empId eq loginUser.empId}">
 									<span class="detail_select">
-										<a href="javascript:void(0);" onclick="changeApprovalLine();">결재선변경</a>
+										<a href="javascript:void(0);" onclick="cancelDocument();">기안취소</a>
 									</span>
+								</c:if>
 									<span class="detail_select">
 										<a href="javascript:void(0);" onclick="printDocument();">인쇄</a>
 									</span>
@@ -378,7 +383,7 @@
 						
 					if(data == 'success'){
 						thisBtn.hide();
-						var confirm = $('<img src="resources/images/stamp_approval.png"><p class="date">${now2}</p>');
+						var confirm = $('<img src="resources/images/stamp_approval.png"><p class="date">${now}</p>');
 						thisBtn.parent('td').append(confirm);
 					} else {
 						alertify.alert('', '결재 확인 실패');
@@ -417,8 +422,11 @@
 			});
 		});
 		
-		/* 결재선 변경 버튼을 누르면 */
-		function changeApprovalLine() {
+		/* 기안 취소 버튼을 누르면 */
+		function cancelDocument() {
+			
+			alertify.confirm('DEVELOFFICE', '문서는 완전히 삭제되며 복구 되지 않습니다. 계속 하시겠습니까?', function(){deleteDocument();}
+                , function(){});
 			
 			if($("#stampRow img").length == 0 && $("#approvalFourthLine img").length == 0){
 				console.log('변경가능');
@@ -427,6 +435,29 @@
 			}
 		}
 		
+		function deleteDocument() {
+			var dNum = $('input[name=docuNum]').val();
+			console.log(dNum);
+			
+			$.ajax({
+				url:"deleteDocument.do",
+				type:"POST",
+				data:{docuNum:dNum},
+				success:function(data){
+					
+					if(data == 'success'){
+						location.href="documentTable.do";
+					} else {
+						alertify.alert('', '기안 취소 실패');
+					}
+					
+				},
+				error:function(){
+					alertify.alert('', 'AJAX통신 실패');
+				}
+			});
+			
+		}
 		
 		
 		

@@ -126,4 +126,12 @@ public class DocumentDao {
 		return sqlSession.selectOne("documentMapper.selectVacation",docuNum);
 	}
 	
+	
+	public int deleteDocument(int docuNum) {
+		return sqlSession.delete("documentMapper.deleteDocument",docuNum);
+	}
+	
+	
+	
+	
 }
