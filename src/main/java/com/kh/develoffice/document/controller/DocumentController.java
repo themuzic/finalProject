@@ -29,6 +29,7 @@ import com.kh.develoffice.document.model.vo.DocuB;
 import com.kh.develoffice.document.model.vo.Document;
 import com.kh.develoffice.document.model.vo.DocumentFile;
 import com.kh.develoffice.document.model.vo.Reference;
+import com.kh.develoffice.document.model.vo.Vacation;
 import com.kh.develoffice.employee.model.service.EmployeeService;
 import com.kh.develoffice.employee.model.vo.Employee;
 
@@ -132,7 +133,9 @@ public class DocumentController {
 							break;
 						} else if(apArr.get(apArr.size()-1).getStatus().equals("Y")){
 							d.setStatus("완료");
-							
+						} else if(i == 0 && apArr.get(i).getStatus().equals("N")) {
+							d.setStatus("결재 대기");
+							break;
 						} else {
 							d.setStatus("진행중");
 						}
@@ -159,6 +162,15 @@ public class DocumentController {
 		ArrayList<Approval> apList = dService.approvalCheck(docuNum);
 		ArrayList<Reference> rfList = dService.referenceCheck(docuNum);
 		
+		JSONObject d = new JSONObject();
+		d.put("docuNum", document.getDocuNum());
+		d.put("empId", document.getEmpId());
+		d.put("empName", document.getEmpName());
+		d.put("jobName", document.getJobName());
+		d.put("deptName", document.getDeptName());
+		d.put("status", document.getStatus());
+		d.put("docuDate", document.getDocuDate());
+			
 		JSONArray apArr = new JSONArray();
 		for(Approval a : apList) {
 			JSONObject jObj = new JSONObject();
@@ -172,15 +184,16 @@ public class DocumentController {
 			apArr.add(jObj);
 		}
 		
-		System.out.println(document);
+		//System.out.println(document);
 		//System.out.println(apList);
 		//System.out.println(rfList);
 		
 		mv.addObject("document",document);
+		mv.addObject("d",d);
 		mv.addObject("apList",apArr);
 		mv.addObject("rfList",rfList);
 		
-		if(document.getFileStatus().equals("Y")) {
+		if(document.getFileStatus().equals("Y")) {	//첨부 파일이 있으면
 			DocumentFile dFile = dService.selectDocuFile(docuNum);
 			mv.addObject("dFile",dFile);
 		}
@@ -201,8 +214,7 @@ public class DocumentController {
 			jObj.put("price", docu.getPrice());
 			jObj.put("customer", docu.getCustomer());
 			jObj.put("brief", docu.getBrief());
-			
-			System.out.println(jObj);
+			jObj.put("account", docu.getAccount());
 			
 			mv.addObject("docuA",jObj);
 			mv.setViewName("document/dcDetailA");
@@ -214,6 +226,21 @@ public class DocumentController {
 			DocuB docu = dService.selectDocuB(docuNum);
 			mv.addObject("docu",docu);
 			mv.setViewName("document/dcDetailC");
+		} else if(document.getDocuType().equals("VA")){ //휴가원
+			Vacation va = dService.selectVacation(docuNum);
+			mv.addObject("docu",va);
+			
+			JSONObject jObj = new JSONObject();
+			jObj.put("docuNum", va.getDocuNum());
+			jObj.put("vacationType", va.getVacationType());
+			jObj.put("vacationName", va.getVacationName());
+			jObj.put("startDate", va.getStartDate());
+			jObj.put("endDate", va.getEndDate());
+			jObj.put("reason", va.getReason());
+			jObj.put("useDay", va.getUseDay());
+			
+			mv.addObject("va",jObj);
+			mv.setViewName("document/vacation");
 		}
 		
 		return mv;
@@ -223,7 +250,7 @@ public class DocumentController {
 	
 	@ResponseBody
 	@RequestMapping("insertDocument.do")
-	public String insertDocument(Document document, DocuA docuA, DocuB docuB, 
+	public String insertDocument(Document document, DocuA docuA, DocuB docuB, Vacation va,
 			HttpServletRequest request, HttpSession session,
 			@RequestParam(name="uploadFile", required=false) MultipartFile uploadFile) throws Exception {
 		
@@ -257,7 +284,9 @@ public class DocumentController {
 			
 			if(type.equals("AP")) {
 				result2 = dService.insertDocuA(docuA);	//지출결의서 insert
-			}else {
+			} else if(type.equals("VA")) {
+				result2 = dService.insertVacation(va);	//휴가원 insert
+			} else {
 				result2 = dService.insertDocuB(docuB);	//회람,품의서 insert
 			}
 			
@@ -358,7 +387,12 @@ public class DocumentController {
 		int result = dService.apCheck(ap);
 		
 		if(result > 0) {
-			return "success";
+			int result2 = dService.updateModifyDate(ap.getDocuNum());
+				if(result2 > 0) {
+					return "success";
+				} else {
+					return "fail";
+				}
 		} else {
 			return "fail";
 		}

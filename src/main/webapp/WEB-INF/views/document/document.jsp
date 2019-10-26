@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,8 +21,10 @@
 <script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
 	
 
-
-
+<!-- datepicker -->
+<script src="resources/js/jquery-ui.js"></script>
+<link rel="stylesheet" href="resources/assets/css/jquery-ui.css">
+<script src="resources/js/datepicker-ko.js"></script>
 
 <style>
 	#tableAccoutingDealInformation th{
@@ -69,6 +72,7 @@
 
 </head>
 <body>
+<fmt:formatDate var="now" value="<%=new java.util.Date() %>" pattern="yyyy-MM-dd"/>
 	<!-- WRAPPER -->
 	<div id="wrapper">
 	<!--  -->
@@ -84,8 +88,6 @@
 					
 					
 					<div class="documentWrap">
-					
-					
 						<form action="" name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">
 						
 						<div style="padding-bottom:15px;">
@@ -115,6 +117,7 @@
 											<option value="AP">지출 결의서</option>
 											<option value="CN">회람</option>
 											<option value="CF">품의서</option>
+											<option value="VA">휴가원</option>
 										</select>
 										<!-- <button class="weakblue" onclick="ApprovalDocument.getSelectApprovalForm();">문서보기</button> -->
 										<input type="hidden" id="prevApprovalFormNo" value="26723">
@@ -186,129 +189,6 @@
 						<div class="guide">문서 종류 선택 시 결재선이 노출됩니다.</div>
 						
 						<!--------------------------------------------------------------------------------->
-						
-						<!-- 
-						<div id="approvalDocumentLine" class="typeA hide">
-						<table class="cal_table1 approve-write js-approval-line typeA hide" style="text-align:center">
-							<colgroup>
-								<col style="width:12.09%;">
-								<col style="width:37.62%;">
-								<col style="width:12.09%;">
-								<col style="width:38.02%;">
-							</colgroup>
-							<tbody>
-								<tr>
-									<th scope="row" class="agree">
-										<div class="choice" style="height:162px;display:table-cell;width:112px;vertical-align:middle;text-align:center;line-height:normal;position:relative;">신청</div>
-									</th>
-									<td class="confer vt" id="approvalFirstLine">
-										<table>
-										<colgroup>
-											<col width="25%;">
-											<col width="25%;">
-											<col width="25%;">
-											<col width="25%;">
-										</colgroup>
-											<tbody>
-												<tr>
-													<td class="team name">
-													</td>
-													<td class="team name">
-													</td>
-													<td class="team name">
-													</td>
-													<td class="team name">
-													</td>
-												</tr>
-												<tr>
-													<td class="stamp">
-													</td>
-													<td class="stamp">
-													</td>
-													<td class="stamp">
-													</td>
-													<td class="stamp">
-													</td>
-												</tr>
-												<tr>
-													<td class="name">
-														${loginUser.empName}
-													</td>
-													<td class="name">
-													</td>
-													<td class="name">
-													</td>
-													<td class="name">
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</td>
-									<th scope="row" class="confer">
-										<div class="choice" style="height:162px;display:table-cell;width:112px;vertical-align:middle;text-align:center;line-height:normal;position:relative;">처리</div>
-									</th>
-									<td class="confer vt" id="approvalSecondLine">
-										<table>
-										<colgroup>
-											<col width="25%">
-										</colgroup>
-											<tbody>
-											<tr>
-											<td class="team name">
-											</td>
-											<td class="team name">
-											</td>
-											<td class="team name">
-											</td>
-											<td class="team name">
-											</td>
-											</tr>
-											<tr>
-											<td class="stamp"> 
-											</td>
-											<td class="stamp"> 
-											</td>
-											<td class="stamp"> 
-											</td>
-											<td class="stamp"> 
-											</td>
-											</tr>
-											<tr>
-											<td class="name">
-											</td>
-											<td class="name">
-											</td>
-											<td class="name">
-											</td>
-											<td class="name">
-											</td>
-											</tr>
-											</tbody>
-										</table>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-							<table class="cal_table1 approve-write refer">
-								<colgroup>
-									<col style="width:12.09%;">
-									<col style="width:87.91%;">
-								</colgroup>
-								<tbody>
-									<tr>
-										<th scope="row" style="text-align:center">참조</th>
-										<td id="approvalThirdLine" style="padding: 8px 0 8px 12px;border-bottom: 1px solid #cdcdcd;text-align: left;height: 40px;">
-											<span class="refer-list" empId="">참조인 생기기</span>
-											
-											<input type="text" class="refer-add js-complete ui-autocomplete-input" placeholder="클릭 후 입력" id="inputApprovalThirdLine" autocomplete="off">
-											<span class="lnr lnr-cross-circle" style="padding-left:7px;cursor:pointer;"></span></span>
-											
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						 -->
 						
 						
 						
@@ -664,7 +544,7 @@
 						
 						
 						
-						<!--------------------------------------------------------------------------------->
+						<!----지출내역------------------------------------------------------------------>
 						
 						<div class="js-approval-input typeA hide" id="approvalDbContent" style="display: block;">
 						<table class="tableType02 account docuTable">
@@ -719,10 +599,6 @@
 											<option value="0">회계 기준일</option>
 										</select>
 									</div>
-									<div class="to-item" id="spending_regist_c" style="display:none;">
-										<!-- 회계 기준 : 사용자 정의 -->
-										<input type="text" class="cal hasDatepicker" id="spendingDateCustom" readonly="readonly" value="2019-09-27">
-									</div>
 								</td>
 							</tr>
 							<tr>
@@ -739,21 +615,6 @@
 									<ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content dropdown-menu block approval-autocomplete" id="ui-id" tabindex="0" style="display:none; position:absolute; top:838px; left:198px; width:285px; padding:0;z-index:1500;">
 										<!-- top:836px; left:198px; -->
 										<!-- top:854px; left:145px; -->
-										<!-- 
-										<li class="ui-menu-item popup_li" id="ui-id-5" tabindex="-1">
-											<div>
-												<span class="team-membername">김상윤</span>
-												<span class="team-name">서비스팀</span>
-											</div>
-										</li>
-										<li class="ui-menu-item popup_li" id="ui-id-6" tabindex="-1">
-											<div>
-												<span class="team-membername">김성은</span>
-												<span class="team-name">영업팀</span>
-											</div>
-										</li>
-										 -->
-										
 									</ul>
 									
 									<!-- 자동 완성 팝업창 끝 -->
@@ -767,22 +628,6 @@
 									IBK기업은행 / ${loginUser.account}
 								</td>
 							</tr>
-							
-							<!-- 
-							<tr id="infoEmployeeAccount">
-								<th scope="row">계좌 정보</th>
-								<td></td>
-							</tr>
-							<tr id="infoCorporationCard" class="hide">
-								<th scope="row">법인 카드</th>
-								<td>
-									<select id="corporationCard" class="write-select" style="min-width:240px; width:auto;">
-										<option value="">법인 카드</option>
-																	</select>
-								</td>
-							</tr>
-							 -->
-							
 						</tbody>
 						</table>
 						<div class="after" style="padding-bottom:10px;">
@@ -791,12 +636,6 @@
 						</div>
 						
 						
-						
-						<script>
-							
-						
-						
-						</script>
 						
 						
 						<!-- 추가창 팝업 시작 --------------------------------------------------------------------->
@@ -934,6 +773,95 @@
 					
 					<!------------------------------------------------------------------------>
 					
+					
+					<!------휴가신청--------------------------------------------------------->
+					<div id="vacationDiv" class="hide">
+					<table class="tableType02 account docuTable">
+						<colgroup>
+							<col style="width:12.09%;">
+							<col style="width:87.91%;">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th scope="row">연차 현황</th>
+								<td>
+									<label style="margin-right: 10px;">
+										생성 : 15일
+									</label>
+									/
+									<label style="margin-right: 10px;margin-left: 10px;">
+										사용 : ${15-loginUser.vacation}일
+									</label>
+									/
+									<label style="margin-right: 10px;margin-left: 10px;">
+										잔여 : ${loginUser.vacation}일
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">구분</th>
+								<td>
+									<label>
+										<input type="radio" name="vacationType" value="ALL" checked="" onchange="">
+										종일
+									</label>
+									<label style="margin-left: 20px;">
+										<input type="radio" name="vacationType" value="AM" onchange="">
+										오전반차
+									</label>
+									<label style="margin-left: 20px;">
+										<input type="radio" name="vacationType" value="PM" onchange="">
+										오후반차
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row" id="th_spending_regist_month">휴가 기간</th>
+								<td>
+									<div id="allday" class="" style="display: inline-block;">
+										<input type="text" class="datepicker" name="vacationDate" id="alldayDate1" readonly value="${now}">
+										<button type="button" class="icon month" onclick="$('#alldayDate1').focus();"></button>
+										&nbsp;~&nbsp;
+										<input type="text" class="datepicker" name="vacationDate" id="alldayDate2" readonly value="${now}">
+										<button type="button" class="icon month" onclick="$('#alldayDate2').focus();"></button>
+									</div>
+									<div id="harfday" style="display:none;">
+										<input type="text" class="datepicker" id="harfdaydate" readonly value="${now}">
+										<button type="button" class="icon month" onclick="$('#harfdaydate').focus();"></button>
+									</div>
+									<span class="mgl_20" id="useDay">1</span>일
+									<script>				
+										$(".datepicker").datepicker();
+									</script>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">종류</th>
+								<td>
+									<select class="write-select" name="vacationName" style="width: 140px;" id="vacationType">
+										<option value="">휴가 종류 선택</option>
+										<option value="연차">연차</option>
+										<option value="훈련">훈련</option>
+										<option value="교육">교육</option>
+										<option value="경조사">경조사</option>
+										<option value="병가">병가</option>
+										<option value="출산">출산</option>
+										<option value="무급">무급</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">사유</th>
+								<td style="padding-right:10px;">
+									<input type="text" name="reason" style="width:100%;">
+								</td>
+							</tr>
+						</tbody>
+						</table>
+					</div>
+					
+					<!------------------------------------------------------------------------>
+					
 					<h4 class="filezone hide" style="margin-top:50px;margin-bottom:0;padding: 0 0 15px 0;">첨부 파일</h4>
 						
 					<!-------------- 첨부파일존 시작 ---------------------------------------------------------->
@@ -951,26 +879,13 @@
 				            </tbody>
 				        </table>
 				    </div>
-				        
-
-
 						
 					<!-------------- 첨부파일존 끝 ---------------------------------------------------------->
 					
 				</form>
 						
 						
-						
-						
-						
-						
-						
 					</div>
-					
-					
-					
-					
-					
 					
 					
 					<!-- 이 위까지 내용작성 -->
@@ -997,16 +912,10 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	<!-- script 작성 -->
 	<script>
+	
 	$(function(){
-		
 		
 		/* 사이드바의 해당 메뉴 활성화 유지하기 */
 		$("#menu1").addClass("in");
@@ -1014,7 +923,6 @@
 		$("#menu1_1").addClass("active");
 		$("#menu1_1").attr('aria-expanded',true);
 		$("#m1_1").addClass("active");
-		
 		
 		
 		/* 오늘 날짜 구해서 년/월 세팅 */
@@ -1055,6 +963,7 @@
 			$(".referRow").html("");
 			$(".referRow2").html("");
 			$("#summernote").html("");
+			$("#spendTbody").html("");
 			
 			$.each($("#nameRow").children(), function(i, td){
 				td.innerHTML = "";
@@ -1076,6 +985,7 @@
 				$(".approvalTable").removeClass("show");		//결제선 테이블
 				$(".referTable2").removeClass("show");			//회람 테이블
 				$(".typeA").removeClass("show");				//지출 테이블
+				$("#vacationDiv").removeClass("show");			//휴가 테이블
 				$(".filezone").removeClass("show");				//첨부파일
 								
 				// 에디터 off-----------------------------
@@ -1093,6 +1003,7 @@
 				$(".approvalTable").addClass("show");
 				$(".referTable2").removeClass("show");
 				$(".typeA").addClass("show");
+				$("#vacationDiv").removeClass("show");
 				$(".filezone").addClass("show");
 				
 				$("#summernote").summernote('destroy');
@@ -1109,6 +1020,7 @@
 				$(".approvalTable").removeClass("show");
 				$(".typeA").removeClass("show");
 				$(".referTable2").addClass("show");
+				$("#vacationDiv").removeClass("show");
 				$(".filezone").addClass("show");
 				
 				// 에디터 on--------------------
@@ -1131,6 +1043,7 @@
 				$(".approvalTable").addClass("show");
 				$(".typeA").removeClass("show");
 				$(".referTable2").removeClass("show");
+				$("#vacationDiv").removeClass("show");
 				$(".filezone").addClass("show");
 
 				$("#summernote").summernote({
@@ -1140,14 +1053,18 @@
 				});
 				$('.dropdown-toggle').dropdown();
 			}
-			if( $("#documentTypeSelect option:selected").val() == 'D' ){
+			if( $("#documentTypeSelect option:selected").val() == 'VA' ){	//휴가원
 				$(".guide").css("display","none");
-				$(".docuTitle").addClass("show");
+				$(".docuTitle").removeClass("show");
 				$("#btnApprovalSelect").addClass("show");
+				$(".approvalTable").addClass("show");
 				$(".typeA").removeClass("show");
-				$(".typeB").removeClass("show");
-				$(".typeC").removeClass("show");
+				$(".referTable2").removeClass("show");
+				$("#vacationDiv").addClass("show");
 				$(".filezone").addClass("show");
+				
+				$("#summernote").summernote('destroy');
+				$("#summernote").hide();
 			}
 			
 		});
@@ -1168,7 +1085,6 @@
 			
 		/* 결재선 창 기능 시작 */
 		
-		//console.log(${deptList}.length);
 		/* 제일 왼쪽 div에 모든 부서명 출력 */
 		$.each(${deptList}, function(index, dept){
 			
@@ -1199,8 +1115,6 @@
 					$subDeptDiv.append($subDeptStrong);
 					$subDeptLi.append($subDeptDiv);
 				}
-				
-				
 				$("#subDept").append($subDeptLi);
 			}
 		});
@@ -1224,8 +1138,6 @@
 			}
 			
 		});
-		
-		
 		
 		/* 부서명들 중 가장 상단의 회사명 클릭 시 */
 		$("#subOffice").click(function(){
@@ -1453,7 +1365,7 @@
 			var docuType = $("#documentTypeSelect option:selected").val();
 			//$("#documentTypeSelect option:selected").val()
 			
-			if(docuType == 'AP' || docuType == 'CF'){
+			if(docuType == 'AP' || docuType == 'CF' || docuType == 'VA'){
 				
 				var referRow = $(".referRow");
 				referRow.html('');
@@ -1484,12 +1396,7 @@
 			$(".closeBtn").click();
 		});
 		
-		
-		
 		/* 결재선 창 기능 끝 */
-		
-		
-		
 		
 		
 		
@@ -1505,9 +1412,9 @@
 			$("#accountTd").text("");
 		});
 		
+
 		/* 지출자 변경 자동완성 */
 		$("#inputSpenderName").keyup(function(e){
-			$('#dfs').prop('checked')
 			console.log($(this).val());
 			console.log(e);
 			var key = $(this).val();
@@ -1560,8 +1467,6 @@
 						alertify.alert('', 'AJAX통신 실패');
 					}
 				});
-				
-				
 				
 			} else{
 				$("#ui-id").removeClass('show');
@@ -1753,12 +1658,11 @@
 			formData.append('security',security);
 			
 			
-			/* 제목 */
-			var title = $("#approval_document_title").val();
-			formData.append('title',title);
-			
-			
 			if(docuType == 'AP'){	//지출결의서
+				
+				/* 제목 */
+				var title = $("#approval_document_title").val();
+				formData.append('title',title);
 				
 				/* 결재라인(배열) */
 				var apArr = "";
@@ -1873,6 +1777,10 @@
 				
 			}else if(docuType == 'CN'){	//회람
 				
+				/* 제목 */
+				var title = $("#approval_document_title").val();
+				formData.append('title',title);
+				
 				/* 참조라인(배열) */
 				var rfArr = "";
 				var rfNames = $('.referRow2 span');
@@ -1890,6 +1798,10 @@
 				formData.append('content',content);
 				
 			}else if(docuType == 'CF'){	//품의서
+				
+				/* 제목 */
+				var title = $("#approval_document_title").val();
+				formData.append('title',title);
 				
 				/* 에디터 내용 */
 				var content = $("#summernote").val();
@@ -1922,7 +1834,72 @@
 					}
 				});
 				formData.append('rfArr',rfArr);
+				
+			} else if(docuType == 'VA'){	// 휴가원	
+				
+				/* 결재라인(배열) */
+				var apArr = "";
+				var apNames = $('#nameRow input[name=empId]');
+				$.each(apNames,function(i, id){
+					if(i == 0){
+						apArr += id.value;
+					}else{
+						apArr += ","+id.value;
+					}
+				});
+				if(apArr == null){
+					alertify.alert('', '결재 라인이 지정되지 않았습니다.');
+					return;
+				}
+				formData.append('apArr',apArr);
+				
+				/* 참조라인(배열) */
+				var rfArr = "";
+				var rfNames = $('.referRow span');
+				$.each(rfNames,function(i, id){
+					if(i == 0){
+						rfArr += id.getAttribute('empId');
+					}else{
+						rfArr += ","+id.getAttribute('empId');
+					}
+				});
+				formData.append('rfArr',rfArr);
+				
+				/* 종일,반차 선택 */
+				var vacationType = $('input:radio[name=vacationType]:checked').val();
+				formData.append('vacationType',vacationType);
+				
+				/* 날짜 */
+				if(vacationType == 'ALL'){
+					var startDate = $('#alldayDate1').val();
+					var endDate = $('#alldayDate2').val();
+					formData.append('startDate',startDate);
+					formData.append('endDate',endDate);
+				} else{
+					var startDate = $('#harfdaydate').val();
+					formData.append('startDate',startDate);
+					formData.append('endDate',startDate);
+				}
+				
+				/* 사용일 */
+				var useDay = $('#useDay').text();
+				
+				/* 휴가 종류 */
+				var vacationName = $('select[name=vacationName] option:selected').val();
+				formData.append('vacationName',vacationName);
+				
+				/* 사유 */
+				var reason = $('input[name=reason]').val();
+				formData.append('reason',reason);
+				
+				/* 제목 */
+				var title = '휴가신청('+vacationName;
+				title += ')_'+startDate+'/';
+				title += useDay+'일/'+'${loginUser.empName}';
+				formData.append('title',title);
+				
 			}
+			
 			
 			$.ajax({
 				url:"insertDocument.do",
@@ -1944,10 +1921,74 @@
 				}
 			});
 			
+			
 		}
 		
-	
-	
+		
+		
+		/* 연차 종일/반차 선택*/
+		$(document).on('change','input[name=vacationType]',function(){
+			if($(this).val() == 'ALL'){
+				$("#allday").css('display','inline-block');
+				$("#harfday").css('display','none');
+				$('#useDay').text(1);
+				$('#alldayDate1').val('${now}');
+				$('#alldayDate2').val('${now}');
+			}else{
+				$("#allday").css('display','none');
+				$("#harfday").css('display','inline-block');
+				$('#useDay').text(0.5);
+				$('#harfdaydate').val('${now}');
+			}
+		});
+		
+		
+		/* 휴가 날짜 선택할 때 */
+		$(document).on('change','input[name=vacationDate]',function(){
+			
+			var strDate1 = $("#alldayDate1").val();
+	 		var strDate2 = $("#alldayDate2").val();
+	 		var arr1 = strDate1.split('-');
+	 		var arr2 = strDate2.split('-');
+	 		
+	 		/* console.log(arr1);
+	 		console.log(arr2); */
+	 		
+	 		var dat1 = new Date(arr1[0], arr1[1]-1, arr1[2]);
+	 		var dat2 = new Date(arr2[0], arr2[1]-1, arr2[2]);
+	 	
+	 		/* console.log(dat2);	 */
+	 		
+	 	    // 날짜 차이 알아 내기
+	 	    var diff = dat2.getTime() - dat1.getTime();
+	 	    var result = Math.floor(diff/1000/60/60/24);
+	 	    
+	 	    
+	 	    if(diff <= 0){
+	 	    	
+	 	    	dat2.setDate(dat1.getDate()+1);
+	 	    	
+	 	    	var year = dat2.getFullYear();
+	 	    	var month = dat2.getMonth()+1;
+	 	    	var day = dat2.getDate();
+	 	    		 	    	
+		 	    var month1 = month;
+		 	    var day1 = day;
+		 	    
+		 	    	if(month1 < 10){
+		 	    		month1 = "0"+month1;
+		 	    	}
+		 	    	if(day1 < 10){
+		 	    		day1 = "0"+day1;
+		 	    	}
+		 	    	
+	 	    	var dat2_2 = (year + "-" + month1 + "-" + day1);
+	 	    	$("#alldayDate2").val($("#alldayDate1").val()); // 하루 밀린 날짜 출력(string)
+	 	    	
+	 	    	result = 0;
+	 	    }
+	    	$("#useDay").text(result+1);
+		});
 		
 		
 		

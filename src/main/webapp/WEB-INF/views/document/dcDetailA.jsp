@@ -91,12 +91,14 @@
 												<th scope="row">문서 종류</th>
 												<td>공통 &gt; 지출 결의서</td>
 												<th scope="row">문서 번호</th>
-												<c:if test="${document.docuNum lt '10' }">
-							            			<td>지결-${document.docuCode}-000${document.docuNum}</td>
-							            		</c:if>
-							            		<c:if test="${document.docuNum ge '10' }">
-							            			<td>지결-${document.docuCode}-00${document.docuNum}</td>
-							            		</c:if>
+												<c:choose>
+													<c:when test="${document.docuNum lt '10'}">
+														<td>품의-${document.docuCode}-000${document.docuNum}</td>
+													</c:when>
+													<c:when test="${document.docuNum gt '9'}">
+														<td>품의-${document.docuCode}-00${document.docuNum}</td>
+													</c:when>
+												</c:choose>
 											</tr>
 											<tr>
 												<th scope="row">기안 부서</th>
@@ -235,7 +237,7 @@
 														</tr>
 														<tr>
 															<th>계좌 정보</th>
-															<td>IBK기업은행 / ${docu.accountName}</td>
+															<td>IBK기업은행 / ${docu.account}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -270,16 +272,14 @@
 									
 										<div class="file after" style="padding-bottom: 30px;">
 											<div class="top">
-												<span class="body-color mgr_20">별첨</span>
-												<a href="javascript:void(0);" class="addfile" onclick="$('#fileApprovalAttach').click();">파일 첨부</a>
-												<input type="file" style="overflow: hidden; width:0px; height:0px;" name="approval_attach" id="fileApprovalAttach" multiple="multiple">
+												<span class="body-color mgr_20">첨부파일</span>
 											</div>
 										<div class="filebox">
 										
-											<c:if test="${document.fileStatus ne 'N'}">
+											<c:if test="${document.fileStatus eq 'Y'}">
 												<span class="cont_file" style="float: left;">
-													<img src="resources/images/pptx.png"><a href="${dFile.filePath}" download="${dFile.originName}">${dFile.originName}</a>
-													<a href="javascript:void(0)" class="icon file_delete" onclick=""><span class="blind"></span></a>
+													<img src="resources/images/pptx.png">&nbsp;
+													<a href="${contextPath}/resources/upload/documentFile/${dFile.changeName}" download="${dFile.originName}">${dFile.originName}</a>
 												</span>
 											</c:if>
 										
@@ -368,16 +368,6 @@
 			var sum = 0;
 			
 			for(var i = 0; i < accountName.length; i++){
-				/*
-				spendInfo.innerHTML += '<tr>';
-				spendInfo.innerHTML += '<td>'+accountName[i]+'</td>';
-				spendInfo.innerHTML += '<td>'+expenseDate[i]+'</td>';
-				spendInfo.innerHTML += '<td>'+departmentName[i]+'</td>';
-				spendInfo.innerHTML += '<td>'+price[i]+'</td>';
-				spendInfo.innerHTML += '<td>'+customer[i]+'</td>';
-				spendInfo.innerHTML += '<td>'+brief[i]+'</td>';
-				spendInfo.innerHTML += '</tr>';
-				*/
 				
 				spendInfo.append('<tr>');
 				spendInfo.append('<td>'+accountName[i]+'</td>');
@@ -388,7 +378,6 @@
 				spendInfo.append('<td>'+brief[i]+'</td>');
 				spendInfo.append('</tr>');
 				
-				
 				sum += Number(price[i]);
 				
 				if(i == accountName.length-1){
@@ -398,9 +387,7 @@
 					spendInfo.append('<td></td><td></td></tr>');
 				}
 			}
-			
 		});
-		
 
 		/* 결재 버튼을 누르면 */
 		$("#stampRow").on('click','.confirm',function(){
@@ -457,41 +444,7 @@
 			});
 		});
 	
-		/* 인쇄  시작 */
-		function printDocument() {
-			const completeParam = makeHtml();
-		    reportPrint(completeParam);
-		}
 		
-		function makeHtml(){
-			
-			var content = document.getElementById('content_inbox').innerHTML;
-			
-		    const obj = {html : ''};
-		    let html = '<div class="printPop">';
-		    html += content;
-		    html += '</div>';    
-		    obj.html = html;
-		    return obj;
-		}
-		
-		function reportPrint(param){
-		    const setting = "width=890, height=841";
-		    const objWin = window.open('', 'print', setting);
-		    objWin.document.open();
-		    objWin.document.write('<html><head><title>DEVELOFFICE</title>');
-		    objWin.document.write('<link rel="stylesheet" href="resources/css/style.css">');
-		    objWin.document.write('<link rel="stylesheet" href="resources/css/style_approval.css"/>');
-		    objWin.document.write('</head><body>');
-		    objWin.document.write(param.html);
-		    objWin.document.write('</body></html>');
-		    objWin.focus(); 
-		    objWin.document.close();
-		 	
-		    setTimeout(function(){objWin.print();objWin.close();}, 100);
-		}
-		
-		/* 인쇄 끝 */
 
 
 	

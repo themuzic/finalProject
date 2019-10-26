@@ -40,7 +40,7 @@ public class EmployeeController {
 	   public ModelAndView loginMember(Employee emp, HttpSession session, ModelAndView mv) {
 		
 		Employee loginUser = eService.loginEmp(emp);	// 로그인 객체 정보 호출
-		
+		System.out.println(loginUser);
 		   if(loginUser != null) {
 			   
 			   int id = loginUser.getEmpId();

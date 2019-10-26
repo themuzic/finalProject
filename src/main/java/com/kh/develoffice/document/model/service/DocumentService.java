@@ -9,6 +9,7 @@ import com.kh.develoffice.document.model.vo.DocuB;
 import com.kh.develoffice.document.model.vo.Document;
 import com.kh.develoffice.document.model.vo.DocumentFile;
 import com.kh.develoffice.document.model.vo.Reference;
+import com.kh.develoffice.document.model.vo.Vacation;
 
 public interface DocumentService {
 	
@@ -66,7 +67,14 @@ public interface DocumentService {
 	// 참조 확인 상태 바꾸기
 	int rfCheck(Reference rf);
 	
+	// 문서 마지막 결재한 날짜 바꾸기
+	int updateModifyDate(int docuNum);
 	
+	// 휴가원 insert
+	int insertVacation(Vacation va);
+	
+	// 휴가원 불러오기
+	Vacation selectVacation(int docuNum);
 	
 	
 }

@@ -13,6 +13,7 @@ import com.kh.develoffice.document.model.vo.DocuB;
 import com.kh.develoffice.document.model.vo.Document;
 import com.kh.develoffice.document.model.vo.DocumentFile;
 import com.kh.develoffice.document.model.vo.Reference;
+import com.kh.develoffice.document.model.vo.Vacation;
 import com.kh.develoffice.employee.model.vo.Employee;
 
 @Repository("dDao")
@@ -112,7 +113,17 @@ public class DocumentDao {
 	}
 	
 	
+	public int updateModifyDate(int docuNum) {
+		return sqlSession.update("documentMapper.updateModifyDate",docuNum);
+	}
 	
 	
+	public int insertVacation(Vacation va) {
+		return sqlSession.insert("documentMapper.insertVacation",va);
+	}
+	
+	public Vacation selectVacation(int docuNum) {
+		return sqlSession.selectOne("documentMapper.selectVacation",docuNum);
+	}
 	
 }

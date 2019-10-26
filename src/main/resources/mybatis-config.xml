@@ -12,6 +12,7 @@
 		<typeAlias type="com.kh.develoffice.document.model.vo.Document" alias="Document"/>
 		<typeAlias type="com.kh.develoffice.document.model.vo.DocuA" alias="DocuA"/>
 		<typeAlias type="com.kh.develoffice.document.model.vo.DocuB" alias="DocuB"/>
+		<typeAlias type="com.kh.develoffice.document.model.vo.Vacation" alias="Vacation"/>
 		<typeAlias type="com.kh.develoffice.document.model.vo.DocumentFile" alias="DocumentFile"/>
 		<typeAlias type="com.kh.develoffice.document.model.vo.Approval" alias="Approval"/>
 		<typeAlias type="com.kh.develoffice.document.model.vo.Reference" alias="Reference"/>

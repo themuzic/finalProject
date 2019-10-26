@@ -26,6 +26,7 @@ public class DocuA {
 	private String customer;			//거래처
 	private String brief;				//적요(사유)
 	private String status;				//활성화상태
+	private String account;				//계좌번호
 	
 	
 

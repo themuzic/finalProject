@@ -20,6 +20,7 @@ public class Document {
 	private int docuCode;		// 문서번호
 	private int empId;			// 작성한직원ID
 	private String empName;		// 작성환직원이름
+	private String jobName;		// 직급이름
 	private String deptName;	// 부서이름
 	private String title;		// 문서제목
 	private int saveTerm;		// 보존연한

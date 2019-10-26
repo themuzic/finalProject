@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,16 +8,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>DEVELOFFICE</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
+<link rel="stylesheet" href="resources/css/insa.css?ver=1">
 
-
-
-
-	<script src="resources/js/common_new.js"></script>
-	<script src="resources/js/jquery-ui.min.js"></script>
-	<script src="resources/js/main.js"></script>
+<script src="resources/assets/scripts/approval_ref.js?v=30281"></script>
+<script src="resources/assets/scripts/write_vacation.js?v=30281"></script>
 
 
 <style>
@@ -32,14 +28,17 @@
 		padding-right:50px;
 		font-size:14px;
 	}
+	#vaTbody th{
+		text-align: center;
+	}
+	#vaTbody th,#vaTbody td{
+		border:1px solid black;
+	}
 </style>
 
 
 </head>
 <body>
-	<fmt:formatDate var="now" value="<%=new java.util.Date() %>" pattern="yyyy-MM-dd HH:mm:ss"/>
-	<fmt:formatDate var="now2" value="<%=new java.util.Date() %>" pattern="yyyy-MM-dd"/>
-	
 	<!-- WRAPPER -->
 	<div id="wrapper">
 	<!--  -->
@@ -54,7 +53,6 @@
 					<div class="contentWrap">
 					
 					<!-- 이 아래부터 내용 작성 -->
-					
 					
 					
 					<div id="contents">
@@ -230,10 +228,26 @@
 					
 								<div class="docu-common-wrap">
 									<h2><span class="point_color"></span>${document.title}</h2>
+									
+									
+									
+									
+									
+									
 									<div class="contents after">
-										<p style="font-family: &quot;맑은 고딕&quot;; font-size: 16px; line-height: 1.6; margin-top: 0px; margin-bottom: 0px;">${docu.content}</p>
+									
+										<table class="tableType01 account">
+											<colgroup>
+												<col width="22%">
+												<col width="34%">
+												<col width="22%">
+												<col width="22%">
+											</colgroup>
+											<tbody id="vaTbody">
+												
+											</tbody>
+										</table>
 									</div>
-					
 									<div class="file after" style="padding-bottom: 30px;">
 											<div class="top">
 												<span class="body-color mgr_20">첨부파일</span>
@@ -248,14 +262,16 @@
 											</c:if>
 										
 										</div>
-										</div>
+									</div>
 									
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			
+					
+					
+					
 					
 					
 					<!-- 이 위까지 내용작성 -->
@@ -275,9 +291,12 @@
 	<!-- END WRAPPER -->
 	
 	
+	
+	
 	<!-- script 작성 -->
 	<script>
 		$(function(){
+			
 			/* 툴팁 */
 			$(".icon.question.tipsIcon").mouseenter(function(){
 				$(this).siblings('.toolTip').addClass("show");
@@ -312,8 +331,36 @@
 					}
 				}
 			}
+			
+			/* 휴가 정보 채우기 */
+			var vaInfo = $('#vaTbody');
+			
+			var vacationType = '${va.vacationType}';
+			var vacationName = '${va.vacationName}';
+			var startDate = '${va.startDate}'.split(' ')[0];
+			var endDate = '${va.endDate}'.split(' ')[0];
+			var reason = '${va.reason}';
+			var useDay = '${va.useDay}';
+			
+			vaInfo.append('<tr><th>신청일시</th><td colspan="3">'+'${d.docuDate}'+'</td></tr>');
+			vaInfo.append('<tr><th>사용자</th><td>'+'${d.empName}'+'</td><th>직급</th><td>'+'${d.jobName}'+'</td></tr>');
+			vaInfo.append('<tr><th>소속</th><td colspan="3">'+'${d.deptName}'+'</td></tr>');
+			vaInfo.append('<tr><th>종류</th><td>'+vacationName+'</td><th>일수</th><td>'+useDay+'일'+'</td></tr>');
+			
+			if(vacationType == 'ALL'){
+				vaInfo.append('<tr><th>날짜</th><td colspan="3">'+startDate+' ~ '+endDate+'</td></tr>');
+			}else if(vacationType == 'AM'){
+				vaInfo.append('<tr><th>날짜</th><td colspan="3">'+startDate+' (오전반차)</td></tr>');
+			}else if(vacationType == 'PM'){
+				vaInfo.append('<tr><th>날짜</th><td colspan="3">'+startDate+' (오후반차)</td></tr>');
+			}
+			
+			vaInfo.append('<tr><th>사유</th><td colspan="3">'+reason+'</td></tr>');
+			
+			
 		});
-		
+	
+	
 		/* 결재 버튼을 누르면 */
 		$("#stampRow").on('click','.confirm',function(){
 			var thisBtn = $(this);
@@ -381,14 +428,17 @@
 		}
 		
 		
-	
+		
+		
+		
 	</script>
-
+	
+	
+	
 	<!-- Javascript -->
-	<script src="resources/assets/vendor/jquery/jquery.min.js"></script>
 	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="resources/assets/scripts/klorofil-common.js"></script>
+	
 	
 </body>
 </html>

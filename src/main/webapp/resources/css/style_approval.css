@@ -10,7 +10,6 @@ body, html {height: 100%;}
 .approval-wrap h4{padding:0 0 15px 0;color:#333;}
 .approval-wrap .tableType01 {table-layout: fixed;}
 .approval-wrap .tableType01 th {padding:9px 10px 9px 15px ;text-align: left;}
-.approval-wrap .tableType01 tr:hover {background: #f9f9fa;}
 .approval-wrap .tableType01 td {padding:12px 10px 12px 15px}
 .approval-wrap .tableType01 .over-date td,
 .approval-wrap .tableType01 .over-date td a, .approval-wrap .tableType01 .deny {color: #ff0000;}
@@ -889,8 +888,6 @@ select.select-type {line-height:28px;height:28px;border-color:#cfcfcf}
 .cal_table1.approve-write td .smaller {font-size: 13px;}
 .cal_table1.approve-write td .smallest {font-size: 12px;}
 .cal_table1.approve-write td {word-break: break-all;}
-
-.approval-wrap .tableType01 tr:not(:first-child) {cursor: pointer;}
 
 .admin-text {color: #999;}
 .choice-finalist {margin-top: 5px;padding: 10px 15px 15px;background: #f9f9fa;}

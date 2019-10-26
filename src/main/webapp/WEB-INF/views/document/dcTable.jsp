@@ -144,6 +144,14 @@
 						            			<td>품의-${d.docuCode}-00${d.docuNum}</td>
 						            		</c:if>
 						            	</c:if>
+						            	<c:if test="${d.docuType eq 'VA'}">
+						            		<c:if test="${d.docuNum lt '10' }">
+						            			<td>휴가-${d.docuCode}-000${d.docuNum}</td>
+						            		</c:if>
+						            		<c:if test="${d.docuNum ge '10' }">
+						            			<td>휴가-${d.docuCode}-00${d.docuNum}</td>
+						            		</c:if>
+						            	</c:if>
 						            	<td style="text-align:left;padding-left:30px;padding-right:30px;">
 												<c:url value="documentDetailView.do" var="documentDetailView">
 													<c:param name="docuNum" value="${d.docuNum}"/>
@@ -153,7 +161,14 @@
 						            	<td>${d.empName}</td>	<!-- 기안자 -->
 						            	<td>${d.docuDate}</td>	<!-- 기안일 -->
 						            	<td>${d.dv}</td>	<!-- 구분 -->
-						            	<td>${d.status}</td>	<!-- 상태 -->
+						            	<c:choose>
+						            		<c:when test="${d.status eq '결재 대기' }">
+								            	<td style="color:red;">${d.status}</td>	
+						            		</c:when>
+						            		<c:otherwise>
+						            			<td>${d.status}</td>
+						            		</c:otherwise>
+						            	</c:choose>
 						            </tr>
 					        	</c:forEach>
 					            

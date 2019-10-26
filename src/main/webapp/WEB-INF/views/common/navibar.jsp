@@ -31,14 +31,14 @@
 <link rel="stylesheet" href="resources/css/slick.css">
 <link rel="stylesheet" href="resources/css/style_new.css">
 <link rel="stylesheet" href="resources/css/style_tutorial.css">
-<link rel="stylesheet" href="resources/css/style_approval.css?ver=1">
-<link rel="stylesheet" href="resources/css/style.css?ver=1">
+<link rel="stylesheet" href="resources/css/style_approval.css?ver=2">
+<link rel="stylesheet" href="resources/css/style.css?ver=2">
 
 
 
 <!-- datepicker -->
 <script src="resources/js/jquery-ui.js"></script>
-<link rel="stylesheet" href="resources/assets/css/jquery-ui.css">
+<link rel="stylesheet" href="resources/assets/css/jquery-ui.css?ver=1">
 <script src="resources/js/datepicker-ko.js"></script>
 
 
@@ -73,23 +73,9 @@
 <script src="resources/js/alertify.js"></script>
 
 
+<script src="resources/js/develoffice.js"></script>
 
 
-
-<script>
-$.datepicker.setDefaults({
-    dateFormat: 'yy-mm-dd',
-    prevText: '이전 달',
-    nextText: '다음 달',
-    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-    dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-    showMonthAfterYear: true,
-    yearSuffix: '년'
-});
-</script>
 
 
 <style>
@@ -478,8 +464,8 @@ $.datepicker.setDefaults({
 									<li><a href="documentTable.do" class="" id="m1_2">전체문서</a></li>
 									<li><a href="" class="" id="m1_3">진행중인문서</a></li>
 									<li><a href="" class="" id="m1_4">완료된문서</a></li>
-									<li><a href="" class="" id="m1_5">돌아온문서</a></li>
-									<li><a href="" class="" id="m1_6">참조문서</a></li>
+									<li><a href="" class="" id="m1_5">참조문서</a></li>
+									<li><a href="" class="" id="m1_6">휴가내역</a></li>
 								</ul>
 							</div>
 						</li>
@@ -579,7 +565,7 @@ $.datepicker.setDefaults({
 				$('.layer_box').removeClass("show");
 			});
 			
-			$(".datepicker").datepicker();
+			$(".datepicker").removeClass('hasDatepicker').datepicker();
 			
 		});
 		

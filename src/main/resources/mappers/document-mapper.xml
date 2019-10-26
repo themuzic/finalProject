@@ -8,6 +8,7 @@
 		<result property="docuCode" column="docu_code"/>
 		<result property="empId" column="emp_id"/>
 		<result property="empName" column="emp_name"/>
+		<result property="jobName" column="job_name"/>
 		<result property="deptName" column="dept_name"/>
 		<result property="title" column="title"/>
 		<result property="saveTerm" column="save_term"/>
@@ -32,6 +33,7 @@
 		<result property="customer" column="customer"/>
 		<result property="brief" column="brief"/>
 		<result property="status" column="status"/>
+		<result property="account" column="account"/>
 	</resultMap>
 	
 	
@@ -77,6 +79,17 @@
 		<id property="deptCode" column="dept_code"/>
 		<result property="deptName" column="dept_name"/>
 		<result property="count" column="capacity"/>
+	</resultMap>
+	
+	
+	<resultMap type="Vacation" id="vaResultSet">
+		<id property="docuNum" column="docu_num"/>
+		<result property="vacationType" column="vacation_type"/>
+		<result property="vacationName" column="vacation_name"/>
+		<result property="startDate" column="start_date"/>
+		<result property="endDate" column="end_date"/>
+		<result property="reason" column="reason"/>
+		<result property="useDay" column="use_day"/>
 	</resultMap>
 
 
@@ -125,6 +138,12 @@
 	</insert>
 	
 	
+	<insert id="insertVacation" parameterType="Vacation">
+		insert into vacation
+		values(docu_seq.currval,#{vacationType},#{vacationName},#{startDate},#{endDate},#{reason},#{useDay})
+	</insert>
+	
+	
 	<select id="selectDocuList" parameterType="_int" resultMap="documentResultSet">
 		select distinct d.docu_num,docu_type,docu_code,d.emp_id,emp_name,title,save_term,security,TO_CHAR(docu_date,'yyyy-mm-dd hh24:mi:ss') docu_date,d.status,file_status
 		from document d
@@ -147,7 +166,7 @@
 	
 	
 	<select id="approvalCheck" parameterType="_int" resultMap="apResultSet">
-		select ap_pk,docu_num,a.emp_id,emp_name,job_name,status,approval_date
+		select ap_pk,docu_num,a.emp_id,emp_name,job_name,status,TO_CHAR(approval_date,'yyyy-mm-dd') approval_date
 		from approval a
 		join employee e on(a.emp_id = e.emp_id)
 		join job j on(e.job_code = j.job_code)
@@ -165,16 +184,22 @@
 	
 	
 	<select id="selectDocument" parameterType="_int" resultMap="documentResultSet">
-		select docu_num,docu_type,docu_code,d.emp_id,emp_name,dept_name,title,save_term,security,TO_CHAR(docu_date,'yyyy-mm-dd hh24:mi:ss') docu_date,TO_CHAR(modify_date,'yyyy-mm-dd hh24:mi:ss') modify_date,status,file_status
+		select docu_num,docu_type,docu_code,d.emp_id,emp_name,job_name,dept_name,title,save_term,security,TO_CHAR(docu_date,'yyyy-mm-dd hh24:mi:ss') docu_date,TO_CHAR(modify_date,'yyyy-mm-dd hh24:mi:ss') modify_date,status,file_status
 		from document d 
 		join employee e on(d.emp_id = e.emp_id)
 		join department dt on(e.dept_code = dt.dept_code)
+		join job j on(e.job_code = j.job_code)
 		where docu_num=#{docuNum}
 	</select>
 	
 	
 	<select id="selectDocuA" parameterType="_int" resultMap="docuAResultSet">
-		select * from docua where docu_num=#{docuNum}
+		select docu_num,accounting_type,spending_year,spending_month,spender_name,account_name,expense_date,department_name,
+		       price,customer,brief,a.status,account
+		from docua a
+		join document using(docu_num)
+		join employee using(emp_id)
+		where docu_num=#{docuNum}
 	</select>
 	
 	
@@ -191,7 +216,7 @@
 	
 	<update id="apCheck" parameterType="Approval">
 		update approval
-		set status='Y', approval_date=TO_DATE(sysdate,'yyyy-mm-dd hh24:mi:ss')
+		set status='Y', approval_date=sysdate
 		where docu_num=#{docuNum} and emp_id=#{empId}
 	</update>
 	
@@ -203,10 +228,16 @@
 	</update>
 	
 	
+	<update id="updateModifyDate" parameterType="_int">
+		update document
+		set modify_date=sysdate
+		where docu_num=#{docuNum}
+	</update>
 	
 	
-	
-	
+	<select id="selectVacation" parameterType="Vacation" resultMap="vaResultSet">
+		select * from vacation where docu_num=#{docuNum}
+	</select>
 	
 	
 	

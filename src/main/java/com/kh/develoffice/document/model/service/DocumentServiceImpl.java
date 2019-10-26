@@ -13,6 +13,7 @@ import com.kh.develoffice.document.model.vo.DocuB;
 import com.kh.develoffice.document.model.vo.Document;
 import com.kh.develoffice.document.model.vo.DocumentFile;
 import com.kh.develoffice.document.model.vo.Reference;
+import com.kh.develoffice.document.model.vo.Vacation;
 import com.kh.develoffice.employee.model.vo.Employee;
 
 @Service("dService")
@@ -109,6 +110,21 @@ public class DocumentServiceImpl implements DocumentService {
 	@Override
 	public int rfCheck(Reference rf) {
 		return dDao.rfCheck(rf);
+	}
+
+	@Override
+	public int updateModifyDate(int docuNum) {
+		return dDao.updateModifyDate(docuNum);
+	}
+
+	@Override
+	public int insertVacation(Vacation va) {
+		return dDao.insertVacation(va);
+	}
+
+	@Override
+	public Vacation selectVacation(int docuNum) {
+		return dDao.selectVacation(docuNum);
 	}
 
 	

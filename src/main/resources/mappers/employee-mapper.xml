@@ -22,6 +22,7 @@
 		<result property="retireDate" column="retire_date"/>
 		<result property="empStatus" column="emp_status"/>
 		<result property="profilePath" column="profile_path"/>
+		<result property="vacation" column="vacation"/>
 	</resultMap>
 	
 	
