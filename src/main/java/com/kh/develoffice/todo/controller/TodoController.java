@@ -109,7 +109,7 @@ public class TodoController {
 		
 		mv.addObject("todoAList", todoAList).addObject("todoOList", todoOList)
 		.addObject("todoWList", todoWList).addObject("todoCList", todoCList).setViewName("todo/todoListView");
-		//System.out.println(todoList);
+		System.out.println(todoAList);
 		
 		return mv;	
 	}
@@ -117,13 +117,26 @@ public class TodoController {
 	
 	/////////// TODO 생성 뷰로 이동 ///////////
 	@RequestMapping("insertTodoView.do")
-	public String insertTodoView() {
+	public String insertTodoView(HttpSession session, Todo t) {
+		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		TodoBoard tb = new TodoBoard();
+		tb.setEmpId(e.getEmpId());
+		
+		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		int tbNo = todoBoardList.get(0).getTdBoardNo();
+		System.out.println(tbNo);
+		
+		t.setEmpId(e.getEmpId());
+		t.setTdBoardNo(tbNo);
+		
 		return "todo/insertTodo";
 	}
 	
 	/////////// TODO 생성 ///////////
 	@RequestMapping("insertTodo.do")
-	public String insertTodo(Todo t, HttpServletRequest request, Model model) {
+	public String insertTodo(Todo t, HttpServletRequest request, HttpSession session, Model model) {
 		
 		int result = tService.insertTodo(t);
 		
@@ -151,7 +164,7 @@ public class TodoController {
 	}
 	
 	
-	/////////// allTodo
+	/////////// allTodo ///////////
 	@RequestMapping("allTodoView.do")
 	public ModelAndView allTodo(ModelAndView mv, HttpSession session, Todo t) {
 		

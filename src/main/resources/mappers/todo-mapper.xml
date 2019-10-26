@@ -41,10 +41,10 @@
 	</select>
 	
 	<!-- 페이징 처리 -->
-	<select id="getListCount" resultType="_int">
+	<!-- <select id="getListCount" resultType="_int">
 		select count(*)
 		from todo
-	</select>
+	</select> -->
 	
 	<!-- Todo 리스트의 왼쪽 전체 리스트 최근 15개 조회 -->
 	<select id="selectTodoAList" parameterType="Todo" resultMap="todoResultSet">		

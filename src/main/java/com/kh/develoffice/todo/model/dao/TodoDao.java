@@ -30,14 +30,9 @@ public class TodoDao {
 		ArrayList<TodoBoard> list = (ArrayList)sqlSession.selectList("todoMapper.selectBoardList", tb);
 		//return (ArrayList)sqlSession.selectList("todoMapper.selectBoardList", tb);
 		//System.out.println(list);
-		
 		return list;	
 	}
 	
-	/////////// 게시판 총 갯수 조회 ///////////
-	public int getListCount() {
-		return sqlSession.selectOne("todoMapper.getListCount");
-	}
 	
 	/////////// TODO 리스트 조회 ///////////
 	// 전체 리스트 조회
@@ -89,6 +84,8 @@ public class TodoDao {
 	public ArrayList<Todo> comTodo(Todo t){
 	return (ArrayList)sqlSession.selectList("todoMapper.comTodo", t);
 	}
+	
+	
 	
 	
 	
