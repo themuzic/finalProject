@@ -29,10 +29,10 @@
 		padding-right:50px;
 		font-size:14px;
 	}
-	#vaTbody th{
+	#rtTbody th{
 		text-align: center;
 	}
-	#vaTbody th,#vaTbody td{
+	#rtTbody th,#rtTbody td{
 		border:1px solid black;
 	}
 </style>
@@ -87,7 +87,7 @@
 						<!-- Contents -->
 						<div class="cont_box view">
 							<div class="approval-wrap write view">
-								<h1>휴가원</h1>
+								<h1>사직원</h1>
 								<table class="tableType02">
 										<colgroup>
 											<col style="width:12.09%;">
@@ -98,7 +98,7 @@
 										<tbody>
 											<tr>
 												<th scope="row">문서 종류</th>
-												<td>공통 &gt; 휴가원</td>
+												<td>공통 &gt; 사직원</td>
 												<th scope="row">문서 번호</th>
 												<c:choose>
 													<c:when test="${document.docuNum lt '10'}">
@@ -244,11 +244,11 @@
 										<table class="tableType01 account">
 											<colgroup>
 												<col width="22%">
-												<col width="34%">
+												<col width="28%">
 												<col width="22%">
-												<col width="22%">
+												<col width="28%">
 											</colgroup>
-											<tbody id="vaTbody">
+											<tbody id="rtTbody">
 												
 											</tbody>
 										</table>
@@ -338,33 +338,14 @@
 			}
 			
 			/* 휴가 정보 채우기 */
-			var vaInfo = $('#vaTbody');
+			var rtInfo = $('#rtTbody');
 			
-			var vacationType = '${va.vacationType}';
-			var vacationName = '${va.vacationName}';
-			var startDate = '${va.startDate}'.split(' ')[0];
-			var endDate = '${va.endDate}'.split(' ')[0];
-			var reason = '${va.reason}';
-			var useDay = '${va.useDay}';
-			
-			vaInfo.append('<tr><th>신청일시</th><td colspan="3">'+'${d.docuDate}'+'</td></tr>');
-			vaInfo.append('<tr><th>사용자</th><td>'+'${d.empName}'+'</td><th>직급</th><td>'+'${d.jobName}'+'</td></tr>');
-			vaInfo.append('<tr><th>소속</th><td colspan="3">'+'${d.deptName}'+'</td></tr>');
-			vaInfo.append('<tr><th>종류</th><td>'+vacationName+'</td><th>일수</th><td>'+useDay+'일'+'</td></tr>');
-			
-			if(vacationType == 'ALL'){
-				vaInfo.append('<tr><th>날짜</th><td colspan="3">'+startDate+' ~ '+endDate+'</td></tr>');
-			}else if(vacationType == 'AM'){
-				vaInfo.append('<tr><th>날짜</th><td colspan="3">'+startDate+' (오전반차)</td></tr>');
-			}else if(vacationType == 'PM'){
-				vaInfo.append('<tr><th>날짜</th><td colspan="3">'+startDate+' (오후반차)</td></tr>');
-			}
-			
-			vaInfo.append('<tr><th>사유</th><td colspan="3">'+reason+'</td></tr>');
-			
-			
+			//vaInfo.append('<tr><th>신청일시</th><td colspan="3">'+'${d.docuDate}'+'</td></tr>');
+			rtInfo.append('<tr><th>사용자</th><td>${rt.empName}</td><th>직급</th><td>${rt.jobName}</td></tr>');
+			rtInfo.append('<tr><th>소속</th><td colspan="3">${rt.deptName}</td></tr>');
+			rtInfo.append('<tr><th>입사일</th><td>${rt.enrollDate}</td><th>퇴사일</th><td>${rt.retireDate}</td></tr>');
+			rtInfo.append('<tr><th rowspan="2">사유</th><td colspan="3" rowspan="2"><p>${rt.reason}</p></td></tr>');
 		});
-	
 	
 		/* 결재 버튼을 누르면 */
 		$("#stampRow").on('click','.confirm',function(){

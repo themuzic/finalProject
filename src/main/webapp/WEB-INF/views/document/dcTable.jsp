@@ -152,6 +152,14 @@
 						            			<td>휴가-${d.docuCode}-00${d.docuNum}</td>
 						            		</c:if>
 						            	</c:if>
+						            	<c:if test="${d.docuType eq 'RT'}">
+						            		<c:if test="${d.docuNum lt '10' }">
+						            			<td>퇴사-${d.docuCode}-000${d.docuNum}</td>
+						            		</c:if>
+						            		<c:if test="${d.docuNum ge '10' }">
+						            			<td>퇴사-${d.docuCode}-00${d.docuNum}</td>
+						            		</c:if>
+						            	</c:if>
 						            	<td style="text-align:left;padding-left:30px;padding-right:30px;">
 												<c:url value="documentDetailView.do" var="documentDetailView">
 													<c:param name="docuNum" value="${d.docuNum}"/>
@@ -235,8 +243,6 @@
 			$("#menu1_1").attr('aria-expanded',true);
 			$("#m1_6").addClass("active");
 		}
-		
-		
 	});
 	
 	

@@ -29,6 +29,7 @@ import com.kh.develoffice.document.model.vo.DocuB;
 import com.kh.develoffice.document.model.vo.Document;
 import com.kh.develoffice.document.model.vo.DocumentFile;
 import com.kh.develoffice.document.model.vo.Reference;
+import com.kh.develoffice.document.model.vo.Retire;
 import com.kh.develoffice.document.model.vo.Vacation;
 import com.kh.develoffice.employee.model.service.EmployeeService;
 import com.kh.develoffice.employee.model.vo.Employee;
@@ -84,7 +85,6 @@ public class DocumentController {
 	
 	@RequestMapping("documentTable.do")
 	public ModelAndView documentTableList(HttpSession session, ModelAndView mv, String condition) {
-		System.out.println(condition);
 		Employee emp = (Employee)session.getAttribute("loginUser");
 		ArrayList<Document> docuList = dService.selectDocuList(emp.getEmpId());
 		
@@ -267,6 +267,21 @@ public class DocumentController {
 			
 			mv.addObject("va",jObj);
 			mv.setViewName("document/vacation");
+		} else if(document.getDocuType().equals("RT")) {	// 퇴직원
+			Retire rt = dService.selectRetire(docuNum);
+			mv.addObject("docu",rt);
+			
+			JSONObject jObj = new JSONObject();
+			jObj.put("docuNum", rt.getDocuNum());
+			jObj.put("enrollDate", rt.getEnrollDate().split(" ")[0]);
+			jObj.put("retireDate", rt.getRetireDate().split(" ")[0]);
+			jObj.put("reason", rt.getReason());
+			jObj.put("empName", rt.getEmpName());
+			jObj.put("jobName", rt.getJobName());
+			jObj.put("deptName", rt.getDeptName());
+			
+			mv.addObject("rt",jObj);
+			mv.setViewName("document/retire");
 		}
 		
 		return mv;
@@ -276,7 +291,7 @@ public class DocumentController {
 	
 	@ResponseBody
 	@RequestMapping("insertDocument.do")
-	public String insertDocument(Document document, DocuA docuA, DocuB docuB, Vacation va,
+	public String insertDocument(Document document, DocuA docuA, DocuB docuB, Vacation va, Retire rt,
 			HttpServletRequest request, HttpSession session,
 			@RequestParam(name="uploadFile", required=false) MultipartFile uploadFile) throws Exception {
 		
@@ -305,13 +320,16 @@ public class DocumentController {
 		String type = document.getDocuType();
 		int result = dService.insertDocument(docu);	//통합문서 insert
 		int result2 = 0;
-		
+		System.out.println("type : "+type);
+		System.out.println(rt);
 		if(result > 0) {	// 통합문서 insert 성공
 			
 			if(type.equals("AP")) {
 				result2 = dService.insertDocuA(docuA);	//지출결의서 insert
 			} else if(type.equals("VA")) {
 				result2 = dService.insertVacation(va);	//휴가원 insert
+			} else if(type.equals("RT")) {
+				result2 = dService.insertRetire(rt);	//휴가원 insert
 			} else {
 				result2 = dService.insertDocuB(docuB);	//회람,품의서 insert
 			}

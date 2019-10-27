@@ -13,8 +13,8 @@ import com.kh.develoffice.document.model.vo.DocuB;
 import com.kh.develoffice.document.model.vo.Document;
 import com.kh.develoffice.document.model.vo.DocumentFile;
 import com.kh.develoffice.document.model.vo.Reference;
+import com.kh.develoffice.document.model.vo.Retire;
 import com.kh.develoffice.document.model.vo.Vacation;
-import com.kh.develoffice.employee.model.vo.Employee;
 
 @Service("dService")
 public class DocumentServiceImpl implements DocumentService {
@@ -130,6 +130,16 @@ public class DocumentServiceImpl implements DocumentService {
 	@Override
 	public int deleteDocument(int docuNum) {
 		return dDao.deleteDocument(docuNum);
+	}
+
+	@Override
+	public int insertRetire(Retire rt) {
+		return dDao.insertRetire(rt);
+	}
+
+	@Override
+	public Retire selectRetire(int docuNum) {
+		return dDao.selectRetire(docuNum);
 	}
 
 	

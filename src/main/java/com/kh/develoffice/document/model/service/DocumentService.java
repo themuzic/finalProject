@@ -9,6 +9,7 @@ import com.kh.develoffice.document.model.vo.DocuB;
 import com.kh.develoffice.document.model.vo.Document;
 import com.kh.develoffice.document.model.vo.DocumentFile;
 import com.kh.develoffice.document.model.vo.Reference;
+import com.kh.develoffice.document.model.vo.Retire;
 import com.kh.develoffice.document.model.vo.Vacation;
 
 public interface DocumentService {
@@ -78,5 +79,11 @@ public interface DocumentService {
 	
 	// 문서 삭제
 	int deleteDocument(int docuNum);
+	
+	// 퇴직서 insert
+	int insertRetire(Retire rt);
+	
+	// 퇴직서 select
+	Retire selectRetire(int docuNum);
 	
 }

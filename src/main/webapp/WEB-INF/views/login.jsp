@@ -36,7 +36,7 @@
 							<form class="form-auth-small" action="login.do" method="post">
 								<div class="form-group">
 									<label for="signin-id" class="control-label sr-only">Email</label>
-									<input type="text" class="form-control" name="empId" id="signin-id" value="" placeholder="ID">
+									<input type="text" class="form-control" name="empId" id="signin-id" value="" placeholder="ID" autofocus>
 								</div>
 								<div class="form-group">
 									<label for="signin-password" class="control-label sr-only">Password</label>

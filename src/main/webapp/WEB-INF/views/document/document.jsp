@@ -118,6 +118,7 @@
 											<option value="CN">회람</option>
 											<option value="CF">품의서</option>
 											<option value="VA">휴가원</option>
+											<option value="RT">사직원</option>
 										</select>
 										<!-- <button class="weakblue" onclick="ApprovalDocument.getSelectApprovalForm();">문서보기</button> -->
 										<input type="hidden" id="prevApprovalFormNo" value="26723">
@@ -775,6 +776,44 @@
 					
 					
 					<!------휴가신청--------------------------------------------------------->
+					<div id="retireDiv" class="hide">
+					<table class="tableType02 account docuTable">
+						<colgroup>
+							<col style="width:12.09%;">
+							<col style="width:37.91%;">
+							<col style="width:12.09%;">
+							<col style="width:37.91%;">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th scope="row">입사일</th>
+								<td>
+									<span id="enrollDate">${loginUser.enrollDate}</span>
+								</td>
+								<th scope="row">퇴사 예정일</th>
+								<td>
+									<div>
+										<input type="text" class="datepicker" id="retireDate" readonly value="${now}">
+										<button type="button" class="icon month" onclick="$('#retireDate').focus();"></button>
+									</div>
+									<script>				
+										$(".datepicker").datepicker();
+									</script>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">사유</th>
+								<td style="padding-right:10px;" colspan="3">
+									<textarea rows="4" cols="130" name="reason" id="reason"></textarea>
+								</td>
+							</tr>
+						</tbody>
+						</table>
+					</div>
+					
+					<!------------------------------------------------------------------------>
+					
+					<!------휴가신청--------------------------------------------------------->
 					<div id="vacationDiv" class="hide">
 					<table class="tableType02 account docuTable">
 						<colgroup>
@@ -862,11 +901,11 @@
 					
 					<!------------------------------------------------------------------------>
 					
+					
+					<!------------------------------------------------------------------------>
 					<h4 class="filezone hide" style="margin-top:50px;margin-bottom:0;padding: 0 0 15px 0;">첨부 파일</h4>
 						
 					<!-------------- 첨부파일존 시작 ---------------------------------------------------------->
-					
-					
 					
 					<div class="filezone hide">
 				        <table class="table" width="100%" style="border: 2px dashed #e4e4e4;height: 50px;">
@@ -883,10 +922,7 @@
 					<!-------------- 첨부파일존 끝 ---------------------------------------------------------->
 					
 				</form>
-						
-						
 					</div>
-					
 					
 					<!-- 이 위까지 내용작성 -->
 				</div>
@@ -897,19 +933,9 @@
 		
 		<div class="clearfix"></div>
 		
-		<!-- 
-		<footer>
-			<div class="container-fluid">
-				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p>
-			</div>
-		</footer>
-		 -->
-
 	<!--  -->
 	</div>
 	<!-- END WRAPPER -->
-	
-	
 	
 	
 	<!-- script 작성 -->
@@ -986,6 +1012,7 @@
 				$(".referTable2").removeClass("show");			//회람 테이블
 				$(".typeA").removeClass("show");				//지출 테이블
 				$("#vacationDiv").removeClass("show");			//휴가 테이블
+				$("#retireDiv").removeClass("show");			//퇴사 테이블
 				$(".filezone").removeClass("show");				//첨부파일
 								
 				// 에디터 off-----------------------------
@@ -1004,6 +1031,7 @@
 				$(".referTable2").removeClass("show");
 				$(".typeA").addClass("show");
 				$("#vacationDiv").removeClass("show");
+				$("#retireDiv").removeClass("show");
 				$(".filezone").addClass("show");
 				
 				$("#summernote").summernote('destroy');
@@ -1021,6 +1049,7 @@
 				$(".typeA").removeClass("show");
 				$(".referTable2").addClass("show");
 				$("#vacationDiv").removeClass("show");
+				$("#retireDiv").removeClass("show");
 				$(".filezone").addClass("show");
 				
 				// 에디터 on--------------------
@@ -1033,7 +1062,7 @@
 				//--------------------------
 				
 			}
-			if( $("#documentTypeSelect option:selected").val() == 'CF' ){	// 참조
+			if( $("#documentTypeSelect option:selected").val() == 'CF' ){	// 품의서
 				
 				$("#approval_document_title").val("");
 				
@@ -1044,8 +1073,10 @@
 				$(".typeA").removeClass("show");
 				$(".referTable2").removeClass("show");
 				$("#vacationDiv").removeClass("show");
+				$("#retireDiv").removeClass("show");
 				$(".filezone").addClass("show");
 
+				//$("#summernote").html('<p><br></p><table border="1" cellspacing="0" cellpadding="0" style="word-break: break-all; width: 596px; border: 1px none rgb(0, 0, 0); height: 227px;"><tbody><tr><td style="border: 1px solid rgb(0, 0, 0); width: 151.5px; height: 48.5px;"><p style="text-align: center;">성명</p></td><td style="border: 1px solid rgb(0, 0, 0); width: 153px; height: 48.5px;"><p style="text-align: center;"><br></p></td><td style="border: 1px solid rgb(0, 0, 0); width: 131px; height: 48.5px;"><p style="text-align: center;">직급</p></td><td style="border: 1px solid rgb(0, 0, 0); width: 157.5px; height: 48.5px;"><p style="text-align: center;"><br></p></td></tr><tr><td style="border: 1px solid rgb(0, 0, 0); width: 151.5px; height: 48.5px;"><p style="text-align: center;">소속</p></td><td style="border: 1px solid rgb(0, 0, 0); width: 441px; height: 48.5px;" colspan="3"><p style="text-align: center;"><br></p></td></tr><tr><td style="border: 1px solid rgb(0, 0, 0); width: 151.5px; height: 48.5px;"><p style="text-align: center;">입사일</p></td><td style="border: 1px solid rgb(0, 0, 0); width: 153px; height: 48.5px;"><p style="text-align: center;"><br></p></td><td style="border: 1px solid rgb(0, 0, 0); width: 131px; height: 48.5px;"><p style="text-align: center;">퇴사일</p></td><td style="border: 1px solid rgb(0, 0, 0); width: 157.5px; height: 48.5px;"><p style="text-align: center;"><br></p></td></tr><tr><td style="border: 1px solid rgb(0, 0, 0); width: 151.5px; height: 81.5px;"><p style="text-align: center;">사유</p></td><td style="border: 1px solid rgb(0, 0, 0); width: 441px; height: 81.5px;" colspan="3"><p style="text-align: center;"><br></p></td></tr></tbody></table><p><br></p>');
 				$("#summernote").summernote({
 					tabsize: 2,
 			        height: 300,
@@ -1061,6 +1092,21 @@
 				$(".typeA").removeClass("show");
 				$(".referTable2").removeClass("show");
 				$("#vacationDiv").addClass("show");
+				$("#retireDiv").removeClass("show");
+				$(".filezone").addClass("show");
+				
+				$("#summernote").summernote('destroy');
+				$("#summernote").hide();
+			}
+			if( $("#documentTypeSelect option:selected").val() == 'RT' ){	//사직원
+				$(".guide").css("display","none");
+				$(".docuTitle").removeClass("show");
+				$("#btnApprovalSelect").addClass("show");
+				$(".approvalTable").addClass("show");
+				$(".typeA").removeClass("show");
+				$(".referTable2").removeClass("show");
+				$("#vacationDiv").removeClass("show");
+				$("#retireDiv").addClass("show");
 				$(".filezone").addClass("show");
 				
 				$("#summernote").summernote('destroy');
@@ -1324,8 +1370,8 @@
 				zone = $("#selectApprovalFourthLine");
 			}
 			
-			console.log(approvalArr);
-			console.log(zone.children());
+			//console.log(approvalArr);
+			//console.log(zone.children());
 			$.each(approvalArr, function(i, value1){
 				$.each(selectedArr, function(j, value2){
 					
@@ -1464,7 +1510,7 @@
 						}
 					},
 					error:function(){
-						alertify.alert('', 'AJAX통신 실패');
+						alertify.alert('DEVELOFFICE', 'AJAX통신 실패');
 					}
 				});
 				
@@ -1641,7 +1687,7 @@
 			var security = $("#set_security_level_y option:selected").val();
 						
 			if(saveTerm == "" || security == ""){
-				alertify.alert('', '보존연한 및 보안등급을 설정해 주세요.');
+				alertify.alert('DEVELOFFICE', '보존연한 및 보안등급을 설정해 주세요.');
 				return;
 			}
 			
@@ -1818,7 +1864,7 @@
 					}
 				});
 				if(apArr == null){
-					alertify.alert('', '결재 라인이 지정되지 않았습니다.');
+					alertify.alert('DEVELOFFICE', '결재 라인이 지정되지 않았습니다.');
 					return;
 				}
 				formData.append('apArr',apArr);
@@ -1848,7 +1894,7 @@
 					}
 				});
 				if(apArr == null){
-					alertify.alert('', '결재 라인이 지정되지 않았습니다.');
+					alertify.alert('DEVELOFFICE', '결재 라인이 지정되지 않았습니다.');
 					return;
 				}
 				formData.append('apArr',apArr);
@@ -1898,8 +1944,49 @@
 				title += useDay+'일/'+'${loginUser.empName}';
 				formData.append('title',title);
 				
+			} else if(docuType == 'RT'){	// 퇴직원	
+				
+				/* 결재라인(배열) */
+				var apArr = "";
+				var apNames = $('#nameRow input[name=empId]');
+				$.each(apNames,function(i, id){
+					if(i == 0){
+						apArr += id.value;
+					}else{
+						apArr += ","+id.value;
+					}
+				});
+				if(apArr == null){
+					alertify.alert('DEVELOFFICE', '결재 라인이 지정되지 않았습니다.');
+					return;
+				}
+				formData.append('apArr',apArr);
+				
+				/* 참조라인(배열) */
+				var rfArr = "";
+				var rfNames = $('.referRow span');
+				$.each(rfNames,function(i, id){
+					if(i == 0){
+						rfArr += id.getAttribute('empId');
+					}else{
+						rfArr += ","+id.getAttribute('empId');
+					}
+				});
+				formData.append('rfArr',rfArr);
+				
+				/* 입사일 */
+				var enrollDate = $('#enrollDate').text();
+				formData.append('enrollDate',enrollDate);
+				/* 퇴사일 */				
+				var retireDate = $('#retireDate').val();
+				formData.append('retireDate',retireDate);
+				/* 사유 */
+				var reason = $('textarea[name=reason]').val();
+				formData.append('reason',reason);
+				/* 제목 */
+				var title = '사직원('+retireDate+')_${loginUser.empName}';
+				formData.append('title',title);
 			}
-			
 			
 			$.ajax({
 				url:"insertDocument.do",
@@ -1910,20 +1997,18 @@
 				success:function(data){
 					
 					if(data == "success"){
-    					location.href="documentTable.do";
+    					location.href="documentTable.do?condition=전체";
     					
     				} else{
-    					alertify.alert('', '기안 실패');
+    					alertify.alert('DEVELOFFICE', '기안 실패');
     				}
 				},
 				error:function(){
-					alertify.alert('', 'AJAX통신 실패');
+					alertify.alert('DEVELOFFICE', 'AJAX통신 실패');
 				}
 			});
 			
-			
 		}
-		
 		
 		
 		/* 연차 종일/반차 선택*/
@@ -2143,64 +2228,10 @@
 		        $("#fileTr_" + fIndex).remove();
 		    }
 		 
-		    // 파일 등록
-		    function uploadFile(){
-		        // 등록할 파일 리스트
-		        var uploadFileList = Object.keys(fileList);
-		 
-		        // 파일이 있는지 체크
-		        if(uploadFileList.length == 0){
-		            // 파일등록 경고창
-		            alert("파일이 없습니다.");
-		            return;
-		        }
-		        
-		        // 용량을 500MB를 넘을 경우 업로드 불가
-		        if(totalFileSize > maxUploadSize){
-		            // 파일 사이즈 초과 경고창
-		            alert("총 용량 초과\n총 업로드 가능 용량 : " + maxUploadSize + " MB");
-		            return;
-		        }
-		            
-		        if(confirm("등록 하시겠습니까?")){
-		            // 등록할 파일 리스트를 formData로 데이터 입력
-		            var form = $('#uploadForm');
-		            var formData = new FormData(form);
-		            for(var i = 0; i < uploadFileList.length; i++){
-		                formData.append('files', fileList[uploadFileList[i]]);
-		            }
-		            
-		            $.ajax({
-		                url:"업로드 경로",
-		                data:formData,
-		                type:'POST',
-		                enctype:'multipart/form-data',
-		                processData:false,
-		                contentType:false,
-		                dataType:'json',
-		                cache:false,
-		                success:function(result){
-		                    if(result.data.length > 0){
-		                        alert("성공");
-		                        location.reload();
-		                    }else{
-		                        alert("실패");
-		                        location.reload();
-		                    }
-		                }
-		            });
-		        }
-		    }
-
-
-			
-			
-			
-			
-			
-			
 			
 			/*------------------------- 파일 드랍 끝 ---------------------------  */
+			
+			
 	</script>
 	
 	

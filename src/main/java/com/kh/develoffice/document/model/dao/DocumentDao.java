@@ -13,6 +13,7 @@ import com.kh.develoffice.document.model.vo.DocuB;
 import com.kh.develoffice.document.model.vo.Document;
 import com.kh.develoffice.document.model.vo.DocumentFile;
 import com.kh.develoffice.document.model.vo.Reference;
+import com.kh.develoffice.document.model.vo.Retire;
 import com.kh.develoffice.document.model.vo.Vacation;
 import com.kh.develoffice.employee.model.vo.Employee;
 
@@ -132,6 +133,13 @@ public class DocumentDao {
 	}
 	
 	
+	public int insertRetire(Retire rt) {
+		return sqlSession.insert("documentMapper.insertRetire",rt);
+	}
 	
+	
+	public Retire selectRetire(int docuNum) {
+		return sqlSession.selectOne("documentMapper.selectRetire",docuNum);
+	}
 	
 }

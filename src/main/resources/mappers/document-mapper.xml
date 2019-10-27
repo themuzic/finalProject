@@ -91,6 +91,17 @@
 		<result property="reason" column="reason"/>
 		<result property="useDay" column="use_day"/>
 	</resultMap>
+	
+	
+	<resultMap id="rtResultSet" type="Retire">
+		<id property="docuNum" column="docu_num"/>
+		<result property="enrollDate" column="enroll_date"/>
+		<result property="retireDate" column="retire_date"/>
+		<result property="reason" column="reason"/>
+		<result property="empName" column="emp_name"/>
+		<result property="jobName" column="job_name"/>
+		<result property="deptName" column="dept_name"/>
+	</resultMap>
 
 
 	<select id="selectDept" resultMap="deptResultSet">
@@ -245,6 +256,25 @@
 		set status='CANCEL'
 		where docu_num=#{docuNum}
 	</delete>
+	
+	
+	<insert id="insertRetire" parameterType="Retire">
+		insert into retire
+		values(docu_seq.currval,#{enrollDate},#{retireDate},#{reason})
+	</insert>
+	
+	
+	<select id="selectRetire" parameterType="_int" resultMap="rtResultSet">
+		select docu_num,r.enroll_date,r.retire_date,r.reason,e.emp_name,j.job_name,dt.dept_name
+		from retire r
+		join document d using(docu_num)
+		join employee e using(emp_id)
+		join job j using(job_code)
+		join department dt using(dept_code)
+		where docu_num=#{docuNum}
+	</select>
+	
+	
 	
 	
 	
