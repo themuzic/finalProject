@@ -17,8 +17,8 @@ public class Schedule {
 	
 	private int sNo;
 	private String shedule;
-	private String startDate;
-	private String endDate;
+	private Date startDate;
+	private Date endDate;
 	private String allDay;
 	private String backColor;
 	private Date createDate;
