@@ -27,6 +27,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.css">
 
+<!-- alertify -->
+<link rel="stylesheet" href="resources/css/alertify.css">
+<link rel="stylesheet" href="resources/css/alertify.rtl.css">
+<script src="resources/js/alertify.js"></script>
 
 <style>
 body{
@@ -40,6 +44,11 @@ body{
 }
 .main-section h3, .main-section h5{
 	margin: 0px;
+}
+.main-section h4{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 .main-section{
 	width: 100%;
@@ -337,12 +346,34 @@ body{
 .checked > .fa-check{
 	display: inline-block;
 }
+.ajs-close{
+      float: right;
+      display:none !important;
+}
+.ajs-primary.ajs-buttons{
+	text-align:right !important;
+}
+.ajs-button{
+	background-color: transparent;
+}
+.ajs-ok{
+   color:#2985db;
+   border-color: transparent;
+}
+.ajs-cancel{
+   color:red;
+   border-color: transparent;
+}
 </style>
 
 <script type="text/javascript">
 
     $(document).ready(function() {
 
+    	$("#exit").on('click', function(){
+    		alertify.confirm('DEVELOFFICE', '채팅방을 나가면 대화내용이 모두 삭제됩니다. 계속하시겠습니까?', function(){exitChat();}, function(){})
+    	})
+    	
         $("#sendBtn").on("click", function() {	// 전송 버튼을 누를때
 
             sendMessage();	// 메소드 실행
@@ -426,6 +457,19 @@ body{
         $("#messageArea").scrollTop(9999999);
 
     });
+    
+    function exitChat(){
+    	var chatType = ${c.chatType};
+    	var exitHtml = '';
+    	if(chatType==1){
+    		exitHtml = '채팅방 퇴장:1:${loginUser.empId}:${c.chatId}';
+    	}else{
+    		var content = "<b>${loginUser.empName} ${loginUser.jobName}</b>님이 나갔습니다.";
+    		exitHtml = '채팅방 퇴장:2:${loginUser.empId}:${c.chatId}:' + content;
+    	}
+    	sock.send(exitHtml);
+    	self.close();
+    }
     
     function inviteYN(){
 	    if($("#add-list").html() == ""){
@@ -687,13 +731,14 @@ body{
 		<div class="head-section">
 			<div class="headLeft-section">
 				<div class="headLeft-sub">
-					<h3>${c.chatName }</h3>
+					<h4>${c.chatName }</h4>
 					<small>2019-10-14</small>
 				</div>
 			</div>
 			<div class="headRight-section">
 				<div class="headRight-sub">
-					<a href="#myModal" onclick="invite();" data-target="#myModal" data-toggle="modal">초대</a>
+					<a href="#myModal" onclick="invite();" style="float:left;" data-target="#myModal" data-toggle="modal"><i class="fa fa-plus"></i>초대</a>
+					<a id="exit" style="float:right;"><i class="fa fa-sign-out"></i>나가기</a>
 				</div>
 			</div>
 		</div>

@@ -62,6 +62,13 @@ public interface ChatService {
 	// 마지막에 생성한 채팅방
 	int selectNewChatId();
 
+	// 방번호, 방이름, 방타입, 방삭제여부 조회 서비스
 	Chat selectChatId(Message m);
+
+	// 채팅방 삭제 갱신용 서비스
+	int updateChatStatus(Chat c);
+
+	// 채팅방 삭제 서비스
+	int deleteChat(Chat c);
 
 }

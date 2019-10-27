@@ -45,6 +45,7 @@
 		<id property="chatId" column="chat_id"/>
 		<id property="chatName" column="chat_name"/>
 		<result property="chatType" column="chat_type"/>
+		<result property="chatStatus" column="chat_status"/>
 	</resultMap>
 	
 	<resultMap id="messageListResult" type="Message">
@@ -76,7 +77,7 @@
 		FROM JOIN_CHAT J
 		JOIN CHAT C ON(J.CHAT_ID = C.CHAT_ID)
 		JOIN EMPLOYEE E ON(J.EMP_ID = E.EMP_ID)
-		WHERE CHAT_STATUS = 'Y' AND J.EMP_ID != #{empId}
+		WHERE J.EMP_ID != #{empId}
 	</select>
 	
 	<!-- 채팅 삽입 -->
@@ -139,7 +140,7 @@
 	
 	<!-- 갠톡 채팅방번호, 이름 조회 -->
 	<select id="selectChatId" parameterType="Message" resultMap="chatIdNameResult">
-		select j.chat_id, j.chat_name, c.chat_type
+		select j.chat_id, j.chat_name, c.chat_type, j.chat_status
 		from join_chat j
 		join chat c on(c.chat_id = j.chat_id)
 		join join_chat j2 on(c.chat_id = j2.chat_id and j.emp_id != j2.emp_id)
@@ -170,12 +171,12 @@
 	
 	<!-- 채팅방 인원 생성 -->
 	<insert id="insertJoinChat" parameterType="Chat">
-		INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, #{chatName}, DEFAULT, #{empId}, DEFAULT, DEFAULT, FN_KO_CHAR(#{chatName}))
+		INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, #{chatName}, DEFAULT, DEFAULT, #{empId}, DEFAULT, DEFAULT, FN_KO_CHAR(#{chatName}))
 	</insert>
 	
 	<!-- 채팅방 인원 추가 -->
 	<insert id="inviteJoinChat" parameterType="Chat">
-		INSERT INTO JOIN_CHAT VALUES(#{chatId}, #{chatName}, DEFAULT, #{empId}, DEFAULT, DEFAULT, FN_KO_CHAR(#{chatName}))
+		INSERT INTO JOIN_CHAT VALUES(#{chatId}, #{chatName}, DEFAULT, DEFAULT, #{empId}, DEFAULT, DEFAULT, FN_KO_CHAR(#{chatName}))
 	</insert>
 	
 	<!-- 채팅방 인원 추가시 기존 인원 채팅방 이름 변경 -->
@@ -200,5 +201,16 @@
 		from join_chat
 		where chat_id = #{chatId} and emp_id = #{empId}
 	</select>
+	
+	<update id="updateChatStatus" parameterType="Chat">
+		UPDATE JOIN_CHAT
+		SET JOIN_DATE = SYSDATE, MODIFY_DATE=SYSDATE, CHAT_STATUS='Y'
+		WHERE CHAT_ID = #{chatId} AND EMP_ID = #{empId}
+	</update>
+	
+	<delete id="deleteChat" parameterType="Chat">
+		delete from join_chat
+		where chat_id = #{chatId} and emp_id = #{empId}
+	</delete>
 
 </mapper>

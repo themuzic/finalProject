@@ -105,6 +105,14 @@ public class ChatDao {
 		return sqlSession.selectOne("chatMapper.selectChatId", m);
 	}
 
+	public int updateChatStatus(Chat c) {
+		return sqlSession.update("chatMapper.updateChatStatus", c);
+	}
+
+	public int deleteChat(Chat c) {
+		return sqlSession.delete("chatMapper.deleteChat", c);
+	}
+
 
 	
 }

@@ -121,5 +121,15 @@ public class ChatServiceImpl implements ChatService {
 		return cDao.selectNewChatId();
 	}
 
+	@Override
+	public int updateChatStatus(Chat c) {
+		return cDao.updateChatStatus(c);
+	}
+
+	@Override
+	public int deleteChat(Chat c) {
+		return cDao.deleteChat(c);
+	}
+
 
 }

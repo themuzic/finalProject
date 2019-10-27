@@ -61,10 +61,45 @@ public class EchoHandler extends TextWebSocketHandler{
     	
     	String[] messageList = message.getPayload().split(":"); //받은 메세지를 :을 구분자로 스플릿
     	System.out.println("받은 메세지 = " +message.getPayload());
-    	
     	if(message.getPayload().equals("채팅방 연결")) {		// 채팅방 리스트가 연결되었으면
     		messengerList.add(session);					// 세션을 messengerList에 저장
     		
+    	}else if(messageList[0].equals("채팅방 퇴장")) {
+    		int empId = Integer.parseInt(messageList[2]);
+    		int chatId = Integer.parseInt(messageList[3]);
+			Chat c = new Chat();
+			c.setChatId(chatId);
+			c.setEmpId(empId);
+			ArrayList<Message> people = cService.selectUsers(chatId);	// 방에 소속된 사람들 id 담을 ArrayList
+    		if(Integer.parseInt(messageList[1]) == 1) {
+    			int result = cService.updateChatStatus(c);
+    		}else {
+    			String content = messageList[4];
+    			Message m = new Message();
+    			m.setEmpId(empId);
+    			m.setChatId(chatId);
+    			m.setContent(content);
+    			m.setMsgType(2);
+    			int result = cService.insertMessage(m);
+    			int result2 = cService.deleteChat(c);
+    			ArrayList<String> chatNameList = cService.selectChatNameList(chatId);	// 채팅방 이름 설정할 arraylist
+    			Collections.sort(chatNameList);		// 오름차순 정렬
+    			String chatName = String.join(", ", chatNameList);	// 채팅방 이름 설정
+    			c.setChatName(chatName);
+    			int result3 = cService.updateDefaultChatName(c);	// 채팅방에 속해있는 인원들 중 채팅방 이름 설정을 따로 안했을 경우 바꿔줌
+    			ArrayList<WebSocketSession> list = chatList.get(messageList[3]);	// 채팅방에 있는 인원들 세션
+        		for(WebSocketSession sess : list) {
+        			sess.sendMessage(new TextMessage("system:" + content));
+        		}
+    			for(WebSocketSession sess : messengerList) {
+    				
+    				for(Message user : people) {
+    					if(((Employee)sess.getAttributes().get("loginUser")).getEmpId() == user.getEmpId())
+    						
+    						sess.sendMessage(new TextMessage("채팅방 갱신")); // 메세지 전달
+    				}
+    			}
+    		}
     	}else if(messageList[0].equals("system")) {	// 시스템 메세지가 전달 됐을 때
     		int chatId = Integer.parseInt(messageList[2]);	// 기본 chatId는 초대한 방 번호
     		int empId = ((Employee)session.getAttributes().get("loginUser")).getEmpId();	// 보낸사람 아이디 출력
@@ -127,7 +162,15 @@ public class EchoHandler extends TextWebSocketHandler{
 					sess.sendMessage(new TextMessage("system:" + messageList[4]));
 				}
 			}
-			
+			ArrayList<Message> people = cService.selectUsers(chatId);	// 방에 소속된 사람들 id 담을 ArrayList
+			for(WebSocketSession sess : messengerList) {
+				
+				for(Message user : people) {
+					if(((Employee)sess.getAttributes().get("loginUser")).getEmpId() == user.getEmpId())
+						
+						sess.sendMessage(new TextMessage("채팅방 갱신")); // 메세지 전달
+				}
+			}
     	}else if(messageList.length == 2 && messageList[0].equals("chatId")) {// 스플릿한 배열의 길이가 2(chatId:15)면서 0번 인덱스가 chatId일때
     		
     		ArrayList<WebSocketSession> list;

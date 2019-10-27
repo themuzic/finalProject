@@ -108,8 +108,21 @@ public class ChatController {
 			// 채팅방 생성하고 채팅방 번호랑 이름 ,타입 반환
 			c = insertChat(m);					// 채팅방 생성하고 내 채팅방 번호, 이름, 타입 조회
 		}else {		// 채팅방이 이미 있으면
-			// 채팅방 번호와 채팅방 이름 리턴
+			Message other = new Message();
+			other.setEmpId(otherId);
+			other.setChatId(empId);
+			other.setMsgType(1);
+			// 상대 채팅방 번호와 채팅방 이름 리턴
+			Chat otherChat = cService.selectChatId(other);
+			otherChat.setEmpId(otherId);
+			// 내 채팅방 번호와 채팅방 이름 리턴
 			c = cService.selectChatId(m);		// 내 채팅방 번호, 이름, 타입 조회
+			c.setEmpId(empId);
+			if(otherChat.getChatStatus().equals("N")) {
+				int result = cService.updateChatStatus(otherChat);
+			}else if(c.getChatStatus().equals("N")) {
+				int result = cService.updateChatStatus(c);
+			}
 		}
 		response.setContentType("application/json; charset=utf-8");
 		

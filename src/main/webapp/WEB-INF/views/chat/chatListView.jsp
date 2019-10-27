@@ -141,8 +141,11 @@ body *{
 	
 }
 .left-section .chatList .desc h5{
-	margin-top: 6px;
-	line-height: 5px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 75%;
+	float: left;
 }
 .left-section .chatList .desc .time{
 	position: absolute;
@@ -273,7 +276,7 @@ body *{
 				console.log(data);
 				var html = ""
 				var empId =	${loginUser.empId}
-				$.each(data, function(indel, c){
+				$.each(data, function(index, c){
 				
 				console.log("refresh실행");
 					html += "<li class='chatListForm'>" +
@@ -293,14 +296,13 @@ body *{
 										"'>";
 							}
 						});
-					}
-					if(c.chatType == 2 && c.count >= 2){
+					}else if(c.chatType == 2 && c.count >= 2){
 						$.each(c.profileList, function(index, profile){
 							if(index < 4){
 								if(profile.chatId == c.chatId){
 									html += "<img style='width:20px;' src='resources/images/" +
 											profile.profilePath + 
-											"'>";
+											"'> ";
 								}
 							}
 						});
@@ -312,7 +314,9 @@ body *{
 							c.modifyDate +
 							"</small>" +
 							"<h5 id=" + c.chatId + ">" + c.chatName + "</h5>" +
-							"<small class='content-area'>" + c.lastMsg + "</small>";
+							"<small style='float:left; color:gray;'>" + (c.count > 2 ? "(" + c.count + ")" : '') + "</small>" +
+							
+							"<small class='content-area'>" + (c.lastMsg == undefined ? '' : c.lastMsg) + "</small>";
 					if(c.unRead > 0){
 						html += "<div style='width:5%; text-align:center; float:right; border-radius:50%; background-color:red; color:white;'>" +
 								c.unRead +
@@ -383,14 +387,14 @@ body *{
 								<input type="hidden" name="chatId" value="${c.chatId }" >
 								<input type="hidden" name="chatType" value="${c.chatType }">
 								<div class="img">
-									<c:if test="${c.chatType == 1 || c.count <= 2}">
+									<c:if test="${c.chatType == 1}">
 										<c:forEach items="${c.profileList }" var="profile">
 											<c:if test="${profile.chatId == c.chatId && profile.empId ne loginUser.empId }">
 												<img src="resources/images/${profile.profilePath }">
 											</c:if>
 										</c:forEach>
 									</c:if>
-									<c:if test="${c.chatType == 2 && c.count >= 2 }">
+									<c:if test="${c.chatType == 2}">
 										<c:forEach items="${c.profileList }" var="profile" varStatus="status">
 											<c:if test="${status.index < 4}">
 												<c:if test="${profile.chatId == c.chatId}">
@@ -404,6 +408,9 @@ body *{
 								<div class="desc">
 									<small class="time">${c.modifyDate }</small>
 									<h5 id="${c.chatId}">${c.chatName }</h5>
+									<c:if test="${c.count > 2 }">
+										<small style="float:left; color:gray;">(${c.count })</small>
+									</c:if>
 									<small class="content-area">${c.lastMsg }</small>
 									<c:if test="${c.unRead > 0}">
 										<div style="width:5%; text-align:center; float:right; border-radius:50%; background-color:red; color:white;">${c.unRead }</div>
