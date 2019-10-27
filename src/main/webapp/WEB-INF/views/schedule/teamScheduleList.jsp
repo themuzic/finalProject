@@ -40,6 +40,16 @@
 		padding-right:50px;
 		font-size:14px;
 	}
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+		font-size: 0.8em;
+	}
+	.panel .panel-heading {
+	    position: relative;
+	}
+	
+
 </style>
 
 
@@ -59,11 +69,165 @@
 				<div class="container-fluid">
 					<div class="contentWrap">
 					
-					<!-- 이 아래부터 내용 작성 -->
+				<!-- 이 아래부터 내용 작성 -->
 			
-			<!-- 풀캘린더 불러오기 -->		
-			<div id="calender"></div>
-			<hr>
+				<!-- 일자 클릭시 메뉴오픈 -->
+		        <div id="contextMenu" class="dropdown clearfix">
+		            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
+		                style="display:block;position:static;margin-bottom:5px;">
+		                <li><a tabindex="-1" href="#">카테고리1</a></li>
+		                <li><a tabindex="-1" href="#">카테고리2</a></li>
+		                <li><a tabindex="-1" href="#">카테고리3</a></li>
+		                <li><a tabindex="-1" href="#">카테고리4</a></li>
+		                <li class="divider"></li>
+		                <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
+		            </ul>
+		        </div>
+			
+			
+			
+			
+				<!-- 풀캘린더 불러오기 -->	
+				<div class="wrap">
+					 <div id="loading"></div>
+					<div id="calender"></div>
+				</div>
+			
+			
+			
+				 <!-- 일정 추가 MODAL -->
+		        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
+		            <div class="modal-dialog" role="document">
+		                <div class="modal-content">
+		                    <div class="modal-header">
+		                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+		                                aria-hidden="true">&times;</span></button>
+		                        <h4 class="modal-title"></h4>
+		                    </div>
+		                    <div class="modal-body">
+		
+		                        <div class="row">
+		                            <div class="col-xs-12">
+		                                <label class="col-xs-4" for="edit-allDay">하루종일</label>
+		                                <input class='allDayNewEvent' id="edit-allDay" type="checkbox"></label>
+		                            </div>
+		                        </div>
+		
+		                        <div class="row">
+		                            <div class="col-xs-12">
+		                                <label class="col-xs-4" for="edit-title">일정명</label>
+		                                <input class="inputModal" type="text" name="edit-title" id="edit-title"
+		                                    required="required" />
+		                            </div>
+		                        </div>
+		                        <div class="row">
+		                            <div class="col-xs-12">
+		                                <label class="col-xs-4" for="edit-start">시작</label>
+		                                <input class="inputModal" type="text" name="edit-start" id="edit-start" />
+		                            </div>
+		                        </div>
+		                        <div class="row">
+		                            <div class="col-xs-12">
+		                                <label class="col-xs-4" for="edit-end">끝</label>
+		                                <input class="inputModal" type="text" name="edit-end" id="edit-end" />
+		                            </div>
+		                        </div>
+		                        <div class="row">
+		                            <div class="col-xs-12">
+		                                <label class="col-xs-4" for="edit-type">구분</label>
+		                                <select class="inputModal" type="text" name="edit-type" id="edit-type">
+		                                    <option value="카테고리1">카테고리1</option>
+		                                    <option value="카테고리2">카테고리2</option>
+		                                    <option value="카테고리3">카테고리3</option>
+		                                    <option value="카테고리4">카테고리4</option>
+		                                </select>
+		                            </div>
+		                        </div>
+		                        <div class="row">
+		                            <div class="col-xs-12">
+		                                <label class="col-xs-4" for="edit-color">색상</label>
+		                                <select class="inputModal" name="color" id="edit-color">
+		                                    <option value="#D25565" style="color:#D25565;">빨간색</option>
+		                                    <option value="#9775fa" style="color:#9775fa;">보라색</option>
+		                                    <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
+		                                    <option value="#74c0fc" style="color:#74c0fc;">파란색</option>
+		                                    <option value="#f06595" style="color:#f06595;">핑크색</option>
+		                                    <option value="#63e6be" style="color:#63e6be;">연두색</option>
+		                                    <option value="#a9e34b" style="color:#a9e34b;">초록색</option>
+		                                    <option value="#4d638c" style="color:#4d638c;">남색</option>
+		                                    <option value="#495057" style="color:#495057;">검정색</option>
+		                                </select>
+		                            </div>
+		                        </div>
+		                        <div class="row">
+		                            <div class="col-xs-12">
+		                                <label class="col-xs-4" for="edit-desc">설명</label>
+		                                <textarea rows="4" cols="50" class="inputModal" name="edit-desc"
+		                                    id="edit-desc"></textarea>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <div class="modal-footer modalBtnContainer-addEvent">
+		                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+		                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
+		                    </div>
+		                    <div class="modal-footer modalBtnContainer-modifyEvent">
+		                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
+		                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
+		                    </div>
+		                </div><!-- /.modal-content -->
+		            </div><!-- /.modal-dialog -->
+		        </div><!-- /.modal -->
+	        
+	        
+		        <br>
+		        <!-- 카테고리 별로 일정 확인하기 -->
+		        <div class="panel panel-default" style="-webkit-box-shadow: none;">
+	
+	            <div class="panel-heading" style="height:40px; padding-top:10px; padding-left:9px; background:#F9FAFB;">
+	                <h3 class="panel-title" style="font-size:16px; color:#505363;"><b>필터</b></h3>
+	            </div>
+	
+	            <div class="panel-body" style="padding-left:9px;">
+	
+	                <div class="col-lg-6" style="padding-left:0px;">
+	                    <label for="calendar_view"><b>구분별</b></label>
+<!-- 	                    <div class="input-group"> -->
+<!-- 	                        <select class="filter" id="type_filter" multiple="multiple"> -->
+<!-- 	                            <option value="카테고리1">카테고리1</option> -->
+<!-- 	                            <option value="카테고리2">카테고리2</option> -->
+<!-- 	                            <option value="카테고리3">카테고리3</option> -->
+<!-- 	                            <option value="카테고리4">카테고리4</option> -->
+<!-- 	                        </select> -->
+<!-- 	                    </div> -->
+	                </div>
+	
+	                <div class="col-lg-6">
+	                    <label for="calendar_view"><b>등록자별</b></label>
+	                    <div class="input-group" style="width:380px; box-shadow: none;">
+	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="전재광"
+	                                checked>전재광</label>
+	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="김상윤"
+	                                checked>김상윤</label>
+	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="설용환"
+	                                checked>설용환</label>
+	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="유현규"
+	                                checked>유현규</label>
+	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="원영주"
+	                                checked>원영주</label>
+	                </div>
+	             </div>
+	
+            </div>
+        </div>
+        <!-- /.filter panel -->
+		<hr>	
+			
+			
+			
+			
+			
 			
 			<div id="searchArea" align="right">
 				<form action="search.do">
@@ -93,9 +257,9 @@
 	       </script>
 	       
 	       <div align="left">
-				팀 일정
+				<b style="color: #505363">팀 일정</b>
 				<input type="radio" name="radio" value="team" style="margin-bottom:7px;">&nbsp;
-				전체 일정
+				<b style="color: #505363">전체 일정</b>
 				<input type="radio" name="radio" value="all" style="margin-bottom:7px;">
 			</div>			
 					
@@ -109,21 +273,18 @@
 			</colgroup>
 				<thead>
 					<tr>
-						<th><input type="checkbox" id="chkAll" class="chkBox" name="chkAll" value="스케줄번호"></th>
-						<th>작성자</th>
-						<th>제목</th>
-						<th>유형</th>
-						<th class="aa">작성일</th>
+						<th style="color: #676767;">번호</th>
+						<th style="color: #676767;">작성자</th>
+						<th style="color: #676767;">제목</th>
+						<th style="color: #676767;">유형</th>
+						<th class="aa" style="color: #676767;">작성일</th>
 					</tr>
 				</thead>
 				<tbody class="select_subject">
 					<tr>
-						<td>
-							<input type="checkbox" id="check" name="check" class="check chkBox" value="스케줄번호">
-							<input type="hidden" value="스케줄넘버">
-						</td>
-						<td class="sName">이름</td>
-						<td class="sTitle">제목</td>
+						<td class="sNo">1</td>
+						<td class="sName">김상윤</td>
+						<td class="sTitle">휴가올립니다</td>
 						<td class="sType">휴가
 <%-- 							<a href="${ mdetail }" style="color:gray;">${ m.mailTitle }</a> --%>
 						</td>
@@ -243,49 +404,11 @@
 	
 	<script>
 	
-// 	j(document).ready(function() {
-// 		setCalendar();
-// 	});
-
-// 	function setCalendar(){
-
-// 		var calendarEl = document.getElementById('calendar');
-
-// 		var calendar = new FullCalendar.Calendar(calendarEl, {
-// 			plugins: [ 'dayGrid', 'timeGrid', 'list', 'interaction' ],
-// 			header: {
-// 				left: 'prev,next today',
-// 				center: 'title',
-// 				right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-// 			},
-// 			defaultView: 'timeGridWeek',
-// 			locale: 'ko',
-// 			navLinks: true, // can click day/week names to navigate views
-// 			editable: true,
-// 			allDaySlot: false,
-// 			eventLimit: true, // allow "more" link when too many events
-// 			minTime: '10:00:00',
-// 			maxTime: '24:00:00',
-// 			contentHeight: 'auto',
-// 			eventSources: [{
-// 				events: function(info, successCallback, failureCallback) {
-// 					j.getJSON( "selectEventList.json", function( data ) {						
-// 						successCallback(data);
-// 					});
-// 				}
-// 			}]
-// 		});
-				
-// 		calendar.render();
-
-// 	}
-	
-
 	j(function(){
-		calendarEvent();
+		fullCalendar();
 	});
 	
-	function calendarEvent(eventData){
+	function fullCalendar(){
 	 
 		j("#calender").html("");
 			 
@@ -294,7 +417,6 @@
 			 var m = date.getMonth();
 			 var y = date.getFullYear();
 			 
-			 
 			 var calendar = j('#calender').fullCalendar({
 			  
 			   header: {
@@ -302,35 +424,92 @@
 				   center: "title",
 				   right: "today prev,next"
 			   },
-			   
-			   defaultView: 'month',	// 처음 화면에 보여질 영역(월, 주, 일)
-			   locale: 'ko',			// 언어
-			   navLinks: true,			// 월/주별 달력에서 일자를 클릭하면 일별 보기로 전환하는 기능을 사용하는지에 대한 여부
-			   editable: true,			// 실행된 달력에서 일정(event)을 표시한 바(bar)를 마우스로 이동할 수 있게 하는 것
-			   allDaySlot: false,		// 캘린더 상단에 "하루 종일"슬롯이 표시되는지 여부
-			   eventLimit: true,		// 하루 기본일정 3개, 그 이상시, more로
+			   defaultDate: '2019-10-27',   // 기본설정 날짜
+			   defaultView: 'month',		// 처음 화면에 보여질 영역(월, 주, 일)
+			   locale: 'ko',				// 언어
+			   navLinks: true,				// 월/주별 달력에서 일자를 클릭하면 일별 보기로 전환하는 기능을 사용하는지에 대한 여부
+			   editable: true,				// 실행된 달력에서 일정(event)을 표시한 바(bar)를 마우스로 이동할 수 있게 하는 것
+			   allDaySlot: false,			// 캘린더 상단에 "하루 종일"슬롯이 표시되는지 여부
+			   eventLimit: true,			// 하루 기본일정 3개, 그 이상시, more로 처리
 			   minTime: '09:00:00',
 			   maxTime: '24:00:00',
-			   contentHeight: 'auto',
+			   contentHeight: 450,
+			   theme: true, 				// css 사용할 수 있게
 			   
 			   titleFormat: {
 				   month: "YYYY년 MMMM",
 				   week: "YYYY년 MMM DD일 (ddd) ",
 				   day: "YYYY년 MMM DD일 dddd"
 			   },
-			  
-			  events : eventData,
-			 /* 배열의 원소는 Json으로 지정한다.
-			   하나의 일정을 Json으로 지정하는 것이고
-			   이것은 일정명(작업명-title), 시작일자(start), 종료일자(end),
-			   데이터 식별(id)로 구성되어 있다.
 			   
-			   데이터 식별(id) 속성은 생략해도 되지만 향후 구현에서 일정을 클릭하면
-			   상세한 작업 정보를 팝업으로 제공하기 위해서 사용할 것이다. */
-
-			   timeFormat : "HH:mm",
-			 });
-		};
+			   selectable: true,
+			   selectHelper: true,
+			   select: function(start, end) {
+			   		var title = prompt("뭐추가할라고,,,");
+					var eventData;
+					if (title) {
+						eventData = {
+							title: title,
+							start: start,
+							end: end
+						};
+						console.log(start);
+						j('#calendar').fullCalendar('renderEvent', eventData, true); 
+					}
+					j('#calendar').fullCalendar('unselect');
+			   },
+			   
+			   events: [
+				{
+					title: '회사 쉬는날',
+					start: '2019-10-28'
+				},
+				{
+					title: '휴가',
+					start: '2019-10-29',
+					end: '2019-11-01'
+				},
+				{
+					id: 999,
+					title: '미팅 시간',
+					start: '2019-11-04T16:00'
+				},
+				{
+					title: '1팀 회의',
+					start: '2019-11-11',
+					end: '2019-11-14'
+				},
+				{
+					title: '차량 대여',
+					start: '2019-11-13T09:30:00',
+					end: '2019-11-13T11:30:00'
+				},
+				{
+					title: '점심시간',
+					start: '2019-10-29T12:00:00'
+				},
+				{
+					title: '1팀 회의',
+					start: '2019-10-30T14:30:00'
+				},
+				{
+					title: '클라이언트 연락',
+					start: '2019-10-31T17:30:00'
+				},
+				{
+					title: '학원 끝나는 날',
+					start: '2019-11-05T07:00:00',
+					color : '#FF0000',
+		            textColor : '#FFFF00'
+				},
+				{
+					title: 'Click for Google',
+					url: 'http://google.com/',
+					start: '2019-10-28'
+				}
+			]
+		});
+	};
 		
 </script>
 

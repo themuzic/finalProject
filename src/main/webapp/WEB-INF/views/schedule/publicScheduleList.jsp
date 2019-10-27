@@ -41,16 +41,10 @@
 		font-size:14px;
 	}
 
- 	body { 
- 		margin: 40px 10px; */
- 		padding: 0; */
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif; */
- 		font-size: 14px; */
-	} 
-
 	#calendar {
 		max-width: 900px;
 		margin: 0 auto;
+		font-size: 0.8em;
 	}
 
 </style>
@@ -144,10 +138,11 @@
 			   navLinks: true,				// 월/주별 달력에서 일자를 클릭하면 일별 보기로 전환하는 기능을 사용하는지에 대한 여부
 			   editable: true,				// 실행된 달력에서 일정(event)을 표시한 바(bar)를 마우스로 이동할 수 있게 하는 것
 			   allDaySlot: false,			// 캘린더 상단에 "하루 종일"슬롯이 표시되는지 여부
-			   eventLimit: true,			// 하루 기본일정 3개, 그 이상시, more로
+			   eventLimit: true,			// 하루 기본일정 3개, 그 이상시, more로 처리
 			   minTime: '09:00:00',
 			   maxTime: '24:00:00',
-			   contentHeight: 'auto',
+			   contentHeight: 450,
+			   theme: true, 				// css 사용할 수 있게
 			   
 			   titleFormat: {
 				   month: "YYYY년 MMMM",
@@ -158,7 +153,7 @@
 			   selectable: true,
 			   selectHelper: true,
 			   select: function(start, end) {
-			   		var title = prompt('Event Title:');
+			   		var title = prompt("뭐추가할라고,,,");
 					var eventData;
 					if (title) {
 						eventData = {
@@ -166,63 +161,54 @@
 							start: start,
 							end: end
 						};
-						j('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+						console.log(start);
+						j('#calendar').fullCalendar('renderEvent', eventData, true); 
 					}
 					j('#calendar').fullCalendar('unselect');
-				},
+			   },
 			   
 			   events: [
-			    {
-			    	title: '휴가', // 올데이 이벤트(스타트 날짜만 지정해주면)
-					start: '2019-10-28',
-				},
 				{
-					title: '휴가',
+					title: '회사 쉬는날',
 					start: '2019-10-28'
 				},
 				{
-					title: 'Long Event',
+					title: '휴가',
 					start: '2019-10-29',
 					end: '2019-11-01'
 				},
 				{
 					id: 999,
-					title: 'Repeating Event',
-					start: '2019-11-04T16:00:00'
+					title: '미팅 시간',
+					start: '2019-11-04T16:00'
 				},
 				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2019-11-07T13:00:00'
-				},
-				{
-					title: 'Conference',
+					title: '1팀 회의',
 					start: '2019-11-11',
 					end: '2019-11-14'
 				},
 				{
-					title: 'Meeting',
+					title: '차량 대여',
 					start: '2019-11-13T09:30:00',
 					end: '2019-11-13T11:30:00'
 				},
 				{
-					title: 'Lunch',
+					title: '점심시간',
 					start: '2019-10-29T12:00:00'
 				},
 				{
-					title: 'Meeting',
+					title: '1팀 회의',
 					start: '2019-10-30T14:30:00'
 				},
 				{
-					title: 'Happy Hour',
+					title: '클라이언트 연락',
 					start: '2019-10-31T17:30:00'
 				},
 				{
-					title: 'Birthday Party',
+					title: '학원 끝나는 날',
 					start: '2019-11-05T07:00:00',
 					color : '#FF0000',
 		            textColor : '#FFFF00'
-
 				},
 				{
 					title: 'Click for Google',
@@ -232,6 +218,7 @@
 			]
 		});
 	};
+
 		
 	</script>
 

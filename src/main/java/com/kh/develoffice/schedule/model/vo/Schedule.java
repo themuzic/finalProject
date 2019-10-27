@@ -16,13 +16,24 @@ import lombok.ToString;
 public class Schedule {
 	
 	private int sNo;
-	private String shedule;
+	private int empId;
+	private String sTitle;
+	private String sContent;
+	private int sType;
 	private Date startDate;
 	private Date endDate;
-	private String allDay;
+	private Date allDay;
+	private String fontColor;
 	private String backColor;
+	private String sUrl;
 	private Date createDate;
 	private Date modifyDate;
-	private String scheType;
+	private String status;
+	
+	
+	
+	
+	
+	
 
 }
