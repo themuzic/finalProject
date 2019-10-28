@@ -24,6 +24,7 @@
 		<result property="profilePath" column="profile_path"/>
 		<result property="vacation" column="vacation"/>
 		<result property="workStatus" column="work_status"/>
+		<result property="statusMsg" column="status_msg"/>
 	</resultMap>
 	
 	

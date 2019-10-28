@@ -90,7 +90,7 @@ public class DocumentController {
 		
 		ArrayList<Approval> apList = dService.selectMyApproval(emp.getEmpId());
 		ArrayList<Reference> rfList = dService.selectMyReference(emp.getEmpId());
-			
+		
 		for(Document d : docuList){
 			
 			String[] sArr = d.getDocuDate().split(" ");
@@ -122,7 +122,6 @@ public class DocumentController {
 						d.setStatus("진행중");
 					}
 				}
-				
 			} else {	// 내가 올린 기안이 아니면
 				ArrayList<Approval> apArr = dService.approvalCheck(d.getDocuNum());
 				for(int i=0; i<apArr.size(); i++) {
@@ -148,34 +147,39 @@ public class DocumentController {
 					}
 				}
 			}
-			//System.out.println(d);
 		}
-		
+		/* 네비바 메뉴 선택에 따라 분류 */
 		if(condition.equals("진행중")) {
 			for(int i = 0; i < docuList.size(); i++) {
 				if(!(docuList.get(i).getStatus().equals("진행중")) && !(docuList.get(i).getStatus().equals("결재 대기"))) {
 					docuList.remove(i);
+					i--;
 				}
 			}
 		}else if(condition.equals("완료")) {
 			for(int i = 0; i < docuList.size(); i++) {
 				if(!(docuList.get(i).getStatus().equals(condition))) {
 					docuList.remove(i);
+					i--;
 				}
 			}
 		}else if(condition.equals("참조")) {
 			for(int i = 0; i < docuList.size(); i++) {
 				if(!(docuList.get(i).getStatus().equals(condition))) {
 					docuList.remove(i);
+					i--;
 				}
 			}
 		}else if(condition.equals("내가")) {
 			for(int i = 0; i < docuList.size(); i++) {
 				if(!(docuList.get(i).getDv().equals("기안"))) {
 					docuList.remove(i);
+					i--;
 				}
 			}
 		}
+		System.out.println(docuList);
+		System.out.println(condition);
 		mv.addObject("condition", condition);
 		mv.addObject("docuList", docuList).setViewName("document/dcTable");
 		return mv;
@@ -209,10 +213,6 @@ public class DocumentController {
 			
 			apArr.add(jObj);
 		}
-		
-		//System.out.println(document);
-		//System.out.println(apList);
-		//System.out.println(rfList);
 		
 		mv.addObject("document",document);
 		mv.addObject("d",d);

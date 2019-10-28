@@ -24,6 +24,16 @@
 		height: 30px;
 		font-size: 12px;
 	}
+	#documentTable th{
+		text-align: center;
+		padding-left: 8px;
+	}
+	#docuWidgetTbody td{
+		background:white;
+	}
+	#docuWidgetTbody tr:hover td{
+		background:#dbecff;
+	}
 </style>
 
 </head>
@@ -42,7 +52,7 @@
 				<div class="container-fluid">
 				
 				<!--  -->
-				<!-- 근태관련 -->
+				<!-- 근태정보 위젯 -->
 					<div class="panel" id="profileWidget" style="position:absolute;min-width:500px;">
 						<input type="hidden" class="widgetType" name="widgetType" value="1">
 						<input type="hidden" class="left" name="left" value="">
@@ -94,7 +104,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- END OVERVIEW -->
+					<!------------------------------------------------------------------------------>
 				
 				
 				
@@ -103,67 +113,91 @@
 				
 					
 					
-							<!-- RECENT PURCHASES -->
-							<div class="panel" style="position:absolute;min-width:500px;">
+							<!-- 전자결재 위젯 -->
+							<div class="panel" style="position:absolute;min-width:600px;">
 								<input type="hidden" class="widgetType" name="widgetType" value="2">
 								<input type="hidden" class="left" name="left" value="">
 								<input type="hidden" class="top" name="top" value="">
 								<input type="hidden" class="fold" name="fold" value="N">
 								<input type="hidden" class="status" name="status" value="Y">
 								<div class="panel-heading">
-									<h3 class="panel-title">Recent Purchases</h3>
+									<h3 class="panel-title">전자결재 > 최근 문서</h3>
 									<div class="right">
 										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
 										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
 									</div>
 								</div>
 								<div class="panel-body no-padding">
-									<table class="table table-striped">
+									<table class="table table-striped" id="documentTable">
 										<thead>
 											<tr style="text-align:center;">
 												<th>문서번호</th>
 												<th>제목</th>
-												<th>Amount</th>
-												<th>Date &amp; Time</th>
-												<th>Status</th>
+												<th>기안자</th>
+												<th>구분</th>
+												<th>상태</th>
 											</tr>
 										</thead>
-										<tbody>
-											<tr>
-												<td><a href="#">763648</a></td>
-												<td>Steve</td>
-												<td>$122</td>
-												<td>Oct 21, 2016</td>
-												<td><span class="label label-success">COMPLETED</span></td>
+										<tbody id="docuWidgetTbody">
+											<c:forEach var="d" items="${docuList}">
+												<tr class="docuTR">
+												<c:if test="${d.docuType eq 'AP'}">
+								            		<c:if test="${d.docuNum lt '10' }">
+								            			<td>지결-${d.docuCode}-000${d.docuNum}</td>
+								            		</c:if>
+								            		<c:if test="${d.docuNum ge '10' }">
+								            			<td>지결-${d.docuCode}-00${d.docuNum}</td>
+								            		</c:if>
+								            	</c:if>
+								            	<c:if test="${d.docuType eq 'CN'}">
+								            		<c:if test="${d.docuNum lt '10' }">
+								            			<td>회람-${d.docuCode}-000${d.docuNum}</td>
+								            		</c:if>
+								            		<c:if test="${d.docuNum ge '10' }">
+								            			<td>회람-${d.docuCode}-00${d.docuNum}</td>
+								            		</c:if>
+								            	</c:if>
+								            	<c:if test="${d.docuType eq 'CF'}">
+								            		<c:if test="${d.docuNum lt '10' }">
+								            			<td>품의-${d.docuCode}-000${d.docuNum}</td>
+								            		</c:if>
+								            		<c:if test="${d.docuNum ge '10' }">
+								            			<td>품의-${d.docuCode}-00${d.docuNum}</td>
+								            		</c:if>
+								            	</c:if>
+								            	<c:if test="${d.docuType eq 'VA'}">
+								            		<c:if test="${d.docuNum lt '10' }">
+								            			<td>휴가-${d.docuCode}-000${d.docuNum}</td>
+								            		</c:if>
+								            		<c:if test="${d.docuNum ge '10' }">
+								            			<td>휴가-${d.docuCode}-00${d.docuNum}</td>
+								            		</c:if>
+								            	</c:if>
+								            	<c:if test="${d.docuType eq 'RT'}">
+								            		<c:if test="${d.docuNum lt '10' }">
+								            			<td>퇴사-${d.docuCode}-000${d.docuNum}</td>
+								            		</c:if>
+								            		<c:if test="${d.docuNum ge '10' }">
+								            			<td>퇴사-${d.docuCode}-00${d.docuNum}</td>
+								            		</c:if>
+								            	</c:if>
+								            	<c:url value="documentDetailView.do" var="documentDetailView">
+													<c:param name="docuNum" value="${d.docuNum}"/>
+												</c:url>
+												<td><a href="${documentDetailView}">${d.title}</a></td>
+												<td>${d.empName}</td>
+												<td>${d.dv}</td>
+												<c:choose>
+								            		<c:when test="${d.status eq '결재 대기' }">
+										            	<td style="color:red;">${d.status}</td>	
+								            		</c:when>
+								            		<c:otherwise>
+								            			<td>${d.status}</td>
+								            		</c:otherwise>
+								            	</c:choose>
 											</tr>
-											<tr>
-												<td><a href="#">763649</a></td>
-												<td>Amber</td>
-												<td>$62</td>
-												<td>Oct 21, 2016</td>
-												<td><span class="label label-warning">PENDING</span></td>
-											</tr>
-											<tr>
-												<td><a href="#">763650</a></td>
-												<td>Michael</td>
-												<td>$34</td>
-												<td>Oct 18, 2016</td>
-												<td><span class="label label-danger">FAILED</span></td>
-											</tr>
-											<tr>
-												<td><a href="#">763651</a></td>
-												<td>Roger</td>
-												<td>$186</td>
-												<td>Oct 17, 2016</td>
-												<td><span class="label label-success">SUCCESS</span></td>
-											</tr>
-											<tr>
-												<td><a href="#">763652</a></td>
-												<td>Smith</td>
-												<td>$362</td>
-												<td>Oct 16, 2016</td>
-												<td><span class="label label-success">SUCCESS</span></td>
-											</tr>
+											</c:forEach>
+											
 										</tbody>
 									</table>
 								</div>
@@ -174,7 +208,7 @@
 									</div>
 								</div>
 							</div>
-							<!-- END RECENT PURCHASES -->
+							<!------------------------------------------------------------------------------>
 							
 							
 							
@@ -396,7 +430,7 @@
 	/* ----------------------------------------------- */
 	$(function() {
 		
-		
+		//console.log('${docuList}');
 		
 		
 		/*-------------------------------------------------------*/
