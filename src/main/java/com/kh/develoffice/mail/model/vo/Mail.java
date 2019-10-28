@@ -27,8 +27,7 @@ public class Mail {
 	private String mailContent;
 	private String originalFileName;
 	private String renameFileName;
-	private Date mailDate;
-	private String formatDate;
+	private String mailDate;
 	private int mailType;
 	private int mailImportant;
 	private String status;

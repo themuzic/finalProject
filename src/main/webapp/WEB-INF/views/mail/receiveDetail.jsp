@@ -112,7 +112,7 @@
 			                    </span>
 			                </h3>
 			                <br>
-			                <p class="date">${ m.formatDate } </p>
+			                <p class="date">${ m.mailDate } </p>
 			                <br>
 			                <div class="top_link">
 			                    <a href="javascript:void(0)" id="spMemoDisplayOrigin" onclick="" class="memo"></a>

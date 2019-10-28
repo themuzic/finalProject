@@ -117,9 +117,9 @@
 				<col style="width:2%;">
 				<col style="width:15%;">
 				<col style="width:15%;">
-				<col style="width:47%;">
+				<col style="width:45%;">
 				<col style="width:8%;">
-				<col style="width:13%;">
+				<col style="width:17%;">
 			</colgroup>
 				<thead>
 					<tr>

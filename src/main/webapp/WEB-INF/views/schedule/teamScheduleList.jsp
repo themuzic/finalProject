@@ -21,9 +21,6 @@
 <link rel="stylesheet" href="resources/calendar/main.css">
 <link rel="stylesheet" href="resources/calendar/fullcalendar.css">
 <link rel="stylesheet" href="resources/calendar/fullcalendar.min.css">
-<!-- <script src="resources/calendar/addEvent.js"></script>   -->
-<!-- <script src="resources/calendar/editEvent.js"></script>   -->
-<!-- <script src="resources/calendar/etcSetting.js"></script>   -->
 <script src="resources/calendar/moment.min.js"></script>  
 <script src="resources/calendar/fullcalendar.min.js"></script>
 <script src="resources/calendar/ko.js"></script>
@@ -48,6 +45,22 @@
 	.panel .panel-heading {
 	    position: relative;
 	}
+	select.filter {
+	    width: 500px !important;
+	}
+	.select2-hidden-accessible {
+	    border: 0 !important;
+	    clip: rect(0 0 0 0) !important;
+	    -webkit-clip-path: inset(50%) !important;
+	    clip-path: inset(50%) !important;
+	    height: 1px !important;
+	    overflow: hidden !important;
+	    padding: 0 !important;
+	    position: absolute !important;
+	    width: 1px !important;
+	    white-space: nowrap !important;
+	}
+	select
 	
 
 </style>
@@ -90,7 +103,7 @@
 				<!-- 풀캘린더 불러오기 -->	
 				<div class="wrap">
 					 <div id="loading"></div>
-					<div id="calender"></div>
+					<div id="calendar"></div>
 				</div>
 			
 			
@@ -405,36 +418,33 @@
 	<script>
 	
 	j(function(){
-		fullCalendar();
+		calendarStart();
 	});
 	
-	function fullCalendar(){
+	function calendarStart(){
 	 
-		j("#calender").html("");
+		j("#calendar").html("");
 			 
 			 var date = new Date();
 			 var d = date.getDate();
 			 var m = date.getMonth();
 			 var y = date.getFullYear();
 			 
-			 var calendar = j('#calender').fullCalendar({
+			 var calendar = j('#calendar').fullCalendar({
 			  
 			   header: {
 				   left: "month,basicWeek,basicDay",
 				   center: "title",
 				   right: "today prev,next"
 			   },
-			   defaultDate: '2019-10-27',   // 기본설정 날짜
+			   
 			   defaultView: 'month',		// 처음 화면에 보여질 영역(월, 주, 일)
 			   locale: 'ko',				// 언어
 			   navLinks: true,				// 월/주별 달력에서 일자를 클릭하면 일별 보기로 전환하는 기능을 사용하는지에 대한 여부
-			   editable: true,				// 실행된 달력에서 일정(event)을 표시한 바(bar)를 마우스로 이동할 수 있게 하는 것
 			   allDaySlot: false,			// 캘린더 상단에 "하루 종일"슬롯이 표시되는지 여부
-			   eventLimit: true,			// 하루 기본일정 3개, 그 이상시, more로 처리
-			   minTime: '09:00:00',
-			   maxTime: '24:00:00',
 			   contentHeight: 450,
 			   theme: true, 				// css 사용할 수 있게
+			   allDay: true,
 			   
 			   titleFormat: {
 				   month: "YYYY년 MMMM",
@@ -445,7 +455,7 @@
 			   selectable: true,
 			   selectHelper: true,
 			   select: function(start, end) {
-			   		var title = prompt("뭐추가할라고,,,");
+					var title = prompt('Event Title:');
 					var eventData;
 					if (title) {
 						eventData = {
@@ -453,13 +463,14 @@
 							start: start,
 							end: end
 						};
-						console.log(start);
-						j('#calendar').fullCalendar('renderEvent', eventData, true); 
+						j('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
 					}
 					j('#calendar').fullCalendar('unselect');
-			   },
-			   
-			   events: [
+				},
+				editable: true,		// 실행된 달력에서 일정(event)을 표시한 바(bar)를 마우스로 이동할 수 있게 하는 것
+				eventLimit: true, 	// 하루 기본일정 3개, 그 이상시, more로 처리
+				
+				events: [
 				{
 					title: '회사 쉬는날',
 					start: '2019-10-28'
@@ -502,11 +513,7 @@
 					color : '#FF0000',
 		            textColor : '#FFFF00'
 				},
-				{
-					title: 'Click for Google',
-					url: 'http://google.com/',
-					start: '2019-10-28'
-				}
+				
 			]
 		});
 	};

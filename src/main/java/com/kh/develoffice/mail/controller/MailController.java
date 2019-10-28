@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.mail.Message;
 import javax.mail.internet.MimeMessage;
@@ -32,8 +33,6 @@ import com.kh.develoffice.mail.model.vo.PageInfo;
 
 @Controller
 public class MailController {
-	
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd (E) hh:mm");
 	
 	@Autowired
 	private MailService mService;
@@ -463,7 +462,8 @@ public class MailController {
 		Mail m = mService.receiveDetail(mail);
 		
 		if(m != null) {
-			m.setFormatDate(sdf.format(m.getMailDate()));
+			m.getMailDate();
+//			System.out.println(m.getMailDate());
 			mv.addObject("m", m).setViewName("mail/receiveDetail");
 		}else {
 			mv.addObject("msg", "메일 상세조회 실패").setViewName("common/errorPage");
@@ -481,7 +481,7 @@ public class MailController {
 		Mail m = mService.receiveDetail(mail);
 		
 		if(m != null) {
-			m.setFormatDate(sdf.format(m.getMailDate()));
+			m.getMailDate();
 			mv.addObject("m", m).setViewName("mail/deleteDetail");
 		}else {
 			mv.addObject("msg", "메일 상세조회 실패").setViewName("common/errorpage");
@@ -606,7 +606,7 @@ public class MailController {
 		Mail m = mService.receiveDetail(mail);
 		
 		if(m != null) {
-			m.setFormatDate(sdf.format(m.getMailDate()));
+			m.getMailDate();
 			mv.addObject("m", m).setViewName("mail/transfer");
 
 		}else {
