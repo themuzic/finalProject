@@ -73,6 +73,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int updateWorkStatus2(WorkTime work) {
 		return eDao.updateWorkStatus2(work);
 	}
+
+	@Override
+	public int updateMypage(Employee e) {
+		return eDao.updateMyPage(e);
+	}
 	
 	
 

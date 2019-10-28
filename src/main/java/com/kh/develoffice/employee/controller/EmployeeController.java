@@ -1,10 +1,13 @@
 package com.kh.develoffice.employee.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
@@ -14,9 +17,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.develoffice.document.model.service.DocumentService;
@@ -479,7 +484,70 @@ public class EmployeeController {
 	}
 	
 	
+	/**
+	 * @return
+	 * 마이 페이지로 이동
+	 */
+	@RequestMapping("myProfile.do")
+	public String myProfilePage() {
+		return "common/myPage";
+	}
 	
+	@ResponseBody
+	@RequestMapping("myPageUpdate.do")
+	public String updateMyPage(Employee e, SessionStatus status, HttpServletRequest request, HttpSession session, @RequestParam(name="profile", required=false) MultipartFile uploadFile) {
+		int empId = ((Employee)session.getAttribute("loginUser")).getEmpId();
+		String filename = "";
+		e.setEmpId(empId);
+		if(uploadFile!=null && !uploadFile.getOriginalFilename().equals("")) {	// 첨부파일이 넘어온 경우
+			filename = saveFile(uploadFile, request);
+			e.setProfilePath(filename);
+		}
+		System.out.println(e);
+		int result = eService.updateMypage(e);
+		
+		if(result > 0) {
+			Employee loginUser = eService.selectEmp(empId);
+			System.out.println(loginUser);
+			((Employee)session.getAttribute("loginUser")).setProfilePath(loginUser.getProfilePath());
+			return loginUser.getProfilePath();
+		}else {
+			return "fail";
+		}
+	}
+	
+	public String saveFile(MultipartFile file, HttpServletRequest request) {
+		
+		// 파일이 저장될 경로 설정
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\upload\\profile";
+		
+		File folder = new File(savePath);	// 저장될 폴더
+		
+		if(!folder.exists()) {	// 폴더가 없다면
+			folder.mkdirs();	// 폴더를 생성해라
+		}
+		
+		String originalFileName = file.getOriginalFilename();	// 원본명(확장자)
+		
+		// 파일명 수정작업 --> 년월일시분초.확장자
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		
+		String renameFileName = sdf.format(new Date(System.currentTimeMillis())) // 년월일시분초
+							  + originalFileName.substring(originalFileName.lastIndexOf("."));
+		
+		// 실제 저장될 경로 savePath + 저장하고자하는 파일명 renameFileName
+		String renamePath = savePath + "\\" + renameFileName;	
+		
+		try {
+			file.transferTo(new File(renamePath));
+			
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		return renameFileName;	// 수정명 반환
+	}	
 	
 	
 	

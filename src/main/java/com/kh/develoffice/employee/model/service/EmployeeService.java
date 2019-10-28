@@ -41,4 +41,7 @@ public interface EmployeeService {
 	// 직원 한명 호출
 	Employee selectEmp(int empId);
 	
+	// 프로필 수정
+	int updateMypage(Employee e);
+	
 }

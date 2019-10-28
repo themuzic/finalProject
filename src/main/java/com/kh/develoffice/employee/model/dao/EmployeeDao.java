@@ -67,4 +67,9 @@ public class EmployeeDao {
 	public Employee selectEmp(int empId) {
 		return sqlSession.selectOne("employeeMapper.selectEmp", empId);
 	}
+
+
+	public int updateMyPage(Employee e) {
+		return sqlSession.update("employeeMapper.updateMyPage", e);
+	}
 }

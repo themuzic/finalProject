@@ -291,7 +291,7 @@ body *{
 					if(c.chatType == 1 || c.count <= 2){
 						$.each(c.profileList, function(index, profile){
 							if(profile.chatId == c.chatId && profile.empId != empId){
-								html += "<img src='resources/images/" +
+								html += "<img src='resources/upload/profile/" +
 										profile.profilePath + 
 										"'>";
 							}
@@ -300,7 +300,7 @@ body *{
 						$.each(c.profileList, function(index, profile){
 							if(index < 4){
 								if(profile.chatId == c.chatId){
-									html += "<img style='width:20px;' src='resources/images/" +
+									html += "<img style='width:20px;' src='resources/upload/profile/" +
 											profile.profilePath + 
 											"'> ";
 								}
@@ -390,7 +390,7 @@ body *{
 									<c:if test="${c.chatType == 1}">
 										<c:forEach items="${c.profileList }" var="profile">
 											<c:if test="${profile.chatId == c.chatId && profile.empId ne loginUser.empId }">
-												<img src="resources/images/${profile.profilePath }">
+												<img src="resources/upload/profile/${profile.profilePath }">
 											</c:if>
 										</c:forEach>
 									</c:if>
@@ -398,7 +398,7 @@ body *{
 										<c:forEach items="${c.profileList }" var="profile" varStatus="status">
 											<c:if test="${status.index < 4}">
 												<c:if test="${profile.chatId == c.chatId}">
-													<img style="width:20px;" src="resources/images/${profile.profilePath }">
+													<img style="width:20px;" src="resources/upload/profile/${profile.profilePath }">
 												</c:if>
 											</c:if>
 										</c:forEach>

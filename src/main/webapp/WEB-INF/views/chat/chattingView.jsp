@@ -517,7 +517,7 @@ body{
 						    value.empId +
 						    "'>" +
 						    "<div class='img'>" + 
-						    "<img src='resources/images/" + 
+						    "<img src='resources/upload/profile/" + 
 						    value.profilePath + 
 						    "'>" +
 						    "</div>" + 
@@ -607,7 +607,7 @@ body{
         if(data[0] == "나"){
         	html = "<li class='msg-right'>" +
 			   "<div class='msg-right-sub'>" +
-			   "<img src='resources/images/" +
+			   "<img src='resources/upload/profile/" +
 			   profilePath + 
 			   "'>" +
 			   "<div class='msg-desc'>" +
@@ -629,7 +629,7 @@ body{
         }else{
         	html = "<li class='msg-left'>" +
 			   "<div class='msg-left-sub'>" +
-			   "<img src='resources/images/" +
+			   "<img src='resources/upload/profile/" +
 			   data[1] +
 			   "'>" +
 			   "<div style='margin-left:70px; font-size:12px'>" +
@@ -718,7 +718,7 @@ body{
 							<c:if test="${msg.empId == loginUser.empId  && msg.msgType == 1}">
 								<li class="msg-right">
 									<div class="msg-left-sub">
-										<img src="resources/images/${msg.profilePath}">
+										<img src="resources/upload/profile/${msg.profilePath}">
 										<div class="msg-desc">
 											${msg.content}
 										</div>
@@ -729,7 +729,7 @@ body{
 							<c:if test="${msg.empId ne loginUser.empId && msg.msgType == 1}">
 								<li class="msg-left">
 									<div class="msg-left-sub">
-										<img src="resources/images/${msg.profilePath}">
+										<img src="resources/upload/profile/${msg.profilePath}">
 										<div style="margin-left:70px; font-size:12px">
 											${msg.empName} ${msg.jobName }
 										</div>

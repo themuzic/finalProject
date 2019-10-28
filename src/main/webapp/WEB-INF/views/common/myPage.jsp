@@ -108,7 +108,7 @@ td{
 							<br clear=both>
 							<br clear=both>
 							<br clear=both>
-							<div class="main-section"">
+							<div class="main-section">
 								<table>
 									<tr>
 										<td>ID</td>
@@ -162,13 +162,43 @@ td{
 	<!-- script 작성 -->
 	<script>
 		$(function(){
+			$("#imgInputArea").hide();
 			$("#update").on('click', function(){
 				if($("#update").prop("checked")){
-					console.log('체크됨');
 					$(".userAdvice").removeAttr("readonly");
+					$("#profileImgArea").css("cursor", "pointer");
 				}else{
-					console.log('체크해제됨');
+					var formData = new FormData();
+					var statusMsg = $("#statusMsg").val();
+					var phone = $("#phone").val();
+					var address = $("#address").val();
+					formData.append('statusMsg', statusMsg);
+					formData.append('phone', phone);
+					formData.append('address', address);
+					if($("input[name=profile]").length > 0){
+						formData.append('profile',$("input[name=profile]")[0].files[0]);
+					}
+					$.ajax({
+						url:"myPageUpdate.do",
+						type:"POST",
+						processData:false,
+						contentType:false,
+						data:formData,
+						success:function(data){
+							console.log("ajax실행 후 세션 : ${loginUser}");
+							if(data == 'fail'){
+								alertify.alert('develolffice', '수정 실패');
+							}else{
+								$(".img-circle").attr("src", "resources/upload/profile/" + data);
+								alertify.alert('develolffice', '수정 되었습니다.');
+							}
+						},
+						error:function(){
+							
+						}
+					});
 					$(".userAdvice").attr("readonly", true);
+					
 				}
 			});
 			var today = new Date();
@@ -180,12 +210,10 @@ td{
 			$("#workDay").html(workDay);
 			
 			
-			$(function(){
-				$("#imgInputArea").hide();
-				$(document).on("click", "#profileImgArea", function(e){
-					console.log(e.target.className + "너는 누구야?");
+			$(document).on("click", "#profileImgArea", function(e){
+				if($("#update").prop("checked")){
 					$("#"+e.target.className).click();
-				});
+				}
 			});
 			
 			

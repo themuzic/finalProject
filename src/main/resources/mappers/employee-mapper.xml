@@ -108,5 +108,13 @@
 		select * from emp where emp_id=#{empId} and emp_status='Y'
 	</select>
 	
+	<update id="updateMyPage" parameterType="Employee">
+		update employee
+		set phone=#{phone}, status_msg=#{statusMsg}, address=#{address}
+		<if test="profilePath != null">
+			, profile_path=#{profilePath}
+		</if>
+		where emp_id=#{empId}
+	</update>
 
 </mapper>

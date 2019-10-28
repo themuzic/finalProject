@@ -324,7 +324,7 @@ ul li:hover{
 							<li>
 								<div class="chatList">
 									<div class="img">
-										<img src="resources/images/${loginUser.profilePath}">
+										<img src="resources/upload/profile/${loginUser.profilePath}">
 									</div>
 									<div class="desc">
 										<h5>${loginUser.empName } ${loginUser.jobName }</h5>
@@ -345,7 +345,7 @@ ul li:hover{
 								<div class="chatList">
 									<input type="hidden" name="empId" value="${emp.empId }">
 									<div class="img">
-										<img src="resources/images/${emp.profilePath}">
+										<img src="resources/upload/profile/${emp.profilePath}">
 									</div>
 									<div class="desc">
 										<h5>${ emp.empName } ${emp.jobName }</h5>
