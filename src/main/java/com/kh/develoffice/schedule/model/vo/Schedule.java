@@ -15,20 +15,23 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Schedule {
 	
-	private int sNo;
+	private int sno;
 	private int empId;
-	private String sTitle;
-	private String sContent;
-	private int sType;
-	private Date startDate;
-	private Date endDate;
-	private Date allDay;
-	private String fontColor;
+	private String empName;
+	private String startDate;
+	private String startTime;
+	private String endDate;
+	private String endTime;
+	private String allDay;
+	private String stitle;
+	private String scontent;
+	private String stype;
 	private String backColor;
-	private String sUrl;
 	private Date createDate;
-	private Date modifyDate;
 	private String status;
+	private String splan;
+	
+	private int deptCode;
 	
 	
 	

@@ -159,7 +159,7 @@
 						<c:if test="${ empty m.mailCc }">
 							<p><b>Cc:</b>&nbsp;</p> 
 						</c:if>
-						<p><b>Sent:</b>&nbsp; ${ m.formatDate }</p> 
+						<p><b>Sent:</b>&nbsp; ${ m.mailDate }</p> 
 						<p><b>Subject:</b>&nbsp; ${ m.mailContent }</p>
 					</textarea>
 				</form>

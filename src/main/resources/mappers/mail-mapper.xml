@@ -227,17 +227,5 @@
 		</choose>
 		order by mail_num desc
 	</select>
-	
-	
-	
-	<select id="selectMyMail" parameterType="Employee" resultMap="MailResultSet">
-		select * from MAIL_VIEW where mail_to=#{email} and emp_id=#{empId}
-	</select>
-	
-	
-	
-	
-	
-	
 
 </mapper>

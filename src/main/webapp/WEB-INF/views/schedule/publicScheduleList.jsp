@@ -21,9 +21,6 @@
 <link rel="stylesheet" href="resources/calendar/main.css">
 <link rel="stylesheet" href="resources/calendar/fullcalendar.css">
 <link rel="stylesheet" href="resources/calendar/fullcalendar.min.css">
-<!-- <script src="resources/calendar/addEvent.js"></script>   -->
-<!-- <script src="resources/calendar/editEvent.js"></script>   -->
-<!-- <script src="resources/calendar/etcSetting.js"></script>   -->
 <script src="resources/calendar/moment.min.js"></script>  
 <script src="resources/calendar/fullcalendar.min.js"></script>
 <script src="resources/calendar/ko.js"></script>
@@ -40,11 +37,16 @@
 		padding-right:50px;
 		font-size:14px;
 	}
-
 	#calendar {
 		max-width: 900px;
 		margin: 0 auto;
 		font-size: 0.8em;
+	}
+	.panel .panel-heading {
+	    position: relative;
+	}
+	select.filter {
+	    width: 500px !important;
 	}
 
 </style>
@@ -66,13 +68,252 @@
 				<div class="container-fluid">
 					<div class="contentWrap">
 					
-					<!-- 이 아래부터 내용 작성 -->
-					
-					
-					
-					
+				<!-- 이 아래부터 내용 작성 -->
+			
+				<!-- 일자 클릭시 메뉴오픈 -->
+		        <div id="contextMenu" class="dropdown clearfix">
+		            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
+		                style="display:block;position:static;margin-bottom:5px;">
+		                <li><a tabindex="-1" href="#">카테고리1</a></li>
+		                <li><a tabindex="-1" href="#">카테고리2</a></li>
+		                <li><a tabindex="-1" href="#">카테고리3</a></li>
+		                <li><a tabindex="-1" href="#">카테고리4</a></li>
+		                <li class="divider"></li>
+		                <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
+		            </ul>
+		        </div>
+			
+			
+			
+			
+				<!-- 풀캘린더 불러오기 -->	
+				<div class="wrap">
 					<div id="calendar"></div>
-					
+					</div>
+				</div>
+			
+			
+			
+				<!-- 일정 추가 MODAL -->
+		        <div class="" tabindex="-1" role="dialog" id="eventModal" style="display:none;">
+		            <div class="" role="document">
+		                <div class="">
+		                    <div class="">
+<!-- 		                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span -->
+<!-- 		                                aria-hidden="true">&times;</span></button> -->
+		                        <h4 class="modal-title"></h4>
+		                    </div>
+		                    <div class="">
+		
+		                        <div class="row">
+		                            <div class="col-xs-12">
+		                                <label class="col-xs-4" for="edit-allDay">하루종일</label>
+		                                <input class='allDayNewEvent' id="edit-allDay" type="checkbox"></label>
+		                            </div>
+		                        </div>
+		
+		                        <div class="row">
+		                            <div class="col-xs-12">
+		                                <label class="col-xs-4" for="edit-title">일정명</label>
+		                                <input class="inputModal" type="text" name="edit-title" id="edit-title"
+		                                    required="required" />
+		                            </div>
+		                        </div>
+		                        <div class="row">
+		                            <div class="col-xs-12">
+		                                <label class="col-xs-4" for="edit-start">시작</label>
+		                                <input class="inputModal" type="text" name="edit-start" id="edit-start" />
+		                            </div>
+		                        </div>
+		                        <div class="row">
+		                            <div class="col-xs-12">
+		                                <label class="col-xs-4" for="edit-end">끝</label>
+		                                <input class="inputModal" type="text" name="edit-end" id="edit-end" />
+		                            </div>
+		                        </div>
+		                        <div class="row">
+		                            <div class="col-xs-12">
+		                                <label class="col-xs-4" for="edit-type">구분</label>
+		                                <select class="inputModal" type="text" name="edit-type" id="edit-type">
+		                                    <option value="카테고리1">카테고리1</option>
+		                                    <option value="카테고리2">카테고리2</option>
+		                                    <option value="카테고리3">카테고리3</option>
+		                                    <option value="카테고리4">카테고리4</option>
+		                                </select>
+		                            </div>
+		                        </div>
+		                        <div class="row">
+		                            <div class="col-xs-12">
+		                                <label class="col-xs-4" for="edit-color">색상</label>
+		                                <select class="inputModal" name="color" id="edit-color">
+		                                    <option value="#D25565" style="color:#D25565;">빨간색</option>
+		                                    <option value="#9775fa" style="color:#9775fa;">보라색</option>
+		                                    <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
+		                                    <option value="#74c0fc" style="color:#74c0fc;">파란색</option>
+		                                    <option value="#f06595" style="color:#f06595;">핑크색</option>
+		                                    <option value="#63e6be" style="color:#63e6be;">연두색</option>
+		                                    <option value="#a9e34b" style="color:#a9e34b;">초록색</option>
+		                                    <option value="#4d638c" style="color:#4d638c;">남색</option>
+		                                    <option value="#495057" style="color:#495057;">검정색</option>
+		                                </select>
+		                            </div>
+		                        </div>
+		                        <div class="row">
+		                            <div class="col-xs-12">
+		                                <label class="col-xs-4" for="edit-desc">설명</label>
+		                                <textarea rows="4" cols="50" class="inputModal" name="edit-desc"
+		                                    id="edit-desc"></textarea>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <div class="modal-footer modalBtnContainer-addEvent">
+		                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+		                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
+		                    </div>
+		                    <div class="modal-footer modalBtnContainer-modifyEvent">
+		                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
+		                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
+		                    </div>
+		                </div><!-- /.modal-content -->
+		            </div><!-- /.modal-dialog -->
+		        </div><!-- /.modal -->
+		        <hr>
+			
+				<div id="searchArea" align="right">
+					<form action="search.do">
+						<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray" >
+						    <option>------</option>
+						    <option value="writer">작성자</option>
+						    <option value="type">유형</option>
+						    <option value="title">제목</option>
+						    <option value="content">내용</option>
+						</select>
+						<div class="ui input">
+							<input type="search" name="search" value="${ search }" placeholder="Search..." style="height:32px;">
+							<i class="circular search link"></i>
+						</div>	         
+						<button type="submit" onclick="return validate();" style="color:#3287B2">검색하기</button>
+					</form>
+		       </div>
+		       
+		       <script>
+			       function validate(){
+			           if($("option:selected").val() == "------"){
+			              alertify.alert("DEVELOFFICE", "검색 조건을 체크해주세요");
+			           return false;
+			           }
+			        }
+		       </script>
+		       
+		       <div align="left">
+					<b style="color: #505363">팀 일정</b>
+					<input type="radio" name="radio" value="team" style="margin-bottom:7px;">&nbsp;
+					<b style="color: #505363">전체 일정</b>
+					<input type="radio" name="radio" value="all" style="margin-bottom:7px;">
+				</div>			
+						
+				<table class="ui selectable celled table">
+				<colgroup>
+					<col style="width:10%;">
+					<col style="width:15%;">
+					<col style="width:40%;">
+					<col style="width:15%;">
+					<col style="width:20%;">
+				</colgroup>
+					<thead>
+						<tr>
+							<th style="color: #676767;">번호</th>
+							<th style="color: #676767;">작성자</th>
+							<th style="color: #676767;">제목</th>
+							<th style="color: #676767;">유형</th>
+							<th class="aa" style="color: #676767;">작성일</th>
+						</tr>
+					</thead>
+					<tbody class="select_subject">
+					<c:forEach items="${ list }" var="s">
+						<tr>
+							<td class="sNo">${ s.sNo }</td>
+							<td class="sName">${ loginUser.empName }</td>
+							<td class="sTitle">${ s.sTitle }</td>
+							<td class="sType">${ s.sType }</td>
+							
+							<td class="sDate aa">${ s.createDate }</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+	
+			<div id="pagingArea" align="center">
+	 			<!-- [이전] -->
+				<c:if test="${ pi.currentPage == 1 }">
+					이전&nbsp;
+				</c:if>
+				<c:if test="${ pi.currentPage > 1 }">
+					<c:if test="${ !empty s }">
+						<c:url var="mlistBack" value="search2.do">
+							<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
+							<c:param name="condition" value="${ condition }"/>
+							<c:param name="search" value="${ search }"/>
+							<c:param name="mailFrom" value="${ m.mailFrom }"/>
+							<c:param name="mailTo" value="${ m.mailTo }"/>
+						</c:url>
+					</c:if>
+					<c:if test="${ empty s }">
+						<c:url var="slistBack" value="teamScheduleList.do">
+							<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
+						</c:url>
+					</c:if>
+					<a href="${ slistBack }">이전</a>
+				 </c:if>
+	         
+		         <!-- [번호들] -->
+		         <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+		            <c:if test="${ p eq pi.currentPage }">
+		               <font color="#3287B2" size="3">${ p }</font>
+		            </c:if>
+		            <c:if test="${ p ne pi.currentPage }">
+		               <c:if test="${ !empty m }"> <!-- 검색결과 있으면 -->
+		                  <c:url var="slistPage" value="search2.do">
+		                     <c:param name="currentPage" value="${ p }"/>
+		                     <c:param name="condition" value="${ condition }"/>
+		                     <c:param name="search" value="${ search }"/>
+		                     <c:param name="mailFrom" value="${ m.mailFrom }"/>
+							 <c:param name="mailTo" value="${ m.mailTo }"/>
+		                  </c:url>
+		               </c:if>
+		               <c:if test="${ empty m }"> <!-- 검색 결과 없으면 -->
+			               <c:url var="slistPage" value="teamScheduleList.do">
+			                  <c:param name="currentPage" value="${ p }"/>
+			               </c:url>                  
+		               </c:if>
+		               <a href="${ slistPage }">${ p }</a>
+		            </c:if>
+		         </c:forEach>
+	         
+	        	<!-- [다음] -->
+				<c:if test="${ pi.currentPage == pi.maxPage }">
+					&nbsp;다음
+				</c:if>
+				<c:if test="${ pi.currentPage < pi.maxPage }">
+					<c:if test="${ !empty m }">
+						<c:url var="slistNext" value="search2.do">
+							<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
+							<c:param name="condition" value="${ condition }"/>
+							<c:param name="search" value="${ search }"/>
+							<c:param name="mailFrom" value="${ m.mailFrom }"/>
+							<c:param name="mailTo" value="${ m.mailTo }"/>
+						</c:url>
+					</c:if>
+					<c:if test="${ empty m }">
+						<c:url var="slistNext" value="teamScheduleList.do">
+							<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+						</c:url>
+					</c:if>
+					<a href="${ slistNext }">다음</a>
+				</c:if>
+			</div>
+		</div>
 					
 					
 					<!-- 이 위까지 내용작성 -->
@@ -83,16 +324,19 @@
 			<!-- END MAIN CONTENT -->
 		</div>
 		<!-- END MAIN -->
-		
 		<div class="clearfix"></div>
-		
 
 	<!--  -->
-	</div>
 	<!-- END WRAPPER -->
 	
 	
 	
+	<!-- Javascript -->
+	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
+	<script src="resources/assets/scripts/klorofil-common.js"></script>
 	
 	<!-- script 작성 -->
 	<script>
@@ -104,7 +348,7 @@
 	$("#menu4").attr('aria-expanded',true);
 	$("#menu4_1").addClass("active");
 	$("#menu4_1").attr('aria-expanded',true);
-	$("#m4_1").addClass("active");	
+	$("#m4_2").addClass("active");	
 	
 	});
 		 
@@ -112,110 +356,127 @@
 	
 	<script>
 	
-	j(document).ready(function() {
-		
-		j('#calendar').fullCalendar({
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,agendaWeek,agendaDay'
-			},
-			defaultDate: '2019-10-28',
-			selectable: true,
-			selectHelper: true,
-			select: function(start, end) {
-				var title = prompt('Event Title:');
-				var eventData;
-				if (title) {
-					eventData = {
-						title: title,
-						start: start,
-						end: end
-					};
-					j('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-				}
-				j('#calendar').fullCalendar('unselect');
-			},
-			editable: true,
-			eventLimit: true, // allow "more" link when too many events
-			events: [
+	j(function(){
+		calendarStart();
+	});
+	
+	function calendarStart(){
+	 
+		j("#calendar").html("");
+			 
+			 var date = new Date();
+			 var d = date.getDate();
+			 var m = date.getMonth();
+			 var y = date.getFullYear();
+			 
+			 var calendar = j('#calendar').fullCalendar({
+			  
+			   header: {
+				   left: "month,basicWeek,basicDay",
+				   center: "title",
+				   right: "today prev,next"
+			   },
+			   
+			   defaultView: 'month',		// 처음 화면에 보여질 영역(월, 주, 일)
+			   locale: 'ko',				// 언어
+			   navLinks: true,				// 월/주별 달력에서 일자를 클릭하면 일별 보기로 전환하는 기능을 사용하는지에 대한 여부
+			   allDaySlot: false,			// 캘린더 상단에 "하루 종일"슬롯이 표시되는지 여부
+			   contentHeight: 450,
+			   theme: true, 				// css 사용할 수 있게
+			   allDay: true,
+			   
+			   titleFormat: {
+				   month: "YYYY년 MMMM",
+				   week: "YYYY년 MMM DD일 (ddd) ",
+				   day: "YYYY년 MMM DD일 dddd"
+			   },
+			   
+			   selectable: true,
+			   selectHelper: true,
+			   select: function(start, end) {
+					var title = prompt('Event Title:');
+					var eventData;
+					if (title) {
+						eventData = {
+							title: title,
+							start: start,
+							end: end
+						};
+						j('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+					}
+					j('#calendar').fullCalendar('unselect');
+				},
+				editable: true,		// 실행된 달력에서 일정(event)을 표시한 바(bar)를 마우스로 이동할 수 있게 하는 것
+				eventLimit: true, 	// 하루 기본일정 3개, 그 이상시, more로 처리
+				
+				events: [
 				{
-					title: 'All Day Event',
+					title: '회사 쉬는날',
 					start: '2019-10-28'
 				},
 				{
-					title: 'Long Event',
-					start: '2016-05-07',
-					end: '2016-05-10'
+					title: '휴가',
+					start: '2019-10-29',
+					end: '2019-11-01'
 				},
 				{
 					id: 999,
-					title: 'Repeating Event',
-					start: '2016-05-09T16:00:00'
+					title: '미팅 시간',
+					start: '2019-11-04T16:00'
 				},
 				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2016-05-16T16:00:00'
+					title: '1팀 회의',
+					start: '2019-11-11',
+					end: '2019-11-14'
 				},
 				{
-					title: 'Conference',
-					start: '2016-05-11',
-					end: '2016-05-13'
+					title: '차량 대여',
+					start: '2019-11-13T09:30:00',
+					end: '2019-11-13T11:30:00'
 				},
 				{
-					title: 'Meeting',
-					start: '2016-05-12T10:30:00',
-					end: '2016-05-12T12:30:00'
+					title: '점심시간',
+					start: '2019-10-29T12:00:00'
 				},
 				{
-					title: 'Lunch',
-					start: '2016-05-12T12:00:00'
+					title: '1팀 회의',
+					start: '2019-10-30T14:30:00'
 				},
 				{
-					title: 'Meeting',
-					start: '2016-05-12T14:30:00'
+					title: '클라이언트 연락',
+					start: '2019-10-31T17:30:00'
 				},
 				{
-					title: 'Happy Hour',
-					start: '2016-05-12T17:30:00'
+					title: '학원 끝나는 날',
+					start: '2019-11-05T07:00:00',
+					color : '#FF0000',
+		            textColor : '#FFFF00'
 				},
-				{
-					title: 'Dinner',
-					start: '2016-05-12T20:00:00'
-				},
-				{
-					title: 'Birthday Party',
-					start: '2016-05-13T07:00:00'
-				},
-				{
-					title: 'Click for Google',
-					url: 'http://google.com/',
-					start: '2016-05-28'
-				}
-			]
-		});
-		
-	});
+			],
+			eventRender: function (event, element) {
+		        element.attr('href', 'javascript:void(0);');
+		        element.click(function() {
+		        	$('#eventModal').dialog({
+		        		 title: '새로운 일정',
+		        	      modal: true,
+		        	      width: '600',
+		        	      height:'1000'
+		        	});
+		        	
+// 		            $("#startTime").html(moment(event.start).format('MMM Do h:mm A'));
+// 		            $("#endTime").html(moment(event.end).format('MMM Do h:mm A'));
+// 		            $("#eventInfo").html(event.description);
+// 		            $("#eventContent").dialog({ modal: true, title: event.title, width:350});
+		        });
+		    }
 
-		
+		});
+	};
 	</script>
 
-
-
-
-
-
-
-
-	
-	
-	
-	<!-- Javascript -->
-	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
-	<script src="resources/assets/scripts/klorofil-common.js"></script>
+<!-- 			<div id="eventContent" title="Event Details" style="display:none;"> -->
+<!-- 				    Start: <span id="startTime"></span><br> -->
+<!-- 				    End: <span id="endTime"></span><br><br> -->
+<!-- 				    <p id="eventInfo"></p> -->
 </body>
 </html>

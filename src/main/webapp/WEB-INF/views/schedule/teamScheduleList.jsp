@@ -48,20 +48,18 @@
 	select.filter {
 	    width: 500px !important;
 	}
-	.select2-hidden-accessible {
-	    border: 0 !important;
-	    clip: rect(0 0 0 0) !important;
-	    -webkit-clip-path: inset(50%) !important;
-	    clip-path: inset(50%) !important;
-	    height: 1px !important;
-	    overflow: hidden !important;
-	    padding: 0 !important;
-	    position: absolute !important;
-	    width: 1px !important;
-	    white-space: nowrap !important;
+	.ui-widget.ui-widget-content {
+		min-height:500px;
 	}
-	select
-	
+	.ui-dialog-content ui-widget-content {
+	    overflow: hidden;
+	}
+	#eventModal{
+		overflow: hidden;
+	}
+	#ui-datepicker-div{
+		min-height:100px;
+	}
 
 </style>
 
@@ -84,21 +82,6 @@
 					
 				<!-- 이 아래부터 내용 작성 -->
 			
-				<!-- 일자 클릭시 메뉴오픈 -->
-		        <div id="contextMenu" class="dropdown clearfix">
-		            <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
-		                style="display:block;position:static;margin-bottom:5px;">
-		                <li><a tabindex="-1" href="#">카테고리1</a></li>
-		                <li><a tabindex="-1" href="#">카테고리2</a></li>
-		                <li><a tabindex="-1" href="#">카테고리3</a></li>
-		                <li><a tabindex="-1" href="#">카테고리4</a></li>
-		                <li class="divider"></li>
-		                <li><a tabindex="-1" href="#" data-role="close">Close</a></li>
-		            </ul>
-		        </div>
-			
-			
-			
 			
 				<!-- 풀캘린더 불러오기 -->	
 				<div class="wrap">
@@ -107,59 +90,122 @@
 				</div>
 			
 			
-			
-				 <!-- 일정 추가 MODAL -->
-		        <div class="modal fade" tabindex="-1" role="dialog" id="eventModal">
-		            <div class="modal-dialog" role="document">
-		                <div class="modal-content">
-		                    <div class="modal-header">
-		                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-		                                aria-hidden="true">&times;</span></button>
-		                        <h4 class="modal-title"></h4>
-		                    </div>
-		                    <div class="modal-body">
-		
+				<!-- 일정 추가 MODAL -->
+		        <div class="" tabindex="-1" role="dialog" id="eventModal" class="show" style="display:none;">
+		            <div class="" role="document">
+		                <div class="">
+		                
+		                    <div class="">
+								<br>
+								
 		                        <div class="row">
-		                            <div class="col-xs-12">
-		                                <label class="col-xs-4" for="edit-allDay">하루종일</label>
-		                                <input class='allDayNewEvent' id="edit-allDay" type="checkbox"></label>
+		                            <div class="col-xs-12" style="margin-bottom:10px;">
+		                                <label class="col-xs-4" for="edit-allDay"><b>하루종일</b></label>
+		                                <input class='allDayNewEvent' id="allDay" name="allDay" type="checkbox">
 		                            </div>
 		                        </div>
 		
 		                        <div class="row">
 		                            <div class="col-xs-12">
-		                                <label class="col-xs-4" for="edit-title">일정명</label>
-		                                <input class="inputModal" type="text" name="edit-title" id="edit-title"
-		                                    required="required" />
+		                                <label class="col-xs-4" for="edit-title"><b>일정명</b></label>
+		                                <input class="inputModal" type="text" id="edit-title"
+		                                    name="stitle" required="required">
 		                            </div>
 		                        </div>
 		                        <div class="row">
 		                            <div class="col-xs-12">
-		                                <label class="col-xs-4" for="edit-start">시작</label>
-		                                <input class="inputModal" type="text" name="edit-start" id="edit-start" />
+		                                <label class="col-xs-4" for="edit-start"><b>시작</b></label>
+		                                <input class="inputModal datepicker" type="text" name="startDate" id="edit-start">
 		                            </div>
 		                        </div>
+		                        
+		                        <div class="after" style="padding-bottom:10px;">
+									<label for="" style="margin-left:14px;"><b>시작 시간</b></label>
+										<select id="start" class="select-box" name="startTime"
+											style="width:367px; margin-left:110px;">
+											<option>시간을 선택하세요</option>
+											<option value="09:00">오전 09:00</option>
+											<option value="09:30">오전 09:30</option>
+											<option value="10:00">오전 10:00</option>
+											<option value="10:30">오전 10:30</option>
+											<option value="11:00">오전 11:00</option>
+											<option value="11:30">오전 11:30</option>
+											<option value="12:00">오후 12:00</option>
+											<option value="12:30">오후 12:30</option>
+											<option value="13:00">오후 01:00</option>
+											<option value="13:30">오후 01:30</option>
+											<option value="14:00">오후 02:00</option>
+											<option value="14:30">오후 02:30</option>
+											<option value="15:00">오후 03:00</option>
+											<option value="15:30">오후 03:30</option>
+											<option value="16:00">오후 04:00</option>
+											<option value="16:30">오후 04:30</option>
+											<option value="17:00">오후 05:00</option>
+											<option value="17:30">오후 05:30</option>
+										</select>
+									</div>
+		                        
 		                        <div class="row">
 		                            <div class="col-xs-12">
-		                                <label class="col-xs-4" for="edit-end">끝</label>
-		                                <input class="inputModal" type="text" name="edit-end" id="edit-end" />
+		                                <label class="col-xs-4" for="edit-end"><b>끝</b></label>
+		                                <input class="inputModal datepicker" type="text" name="endDate" id="edit-end">
 		                            </div>
 		                        </div>
+		                        
+		                        <div class="after" style="padding-bottom:10px;">
+									<label for="" style="margin-left:14px;"><b>끝 시간</b></label>
+										
+										<select id="end" class="select-box" name="endTime"
+											style="width:367px; margin-left:124px;">
+											<option>시간을 선택하세요</option>
+											<option value="09:30">오전 09:30</option>
+											<option value="10:00">오전 10:00</option>
+											<option value="10:30">오전 10:30</option>
+											<option value="11:00">오전 11:00</option>
+											<option value="11:30">오전 11:30</option>
+											<option value="12:00">오후 12:00</option>
+											<option value="12:30">오후 12:30</option>
+											<option value="13:00">오후 01:00</option>
+											<option value="13:30">오후 01:30</option>
+											<option value="14:00">오후 02:00</option>
+											<option value="14:30">오후 02:30</option>
+											<option value="15:00">오후 03:00</option>
+											<option value="15:30">오후 03:30</option>
+											<option value="16:00">오후 04:00</option>
+											<option value="16:30">오후 04:30</option>
+											<option value="17:00">오후 05:00</option>
+											<option value="17:30">오후 05:30</option>
+											<option value="18:00">오후 06:00</option>
+										</select>
+									</div>
+		                        
+		                        <script>
+		                        	$(function(){
+		                        		$('.datetimepicker').datetimepicker({
+		                        	        lang:'ko',
+		                        	        format:'Y-m-d H:i'
+		                        	    });
+		                        	});
+
+		                        </script>
+		                        
 		                        <div class="row">
 		                            <div class="col-xs-12">
-		                                <label class="col-xs-4" for="edit-type">구분</label>
-		                                <select class="inputModal" type="text" name="edit-type" id="edit-type">
-		                                    <option value="카테고리1">카테고리1</option>
-		                                    <option value="카테고리2">카테고리2</option>
-		                                    <option value="카테고리3">카테고리3</option>
-		                                    <option value="카테고리4">카테고리4</option>
+		                                <label class="col-xs-4" for="edit-type"><b>구분</b></label>
+		                                <select class="inputModal" type="text" name="stype" id="edit-type" style="width:367px;;">
+		                                	<option>일정 종류를 선택하세요</option>
+		                                    <option value="휴가">휴가</option>
+		                                    <option value="회의">회의</option>
+		                                    <option value="외근">외근</option>
+		                                    <option value="출장">출장</option>
 		                                </select>
 		                            </div>
 		                        </div>
 		                        <div class="row">
 		                            <div class="col-xs-12">
-		                                <label class="col-xs-4" for="edit-color">색상</label>
-		                                <select class="inputModal" name="color" id="edit-color">
+		                                <label class="col-xs-4" for="edit-color"><b>색상</b></label>
+		                                <select class="inputModal" name="backColor" id="edit-color" style="width:367px;">
+		                                	<option>색상을 선택하세요</option>
 		                                    <option value="#D25565" style="color:#D25565;">빨간색</option>
 		                                    <option value="#9775fa" style="color:#9775fa;">보라색</option>
 		                                    <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
@@ -174,209 +220,157 @@
 		                        </div>
 		                        <div class="row">
 		                            <div class="col-xs-12">
-		                                <label class="col-xs-4" for="edit-desc">설명</label>
-		                                <textarea rows="4" cols="50" class="inputModal" name="edit-desc"
-		                                    id="edit-desc"></textarea>
+		                                <label class="col-xs-4" for="edit-desc"><b>설명</b></label>
+		                                <textarea rows="4" cols="50" class="inputModal" name="scontent"
+		                                    id="edit-desc" style="resize:none;"></textarea>
 		                            </div>
 		                        </div>
 		                    </div>
-		                    <div class="modal-footer modalBtnContainer-addEvent">
-		                        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-		                        <button type="button" class="btn btn-primary" id="save-event">저장</button>
-		                    </div>
-		                    <div class="modal-footer modalBtnContainer-modifyEvent">
-		                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-		                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
+		                    <hr>
+		                    <div class="modalBtnContainer-modifyEvent" style="text-align:right; padding-right:10px;">
 		                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
+		                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
+		                        <button type="button" id="btn-default" class="btn btn-default">닫기</button>
 		                    </div>
 		                </div><!-- /.modal-content -->
 		            </div><!-- /.modal-dialog -->
 		        </div><!-- /.modal -->
-	        
-	        
-		        <br>
-		        <!-- 카테고리 별로 일정 확인하기 -->
-		        <div class="panel panel-default" style="-webkit-box-shadow: none;">
-	
-	            <div class="panel-heading" style="height:40px; padding-top:10px; padding-left:9px; background:#F9FAFB;">
-	                <h3 class="panel-title" style="font-size:16px; color:#505363;"><b>필터</b></h3>
-	            </div>
-	
-	            <div class="panel-body" style="padding-left:9px;">
-	
-	                <div class="col-lg-6" style="padding-left:0px;">
-	                    <label for="calendar_view"><b>구분별</b></label>
-<!-- 	                    <div class="input-group"> -->
-<!-- 	                        <select class="filter" id="type_filter" multiple="multiple"> -->
-<!-- 	                            <option value="카테고리1">카테고리1</option> -->
-<!-- 	                            <option value="카테고리2">카테고리2</option> -->
-<!-- 	                            <option value="카테고리3">카테고리3</option> -->
-<!-- 	                            <option value="카테고리4">카테고리4</option> -->
-<!-- 	                        </select> -->
-<!-- 	                    </div> -->
-	                </div>
-	
-	                <div class="col-lg-6">
-	                    <label for="calendar_view"><b>등록자별</b></label>
-	                    <div class="input-group" style="width:380px; box-shadow: none;">
-	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="전재광"
-	                                checked>전재광</label>
-	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="김상윤"
-	                                checked>김상윤</label>
-	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="설용환"
-	                                checked>설용환</label>
-	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="유현규"
-	                                checked>유현규</label>
-	                        <label class="checkbox-inline"><input class='filter' type="checkbox" value="원영주"
-	                                checked>원영주</label>
-	                </div>
-	             </div>
-	
-            </div>
-        </div>
-        <!-- /.filter panel -->
-		<hr>	
+				<hr>	
 			
-			
-			
-			
-			
-			
-			<div id="searchArea" align="right">
-				<form action="search.do">
-					<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray" >
-					    <option>------</option>
-					    <option value="writer">작성자</option>
-					    <option value="type">유형</option>
-					    <option value="title">제목</option>
-					    <option value="content">내용</option>
-					</select>
-					<div class="ui input">
-						<input type="search" name="search" value="${ search }" placeholder="Search..." style="height:32px;">
-						<i class="circular search link"></i>
-					</div>	         
-					<button type="submit" onclick="return validate();" style="color:#3287B2">검색하기</button>
-				</form>
-	       </div>
+				<div id="searchArea" align="right">
+					<form action="search.do">
+						<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray" >
+						    <option>------</option>
+						    <option value="writer">작성자</option>
+						    <option value="type">유형</option>
+						    <option value="title">제목</option>
+						    <option value="content">내용</option>
+						</select>
+						<div class="ui input">
+							<input type="search" name="search" value="${ search }" placeholder="Search..." style="height:32px;">
+							<i class="circular search link"></i>
+						</div>	         
+						<button type="submit" onclick="return validate();" style="color:#3287B2">검색하기</button>
+					</form>
+		       </div>
 	       
-	       <script>
-		       function validate(){
-		           if($("option:selected").val() == "------"){
-// 		              alert("검색 조건을 체크해주세요");
-		              alertify.alert("", "검색 조건을 체크해주세요");
-		           return false;
-		           }
-		        }
-	       </script>
-	       
-	       <div align="left">
-				<b style="color: #505363">팀 일정</b>
-				<input type="radio" name="radio" value="team" style="margin-bottom:7px;">&nbsp;
-				<b style="color: #505363">전체 일정</b>
-				<input type="radio" name="radio" value="all" style="margin-bottom:7px;">
-			</div>			
-					
-			<table class="ui selectable celled table">
-			<colgroup>
-				<col style="width:10%;">
-				<col style="width:15%;">
-				<col style="width:40%;">
-				<col style="width:15%;">
-				<col style="width:20%;">
-			</colgroup>
-				<thead>
-					<tr>
-						<th style="color: #676767;">번호</th>
-						<th style="color: #676767;">작성자</th>
-						<th style="color: #676767;">제목</th>
-						<th style="color: #676767;">유형</th>
-						<th class="aa" style="color: #676767;">작성일</th>
-					</tr>
-				</thead>
-				<tbody class="select_subject">
-					<tr>
-						<td class="sNo">1</td>
-						<td class="sName">김상윤</td>
-						<td class="sTitle">휴가올립니다</td>
-						<td class="sType">휴가
-<%-- 							<a href="${ mdetail }" style="color:gray;">${ m.mailTitle }</a> --%>
-						</td>
+		       <script>
+			       function validate(){
+			           if($("option:selected").val() == "------"){
+			              alertify.alert("DEVELOFFICE", "검색 조건을 체크해주세요");
+			           return false;
+			           }
+			        }
+		       </script>
+		       
+		       <div align="left">
+					<b style="color: #505363">팀 일정</b>
+					<input type="radio" name="splan" value="team" style="margin-bottom:7px;">&nbsp;
+					<b style="color: #505363">전체 일정</b>
+					<input type="radio" name="splan" value="all" style="margin-bottom:7px;">
+				</div>			
 						
-						<td class="sDate aa">2019-10-28</td>
-					</tr>
-			</tbody>
-		</table>
-
-		<div id="pagingArea" align="center">
- 			<!-- [이전] -->
-			<c:if test="${ pi.currentPage == 1 }">
-				이전&nbsp;
-			</c:if>
-			<c:if test="${ pi.currentPage > 1 }">
-				<c:if test="${ !empty m }">
-					<c:url var="mlistBack" value="search2.do">
-						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
-						<c:param name="condition" value="${ condition }"/>
-						<c:param name="search" value="${ search }"/>
-						<c:param name="mailFrom" value="${ m.mailFrom }"/>
-						<c:param name="mailTo" value="${ m.mailTo }"/>
-					</c:url>
+				<table class="ui selectable celled table">
+				<colgroup>
+					<col style="width:10%;">
+					<col style="width:15%;">
+					<col style="width:40%;">
+					<col style="width:15%;">
+					<col style="width:20%;">
+				</colgroup>
+					<thead>
+						<tr>
+							<th style="color: #676767;">번호</th>
+							<th style="color: #676767;">작성자</th>
+							<th style="color: #676767;">제목</th>
+							<th style="color: #676767;">유형</th>
+							<th class="aa" style="color: #676767;">작성일</th>
+						</tr>
+					</thead>
+					<tbody class="select_subject">
+					<c:forEach items="${ list }" var="s">
+						<tr>
+							<td class="sNo">${ s.sno }</td>
+							<td class="sName">${ loginUser.empName }</td>
+							<td class="sTitle">${ s.stitle }</td>
+							<td class="sType">${ s.stype }</td>
+							
+							<td class="sDate aa">${ s.createDate }</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+	
+			<div id="pagingArea" align="center">
+	 			<!-- [이전] -->
+				<c:if test="${ pi.currentPage == 1 }">
+					이전&nbsp;
 				</c:if>
-				<c:if test="${ empty m }">
-					<c:url var="mlistBack" value="receiveMail.do">
-						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
-					</c:url>
+				<c:if test="${ pi.currentPage > 1 }">
+					<c:if test="${ !empty s }">
+						<c:url var="mlistBack" value="search2.do">
+							<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
+							<c:param name="condition" value="${ condition }"/>
+							<c:param name="search" value="${ search }"/>
+							<c:param name="mailFrom" value="${ m.mailFrom }"/>
+							<c:param name="mailTo" value="${ m.mailTo }"/>
+						</c:url>
+					</c:if>
+					<c:if test="${ empty s }">
+						<c:url var="slistBack" value="teamScheduleList.do">
+							<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
+						</c:url>
+					</c:if>
+					<a href="${ slistBack }">이전</a>
+				 </c:if>
+	         
+		         <!-- [번호들] -->
+		         <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
+		            <c:if test="${ p eq pi.currentPage }">
+		               <font color="#3287B2" size="3">${ p }</font>
+		            </c:if>
+		            <c:if test="${ p ne pi.currentPage }">
+		               <c:if test="${ !empty m }"> <!-- 검색결과 있으면 -->
+		                  <c:url var="slistPage" value="search2.do">
+		                     <c:param name="currentPage" value="${ p }"/>
+		                     <c:param name="condition" value="${ condition }"/>
+		                     <c:param name="search" value="${ search }"/>
+		                     <c:param name="mailFrom" value="${ m.mailFrom }"/>
+							 <c:param name="mailTo" value="${ m.mailTo }"/>
+		                  </c:url>
+		               </c:if>
+		               <c:if test="${ empty m }"> <!-- 검색 결과 없으면 -->
+			               <c:url var="slistPage" value="teamScheduleList.do">
+			                  <c:param name="currentPage" value="${ p }"/>
+			               </c:url>                  
+		               </c:if>
+		               <a href="${ slistPage }">${ p }</a>
+		            </c:if>
+		         </c:forEach>
+	         
+	        	<!-- [다음] -->
+				<c:if test="${ pi.currentPage == pi.maxPage }">
+					&nbsp;다음
 				</c:if>
-				<a href="${ mlistBack }">이전</a>
-			 </c:if>
-         
-	         <!-- [번호들] -->
-	         <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-	            <c:if test="${ p eq pi.currentPage }">
-	               <font color="#3287B2" size="3">${ p }</font>
-	            </c:if>
-	            <c:if test="${ p ne pi.currentPage }">
-	               <c:if test="${ !empty m }"> <!-- 검색결과 있으면 -->
-	                  <c:url var="mlistPage" value="search2.do">
-	                     <c:param name="currentPage" value="${ p }"/>
-	                     <c:param name="condition" value="${ condition }"/>
-	                     <c:param name="search" value="${ search }"/>
-	                     <c:param name="mailFrom" value="${ m.mailFrom }"/>
-						 <c:param name="mailTo" value="${ m.mailTo }"/>
-	                  </c:url>
-	               </c:if>
-	               <c:if test="${ empty m }"> <!-- 검색 결과 없으면 -->
-		               <c:url var="mlistPage" value="receiveMail.do">
-		                  <c:param name="currentPage" value="${ p }"/>
-		               </c:url>                  
-	               </c:if>
-	               <a href="${ mlistPage }">${ p }</a>
-	            </c:if>
-	         </c:forEach>
-         
-        	<!-- [다음] -->
-			<c:if test="${ pi.currentPage == pi.maxPage }">
-				&nbsp;다음
-			</c:if>
-			<c:if test="${ pi.currentPage < pi.maxPage }">
-				<c:if test="${ !empty m }">
-					<c:url var="mlistNext" value="search2.do">
-						<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
-						<c:param name="condition" value="${ condition }"/>
-						<c:param name="search" value="${ search }"/>
-						<c:param name="mailFrom" value="${ m.mailFrom }"/>
-						<c:param name="mailTo" value="${ m.mailTo }"/>
-					</c:url>
+				<c:if test="${ pi.currentPage < pi.maxPage }">
+					<c:if test="${ !empty m }">
+						<c:url var="slistNext" value="search2.do">
+							<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
+							<c:param name="condition" value="${ condition }"/>
+							<c:param name="search" value="${ search }"/>
+							<c:param name="mailFrom" value="${ m.mailFrom }"/>
+							<c:param name="mailTo" value="${ m.mailTo }"/>
+						</c:url>
+					</c:if>
+					<c:if test="${ empty m }">
+						<c:url var="slistNext" value="teamScheduleList.do">
+							<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+						</c:url>
+					</c:if>
+					<a href="${ slistNext }">다음</a>
 				</c:if>
-				<c:if test="${ empty m }">
-					<c:url var="mlistNext" value="receiveMail.do">
-						<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
-					</c:url>
-				</c:if>
-				<a href="${ mlistNext }">다음</a>
-			</c:if>
+			</div>
 		</div>
-	</div>
 					
 					
 					
@@ -393,11 +387,16 @@
 		
 
 	<!--  -->
-	</div>
 	<!-- END WRAPPER -->
 	
 	
 	
+	<!-- Javascript -->
+	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
+	<script src="resources/assets/scripts/klorofil-common.js"></script>
 	
 	<!-- script 작성 -->
 	<script>
@@ -451,22 +450,7 @@
 				   week: "YYYY년 MMM DD일 (ddd) ",
 				   day: "YYYY년 MMM DD일 dddd"
 			   },
-			   
-			   selectable: true,
-			   selectHelper: true,
-			   select: function(start, end) {
-					var title = prompt('Event Title:');
-					var eventData;
-					if (title) {
-						eventData = {
-							title: title,
-							start: start,
-							end: end
-						};
-						j('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-					}
-					j('#calendar').fullCalendar('unselect');
-				},
+			  
 				editable: true,		// 실행된 달력에서 일정(event)을 표시한 바(bar)를 마우스로 이동할 수 있게 하는 것
 				eventLimit: true, 	// 하루 기본일정 3개, 그 이상시, more로 처리
 				
@@ -513,28 +497,115 @@
 					color : '#FF0000',
 		            textColor : '#FFFF00'
 				},
-				
-			]
+			],
+			// 모달창 생성
+			eventRender: function (event, element) {
+		        element.attr('href', 'javascript:void(0);');
+		        element.click(function() {
+		        	$('#eventModal').dialog({
+		         		  title: '새로운 일정',
+		        	      modal: true,
+		        	      width: '600'
+		        	});
+		        	
+		        });
+		    }
+
 		});
 	};
+	
+	
+	// 모달창 생성
+	$(document).on('click','td',function(){
+		$('#eventModal').dialog({
+   		  title: '새로운 일정',
+  	      modal: true,
+  	      width: '600'
+  		});
 		
-</script>
+	});
+	
+	// 모달창 닫기
+	$(function() {
+	    $("#btn-default").on('click', function() {
+	        $("#eventModal").dialog("close");
+	    });
+	});
+	
+	$(document).on('click', '#updateEvent', function(){
+// 		 $("#eventModal").dialog("close");
+		 
+		 
+		 var startDate = $("input[name=startDate]").val();
+		 var startTime = $("select[name=startTime] option:selected").val();
+		 var endDate = $("input[name=endDate]").val();
+		 var endTime = $("select[name=endTime] option:selected").val();
+		 var stitle = $("input[name=stitle]").val();
+		 var scontent = $("#edit-desc").val();
+		 var stype = $("select[name=stype] option:selected").val();
+		 var backColor = $("select[name=backColor] option:selected").val();
+		 
+		 var allDay;
+		 
+		 if($("#allDay").prop('checked')){
+			allDay ='Y'; 
+		 }else{
+			 allDay ='N';
+		 }
+		 
+		 
+// 		 console.log(startDate);
+// 		 console.log(startTime);
+// 		 console.log(endDate);
+// 		 console.log(endTime);
+// 		 console.log(stitle);
+// 		 console.log(scontent);
+// 		 console.log(stype);
+// 		 console.log(backColor);
+// 		 console.log(allDay);
+		 
+		 $.ajax({
+		
+			url:"insertSchedule.do",
+			type:"POST",
+			data:{startDate:startDate,
+				  startTime:startTime,
+				  endDate:endDate,
+				  endTime:endTime,
+				  stitle:stitle,
+				  scontent:scontent,
+				  stype:stype,
+				  backColor:backColor,
+				  empId:'${loginUser.empId}',
+				  allDay:allDay
+			},
+			success:function(data){
+				if(data == 'success'){
+					$("input[name=startDate]").val("");
+					$("select[name=startTime]").children().first().prop('selected', true);
+					$("input[name=endDate]").val("");
+					$("select[name=endTime]").find('option:eq(0)').prop('selected', true);
+					$("input[name=stitle]").val("");
+					$("#edit-desc").val("");
+					$("select[name=stype]").find('option:eq(0)').prop('selected', true);
+					$("select[name=backColor]").find('option:eq(0)').prop('selected', true);
+					$("#allDay").prop('checked', false);
 
-
-
-
-
-
-
-
+					$("#eventModal").dialog("close");
+				
+				}else{
+					alert("실패");
+				}
+			},
+			error:function(){
+				alert("통신실패");
+			}
+		 });
+	});
 	
 	
-	
-	<!-- Javascript -->
-	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
-	<script src="resources/assets/scripts/klorofil-common.js"></script>
+	</script>
+
+
 </body>
 </html>

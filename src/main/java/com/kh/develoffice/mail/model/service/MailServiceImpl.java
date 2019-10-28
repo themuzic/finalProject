@@ -127,11 +127,6 @@ public class MailServiceImpl implements MailService{
 		return mDao.importantSearchList(m, pi);
 	}
 
-	@Override
-	public ArrayList<Mail> selectMyMail(Employee loginUser) {
-		return mDao.selectMyMail(loginUser);
-	}
-
 
 
 }
