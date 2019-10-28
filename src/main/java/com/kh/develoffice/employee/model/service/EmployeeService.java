@@ -43,5 +43,8 @@ public interface EmployeeService {
 	
 	// 프로필 수정
 	int updateMypage(Employee e);
+
+	// 비밀번호 수정
+	int updatePwd(Employee e);
 	
 }

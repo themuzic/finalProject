@@ -80,66 +80,56 @@ td{
 					<div class="contentWrap">
 					
 					<!-- 이 아래부터 내용 작성 -->
-							<div class="main-header">
-								<div class="ui toggle checkbox">
-								  <input type="checkbox" name="update" id="update" style="opacity: 0;">
-								  <label>정보 수정</label>
-								</div>
-								<div class="header-right">
-									<div>
-										<h3>${loginUser.empName } ${loginUser.jobName }</h3>
-										<small>${loginUser.deptName }</small>
-									</div>
-									<br>
-									<div>입사일 : ${loginUser.enrollDate }</div>
-									<div>근무 일 수 : <span id="workDay"></span></div>
-									<div>남은 연차일 수 : ${loginUser.vacation }</div>
-									<div>별 개수 : ${loginUser.star }</div>
-								</div>
-								<div class="header-left">
-								<div id="imgInputArea"><input type="file" id="imgUpdate" name="profile" onchange='loadImg(this)'></div>
-									<div id="profileImgArea">
-										<img id="profileImg" class="imgUpdate" src="resources/upload/profile/${loginUser.profilePath}">
-									</div>
-								</div>
-								<br clear="both">
-								<div>상태메세지 : <input type="text" id="statusMsg" name="statusMsg" class="userAdvice" placeholder="내용을 입력해주세요" value="${loginUser.statusMsg }" readonly></div>
+						<div class="main-header">
+							<div class="ui toggle checkbox">
+							  <input type="checkbox" name="update" id="update" style="opacity: 0;">
+							  <label>정보 수정</label>
 							</div>
-							<br clear=both>
-							<br clear=both>
-							<br clear=both>
-							<div class="main-section">
-								<table>
-									<tr>
-										<td>ID</td>
-										<td class="userTr"><input type="text" value="${loginUser.empId }" placeholder="내용을 입력해주세요." readonly></td>
-									</tr>
-									<tr>
-										<td>EMAIL</td>
-										<td class="userTr"><input type="text" value="${loginUser.email }" placeholder="내용을 입력해주세요." readonly></td>
-									</tr>
-									<tr>
-										<td>MOBILE</td>
-										<td class="userTr"><input class="userAdvice" id="phone" name="phone" type="text" value="${loginUser.phone }" placeholder="내용을 입력해주세요." readonly></td>
-									</tr>
-									<tr>
-										<td width="10%">ADDRESS</td>
-										<td class="userTr"><input class="userAdvice" id="address" name="address" type="text" value="${loginUser.address }" placeholder="내용을 입력해주세요." readonly></td>
-									</tr>
-								</table> 
+							<div class="header-right">
+								<div>
+									<h3>${loginUser.empName } ${loginUser.jobName }</h3>
+									<small>${loginUser.deptName }</small>
+								</div>
+								<br>
+								<div>입사일 : ${loginUser.enrollDate }</div>
+								<div>근무 일 수 : <span id="workDay"></span></div>
+								<div>남은 연차일 수 : ${loginUser.vacation }</div>
+								<div>별 개수 : ${loginUser.star }</div>
 							</div>
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
+							<div class="header-left">
+							<div id="imgInputArea"><input type="file" id="imgUpdate" name="profile" onchange='loadImg(this)'></div>
+								<div id="profileImgArea">
+									<img id="profileImg" class="imgUpdate" src="resources/upload/profile/${loginUser.profilePath}">
+								</div>
+							</div>
+							<br clear="both">
+							<div>상태메세지 : <input type="text" id="statusMsg" name="statusMsg" class="userAdvice" placeholder="내용을 입력해주세요" value="${loginUser.statusMsg }" readonly></div>
+						</div>
+						<br clear=both>
+						<br clear=both>
+						<br clear=both>
+						<div class="main-section">
+							<table>
+								<tr>
+									<td>ID</td>
+									<td class="userTr"><input type="text" value="${loginUser.empId }" placeholder="내용을 입력해주세요." readonly></td>
+								</tr>
+								<tr>
+									<td>EMAIL</td>
+									<td class="userTr"><input type="text" value="${loginUser.email }" placeholder="내용을 입력해주세요." readonly></td>
+								</tr>
+								<tr>
+									<td>MOBILE</td>
+									<td class="userTr"><input class="userAdvice" id="phone" name="phone" type="text" value="${loginUser.phone }" placeholder="내용을 입력해주세요." readonly></td>
+								</tr>
+								<tr>
+									<td width="10%">ADDRESS</td>
+									<td class="userTr"><input class="userAdvice" id="address" name="address" type="text" value="${loginUser.address }" placeholder="내용을 입력해주세요." readonly></td>
+								</tr>
+							</table> 
+						</div>
+						<br>
+						<div><button class="btn btn-primary" onclick="location.href='updatePwdForm.do';" type="button">비밀번호 변경</button></div>
 					<!-- 이 위까지 내용작성 -->
 					
 					</div>

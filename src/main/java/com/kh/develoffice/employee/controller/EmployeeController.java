@@ -552,7 +552,37 @@ public class EmployeeController {
 		return renameFileName;	// 수정명 반환
 	}	
 	
+	@RequestMapping("updatePwdForm.do")
+	public String updatePwdForm() {
+		return "common/updatePwdForm";
+	}
 	
+	@ResponseBody
+	@RequestMapping("pwdConfirm.do")
+	public String pwdConfirm(Employee emp, HttpSession session) {
+		int empId = ((Employee)session.getAttribute("loginUser")).getEmpId();
+		emp.setEmpId(empId);
+		Employee loginUser = eService.loginEmp(emp);	// 로그인 객체 정보 호출
+		
+		if(loginUser != null) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("updatePwd.do")
+	public String updatePwd(Employee e, HttpSession session) {
+		int empId = ((Employee)session.getAttribute("loginUser")).getEmpId();
+		e.setEmpId(empId);
+		int result = eService.updatePwd(e);
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
 	
 	
 	

@@ -72,4 +72,9 @@ public class EmployeeDao {
 	public int updateMyPage(Employee e) {
 		return sqlSession.update("employeeMapper.updateMyPage", e);
 	}
+
+
+	public int updatePwd(Employee e) {
+		return sqlSession.update("employeeMapper.updatePwd", e);
+	}
 }
