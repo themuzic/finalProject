@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.develoffice.employee.model.dao.EmployeeDao;
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.employee.model.vo.Widget;
+import com.kh.develoffice.employee.model.vo.WorkTime;
 
 @Service("eService")
 public class EmployeeServiceImpl implements EmployeeService{
@@ -25,7 +26,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public int saveWidget(Widget w) {
-		
 		return eDao.saveWidget(w);
 	}
 
@@ -43,8 +43,36 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public ArrayList<Employee> autocomplete(String key) {
 		return eDao.autocomplete(key);
 	}
-	
-	
+
+	@Override
+	public ArrayList<WorkTime> selectWorkList(int id) {
+		return eDao.selectWorkList(id);
+	}
+
+	@Override
+	public int insertStartTime(WorkTime work) {
+		return eDao.insertStartTime(work);
+	}
+
+	@Override
+	public int updateEndTime(WorkTime work) {
+		return eDao.updateEndTime(work);
+	}
+
+	@Override
+	public int updateWorkStatus(WorkTime work) {
+		return eDao.updateWorkStatus(work);
+	}
+
+	@Override
+	public Employee selectEmp(int empId) {
+		return eDao.selectEmp(empId);
+	}
+
+	@Override
+	public int updateWorkStatus2(WorkTime work) {
+		return eDao.updateWorkStatus2(work);
+	}
 	
 	
 

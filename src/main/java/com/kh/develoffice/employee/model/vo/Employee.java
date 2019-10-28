@@ -36,6 +36,7 @@ public class Employee {
 	private String profilePath; //프사경로
 	private String statusMsg;	//메신저 상태메세지
 	private int vacation;		//남은연차일수
+	private String workStatus;	//오늘출근상태
 	
 	
 	public Employee(String empName, String gender, Date birth, int deptCode, int jobCode, String phone, String email,

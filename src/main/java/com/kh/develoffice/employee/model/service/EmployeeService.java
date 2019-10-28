@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.employee.model.vo.Widget;
+import com.kh.develoffice.employee.model.vo.WorkTime;
 
 public interface EmployeeService {
 	
@@ -22,4 +23,22 @@ public interface EmployeeService {
 	// 자동완성 결과 호출
 	ArrayList<Employee> autocomplete(String key);
 
+	// 나의 근태 정보 호출
+	ArrayList<WorkTime> selectWorkList(int id);
+	
+	// 출근 시간 저장
+	int insertStartTime(WorkTime work); 
+	
+	// 퇴근 시간 저장
+	int updateEndTime(WorkTime work); 
+	
+	// 출근 상태 변경(N -> Y)
+	int updateWorkStatus(WorkTime work);
+	
+	// 출근 상태 변경(Y -> N)
+	int updateWorkStatus2(WorkTime work);
+	
+	// 직원 한명 호출
+	Employee selectEmp(int empId);
+	
 }

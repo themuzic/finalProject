@@ -23,14 +23,15 @@
 		<result property="empStatus" column="emp_status"/>
 		<result property="profilePath" column="profile_path"/>
 		<result property="vacation" column="vacation"/>
+		<result property="workStatus" column="work_status"/>
 	</resultMap>
 	
 	
 	<resultMap id="workResultSet" type="WorkTime">
 		<id property="today" column="today"/>
 		<id property="empId" column="emp_id"/>
-		<result property="checkIn" column="check_in"/>
-		<result property="checkOut" column="check_out"/>
+		<result property="checkIn" column="checkin"/>
+		<result property="checkOut" column="checkout"/>
 	</resultMap>
 
 	
@@ -72,6 +73,39 @@
 		where div_name like fn_ko_char(#{key})||'%'
 	</select>
 	
+	<select id="selectWorkList" parameterType="_int" resultMap="workResultSet">
+		select today, emp_id, TO_CHAR(checkin,'yyyy-mm-dd hh24:mi:ss') checkin, TO_CHAR(checkout,'yyyy-mm-dd hh24:mi:ss') checkout
+		from worktime
+		where emp_id=#{id} and substr(today,5,2) = substr(to_char(sysdate,'yyyymmdd'),5,2)
+	</select>
+	
+	<insert id="insertStartTime" parameterType="WorkTime">
+		insert into worktime
+		values(#{today},#{empId},sysdate,null)
+	</insert>
+	
+	<update id="updateEndTime" parameterType="WorkTime">
+		update worktime
+		set checkout = sysdate
+		where today=#{today} and emp_id=#{empId}
+	</update>
+	
+	<update id="updateWorkStatus" parameterType="WorkTime">
+		update employee
+		set work_status = 'Y'
+		where emp_id=#{empId}
+	</update>
+	
+	
+	<update id="updateWorkStatus2" parameterType="WorkTime">
+		update employee
+		set work_status = 'N'
+		where emp_id=#{empId}
+	</update>
+	
+	<select id="selectEmp" parameterType="_int" resultMap="empResultSet">
+		select * from emp where emp_id=#{empId} and emp_status='Y'
+	</select>
 	
 
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.employee.model.vo.Widget;
+import com.kh.develoffice.employee.model.vo.WorkTime;
 
 @Repository("eDao")
 public class EmployeeDao {
@@ -39,5 +40,31 @@ public class EmployeeDao {
 	public ArrayList<Employee> autocomplete(String key){
 		return (ArrayList)sqlSession.selectList("employeeMapper.autocomplete",key);
 	}
-
+	
+	
+	public ArrayList<WorkTime> selectWorkList(int id){
+		return (ArrayList)sqlSession.selectList("employeeMapper.selectWorkList", id);
+	}
+	
+	
+	public int insertStartTime(WorkTime work) {
+		return sqlSession.insert("employeeMapper.insertStartTime", work);
+	}
+	
+	
+	public int updateEndTime(WorkTime work) {
+		return sqlSession.update("employeeMapper.updateEndTime", work);
+	}
+	
+	public int updateWorkStatus(WorkTime work) {
+		return sqlSession.update("employeeMapper.updateWorkStatus", work);
+	}
+	
+	public int updateWorkStatus2(WorkTime work) {
+		return sqlSession.update("employeeMapper.updateWorkStatus2", work);
+	}
+	
+	public Employee selectEmp(int empId) {
+		return sqlSession.selectOne("employeeMapper.selectEmp", empId);
+	}
 }

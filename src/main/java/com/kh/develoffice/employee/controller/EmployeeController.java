@@ -2,6 +2,7 @@ package com.kh.develoffice.employee.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.develoffice.employee.model.service.EmployeeService;
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.employee.model.vo.Widget;
+import com.kh.develoffice.employee.model.vo.WorkTime;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -49,16 +51,10 @@ public class EmployeeController {
 //			   SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
 //			   Date currentTime = new Date ();
 //			   String today = sdf.format ( currentTime );
-//			   
-//			   session.setAttribute("today", today);	// 세션에 오늘 날짜 담기
-			   
 			   
 			   ArrayList<Widget> widgetList = eService.selectWidget(id);	// 해당 계정의 위젯 정보 호출
 			   
-//			   System.out.println(widgetList);
-			   
 			   JSONArray jArr = new JSONArray();
-
 				for(Widget w : widgetList) {
 					JSONObject jObj = new JSONObject();
 					jObj.put("widgetType", w.getWidgetType());
@@ -70,8 +66,20 @@ public class EmployeeController {
 					
 					jArr.add(jObj);
 				}
+				mv.addObject("widgetList", jArr);
 				
-				mv.addObject("widgetList", jArr).setViewName("main/mainPage");
+				ArrayList<WorkTime> workList = eService.selectWorkList(id);
+				JSONArray work = new JSONArray();
+				for(WorkTime w : workList) {
+					JSONObject jObj = new JSONObject();
+					jObj.put("today", w.getToday());
+					jObj.put("empId", w.getEmpId());
+					jObj.put("checkIn", w.getCheckIn());
+					jObj.put("checkOut", w.getCheckOut());
+					
+					work.add(jObj);
+				}
+				mv.addObject("workList", work).setViewName("main/mainPage");
 			   
 		   } else {			   
 			   mv.addObject("msg", "로그인 실패");		// 전달하고자 하는 데이터 담기 addObject(key, value);
@@ -129,8 +137,6 @@ public class EmployeeController {
 	@RequestMapping("saveWidget.do")
 	public String saveWidget(Widget w) {
 		
-		System.out.println(w);
-		
 		int result = eService.saveWidget(w);
 		
 		if(result > 0) {
@@ -176,14 +182,92 @@ public class EmployeeController {
 				
 				jArr.add(jObj);
 			}
-			
 			return jArr;
 			
 		}else {
 			return jArr;
 		}
-		
 	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping("startWork.do")
+	public String insertStartTime(WorkTime work,HttpSession session) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat ("yyyyMMdd", Locale.KOREA);
+		Date temp = new Date();
+		work.setToday(sdf.format(temp));
+		System.out.println(work);
+		
+		int result = eService.insertStartTime(work);
+		
+		if(result > 0) {
+			int result2 = eService.updateWorkStatus(work);
+			
+			if(result2 > 0) {
+				Employee loginUser = eService.selectEmp(work.getEmpId());
+				session.setAttribute("loginUser", loginUser);
+				return "success";
+			}else {
+				return "fail";
+			}
+		}else {
+			return "fail";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("endWork.do")
+	public JSONArray updateEndTime(WorkTime work,HttpSession session) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat ("yyyyMMdd", Locale.KOREA);
+		SimpleDateFormat sdf2 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss", Locale.KOREA );
+		Date temp = new Date();
+		work.setToday(sdf.format(temp));
+		System.out.println(work);
+		
+		int result = eService.updateEndTime(work);
+		JSONArray workList = new JSONArray();
+		
+		if(result > 0) {
+			int result2 = eService.updateWorkStatus2(work);
+			
+			if(result2 > 0) {
+				Employee loginUser = eService.selectEmp(work.getEmpId());
+				session.setAttribute("loginUser", loginUser);
+				
+				ArrayList<WorkTime> wList = eService.selectWorkList(work.getEmpId());
+				for(WorkTime w : wList) {
+					JSONObject jObj = new JSONObject();
+					jObj.put("today", w.getToday());
+					jObj.put("empId", w.getEmpId());
+					jObj.put("checkIn", w.getCheckIn());
+					jObj.put("checkOut", w.getCheckOut());
+					
+					workList.add(jObj);
+				}
+				System.out.println(workList);
+				return workList;
+			} else {
+				return workList;
+			}
+		}else {
+			return workList;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }
