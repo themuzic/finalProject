@@ -142,65 +142,71 @@
 											</tr>
 										</thead>
 										<tbody id="docuWidgetTbody">
-											<c:forEach var="d" items="${docuList}">
-												<tr class="docuTR">
-												<c:if test="${d.docuType eq 'AP'}">
-								            		<c:if test="${d.docuNum lt '10' }">
-								            			<td style="text-align:center;padding-left:8px;">지결-${d.docuCode}-000${d.docuNum}</td>
-								            		</c:if>
-								            		<c:if test="${d.docuNum ge '10' }">
-								            			<td style="text-align:center;padding-left:8px;">지결-${d.docuCode}-00${d.docuNum}</td>
-								            		</c:if>
-								            	</c:if>
-								            	<c:if test="${d.docuType eq 'CN'}">
-								            		<c:if test="${d.docuNum lt '10' }">
-								            			<td style="text-align:center;padding-left:8px;">회람-${d.docuCode}-000${d.docuNum}</td>
-								            		</c:if>
-								            		<c:if test="${d.docuNum ge '10' }">
-								            			<td style="text-align:center;padding-left:8px;">회람-${d.docuCode}-00${d.docuNum}</td>
-								            		</c:if>
-								            	</c:if>
-								            	<c:if test="${d.docuType eq 'CF'}">
-								            		<c:if test="${d.docuNum lt '10' }">
-								            			<td style="text-align:center;padding-left:8px;">품의-${d.docuCode}-000${d.docuNum}</td>
-								            		</c:if>
-								            		<c:if test="${d.docuNum ge '10' }">
-								            			<td style="text-align:center;padding-left:8px;">품의-${d.docuCode}-00${d.docuNum}</td>
-								            		</c:if>
-								            	</c:if>
-								            	<c:if test="${d.docuType eq 'VA'}">
-								            		<c:if test="${d.docuNum lt '10' }">
-								            			<td style="text-align:center;padding-left:8px;">휴가-${d.docuCode}-000${d.docuNum}</td>
-								            		</c:if>
-								            		<c:if test="${d.docuNum ge '10' }">
-								            			<td style="text-align:center;padding-left:8px;">휴가-${d.docuCode}-00${d.docuNum}</td>
-								            		</c:if>
-								            	</c:if>
-								            	<c:if test="${d.docuType eq 'RT'}">
-								            		<c:if test="${d.docuNum lt '10' }">
-								            			<td style="text-align:center;padding-left:8px;">퇴사-${d.docuCode}-000${d.docuNum}</td>
-								            		</c:if>
-								            		<c:if test="${d.docuNum ge '10' }">
-								            			<td style="text-align:center;padding-left:8px;">퇴사-${d.docuCode}-00${d.docuNum}</td>
-								            		</c:if>
-								            	</c:if>
-								            	<c:url value="documentDetailView.do" var="documentDetailView">
-													<c:param name="docuNum" value="${d.docuNum}"/>
-												</c:url>
-												<td><a href="${documentDetailView}">${d.title}</a></td>
-												<td style="text-align:center;">${d.empName}</td>
-												<td style="text-align:center;">${d.dv}</td>
-												<c:choose>
-								            		<c:when test="${d.status eq '결재 대기' }">
-										            	<td style="color:red;text-align:center;padding-left:8px;">${d.status}</td>	
-								            		</c:when>
-								            		<c:otherwise>
-								            			<td style="text-align:center;padding-left:8px;">${d.status}</td>
-								            		</c:otherwise>
-								            	</c:choose>
-											</tr>
-											</c:forEach>
-											
+											<c:if test="${docuList eq '[]'}">
+												<tr>
+													<td colspan="3" style="border-bottom:0;">관련된 문서가 없습니다.</td>
+												</tr>
+											</c:if>
+											<c:if test="${docuList ne '[]'}">
+												<c:forEach var="d" items="${docuList}">
+													<tr class="docuTR">
+													<c:if test="${d.docuType eq 'AP'}">
+									            		<c:if test="${d.docuNum lt '10' }">
+									            			<td style="text-align:center;padding-left:8px;">지결-${d.docuCode}-000${d.docuNum}</td>
+									            		</c:if>
+									            		<c:if test="${d.docuNum ge '10' }">
+									            			<td style="text-align:center;padding-left:8px;">지결-${d.docuCode}-00${d.docuNum}</td>
+									            		</c:if>
+									            	</c:if>
+									            	<c:if test="${d.docuType eq 'CN'}">
+									            		<c:if test="${d.docuNum lt '10' }">
+									            			<td style="text-align:center;padding-left:8px;">회람-${d.docuCode}-000${d.docuNum}</td>
+									            		</c:if>
+									            		<c:if test="${d.docuNum ge '10' }">
+									            			<td style="text-align:center;padding-left:8px;">회람-${d.docuCode}-00${d.docuNum}</td>
+									            		</c:if>
+									            	</c:if>
+									            	<c:if test="${d.docuType eq 'CF'}">
+									            		<c:if test="${d.docuNum lt '10' }">
+									            			<td style="text-align:center;padding-left:8px;">품의-${d.docuCode}-000${d.docuNum}</td>
+									            		</c:if>
+									            		<c:if test="${d.docuNum ge '10' }">
+									            			<td style="text-align:center;padding-left:8px;">품의-${d.docuCode}-00${d.docuNum}</td>
+									            		</c:if>
+									            	</c:if>
+									            	<c:if test="${d.docuType eq 'VA'}">
+									            		<c:if test="${d.docuNum lt '10' }">
+									            			<td style="text-align:center;padding-left:8px;">휴가-${d.docuCode}-000${d.docuNum}</td>
+									            		</c:if>
+									            		<c:if test="${d.docuNum ge '10' }">
+									            			<td style="text-align:center;padding-left:8px;">휴가-${d.docuCode}-00${d.docuNum}</td>
+									            		</c:if>
+									            	</c:if>
+									            	<c:if test="${d.docuType eq 'RT'}">
+									            		<c:if test="${d.docuNum lt '10' }">
+									            			<td style="text-align:center;padding-left:8px;">퇴사-${d.docuCode}-000${d.docuNum}</td>
+									            		</c:if>
+									            		<c:if test="${d.docuNum ge '10' }">
+									            			<td style="text-align:center;padding-left:8px;">퇴사-${d.docuCode}-00${d.docuNum}</td>
+									            		</c:if>
+									            	</c:if>
+									            	<c:url value="documentDetailView.do" var="documentDetailView">
+														<c:param name="docuNum" value="${d.docuNum}"/>
+													</c:url>
+													<td><a href="${documentDetailView}">${d.title}</a></td>
+													<td style="text-align:center;">${d.empName}</td>
+													<td style="text-align:center;">${d.dv}</td>
+													<c:choose>
+									            		<c:when test="${d.status eq '결재 대기' }">
+											            	<td style="color:red;text-align:center;padding-left:8px;">${d.status}</td>	
+									            		</c:when>
+									            		<c:otherwise>
+									            			<td style="text-align:center;padding-left:8px;">${d.status}</td>
+									            		</c:otherwise>
+									            	</c:choose>
+												</tr>
+												</c:forEach>
+											</c:if>
 										</tbody>
 									</table>
 								</div>
@@ -277,7 +283,7 @@
 							<!-- END TODO LIST -->
 							
 							
-							<!-- 전자결재 위젯 -->
+							<!-- 받은 메일 위젯 -->
 							<div class="panel" style="position:absolute;min-width:600px;">
 								<input type="hidden" class="widgetType" name="widgetType" value="4">
 								<input type="hidden" class="left" name="left" value="">
@@ -301,22 +307,24 @@
 											</tr>
 										</thead>
 										<tbody id="docuWidgetTbody">
-											<c:if test="${mailList eq null}">
+											<c:if test="${mailList eq '[]'}">
 												<tr>
-													<td colspan="3">받은 메일이 없습니다.</td>
+													<td colspan="3" style="border-bottom:0;">받은 메일이 없습니다.</td>
 												</tr>
 											</c:if>
-											<c:forEach var="m" items="${mailList}">
-												<tr class="docuTR">
-									            	<td>${m.mailFrom}</td>
-								            	<c:url value="receiveDetail.do" var="receiveDetail">
-													<c:param name="empId" value="${m.empId}"/>
-													<c:param name="mailNum" value="${m.mailNum}"/>
-												</c:url>
-													<td><a href="${receiveDetail}">${m.mailTitle}</a></td>
-													<td style="text-align:center;padding-left:8px;">${m.mailDate}</td>
-												</tr>
-											</c:forEach>
+											<c:if test="${mailList ne '[]'}">
+												<c:forEach var="m" items="${mailList}">
+													<tr class="docuTR">
+										            	<td>${m.mailFrom}</td>
+									            	<c:url value="receiveDetail.do" var="receiveDetail">
+														<c:param name="empId" value="${m.empId}"/>
+														<c:param name="mailNum" value="${m.mailNum}"/>
+													</c:url>
+														<td><a href="${receiveDetail}">${m.mailTitle}</a></td>
+														<td style="text-align:center;padding-left:8px;">${m.mailDate}</td>
+													</tr>
+												</c:forEach>
+											</c:if>
 										</tbody>
 									</table>
 								</div>
@@ -486,7 +494,7 @@
 	/* ----------------------------------------------- */
 	$(function() {
 		
-		//console.log('${docuList}');
+		//console.log('${mailList}' == '[]');
 		
 		
 		/*-------------------------------------------------------*/

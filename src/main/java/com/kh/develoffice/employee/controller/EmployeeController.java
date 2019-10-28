@@ -180,7 +180,7 @@ public class EmployeeController {
 						for(int i = 0; i < limit2; i++) {
 							mailList.add(tempMailList.get(i));
 						}
-						System.out.println(mailList);
+						//System.out.println(mailList);
 						mv.addObject("mailList", mailList).setViewName("main/mainPage");
 					}
 					
@@ -232,7 +232,7 @@ public class EmployeeController {
 				
 				ArrayList<Document> dd = dService.selectDocuList(empId);		// 나와 관련된 문서 모두 호출
 				ArrayList<Document> docuList = new ArrayList<>();
-				System.out.println(dd.size());
+				//System.out.println(dd.size());
 				int limit=0;
 				if(dd != null) {
 					
@@ -306,7 +306,7 @@ public class EmployeeController {
 							}
 						}
 					}
-					System.out.println(docuList);
+					//System.out.println(docuList);
 					mv.addObject("docuList", docuList);
 					
 					ArrayList<Mail> tempMailList = mService.selectMyMail(loginUser);
@@ -419,7 +419,7 @@ public class EmployeeController {
 		SimpleDateFormat sdf = new SimpleDateFormat ("yyyyMMdd", Locale.KOREA);
 		Date temp = new Date();
 		work.setToday(sdf.format(temp));
-		System.out.println(work);
+		//System.out.println(work);
 		
 		int result = eService.insertStartTime(work);
 		
@@ -446,7 +446,7 @@ public class EmployeeController {
 		SimpleDateFormat sdf2 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss", Locale.KOREA );
 		Date temp = new Date();
 		work.setToday(sdf.format(temp));
-		System.out.println(work);
+		//System.out.println(work);
 		
 		int result = eService.updateEndTime(work);
 		JSONArray workList = new JSONArray();
@@ -468,7 +468,7 @@ public class EmployeeController {
 					
 					workList.add(jObj);
 				}
-				System.out.println(workList);
+				//System.out.println(workList);
 				return workList;
 			} else {
 				return workList;
