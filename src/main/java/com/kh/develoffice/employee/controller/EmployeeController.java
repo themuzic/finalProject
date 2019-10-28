@@ -27,6 +27,8 @@ import com.kh.develoffice.employee.model.service.EmployeeService;
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.employee.model.vo.Widget;
 import com.kh.develoffice.employee.model.vo.WorkTime;
+import com.kh.develoffice.mail.model.service.MailService;
+import com.kh.develoffice.mail.model.vo.Mail;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -36,6 +38,8 @@ public class EmployeeController {
 	private EmployeeService eService;
 	@Autowired
 	private DocumentService dService;
+	@Autowired
+	private MailService mService;
 	/**
 	 * - 로그인 
 	 * @param emp
@@ -85,7 +89,6 @@ public class EmployeeController {
 				
 				ArrayList<Document> dd = dService.selectDocuList(id);		// 나와 관련된 문서 모두 호출
 				ArrayList<Document> docuList = new ArrayList<>();
-				System.out.println(dd.size());
 				int limit=0;
 				if(dd != null) {
 					
@@ -98,6 +101,7 @@ public class EmployeeController {
 					for(int i = 0; i < limit; i++) {
 						docuList.add(dd.get(i));
 					}
+				}
 					
 					ArrayList<Approval> apList = dService.selectMyApproval(id);		// 문서당 결재라인 호출
 					ArrayList<Reference> rfList = dService.selectMyReference(id);	//문서당 참조라인 호출
@@ -159,9 +163,28 @@ public class EmployeeController {
 							}
 						}
 					}
-					System.out.println(docuList);
-					mv.addObject("docuList", docuList).setViewName("main/mainPage");
-				}
+					mv.addObject("docuList", docuList);
+					
+					ArrayList<Mail> tempMailList = mService.selectMyMail(loginUser);
+					ArrayList<Mail> mailList = new ArrayList<>();
+					
+					int limit2=0;
+					if(tempMailList != null) {
+						
+						if(dd.size() < 5) {
+							limit2=tempMailList.size();
+						}else {
+							limit2=5;
+						}
+						
+						for(int i = 0; i < limit2; i++) {
+							mailList.add(tempMailList.get(i));
+						}
+						System.out.println(mailList);
+						mv.addObject("mailList", mailList).setViewName("main/mainPage");
+					}
+					
+				
 		   } else {			   
 			   mv.addObject("msg", "로그인 실패");		// 전달하고자 하는 데이터 담기 addObject(key, value);
 			   mv.setViewName("login");	// 뷰에 대한 정보 담기 setViewName(뷰명);
@@ -284,7 +307,26 @@ public class EmployeeController {
 						}
 					}
 					System.out.println(docuList);
-					mv.addObject("docuList", docuList).setViewName("main/mainPage");
+					mv.addObject("docuList", docuList);
+					
+					ArrayList<Mail> tempMailList = mService.selectMyMail(loginUser);
+					ArrayList<Mail> mailList = new ArrayList<>();
+					
+					int limit2=0;
+					if(tempMailList != null) {
+						
+						if(dd.size() < 5) {
+							limit2=tempMailList.size();
+						}else {
+							limit2=5;
+						}
+						
+						for(int i = 0; i < limit2; i++) {
+							mailList.add(tempMailList.get(i));
+						}
+						System.out.println(mailList);
+						mv.addObject("mailList", mailList).setViewName("main/mainPage");
+					}
 				}
 		   } else {			   
 			   mv.addObject("msg", "로그인 실패");		// 전달하고자 하는 데이터 담기 addObject(key, value);

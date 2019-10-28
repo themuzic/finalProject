@@ -30,6 +30,9 @@
 	}
 	#docuWidgetTbody td{
 		background:white;
+		overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
 	}
 	#docuWidgetTbody tr:hover td{
 		background:#dbecff;
@@ -131,11 +134,11 @@
 									<table class="table table-striped" id="documentTable">
 										<thead>
 											<tr style="text-align:center;">
-												<th>문서번호</th>
-												<th>제목</th>
-												<th>기안자</th>
-												<th>구분</th>
-												<th>상태</th>
+												<th style="width:170px;">문서번호</th>
+												<th style="width:212px;">제목</th>
+												<th style="width:74px;">기안자</th>
+												<th style="width:52px;">구분</th>
+												<th style="width:90px;">상태</th>
 											</tr>
 										</thead>
 										<tbody id="docuWidgetTbody">
@@ -143,56 +146,56 @@
 												<tr class="docuTR">
 												<c:if test="${d.docuType eq 'AP'}">
 								            		<c:if test="${d.docuNum lt '10' }">
-								            			<td>지결-${d.docuCode}-000${d.docuNum}</td>
+								            			<td style="text-align:center;padding-left:8px;">지결-${d.docuCode}-000${d.docuNum}</td>
 								            		</c:if>
 								            		<c:if test="${d.docuNum ge '10' }">
-								            			<td>지결-${d.docuCode}-00${d.docuNum}</td>
+								            			<td style="text-align:center;padding-left:8px;">지결-${d.docuCode}-00${d.docuNum}</td>
 								            		</c:if>
 								            	</c:if>
 								            	<c:if test="${d.docuType eq 'CN'}">
 								            		<c:if test="${d.docuNum lt '10' }">
-								            			<td>회람-${d.docuCode}-000${d.docuNum}</td>
+								            			<td style="text-align:center;padding-left:8px;">회람-${d.docuCode}-000${d.docuNum}</td>
 								            		</c:if>
 								            		<c:if test="${d.docuNum ge '10' }">
-								            			<td>회람-${d.docuCode}-00${d.docuNum}</td>
+								            			<td style="text-align:center;padding-left:8px;">회람-${d.docuCode}-00${d.docuNum}</td>
 								            		</c:if>
 								            	</c:if>
 								            	<c:if test="${d.docuType eq 'CF'}">
 								            		<c:if test="${d.docuNum lt '10' }">
-								            			<td>품의-${d.docuCode}-000${d.docuNum}</td>
+								            			<td style="text-align:center;padding-left:8px;">품의-${d.docuCode}-000${d.docuNum}</td>
 								            		</c:if>
 								            		<c:if test="${d.docuNum ge '10' }">
-								            			<td>품의-${d.docuCode}-00${d.docuNum}</td>
+								            			<td style="text-align:center;padding-left:8px;">품의-${d.docuCode}-00${d.docuNum}</td>
 								            		</c:if>
 								            	</c:if>
 								            	<c:if test="${d.docuType eq 'VA'}">
 								            		<c:if test="${d.docuNum lt '10' }">
-								            			<td>휴가-${d.docuCode}-000${d.docuNum}</td>
+								            			<td style="text-align:center;padding-left:8px;">휴가-${d.docuCode}-000${d.docuNum}</td>
 								            		</c:if>
 								            		<c:if test="${d.docuNum ge '10' }">
-								            			<td>휴가-${d.docuCode}-00${d.docuNum}</td>
+								            			<td style="text-align:center;padding-left:8px;">휴가-${d.docuCode}-00${d.docuNum}</td>
 								            		</c:if>
 								            	</c:if>
 								            	<c:if test="${d.docuType eq 'RT'}">
 								            		<c:if test="${d.docuNum lt '10' }">
-								            			<td>퇴사-${d.docuCode}-000${d.docuNum}</td>
+								            			<td style="text-align:center;padding-left:8px;">퇴사-${d.docuCode}-000${d.docuNum}</td>
 								            		</c:if>
 								            		<c:if test="${d.docuNum ge '10' }">
-								            			<td>퇴사-${d.docuCode}-00${d.docuNum}</td>
+								            			<td style="text-align:center;padding-left:8px;">퇴사-${d.docuCode}-00${d.docuNum}</td>
 								            		</c:if>
 								            	</c:if>
 								            	<c:url value="documentDetailView.do" var="documentDetailView">
 													<c:param name="docuNum" value="${d.docuNum}"/>
 												</c:url>
 												<td><a href="${documentDetailView}">${d.title}</a></td>
-												<td>${d.empName}</td>
-												<td>${d.dv}</td>
+												<td style="text-align:center;">${d.empName}</td>
+												<td style="text-align:center;">${d.dv}</td>
 												<c:choose>
 								            		<c:when test="${d.status eq '결재 대기' }">
-										            	<td style="color:red;">${d.status}</td>	
+										            	<td style="color:red;text-align:center;padding-left:8px;">${d.status}</td>	
 								            		</c:when>
 								            		<c:otherwise>
-								            			<td>${d.status}</td>
+								            			<td style="text-align:center;padding-left:8px;">${d.status}</td>
 								            		</c:otherwise>
 								            	</c:choose>
 											</tr>
@@ -204,7 +207,7 @@
 								<div class="panel-footer">
 									<div class="row">
 										<!-- <div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Last 24 hours</span></div> -->
-										<div class="col-md-6 text-right fr"><a href="#" class="btn btn-primary">전체 문서 보기</a></div>
+										<div class="col-md-6 text-right fr"><a href="#" class="btn btn-primary">더보기</a></div>
 									</div>
 								</div>
 							</div>
@@ -213,8 +216,8 @@
 							
 							
 							
-							<!-- TODO LIST -->
-							<div class="panel" style="position:absolute;min-width:500px;">	
+							<!-- TODO 위젯 -->
+							<div class="panel" style="position:absolute;min-width:660px;">	
 								<input type="hidden" class="widgetType" name="widgetType" value="3">
 								<input type="hidden" class="left" name="left" value="">
 								<input type="hidden" class="top" name="top" value="">
@@ -272,6 +275,59 @@
 								</div>
 							</div>
 							<!-- END TODO LIST -->
+							
+							
+							<!-- 전자결재 위젯 -->
+							<div class="panel" style="position:absolute;min-width:600px;">
+								<input type="hidden" class="widgetType" name="widgetType" value="4">
+								<input type="hidden" class="left" name="left" value="">
+								<input type="hidden" class="top" name="top" value="">
+								<input type="hidden" class="fold" name="fold" value="N">
+								<input type="hidden" class="status" name="status" value="Y">
+								<div class="panel-heading">
+									<h3 class="panel-title">받은 메일함</h3>
+									<div class="right">
+										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+									</div>
+								</div>
+								<div class="panel-body no-padding">
+									<table class="table table-striped" id="documentTable">
+										<thead>
+											<tr style="text-align:center;">
+												<th style="width:200px;">보낸 사람</th>
+												<th style="width:230px;">제목</th>
+												<th style="width:170px;">받은 날짜</th>
+											</tr>
+										</thead>
+										<tbody id="docuWidgetTbody">
+											<c:if test="${mailList eq null}">
+												<tr>
+													<td colspan="3">받은 메일이 없습니다.</td>
+												</tr>
+											</c:if>
+											<c:forEach var="m" items="${mailList}">
+												<tr class="docuTR">
+									            	<td>${m.mailFrom}</td>
+								            	<c:url value="receiveDetail.do" var="receiveDetail">
+													<c:param name="empId" value="${m.empId}"/>
+													<c:param name="mailNum" value="${m.mailNum}"/>
+												</c:url>
+													<td><a href="${receiveDetail}">${m.mailTitle}</a></td>
+													<td style="text-align:center;padding-left:8px;">${m.mailDate}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+								<div class="panel-footer">
+									<div class="row">
+										<!-- <div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Last 24 hours</span></div> -->
+										<div class="col-md-6 text-right fr"><a href="#" class="btn btn-primary">더보기</a></div>
+									</div>
+								</div>
+							</div>
+							<!------------------------------------------------------------------------------>
 						
 					
 					<!--  -->

@@ -58,6 +58,7 @@ public interface MailService {
 	// 증요 메일함 검색
 	ArrayList<Mail> importantSearchList(Mail m, PageInfo pi);
 
-	
+	// 해당 계정의 전체 메일 불러오기
+	ArrayList<Mail> selectMyMail(Employee loginUser);
 
 }
