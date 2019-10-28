@@ -618,12 +618,23 @@ body{
 			   "</small>" +
 			   "</div>" +
 			   "</li>";
-        }else if(data[0] == "상대방"){
+        }else if(data[0] == "system"){
+        	html = "<li class='msg-day'>" +
+        		   "<div class='msg-desc'>" +
+        		   data[1] +
+        		   "</div>" + 
+        		   "</li>";
+        }else if(data[0] == "chatId"){
+        	messenger = window.open("chatting.do?chatId=" + data[1] + "&chatName=" + data[3] + "&chatType=" + 2, data[1] + "chatting", "width=500,height=545", "false");
+        }else{
         	html = "<li class='msg-left'>" +
 			   "<div class='msg-left-sub'>" +
 			   "<img src='resources/images/" +
 			   data[1] +
 			   "'>" +
+			   "<div style='margin-left:70px; font-size:12px'>" +
+			   data[0] +
+			   "</div>" +
 			   "<div class='msg-desc'>" +
 			   str.substring(str.indexOf(":", str.indexOf(":")+1)+1,str.length) +
 			   "</div>" +
@@ -632,16 +643,7 @@ body{
 			   "</small>" +
 			   "</div>" +
 			   "</li>";
-        }else if(data[0] == "system"){
-        	html = "<li class='msg-day'>" +
-        		   "<div class='msg-desc'>" +
-        		   data[1] +
-        		   "</div>" + 
-        		   "</li>";
-        }else{
-        	messenger = window.open("chatting.do?chatId=" + data[1] + "&chatName=" + data[3] + "&chatType=" + 2, data[1] + "chatting", "width=500,height=545", "false");
         }
-
         $("#msg-area").append(html);
         $("#messageArea").scrollTop(9999999);
 
@@ -658,22 +660,7 @@ body{
 </head>
 <body>
 
-<!-- 			<script>
-							var empList = $(".empList");
-							var length = empList.length();
-							var html = "<b>${loginUser.empName} ${loginUser.jobName}</b>님이 ";
-							$.each(empList, function(index, value){
-								if(index != (length-1){
-								html += "<b>" + value.innerText "</b>님" + ", ";
-									
-								}else{
-									html += "<b>" + value.innerText "</b>님을 초대하셨습니다.";
-								}
-							});
-							sock.send(html);
-						</script> -->
-	<!---------------------- 미리보기창 모달 -------------------------->
-               
+	<!---------------------- 미리보기창 모달 -------------------------->               
     <!-- Modal -->
 	<div class="modal fade"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     	<div class="modal-dialog" role="document">
@@ -687,36 +674,10 @@ body{
 				<div class="modal-body" style="height:400px; width:100%; padding:0px; padding-top:15px;">
 					<div class="modal-body-left" data-mcs-theme="minimal-dark" style="width:70%; height:100%; float:left; overflow:hidden;">
 						<ul id="invite-list">
-							<li>
-						   		<div class='chatList'>
-						   			<input type='hidden' name='empId' value='10004'>
-						   			<div class='img'>
-						   				<img src='resources/images/default_profile.png'>
-						   			</div>
-						   			<div class='desc'>
-							   			<div class='chatList-left-section' style='float:left; width:85%;'>
-							   				<h5>유현규 사원</h5> 
-							   				<small>영업지원부</small>
-							   			</div>
-							   			<div class='chatList-right-section' style='float:right; width:15%;'>
-								   			<div class='non-checked'>
-								   			<i class='fa fa-check'></i>
-							   				</div>
-								   		</div>
-						   			</div>
-						   		</div> 
-							</li>
 						</ul>
 					</div>
 					<div class="modal-body-right" style="width:30%; float:right;">
 						<ul id="add-list">
-							<!-- <li>
-								<div class="addList">
-									<img src="resources/images/default_profile.png">
-									<span class="empName">유현규 사원</span>
-									<span class="deleteList" aria-hidden="true" style="padding-right:5px; cursor:pointer;">&times;</span>
-								</div>
-							</li> -->
 						</ul>
 					</div>
 	         	</div>
@@ -732,13 +693,12 @@ body{
 			<div class="headLeft-section">
 				<div class="headLeft-sub">
 					<h4>${c.chatName }</h4>
-					<small>2019-10-14</small>
 				</div>
 			</div>
 			<div class="headRight-section">
 				<div class="headRight-sub">
 					<a href="#myModal" onclick="invite();" style="float:left;" data-target="#myModal" data-toggle="modal"><i class="fa fa-plus"></i>초대</a>
-					<a id="exit" style="float:right;"><i class="fa fa-sign-out"></i>나가기</a>
+					<a style="cursor:pointer;" id="exit" style="float:right;"><i class="fa fa-sign-out"></i>나가기</a>
 				</div>
 			</div>
 		</div>
@@ -770,6 +730,9 @@ body{
 								<li class="msg-left">
 									<div class="msg-left-sub">
 										<img src="resources/images/${msg.profilePath}">
+										<div style="margin-left:70px; font-size:12px">
+											${msg.empName} ${msg.jobName }
+										</div>
 										<div class="msg-desc">
 											${msg.content}
 										</div>
@@ -785,36 +748,6 @@ body{
 								</li>
 							</c:if>
 						</c:forEach>
-						<!-- <li class="msg-left">
-							<div class="msg-left-sub">
-								<img src="resources/image/sitelogo.png">
-								<div class="msg-desc">
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-									tempor incididunt ut labore et dolore magna aliqua.
-								</div>
-								<small>05:25 am</small>
-							</div>
-						</li>
-						<li class="msg-right">
-							<div class="msg-left-sub">
-								<img src="resources/image/sitelogo.png">
-								<div class="msg-desc">
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-									tempor incididunt ut labore et dolore magna aliqua.
-								</div>
-							</div>
-							<br>
-							<div class="msg-left-sub">
-								<div class="msg-desc">
-									Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-									tempor incididunt ut labore et dolore magna aliqua.
-								</div>
-								<small>05:25 am</small>
-							</div>
-						</li>
-						
-						<li class="msg-day"><small>수요일</small></li> -->
-						
 					</ul>
 				</div>
 				<div class="right-section-bottom">

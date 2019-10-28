@@ -204,7 +204,7 @@ public class EchoHandler extends TextWebSocketHandler{
     		ArrayList<WebSocketSession> list = chatList.get(messageList[1]);	// 방에 들어있는 소켓 ArrayList를 가져온다.
 			int empId = ((Employee)session.getAttributes().get("loginUser")).getEmpId();	// 보낸사람 아이디 출력
 			String profilePath = ((Employee)session.getAttributes().get("loginUser")).getProfilePath();	// 보낸사람 프로필경로 출력
-			
+			String empName = cService.selectChatName(empId);	// 보낸사람 이름
 			Message m = new Message();
 			m.setChatId(Integer.parseInt(messageList[1]));
 			m.setEmpId(empId);
@@ -228,7 +228,7 @@ public class EchoHandler extends TextWebSocketHandler{
 						}else {						// 다르면
 							int update = cService.updateJoinMod(m);	// 채팅방 확인 갱신
 							if(update > 0) {					// 갱신됐으면
-								sess.sendMessage(new TextMessage("상대방:"+ profilePath + ":" + content));	// 메세지 출력
+								sess.sendMessage(new TextMessage(empName +":"+ profilePath + ":" + content));	// 메세지 출력
 							}
 						}
 						
