@@ -510,6 +510,9 @@ public class EmployeeController {
 			Employee loginUser = eService.selectEmp(empId);
 			System.out.println(loginUser);
 			((Employee)session.getAttribute("loginUser")).setProfilePath(loginUser.getProfilePath());
+			((Employee)session.getAttribute("loginUser")).setPhone(e.getPhone());
+			((Employee)session.getAttribute("loginUser")).setStatusMsg(e.getStatusMsg());
+			((Employee)session.getAttribute("loginUser")).setAddress(e.getAddress());
 			return loginUser.getProfilePath();
 		}else {
 			return "fail";

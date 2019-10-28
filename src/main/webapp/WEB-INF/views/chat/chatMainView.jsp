@@ -328,7 +328,7 @@ ul li:hover{
 									</div>
 									<div class="desc">
 										<h5>${loginUser.empName } ${loginUser.jobName }</h5>
-										<small>${loginUser.statusMsg }안녕하세요?</small>
+										<small>${loginUser.statusMsg }</small>
 									</div>
 								</div>
 							</li>
