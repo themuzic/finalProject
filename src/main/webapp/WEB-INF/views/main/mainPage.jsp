@@ -144,7 +144,7 @@
 										<tbody id="docuWidgetTbody">
 											<c:if test="${docuList eq '[]'}">
 												<tr>
-													<td colspan="3" style="border-bottom:0;">관련된 문서가 없습니다.</td>
+													<td colspan="5" style="border-bottom:0;">관련된 문서가 없습니다.</td>
 												</tr>
 											</c:if>
 											<c:if test="${docuList ne '[]'}">
