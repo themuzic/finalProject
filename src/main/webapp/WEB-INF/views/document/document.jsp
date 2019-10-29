@@ -63,6 +63,10 @@
 	.team-name{
 		margin-right: 10px;
 	}
+	td{
+	    border-bottom: 1px solid #ececec;
+	    border-right: 1px solid #ececec;
+	}
 	/* 에디터 CSS 끝 */
 	
 </style>
@@ -1649,7 +1653,7 @@
 			var $td1 = $('<td>');
 			var $td2 = $('<td>');
 			var $td3 = $('<td>');
-			var $td4 = $('<td>').text('총 '+sumPrice);
+			var $td4 = $('<td style="border-top:1px solid #ececec;">').text('총 '+sumPrice);
 			var $h = $('<input type="hidden" name="price">').val(sumPrice);
 			$td4.append($h);
 			var $td5 = $('<td>');

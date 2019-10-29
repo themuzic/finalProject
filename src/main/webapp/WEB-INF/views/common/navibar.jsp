@@ -137,11 +137,12 @@
 	    color: #333;
 	    font-weight: 400;
 	}
+	/*
 	td{
-		/* padding: 2px 0 2px 10px; */
 	    border-bottom: 1px solid #ececec;
 	    border-right: 1px solid #ececec;
 	}
+	*/
 			
 	.tooltip-box{
 		position: absolute;
@@ -454,7 +455,7 @@
 							<ul class="dropdown-menu">
 								<li><a href="myProfile.do"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
 								<!-- <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li> -->
-								<li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
+								<li><a href="orgChart.do"><i class="lnr lnr-cog"></i> <span>조직도</span></a></li>
 								<li><a href="logout.do"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
 							</ul>
 						</li>

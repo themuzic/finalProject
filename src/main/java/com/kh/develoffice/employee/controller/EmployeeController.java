@@ -584,6 +584,12 @@ public class EmployeeController {
 		}
 	}
 	
+	@RequestMapping("orgChart.do")
+	public String orgChart() {
+		
+		return "common/orgChart";
+	}
+	
 	
 	
 	
