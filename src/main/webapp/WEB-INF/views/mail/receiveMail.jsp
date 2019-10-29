@@ -108,10 +108,6 @@
 					</td>
 				</tr>
 			</table>
-			
-			
-	      
-	           
 	       
 	       <script>
 		       function validate(){

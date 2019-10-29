@@ -74,41 +74,51 @@
 		<!-- 이 아래부터 내용 작성 -->
 
 		<fieldset>
-			<div id="searchArea" align="right">
-				<form action="search3.do">
-					<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray">
-					    <option>------</option>
-					    <option value="writer">이메일</option>
-					    <option value="title">제목</option>
-					    <option value="content">내용</option>
-					</select>
-					<div class="ui input">
-						<input type="search" name="search" value="${ search }" placeholder="Search..." style="height:32px;">
-						<i class="circular search link"></i>
-					</div>	         
-					<button type="submit" onclick="return validate();" style="color:#3287B2">검색하기</button>
-				</form>
-	       </div>
+			
+			<table>
+				<tr>
+					<td style="text-align:left;border:0;padding-left:5px;">
+					  <div id='chkMenu' class="chkMenu" name="chkMenu" style="font-size:15px; display:block; height: 20px;">
+				        	<div id="delBtn" class="hide" style="padding-top:10px;">
+					            <span class="detail_select delBtn" id="m_list_checked_menu_delete" style="margin-left:5px;">
+									<a href="javascript:void(0)" onclick="deleteM();">삭제</a>&nbsp;&nbsp;
+					            </span>
+					            <span class="detail_select delBtn">
+					                <a href="javascript:void(0)" onclick="deleteAll();">완전삭제</a>&nbsp;&nbsp;
+					            </span>
+				            </div>
+				        </div>
+					</td>
+					<td style="text-align:right;border:0;padding-right:5px;">
+						 <div id="searchArea" align="right" class="fr">
+							<form action="search2.do">
+								<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray">
+								    <option>------</option>
+								    <option value="writer">이메일</option>
+								    <option value="title">제목</option>
+								    <option value="content">내용</option>
+								</select>
+								<div class="ui input">
+									<input type="search" name="search" value="${ search }" placeholder="Search..." style="height:32px;">
+									<i class="circular search link"></i>
+								</div>	         
+								<button type="submit" onclick="return validate();" style="color:#3287B2">검색하기</button>
+							</form>
+				       	</div>
+					</td>
+				</tr>
+			</table>
 	       
 	       <script>
 		       function validate(){
 		           if($("option:selected").val() == "------"){
 // 		              alert("검색 조건을 체크해주세요");
-		              alertify.alert("","검색 조건을 체크해주세요");
+		              alertify.alert("", "검색 조건을 체크해주세요");
 		           return false;
 		           }
 		        }
 	       </script>
-
-	        <div id='chkMenu' class="chkMenu hide" name="chkMenu" style="font-size:15px;">
-	            <span class="detail_select">
-	                <a href="javascript:void(0)" onclick="deleteAll();">완전삭제</a>&nbsp;&nbsp;
-	            </span>
-	        
-	            <span class="detail_select move">
-                    <a href="avascript:void(0)" id="restore"onclick="restore();">복구</a>
-            	</span>
-            </div>   
+                          
 	 	</fieldset>
 	 	
 			
@@ -304,21 +314,17 @@
 					$("#lookAll").addClass("hide");
 			});
 			
-			
-// 			if($(".chkBox").is(":checked") == false) {
-// 				  $("#lookAll").addClass("show");
-// 				  $(".chkMenu").addClass("hide");
-// 				  $(".chkMenu").css("display","none");
-// 				  $("#lookAll").css("display","block");
-// 				}
-			
-			if($(".chkBox").is(":checked") == true) {
-				  $("#lookAll").addClass("hide");
-				  $(".chkMenu").addClass("show");
-				  $(".chkMenu").css("display","block");
-				  $("#lookAll").css("display","none");
-				}
-
+			/* 전체 체크 할때 삭제 버튼 보이고 숨기기 */
+			$(document).on('click','.chkBox',function(){
+				
+				console.log($(".chkBox").prop("checked"));
+				
+				if($(".chkBox").prop("checked") == false) {
+ 					$('#delBtn').removeClass('show');
+ 				} else{
+ 					$('#delBtn').addClass('show');
+ 				}
+			});
 			
 			/* 호버 기능 */
 			$(".dropscroll-menu1").find("li").mouseenter(function(){
