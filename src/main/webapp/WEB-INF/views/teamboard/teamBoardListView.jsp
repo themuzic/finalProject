@@ -127,29 +127,29 @@
 					    		</tr>
 					        </thead>
 					        <tbody>
-					        	<c:forEach items="${list}" var="f">
+					        	<c:forEach items="${list}" var="tb">
 						            <tr> 
-						            	<td>${f.frId}</td>
+						            	<td>${tb.tbId}</td>
 						            	<td style="text-align:left">
 						            		
 						            		<c:if test="${empty loginUser}">
-												${f.frTitle} 
+												${tb.tbTitle} 
 											</c:if> 
 											<c:if test="${!empty loginUser}">
-												<c:url value="freeDetail.do" var="frdetail">
-													<c:param name="frId" value="${f.frId}"/>
+												<c:url value="teamBoardDetail.do" var="tbdetail">
+													<c:param name="tbId" value="${tb.tbId}"/>
 												</c:url> 
-												<a href="${frdetail}">${f.frTitle}</a>						
+												<a href="${tbdetail}">${tb.tbTitle}</a>						
 											</c:if> 
 						            	</td>
-						            	<td>${f.empName}</td>
+						            	<td>${tb.empName}</td>
 						            	<td>
-						            		<c:if test="${!empty f.originalFileName }">
+						            		<c:if test="${!empty tb.originalFileName }">
 												<i class="far fa-file-alt"></i>           
 											</c:if>
 						            	</td>
-						            	<td>${f.frCount}</td>
-						            	<td>${f.frCreateDate}</td>
+						            	<td>${tb.tbCount}</td>
+						            	<td>${tb.tbCreateDate}</td>
 						            </tr>
 					        	</c:forEach>
 					            
@@ -158,7 +158,7 @@
 					    </table>
 
 				
-						    <button onclick="location.href='insertFreeView.do';" class="btn btn-primary" style="float:right;">글쓰기</button>
+						    <button onclick="location.href='insertTeamBoardView.do';" class="btn btn-primary" style="float:right;">글쓰기</button>
 					
 						
 						
