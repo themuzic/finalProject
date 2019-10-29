@@ -136,5 +136,10 @@ public class MailDao {
 		return (ArrayList)sqlSession.selectList("mailMapper.importantSearchList", m, rowBounds);
 	}
 
-
+	
+	public ArrayList<Mail> selectMyMail(Employee loginUser){
+		return (ArrayList)sqlSession.selectList("mailMapper.selectMyMail", loginUser);
+	}
+	
+	
 }
