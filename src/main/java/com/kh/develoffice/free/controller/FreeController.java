@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -140,7 +141,6 @@ public class FreeController {
 	@RequestMapping("freeDetail.do")
 	public ModelAndView freeDetail(int frId, ModelAndView mv) {
 		Free f = fService.boardFreeDetail(frId);
-		
 		if(f != null) {
 			FreeLike count = fService.selectLikeCount(frId);
 			mv.addObject("count", count.getCount());
@@ -236,9 +236,7 @@ public class FreeController {
 	
 	@RequestMapping("freeRlist.do")
 	public void getReplyList(int frId, HttpServletResponse response) throws JsonIOException, IOException {
-		
 		ArrayList<FreeReply> list = fService.selectFreeReplyList(frId);
-		
 		
 		response.setContentType("application/json; charset=utf-8");
 		

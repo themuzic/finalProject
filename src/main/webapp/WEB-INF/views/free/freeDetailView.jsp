@@ -13,11 +13,10 @@
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
 
-
 <style>
 	.contentWrap{
 		float:left;
-		width:100%;
+		width:75%;
 		background: white;
 		padding-top:30px;
 		padding-bottom:30px;
@@ -25,7 +24,6 @@
 		padding-right:50px;
 		font-size:14px;
 	}
-	
 	#free_header{
 		width:100%;
 		height:40px;
@@ -33,16 +31,13 @@
 		color:white;
 		font-size:20px;
 		padding:7px 20px;
-		
 	}
-	
 	 #outer{
 		width:100%;
 		height:100%;
 		margin-left:auto;
 		margin-right:auto;
 	}
-	
 	.bd {
     padding: 0;
     max-width: 2000px;
@@ -53,38 +48,30 @@
     letter-spacing: -0.03em;
     background: transparent;
     line-height: 1.5;
-    
 	}
-	
 	#D_ ._hd .btm_area {
     padding: 10px 16px 25px 16px;
     background: #fff;
 	}
-
 	.bd .clear {
     display: block;
     position: relative;
 	}
-	
 	#D_ ._hd .btm_area > span {
     padding: 0;
     font-size: 12px;
     color: #777;
 	}
-	
 	.divider{
 	display:inline;
 	}
-	
 	.free_content{
 	line-height:210%;
 	}
-	
 	#C_ {
     padding: 0;
     background: transparent;
 	}
-	
 	#C_ ._hd {
     width: 100%;
     height: 44px;
@@ -94,25 +81,19 @@
     padding: 0 16px;
     font-size: 13px;
 	}
-	
 	.test1{
-    width: 530px;
     margin-left:auto;
     margin-right:auto;
     margin-top:50px;
 
 	}
-
 	.test2{
     width: 170px;
     display: inline-block
 	}
-
 	.test2 i{
-    /* color:rgb(247, 208, 71); */
     color:white;
 	}
-
 	.test2 a{
     display: block;
     color:white;
@@ -124,30 +105,30 @@
     text-align: center;
     border-radius: 50px;
     text-decoration: none;
-   
 	}
-	
 	#comment_start {
     width: 150px;
     cursor: pointer;
     border-radius: 3px;
     margin-bottom: 5px;
     margin-top: 0;
-	}
-	
+    height: 35px;
+    padding-top: 7px;
 	}
 	#comment_start, #comment_start:after, .article_link, .article_link_internal, .lounge_submenu_li, .menu_item:hover, .rc_category_unselected, .xp_title_top_button {
     transition: all .2s ease-in-out;
 	}
-	
 	.theme_box2, .btn, .btn_input, .rc_category_unselected:hover, .list_comment_em:hover {
     background-color: #2b8a44;
     color: white;
     border-color: #2b8a44;
-    
-    /* #2b8a44  #32a852*/
 	}
-
+	.reply{
+		color:#3287B2 !important;
+	}
+	.ui.comments {
+    	max-width: 100% !important;
+	}
 
 </style>
 
@@ -196,24 +177,22 @@
 												</c:if>
 											</span>
 										</div>
-										<div class="free_content">
-											<span>${f.frContent}
-											</span>
+										<div class="free_content" style="margin-bottom:100px;">
+											<p style="font-size:16px;">${f.frContent}</p>											
 										</div>
 									</div>
 								</div>
 		    				</div>
 		    				
-		    				
 		    				<div class="ui labeled button" align="center" tabindex="0">
-							  	<div class="ui red button" id="likebtn">
-							   		<i class="heart icon"></i> Like
+							  	<div class="ui red button" id="likebtn" style="font-size: 13px;">
+							   		<i class="heart icon" style="background:none;"></i>Like
 							  	</div>
-							  	<a class="ui basic red left pointing label" id="countLabel">${count}</a>
+							  	<a class="ui basic red left pointing label" id="countLabel" style="font-size: 13px;">${count}</a>
 							</div>
 		    				
 		    			  
-							<div class="test1" >
+							<div class="test1" style="text-align: center;">
 			                    <div class="test2">
 			                        <a href="listFree.do"><i class="fas fa-bars "></i><span> 목록보기</span></a>
 			                    </div>
@@ -232,44 +211,30 @@
 				                        <a href="${delete}" style="color:white; cursor:pointer;" ><i class="far fa-trash-alt"></i><span> 삭제하기</span></a>  
 				                    </div>
 			         			</c:if>
-			                   
-			                    
 			           		</div>
-						
-		    				
 		    			</div>
-		    		
-		
 		    			</div>
-	    				
-	    				
 	    				<br>
 						<hr>
 						<!-- 리플 -->
 						
 						<div id="comment_start" class="theme_box2 eng relative center box_shadow_3" data-hasqtip="33" aria-describedby="qtip-33" style="text-align:center;">
-							<div id="comment_start_num">${frr.frrCount }</div>   <%-- ${frr.frrCount} 7 --%>
-							<div id="comment_start_title">Comments</div>
+							<span id="comment_start_num">${frr.frrCount }</span>
+							<span id="comment_start_title">Comments</span>
 						</div>
 						
+					 	<div class="ui minimal comments" id="entire_comment" style="font-size: 13px;"></div> 
 						
-						
-					 	<div class="ui minimal comments" id="entire_comment" style="font-size: 13px;">
-							
-							
-						</div> 
-						
-							<form class="ui reply form">
+							<form class="ui reply form" id="replyForm">
 								<div class="field">
-									<textarea id="replyContent" style="resize: none;"></textarea>
+									<textarea id="replyContent" style="resize:none;font-size:16px;height:30px;"></textarea>
 								</div>
-								<div id="frSubmit" class="ui blue submit icon button" style="font-size:1.3rem; background-color:#3287B2;">
+								<div id="frSubmit" class="ui blue submit icon button fr" style="font-size:1.3rem; background-color:#3287B2;">
 									댓글 등록
 								</div>
 							</form>
 
 						<!-- 리플끝 -->
-										
 										
 					</div> 
 					<!-- 이 위까지 내용작성 -->
@@ -282,20 +247,16 @@
 		<!-- END MAIN -->
 		
 		<div class="clearfix"></div>
-		
 
 	<!--  -->
 	</div>
 	<!-- END WRAPPER -->
 	
 	
-	
-	
 	<!-- script 작성 -->
 	<script>
 		
 		$(function() {
-				
 		
 				$("#menu6").addClass("in");
 				$("#menu6").attr('aria-expanded',true);
@@ -314,12 +275,13 @@
 		$(document).ready(function(){
 			$("#comment_start").click(function(){
 				$("#entire_comment").toggle();
+				$("#replyForm").toggle();
 			});
 		});
 		
 		/*------------------------- 댓글 토글 끝 ---------------------------  */	
 		
-
+		
 		/*------------------------- 댓글 ajax 시작 ---------------------------  */	
 		/* 댓글 등록 ajax */
 			$(document).on("click","#frSubmit", function(){
@@ -354,13 +316,6 @@
 		
 		$(function(){
 			getReplyList();
-			/*
-			setInterval(function(){
-				getReplyList();
-			}, 5000);
-			*/
-			
-			
 			
 		});
 		
@@ -390,8 +345,8 @@
 									var $aAuthor = $("<a class='author'>").text(value.empName);
 									var $divMetadate = $("<div class='metadata'>");
 									var $spanDate = $("<span class='date'>").text(value.frrCreateDate);
-									var $divText = $("<div class='text'>").text(value.frrContent);
-									var $divActions = $("<div class='actions'>");
+									var $divText = $("<div class='text' style='margin-top:7px;'>").text(value.frrContent);
+									var $divActions = $("<div class='actions fr'>");
 									var $aReply1 = $("<a onclick='writeReply(this)' id='fix' class='reply'>").text("수정");
 									var $aReply2 = $("<a id='del' class='reply replyDelete'>").text("삭제");
 									var $hiddenId2 = $("<input id='hdel' type='hidden' name='frrId'>").val(value.frrId);
@@ -446,11 +401,11 @@
 				
 				/* 댓글 수정 버튼 누르면 */
 				function writeReply(e){
+					console.log($(e));
 					$(e).parents('.comment').next('form').css('display','block');
 					$(e).parents('.actions').prev('.text').css('display','none');
 					$(e).parents('.comment').next('form').find('.frrContent').val($(e).parents('.actions').prev('.text').text());
 				}
-				
 				
 				$(document).on('click','.replyUpdate',function(){
 					
@@ -481,8 +436,6 @@
 							console.log("통신 실패입니다.");						
 							}
 					});
-					
-					
 				});
 				
 					$(document).on('click','.replyDelete',function(){
@@ -505,6 +458,8 @@
 						},
 						success:function(data){
 							if(data == "success"){
+								console.log("wwwwwww");
+								console.log(dddd);
 								$(dddd).css("display","none");
 								$(ddddform).css("display","none");
 								$("#comment_start_num").text($("#comment_start_num").text()-1);
@@ -540,7 +495,6 @@
 					
 				});
 	</script>
-	
 	
 	
 	<!-- Javascript -->

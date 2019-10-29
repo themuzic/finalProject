@@ -79,7 +79,8 @@
 	</update>	
 	
 	<select id="selectFreeReplyList" resultMap="freeReplyResultSet">
-		select *
+		select free_rid,ref_fid,free_rwriter,empname,free_rcontent,to_char(create_date,'yyyy-mm-dd hh24:mi:ss') create_date,
+				to_char(modify_date,'yyyy-mm-dd hh24:mi:ss') modify_date,status
 		from free_re_detail
 		where ref_fid=#{frId} and status='Y'
 		order by free_rid desc

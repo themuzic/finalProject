@@ -1627,6 +1627,12 @@
 		/* 결제 정보 한줄 지우기 */
 		function removeRow(obj) {
 			$(obj).parent().parent().remove();
+			$("#spRow").remove();
+			sumPriceRow();
+			
+			if($('input[name=price]').val() == 0){
+				$("#spRow").remove();
+			}
 		}
 		
 		/* 지출 가격 총 합 나타내기 */

@@ -20,8 +20,8 @@ public class FreeReply {
 	private int frrWriter;
 	private String empName;
 	private String frrContent;
-	private Date frrCreateDate;
-	private Date frrModifyDate;
+	private String frrCreateDate;
+	private String frrModifyDate;
 	private String frrStatus;
 	
 	
