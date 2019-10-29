@@ -58,49 +58,73 @@
 					
 					<br><br>
 					
+					<form action="updateTodo.do">
+					
 					<div class="detail-todo">
 					
 						<h2 style="color:#3287B2; font-weight:bold;">
 							<i class="fas fa-envelope-open-text"></i> &nbsp;TO-DO
 						</h2> 
 						<br>
-						<input class="form-control input-lg" placeholder="Final Project" type="text">
 						
+						
+						<input class="form-control input-lg" name="todoName" value="${ todoDetail.todoName }" type="text">
+							
 						<br><br>
+						
+						<input type="hidden" name="empId" value="${ loginUser.empId }">
+						<input type="hidden" name="todoNo" value="${ todoDetail.todoNo }">
+						<input type="hidden" name="tdBoardNo" value="${ todoDetail.tdBoardNo }">
+						
 						
 						<h3 style="color:#3287B2; font-weight:bold;">
 							<i class="fas fa-file-alt"></i> &nbsp;contents
 						</h3>
 						<br>
-						<textarea class="form-control" placeholder="textarea" rows="20">
-10/1 ~ 10/8 : 계획 짜기 (완료)
-
-10/8 ~ 10/17 : 화면 구현 (진행 중)
-
-10/18 ~ 11/05 : 기능 구현
+						<textarea class="form-control" name="todoContent" placeholder="textarea" rows="20">
+${ todoDetail.todoContent }
 						</textarea>
+						<br>
+						<h5 style="color:#3287B2; font-weight:bold;">
+							<i class="fas fa-envelope-open-text"></i> &nbsp;${ todoDetail.todoStatus }
+						</h5> 
+						<br>
 						
-					</div>
-					
-					<br><br>
-					
-					
+						<div class="boardTitle-dropdown" style="width:20%;">
+							<select class="form-control input-sm" name="todoStatus">
+								<option value="ongoing">진행 중</option>
+								<option value="waiting">대기</option>
+								<option value="completion">완료</option>
+							</select>
+						</div>
+						
+						<br><br>
+						
+						
 					<div class="btn-area" align="center">
-						<button class="large ui button btn-lg" onclick="location.href='#'" style="margin:0 0 5px 0; background-color:#5cb85c; color:white; font-size: 1.5rem;">
+						<!-- <button type="button" class="large ui button btn-lg" onclick="location.href=''" style="margin:0 0 5px 0; background-color:#5cb85c; color:white; font-size: 1.5rem;">
 						  	<i class="fas fa-spinner"></i> &nbsp;대기
 						</button>
-						<button class="large ui button btn-lg" onclick="location.href='#'" style="margin:0 0 5px 0; background-color:#5bc0de; color:white; font-size: 1.5rem;">
+						<button type="button" class="large ui button btn-lg" onclick="location.href='changeOngoing.do'" style="margin:0 0 5px 0; background-color:#5bc0de; color:white; font-size: 1.5rem;">
 							<i class="fas fa-tasks"></i> &nbsp;진행중
 						</button>
-						<button class="large ui button btn-lg" onclick="location.href='#'" style="margin:0 0 5px 0; background-color:#f0ad4e; color:white; font-size: 1.5rem;">
+						<button type="button" class="large ui button btn-lg" onclick="location.href='#'" style="margin:0 0 5px 0; background-color:#f0ad4e; color:white; font-size: 1.5rem;">
 						 	<i class="fas fa-check"></i> &nbsp;완료
+						</button> -->
+						<button type="submit" class="large ui button btn-lg" style="margin:0 0 5px 0; background-color:#5cb85c; color:white; font-size: 1.5rem;">
+							<i class="fas fa-check"></i> &nbsp;수정하기
 						</button>
-						<button class="large ui button btn-lg" onclick="location.href='#'" style="margin:0 0 5px 0; background-color:red; color:white; font-size: 1.5rem;">
+						<button type="button" class="large ui button btn-lg" onclick="location.href='todoList.do'" style="margin:0 0 5px 0; background-color:red; color:white; font-size: 1.5rem;">
 							<i class="fas fa-undo-alt"></i> &nbsp;취소
 						</button>
 					</div>
 					
 					
+					</div>
+					
+					</form>
+					
+					<br><br>
 					
 					
 					<!-- 이 위까지 내용작성 -->

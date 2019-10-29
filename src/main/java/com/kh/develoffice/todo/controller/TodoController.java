@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -249,17 +250,58 @@ public class TodoController {
 	}
 	
 	
-	///////////
+	/////////// todo 상세 조회
 	@RequestMapping("todoDetail.do")
-	public String todoDetail() {
-		return "todo/todoDetailView";
+	public ModelAndView todoDetail(int todoNo, ModelAndView mv) {
+		
+		//System.out.println(todoNo);
+		Todo todoDetail = tService.todoDetail(todoNo);
+		//System.out.println(todoDetail);
+		
+		if(todoDetail != null) {
+			mv.addObject("todoDetail", todoDetail).setViewName("todo/todoDetail");
+		} else {
+			mv.addObject("msg", "실패..").setViewName("todo/todoDetail");
+		}
+		return mv;
 	}
+	
+	/*@RequestMapping("updateTodo.do")
+	public String updateTodo(HttpServletRequest request,
+							 @RequestParam(name="todoNo", required=false) Integer todoNo) {
+		
+		System.out.println("todoNo : " + todoNo);
+		
+		int result = tService.updateTodo(todoNo);
+
+		if(result > 0) {
+			return "redirect:todoDetail.do";
+		} else {
+			return "common/errorPage";
+		}
+	}*/
+	
+	@RequestMapping("updateTodo.do")
+	public ModelAndView updateTodo(Todo t, ModelAndView mv,
+						HttpServletRequest request, 
+						@RequestParam(name="todoNo", required=false) Integer todoNo) {
+		
+		System.out.println(todoNo);
+		int result = tService.updateTodo(t);
+		
+		if(result > 0) {
+			mv.addObject("todoNo", t.getTodoNo()).setViewName("redirect:todoDetail.do");
+		}else {
+			mv.addObject("msg", "수정 실패").setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
 	
 	
 	
 	@RequestMapping("help.do")
 	public ModelAndView help(ModelAndView mv) {
-		
 		
 		mv.setViewName("todo/help");
 		

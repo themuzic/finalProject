@@ -78,7 +78,11 @@
 						
 						  <div class="card">
 						    <div class="content">
-						      <div class="header" style="padding:0 0 10px 0;">Final Project</div>
+						    
+						    <c:forEach items="${ projectList }" var="p">
+						    	<c:if test="${ p.empId = loginUser.empId }">
+						    	
+						    	<div class="header" style="padding:0 0 10px 0;">${ p.pName }</div>
 						      <div class="meta" style="float:right; padding:0 0 10px 0;">
 						        <i class="fas fa-user-cog"></i>
 						        <span>전재광</span>
@@ -92,6 +96,12 @@
 						      <i class="fas fa-sign-in-alt"></i>
 						      입장
 						    </div>
+						    	
+						    	</c:if>
+						    </c:forEach>
+						    
+						    
+						      
 						  </div>
 						  
 						  <div class="card">
@@ -211,6 +221,9 @@
 			$("#menu3_1").addClass("active");
 			$("#menu3_1").attr('aria-expanded',true);
 			$("#m3_1").addClass("active");
+			
+			
+			
 			
 			
 		});

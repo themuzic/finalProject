@@ -166,10 +166,10 @@
 													로그인 해주세요.
 												</c:if>
 												<c:if test="${ !empty loginUser }">
-													<c:url value="todoDetail.do" var="todoDetail">
+													<c:url value="todoDetail.do" var="td">
 														<c:param name="todoNo" value="${ a.todoNo }"/>
 													</c:url>
-													<a href="${ todoDetail }">${ a.todoName }</a>
+													<a href="${ td }">${ a.todoName }</a>
 												</c:if>
 											</td>
 											<td align="center">

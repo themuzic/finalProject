@@ -82,7 +82,20 @@ public class TodoDao {
 	
 	/////////// completionTodo /////////// 
 	public ArrayList<Todo> comTodo(Todo t){
-	return (ArrayList)sqlSession.selectList("todoMapper.comTodo", t);
+		return (ArrayList)sqlSession.selectList("todoMapper.comTodo", t);
+	}
+	
+	// Todo 상세 조회
+	public Todo todoDetail(int todoNo) {
+		//System.out.println(todoNo);
+		Todo t = sqlSession.selectOne("todoMapper.todoDetail", todoNo);
+		//System.out.println(t);
+		return t;
+	}
+	
+	public int updateTodo(Todo t) {
+		System.out.println("todoNo : " + t.getTodoNo());
+		return sqlSession.update("todoMapper.updateTodo", t);
 	}
 	
 	

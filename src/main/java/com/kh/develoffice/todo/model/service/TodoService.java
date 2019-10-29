@@ -42,6 +42,11 @@ public interface TodoService {
 	/////////// 완료 TODO 리스트 이동 ///////////
 	ArrayList<Todo> comTodo(Todo t);
 	
+	// Todo 상세 조회
+	Todo todoDetail(int todoNo);
+	
+	// Todo 상태 변경 - 진행
+	int updateTodo(Todo t);
 	
 
 }

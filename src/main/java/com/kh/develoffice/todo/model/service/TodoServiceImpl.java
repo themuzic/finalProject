@@ -90,6 +90,19 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 
+	// Todo 상세 조회
+	@Override
+	public Todo todoDetail(int todoNo) {
+		return tDao.todoDetail(todoNo);
+	}
+
+	// Todo 상태변경 - 진행
+	@Override
+	public int updateTodo(Todo t) {
+		return tDao.updateTodo(t);
+	}
+
+
 	
 
 

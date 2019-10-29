@@ -139,6 +139,22 @@
 		VALUES(TODO_SEQ.NEXTVAL, #{tdBoardNo}, #{empId}, 
 			   #{todoName}, #{todoContent}, SYSDATE, 'ongoing')
 	</insert>
+	
+	
+	<!-- Todo 상세조회 -->
+	<select id="todoDetail" parameterType="_int" resultMap="todoResultSet">
+		select *
+		from todo
+		where todo_no=#{todoNo} and todo_status!='N'
+	</select>
+  
+  
+  	<!-- Todo 상태 변경 -->
+  	<update id="updateTodo" parameterType="Todo">
+  		update todo
+		set todo_status=#{todoStatus}, todo_name=#{todoName}, todo_content=#{todoContent}
+		where todo_no=#{todoNo}
+  	</update>
   
   
   
