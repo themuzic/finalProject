@@ -29,6 +29,10 @@
 	<select id="teamScheduleList" parameterType="Schedule" resultMap="scheduleListMap">
 		select *
 		from schedule_list
+		where s_plan=#{splan}
+		<if test='splan == "T"'>
+		and dept_code=#{deptCode}
+		</if>
 	</select>
 	
 	<insert id="insertSchedule" parameterType="Schedule">

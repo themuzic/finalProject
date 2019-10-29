@@ -1,18 +1,21 @@
 package com.kh.develoffice.schedule.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.develoffice.common.Pagination;
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.mail.model.vo.PageInfo;
@@ -34,13 +37,16 @@ public class ScheduleController {
 	
 	// 일정 셀렉
 	@RequestMapping("teamScheduleList.do")
-	public ModelAndView teamSchedulelList(Schedule s, ModelAndView mv, HttpSession session,
+	public ModelAndView teamSchedulelList(Schedule s, ModelAndView mv, HttpSession session, HttpServletResponse response,
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+		
+		response.setCharacterEncoding("utf-8");
 		
 		Employee e = (Employee)session.getAttribute("loginUser");
 		
 		s.setEmpId(e.getEmpId());
-		
+		s.setSplan("T");
+
 		// 게시글 총 개수
 		int listCount = sService.getListCount(s);
 		
@@ -58,7 +64,7 @@ public class ScheduleController {
 	@RequestMapping("insertSchedule.do")
 	public String insertSchedule(Schedule s) {
 		
-//		System.out.println(s);
+		System.out.println(s);
 		int result = sService.insertSchedule(s);
 		
 		if(result > 0) {
@@ -67,6 +73,35 @@ public class ScheduleController {
 			
 			return "fail";
 		}
+	}
+	
+	@RequestMapping("sRefresh.do")
+	public void sRefresh(Schedule s, HttpServletResponse response, HttpSession session,
+			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) throws JsonIOException, IOException {
+		
+		
+		response.setCharacterEncoding("utf-8");
+		
+//		Employee e = (Employee)session.getAttribute("loginUser");
+//		s.setEmpId(e.getEmpId());
+		
+		int listCount = sService.getListCount(s);
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Schedule> list = sService.teamScheduleList(pi,s);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		gson.toJson(list, response.getWriter());
+		
+	}
+	
+	@RequestMapping("addCalendar.do")
+	public void addCalendar(HttpServletResponse response) {
+		
+		response.setCharacterEncoding("utf-8");
+		
 	}
 	
 	

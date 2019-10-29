@@ -214,7 +214,6 @@
 		                                    <option value="#63e6be" style="color:#63e6be;">연두색</option>
 		                                    <option value="#a9e34b" style="color:#a9e34b;">초록색</option>
 		                                    <option value="#4d638c" style="color:#4d638c;">남색</option>
-		                                    <option value="#495057" style="color:#495057;">검정색</option>
 		                                </select>
 		                            </div>
 		                        </div>
@@ -242,7 +241,7 @@
 						<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray" >
 						    <option>------</option>
 						    <option value="writer">작성자</option>
-						    <option value="type">유형</option>
+						    <option value="type">일정종류</option>
 						    <option value="title">제목</option>
 						    <option value="content">내용</option>
 						</select>
@@ -265,9 +264,9 @@
 		       
 		       <div align="left">
 					<b style="color: #505363">팀 일정</b>
-					<input type="radio" name="splan" value="team" style="margin-bottom:7px;">&nbsp;
+					<input type="radio" name="splan" id="team" class="splan" value="T" style="margin-bottom:7px;" checked>&nbsp;
 					<b style="color: #505363">전체 일정</b>
-					<input type="radio" name="splan" value="all" style="margin-bottom:7px;">
+					<input type="radio" name="splan" id="company" class="splan" value="C" style="margin-bottom:7px;">
 				</div>			
 						
 				<table class="ui selectable celled table">
@@ -279,22 +278,21 @@
 					<col style="width:20%;">
 				</colgroup>
 					<thead>
-						<tr>
+						<tr id="sss">
 							<th style="color: #676767;">번호</th>
 							<th style="color: #676767;">작성자</th>
 							<th style="color: #676767;">제목</th>
-							<th style="color: #676767;">유형</th>
+<!-- 							<th style="color: #676767;" id="sType">일정종류</th> -->
 							<th class="aa" style="color: #676767;">작성일</th>
 						</tr>
 					</thead>
-					<tbody class="select_subject">
+					<tbody class="select_subject" id="select_list">
 					<c:forEach items="${ list }" var="s">
 						<tr>
 							<td class="sNo">${ s.sno }</td>
-							<td class="sName">${ loginUser.empName }</td>
+							<td class="sName">${ s.empName }</td>
 							<td class="sTitle">${ s.stitle }</td>
 							<td class="sType">${ s.stype }</td>
-							
 							<td class="sDate aa">${ s.createDate }</td>
 						</tr>
 					</c:forEach>
@@ -418,6 +416,20 @@
 	
 	j(function(){
 		calendarStart();
+		refresh('T');
+		
+// 		$.each(data, function(index, value){
+			
+// 			var calEvent = {};
+			
+// 			calEvent.id = value.sno;
+// 			calEvent.title = value.stitle;
+// 			calEvent.start = value.startDate + "T" + startTime; 
+// 			calEvent.end = value.endDate + "T" + endTime; 
+// 			calEvent.color = value.backColor;
+
+// 			j('#calendar').fullCalendar('renderEvent', calEvent, true); // 개중요, 얘가 넘겨줌
+// 		});
 	});
 	
 	function calendarStart(){
@@ -455,48 +467,28 @@
 				eventLimit: true, 	// 하루 기본일정 3개, 그 이상시, more로 처리
 				
 				events: [
-				{
-					title: '회사 쉬는날',
-					start: '2019-10-28'
-				},
-				{
-					title: '휴가',
-					start: '2019-10-29',
-					end: '2019-11-01'
-				},
-				{
-					id: 999,
-					title: '미팅 시간',
-					start: '2019-11-04T16:00'
-				},
-				{
-					title: '1팀 회의',
-					start: '2019-11-11',
-					end: '2019-11-14'
-				},
-				{
-					title: '차량 대여',
-					start: '2019-11-13T09:30:00',
-					end: '2019-11-13T11:30:00'
-				},
-				{
-					title: '점심시간',
-					start: '2019-10-29T12:00:00'
-				},
-				{
-					title: '1팀 회의',
-					start: '2019-10-30T14:30:00'
-				},
-				{
-					title: '클라이언트 연락',
-					start: '2019-10-31T17:30:00'
-				},
-				{
-					title: '학원 끝나는 날',
-					start: '2019-11-05T07:00:00',
-					color : '#FF0000',
-		            textColor : '#FFFF00'
-				},
+// 				{
+// 					title: '회사 쉬는날',
+// 					start: '2019-10-28'
+// 				},
+// 				{
+// 					title: '휴가',
+// 					start: '2019-10-29',
+// 					end: '2019-11-01'
+// 				},
+// 				{
+// 					id: 999,
+// 					title: '미팅 시간',
+// 					start: '2019-11-04T16:00'
+// 				},
+// 				{
+// 					title: '1팀 회의',
+// 					start: '2019-11-11',
+// 					end: '2019-11-14'
+// 				},
+// 				{
+
+// 				},
 			],
 			// 모달창 생성
 			eventRender: function (event, element) {
@@ -516,7 +508,7 @@
 	
 	
 	// 모달창 생성
-	$(document).on('click','td',function(){
+	$(document).on('click','.fc-day',function(){
 		$('#eventModal').dialog({
    		  title: '새로운 일정',
   	      modal: true,
@@ -533,8 +525,6 @@
 	});
 	
 	$(document).on('click', '#updateEvent', function(){
-// 		 $("#eventModal").dialog("close");
-		 
 		 
 		 var startDate = $("input[name=startDate]").val();
 		 var startTime = $("select[name=startTime] option:selected").val();
@@ -544,6 +534,7 @@
 		 var scontent = $("#edit-desc").val();
 		 var stype = $("select[name=stype] option:selected").val();
 		 var backColor = $("select[name=backColor] option:selected").val();
+		 var splan = $("input[name=splan]:checked").val();
 		 
 		 var allDay;
 		 
@@ -552,17 +543,6 @@
 		 }else{
 			 allDay ='N';
 		 }
-		 
-		 
-// 		 console.log(startDate);
-// 		 console.log(startTime);
-// 		 console.log(endDate);
-// 		 console.log(endTime);
-// 		 console.log(stitle);
-// 		 console.log(scontent);
-// 		 console.log(stype);
-// 		 console.log(backColor);
-// 		 console.log(allDay);
 		 
 		 $.ajax({
 		
@@ -577,7 +557,9 @@
 				  stype:stype,
 				  backColor:backColor,
 				  empId:'${loginUser.empId}',
+				  splan:splan,
 				  allDay:allDay
+				  
 			},
 			success:function(data){
 				if(data == 'success'){
@@ -590,20 +572,116 @@
 					$("select[name=stype]").find('option:eq(0)').prop('selected', true);
 					$("select[name=backColor]").find('option:eq(0)').prop('selected', true);
 					$("#allDay").prop('checked', false);
-
+					
 					$("#eventModal").dialog("close");
 				
 				}else{
-					alert("실패");
+					alertify.alert("delveloffice", "실패");
 				}
 			},
 			error:function(){
-				alert("통신실패");
+				alertify.alert("develoffice", "통신실패");
 			}
 		 });
 	});
 	
 	
+	function refresh(splan){
+		$.ajax({
+			
+			url: "sRefresh.do",
+			type: "post",
+			data: {
+				deptCode: '${loginUser.deptCode}',
+				splan:splan,
+				currentPage:1
+			},
+			dataType:"json",
+			success:function(data){
+				var html = "";
+				
+					$("#select_list").html("");
+					
+					$.each(data, function(index, s){
+						
+						if(splan == 'T'){
+							
+							html +=
+								'<tr>' + 
+									'<td class="sNo">' + s.sno + '</td>' +
+									'<td class="sName">' + s.empName + '</td>' +
+									'<td class="sTitle">' + s.stitle  + '</td>' +
+									'<td class="sType">' + s.stype + '</td>' +
+									'<td class="sDate aa">' + s.createDate + '</td>' + 
+								'</tr>';
+						}else{
+							
+							html +=
+								'<tr>' + 
+									'<td class="sNo">' + s.sno + '</td>' +
+									'<td class="sName">' + s.empName + '</td>' +
+									'<td class="sTitle">' + s.stitle  + '</td>' +
+									'<td class="sDate aa">' + s.createDate + '</td>' + 
+								'</tr>';
+							}
+						});
+					
+						// 너는 for문 때문에 밖으로 나가
+						if(splan == 'T'){
+							$('#sss').children().last().prev().after('<th style="color: #676767;" id="sType">일정종류</th>');
+						}else{
+							$('#sType').remove();
+						}
+						
+						$("#select_list").html(html);
+				},
+				error:function(){
+					alert("통신실패");
+				},
+			});
+		};
+
+		// 라디오버튼 클릭시 value에 맞게 변환
+		$(document).on('change','input[name=splan]',function(){
+			refresh($(this).val());
+		});
+		
+		function addCalendarList(){
+				
+			  $.ajax({
+				url : "addCalendar.do",
+				type : "post",
+				data: {
+					
+					
+					
+				},
+			
+				dataType : "json",
+				success : function(data) {
+					if(data =='success'){
+						
+						$.each(data, function(index, value){
+							
+							var calEvent = {};
+							
+							calEvent.id = value.sno;
+							calEvent.title = value.stitle;
+							calEvent.start = value.startDate + "T" + startTime; 
+							calEvent.end = value.endDate + "T" + endTime; 
+							calEvent.color = value.backColor;
+
+							j('#calendar').fullCalendar('renderEvent', calEvent, true); // 개중요, 얘가 넘겨줌
+						});
+					}
+				},
+				error : function() {
+					alertify.alert("통신실패");
+				},
+			});
+		
+		 };
+		
 	</script>
 
 
