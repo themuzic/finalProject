@@ -39,16 +39,11 @@
 	 #outer{
 		width:100%;
 		height:100%;
-		/* color:black; */
 		margin-left:auto;
 		margin-right:auto;
-       /*  box-shadow: 0 0 5px rgba(0,0,0,0.2); */
-       /*  background: #fff;  */
-        
 	}
 	
 	.bd {
-    /* font-family: sans-serif !important; */
     padding: 0;
     max-width: 2000px;
     margin: 0 auto;
@@ -324,12 +319,7 @@
 		
 		/*------------------------- 댓글 토글 끝 ---------------------------  */	
 		
-/* 		$(document).ready(function(){
-			$("#fix").click(function(){
-				$("#formRep").toggle();
-			});
-		}); */
-		
+
 		/*------------------------- 댓글 ajax 시작 ---------------------------  */	
 		/* 댓글 등록 ajax */
 			$(document).on("click","#frSubmit", function(){
@@ -453,16 +443,9 @@
 				
 				/*------------------------- 댓글 ajax 끝 ---------------------------  */	
 		
-				/*
-				function showBtn(e) {
-					console.log($(e).find('.action'));
-					//$(e).find('.action').css('display','block');
-				}
-				*/
 				
 				/* 댓글 수정 버튼 누르면 */
 				function writeReply(e){
-					console.log($(e));
 					$(e).parents('.comment').next('form').css('display','block');
 					$(e).parents('.actions').prev('.text').css('display','none');
 					$(e).parents('.comment').next('form').find('.frrContent').val($(e).parents('.actions').prev('.text').text());
@@ -522,8 +505,6 @@
 						},
 						success:function(data){
 							if(data == "success"){
-								console.log("wwwwwww");
-								console.log(dddd);
 								$(dddd).css("display","none");
 								$(ddddform).css("display","none");
 								$("#comment_start_num").text($("#comment_start_num").text()-1);

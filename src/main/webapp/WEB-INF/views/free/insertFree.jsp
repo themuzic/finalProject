@@ -227,12 +227,6 @@
 		                    alert("업로드 불가");
 		                    return;
 		                }
-		                /*
-		               inFile = "<input type='file' name='uploadFile'>";
-		                inFile.files[0]=e.originalEvent.dataTransfer.files;
-		                //inFile = $("<input type='file' name='uploadFile'>").prop('files',e.originalEvent.dataTransfer.files);
-			            console.log(inFile);
-			            */
 			            
 		                selectFile(files);
 		            }else{

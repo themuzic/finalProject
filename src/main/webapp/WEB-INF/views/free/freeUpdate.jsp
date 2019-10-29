@@ -111,9 +111,7 @@
 					                	<td class="left">
 					                		<c:if test="${!empty f.originalFileName }">
 					                				${f.originalFileName} &nbsp;
-					                			<%-- 	<c:url value="freeUpdate.do">
-					                					<c:param name="renameFileName" value="${f.renameFileName }"></c:param>
-					                				</c:url> --%>
+					                			
 					                				<a href="#" onclick='removeTR();' class="btn small bg_02" style="box-shadow:none; border:1px solid #ececec;">삭제</a>       
 					                				<input type='file' name='frReloadFile' class='test1' style="display:none">
 					                		</c:if>
@@ -241,12 +239,7 @@
 	                          alert("업로드 불가");
 	                          return;
 	                      }
-	                      /*
-	                     inFile = "<input type='file' name='uploadFile'>";
-	                      inFile.files[0]=e.originalEvent.dataTransfer.files;
-	                      //inFile = $("<input type='file' name='uploadFile'>").prop('files',e.originalEvent.dataTransfer.files);
-	                     console.log(inFile);
-	                     */
+	             
 	                     
 	                   	  selectFile(files);
 	                  }else{
@@ -314,7 +307,7 @@
 	              $('#fileTableTbody').append(html);
 	              
 	              $(".test1").prop("files", files);
-	              /* console.log($(".test1")); */
+	              
 	              
 	              // input file 숨기기
 	              $(".test1").css("display", "none");
@@ -394,9 +387,6 @@
 				$("#fileTr_0").remove();
 	         }
 			
-		
-	
-	
 	
 	</script>
 	

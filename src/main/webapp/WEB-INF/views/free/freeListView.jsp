@@ -47,8 +47,6 @@
     	}
     });
     
-    /* .dataTables_filter input */
-    /* myInput */
     $('.dataTables_filter input').unbind().bind('keyup', function () {
     	var table = $('#myTable').DataTable();
         var colIndex = document.querySelector('#select').selectedIndex;
@@ -179,15 +177,7 @@
 	<!-- END WRAPPER -->
 	
 	
-	<!-- Javascript -->
-<!-- 	<script src="resources/assets/vendor/jquery/jquery.min.js"></script>
-	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
-	<script src="resources/assets/scripts/klorofil-common.js"></script> -->
-	
-	<!-- script 작성 -->
+
 	<script>
 	
 	$(function(){
