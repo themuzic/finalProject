@@ -6,13 +6,14 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 import javax.mail.Message;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -25,7 +26,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.develoffice.common.Department;
 import com.kh.develoffice.common.Pagination;
+import com.kh.develoffice.document.model.service.DocumentService;
+import com.kh.develoffice.employee.model.service.EmployeeService;
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.mail.model.service.MailService;
 import com.kh.develoffice.mail.model.vo.Mail;
@@ -39,6 +43,11 @@ public class MailController {
 	
 	@Autowired
 	private JavaMailSenderImpl mailSender;
+	
+	@Autowired
+	private DocumentService dService;
+	@Autowired
+	private EmployeeService eService;
 	
 	// 받은 메일함 리스트
 	@RequestMapping("receiveMail.do")
@@ -138,9 +147,41 @@ public class MailController {
 	
 	// 메일쓰기 이동
 	@RequestMapping("insertMail.do")
-	public String insertMailForm() {
+	public ModelAndView insertMailForm(ModelAndView mv) {
 		
-		return "mail/insertMail";
+		ArrayList<Department> deptList = dService.selectDept();
+		ArrayList<Employee> empList = eService.selectAllEmp();
+		
+		JSONArray deptArr = new JSONArray();
+		JSONArray empArr = new JSONArray();
+
+		for(Department d : deptList) {
+			JSONObject jObj = new JSONObject();
+			jObj.put("deptCode", d.getDeptCode());
+			jObj.put("deptName", d.getDeptName());
+			jObj.put("count", d.getCount());
+			
+			deptArr.add(jObj);
+		}
+		
+		for(Employee e : empList) {
+			JSONObject jObj = new JSONObject();
+			jObj.put("empId", e.getEmpId());
+			jObj.put("empName", e.getEmpName());
+			jObj.put("deptCode", e.getDeptCode());
+			jObj.put("deptName", e.getDeptName());
+			jObj.put("jobCode", e.getJobCode());
+			jObj.put("jobName", e.getJobName());
+			jObj.put("account", e.getAccount());
+			
+			empArr.add(jObj);
+		}
+		mv.addObject("empList", empArr);
+		mv.addObject("deptList", deptArr);
+		mv.addObject("deptSize", deptArr.size());
+		mv.setViewName("mail/insertMail");
+		
+		return mv;
 	}
 
 	// 메일 답장
