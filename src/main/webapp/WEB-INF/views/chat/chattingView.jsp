@@ -27,6 +27,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.css">
 
+<!-- 시멘틱 애니메이션 -->
+<link href="resources/chat/css/transition.min.css" rel="stylesheet">
+<script src="resources/chat/js/transition.min.js"></script>
+
+
 <!-- alertify -->
 <link rel="stylesheet" href="resources/css/alertify.css">
 <link rel="stylesheet" href="resources/css/alertify.rtl.css">
@@ -364,6 +369,12 @@ body{
    color:red;
    border-color: transparent;
 }
+.fa-bell{
+	color:gold;
+}
+.fa-bell-slash{
+	color:gray;
+}
 </style>
 
 <script type="text/javascript">
@@ -385,6 +396,44 @@ body{
             }
         });
 		
+		$('#alarm').on('click', function(){
+			console.log($(this).find("i").prop("class").split(" ")[3]);
+			var alarmClass = $(this).find("i").prop("class").split(" ")[3];
+			var fa = $(this).find("i");
+			if(alarmClass == 'fa-bell-slash'){
+				$.ajax({
+					url:"updateAlarm.do",
+					type:"POST",
+					data:{chatId:'${c.chatId}',empId:'${loginUser.empId}',alarm:'Y'},
+					success:function(data){
+						if(data == 'success'){
+							fa.removeClass("fa-bell-slash").addClass("fa-bell");
+						}
+					},
+					error:function(){
+						console.log('통신실패');
+					}
+				});
+			}else{
+				$.ajax({
+					url:"updateAlarm.do",
+					type:"POST",
+					data:{chatId:'${c.chatId}',empId:'${loginUser.empId}',alarm:'N'},
+					success:function(data){
+						if(data == 'success'){
+							fa.removeClass("fa-bell").addClass("fa-bell-slash");
+						}
+					},
+					error:function(){
+						console.log('통신실패');
+					}
+				});
+			}
+			
+			$('.alarm')
+			  .transition('jiggle')
+			;
+		});
         
         $(document).on('click', '.chatListForm', function(){	// 초대하기 모달에서 프로필이 눌렸을 때
         	var empId = $(this).find('.chatList').attr("id");	// 눌린 사람의 empId 받아옴
@@ -692,6 +741,14 @@ body{
 		<div class="head-section">
 			<div class="headLeft-section">
 				<div class="headLeft-sub">
+					<div style="float:right; padding-top:5px;">
+						<c:if test="${c.alarm eq 'Y' }">
+						<a id="alarm"><i class="alarm ui fa fa-bell"></i></a>
+						</c:if>
+						<c:if test="${c.alarm eq 'N' }">
+						<a id="alarm"><i class="alarm ui fa fa-bell-slash"></i></a>
+						</c:if>
+					</div>
 					<h4>${c.chatName }</h4>
 				</div>
 			</div>

@@ -21,6 +21,7 @@ public class Chat {
 	private int chatId;						// 채팅방 번호
 	private String chatName;				// 채팅방 이름
 	private String chatStatus;				// 채팅방 삭제 여부
+	private String alarm;					// 알람 켜있는지 여부
 	private int empId;						// 사번
 	private Date createDate;				// 생성일자 
 	private Date modifyDate;				// 갱신일자

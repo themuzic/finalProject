@@ -113,6 +113,22 @@ public class ChatDao {
 		return sqlSession.delete("chatMapper.deleteChat", c);
 	}
 
+	public String selectAlarm(Chat c) {
+		return sqlSession.selectOne("chatMapper.selectAlarm", c);
+	}
+
+	public int updateAlarm(Chat c) {
+		return sqlSession.update("chatMapper.updateAlarm", c);
+	}
+
+	public int deleteChatStatus(Chat c) {
+		return sqlSession.update("chatMapper.deleteChatStatus", c);
+	}
+
+	public ArrayList<Chat> selectAlarmList(int chatId) {
+		return (ArrayList)sqlSession.selectList("chatMapper.selectAlarmList", chatId);
+	}
+
 
 	
 }

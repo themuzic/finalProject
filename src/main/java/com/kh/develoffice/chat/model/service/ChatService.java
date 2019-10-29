@@ -71,4 +71,17 @@ public interface ChatService {
 	// 채팅방 삭제 서비스
 	int deleteChat(Chat c);
 
+	// 알람 켜있는지 여부 조회 서비스
+	String selectAlarm(Chat c);
+
+	// 알람 키고 끄는 서비스
+	int updateAlarm(Chat c);
+
+	// 갠톡 채팅방 삭제  서비스
+	int deleteChatStatus(Chat c);
+
+	// 방에 알람 켜 있는 사람 조회 서비스
+	ArrayList<Chat> selectAlarmList(int chatId);
+
+
 }

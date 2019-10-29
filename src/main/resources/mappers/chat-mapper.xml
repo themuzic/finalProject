@@ -41,6 +41,12 @@
 		<result property="profilePath" column="profile_path"/>
 	</resultMap>
 	
+	<resultMap id="alarmResult" type="Chat">
+		<id property="empId" column="emp_id"/>
+		<result property="chatName" column="chat_name"/>
+		<result property="chatType" column="chat_type"/>
+	</resultMap>
+	
 	<resultMap id="chatIdNameResult" type="Chat">
 		<id property="chatId" column="chat_id"/>
 		<id property="chatName" column="chat_name"/>
@@ -171,12 +177,12 @@
 	
 	<!-- 채팅방 인원 생성 -->
 	<insert id="insertJoinChat" parameterType="Chat">
-		INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, #{chatName}, DEFAULT, DEFAULT, #{empId}, DEFAULT, DEFAULT, FN_KO_CHAR(#{chatName}))
+		INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, #{chatName}, DEFAULT, DEFAULT, DEFAULT, #{empId}, DEFAULT, DEFAULT, FN_KO_CHAR(#{chatName}))
 	</insert>
 	
 	<!-- 채팅방 인원 추가 -->
 	<insert id="inviteJoinChat" parameterType="Chat">
-		INSERT INTO JOIN_CHAT VALUES(#{chatId}, #{chatName}, DEFAULT, DEFAULT, #{empId}, DEFAULT, DEFAULT, FN_KO_CHAR(#{chatName}))
+		INSERT INTO JOIN_CHAT VALUES(#{chatId}, #{chatName}, DEFAULT, DEFAULT, DEFAULT, #{empId}, DEFAULT, DEFAULT, FN_KO_CHAR(#{chatName}))
 	</insert>
 	
 	<!-- 채팅방 인원 추가시 기존 인원 채팅방 이름 변경 -->
@@ -202,15 +208,45 @@
 		where chat_id = #{chatId} and emp_id = #{empId}
 	</select>
 	
+	<!-- 갠톡 채팅방 다시 입장 -->
 	<update id="updateChatStatus" parameterType="Chat">
 		UPDATE JOIN_CHAT
 		SET JOIN_DATE = SYSDATE, MODIFY_DATE=SYSDATE, CHAT_STATUS='Y'
 		WHERE CHAT_ID = #{chatId} AND EMP_ID = #{empId}
 	</update>
 	
+	<!-- 단톡 채팅방 나가기 -->
 	<delete id="deleteChat" parameterType="Chat">
 		delete from join_chat
 		where chat_id = #{chatId} and emp_id = #{empId}
 	</delete>
+	
+	<!-- 알람 유무 조회 -->
+	<select id="selectAlarm" parameterType="Chat" resultType="string">
+		select alarm_yn
+		from join_chat
+		where emp_id = #{empId} and chat_id = #{chatId}
+	</select>
+	
+	<!-- 알람 켜고 끄기 -->
+	<update id="updateAlarm" parameterType="Chat">
+		update join_chat
+		set alarm_yn = #{alarm}
+		where chat_id = #{chatId} and emp_id = #{empId}
+	</update>
+	
+	<!-- 갠톡 채팅방 나가기 -->
+	<update id="deleteChatStatus" parameterType="Chat">
+		UPDATE JOIN_CHAT
+		SET CHAT_STATUS='N'
+		WHERE CHAT_ID = #{chatId} AND EMP_ID = #{empId}
+	</update>
+
+	<select id="selectAlarmList" parameterType="Chat" resultMap="alarmResult">
+		select emp_id, chat_name, chat_type
+		from join_chat
+		join chat using(chat_id)
+		where chat_id=#{chatId} and alarm_yn='Y'
+	</select>
 
 </mapper>

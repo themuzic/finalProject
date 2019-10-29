@@ -131,5 +131,25 @@ public class ChatServiceImpl implements ChatService {
 		return cDao.deleteChat(c);
 	}
 
+	@Override
+	public String selectAlarm(Chat c) {
+		return cDao.selectAlarm(c);
+	}
+
+	@Override
+	public int updateAlarm(Chat c) {
+		return cDao.updateAlarm(c);
+	}
+
+	@Override
+	public int deleteChatStatus(Chat c) {
+		return cDao.deleteChatStatus(c);
+	}
+
+	@Override
+	public ArrayList<Chat> selectAlarmList(int chatId) {
+		return cDao.selectAlarmList(chatId);
+	}
+
 
 }

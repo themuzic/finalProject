@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -89,6 +90,7 @@ public class ChatController {
 	public ModelAndView chattingList(ModelAndView mv, HttpSession session, Chat c) {
 		int empId = ((Employee)session.getAttribute("loginUser")).getEmpId();
 		c.setEmpId(empId);
+		c.setAlarm(cService.selectAlarm(c));
 		ArrayList<Message> msgList = cService.selectMsgList(c);
 		
 		mv.addObject("msgList", msgList).addObject("c", c).setViewName("chat/chattingView");
@@ -171,5 +173,17 @@ public class ChatController {
 		
 		Gson gson = new Gson();
 		gson.toJson(inviteList, response.getWriter());
+	}
+	
+	@ResponseBody
+	@RequestMapping("updateAlarm.do")
+	public String updateAlarm(HttpServletResponse response, Chat c) {
+		int result = cService.updateAlarm(c);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
 	}
 }
