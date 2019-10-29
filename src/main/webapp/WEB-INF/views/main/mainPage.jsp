@@ -330,11 +330,68 @@
 								</div>
 								<div class="panel-footer">
 									<div class="row">
-										<!-- <div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Last 24 hours</span></div> -->
+										<!-- <div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Last 24 hours</span></div>
 										<div class="col-md-6 text-right fr"><a href="#" class="btn btn-primary">더보기</a></div>
 									</div>
 								</div>
 							</div>
+							<!------------------------------------------------------------------------------>
+							
+							
+							<!-- 공지사항 위젯 -->
+							<!-- 
+							<div class="panel" style="position:absolute;min-width:600px;">
+								<input type="hidden" class="widgetType" name="widgetType" value="5">
+								<input type="hidden" class="left" name="left" value="">
+								<input type="hidden" class="top" name="top" value="">
+								<input type="hidden" class="fold" name="fold" value="N">
+								<input type="hidden" class="status" name="status" value="Y">
+								<div class="panel-heading">
+									<h3 class="panel-title">공지사항</h3>
+									<div class="right">
+										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
+										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
+									</div>
+								</div>
+								<div class="panel-body no-padding">
+									<table class="table table-striped" id="noticeTable">
+										<thead>
+											<tr style="text-align:center;">
+												<th style="width:200px;">제목</th>
+												<th style="width:230px;">작성자</th>
+												<th style="width:170px;">작성일</th>
+											</tr>
+										</thead>
+										<tbody id="docuWidgetTbody">
+											<c:if test="${mailList eq '[]'}">
+												<tr>
+													<td colspan="3" style="border-bottom:0;">공지 사항이 없습니다.</td>
+												</tr>
+											</c:if>
+											<c:if test="${mailList ne '[]'}">
+												<c:forEach var="m" items="${mailList}">
+													<tr class="docuTR">
+										            	<td>${m.mailFrom}</td>
+									            	<c:url value="receiveDetail.do" var="receiveDetail">
+														<c:param name="empId" value="${m.empId}"/>
+														<c:param name="mailNum" value="${m.mailNum}"/>
+													</c:url>
+														<td><a href="${receiveDetail}">${m.mailTitle}</a></td>
+														<td style="text-align:center;padding-left:8px;">${m.mailDate}</td>
+													</tr>
+												</c:forEach>
+											</c:if>
+										</tbody>
+									</table>
+								</div>
+								<div class="panel-footer">
+									<div class="row">
+										<!-- <div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Last 24 hours</span></div>
+										<div class="col-md-6 text-right fr"><a href="#" class="btn btn-primary">더보기</a></div>
+									</div>
+								</div>
+							</div>
+							 -->
 							<!------------------------------------------------------------------------------>
 						
 					
