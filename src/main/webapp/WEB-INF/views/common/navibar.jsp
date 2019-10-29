@@ -58,6 +58,8 @@
 <link rel="stylesheet" href="resources/semantic/form.css">
 <link rel="stylesheet" href="resources/semantic/input.css">
 <link rel="stylesheet" href="resources/semantic/image.css">
+<link rel="stylesheet" href="resources\semantic\dimmer.css">
+<script src="resources\semantic\dimmer.js"></script>
 
 
 <!-- summernote 에디터 -->
