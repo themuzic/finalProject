@@ -13,6 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
 
+
 <style>
 	.contentWrap{
 		float:left;
@@ -130,6 +131,27 @@
     text-decoration: none;
    
 	}
+	
+	#comment_start {
+    width: 150px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    margin-top: 0;
+	}
+	
+	}
+	#comment_start, #comment_start:after, .article_link, .article_link_internal, .lounge_submenu_li, .menu_item:hover, .rc_category_unselected, .xp_title_top_button {
+    transition: all .2s ease-in-out;
+	}
+	
+	.theme_box2, .btn, .btn_input, .rc_category_unselected:hover, .list_comment_em:hover {
+    background-color: #2b8a44;
+    color: white;
+    border-color: #2b8a44;
+    
+    /* #2b8a44  #32a852*/
+	}
 
 
 </style>
@@ -161,16 +183,23 @@
 										<div class="_section" style="/* color:#3287B2 */">
 											<h2>
 												<span>${f.frTitle}</span>
+												<input type="hidden" name="reffrId" value="${f.frId}">
 											</h2>
 										</div>
 										<div class="btm_area clear">
-											</span>${f.frWriter}ㆍ</sapn>
+											</span><b>${f.empName}</b>ㆍ</sapn>
 											<div class="divider"></div>
-											<span>조회 수<b>${f.frCount}</b>ㆍ</span>
+											<span>조회 수&nbsp;<b>${f.frCount}</b>ㆍ</span>
 											<div class="divider"></div>
-											<span>댓글<b>2</b>ㆍ</span>
+											<span>댓글<b id="uberCount"></b>ㆍ</span>
 											<div class="divider"></div>
-											<span class="fa fa-clock-o"></span> <span>${f.frCreateDate}</span>
+											<span class="fa fa-clock-o"></span> <span>${f.frCreateDate} ㆍ</span>
+											<div class="divider"></div>
+											<span>첨부파일:
+												<c:if test="${!empty f.originalFileName }">
+													<a href="${contextPath}/resources/fupload/${f.renameFileName}" download=${f.originalFileName}>${f.originalFileName }</a>           
+												</c:if>
+											</span>
 										</div>
 										<div class="free_content">
 											<span>${f.frContent}
@@ -181,19 +210,35 @@
 		    				</div>
 		    				
 		    				
+		    				<div class="ui labeled button" align="center" tabindex="0">
+							  	<div class="ui red button" id="likebtn">
+							   		<i class="heart icon"></i> Like
+							  	</div>
+							  	<a class="ui basic red left pointing label" id="countLabel">${count}</a>
+							</div>
+		    				
 		    			  
 							<div class="test1" >
 			                    <div class="test2">
 			                        <a href="listFree.do"><i class="fas fa-bars "></i><span> 목록보기</span></a>
 			                    </div>
-			         
-			                    <div class="test2">
-			                        <a href="freeUpdate.do"><i class="far fa-edit"></i><span> 수정하기</span></a>
-			                    </div>
+				         			<c:if test="${loginUser.empId eq f.frWriter }">
+				         				 <div class="test2">
+					                    <c:url var="update" value="freeUpdateView.do">
+					                    	<c:param name="frId" value="${f.frId}"/>
+					                    </c:url>
+					                    <a href="${update}"><i class="far fa-edit"></i><span> 수정하기</span></a>
+				                    </div>
+				                    
+				                    <div class="test2">
+					                    <c:url var="delete" value="freeDelete.do">
+					                    	<c:param name="frId" value="${f.frId}"></c:param>
+					                    </c:url>
+				                        <a href="${delete}" style="color:white; cursor:pointer;" ><i class="far fa-trash-alt"></i><span> 삭제하기</span></a>  
+				                    </div>
+			         			</c:if>
+			                   
 			                    
-			                    <div class="test2">
-			                        <a href="" style="color:white; cursor:pointer;" ><i class="far fa-trash-alt"></i><span> 삭제하기</span></a>  
-			                    </div>
 			           		</div>
 						
 		    				
@@ -204,78 +249,29 @@
 	    				
 	    				
 	    				<br>
-
+						<hr>
 						<!-- 리플 -->
-						<div class="ui minimal comments" style="font-size: 12px;">
-							<h3 class="ui dividing header">Comments</h3>
-							<div class="comment">
-
-								<div class="content">
-									<a class="author">Matt</a>
-									<div class="metadata">
-										<span class="date">2019-09-01</span>
-									</div>
-									<div class="text">How artistic!</div>
-									<div class="actions">
-										<a class="reply">Reply</a>
-									</div>
-								</div>
-							</div>
-							<div class="comment">
-
-								<div class="content">
-									<a class="author">Elliot Fu</a>
-									<div class="metadata">
-										<span class="date">2019-09-01</span>
-									</div>
-									<div class="text">
-										<p>This has been very useful for my research. Thanks as
-											well!</p>
-									</div>
-									<div class="actions">
-										<a class="reply">Reply</a>
-									</div>
-								</div>
-								<div class="comments">
-									<div class="comment">
-
-										<div class="content">
-											<a class="author">Jenny Hess</a>
-											<div class="metadata">
-												<span class="date">2019-09-01</span>
-											</div>
-											<div class="text">Elliot you are always so right :)</div>
-											<div class="actions">
-												<a class="reply">Reply</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="comment">
-
-								<div class="content">
-									<a class="author">Joe Henderson</a>
-									<div class="metadata">
-										<span class="date">2019-09-01</span>
-									</div>
-									<div class="text">Dude, this is awesome. Thanks so much</div>
-									<div class="actions">
-										<a class="reply">Reply</a>
-									</div>
-								</div>
-							</div>
-
+						
+						<div id="comment_start" class="theme_box2 eng relative center box_shadow_3" data-hasqtip="33" aria-describedby="qtip-33" style="text-align:center;">
+							<div id="comment_start_num">${frr.frrCount }</div>   <%-- ${frr.frrCount} 7 --%>
+							<div id="comment_start_title">Comments</div>
+						</div>
+						
+						
+						
+					 	<div class="ui minimal comments" id="entire_comment" style="font-size: 13px;">
+							
+							
+						</div> 
+						
 							<form class="ui reply form">
 								<div class="field">
-									<textarea style="resize: none;"></textarea>
+									<textarea id="replyContent" style="resize: none;"></textarea>
 								</div>
-								<div class="ui blue labeled submit icon button">
-									<i class="edit icon"></i>Add Reply
+								<div id="frSubmit" class="ui blue submit icon button" style="font-size:1.3rem; background-color:#3287B2;">
+									댓글 등록
 								</div>
 							</form>
-
-						</div>
 
 						<!-- 리플끝 -->
 										
@@ -302,9 +298,266 @@
 	
 	<!-- script 작성 -->
 	<script>
+		
 		$(function() {
-
+				
+		
+				$("#menu6").addClass("in");
+				$("#menu6").attr('aria-expanded',true);
+				$("#menu6_1").addClass("active");
+				$("#menu6_1").attr('aria-expanded',true);
+				$("#m6_3").addClass("active");	
+				
+				$(".add-sendlist").click(function(){
+					$("#divBCC").css("display", "block");
+				})
+				
+			
 		});
+		
+		/*------------------------- 댓글 div 토글 ---------------------------  */	
+		$(document).ready(function(){
+			$("#comment_start").click(function(){
+				$("#entire_comment").toggle();
+			});
+		});
+		
+		/*------------------------- 댓글 토글 끝 ---------------------------  */	
+		
+/* 		$(document).ready(function(){
+			$("#fix").click(function(){
+				$("#formRep").toggle();
+			});
+		}); */
+		
+		/*------------------------- 댓글 ajax 시작 ---------------------------  */	
+		/* 댓글 등록 ajax */
+			$(document).on("click","#frSubmit", function(){
+				
+				var frrContent = $("#replyContent").val();
+				var reffrId = ${f.frId};
+				
+				//var contentBox = $("#replyContent");
+				
+				console.log('댓글내용 : '+frrContent);
+				console.log('참조글번호 : '+reffrId);
+				
+				$.ajax({
+					url:"freeRinsert.do",
+					data:{frrContent:frrContent, reffrId:reffrId},
+					type:"post",
+					success:function(data){
+						if(data == "success"){
+							console.log('댓글 insert 성공');
+							$("#replyContent").val("");
+							getReplyList();
+							
+						}else{
+							alert("댓글작성실패!");
+						}
+					},
+					error:function(){
+						console.log("서버와의 통신 실패");
+					}
+				});
+			});
+		
+		$(function(){
+			getReplyList();
+			/*
+			setInterval(function(){
+				getReplyList();
+			}, 5000);
+			*/
+			
+			
+			
+		});
+		
+		/* 댓글list ajax */
+		 function getReplyList(){
+					
+					var frId= ${f.frId};
+					console.log(frId);
+					$.ajax({
+						url:"freeRlist.do",
+						data:{frId:frId},
+						dataType:"json",
+						success:function(data){
+							console.log(data);
+								$("#uberCount").text(data.length); 
+								
+								$("#comment_start_num").text(data.length);
+								
+							 	var $divEntire = $("#entire_comment");
+								$divEntire.html("");
+								
+							if(data.length>0){
+								
+								$.each(data, function(index, value){
+									var $divComment = $("<div class='comment'>");
+									var $divContent = $("<div class='content'>");
+									var $aAuthor = $("<a class='author'>").text(value.empName);
+									var $divMetadate = $("<div class='metadata'>");
+									var $spanDate = $("<span class='date'>").text(value.frrCreateDate);
+									var $divText = $("<div class='text'>").text(value.frrContent);
+									var $divActions = $("<div class='actions'>");
+									var $aReply1 = $("<a onclick='writeReply(this)' id='fix' class='reply'>").text("수정");
+									var $aReply2 = $("<a id='del' class='reply replyDelete'>").text("삭제");
+									var $hiddenId2 = $("<input id='hdel' type='hidden' name='frrId'>").val(value.frrId);
+									
+									var $formReply = $("<form id='formRep' class='ui reply form' style='display:none;'>");
+									var $divField = $("<div class='field'>");
+									var $textArea = $("<textarea class='frrContent' style='resize: none;'>");
+									var $divFrsubmit = $("<div class='ui blue submit icon button replyUpdate' style='font-size:1.3rem; background-color:#3287B2;'>").text("수정");
+									var $hiddenId = $('<input type="hidden" name="frrId">').val(value.frrId);
+									$divMetadate.append($spanDate);
+									$divActions.append($aReply1);
+									$divActions.append($aReply2);
+									$aReply2.append($hiddenId2);
+									
+									$divContent.append($aAuthor);
+									$divContent.append($divMetadate);
+									$divContent.append($divText);
+									$divContent.append($divActions);
+									
+									$divField.append($textArea);
+									
+									$formReply.append($divField);
+									$formReply.append($divFrsubmit);
+									$formReply.append($hiddenId);
+									
+									$divComment.append($divContent);
+							
+									
+									$divEntire.append($divComment);
+									$divEntire.append($formReply);
+								});
+								
+							
+								
+							}else{
+								var $noReply = $("<div id='noReply'>");
+								var $hNo = $("<h3>").text("글에 등록된 댓글이 없습니다.");
+								
+								$noReply.append($hNo);
+								$divEntire.append($noReply);
+							}
+							
+						},   /* function(data) 끝 */
+						error:function(){
+							console.log("ajax 통신 실패");
+						}
+					});
+				} 
+				
+				/*------------------------- 댓글 ajax 끝 ---------------------------  */	
+		
+				/*
+				function showBtn(e) {
+					console.log($(e).find('.action'));
+					//$(e).find('.action').css('display','block');
+				}
+				*/
+				
+				/* 댓글 수정 버튼 누르면 */
+				function writeReply(e){
+					console.log($(e));
+					$(e).parents('.comment').next('form').css('display','block');
+					$(e).parents('.actions').prev('.text').css('display','none');
+					$(e).parents('.comment').next('form').find('.frrContent').val($(e).parents('.actions').prev('.text').text());
+				}
+				
+				
+				$(document).on('click','.replyUpdate',function(){
+					
+					var nContent = $(this).prev().find('.frrContent').val();
+					var id = $(this).next().val();
+					
+					console.log('수정한 내용 : '+nContent);
+					console.log('원래 댓글 id : '+id);
+					
+					//console.log(id);
+					var frId = $('input[name=reffrId]').val();
+					$.ajax({
+						url:"freeRupdate.do",
+						type:"POST",
+						data:{frrContent:nContent,
+							frrId:id,
+							reffrId:frId
+						},
+						success:function(data){
+							if(data == "success"){
+								$(".frrContent").val("");
+								getReplyList(); 
+							}else{
+								alert("댓글작성실패!");
+							}
+						},
+						error:function(){
+							console.log("통신 실패입니다.");						
+							}
+					});
+					
+					
+				});
+				
+					$(document).on('click','.replyDelete',function(){
+					
+					var id = $(this).children().val();
+					
+					//console.log(id);
+					var frId = $('input[name=reffrId]').val();
+					
+					//console.log($(this).parents('.comment'));
+					var dddd = $(this).parents('.comment');
+					var ddddform = $(this).parents('.comment').next("form");
+					
+					$.ajax({
+						url:"freeRdelete.do",
+						type:"POST",
+						data:{
+							frrId:id,
+							reffrId:frId
+						},
+						success:function(data){
+							if(data == "success"){
+								console.log("wwwwwww");
+								console.log(dddd);
+								$(dddd).css("display","none");
+								$(ddddform).css("display","none");
+								$("#comment_start_num").text($("#comment_start_num").text()-1);
+								//getReplyList(); 
+							}else{
+								alert("댓글삭제실패!");
+							}
+						},
+						error:function(){
+							console.log("통신 실패입니다.");						
+							}
+					});
+					
+					
+				});
+				
+				/* ------------------------------------------------------- */
+				$(document).on('click','#likebtn',function(){
+						var frId= ${f.frId};
+						var empId=${loginUser.empId}
+						$.ajax({
+							url:"insertLike.do",
+							data:{frId:frId,
+								  empId:empId},
+							type:"POST",
+							success:function(data){
+								$("#countLabel").text(data);
+							},   /* function(data) 끝 */
+							error:function(){
+								console.log("ajax 통신 실패");
+							}
+						});
+					
+				});
 	</script>
 	
 	

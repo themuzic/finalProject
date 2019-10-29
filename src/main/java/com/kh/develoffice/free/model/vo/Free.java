@@ -18,6 +18,7 @@ public class Free {
 	private int frId;
 	private String frTitle;
 	private String frWriter;
+	private String empName;
 	private String frContent;
 	private String originalFileName;
 	private String renameFileName;

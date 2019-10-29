@@ -582,8 +582,8 @@
 							<a href="#menu6" data-toggle="collapse" class="collapsed" id="menu6_1"><i class="fa fa-list"></i> <span>게시판</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu6" class="collapse ">
 								<ul class="nav">
-									<li><a href="" class="" id="m6_1">공지사항</a></li>
-									<li><a href="" class="" id="m6_2">팀게시판</a></li>
+									<li><a href="listNotice.do" class="" id="m6_1">공지사항</a></li>
+									<li><a href="listTeamBoard.do" class="" id="m6_2">팀게시판</a></li>
 									<li><a href="listFree.do" class="" id="m6_3">자유게시판</a></li>								
 								</ul>
 							</div>

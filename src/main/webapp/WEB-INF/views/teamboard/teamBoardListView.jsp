@@ -213,7 +213,7 @@
 		$("#menu6").attr('aria-expanded',true);
 		$("#menu6_1").addClass("active");
 		$("#menu6_1").attr('aria-expanded',true);
-		$("#m6_3").addClass("active");	
+		$("#m6_2").addClass("active");	
 	});
 	
 	</script>
