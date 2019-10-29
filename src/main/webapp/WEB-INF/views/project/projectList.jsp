@@ -76,11 +76,11 @@
 					
 						<div class="ui cards">
 						
+						<c:forEach items="${ projectList }" var="p">
+						<c:if test="${ p.empId = loginUser.empId }">
+						
 						  <div class="card">
 						    <div class="content">
-						    
-						    <c:forEach items="${ projectList }" var="p">
-						    	<c:if test="${ p.empId = loginUser.empId }">
 						    	
 						    	<div class="header" style="padding:0 0 10px 0;">${ p.pName }</div>
 						      <div class="meta" style="float:right; padding:0 0 10px 0;">
@@ -93,16 +93,17 @@
 						      </div>
 						    </div>
 						    <div class="ui bottom attached button" onclick="location.href='projectDetail.do'">
+						      <button type="button" ></button>
 						      <i class="fas fa-sign-in-alt"></i>
 						      입장
 						    </div>
-						    	
-						    	</c:if>
-						    </c:forEach>
-						    
-						    
-						      
+					
 						  </div>
+						  
+						  </c:if>
+						   </c:forEach>
+						   
+						   
 						  
 						  <div class="card">
 						    <div class="content">
@@ -116,7 +117,7 @@
 						        <span>Elliot Fu is a film-maker from New York.</span>
 						      </div>
 						    </div>
-						    <div class="ui bottom attached button">
+						    <div class="ui bottom attached button" onclick="location.href='projectDetail.do'">
 						      <i class="fas fa-sign-in-alt"></i>
 						      입장
 						    </div>
