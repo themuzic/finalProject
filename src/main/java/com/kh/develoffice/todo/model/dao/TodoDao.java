@@ -62,6 +62,7 @@ public class TodoDao {
 	
 	/////////// TODO 생성 ///////////
 	public int insertTodo(Todo t) {
+		System.out.println(t.getTdBoardNo());
 		return sqlSession.insert("todoMapper.insertTodo", t);
 	}
 	
@@ -94,7 +95,7 @@ public class TodoDao {
 	}
 	
 	public int updateTodo(Todo t) {
-		System.out.println("todoNo : " + t.getTodoNo());
+		//System.out.println("todoNo : " + t.getTodoNo());
 		return sqlSession.update("todoMapper.updateTodo", t);
 	}
 	

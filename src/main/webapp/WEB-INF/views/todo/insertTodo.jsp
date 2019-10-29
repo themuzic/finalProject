@@ -59,10 +59,7 @@
 					 	<div class="content-insertForm">
 					 	
 					 		<input type="hidden" name="empId" value="${ loginUser.empId }">
-					 		<input type="hidden" name="tdBoardNo" value="${ allTodo[0].tdBoardNo }">
-					 		
-					 
-					 		<h1><c:out value="${ todoBoardList.tdBoardNo }"/></h1>
+					 		<input type="hidden" name="tdBoardNo" value="${ tdBoardList[0].tdBoardNo }">
 					 		
 					 		
 					 						 		

@@ -67,9 +67,6 @@ public class TodoController {
 		
 		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
 		
-//		session.setAttribute("todoBoardList", todoBoardList);
-//		model.addAttribute("todoBoardList", todoBoardList);
-		
 		mv.addObject("todoBoardList", todoBoardList).setViewName("todo/tdBoardListView");
 		
 		//System.out.println(todoBoardList);
@@ -91,7 +88,7 @@ public class TodoController {
 		
 		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
 		int tbNo = todoBoardList.get(0).getTdBoardNo();
-		//System.out.println(tbNo);
+		System.out.println(tbNo);
 		
 		t.setEmpId(e.getEmpId());
 		t.setTdBoardNo(tbNo);
@@ -108,7 +105,8 @@ public class TodoController {
 		ArrayList<Todo> todoCList = tService.selectTodoCList(t);
 		
 		
-		mv.addObject("todoAList", todoAList).addObject("todoOList", todoOList)
+		mv.addObject("tbNo", todoBoardList.get(0).getTdBoardNo())
+		.addObject("todoAList", todoAList).addObject("todoOList", todoOList)
 		.addObject("todoWList", todoWList).addObject("todoCList", todoCList).setViewName("todo/todoListView");
 		System.out.println(todoAList);
 		
@@ -137,16 +135,19 @@ public class TodoController {
 	
 	/////////// TODO 생성 ///////////
 	@RequestMapping("insertTodo.do")
-	public String insertTodo(Todo t, HttpServletRequest request, HttpSession session, Model model) {
+	public ModelAndView insertTodo(Todo t, ModelAndView mv,
+								   HttpServletRequest request,
+								   @RequestParam(name="tdBoardNo", required=false) Integer tdBoardNo) {
 		
 		int result = tService.insertTodo(t);
 		
 		if(result > 0) {
-			return "redirect:todoList.do";
+			mv.addObject("tdBoardNo", t.getTdBoardNo()).setViewName("redirect:todoList.do");
+			//return "redirect:todoList.do";
 		} else {
-			model.addAttribute("msg", "TO-DO 생성에 실패하였습니다.");
-			return "common/blankPage";
+			mv.addObject("msg", "수정 실패").setViewName("common/errorPage");
 		}
+		return mv;
 	}
 	
 	
@@ -266,27 +267,13 @@ public class TodoController {
 		return mv;
 	}
 	
-	/*@RequestMapping("updateTodo.do")
-	public String updateTodo(HttpServletRequest request,
-							 @RequestParam(name="todoNo", required=false) Integer todoNo) {
-		
-		System.out.println("todoNo : " + todoNo);
-		
-		int result = tService.updateTodo(todoNo);
-
-		if(result > 0) {
-			return "redirect:todoDetail.do";
-		} else {
-			return "common/errorPage";
-		}
-	}*/
-	
+	// Todo 수정
 	@RequestMapping("updateTodo.do")
 	public ModelAndView updateTodo(Todo t, ModelAndView mv,
 						HttpServletRequest request, 
 						@RequestParam(name="todoNo", required=false) Integer todoNo) {
 		
-		System.out.println(todoNo);
+		//System.out.println(todoNo);
 		int result = tService.updateTodo(t);
 		
 		if(result > 0) {

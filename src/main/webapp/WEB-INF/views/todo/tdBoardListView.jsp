@@ -131,32 +131,6 @@
 						</c:forEach>
 						
 						
-						
-						  <%-- <div class="card" onclick="location.href='todoList.do'" style="height:200px; /* border:solid 10px; */">
-							   
-							    <div class="image" style="height:20px;">
-							      <input type="color" value="${ b.tdBoardColor }">
-							    </div>
-							    <div class="content">
-							      <div class="header">2019년 10월</div>
-							      <div class="meta">
-							        <a>원영주</a>
-							      </div>
-							      <div class="description">
-							        2019년 10월 서비스팀 업무 관리
-							      </div>
-							    </div>
-							    <div class="extra content">
-							      <span class="right floated">
-							        Joined in 2013
-							      </span>
-							    </div>
-						  </div> --%>
-						  
-						  
-						  
-						  
-						  
 						  
 						</div>
 						
