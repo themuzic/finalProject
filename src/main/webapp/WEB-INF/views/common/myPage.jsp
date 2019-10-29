@@ -112,7 +112,7 @@ input[type=text]{
 										</th>
 									</tr>
 									<tr>
-										<td colspan="2"><span id="workDay" style="color:red"></span><span>일 째 근무 중</span></td>
+										<td colspan="2" style="text-align:center;padding-bottom:10px;"><span id="workDay" style="color:red"></span><span>일 째 근무 중</span></td>
 									</tr>
 									<tr>
 										<td>입사일</td>
@@ -134,8 +134,8 @@ input[type=text]{
 								<input type="text" id="statusMsg" name="statusMsg" class="userAdvice" placeholder="상태메세지" value="${loginUser.statusMsg }" readonly>
 							</div>
 							<div class="ui toggle checkbox" style="float:right;" style="width:100px;">
-								<label style="font-size: 15px;padding-top: 0;">정보 수정</label>
 								<input type="checkbox" name="update" id="update" style="opacity:0;">
+								<label style="font-size: 15px;padding-top: 0;">정보 수정</label>
 							</div>
 						</div>
 						<br clear=both>
@@ -207,6 +207,7 @@ input[type=text]{
 					$(".userAdvice").removeAttr("readonly");
 					$("#profileImgArea").css("cursor", "pointer");
 				}else{
+					$("#profileImgArea").css("cursor", "default");
 					var formData = new FormData();
 					var statusMsg = $("#statusMsg").val();
 					var phone = $("#phone").val();
