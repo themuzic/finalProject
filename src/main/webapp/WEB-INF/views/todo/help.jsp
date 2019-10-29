@@ -77,7 +77,11 @@
 	<script>
 		$(function(){
 			
-			
+			$("#menu3").addClass("in");
+			$("#menu3").attr('aria-expanded',true);
+			$("#menu3_1").addClass("active");
+			$("#menu3_1").attr('aria-expanded',true);
+			$("#m3_3").addClass("active");	
 			
 			
 			

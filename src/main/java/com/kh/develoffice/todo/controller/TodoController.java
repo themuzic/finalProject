@@ -257,7 +257,15 @@ public class TodoController {
 	
 	
 	
+	@RequestMapping("help.do")
+	public ModelAndView help(ModelAndView mv) {
 		
+		
+		mv.setViewName("todo/help");
+		
+		return mv;
+	}
+	
 	
 
 	
