@@ -28,6 +28,7 @@
 		<typeAlias type="com.kh.develoffice.common.Department" alias="Department"/>
 		<typeAlias type="com.kh.develoffice.todo.model.vo.TodoBoard" alias="TodoBoard"/>
 		<typeAlias type="com.kh.develoffice.todo.model.vo.Todo" alias="Todo"/>
+		<typeAlias type="com.kh.develoffice.todo.model.vo.Help" alias="Help"/>
 		<typeAlias type="com.kh.develoffice.mail.model.vo.Mail" alias="Mail"/>
 	</typeAliases>
 	

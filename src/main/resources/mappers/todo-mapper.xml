@@ -24,6 +24,18 @@
 		<result property="todoEnrollDate" column="todo_enroll_date"/>
 		<result property="todoStatus" column="todo_status"/>
 	</resultMap>
+	
+	
+	<resultMap id="helpResultSet" type="Help">
+		<id property="workId" column="work_id"/>
+		<result property="empId" column="emp_id"/>
+		<result property="workTitle" column="work_title"/>
+		<result property="workContent" column="work_content"/>
+		<result property="registDate" column="regist_date"/>
+		<result property="helperId" column="helper_id"/>
+		<result property="status" column="status"/>
+	</resultMap>
+  
   
   	<!-- TO-DO Board 생성 -->
   	<insert id="insertTodoBoard" parameterType="TodoBoard">
