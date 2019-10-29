@@ -15,7 +15,7 @@
 <style>
 .contentWrap{
 	float:left;
-	width:75%;
+	width:55%;
 	background: white;
 	padding-top:30px;
 	padding-bottom:30px;
@@ -29,12 +29,18 @@
 	float:left;
 }
 .header-right{
-	width: 70%;
-	float: right;
-	text-align: center;
+    width: 300px;
+    float: right;
+    margin-left: 40px;
+}
+.header-right tr{
+	height: 30px;
+}
+.header-right td{
+	font-size:16px;
 }
 .header-left{
-	width: 15%;
+	width: 197px;
 	float: left;
 	overflow: hidden;
 	border-radius: 50%;
@@ -61,6 +67,15 @@ td{
 	margin:0px;
 	margin-left:-20px;
 }
+#statusMsg{
+	margin-top:15px;
+}
+input[type=text]{
+	height:30px;
+}
+.main-section input[type=text]{
+	width:400px;
+}
 </style>
 
 
@@ -81,29 +96,47 @@ td{
 					
 					<!-- 이 아래부터 내용 작성 -->
 						<div class="main-header">
-							<div class="ui toggle checkbox">
-							  <input type="checkbox" name="update" id="update" style="opacity: 0;">
-							  <label>정보 수정</label>
-							</div>
-							<div class="header-right">
-								<div>
-									<h3>${loginUser.empName } ${loginUser.jobName }</h3>
-									<small>${loginUser.deptName }</small>
-								</div>
-								<br>
-								<div>입사일 : ${loginUser.enrollDate }</div>
-								<div>근무 일 수 : <span id="workDay"></span></div>
-								<div>남은 연차일 수 : ${loginUser.vacation }</div>
-								<div>별 개수 : ${loginUser.star }</div>
-							</div>
 							<div class="header-left">
-							<div id="imgInputArea"><input type="file" id="imgUpdate" name="profile" onchange='loadImg(this)'></div>
+								<div id="imgInputArea"><input type="file" id="imgUpdate" name="profile" onchange='loadImg(this)'></div>
 								<div id="profileImgArea">
 									<img id="profileImg" class="imgUpdate" src="resources/upload/profile/${loginUser.profilePath}">
 								</div>
 							</div>
+							
+							<div class="header-right">
+								<table>
+									<tr>
+										<th colspan="2" style="background:none;border:0;text-align:center;height:50px;">
+											<h3 style="display:inline-block;">${loginUser.empName } ${loginUser.jobName }</h3>
+											<span class="" style="font-size:16px;margin-left:10px;">${loginUser.deptName }</span>
+										</th>
+									</tr>
+									<tr>
+										<td colspan="2"><span id="workDay" style="color:red"></span><span>일 째 근무 중</span></td>
+									</tr>
+									<tr>
+										<td>입사일</td>
+										<td style="text-align:right;">${loginUser.enrollDate}</td>
+									</tr>
+									<tr>
+										<td>남은 연차 일수</td>
+										<td style="text-align:right;">${loginUser.vacation}</td>
+									</tr>
+									<tr>
+										<td>별 개수</td>
+										<td style="text-align:right;">${loginUser.star}</td>
+									</tr>
+								</table>
+							</div>
+							
 							<br clear="both">
-							<div>상태메세지 : <input type="text" id="statusMsg" name="statusMsg" class="userAdvice" placeholder="내용을 입력해주세요" value="${loginUser.statusMsg }" readonly></div>
+							<div class="ui input">
+								<input type="text" id="statusMsg" name="statusMsg" class="userAdvice" placeholder="상태메세지" value="${loginUser.statusMsg }" readonly>
+							</div>
+							<div class="ui toggle checkbox" style="float:right;" style="width:100px;">
+								<label style="font-size: 15px;padding-top: 0;">정보 수정</label>
+								<input type="checkbox" name="update" id="update" style="opacity:0;">
+							</div>
 						</div>
 						<br clear=both>
 						<br clear=both>
@@ -112,19 +145,35 @@ td{
 							<table>
 								<tr>
 									<td>ID</td>
-									<td class="userTr"><input type="text" value="${loginUser.empId }" placeholder="내용을 입력해주세요." readonly></td>
+									<td class="userTr">
+										<div class="ui input">
+											<input type="text" value="${loginUser.empId }" placeholder="내용을 입력해주세요." readonly>
+										</div>
+									</td>
 								</tr>
 								<tr>
 									<td>EMAIL</td>
-									<td class="userTr"><input type="text" value="${loginUser.email }" placeholder="내용을 입력해주세요." readonly></td>
+									<td class="userTr">
+										<div class="ui input">
+											<input type="text" value="${loginUser.email }" placeholder="내용을 입력해주세요." readonly>
+										</div>
+									</td>
 								</tr>
 								<tr>
 									<td>MOBILE</td>
-									<td class="userTr"><input class="userAdvice" id="phone" name="phone" type="text" value="${loginUser.phone }" placeholder="내용을 입력해주세요." readonly></td>
+									<td class="userTr">
+										<div class="ui input">
+											<input class="userAdvice" id="phone" name="phone" type="text" value="${loginUser.phone }" placeholder="내용을 입력해주세요." readonly>
+										</div>
+									</td>
 								</tr>
 								<tr>
-									<td width="10%">ADDRESS</td>
-									<td class="userTr"><input class="userAdvice" id="address" name="address" type="text" value="${loginUser.address }" placeholder="내용을 입력해주세요." readonly></td>
+									<td width="10%">ADDRESS</td>									
+									<td class="userTr">
+										<div class="ui input">
+											<input class="userAdvice" id="address" name="address" type="text" value="${loginUser.address }" placeholder="내용을 입력해주세요." readonly>
+										</div>
+									</td>
 								</tr>
 							</table> 
 						</div>

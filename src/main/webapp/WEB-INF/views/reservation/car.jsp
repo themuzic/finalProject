@@ -380,7 +380,7 @@
 			$("#menu5").attr('aria-expanded',true);
 			$("#menu5_1").addClass("active");
 			$("#menu5_1").attr('aria-expanded',true);
-			$("#m5_2").addClass("active");
+			$("#m5_3").addClass("active");
 			
 		});
 		
@@ -593,7 +593,17 @@
 		
 		//예약창 on
 		$('#time-table').on('click','.blank',function(){
+			// 예약창 띄워주고
 			$("#booking_time_layer").addClass('show');
+			// 선택한 시간으로 초기 selected 설정
+			var time = ($(this).attr('time'));
+			
+			$.each($('select[name=startTime] option'),function(index, value){
+				if(value.value == time){
+					$(value).attr('selected',true);
+					$('select[name=endTime] option')[index].setAttribute('selected',true);
+				}	
+			});
 		});
 		//예약확인창 on
 		$('#time-table').on('click','.reserv',function(){
