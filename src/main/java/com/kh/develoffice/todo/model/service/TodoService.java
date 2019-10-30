@@ -48,5 +48,9 @@ public interface TodoService {
 	// Todo 상태 변경 - 진행
 	int updateTodo(Todo t);
 	
+	// 위젯용 진행중 리스트 호출
+	ArrayList<Todo> selectWidgetGoingTodoList(int id);
+	// 위젯용 대기중 리스트 호출
+	ArrayList<Todo> selectWidgetWaitTodoList(int id);
 
 }

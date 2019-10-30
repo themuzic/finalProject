@@ -11,6 +11,7 @@
 <title>DEVELOFFICE</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+<link rel="stylesheet" href="resources\semantic\semantic.css">
 
 <style>
 	#myWorkInfo th, #myWorkInfo td{
@@ -36,6 +37,9 @@
 	}
 	#docuWidgetTbody tr:hover td{
 		background:#dbecff;
+	}
+	.todo-list > li p{
+		padding: 0px 0 0px 35px !important;
 	}
 </style>
 
@@ -117,7 +121,7 @@
 					
 					
 							<!-- 전자결재 위젯 -->
-							<div class="panel" style="position:absolute;min-width:600px;">
+							<div class="panel" style="position:absolute;min-width:610px;">
 								<input type="hidden" class="widgetType" name="widgetType" value="2">
 								<input type="hidden" class="left" name="left" value="">
 								<input type="hidden" class="top" name="top" value="">
@@ -212,8 +216,7 @@
 								</div>
 								<div class="panel-footer">
 									<div class="row">
-										<!-- <div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Last 24 hours</span></div> -->
-										<div class="col-md-6 text-right fr"><a href="#" class="btn btn-primary">더보기</a></div>
+										<div class="col-md-6 text-right fr"><a href="javascript:void(0);" class="btn btn-primary">더보기</a></div>
 									</div>
 								</div>
 							</div>
@@ -230,61 +233,92 @@
 								<input type="hidden" class="fold" name="fold" value="N">
 								<input type="hidden" class="status" name="status" value="Y">							
 								<div class="panel-heading">
-									<h3 class="panel-title">To-Do List</h3>
+									<h3 class="panel-title">TO-DO List</h3>
 									<div class="right">
 										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
 										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
 									</div>
 								</div>
-								<div class="panel-body">
-									<ul class="list-unstyled todo-list">
-										<li>
-											<label class="control-inline fancy-checkbox">
-												<input type="checkbox"><span></span>
-											</label>
-											<p>
-												<span class="title">Restart Server</span>
-												<span class="short-description">Dynamically integrate client-centric technologies without cooperative resources.</span>
-												<span class="date">Oct 9, 2016</span>
-											</p>
-											<div class="controls">
-												<a href="#"><i class="icon-software icon-software-pencil"></i></a> <a href="#"><i class="icon-arrows icon-arrows-circle-remove"></i></a>
-											</div>
-										</li>
-										<li>
-											<label class="control-inline fancy-checkbox">
-												<input type="checkbox"><span></span>
-											</label>
-											<p>
-												<span class="title">Retest Upload Scenario</span>
-												<span class="short-description">Compellingly implement clicks-and-mortar relationships without highly efficient metrics.</span>
-												<span class="date">Oct 23, 2016</span>
-											</p>
-											<div class="controls">
-												<a href="#"><i class="icon-software icon-software-pencil"></i></a> <a href="#"><i class="icon-arrows icon-arrows-circle-remove"></i></a>
-											</div>
-										</li>
-										<li>
-											<label class="control-inline fancy-checkbox">
-												<input type="checkbox"><span></span>
-											</label>
-											<p>
-												<strong>Functional Spec Meeting</strong>
-												<span class="short-description">Monotonectally formulate client-focused core competencies after parallel web-readiness.</span>
-												<span class="date">Oct 11, 2016</span>
-											</p>
-											<div class="controls">
-												<a href="#"><i class="icon-software icon-software-pencil"></i></a> <a href="#"><i class="icon-arrows icon-arrows-circle-remove"></i></a>
-											</div>
-										</li>
-									</ul>
+								
+								<div class="panel-body" style="padding-left:25px;padding-right:25px;padding-bottom:20px;">
+									<div class="ui top attached tabular menu">
+									  <a class="item active todoTab" data-tab="first" name="first">진행중</a>
+									  <a class="item todoTab" data-tab="second" name="second">대기</a>
+									</div>
+									<div class="ui bottom attached tab segment active tabContent" data-tab="first" name="first">
+										<div class="panel-body">
+											<ul class="list-unstyled todo-list">
+											
+												<c:if test="${todoGoingList eq []}">
+													<li>
+														<label class="control-inline fancy-checkbox">
+														</label>
+														<p style="text-align: center">
+															<span style="font-size: 14px;">진행중인 TODO가 없습니다.</span>
+														</p>
+													</li>
+												</c:if>
+												<c:if test="${todoGoingList ne []}">
+												<c:forEach var="todo" items="${todoGoingList}">
+													<li>
+														<label class="control-inline fancy-checkbox">
+															<input type="checkbox" class="todoCheck" value=""><span></span>
+															<input type="hidden" value="${todo.todoNo}">
+														</label>
+														<p>
+															<span class="title">${todo.todoName}</span>
+															<span class="short-description">${todo.todoContent}</span>
+															<span class="date">${todo.todoEnrollDate}</span>
+														</p>
+														<div class="controls hide">
+															<a href="javascript:void(0);" class="btn btn-primary" onclick="changeTodo(this);">완료하기</a>
+														</div>
+													</li>
+												</c:forEach>
+												</c:if>
+											</ul>
+										</div>
+									</div>
+									<div class="ui bottom attached tab segment tabContent" data-tab="second" name="second" style="margin-bottom:10px;">
+										<div class="panel-body">
+											<ul class="list-unstyled todo-list">
+												<c:if test="${todoWaitList eq []}">
+													<li>
+														<label class="control-inline fancy-checkbox">
+														</label>
+														<p style="text-align: center">
+															<span style="font-size: 14px;">대기중인 TODO가 없습니다.</span>
+														</p>
+													</li>
+												</c:if>
+												<c:if test="${todoWaitList ne []}">
+												<c:forEach var="todo" items="${todoWaitList}">
+													<li>
+														<label class="control-inline fancy-checkbox">
+															<input type="checkbox" class="todoCheck" value=""><span></span>
+															<input type="hidden" value="${todo.todoNo}">
+														</label>
+														<p>
+															<span class="title">${todo.todoName}</span>
+															<span class="short-description">${todo.todoContent}</span>
+															<span class="date">${todo.todoEnrollDate}</span>
+														</p>
+														<div class="controls hide">
+															<a href="javascript:void(0);" class="btn btn-primary" onclick="changeTodo(this);">진행하기</a>
+														</div>
+													</li>
+												</c:forEach>
+												</c:if>
+											</ul>
+										</div>
+									</div>
 								</div>
 							</div>
 							<!-- END TODO LIST -->
 							
 							
 							<!-- 받은 메일 위젯 -->
-							<div class="panel" style="position:absolute;min-width:600px;">
+							<div class="panel" style="position:absolute;min-width:610px;">
 								<input type="hidden" class="widgetType" name="widgetType" value="4">
 								<input type="hidden" class="left" name="left" value="">
 								<input type="hidden" class="top" name="top" value="">
@@ -330,8 +364,7 @@
 								</div>
 								<div class="panel-footer">
 									<div class="row">
-										<!-- <div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Last 24 hours</span></div>
-										<div class="col-md-6 text-right fr"><a href="#" class="btn btn-primary">더보기</a></div>
+										<div class="col-md-6 text-right fr"><a href="javascript:void(0);" class="btn btn-primary">더보기</a></div>
 									</div>
 								</div>
 							</div>
@@ -340,7 +373,7 @@
 							
 							<!-- 공지사항 위젯 -->
 							<!-- 
-							<div class="panel" style="position:absolute;min-width:600px;">
+							<div class="panel" style="position:absolute;min-width:610px;">
 								<input type="hidden" class="widgetType" name="widgetType" value="5">
 								<input type="hidden" class="left" name="left" value="">
 								<input type="hidden" class="top" name="top" value="">
@@ -547,6 +580,51 @@
 		
 	}
 	
+	/* ----TODO위젯----------------------------------- */
+	
+	/* 탭 전환 */
+	$(document).on('click','.todoTab',function(){
+		$(this).addClass('active');
+		$(this).siblings('a').removeClass('active');
+		var tabName = $(this).attr('name');
+		
+		$.each($('.tabContent'),function(index, tab){
+			if(tabName == $(tab).attr('name')){
+				$(tab).addClass('active');
+			}else{
+				$(tab).removeClass('active');
+			}
+		});
+	});
+	/* 체크박스 누르면 */
+	$(document).on('change',".todoCheck",function(){
+		
+		if($(this).prop('checked')){
+			$(this).parents('li').find('.controls').addClass('show');
+		} else{
+			$(this).parents('li').find('.controls').removeClass('show');
+		}
+	});
+	/* 체크박스 누르면 나오는 버튼 누르면 */
+	function changeTodo(btn){
+		
+		var btnName = btn.text;
+		
+		if(btnName == '진행하기'){	//진행하기 누르면
+			console.log('진행하기');
+		}else{	//완료하기 누르면
+			
+		}
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
 	
 	/* ----------------------------------------------- */
 	$(function() {
@@ -745,7 +823,6 @@
 
 	<!-- Javascript -->
 	<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 	<script src="resources/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
 	<script src="resources/assets/vendor/chartist/js/chartist.min.js"></script>
 	<script src="resources/assets/scripts/klorofil-common.js"></script>

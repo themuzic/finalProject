@@ -151,7 +151,14 @@
 		where todo_no=#{todoNo}
   	</update>
   
-  
+	
+	<select id="selectWidgetGoingTodoList" parameterType="_int" resultMap="todoResultSet">
+		select * from todo where emp_id=#{id} and todo_status='ongoing' order by todo_no desc
+	</select>
+	
+	<select id="selectWidgetWaitTodoList" parameterType="_int" resultMap="todoResultSet">
+		select * from todo where emp_id=#{id} and todo_status='waiting' order by todo_no desc
+	</select>
   
   
   

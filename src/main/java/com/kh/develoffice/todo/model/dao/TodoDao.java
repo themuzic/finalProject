@@ -98,6 +98,16 @@ public class TodoDao {
 		//System.out.println("todoNo : " + t.getTodoNo());
 		return sqlSession.update("todoMapper.updateTodo", t);
 	}
+
+
+	public ArrayList<Todo> selectWidgetGoingTodoList(int id) {
+		return (ArrayList)sqlSession.selectList("todoMapper.selectWidgetGoingTodoList",id);
+	}
+
+
+	public ArrayList<Todo> selectWidgetWaitTodoList(int id) {
+		return (ArrayList)sqlSession.selectList("todoMapper.selectWidgetWaitTodoList",id);
+	}
 	
 	
 	

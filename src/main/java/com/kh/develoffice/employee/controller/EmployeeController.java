@@ -34,6 +34,8 @@ import com.kh.develoffice.employee.model.vo.Widget;
 import com.kh.develoffice.employee.model.vo.WorkTime;
 import com.kh.develoffice.mail.model.service.MailService;
 import com.kh.develoffice.mail.model.vo.Mail;
+import com.kh.develoffice.todo.model.service.TodoService;
+import com.kh.develoffice.todo.model.vo.Todo;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -45,6 +47,8 @@ public class EmployeeController {
 	private DocumentService dService;
 	@Autowired
 	private MailService mService;
+	@Autowired
+	private TodoService tService;
 	/**
 	 * - 로그인 
 	 * @param emp
@@ -170,6 +174,7 @@ public class EmployeeController {
 					}
 					mv.addObject("docuList", docuList);
 					
+					// 내 받은메일함 메일 가져오기
 					ArrayList<Mail> tempMailList = mService.selectMyMail(loginUser);
 					ArrayList<Mail> mailList = new ArrayList<>();
 					
@@ -186,10 +191,20 @@ public class EmployeeController {
 							mailList.add(tempMailList.get(i));
 						}
 						//System.out.println(mailList);
-						mv.addObject("mailList", mailList).setViewName("main/mainPage");
+						mv.addObject("mailList", mailList);
 					}
 					
-				
+					// 내 todo 가져오기
+					
+					// 진행중 리스트
+					ArrayList<Todo> todoGoingList = tService.selectWidgetGoingTodoList(id);
+					// 대기 리스트
+					ArrayList<Todo> todoWaitList = tService.selectWidgetWaitTodoList(id);
+					
+					mv.addObject("todoGoingList", todoGoingList);
+					mv.addObject("todoWaitList", todoWaitList);
+					
+					mv.setViewName("main/mainPage");
 		   } else {			   
 			   mv.addObject("msg", "로그인 실패");		// 전달하고자 하는 데이터 담기 addObject(key, value);
 			   mv.setViewName("login");	// 뷰에 대한 정보 담기 setViewName(뷰명);
@@ -330,7 +345,19 @@ public class EmployeeController {
 							mailList.add(tempMailList.get(i));
 						}
 						System.out.println(mailList);
-						mv.addObject("mailList", mailList).setViewName("main/mainPage");
+						mv.addObject("mailList", mailList);
+						
+						// 내 todo 가져오기
+						
+						// 진행중 리스트
+						ArrayList<Todo> todoGoingList = tService.selectWidgetGoingTodoList(empId);
+						// 대기 리스트
+						ArrayList<Todo> todoWaitList = tService.selectWidgetWaitTodoList(empId);
+						
+						mv.addObject("todoGoingList", todoGoingList);
+						mv.addObject("todoWaitList", todoWaitList);
+						
+						mv.setViewName("main/mainPage");
 					}
 				}
 		   } else {			   

@@ -103,6 +103,18 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 
+	@Override
+	public ArrayList<Todo> selectWidgetGoingTodoList(int id) {
+		return tDao.selectWidgetGoingTodoList(id);
+	}
+
+
+	@Override
+	public ArrayList<Todo> selectWidgetWaitTodoList(int id) {
+		return tDao.selectWidgetWaitTodoList(id);
+	}
+
+
 	
 
 
