@@ -71,7 +71,14 @@
 <script src="resources/assets/Semantic-UI-CSS-master/semantic.js"></script>
 
 <style>
-	
+	#free_header{
+		width:100%;
+		height:40px;
+		background-color:#3287B2;
+		color:white;
+		font-size:20px;
+		padding:7px 20px;
+	}
 	.contentWrap{
 		float:left;
 		width:100%;
@@ -112,7 +119,8 @@
 					<div class="contentWrap">
 					
 					<!-- 이 아래부터 내용 작성 -->
-					
+							<div id="free_header">팀게시판</div>
+							<hr>
 					
 							<table id="myTable" class="table table-bordered">
 					        <thead>

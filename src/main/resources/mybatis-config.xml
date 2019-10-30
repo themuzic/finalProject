@@ -32,9 +32,9 @@
 		<typeAlias type="com.kh.develoffice.mail.model.vo.Mail" alias="Mail"/>
 		<typeAlias type="com.kh.develoffice.free.model.vo.FreeReply" alias="FreeReply"/>
 		<typeAlias type="com.kh.develoffice.free.model.vo.FreeLike" alias="FreeLike"/>
-		<!-- <typeAlias type="com.kh.develoffice.teamboard.model.vo.TeamBoard" alias="TeamBoard"/>
+		<typeAlias type="com.kh.develoffice.teamboard.model.vo.TeamBoard" alias="TeamBoard"/>
 		<typeAlias type="com.kh.develoffice.teamboard.model.vo.TeamBoardReply" alias="TeamBoardReply"/>
-		<typeAlias type="com.kh.develoffice.notice.model.vo.Notice" alias="Notice"/> -->
+		<typeAlias type="com.kh.develoffice.notice.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.kh.develoffice.project.model.vo.Project" alias="Project"/>
 		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectMember" alias="ProjectMember"/>
 		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectMember" alias="ProjectTask"/>
@@ -51,8 +51,9 @@
 		<mapper resource="mappers/free-mapper.xml"/>
 		<mapper resource="mappers/todo-mapper.xml"/>
 		<mapper resource="mappers/mail-mapper.xml"/> 
-		<!-- <mapper resource="mappers/notice-mapper.xml"/> -->
+		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/project-mapper.xml"/>
+		<mapper resource="mappers/teamBoard-mapper.xml"/>
 	</mappers>
 
 </configuration>

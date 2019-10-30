@@ -117,7 +117,7 @@
 					<div class="contentWrap">
 					
 					<!-- 이 아래부터 내용 작성 -->
-							<div id="free_header">자유게시판</div>
+							<div id="free_header">공지사항</div>
 							<hr>
 					
 							<table id="myTable" class="table table-bordered">
@@ -133,29 +133,29 @@
 					    		</tr>
 					        </thead>
 					        <tbody>
-					        	<c:forEach items="${list}" var="f">
+					        	<c:forEach items="${list}" var="n">
 						            <tr> 
-						            	<td>${f.frId}</td>
+						            	<td>${n.noId}</td>
 						            	<td style="text-align:left">
 						            		
 						            		<c:if test="${empty loginUser}">
-												${f.frTitle} 
+												${n.noTitle} 
 											</c:if> 
 											<c:if test="${!empty loginUser}">
-												<c:url value="freeDetail.do" var="frdetail">
-													<c:param name="frId" value="${f.frId}"/>
+												<c:url value="noticeDetail.do" var="nodetail">
+													<c:param name="noId" value="${n.noId}"/>
 												</c:url> 
-												<a href="${frdetail}">${f.frTitle}</a>						
+												<a href="${nodetail}">${n.noTitle}</a>						
 											</c:if> 
 						            	</td>
-						            	<td>${f.empName}</td>
+						            	<td>${n.empName}</td>
 						            	<td>
-						            		<c:if test="${!empty f.originalFileName }">
+						            		<c:if test="${!empty n.originalFileName }">
 												<i class="far fa-file-alt"></i>           
 											</c:if>
 						            	</td>
-						            	<td>${f.frCount}</td>
-						            	<td>${f.frCreateDate}</td>
+						            	<td>${n.noCount}</td>
+						            	<td>${n.noCreateDate}</td>
 						            </tr>
 					        	</c:forEach>
 					            
@@ -163,9 +163,9 @@
 					       
 					    </table>
 
-				
-						    <button onclick="location.href='insertFreeView.do';" class="btn btn-primary" style="float:right;">글쓰기</button>
-					
+						<%-- <c:if test="${loignUser eq 관리자}"> --%>				
+						    <button onclick="location.href='insertNoticeView.do';" class="btn btn-primary" style="float:right;">글쓰기</button>
+						<%-- </c:if> --%>
 						
 						
 					<!-- 이 위까지 내용작성 -->
@@ -211,7 +211,7 @@
 		$("#menu6").attr('aria-expanded',true);
 		$("#menu6_1").addClass("active");
 		$("#menu6_1").attr('aria-expanded',true);
-		$("#m6_3").addClass("active");	
+		$("#m6_1").addClass("active");	
 	});
 	
 	</script>

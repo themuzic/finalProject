@@ -184,13 +184,6 @@
 								</div>
 		    				</div>
 		    				
-		    				<%-- <div class="ui labeled button" align="center" tabindex="0">
-							  	<div class="ui red button" id="likebtn" style="font-size: 13px;">
-							   		<i class="heart icon" style="background:none;"></i>Like
-							  	</div>
-							  	<a class="ui basic red left pointing label" id="countLabel" style="font-size: 13px;">${count}</a>
-							</div> --%>
-		    				
 		    			  
 							<div class="test1" style="text-align: center;">
 			                    <div class="test2">
