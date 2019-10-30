@@ -1,8 +1,10 @@
 package com.kh.develoffice.todo.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.todo.model.service.TodoService;
 import com.kh.develoffice.todo.model.vo.Todo;
@@ -285,7 +289,6 @@ public class TodoController {
 	
 	
 	
-	
 	@RequestMapping("help.do")
 	public ModelAndView help(ModelAndView mv) {
 		
@@ -294,6 +297,30 @@ public class TodoController {
 		return mv;
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping("updateTodoWidget.do")
+	public String updateTodoWidget(Todo t) {
+		System.out.println("수정하려고 넘긴 todo : "+t);
+		int result = tService.updateTodoWidget(t);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	
+	@RequestMapping("callTodoList.do")
+	public void callTodoList(Todo t, HttpServletResponse response) throws JsonIOException, IOException{
+		System.out.println(t);
+		ArrayList<Todo> todoGoingList = tService.callTodoList(t);
+		System.out.println(todoGoingList);
+		response.setContentType("application/json; charset=utf-8");
+		Gson gson = new Gson();
+		gson.toJson(todoGoingList, response.getWriter());
+	}
 	
 
 	

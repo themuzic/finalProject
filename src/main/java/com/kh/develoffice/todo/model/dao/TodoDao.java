@@ -108,6 +108,16 @@ public class TodoDao {
 	public ArrayList<Todo> selectWidgetWaitTodoList(int id) {
 		return (ArrayList)sqlSession.selectList("todoMapper.selectWidgetWaitTodoList",id);
 	}
+
+
+	public int updateTodoWidget(Todo t) {
+		return sqlSession.update("todoMapper.updateTodoWidget",t);
+	}
+
+
+	public ArrayList<Todo> callTodoList(Todo t) {
+		return (ArrayList)sqlSession.selectList("todoMapper.callTodoList",t);
+	}
 	
 	
 	

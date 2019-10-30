@@ -13,9 +13,6 @@
 
 <link rel="stylesheet" href="resources\semantic\semantic.css">
 
-<link rel="stylesheet" href="resources\semantic\tab.css">
-<script src="resources\semantic\tab.js"></script>
-
 <style>
 	#myWorkInfo th, #myWorkInfo td{
 		background : none;
@@ -265,8 +262,8 @@
 												<c:forEach var="todo" items="${todoGoingList}">
 													<li>
 														<label class="control-inline fancy-checkbox">
-															<input type="checkbox" class="todoCheck" value="">
-															<input type="hidden" value="${todo.todoNo}"><span></span>
+															<input type="checkbox" class="todoCheck" value=""><span></span>
+															<input type="hidden" name="todoNo" value="${todo.todoNo}">
 														</label>
 														<p>
 															<span class="title">${todo.todoName}</span>
@@ -274,7 +271,7 @@
 															<span class="date">${todo.todoEnrollDate}</span>
 														</p>
 														<div class="controls hide">
-															<a href="javascript:void(0);" class="btn btn-primary" onclick="changeTodo(this);">완료하기</a>
+															<a href="javascript:void(0);" class="btn btn-primary todoBtn">완료하기</a>
 														</div>
 													</li>
 												</c:forEach>
@@ -298,8 +295,8 @@
 												<c:forEach var="todo" items="${todoWaitList}">
 													<li>
 														<label class="control-inline fancy-checkbox">
-															<input type="checkbox" class="todoCheck" value="">
-															<input type="hidden" value="${todo.todoNo}"><span></span>
+															<input type="checkbox" class="todoCheck" value=""><span></span>
+															<input type="hidden" name="todoNo" value="${todo.todoNo}">
 														</label>
 														<p>
 															<span class="title">${todo.todoName}</span>
@@ -307,7 +304,7 @@
 															<span class="date">${todo.todoEnrollDate}</span>
 														</p>
 														<div class="controls hide">
-															<a href="javascript:void(0);" class="btn btn-primary" onclick="changeTodo(this);">진행하기</a>
+															<a href="javascript:void(0);" class="btn btn-primary todoBtn">진행하기</a>
 														</div>
 													</li>
 												</c:forEach>
@@ -462,7 +459,6 @@
         start: function(event, ui) {
 
             var Startpos = $(this).position();
-            
             console.log("START: \nLeft: "+ Startpos.left + "\nTop: " + Startpos.top);
         },
 
@@ -491,7 +487,6 @@
     	} else {
     		$(this).parents('.panel').children('.fold').val('N');
     	}
-    	
     	saveWidget($(this));
     });
     
@@ -505,7 +500,6 @@
     		$(this).parents('.panel').hide();
     		$(this).parents('.panel').children('.status').val('N');
     	}
-    	
     	console.log($(this).parents('.panel').children('.status').val());
     	
     	saveWidget($(this));
@@ -540,9 +534,6 @@
 	
 	function loadWidgets() {
 		var panels = $('.panel').children('.widgetType');
-		
-		//console.log(panels);
-		//console.log(${widgetList});
 		
 		$.each(${widgetList}, function(i, widget){
 			
@@ -609,20 +600,106 @@
 		}
 	});
 	/* 체크박스 누르면 나오는 버튼 누르면 */
-	function changeTodo(btn){
+	
+	$(document).on('click','.todoBtn',function(){
+		var btnName = $(this).text();
+		var btnName2;
+		var tab;
+		if(btnName == '진행하기'){
+			btnName2 = 'ongoing';
+			tab = $(this).parents('.tabContent').prev().prev().find('.active');
+		}else{
+			btnName2 = 'completion';
+			tab = $(this).parents('.tabContent').prev().find('.active');
+		}
+		var li = $(this).parents('li');
+		var todoNo = $(this).parents('li').find('input[name=todoNo]').val();
 		
-		var btnName = btn.text;
+		$.ajax({
+			url:"updateTodoWidget.do",
+			type:"POST",
+			data:{todoNo:todoNo,
+				  empId:'${loginUser.empId}',
+				  todoStatus:btnName2
+			},
+			success:function(data){
+				console.log('업데이트 성공');
+				if(data == 'success'){
+					//li.remove();
+					tab.click();
+				}else{
+					alertify.alert('DEVELOFFICE', 'TODO '+btnName+' 실패')
+				}
+			},
+			error:function(){
+				alertify.alert('DEVELOFFICE', 'AJAX통신 실패');
+			}
+		});
+	});
+	
+	
+	$(document).on('click','.todoTab',function(){
+		var todoStatus;
+		var str="";
 		
-		if(btnName == '진행하기'){	//진행하기 누르면
-			console.log('진행하기');
-		}else{	//완료하기 누르면
-			
+		if($(this).text() == '진행중'){
+			todoStatus = 'ongoing';
+		}else{
+			todoStatus = 'waiting';
 		}
 		
+		$(".todo-list").html("");
+		
+		$.ajax({
+			url:"callTodoList.do",
+			type:"POST",
+			data:{empId:'${loginUser.empId}',
+				todoStatus:todoStatus
+			},
+			success:function(data){
+				
+				if(data.length > 0){
+					$.each(data, function(index, data){
+						str +='<li><label class="control-inline fancy-checkbox">'+
+							    '<input type="checkbox" class="todoCheck" value=""><span></span>'+
+								'<input type="hidden" name="todoNo" value="'+data.todoNo+'"></label>'+				
+								'<p><span class="title">'+data.todoName+'</span>'+
+								'<span class="short-description">'+data.todoContent+'</span>'+
+								'<span class="date">'+data.todoEnrollDate+'</span></p>'+
+								'<div class="controls hide">';
+							if(todoStatus == 'ongoing'){
+								str += '<a href="javascript:void(0);" class="btn btn-primary todoBtn">완료하기</a>';
+							}else{
+								str += '<a href="javascript:void(0);" class="btn btn-primary todoBtn">진행하기</a>';
+							}
+						str += '</div></li>';
+					});
+				}else{
+					str += '<li><label class="control-inline fancy-checkbox"></label><p style="text-align: center">';
+					
+					if(todoStatus == 'ongoing'){
+						str += '<span style="font-size: 14px;">진행중인 TODO가 없습니다.</span>';
+					}else{
+						str += '<span style="font-size: 14px;">대기중인 TODO가 없습니다.</span>';
+					}
+					
+					str += '</p></li>';
+				}
+				
+				$(".todo-list").html(str);
+				
+			},
+			error:function(){
+				alertify.alert('DEVELOFFICE', 'AJAX통신 실패');
+			}
+		});
 		
 		
 		
-	}
+		
+		
+		
+	});
 	
 	
 	
@@ -686,7 +763,7 @@
 				}
 			},
 			error:function(){
-				alertify.alert('DEVELOFFICE', '오늘은 그만 퇴근하시고 내일 하세요.');
+				alertify.alert('DEVELOFFICE', '안돼(수당줄 돈 없어) 돌아가');
 			}
 		});
 	}

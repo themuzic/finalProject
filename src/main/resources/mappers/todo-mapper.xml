@@ -160,7 +160,19 @@
 		select * from todo where emp_id=#{id} and todo_status='waiting' order by todo_no desc
 	</select>
   
-  
+	<update id="updateTodoWidget" parameterType="Todo">
+		update todo set todo_status=#{todoStatus} where todo_no=#{todoNo}
+	</update>
+	
+	<select id="callTodoList" parameterType="Todo" resultMap="todoResultSet">
+		<![CDATA[
+		select *
+		from (select * from todo
+	   		  where emp_id=#{empId} and todo_status=#{todoStatus}
+	   		  order by todo_no desc)
+		where rownum <= 5
+		]]>
+	</select>
   
   
   

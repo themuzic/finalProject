@@ -52,5 +52,10 @@ public interface TodoService {
 	ArrayList<Todo> selectWidgetGoingTodoList(int id);
 	// 위젯용 대기중 리스트 호출
 	ArrayList<Todo> selectWidgetWaitTodoList(int id);
+	// 위젯에서 todo 상태 업데이트
+	int updateTodoWidget(Todo t);
+	
+	// 위젯에서 쓸 todo 리스트 호출
+	ArrayList<Todo> callTodoList(Todo t);
 
 }

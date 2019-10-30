@@ -115,6 +115,18 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 
+	@Override
+	public int updateTodoWidget(Todo t) {
+		return tDao.updateTodoWidget(t);
+	}
+
+
+	@Override
+	public ArrayList<Todo> callTodoList(Todo t) {
+		return tDao.callTodoList(t);
+	}
+
+
 	
 
 
