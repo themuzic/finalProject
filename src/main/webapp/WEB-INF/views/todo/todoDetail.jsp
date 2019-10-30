@@ -81,9 +81,7 @@
 							<i class="fas fa-file-alt"></i> &nbsp;contents
 						</h3>
 						<br>
-						<textarea class="form-control" name="todoContent" placeholder="textarea" rows="20">
-${ todoDetail.todoContent }
-						</textarea>
+						<textarea class="form-control" name="todoContent" placeholder="textarea" rows="20">${ todoDetail.todoContent }</textarea>
 						<br>
 						<h5 style="color:#3287B2; font-weight:bold;">
 							<i class="fas fa-envelope-open-text"></i> &nbsp;${ todoDetail.todoStatus }

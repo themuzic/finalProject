@@ -101,11 +101,14 @@
 						<c:forEach items="${ todoBoardList }" var="b">
 						
 							<c:if test="${ b.empId == loginUser.empId }">
-						
-							<div class="card" onclick="location.href='todoList.do'" style="height:250px;">
-							   
+							<!-- 
+							<c:url value="todoList.do" var="todoList">
+								<c:param name="tdBoardNo" value="${b.tdBoardNo}"/>
+							</c:url>
+							 -->						
+							<div class="card" onclick="location.href='todoList.do?tdBoardNo=${b.tdBoardNo}'" style="height:250px;">
+							   <input type="hidden" value="${b.tdBoardNo}">
 							    <div class="image" style="height:20px; background-color:${ b.tdBoardColor };">
-							      <%-- <input type="color" value="${ b.tdBoardColor }"> --%>
 							    </div>
 							    <div class="content" style="padding:15px 0 10px 10px;">
 							      <div class="header">${ b.tdBoardName }</div>
@@ -121,8 +124,6 @@
 							       <i class="far fa-calendar-alt"></i>&nbsp;${ b.tdBoardEnrollDate }
 							      </span>
 							    </div>
-							   
-						    
 						  </div>
 							
 						

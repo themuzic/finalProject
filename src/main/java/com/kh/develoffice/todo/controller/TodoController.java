@@ -66,37 +66,24 @@ public class TodoController {
 		//System.out.println(tb);
 		
 		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
-		int tbNo = todoBoardList.get(0).getTdBoardNo();
-		System.out.println(tbNo);
+		//int tbNo = todoBoardList.get(0).getTdBoardNo();
+		//System.out.println(tbNo);
 		
-		mv.addObject("tbNo", tbNo)
-		.addObject("todoBoardList", todoBoardList).setViewName("todo/tdBoardListView");
+		//mv.addObject("tbNo", tbNo)
+		mv.addObject("todoBoardList", todoBoardList).setViewName("todo/tdBoardListView");
 		
 		//System.out.println(todoBoardList);
 		
 		return mv;
-		
-		//return "todo/tdBoardListView";
 	}
 	
 	
 	/////////// Todo 리스트뷰로 이동 ///////////
 	@RequestMapping("todoList.do")
 	public ModelAndView selectTodoList(ModelAndView mv, HttpSession session, Todo t) {
-		
+		System.out.println("t : "+t);
 		Employee e = (Employee)session.getAttribute("loginUser");
-		
-		TodoBoard tb = new TodoBoard();
-		tb.setEmpId(e.getEmpId());
-		
-		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
-		int tbNo = todoBoardList.get(0).getTdBoardNo();
-		System.out.println(tbNo);
-		
 		t.setEmpId(e.getEmpId());
-		t.setTdBoardNo(tbNo);
-		
-		//System.out.println(t);
 		
 		// 전체리스트
 		ArrayList<Todo> todoAList = tService.selectTodoAList(t);
@@ -107,11 +94,8 @@ public class TodoController {
 		// 완료 리스트
 		ArrayList<Todo> todoCList = tService.selectTodoCList(t);
 		
-		
-		mv.addObject("tbNo", tbNo)
-		.addObject("todoAList", todoAList).addObject("todoOList", todoOList)
+		mv.addObject("todoAList", todoAList).addObject("todoOList", todoOList)
 		.addObject("todoWList", todoWList).addObject("todoCList", todoCList).setViewName("todo/todoListView");
-		System.out.println("tbNo : "+tbNo);
 		
 		return mv;	
 	}
@@ -286,15 +270,13 @@ public class TodoController {
 	
 	// Todo 수정
 	@RequestMapping("updateTodo.do")
-	public ModelAndView updateTodo(Todo t, ModelAndView mv,
-						HttpServletRequest request, 
-						@RequestParam(name="todoNo", required=false) Integer todoNo) {
+	public ModelAndView updateTodo(Todo t, ModelAndView mv) {
 		
-		//System.out.println(todoNo);
+		System.out.println(t);
 		int result = tService.updateTodo(t);
 		
 		if(result > 0) {
-			mv.addObject("todoNo", t.getTodoNo()).setViewName("redirect:todoDetail.do");
+			mv.addObject("tdBoardNo", t.getTdBoardNo()).setViewName("redirect:todoList.do");
 		}else {
 			mv.addObject("msg", "수정 실패").setViewName("common/errorPage");
 		}
