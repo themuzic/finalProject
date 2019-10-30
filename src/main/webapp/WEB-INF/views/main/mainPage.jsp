@@ -216,7 +216,12 @@
 								</div>
 								<div class="panel-footer">
 									<div class="row">
-										<div class="col-md-6 text-right fr"><a href="javascript:void(0);" class="btn btn-primary">더보기</a></div>
+										<div class="col-md-6 text-right fr">
+											<c:url value="documentTable.do" var="documentTable">
+												<c:param name="condition" value="전체"/>
+											</c:url>
+											<a href="${documentTable}" class="btn btn-primary">더보기</a>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -364,7 +369,7 @@
 								</div>
 								<div class="panel-footer">
 									<div class="row">
-										<div class="col-md-6 text-right fr"><a href="javascript:void(0);" class="btn btn-primary">더보기</a></div>
+										<div class="col-md-6 text-right fr"><a href="receiveMail.do" class="btn btn-primary">더보기</a></div>
 									</div>
 								</div>
 							</div>

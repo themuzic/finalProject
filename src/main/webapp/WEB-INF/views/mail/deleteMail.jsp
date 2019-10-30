@@ -52,6 +52,9 @@
 	    margin-top: 3px;
 	    cursor: pointer;
     }
+    .setting_title{
+    	border:0 !important;
+    }
 	
 </style>
 
@@ -72,7 +75,9 @@
 					<div class="contentWrap" style="width:1210px;">
 					
 		<!-- 이 아래부터 내용 작성 -->
-
+		<div class="setting_title">
+			<h3 style="font-weight: bold;">휴지통</h3>
+		</div>
 		<fieldset>
 			
 			<table>
