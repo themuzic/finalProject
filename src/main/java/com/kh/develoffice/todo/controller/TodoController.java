@@ -66,8 +66,11 @@ public class TodoController {
 		//System.out.println(tb);
 		
 		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		int tbNo = todoBoardList.get(0).getTdBoardNo();
+		System.out.println(tbNo);
 		
-		mv.addObject("todoBoardList", todoBoardList).setViewName("todo/tdBoardListView");
+		mv.addObject("tbNo", tbNo)
+		.addObject("todoBoardList", todoBoardList).setViewName("todo/tdBoardListView");
 		
 		//System.out.println(todoBoardList);
 		
@@ -105,10 +108,10 @@ public class TodoController {
 		ArrayList<Todo> todoCList = tService.selectTodoCList(t);
 		
 		
-		mv.addObject("tbNo", todoBoardList.get(0).getTdBoardNo())
+		mv.addObject("tbNo", tbNo)
 		.addObject("todoAList", todoAList).addObject("todoOList", todoOList)
 		.addObject("todoWList", todoWList).addObject("todoCList", todoCList).setViewName("todo/todoListView");
-		System.out.println(todoAList);
+		System.out.println("tbNo : "+tbNo);
 		
 		return mv;	
 	}
@@ -116,7 +119,7 @@ public class TodoController {
 	
 	/////////// TODO 생성 뷰로 이동 ///////////
 	@RequestMapping("insertTodoView.do")
-	public String insertTodoView(HttpSession session, Todo t) {
+	public ModelAndView insertTodoView(HttpSession session, Todo t, ModelAndView mv) {
 		
 		Employee e = (Employee)session.getAttribute("loginUser");
 		
@@ -130,19 +133,33 @@ public class TodoController {
 		t.setEmpId(e.getEmpId());
 		t.setTdBoardNo(tbNo);
 		
-		return "todo/insertTodo";
+		mv.addObject("tbNo", tbNo).setViewName("todo/insertTodo");
+		
+		return mv;
 	}
 	
 	/////////// TODO 생성 ///////////
 	@RequestMapping("insertTodo.do")
-	public ModelAndView insertTodo(Todo t, ModelAndView mv,
+	public ModelAndView insertTodo(Todo t, ModelAndView mv, HttpSession session,
 								   HttpServletRequest request,
 								   @RequestParam(name="tdBoardNo", required=false) Integer tdBoardNo) {
+		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		TodoBoard tb = new TodoBoard();
+		tb.setEmpId(e.getEmpId());
+		
+		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		int tbNo = todoBoardList.get(0).getTdBoardNo();
+		System.out.println(tbNo);
+		
+		t.setEmpId(e.getEmpId());
+		t.setTdBoardNo(tbNo);
 		
 		int result = tService.insertTodo(t);
 		
 		if(result > 0) {
-			mv.addObject("tdBoardNo", t.getTdBoardNo()).setViewName("redirect:todoList.do");
+			mv.addObject("tbNo", tbNo).setViewName("redirect:todoList.do");
 			//return "redirect:todoList.do";
 		} else {
 			mv.addObject("msg", "수정 실패").setViewName("common/errorPage");
