@@ -81,7 +81,7 @@ public interface ChatService {
 	int deleteChatStatus(Chat c);
 
 	// 방에 알람 켜 있는 사람 조회 서비스
-	ArrayList<Chat> selectAlarmList(int chatId);
+	ArrayList<Chat> selectAlarmList(Chat c);
 
 
 }

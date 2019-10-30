@@ -220,7 +220,10 @@ public class EchoHandler extends TextWebSocketHandler{
 			if(result > 0) {	// 저장 됐으면
 				int result2 = cService.updateChatMod(Integer.parseInt(messageList[1]));	// 채팅방 갱신날짜 db에 저장
 				if(result2 > 0) {	// 저장 됐으면
-					ArrayList<Chat> alarmEmpList = cService.selectAlarmList(Integer.parseInt(messageList[1]));
+					Chat c = new Chat();
+					c.setEmpId(empId);
+					c.setChatId(Integer.parseInt(messageList[1]));
+					ArrayList<Chat> alarmEmpList = cService.selectAlarmList(c);
 					for(WebSocketSession sess : list) {									// 그 방에 있는 세션 전체 반복문 실행
 						int otherId = ((Employee)sess.getAttributes().get("loginUser")).getEmpId();	// 받는사람 아이디 출력
 						m.setEmpId(otherId);
@@ -245,9 +248,9 @@ public class EchoHandler extends TextWebSocketHandler{
 						}
 					}
 					for(WebSocketSession sess3 : alarmList) {
-						for(Chat c : alarmEmpList) {
-							if(((Employee)sess3.getAttributes().get("loginUser")).getEmpId() == c.getEmpId()) {
-								sess3.sendMessage(new TextMessage(messageList[1] + ":" + c.getChatName() + ":" + c.getChatType()));
+						for(Chat emp : alarmEmpList) {
+							if(((Employee)sess3.getAttributes().get("loginUser")).getEmpId() == emp.getEmpId()) {
+								sess3.sendMessage(new TextMessage(messageList[1] + ":" + emp.getChatName() + ":" + emp.getChatType()));
 							}
 						}
 					}

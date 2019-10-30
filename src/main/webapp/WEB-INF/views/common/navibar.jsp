@@ -73,6 +73,8 @@
 <link rel="stylesheet" href="resources/css/alertify.rtl.css">
 <script src="resources/js/alertify.js"></script>
 
+<!-- sockjs 라이브러리 -->
+<script type="text/javascript" src="resources/chat/js/sockjs-0.3.4.js"></script>
 
 <script src="resources/js/develoffice.js"></script>
 
@@ -608,7 +610,41 @@
 			
 		});
 		
-	
+	    var sock;
+
+	    //웸소켓을 지정한 url로 연결한다.
+	   	sock = new SockJS("<c:url value="/echo"/>");
+	   	sock.onopen = onopen;
+	    function onopen(){
+	    	console.log("오픈");
+	    	sock.send("알람연결");
+	    	
+	    }
+
+
+	    //자바스크립트 안에 function을 집어넣을 수 있음.
+
+	    //데이터가 나한테 전달되읐을 때 자동으로 실행되는 function
+
+	    sock.onmessage = onMessage;
+
+	    
+	    //데이터를 끊고싶을때 실행하는 메소드
+
+	    sock.onclose = onClose;
+		
+	    var alarmNum = 0;
+	    function onMessage(evt) {
+
+	        var data = evt.data;
+			var info = data.split(":")
+	        console.log(data);
+	        window.open("alarm.do?chatId=" + info[0] + "&chatName=" + info[1] + "&chatType=" + info[2], alarmNum +"alarm", "width=500,height=545,resizable=0", "false")
+	    }
+	    
+	    function onClose(){
+	    	console.log('연결 끊김');
+	    }
 	
 	</script>
 

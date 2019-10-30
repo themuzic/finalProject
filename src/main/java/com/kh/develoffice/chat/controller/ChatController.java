@@ -186,4 +186,11 @@ public class ChatController {
 			return "fail";
 		}
 	}
+	
+	@RequestMapping("alarm.do")
+	public ModelAndView alarmModal(ModelAndView mv, Chat c) {
+		
+		mv.addObject("c", c).setViewName("chat/alarm");
+		return mv;
+	}
 }

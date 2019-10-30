@@ -147,8 +147,8 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public ArrayList<Chat> selectAlarmList(int chatId) {
-		return cDao.selectAlarmList(chatId);
+	public ArrayList<Chat> selectAlarmList(Chat c) {
+		return cDao.selectAlarmList(c);
 	}
 
 

@@ -246,7 +246,7 @@
 		select emp_id, chat_name, chat_type
 		from join_chat
 		join chat using(chat_id)
-		where chat_id=#{chatId} and alarm_yn='Y'
+		where chat_id=#{chatId} and emp_id != #{empId} and alarm_yn='Y'
 	</select>
 
 </mapper>
