@@ -112,7 +112,7 @@
 						<button type="submit" class="large ui button btn-lg" style="margin:0 0 5px 0; background-color:#5cb85c; color:white; font-size: 1.5rem;">
 							<i class="fas fa-check"></i> &nbsp;수정하기
 						</button>
-						<button type="button" class="large ui button btn-lg" onclick="location.href='todoList.do'" style="margin:0 0 5px 0; background-color:red; color:white; font-size: 1.5rem;">
+						<button type="button" class="large ui button btn-lg" onclick="location.href='todoList.do?tdBoardNo=${todoDetail.tdBoardNo}'" style="margin:0 0 5px 0; background-color:red; color:white; font-size: 1.5rem;">
 							<i class="fas fa-undo-alt"></i> &nbsp;취소
 						</button>
 					</div>

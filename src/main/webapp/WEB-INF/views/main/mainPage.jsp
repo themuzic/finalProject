@@ -686,7 +686,7 @@
 				}
 			},
 			error:function(){
-				alertify.alert('DEVELOFFICE', 'AJAX통신 실패');
+				alertify.alert('DEVELOFFICE', '오늘은 그만 퇴근하시고 내일 하세요.');
 			}
 		});
 	}

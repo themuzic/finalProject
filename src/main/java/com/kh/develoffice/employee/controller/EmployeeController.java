@@ -60,7 +60,7 @@ public class EmployeeController {
 	   public ModelAndView loginMember(Employee emp, HttpSession session, ModelAndView mv) {
 		
 		Employee loginUser = eService.loginEmp(emp);	// 로그인 객체 정보 호출
-		System.out.println(loginUser);
+		System.out.println("로그인한 유저 : "+loginUser);
 		   if(loginUser != null) {
 			   
 			   int id = loginUser.getEmpId();
@@ -217,7 +217,7 @@ public class EmployeeController {
 	public ModelAndView mainPage(int empId, ModelAndView mv, HttpSession session) {
 		
 		Employee loginUser = eService.selectEmp(empId);	// 로그인 객체 정보 호출
-		
+		System.out.println("로그인한 유저 : "+loginUser);
 		   if(loginUser != null) {
 			   session.setAttribute("loginUser", loginUser);	// 세션에 로그인 객체 담기
 			   ArrayList<Widget> widgetList = eService.selectWidget(empId);	// 해당 계정의 위젯 정보 호출
