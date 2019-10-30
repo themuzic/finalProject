@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> 
 <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
 
+<link rel="stylesheet" href="resources/semantic/item.css">
+
 <script>
    jQuery(function($){
    	$("#myTable").DataTable({
@@ -167,7 +169,7 @@
 							</div>
 							
 							<div class="btnArea" style="float:left; padding:120px 0 0 0;">
-								<button type="button" class="btn btn-default">
+								<button type="button" class="btn btn-default" onclick="insertTaskView.do">
 									<i class="fa fa-plus-square"></i> 업무리스트 추가
 								</button>
 								&nbsp;
@@ -193,25 +195,53 @@
 							<table id="myTable" class="table table-bordered" style="border:none;">
 					
 								<colgroup>
-									<col style="width:%;">
-									<col style="width:%;">
-									<col style="width:%;">
-									<col style="width:%;">
-									<col style="width:%;">
-									<col style="width:%;">
+									<col style="width:5%;">
+									<col style="width:55%;">
+									<col style="width:7%;">
+									<col style="width:10%;">
+									<col style="width:10%;">
+									<col style="width:13%;">
 								</colgroup>
 							
 						        <thead>
 						            <tr>
-						             	<th data-orderable="false" style="text-align:left;"><i><input type="checkbox" id="chkAll"></i></th>
-							      		<th style="text-align:center;"><i class="fas fa-list-ol"></i></th>
-								  		<th id="title" width="300" style="text-align:center;">업무</th>
-								  		<th id="title" width="300" style="text-align:center;">작성자</th>
-								  		<th style="text-align:center;"><i class="fas fa-clock"></i>&nbsp;마감기한</th>
-								  		<th data-orderable="false" style="text-align:center;"><i class="far fa-clock"></i>&nbsp;등록날짜</th>
+						             	<th data-orderable="false" style="text-align:left;"><i><input type="checkbox" id="chkAll"></i></th>							      	
+								  		<th data-orderable="false" id="title" style="text-align:center;">업무</th>
+								  		<th data-orderable="false" id="writer" style="text-align:center;">작성자</th>
+								  		<th data-orderable="false" style="text-align:center">첨부파일</th>
+							  			<th style="text-align:center;">조회수</th>
+								  		<th data-orderable="false" style="text-align:center;"><i class="far fa-clock"></i>&nbsp;작성일</th>
 						    		</tr>
 						        </thead>
+						        
 						        <tbody class="select_subject">
+						        <c:forEach items="${ taskList }" var="t">
+						        	<tr>
+						        		<td>
+						        			<input type="hidden" name="taskNo" value="${ taskList.taskNo }">
+						        			<input type="hidden" name="pNo" value="${ taskList.pNo }">
+						        		</td>
+						        		<td>
+						        			<c:if test="${ empty loginUser }">${ t.taskTitle }</c:if>
+						        			<c:if test="${ !empty loginUser }">
+						        				<c:url value="taskDetail.do" var="taskDetail">
+						        					<c:param name="taskNo" value="${ t.taskNo }"/>
+						        				</c:url>
+						        				<a href="${ taskDetail }">${ t.taskTitle }</a>
+						        			</c:if>
+						        		</td>
+						        		<td><input type="hidden" value="${ t.taskWriter }"></td>
+						        		<td>
+						        			<c:if test="${ !empty t.tOriginalFileName }">
+						        				<i class="far fa-file-alt"></i>
+						        			</c:if>
+						        		</td>
+						        		<td>${ t.taskCount }</td>
+						        		<td>${ t.tCreateDate }</td>
+						        	
+						        	</tr>
+						        </c:forEach>
+						        
 						            <tr>
 						            	<td>
 						            		<input type="hidden">
@@ -222,28 +252,6 @@
 						            	<td>진행중</td>
 						            	<td class="date">19-09-17 10:43</td>
 						            	<td class="date">19-10-13 09:47</td>
-						            </tr>
-						             <tr>
-						             	<td>
-						            		<input type="hidden">
-						            		<input type="checkbox">
-						            	</td>
-						            	<td><img src=""></td>
-						            	<td style="padding-left:60px;">11/05 원고 마감</td>
-						            	<td>대기</td>
-						            	<td class="date">19-09-17 10:43</td>
-						            	<td class="date">19-09-17 10:43</td>
-						            </tr>
-						             <tr>
-						             	<td>
-						            		<input type="hidden">
-						            		<input type="checkbox">
-						            	</td>
-						            	<td><img src=""></td>
-						            	<td style="padding-left:60px;">사장님한테 전화하기</td>
-						            	<td>완료</td>
-						            	<td class="date">19-09-17 10:43</td>
-						            	<td class="date">19-09-18 11:53</td>
 						            </tr>
 						             
 						        </tbody> 

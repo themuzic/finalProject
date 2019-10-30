@@ -118,7 +118,7 @@
 						        <span>Elliot Fu is a film-maker from New York.</span>
 						      </div>
 						    </div>
-						    <div class="ui bottom attached button">
+						    <div class="ui bottom attached button" onclick="location.href='projectDetail.do'">
 						      <i class="fas fa-sign-in-alt"></i>
 						      입장
 						    </div>

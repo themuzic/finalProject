@@ -44,6 +44,9 @@
 		color:#333;
 		font-weight:700;
 	}
+	#selectApprovalFirstLine{
+		height: 100px;
+	}
 	
 	
 </style>
@@ -84,6 +87,7 @@
 					 		
 					 		<input type="hidden" name="empId" value="${ loginUser.empId }">
 					 		
+					 		
 					 		<h4 style="padding: 2px 0 15px 0;">제목</h4>
 						 	<input class="form-control input-lg" name="pName" placeholder="제목을 입력해주세요" type="text">
 						 	
@@ -94,6 +98,8 @@
 						 	
 						 	<br><br>
 						 	
+						 	
+						 	<!-- 멤버 추가는 insertProject에서 빼고 detail에서 넣을 수 있도록 -->
 						 	<div class="addMember">
 						 		<h4 style="padding: 2px 0 15px 0;">프로젝트 멤버</h4>
 						 		<button type="button" class="btn btn-default" id="btnApprovalSelect" onclick="addMem();">
@@ -101,31 +107,36 @@
 								</button>
 								
 								<div class="TeamMemArea" style="padding:10px 0 0 0"> 
-									<!-- <a class="ui blue image label" style="margin:5px 3px 5px 3px;">
-									  <img src="resources/images/veronika.jpg">
-									  원영주
-									  <div class="detail">개발팀</div>
-									</a>
-									<a class="ui teal image label" style="margin:5px 3px 5px 3px;">
-									  <img src="resources/images/jenny.jpg">
-									  전재광
-									  <div class="detail">경영지원팀(총무)</div>
-									</a>
-									<a class="ui yellow image label" style="margin:5px 3px 5px 3px;">
-									  <img src="resources/images/christian.jpg">
-									  김상윤
-									  <div class="detail">영업팀</div>
-									</a>
-									<a class="ui blue image label" style="margin:5px 3px 5px 3px;">
-									  <img src="resources/images/veronika.jpg">
-									  설용환
-									  <div class="detail">서비스팀</div>
-									</a>
-									<a class="ui teal image label" style="margin:5px 3px 5px 3px;">
-									  <img src="resources/images/jenny.jpg">
-									  유현규
-									  <div class="detail">경영지원팀(회계)</div>
-									</a> -->
+									<table class="cal_table1 approve-write js-approval-line" style="border:0px solid white;">
+										<colgroup>
+											<col style="width:10%;">
+											<col style="width:90%;">
+										</colgroup>
+										<tbody>
+											<tr>
+												<th scope="row" class="sign">
+													<div style="height: 50px; display: table-cell; width: 150px; vertical-align: middle; text-align: center;position: relative;">멤버</div>
+												</th>
+												<td class="sign vt" id="approvalFirstLine">
+													<table style="width:100%;table-layout:fixed">
+														<colgroup><col><col><col><col><col><col><col></colgroup>
+														<tbody id="apTbody">
+														<tr id="nameRow" style="border:0px solid white;">
+															<td class="name"><input type="hidden" name="empId" value=""></td>
+															<td class="name"></td>
+															<td class="name"></td>
+															<td class="name"></td>
+															<td class="name"></td>
+															<td class="name"></td>
+															<td class="name"></td>
+														</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									
 								</div>
 						 		
 						 	</div>
@@ -152,7 +163,152 @@
 					 </div>
 					
 					
-					
+					<!---------- 결제선 주소록 시작 ------------------------>
+						
+						<div id="approval_address_layer" class="booking_layer_div layer_box hide typeD">
+						
+						<div class="layer_box large address line " id="div_approval_view_one" style="margin-left: -400px; margin-top: -311px; display: block;width: 770px;">
+							<div class="title_layer text_variables" id="titleApprovalLineSetting">결재선 설정</div>
+							
+							<div class="after line-list-wrap">
+								<div class="fl">
+									<div class="after">
+										<div class="fl" id="searchMessage" style="display: none;"><span id="searchKeyword"></span> 검색결과 : <span id="searchCount"></span></div>
+										<div class="fr">
+											<a class="icon order" title="정렬" id="anchorApprovalUserOrder" style="cursor:pointer;"></a>
+											<ul class="dropdown-menu hide" id="orderApprovalDropdown" style="width: 70px; top: 124px; left: 314px;">
+												<li><a class="js-approval-node-order sortByName">이름순</a></li>
+												<li><a class="js-approval-node-order sortByJob">직급순</a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="after">
+										<div class="category-list" style="height: 397px;width: 205px;">
+											<select id="leftList" size="19" frameborder="0" style="display:none;">
+																	</select>
+											<div id="treeDiv" style="white-space: nowrap;float: none;" class="treeDiv OrgTree">
+												<ul>
+													<li id="" class="last">
+														<div class="Container">
+															<img onclick="" src="https://approval.office.hiworks.com/assets/images/common/tree_images/tree_m.gif" class="plus">
+															<strong onclick="" id="subOffice" class="selectedNode">DEVELOFFICE <span style="font-weight:normal; color:silver; font-size:8pt">(${deptSize})</span></strong>
+														</div>
+														<ul style="" id="subDept">
+														</ul>
+													</li>
+												</ul>
+											</div>
+											<div id="leftProgressDiv" style="display: none;" class="progressDiv"><img src="resources/images/progress_big.gif"></div>
+										</div>
+										<div class="name-list" style="width: auto;">
+											<select multiple="multiple" id="rightList" style=""></select>
+						
+											<div class="choice-area" style="width: 203px;font-size: 12px;padding: 5px;">
+												<a class="text_variables fl mgr_20" id="selectAll" style="cursor:pointer">전체</a>
+												<a class="text_variables mgr_20" id="cancelAll" style="cursor:pointer">선택안함</a>
+												<span id="pagingP"></span>
+											</div>
+											<div id="rightProgressDiv" style="display: none;" class="progressDiv"><img src="resources/images/progress_big.gif"></div>
+										</div>
+									</div>
+						
+								</div>
+								<div class="add-del-btn with-fourline">
+									<div class="top" style="margin-top: 70px;">
+										<a class="icon btn-add js-btn-approval-first-line"><span class="blind"></span></a>
+										<a class="icon btn-del js-btn-approval-first-line"><span class="blind"></span></a>
+									</div>
+									<!-- <div class="middle" style="margin-top: 60px;">
+										<a class="icon btn-add js-btn-approval-third-line"><span class="blind"></span></a>
+										<a class="icon btn-del js-btn-approval-third-line"><span class="blind"></span></a>
+									</div> -->
+									
+								</div>
+								<div class="fr mgb20">
+									<div class="dropdown hide show" style="top:60px;right:0">
+										<div class="dropdown-menu multi-team hide" id="layerMultiNode" style="width:290px">
+											<p class="pdb_20">선택된 결재자가 여러 조직에 속해 있을 경우, 하나의 조직을 선택하셔야 합니다.</p>
+											<p class="pdb_10" id="multiNodeUser"></p>
+											<div style="overflow:auto;max-height:132px;padding:0;">
+												<table class="tableType01" id="tableMultiNode">
+													<caption>문서 수정 이력 목록으로 시간, 관리로 구성되어 있습니다.</caption>
+													<colgroup>
+														<col width="15%">
+														<col width="85%">
+													</colgroup>
+													<thead>
+														<tr>
+															<th scope="col">선택</th>
+															<th scope="col">소속 부서</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+												</table>
+											</div>
+						
+											<div class="layer_button">
+												<button type="button" class="btn_variables">확인</button> 
+												<button type="button" onclick="$j('#layerMultiNode').hide();">취소</button>
+											</div>
+										</div>
+									</div>
+									<div class="first-line four-line after">
+										<div class="fl">
+											<div class="to-item after">
+												<span class="title">추가 <span class="point_color bold" id="sp_selectApprovalFirstLine">0</span></span>
+												<div class="updown-wrap first js-move-approval-first-line" style="width: 55px;">
+													<span class="blind icon down"></span>
+													<span class="blind icon up"></span>
+												</div>
+											</div>
+											<div class="list">
+												<select multiple="multiple" id="selectApprovalFirstLine" style="overflow-y: hidden !important;height: 130px;">
+												</select>
+											</div>
+						
+										</div>
+										<!-- <div class="spr-approval approval-direction">
+											결<br>
+											재<br>
+											방<br>
+											향<br>
+										</div> -->
+									</div>
+									
+									<!-- <div class="three-line after">
+										<div class="fl">
+											<div class="to-item after">
+												<span class="title">참조 <span class="point_color bold" id="sp_selectApprovalThirdLine">0</span></span>
+												<div class="updown-wrap first js-move-approval-third-line" style="width: 55px;">
+													<span class="blind icon down"></span>
+													<span class="blind icon up"></span>
+												</div>
+											</div>
+											<div class="list">
+												<select multiple="multiple" id="selectApprovalThirdLine" style="overflow-y: hidden !important;">
+												</select>
+										   </div>
+										</div>
+										<div class="spr-approval approval-direction">
+											결<br>
+											재<br>
+											방<br>
+											향<br>
+										</div>
+									</div> -->
+								</div>
+							</div>
+							<div class="layer_button">
+								<button type="button" class="btn_variables confirmBtn">확인</button> <button type="button" class="closeBtn">취소</button>
+							</div>
+							<a class="icon btn_closelayer closeBtn" title="레이어 닫기"></a>
+						</div>
+						
+						<div class="layer_back" style="position: fixed;width: 100%;height: 100%;z-index: 1000;background-color: rgb(0, 0, 0);opacity: 0.3;top: 0px;left: 0px;margin: 0px;padding: 0px;"></div>
+					</div>
+						
+						<!---------- 결제선 주소록 끝 ------------------------>
 					
 					
 					
@@ -184,6 +340,10 @@
 	
 	<!-- script 작성 -->
 	<script>
+		function addMem(){
+			$("#approval_address_layer").addClass("show");
+		}
+		
 		$(function(){
 			
 			/* 사이드바의 해당 메뉴 활성화 유지하기 */
@@ -196,13 +356,8 @@
 			
 			
 			
-		});
+		
 	
-		function addMem(){
-			
-			
-			$("#btnApprovalSelect").addClass("show");
-			
 			
 			/* 결재선 창 기능 시작 */
 			
@@ -237,7 +392,7 @@
 						$subDeptLi.append($subDeptDiv);
 					}
 					$("#subDept").append($subDeptLi);
-				
+				}
 			});
 			
 			var imgFlag = 0;	// 기본 : -
@@ -519,9 +674,9 @@
 			
 			/* 결재선 창 기능 끝 */
 			
-			}
 			
-		}
+			
+	});
 	
 	
 	</script>
