@@ -231,7 +231,7 @@
 							
 							
 							<!-- TODO 위젯 -->
-							<div class="panel" style="position:absolute;min-width:660px;">	
+							<div class="panel" style="position:absolute;min-width:560px;">	
 								<input type="hidden" class="widgetType" name="widgetType" value="3">
 								<input type="hidden" class="left" name="left" value="">
 								<input type="hidden" class="top" name="top" value="">
