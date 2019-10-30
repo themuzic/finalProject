@@ -32,4 +32,22 @@ public class ScheduleServiceImpl implements ScheduleService{
 		return sDao.insertSchedule(s);
 	}
 
+	@Override
+	public ArrayList<Schedule> addScheduleList(Schedule s) {
+		
+		return sDao.addScheduleList(s);
+	}
+
+	@Override
+	public int deleteSchedule(Schedule s) {
+		
+		return sDao.deleteSchedule(s);
+	}
+
+	@Override
+	public int updateSchedule(Schedule s) {
+		
+		return sDao.updateSchedule(s);
+	}
+
 }

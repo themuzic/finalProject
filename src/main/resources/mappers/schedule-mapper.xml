@@ -33,6 +33,7 @@
 		<if test='splan == "T"'>
 		and dept_code=#{deptCode}
 		</if>
+		order by create_date desc
 	</select>
 	
 	<insert id="insertSchedule" parameterType="Schedule">
@@ -40,6 +41,28 @@
 			 values(sche_seq.nextval,#{empId},#{startDate},#{startTime},#{endDate},#{endTime},#{allDay},#{stitle},#{scontent},#{stype},
 					#{backColor},sysdate,default,#{splan})
 	</insert>
+	
+	<!-- 일정삭제 -->
+	<update id="deleteSchedule" parameterType="Schedule">
+		update Schedule
+		set status='N'
+		where emp_id=#{empId} and s_no=#{sno}
+	</update>
+	
+	<!-- 일정 업데이트 -->
+	<update id="updateSchedule" parameterType="Schedule">
+		update Schedule
+		set all_day=#{allDay},
+		    s_title=#{stitle},
+		    start_date=#{startDate},
+		    start_time=#{startTime},
+		    end_date=#{endDate},
+		    end_time=#{endTime},
+		    s_type=#{stype},
+		    back_color=#{backColor},
+		    s_content=#{scontent}
+		where emp_id=#{empId} and s_no=#{sno} and status='Y'
+	</update>
 	
 	
 

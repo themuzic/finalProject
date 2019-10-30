@@ -60,6 +60,9 @@
 	#ui-datepicker-div{
 		min-height:100px;
 	}
+	.fc-popover fc-more-popover{
+		height:250px;
+	}
 
 </style>
 
@@ -85,13 +88,13 @@
 			
 				<!-- 풀캘린더 불러오기 -->	
 				<div class="wrap">
-					 <div id="loading"></div>
 					<div id="calendar"></div>
 				</div>
 			
 			
 				<!-- 일정 추가 MODAL -->
 		        <div class="" tabindex="-1" role="dialog" id="eventModal" class="show" style="display:none;">
+		     	   <input type="hidden" id="sNo" value="">
 		            <div class="" role="document">
 		                <div class="">
 		                
@@ -114,8 +117,8 @@
 		                        </div>
 		                        <div class="row">
 		                            <div class="col-xs-12">
-		                                <label class="col-xs-4" for="edit-start"><b>시작</b></label>
-		                                <input class="inputModal datepicker" type="text" name="startDate" id="edit-start">
+		                                <label class="col-xs-4" for="startDate"><b>시작 날짜</b></label>
+		                                <input class="inputModal datepicker" type="text" name="startDate" id="startDate">
 		                            </div>
 		                        </div>
 		                        
@@ -147,14 +150,13 @@
 		                        
 		                        <div class="row">
 		                            <div class="col-xs-12">
-		                                <label class="col-xs-4" for="edit-end"><b>끝</b></label>
-		                                <input class="inputModal datepicker" type="text" name="endDate" id="edit-end">
+		                                <label class="col-xs-4" for="endDate"><b>끝 날짜</b></label>
+		                                <input class="inputModal datepicker" type="text" name="endDate" id="endDate">
 		                            </div>
 		                        </div>
 		                        
 		                        <div class="after" style="padding-bottom:10px;">
 									<label for="" style="margin-left:14px;"><b>끝 시간</b></label>
-										
 										<select id="end" class="select-box" name="endTime"
 											style="width:367px; margin-left:124px;">
 											<option>시간을 선택하세요</option>
@@ -180,19 +182,22 @@
 									</div>
 		                        
 		                        <script>
+
 		                        	$(function(){
-		                        		$('.datetimepicker').datetimepicker({
+		                        		$('.datepicker').datepicker({
 		                        	        lang:'ko',
-		                        	        format:'Y-m-d H:i'
+		                        	        dateformat:'yy-mm-dd',
+		                        	        
 		                        	    });
+		                        	        $('.datepicker').datepicker('setDate', 'today');
 		                        	});
 
 		                        </script>
 		                        
-		                        <div class="row">
-		                            <div class="col-xs-12">
+		                        <div class="row show" id="typeS">
+		                            <div class="col-xs-12 hideType">
 		                                <label class="col-xs-4" for="edit-type"><b>구분</b></label>
-		                                <select class="inputModal" type="text" name="stype" id="edit-type" style="width:367px;;">
+		                                <select class="inputModal" name="stype" id="edit-type" style="width:367px;;">
 		                                	<option>일정 종류를 선택하세요</option>
 		                                    <option value="휴가">휴가</option>
 		                                    <option value="회의">회의</option>
@@ -201,8 +206,8 @@
 		                                </select>
 		                            </div>
 		                        </div>
-		                        <div class="row">
-		                            <div class="col-xs-12">
+		                        <div class="row show" id="colorS">
+		                            <div class="col-xs-12 hideType">
 		                                <label class="col-xs-4" for="edit-color"><b>색상</b></label>
 		                                <select class="inputModal" name="backColor" id="edit-color" style="width:367px;">
 		                                	<option>색상을 선택하세요</option>
@@ -227,7 +232,8 @@
 		                    </div>
 		                    <hr>
 		                    <div class="modalBtnContainer-modifyEvent" style="text-align:right; padding-right:10px;">
-		                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
+		                        <button type="button" class="btn btn-primary" id="saveEvent">저장</button>
+		                        <button type="button" class="btn btn-primary" id="updateEvent" style="display:none;">수정</button>
 		                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
 		                        <button type="button" id="btn-default" class="btn btn-default">닫기</button>
 		                    </div>
@@ -282,7 +288,6 @@
 							<th style="color: #676767;">번호</th>
 							<th style="color: #676767;">작성자</th>
 							<th style="color: #676767;">제목</th>
-<!-- 							<th style="color: #676767;" id="sType">일정종류</th> -->
 							<th class="aa" style="color: #676767;">작성일</th>
 						</tr>
 					</thead>
@@ -371,7 +376,6 @@
 		</div>
 					
 					
-					
 					<!-- 이 위까지 내용작성 -->
 					
 					</div>
@@ -382,7 +386,6 @@
 		<!-- END MAIN -->
 		
 		<div class="clearfix"></div>
-		
 
 	<!--  -->
 	<!-- END WRAPPER -->
@@ -417,19 +420,8 @@
 	j(function(){
 		calendarStart();
 		refresh('T');
+		addCalendarList('T');
 		
-// 		$.each(data, function(index, value){
-			
-// 			var calEvent = {};
-			
-// 			calEvent.id = value.sno;
-// 			calEvent.title = value.stitle;
-// 			calEvent.start = value.startDate + "T" + startTime; 
-// 			calEvent.end = value.endDate + "T" + endTime; 
-// 			calEvent.color = value.backColor;
-
-// 			j('#calendar').fullCalendar('renderEvent', calEvent, true); // 개중요, 얘가 넘겨줌
-// 		});
 	});
 	
 	function calendarStart(){
@@ -441,7 +433,7 @@
 			 var m = date.getMonth();
 			 var y = date.getFullYear();
 			 
-			 var calendar = j('#calendar').fullCalendar({
+			 j('#calendar').fullCalendar({
 			  
 			   header: {
 				   left: "month,basicWeek,basicDay",
@@ -468,41 +460,68 @@
 				
 				events: [
 // 				{
-// 					title: '회사 쉬는날',
-// 					start: '2019-10-28'
-// 				},
-// 				{
-// 					title: '휴가',
-// 					start: '2019-10-29',
-// 					end: '2019-11-01'
-// 				},
-// 				{
 // 					id: 999,
 // 					title: '미팅 시간',
 // 					start: '2019-11-04T16:00'
 // 				},
-// 				{
-// 					title: '1팀 회의',
-// 					start: '2019-11-11',
-// 					end: '2019-11-14'
-// 				},
-// 				{
-
-// 				},
 			],
+			
+			 eventDrop: function(info) {
+				 
+				 $.ajax({
+				
+					url :"",
+					type:"post",
+					data:{
+						
+					},
+					
+					success:function(){
+						
+					},
+					error:function(){
+						alertify.alert("develoffice","통신실패")
+					}
+
+				 });
+				 
+			},
+				  
+			
 			// 모달창 생성
 			eventRender: function (event, element) {
 		        element.attr('href', 'javascript:void(0);');
 		        element.click(function() {
 		        	$('#eventModal').dialog({
-		         		  title: '새로운 일정',
+		         		  title: '일정 수정 및 삭제',
 		        	      modal: true,
 		        	      width: '600'
 		        	});
 		        	
+		        	$("#saveEvent").css('display','inline-block');
+		        	$("#updateEvent").css('display','none');
+		        	
+		        	$("#sNo").val(event.id);
+		        	
+		        	// 라디오 버튼에 따른 모달창 종류
+		        	var splan = $("input[name=splan]:checked").val();
+					 
+					if(splan == 'C'){
+						$(".hideType").css('display','none');
+					}else{
+						$(".hideType").css('display','block');
+					}
+		        });
+		        
+		        
+		        
+		        
+		        
+		        // dd로 예시, 호버시에 데이터 띄우기
+		        element.mouseover(function(){
+		        	$('#prac').css('display','block');
 		        });
 		    }
-
 		});
 	};
 	
@@ -515,6 +534,17 @@
   	      width: '600'
   		});
 		
+		$("#deleteEvent").css('display','none');
+		
+		// 라디오 버튼에 따른 모달창 종류
+		var splan = $("input[name=splan]:checked").val();
+		 
+		if(splan == 'C'){
+			$(".hideType").css('display','none');
+		}else{
+			$(".hideType").css('display','block');
+		}
+		
 	});
 	
 	// 모달창 닫기
@@ -524,8 +554,22 @@
 	    });
 	});
 	
-	$(document).on('click', '#updateEvent', function(){
-		 
+	// 일정 추가 인설트
+	$(document).on('click', '#saveEvent', function(){
+		
+// 		var startDate = $("#startDate").val();
+// 		var startTime = $("#startTime").val();
+// 		var endDate = $("#endDate").val();
+// 		var endTime = $("#endTime").val();
+// 		var startDateTime = startDate + startTime;
+// 		var endDateTime = endDate + endTime;
+		
+// 		if(Number(startDate) >= Number(endDate) || Number(startDateTime) >= Number(endDateTime) ){
+			
+// 			alertify.alert("develoffice","시작시간은 종료시간보다 크거나 같을 수 없습니다.");
+// 		}
+
+		 var sno = $("#sNo").val();
 		 var startDate = $("input[name=startDate]").val();
 		 var startTime = $("select[name=startTime] option:selected").val();
 		 var endDate = $("input[name=endDate]").val();
@@ -537,7 +581,6 @@
 		 var splan = $("input[name=splan]:checked").val();
 		 
 		 var allDay;
-		 
 		 if($("#allDay").prop('checked')){
 			allDay ='Y'; 
 		 }else{
@@ -548,7 +591,9 @@
 		
 			url:"insertSchedule.do",
 			type:"POST",
-			data:{startDate:startDate,
+			data:{
+				  
+				  startDate:startDate,
 				  startTime:startTime,
 				  endDate:endDate,
 				  endTime:endTime,
@@ -559,7 +604,6 @@
 				  empId:'${loginUser.empId}',
 				  splan:splan,
 				  allDay:allDay
-				  
 			},
 			success:function(data){
 				if(data == 'success'){
@@ -574,7 +618,11 @@
 					$("#allDay").prop('checked', false);
 					
 					$("#eventModal").dialog("close");
-				
+					
+					j("#calendar").fullCalendar('removeEvents',sno);
+					refresh(splan);
+					addCalendarList(splan);
+					
 				}else{
 					alertify.alert("delveloffice", "실패");
 				}
@@ -585,7 +633,7 @@
 		 });
 	});
 	
-	
+	// 게시판 새로고침
 	function refresh(splan){
 		$.ajax({
 			
@@ -626,53 +674,58 @@
 							}
 						});
 					
-						// 너는 for문 때문에 밖으로 나가
-						if(splan == 'T'){
-							$('#sss').children().last().prev().after('<th style="color: #676767;" id="sType">일정종류</th>');
-						}else{
-							$('#sType').remove();
-						}
-						
+							if(splan == 'T'){
+								
+								if( $('#sss').children().length == 4){
+								
+									$('#sss').children().last().prev().after('<th style="color: #676767;" id="sType">일정종류</th>');
+								}
+							}else{
+								$('#sType').remove();
+							}
+ 						
 						$("#select_list").html(html);
 				},
 				error:function(){
-					alert("통신실패");
+					alertify.alert("통신실패");
 				},
 			});
 		};
 
 		// 라디오버튼 클릭시 value에 맞게 변환
 		$(document).on('change','input[name=splan]',function(){
+			j("#calendar").fullCalendar('removeEvents'); // 달력 새로고침
 			refresh($(this).val());
+			addCalendarList($(this).val());
 		});
 		
-		function addCalendarList(){
-				
+		// 달력에 add하기
+		function addCalendarList(splan){
+			
 			  $.ajax({
 				url : "addCalendar.do",
 				type : "post",
 				data: {
-					
-					
-					
+					deptCode: '${loginUser.deptCode}',
+					splan:splan
 				},
-			
 				dataType : "json",
 				success : function(data) {
-					if(data =='success'){
+					
+					if(data != null){
 						
 						$.each(data, function(index, value){
 							
 							var calEvent = {};
-							
 							calEvent.id = value.sno;
 							calEvent.title = value.stitle;
-							calEvent.start = value.startDate + "T" + startTime; 
-							calEvent.end = value.endDate + "T" + endTime; 
+							calEvent.start = value.startDate + 'T' + value.startTime;
+							calEvent.end = value.endDate + 'T' + value.endTime;
 							calEvent.color = value.backColor;
 
 							j('#calendar').fullCalendar('renderEvent', calEvent, true); // 개중요, 얘가 넘겨줌
 						});
+						
 					}
 				},
 				error : function() {
@@ -681,9 +734,79 @@
 			});
 		
 		 };
-		
+		 
+		 // 삭제
+		 $(document).on('click', '#deleteEvent', function(){
+			
+			 $.ajax({
+				 
+				 url: "deleteSchedule.do",
+				 type: "post",
+				 data: {
+					 sno:sno,
+					 empId:'${loginUser.empId}'
+					 
+				 },
+				 success:function(data){
+					 if(data == 'success'){
+						 $("#eventModal").dialog("close");
+						 j("#calendar").fullCalendar('removeEvents',sno);
+						 refresh(splan);
+					 }else{
+						 alertify.alert("develoffice", "에러에러에러에러");
+					 }
+				 },
+				 error:function(){
+					 alertify.alert("develoffice","통신실패");
+				 }
+			 });
+		 });
+		 
+		 // 수정
+		 $(document).on('click',"#updateEvent", function(){
+			
+			 var sno = $("#sNo").val();
+			 var startDate = $("input[name=startDate]").val();
+			 var startTime = $("select[name=startTime] option:selected").val();
+			 var endDate = $("input[name=endDate]").val();
+			 var endTime = $("select[name=endTime] option:selected").val();
+			 var stitle = $("input[name=stitle]").val();
+			 var scontent = $("#edit-desc").val();
+			 var stype = $("select[name=stype] option:selected").val();
+			 var backColor = $("select[name=backColor] option:selected").val();
+			
+			 $.ajax({
+				
+				 url:"updateSchedule.do",
+				 type:"post",
+				 data:{
+					 sno:sno,
+					 stitle:stitle,
+					 startDate:startDate,
+					 startTime:startTime,
+					 endDate:endDate,
+					 endTime:endTime,
+					 stype:stype,
+					 backColor:backColor,
+					 scontent:scontent,
+					 empId:'${loginUser.empId}'
+				 },
+				 success:function(data){
+					 if(data == 'success'){
+						 $("#eventModal").dialog("close");
+						 refresh(splan);
+						 addCalendarList($(this).val());
+					 }else{
+						 alertify.alert("develoffice","통신실패");
+					 }
+				 },
+				 error:function(){
+					 alertify.alert("develoffice","통신실패");
+				 }
+			 });
+		 });
+
 	</script>
-
-
+	
 </body>
 </html>

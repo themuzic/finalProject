@@ -3,11 +3,13 @@ package com.kh.develoffice.schedule.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,7 +37,7 @@ public class ScheduleController {
 		return "schedule/publicScheduleList";
 	}
 	
-	// 일정 셀렉
+	// 게시판에 일정 셀렉
 	@RequestMapping("teamScheduleList.do")
 	public ModelAndView teamSchedulelList(Schedule s, ModelAndView mv, HttpSession session, HttpServletResponse response,
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
@@ -75,15 +77,13 @@ public class ScheduleController {
 		}
 	}
 	
+	// 새로고침
+	@ResponseBody
 	@RequestMapping("sRefresh.do")
 	public void sRefresh(Schedule s, HttpServletResponse response, HttpSession session,
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) throws JsonIOException, IOException {
 		
-		
 		response.setCharacterEncoding("utf-8");
-		
-//		Employee e = (Employee)session.getAttribute("loginUser");
-//		s.setEmpId(e.getEmpId());
 		
 		int listCount = sService.getListCount(s);
 		
@@ -92,17 +92,50 @@ public class ScheduleController {
 		ArrayList<Schedule> list = sService.teamScheduleList(pi,s);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-		
 		gson.toJson(list, response.getWriter());
 		
 	}
 	
+	// 캘린더에 셀렉
+	@ResponseBody
 	@RequestMapping("addCalendar.do")
-	public void addCalendar(HttpServletResponse response) {
+	public void addCalendar(Schedule s, HttpServletResponse response, HttpSession session) throws JsonIOException, IOException {
 		
 		response.setCharacterEncoding("utf-8");
 		
+		ArrayList<Schedule> list = sService.addScheduleList(s);
+		System.out.println(list);
+		Gson gson = new Gson();
+		gson.toJson(list, response.getWriter());
+		
 	}
+	
+	@ResponseBody
+	@RequestMapping("deleteSchedule.do")
+	public String deleteSchedule(Schedule s) {
+//		System.out.println(s);
+		int result = sService.deleteSchedule(s);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("updateSchedule.do")
+	public String updateSchedule(Schedule s) {
+		System.out.println(s);
+		int result = sService.updateSchedule(s);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
 	
 	
 }
