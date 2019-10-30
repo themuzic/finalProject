@@ -76,34 +76,32 @@
 					
 						<div class="ui cards">
 						
-						  <div class="card">
-						    <div class="content">
-						    
-						    <c:forEach items="${ projectList }" var="p">
-						    	<c:if test="${ p.empId = loginUser.empId }">
-						    	
-						    	<div class="header" style="padding:0 0 10px 0;">${ p.pName }</div>
-						      <div class="meta" style="float:right; padding:0 0 10px 0;">
-						        <i class="fas fa-user-cog"></i>
-						        <span>전재광</span>
-						      </div>
-						      <div class="description">
-						        <i class="fas fa-users"></i>
-						        <span>원영주 | 유현규 | 김상윤 | 설용환</span>
-						      </div>
-						    </div>
-						    <div class="ui bottom attached button" onclick="location.href='projectDetail.do'">
-						      <i class="fas fa-sign-in-alt"></i>
-						      입장
-						    </div>
-						    	
-						    	</c:if>
-						    </c:forEach>
-						    
-						    
-						      
-						  </div>
-						  
+							<div class="card">
+							  
+							  <c:forEach items="${ projectList }" var="p">
+								<c:if test="${ !empty loginUser.empId }">
+								
+							    <div class="content">
+							    	
+							    	<div class="header" style="padding:0 0 10px 0;">${ p.pName }</div>
+							      <div class="meta" style="float:right; padding:0 0 10px 0;">
+							        <i class="fas fa-user-cog"></i>
+							        <span>전재광</span>
+							      </div>
+							      <div class="description">
+							        <i class="fas fa-users"></i>
+							        <span>원영주 | 유현규 | 김상윤 | 설용환</span>
+							      </div>
+							    </div>
+							    <div class="ui bottom attached button" onclick="location.href='projectDetail.do'">
+							      <i class="fas fa-sign-in-alt"></i>
+							      입장
+							    </div>
+								</c:if>
+							  </c:forEach>
+							  
+							</div>
+						  	
 						  
 						  
 						  <div class="card">
@@ -124,70 +122,10 @@
 						    </div>
 						  </div>
 						  
-						  <div class="card">
-						    <div class="content">
-						      <div class="header" style="padding:0 0 10px 0;">Mini Project</div>
-						      <div class="meta" style="float:right; padding:0 0 10px 0;">
-						        <i class="fas fa-user-cog"></i>
-						        <span>원영주</span>
-						      </div>
-						      <div class="description">
-						        <i class="fas fa-users"></i>
-						        <span>Elliot Fu is a film-maker from New York.</span>
-						      </div>
-						    </div>
-						    <div class="ui bottom attached button">
-						      <i class="fas fa-sign-in-alt"></i>
-						      입장
-						    </div>
-						  </div>
 						  
-						  <div class="card">
-						    <div class="content">
-						      <div class="header" style="padding:0 0 10px 0;">Mini Project</div>
-						      <div class="meta" style="float:right; padding:0 0 10px 0;">
-						        <i class="fas fa-user-cog"></i>
-						        <span>원영주</span>
-						      </div>
-						      <div class="description">
-						        <i class="fas fa-users"></i>
-						        <span>Elliot Fu is a film-maker from New York.</span>
-						      </div>
-						    </div>
-						    <div class="ui bottom attached button">
-						      <i class="fas fa-sign-in-alt"></i>
-						      입장
-						    </div>
-						  </div>
-						  
-						  <div class="card">
-						    <div class="content">
-						      <div class="header" style="padding:0 0 10px 0;">Mini Project</div>
-						      <div class="meta" style="float:right; padding:0 0 10px 0;">
-						        <i class="fas fa-user-cog"></i>
-						        <span>원영주</span>
-						      </div>
-						      <div class="description">
-						        <i class="fas fa-users"></i>
-						        <span>Elliot Fu is a film-maker from New York.</span>
-						      </div>
-						    </div>
-						    <div class="ui bottom attached button">
-						      <i class="fas fa-sign-in-alt"></i>
-						      입장
-						    </div>
-						  </div>
 						  
 						  
 						</div>
-					
-					
-					<div class="ui three cards">
-					
-					
-					
-					
-					
 					
 					
 					
