@@ -91,6 +91,7 @@ public class ChatController {
 		int empId = ((Employee)session.getAttribute("loginUser")).getEmpId();
 		c.setEmpId(empId);
 		c.setAlarm(cService.selectAlarm(c));
+		
 		ArrayList<Message> msgList = cService.selectMsgList(c);
 		
 		mv.addObject("msgList", msgList).addObject("c", c).setViewName("chat/chattingView");

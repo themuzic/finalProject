@@ -742,11 +742,13 @@ body{
 			<div class="headLeft-section">
 				<div class="headLeft-sub">
 					<div style="float:right; padding-top:5px;">
-						<c:if test="${c.alarm eq 'Y' }">
-						<a id="alarm"><i class="alarm ui fa fa-bell"></i></a>
-						</c:if>
-						<c:if test="${c.alarm eq 'N' }">
-						<a id="alarm"><i class="alarm ui fa fa-bell-slash"></i></a>
+						<c:if test="${c.chatType == 2 }">
+							<c:if test="${c.alarm eq 'Y' }">
+							<a id="alarm"><i class="alarm ui fa fa-bell"></i></a>
+							</c:if>
+							<c:if test="${c.alarm eq 'N' }">
+							<a id="alarm"><i class="alarm ui fa fa-bell-slash"></i></a>
+							</c:if>
 						</c:if>
 					</div>
 					<h4>${c.chatName }</h4>

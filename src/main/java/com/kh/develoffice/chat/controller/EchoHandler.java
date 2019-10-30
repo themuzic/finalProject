@@ -250,7 +250,7 @@ public class EchoHandler extends TextWebSocketHandler{
 					for(WebSocketSession sess3 : alarmList) {
 						for(Chat emp : alarmEmpList) {
 							if(((Employee)sess3.getAttributes().get("loginUser")).getEmpId() == emp.getEmpId()) {
-								sess3.sendMessage(new TextMessage(messageList[1] + ":" + emp.getChatName() + ":" + emp.getChatType()));
+								sess3.sendMessage(new TextMessage(messageList[1] + ":" + emp.getChatName() + ":" + emp.getChatType() + ":" + profilePath + ":" + content));
 							}
 						}
 					}

@@ -627,7 +627,7 @@
 			$('#menu7').removeClass('active');
 		});
 		
-	    var sock;
+		var sock;
 
 	    //웸소켓을 지정한 url로 연결한다.
 	   	sock = new SockJS("<c:url value="/echo"/>");
@@ -656,12 +656,41 @@
 	        var data = evt.data;
 			var info = data.split(":")
 	        console.log(data);
-	        window.open("alarm.do?chatId=" + info[0] + "&chatName=" + info[1] + "&chatType=" + info[2], alarmNum +"alarm", "width=500,height=545,resizable=0", "false")
+			openwindow("alarm.do?chatId=" + info[0] + "&chatName=" + info[1] + "&chatType=" + info[2] + "&chatStatus=" + info[3] + "&lastMsg=" + info[4]);
+// 	        win = window.open("alarm.do?chatId=" + info[0] + "&chatName=" + info[1] + "&chatType=" + info[2] + "&lastMsg=" + info[3], alarmNum +"alarm", "width=300,height=30,left=950,top=500,resizable=no", "false")
 	    }
 	    
 	    function onClose(){
 	    	console.log('연결 끊김');
 	    }
+		var winheight=100;
+		var winsize=100;
+		var x=5;
+		function openwindow(thelocation){
+			temploc=thelocation;
+
+			win2=window.open(temploc,alarmNum +"alarm", "width=300,height=0,left=950,top=500", "false");
+			alarmNum++;
+			win2.moveTo(950,600);	// 이 위치부터 시작해라
+			win2.resizeTo(300,0);	// 이 사이즈부터 시작해라
+			go2();					
+		}
+		function go2(){
+			if (winheight>=150){
+				x=0;
+			}
+			win2.resizeBy(0,x);
+			winheight+=5;
+			winsize+=5;
+			if (winsize>=150){
+				win2.location=temploc;
+				winheight=100;
+				winsize=100;
+				x=5;
+				return;
+			}
+			setTimeout("go2()",50)
+		}
 	
 	</script>
 
