@@ -13,6 +13,9 @@
 
 <link rel="stylesheet" href="resources\semantic\semantic.css">
 
+<link rel="stylesheet" href="resources\semantic\tab.css">
+<script src="resources\semantic\tab.js"></script>
+
 <style>
 	#myWorkInfo th, #myWorkInfo td{
 		background : none;
@@ -262,8 +265,8 @@
 												<c:forEach var="todo" items="${todoGoingList}">
 													<li>
 														<label class="control-inline fancy-checkbox">
-															<input type="checkbox" class="todoCheck" value=""><span></span>
-															<input type="hidden" value="${todo.todoNo}">
+															<input type="checkbox" class="todoCheck" value="">
+															<input type="hidden" value="${todo.todoNo}"><span></span>
 														</label>
 														<p>
 															<span class="title">${todo.todoName}</span>
@@ -295,8 +298,8 @@
 												<c:forEach var="todo" items="${todoWaitList}">
 													<li>
 														<label class="control-inline fancy-checkbox">
-															<input type="checkbox" class="todoCheck" value=""><span></span>
-															<input type="hidden" value="${todo.todoNo}">
+															<input type="checkbox" class="todoCheck" value="">
+															<input type="hidden" value="${todo.todoNo}"><span></span>
 														</label>
 														<p>
 															<span class="title">${todo.todoName}</span>

@@ -60,8 +60,6 @@
 <link rel="stylesheet" href="resources/semantic/image.css">
 <link rel="stylesheet" href="resources\semantic\dimmer.css">
 <script src="resources\semantic\dimmer.js"></script>
-<link rel="stylesheet" href="resources\semantic\tab.css">
-<script src="resources\semantic\tab.js"></script>
 
 
 <!-- summernote 에디터 -->
