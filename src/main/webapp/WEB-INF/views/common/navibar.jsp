@@ -457,7 +457,7 @@
 							<ul class="dropdown-menu">
 								<li><a href="myProfile.do"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
 								<!-- <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li> -->
-								<li><a href="orgChart.do"><i class="lnr lnr-cog"></i> <span>조직도</span></a></li>
+								<!-- <li><a href="orgChart.do"><i class="lnr lnr-cog"></i> <span>조직도</span></a></li> -->
 								<li><a href="logout.do"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
 							</ul>
 						</li>
@@ -473,7 +473,7 @@
 				<nav>
 					<ul class="nav">
 						<li>
-							<a href="#menu1" data-toggle="collapse" class="collapsed" id="menu1_1"><i class="fa fa-clipboard"></i> <span>전자결재</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#menu1" data-toggle="collapse" class="collapsed menu" id="menu1_1"><i class="fa fa-clipboard"></i> <span>전자결재</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu1" class="collapse ">
 								<ul class="nav">
 									<li><a href="insertDocumentForm.do" class="" id="m1_1">작성하기</a></li>
@@ -512,7 +512,7 @@
 						</li>
 
 						<li>
-							<a href="#menu2" data-toggle="collapse" class="collapsed" id="menu2_1"><i class="fa fa-envelope"></i> <span>EMAIL</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#menu2" data-toggle="collapse" class="collapsed menu" id="menu2_1"><i class="fa fa-envelope"></i> <span>EMAIL</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu2" class="collapse ">
 								<ul class="nav">
 									<li><a href="insertMail.do" class="" id="m2_1">메일쓰기</a></li>
@@ -525,7 +525,7 @@
 						</li>
 						
 						<li>
-							<a href="#menu3" data-toggle="collapse" class="collapsed" id="menu3_1"><i class="lnr lnr-inbox"></i> <span>일감관리</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#menu3" data-toggle="collapse" class="collapsed menu" id="menu3_1"><i class="lnr lnr-inbox"></i> <span>일감관리</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu3" class="collapse ">
 								<ul class="nav">
 									<li><a href="projectList.do" class="" id="m3_1">프로젝트관리</a></li>
@@ -536,7 +536,7 @@
 						</li>
 
 						<li>
-							<a href="#menu4" data-toggle="collapse" class="collapsed" id="menu4_1"><i class="fa fa-calendar"></i> <span>일정관리</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#menu4" data-toggle="collapse" class="collapsed menu" id="menu4_1"><i class="fa fa-calendar"></i> <span>일정관리</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu4" class="collapse ">
 								<ul class="nav">
 									<li><a href="publicScheduleList.do" class="" id="m4_1">공통일정</a></li>
@@ -546,7 +546,7 @@
 						</li>
 
 						<li>
-							<a href="#menu5" data-toggle="collapse" class="collapsed" id="menu5_1"><i class="fa fa-check"></i> <span>예약</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#menu5" data-toggle="collapse" class="collapsed menu" id="menu5_1"><i class="fa fa-check"></i> <span>예약</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu5" class="collapse ">
 								<ul class="nav">
 									<li>
@@ -582,7 +582,7 @@
 						</li>
 
 						<li>
-							<a href="#menu6" data-toggle="collapse" class="collapsed" id="menu6_1"><i class="fa fa-list"></i> <span>게시판</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+							<a href="#menu6" data-toggle="collapse" class="collapsed menu" id="menu6_1"><i class="fa fa-list"></i> <span>게시판</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="menu6" class="collapse ">
 								<ul class="nav">
 									<li><a href="listNotice.do" class="" id="m6_1">공지사항</a></li>
@@ -590,6 +590,9 @@
 									<li><a href="listFree.do" class="" id="m6_3">자유게시판</a></li>								
 								</ul>
 							</div>
+						</li>
+						<li>
+							<a href="orgChart.do" data-toggle="" class="" id="menu7"><i class="fa fa-list"></i> <span>조직도</span> <i class="icon-submenu lnr lnr-chevron-left fr" style="font-size:12px;"></i></a>
 						</li>
 
 					</ul>
@@ -608,6 +611,18 @@
 			
 			$(".datepicker").removeClass('hasDatepicker').datepicker();
 			
+		});
+		
+		$(document).on('click','#menu7',function(){
+			$('.sidebar a[data-toggle="collapse"]').removeClass('active');
+			$('.sidebar a[data-toggle="collapse"]').addClass('collapsed');
+			$('.sidebar a[data-toggle="collapse"]').prevAll().removeClass('in');
+			$('.sidebar a[data-toggle="collapse"]').prevAll().css('aria-expanded','false');
+			$('.sidebar a[data-toggle="collapse"]').nextAll().removeClass('in');
+			$('.sidebar a[data-toggle="collapse"]').nextAll().css('aria-expanded','false');
+		});
+		$(document).on('click','.menu',function(){
+			$('#menu7').removeClass('active');
 		});
 		
 	    var sock;

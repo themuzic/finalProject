@@ -52,7 +52,6 @@ $(document).ready(function() {
 
 	$('.sidebar a[data-toggle="collapse"]').on('click', function() {
 		
-		
 		if($(this).hasClass('collapsed')) {
 			$('.sidebar a[data-toggle="collapse"]').removeClass('active');
 			$('.sidebar a[data-toggle="collapse"]').addClass('collapsed');
