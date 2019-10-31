@@ -181,7 +181,7 @@ public class EmployeeController {
 					int limit2=0;
 					if(tempMailList != null) {
 						
-						if(dd.size() < 5) {
+						if(tempMailList.size() < 5) {
 							limit2=tempMailList.size();
 						}else {
 							limit2=5;
@@ -213,6 +213,13 @@ public class EmployeeController {
 		return mv;
 	}
 	
+	/**
+	 * 로고 누르면 메인페이지 이동
+	 * @param empId
+	 * @param mv
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("mainPage.do")
 	public ModelAndView mainPage(int empId, ModelAndView mv, HttpSession session) {
 		
@@ -335,7 +342,7 @@ public class EmployeeController {
 					int limit2=0;
 					if(tempMailList != null) {
 						
-						if(dd.size() < 5) {
+						if(tempMailList.size() < 5) {
 							limit2=tempMailList.size();
 						}else {
 							limit2=5;
@@ -386,6 +393,11 @@ public class EmployeeController {
 	}
 	
 	
+	/**
+	 * 위젯 정보 저장
+	 * @param w
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("saveWidget.do")
 	public String saveWidget(Widget w) {
@@ -401,6 +413,12 @@ public class EmployeeController {
 	
 	
 	
+	/**
+	 * 직원 검색 자동완성
+	 * @param key
+	 * @param model
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("autocomplete.do")
 	public JSONArray autocomplete(String key, Model model) {
@@ -444,6 +462,12 @@ public class EmployeeController {
 	
 	
 	
+	/**
+	 * 출근 정보 저장
+	 * @param work
+	 * @param session
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("startWork.do")
 	public String insertStartTime(WorkTime work,HttpSession session) {
@@ -470,6 +494,12 @@ public class EmployeeController {
 		}
 	}
 	
+	/**
+	 * 퇴근 정보 저장
+	 * @param work
+	 * @param session
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("endWork.do")
 	public JSONArray updateEndTime(WorkTime work,HttpSession session) {
@@ -511,15 +541,25 @@ public class EmployeeController {
 	}
 	
 	
+	
 	/**
+	 * 마이페이지 이동
 	 * @return
-	 * 마이 페이지로 이동
 	 */
 	@RequestMapping("myProfile.do")
 	public String myProfilePage() {
 		return "common/myPage";
 	}
 	
+	/**
+	 * 마이페이지 정보 수정
+	 * @param e
+	 * @param status
+	 * @param request
+	 * @param session
+	 * @param uploadFile
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("myPageUpdate.do")
 	public String updateMyPage(Employee e, SessionStatus status, HttpServletRequest request, HttpSession session, @RequestParam(name="profile", required=false) MultipartFile uploadFile) {
@@ -546,6 +586,12 @@ public class EmployeeController {
 		}
 	}
 	
+	/**
+	 * 파일저장
+	 * @param file
+	 * @param request
+	 * @return
+	 */
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
 		
 		// 파일이 저장될 경로 설정
@@ -579,6 +625,10 @@ public class EmployeeController {
 		return renameFileName;	// 수정명 반환
 	}	
 	
+	/**
+	 * 비밀번호 수정 화면으로 이동
+	 * @return
+	 */
 	@RequestMapping("updatePwdForm.do")
 	public String updatePwdForm() {
 		return "common/updatePwdForm";
@@ -611,6 +661,10 @@ public class EmployeeController {
 		}
 	}
 	
+	/**
+	 * 조직도
+	 * @return
+	 */
 	@RequestMapping("orgChart.do")
 	public String orgChart() {
 		

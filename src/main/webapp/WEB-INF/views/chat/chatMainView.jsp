@@ -209,7 +209,7 @@ ul li:hover{
     			dataType:"json",
     			success:function(data){
     				console.log(data.chatId);
-    				messenger = window.open("chatting.do?chatId=" + data.chatId + "&chatName=" + data.chatName + "&chatType=1", data.chatId + "chatting", "width=500,height=545", "false");
+    				messenger = window.open("chatting.do?chatId=" + data.chatId + "&chatName=" + data.chatName + "&chatType=1", data.chatId + "chatting", "width=400px,height=400px", "false");
     			},
     			error:function(){
     				

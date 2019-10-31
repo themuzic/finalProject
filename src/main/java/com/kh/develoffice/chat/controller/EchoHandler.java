@@ -47,7 +47,7 @@ public class EchoHandler extends TextWebSocketHandler{
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
     	sessionList.add(session);
 
-        logger.info("{} 연결됨", session.getId());
+//        logger.info("{} 연결됨", session.getId());
     }
 
     /**
@@ -61,7 +61,7 @@ public class EchoHandler extends TextWebSocketHandler{
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
     	
     	String[] messageList = message.getPayload().split(":"); //받은 메세지를 :을 구분자로 스플릿
-    	System.out.println("받은 메세지 = " +message.getPayload());
+//    	System.out.println("받은 메세지 = " +message.getPayload());
     	if(message.getPayload().equals("알람연결")) {
     		alarmList.add(session);
     	}else if(message.getPayload().equals("채팅방 연결")) {		// 채팅방 리스트가 연결되었으면
@@ -117,7 +117,7 @@ public class EchoHandler extends TextWebSocketHandler{
     					m.setChatId(user.getEmpId());	// chatId에 상대 사번 넣고
     				}
     			}
-    			System.out.println(m);
+//    			System.out.println(m);
     			Chat c = cController.insertChat(m);	// 일단 갠톡 두명으로 방 만들고
     			chatId = c.getChatId();				// 생성한 방 번호 가져옴
     		}
@@ -189,7 +189,7 @@ public class EchoHandler extends TextWebSocketHandler{
 			
 			int update = cService.updateJoinMod(m);	// 채팅방 확인 갱신
 			if(update > 0) {
-				System.out.println("연결 갱신됨");
+//				System.out.println("연결 갱신됨");
 				list.add(session);					// ArrayList에 세션을 담는다.
 				chatList.put(messageList[1], list);	// 채팅방 리스트에 chatId와 웹소켓세션을 담는다
 			}
@@ -213,7 +213,7 @@ public class EchoHandler extends TextWebSocketHandler{
 			m.setEmpId(empId);								// 쓴사람 담고
 			m.setContent(content);							// 내용 담고
 			m.setMsgType(1);								// 채팅 타입(시스템메세지 아님)담고
-			System.out.println(m);
+//			System.out.println(m);
 			int result = cService.insertMessage(m);		// 메세지 db에 저장
 			ArrayList<Message> people = cService.selectUsers(Integer.parseInt(messageList[1]));	// 방에 소속된 사람들 id 담을 ArrayList
 			
@@ -256,13 +256,13 @@ public class EchoHandler extends TextWebSocketHandler{
 					}
 					
 				}else {
-					System.out.println("채팅방 갱신 실패!");
+//					System.out.println("채팅방 갱신 실패!");
 				}
 			}else {
-				System.out.println("메세지 입력 실패!");
+//				System.out.println("메세지 입력 실패!");
 			}
 		}
-	    logger.info("{}로 부터 {} 받음", session.getId(), message.getPayload());
+//	    logger.info("{}로 부터 {} 받음", session.getId(), message.getPayload());
 	
 	}
 	
@@ -291,7 +291,7 @@ public class EchoHandler extends TextWebSocketHandler{
         	}
         	chatList.put(key, list);
         }
-        logger.info("{} 연결 끊김", session.getId());
+//        logger.info("{} 연결 끊김", session.getId());
 
     }
 

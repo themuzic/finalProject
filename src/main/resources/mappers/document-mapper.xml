@@ -200,7 +200,7 @@
 		join employee e on(d.emp_id = e.emp_id)
 		join department dt on(e.dept_code = dt.dept_code)
 		join job j on(e.job_code = j.job_code)
-		where docu_num=#{docuNum}
+		where docu_num=#{docuNum} and status is null
 	</select>
 	
 	
@@ -208,7 +208,7 @@
 		select docu_num,accounting_type,spending_year,spending_month,spender_name,account_name,expense_date,department_name,
 		       price,customer,brief,a.status,account
 		from docua a
-		join document using(docu_num)
+		join document d using(docu_num)
 		join employee using(emp_id)
 		where docu_num=#{docuNum}
 	</select>

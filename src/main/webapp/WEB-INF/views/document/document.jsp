@@ -1833,6 +1833,10 @@
 				
 			}else if(docuType == 'CN'){	//회람
 				
+				/* 결재라인(배열) */
+				var apArr = "";
+				formData.append("apArr", apArr);
+				
 				/* 제목 */
 				var title = $("#approval_document_title").val();
 				formData.append('title',title);
@@ -1955,6 +1959,8 @@
 				formData.append('title',title);
 				
 			} else if(docuType == 'RT'){	// 퇴직원	
+				
+				
 				
 				/* 결재라인(배열) */
 				var apArr = "";

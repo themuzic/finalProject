@@ -178,8 +178,6 @@ public class DocumentController {
 				}
 			}
 		}
-		System.out.println(docuList);
-		System.out.println(condition);
 		mv.addObject("condition", condition);
 		mv.addObject("docuList", docuList).setViewName("document/dcTable");
 		return mv;
@@ -191,32 +189,40 @@ public class DocumentController {
 		Document document = dService.selectDocument(docuNum);
 		ArrayList<Approval> apList = dService.approvalCheck(docuNum);
 		ArrayList<Reference> rfList = dService.referenceCheck(docuNum);
+		System.out.println(document);
+		System.out.println(apList);
+		System.out.println(rfList);
 		
-		JSONObject d = new JSONObject();
-		d.put("docuNum", document.getDocuNum());
-		d.put("empId", document.getEmpId());
-		d.put("empName", document.getEmpName());
-		d.put("jobName", document.getJobName());
-		d.put("deptName", document.getDeptName());
-		d.put("status", document.getStatus());
-		d.put("docuDate", document.getDocuDate());
+		if(document != null) {
+			JSONObject d = new JSONObject();
+			d.put("docuNum", document.getDocuNum());
+			d.put("empId", document.getEmpId());
+			d.put("empName", document.getEmpName());
+			d.put("jobName", document.getJobName());
+			d.put("deptName", document.getDeptName());
+			d.put("status", document.getStatus());
+			d.put("docuDate", document.getDocuDate());
 			
-		JSONArray apArr = new JSONArray();
-		for(Approval a : apList) {
-			JSONObject jObj = new JSONObject();
-			jObj.put("docuNum", a.getDocuNum());
-			jObj.put("empId", a.getEmpId());
-			jObj.put("empName", a.getEmpName());
-			jObj.put("jobName", a.getJobName());
-			jObj.put("status", a.getStatus());
-			jObj.put("approvalDate", a.getApprovalDate());
-			
-			apArr.add(jObj);
+			mv.addObject("d",d);
+		}
+		
+		if(apList != null) {
+			JSONArray apArr = new JSONArray();
+			for(Approval a : apList) {
+				JSONObject jObj = new JSONObject();
+				jObj.put("docuNum", a.getDocuNum());
+				jObj.put("empId", a.getEmpId());
+				jObj.put("empName", a.getEmpName());
+				jObj.put("jobName", a.getJobName());
+				jObj.put("status", a.getStatus());
+				jObj.put("approvalDate", a.getApprovalDate());
+				
+				apArr.add(jObj);
+				mv.addObject("apList",apArr);
+			}
 		}
 		
 		mv.addObject("document",document);
-		mv.addObject("d",d);
-		mv.addObject("apList",apArr);
 		mv.addObject("rfList",rfList);
 		
 		if(document.getFileStatus().equals("Y")) {	//첨부 파일이 있으면
@@ -329,12 +335,12 @@ public class DocumentController {
 			} else if(type.equals("VA")) {
 				result2 = dService.insertVacation(va);	//휴가원 insert
 			} else if(type.equals("RT")) {
-				result2 = dService.insertRetire(rt);	//휴가원 insert
+				result2 = dService.insertRetire(rt);	//사직원 insert
 			} else {
 				result2 = dService.insertDocuB(docuB);	//회람,품의서 insert
 			}
 			
-			if(result2 > 0) { // 문서 타입별로 insert 성공
+			if(result2 > 0) { // 문서 타입별 insert 성공
 				
 				if(!(tempStr1.equals(""))) {	// 결제라인이 null 이 아니면
 					String[] Arr = tempStr1.split(",");
