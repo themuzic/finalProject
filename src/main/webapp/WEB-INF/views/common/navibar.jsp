@@ -413,7 +413,7 @@
 						if(openStatus()){
 							message.focus();
 						}else{
-							message = window.open("chat.do","messenger", "width=500,height=561", "false");
+							message = window.open("chat.do","messenger", "width=400,height=460", "false");
 						}
 					}
 					function openStatus(){

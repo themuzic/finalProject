@@ -90,7 +90,6 @@ body *{
 	width: 98%;
 	float: left;
 	height: 500px;
-	border-right:1px solid #E6E6E6;
 	background-color: #FFF;
 	z-index: 1;
 	position: relative;
@@ -104,6 +103,7 @@ body *{
 .left-section ul li{
 	padding: 15px 0px;
 	cursor: pointer;
+	padding-left: 10px;
 }
 .left-section ul li:hover{
 	background: #e1e1e1;
@@ -146,6 +146,7 @@ body *{
 	white-space: nowrap;
 	width: 75%;
 	float: left;
+	font-size: 15px;
 }
 .left-section .chatList .desc .time{
 	position: absolute;
@@ -367,8 +368,8 @@ body *{
 			<div class="head-section">
 				<div class="headLeft-section">
 					<div class="headLeft-sub">
-						<div style="box-sizing:border-box;padding-bottom:5px;">
-							<i class="fa fa-align-justify" id="menu"></i>
+						<div style="box-sizing:border-box;padding-bottom:5px;font-size: 20px;">
+							<i class="fa fa-align-justify" id="menu" style="margin-right:7px;cursor:pointer;"></i>
 							<div class="searchArea">
 								<i class="fa fa-search"></i>
 								<input type="text" id="search" name="search" placeholder="채팅방 이름,참여자 검색">

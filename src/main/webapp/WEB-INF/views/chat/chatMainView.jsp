@@ -94,7 +94,6 @@ body *{
 	width: 98%;
 	float: left;
 	height: 450px;
-	border-right:1px solid #E6E6E6;
 	background-color: #FFF;
 	z-index: 1;
 	position: relative;
@@ -367,8 +366,8 @@ ul li:hover{
 			<div class="head-section">
 				<div class="headLeft-section">
 					<div class="headLeft-sub">
-						<div style="box-sizing:border-box;padding-bottom:5px;">
-							<i class="fa fa-align-justify" id="menu"></i>
+						<div style="box-sizing:border-box;padding-bottom:5px;font-size:20px;">
+							<i class="fa fa-align-justify" id="menu" style="margin-right:7px;cursor:pointer;"></i>
 							<div class="searchArea">
 								<i class="fa fa-search"></i>
 								<input type="text" id="search" name="search" placeholder="이름검색">
@@ -380,7 +379,7 @@ ul li:hover{
 									<div class="img">
 										<img src="resources/upload/profile/${loginUser.profilePath}">
 									</div>
-									<div class="desc">
+									<div class="desc" style="padding-top: 6px;font-size: 20px;">
 										<h5>${loginUser.empName } ${loginUser.jobName }</h5>
 										<small>${loginUser.statusMsg }</small>
 									</div>
@@ -396,12 +395,12 @@ ul li:hover{
 					<ul id="empList">
 						<c:forEach items="${ empList }" var="emp">
 							<li>
-								<div class="chatList">
+								<div class="chatList" style="padding-left: 14px;">
 									<input type="hidden" name="empId" value="${emp.empId }">
 									<div class="img">
 										<img src="resources/upload/profile/${emp.profilePath}">
 									</div>
-									<div class="desc">
+									<div class="desc" style="padding-top: 6px;font-size: 17px;">
 										<h5>${ emp.empName } ${emp.jobName }</h5>
 										<small>${emp.statusMsg }</small>
 									</div>

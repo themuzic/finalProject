@@ -169,17 +169,15 @@
 											<div class="divider"></div>
 											<span>댓글<b id="uberCount"></b>ㆍ</span>
 											<div class="divider"></div>
-											<span class="fa fa-clock-o"></span> <span>${tb.tbCreateDate} ㆍ</span>
+											<span class="fa fa-clock-o"></span> <span>${tb.tbCreateDate}</span>
 											<div class="divider"></div>
-											<span>첨부파일:
 												<c:if test="${!empty tb.originalFileName }">
-													<a href="${contextPath}/resources/tbupload/${tb.renameFileName}" download=${tb.originalFileName}>${tb.originalFileName }</a>           
+													<span> ㆍ 첨부파일:
+														<a href="${contextPath}/resources/tbupload/${tb.renameFileName}" download=${tb.originalFileName}>${tb.originalFileName }</a>           
+													</span>
 												</c:if>
-											</span>
 										</div>
-										<div class="free_content" style="margin-bottom:100px;">
-											<p style="font-size:16px;">${tb.tbContent}</p>											
-										</div>
+										<div class="free_content" style="margin-bottom:100px;font-size:16px;">${tb.tbContent}</div>
 									</div>
 								</div>
 		    				</div>
