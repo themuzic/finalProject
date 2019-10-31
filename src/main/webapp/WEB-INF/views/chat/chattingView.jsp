@@ -819,7 +819,9 @@ body{
 						</c:if>
 					</div>
 					<div style="float:right; padding-top:10px; cursor:pointer;">
-						<a id="rename"><i class="fa fa-edit"></i></a>
+						<c:if test="${c.chatType == 2 }">
+							<a id="rename"><i class="fa fa-edit"></i></a>
+						</c:if>
 					</div>
 					<h4 id="chatName">${c.chatName }</h4>
 					<input type="text" id="chatRename" class="hide">

@@ -85,9 +85,7 @@
 					});
 				}
 				
-				$('.alarm')
-				  .transition('jiggle')
-				;
+				$('.alarm').transition('jiggle');
 			});
 			$("#exit").on('click', function(){
 				self.close();
