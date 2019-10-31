@@ -19,4 +19,6 @@ public interface ScheduleService {
 
 	int updateSchedule(Schedule s);
 
+	int movingSchedule(Schedule s);
+
 }

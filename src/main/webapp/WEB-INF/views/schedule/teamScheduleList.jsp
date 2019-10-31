@@ -189,7 +189,7 @@
 		                        	        dateformat:'yy-mm-dd',
 		                        	        
 		                        	    });
-		                        	        $('.datepicker').datepicker('setDate', 'today');
+// 		                        	        $('.datepicker').datepicker('setDate', 'today');
 		                        	});
 
 		                        </script>
@@ -417,15 +417,17 @@
 	
 	<script>
 	
+	
 	j(function(){
+		
 		calendarStart();
 		refresh('T');
 		addCalendarList('T');
-		
 	});
 	
+	
 	function calendarStart(){
-	 
+		
 		j("#calendar").html("");
 			 
 			 var date = new Date();
@@ -453,40 +455,52 @@
 				   month: "YYYY년 MMMM",
 				   week: "YYYY년 MMM DD일 (ddd) ",
 				   day: "YYYY년 MMM DD일 dddd"
+// 				   day: "YYYY-MM-DD"
 			   },
-			  
-				editable: true,		// 실행된 달력에서 일정(event)을 표시한 바(bar)를 마우스로 이동할 수 있게 하는 것
-				eventLimit: true, 	// 하루 기본일정 3개, 그 이상시, more로 처리
+			  	
+			    editable: false,		// 일정 움직일 수 있게
+				eventLimit: true, 		// 하루 기본일정 3개, 그 이상시, more로 처리
 				
-				events: [
-// 				{
-// 					id: 999,
-// 					title: '미팅 시간',
-// 					start: '2019-11-04T16:00'
-// 				},
-			],
+				events: [],
+
+			// 일정 움직일 때 업데이트
+			eventDrop: function(info) {
 			
-			 eventDrop: function(info) {
+				 var sno = info.id;
+				 var startDate = info.start.format("YYYY-MM-DD").split("T")[0];
+				 var endDate = info.end.format("YYYY-MM-DD").split("T")[0];
+				 
+				 // 데이터 타입을 바꿔서 넣자
+				 
+				 var splan = $("input[name=splan]:checked").val();
+				 
+				 console.log(sno  + "//" + startDate + "//" + endDate);
+				 console.log(info);
 				 
 				 $.ajax({
-				
-					url :"",
+					
+					url :"movingSchedule.do",
 					type:"post",
 					data:{
-						
+						sno:sno,
+						startDate:startDate,
+						endDate:endDate
 					},
-					
-					success:function(){
+					success:function(data){
 						
+						if(data == 'success'){
+							refresh(splan);
+							
+						}else{
+							alertify.alert("develoffice", "에러!!!!!!");
+						}
 					},
 					error:function(){
-						alertify.alert("develoffice","통신실패")
+						alertify.alert("develoffice","통신실패");
 					}
 
 				 });
-				 
 			},
-				  
 			
 			// 모달창 생성
 			eventRender: function (event, element) {
@@ -498,10 +512,11 @@
 		        	      width: '600'
 		        	});
 		        	
-		        	$("#saveEvent").css('display','inline-block');
-		        	$("#updateEvent").css('display','none');
+		        	$("#saveEvent").css('display','none');
+		        	$("#updateEvent").css('display','inline-block');
+		        	$("#deleteEvent").css('display','inline-block');
 		        	
-		        	$("#sNo").val(event.id);
+		        	$("#sNo").val(event.id); 
 		        	
 		        	// 라디오 버튼에 따른 모달창 종류
 		        	var splan = $("input[name=splan]:checked").val();
@@ -511,10 +526,22 @@
 					}else{
 						$(".hideType").css('display','block');
 					}
+					
+					
+					
+					var sno = $("#sNo").val();
+					var startDate = $("input[name=startDate]").val();
+					var startTime = $("select[name=startTime] option:selected").val();
+					var endDate = $("input[name=endDate]").val();
+					var endTime = $("select[name=endTime] option:selected").val();
+					var stitle = $("input[name=stitle]").val();
+					var scontent = $("#edit-desc").val();
+					var stype = $("select[name=stype] option:selected").val();
+					var backColor = $("select[name=backColor] option:selected").val();
+					var splan = $("input[name=splan]:checked").val();
+					
+					
 		        });
-		        
-		        
-		        
 		        
 		        
 		        // dd로 예시, 호버시에 데이터 띄우기
@@ -535,6 +562,8 @@
   		});
 		
 		$("#deleteEvent").css('display','none');
+		$("#saveEvent").css('display','inline-block');
+		$("#updateEvent").css('display','none');
 		
 		// 라디오 버튼에 따른 모달창 종류
 		var splan = $("input[name=splan]:checked").val();
@@ -579,7 +608,7 @@
 		 var stype = $("select[name=stype] option:selected").val();
 		 var backColor = $("select[name=backColor] option:selected").val();
 		 var splan = $("input[name=splan]:checked").val();
-		 
+		 console.log(startTime);
 		 var allDay;
 		 if($("#allDay").prop('checked')){
 			allDay ='Y'; 
@@ -592,7 +621,6 @@
 			url:"insertSchedule.do",
 			type:"POST",
 			data:{
-				  
 				  startDate:startDate,
 				  startTime:startTime,
 				  endDate:endDate,
@@ -607,6 +635,7 @@
 			},
 			success:function(data){
 				if(data == 'success'){
+					
 					$("input[name=startDate]").val("");
 					$("select[name=startTime]").children().first().prop('selected', true);
 					$("input[name=endDate]").val("");
@@ -619,7 +648,7 @@
 					
 					$("#eventModal").dialog("close");
 					
-					j("#calendar").fullCalendar('removeEvents',sno);
+					j("#calendar").fullCalendar('removeEvents');
 					refresh(splan);
 					addCalendarList(splan);
 					
@@ -717,12 +746,18 @@
 						$.each(data, function(index, value){
 							
 							var calEvent = {};
+							
 							calEvent.id = value.sno;
 							calEvent.title = value.stitle;
 							calEvent.start = value.startDate + 'T' + value.startTime;
 							calEvent.end = value.endDate + 'T' + value.endTime;
 							calEvent.color = value.backColor;
-
+							
+							// 내 아이디일 때만 일정 움직일 수 있게
+							if(value.empId == '${loginUser.empId}'){
+								calEvent.editable = true;
+							}
+								
 							j('#calendar').fullCalendar('renderEvent', calEvent, true); // 개중요, 얘가 넘겨줌
 						});
 						
@@ -738,6 +773,9 @@
 		 // 삭제
 		 $(document).on('click', '#deleteEvent', function(){
 			
+			 var sno =$("#sNo").val();
+			 var splan = $("input[name=splan]:checked").val();
+			 
 			 $.ajax({
 				 
 				 url: "deleteSchedule.do",
@@ -749,9 +787,11 @@
 				 },
 				 success:function(data){
 					 if(data == 'success'){
+						 
 						 $("#eventModal").dialog("close");
 						 j("#calendar").fullCalendar('removeEvents',sno);
 						 refresh(splan);
+						 
 					 }else{
 						 alertify.alert("develoffice", "에러에러에러에러");
 					 }

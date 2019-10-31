@@ -49,6 +49,11 @@ public class ScheduleDao {
 		
 		return sqlSession.update("scheduleMapper.updateSchedule", s);
 	}
+
+	public int movingSchedule(Schedule s) {
+		
+		return sqlSession.update("scheduleMapper.movingSchedule", s);
+	}
 		
 	
 

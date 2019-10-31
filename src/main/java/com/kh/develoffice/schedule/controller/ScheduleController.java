@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
-import com.kh.develoffice.common.Pagination;
+import com.kh.develoffice.common.Pagination2;
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.mail.model.vo.PageInfo;
 import com.kh.develoffice.schedule.model.service.ScheduleService;
@@ -52,7 +51,7 @@ public class ScheduleController {
 		// 게시글 총 개수
 		int listCount = sService.getListCount(s);
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination2.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Schedule> list = sService.teamScheduleList(pi, s);
 		
@@ -66,7 +65,7 @@ public class ScheduleController {
 	@RequestMapping("insertSchedule.do")
 	public String insertSchedule(Schedule s) {
 		
-		System.out.println(s);
+//		System.out.println(s);
 		int result = sService.insertSchedule(s);
 		
 		if(result > 0) {
@@ -87,7 +86,7 @@ public class ScheduleController {
 		
 		int listCount = sService.getListCount(s);
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination2.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Schedule> list = sService.teamScheduleList(pi,s);
 		
@@ -104,7 +103,7 @@ public class ScheduleController {
 		response.setCharacterEncoding("utf-8");
 		
 		ArrayList<Schedule> list = sService.addScheduleList(s);
-		System.out.println(list);
+//		System.out.println(list);
 		Gson gson = new Gson();
 		gson.toJson(list, response.getWriter());
 		
@@ -113,7 +112,7 @@ public class ScheduleController {
 	@ResponseBody
 	@RequestMapping("deleteSchedule.do")
 	public String deleteSchedule(Schedule s) {
-//		System.out.println(s);
+
 		int result = sService.deleteSchedule(s);
 		
 		if(result > 0) {
@@ -126,7 +125,7 @@ public class ScheduleController {
 	@ResponseBody
 	@RequestMapping("updateSchedule.do")
 	public String updateSchedule(Schedule s) {
-		System.out.println(s);
+		
 		int result = sService.updateSchedule(s);
 		
 		if(result > 0) {
@@ -134,6 +133,21 @@ public class ScheduleController {
 		}else {
 			return "fail";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("movingSchedule.do")
+	public String movingSchedule(Schedule s) {
+		
+//		System.out.println(s);
+		int result = sService.movingSchedule(s);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
 	}
 	
 	

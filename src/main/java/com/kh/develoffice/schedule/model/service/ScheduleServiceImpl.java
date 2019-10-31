@@ -50,4 +50,10 @@ public class ScheduleServiceImpl implements ScheduleService{
 		return sDao.updateSchedule(s);
 	}
 
+	@Override
+	public int movingSchedule(Schedule s) {
+		
+		return sDao.movingSchedule(s);
+	}
+
 }
