@@ -37,8 +37,8 @@
 		<typeAlias type="com.kh.develoffice.notice.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.kh.develoffice.project.model.vo.Project" alias="Project"/>
 		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectMember" alias="ProjectMember"/>
-		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectMember" alias="ProjectTask"/>
-		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectMember" alias="ProjectReply"/>
+		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectTask" alias="ProjectTask"/>
+		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectReply" alias="ProjectReply"/>
 		
 	</typeAliases>
 	
