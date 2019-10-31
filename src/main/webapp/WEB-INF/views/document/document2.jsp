@@ -2,13 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%  
-response.setHeader("Cache-Control","no-store");  
-response.setHeader("Pragma","no-cache");  
-response.setDateHeader("Expires",0);  
-if (request.getProtocol().equals("HTTP/1.1"))
-        response.setHeader("Cache-Control", "no-cache");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,10 +63,6 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	.team-name{
 		margin-right: 10px;
 	}
-	td{
-	    border-bottom: 1px solid #ececec;
-	    border-right: 1px solid #ececec;
-	}
 	/* 에디터 CSS 끝 */
 	
 </style>
@@ -129,7 +118,6 @@ if (request.getProtocol().equals("HTTP/1.1"))
 											<option value="CN">회람</option>
 											<option value="CF">품의서</option>
 											<option value="VA">휴가원</option>
-											<option value="RT">사직원</option>
 										</select>
 										<!-- <button class="weakblue" onclick="ApprovalDocument.getSelectApprovalForm();">문서보기</button> -->
 										<input type="hidden" id="prevApprovalFormNo" value="26723">
@@ -787,44 +775,6 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					
 					
 					<!------휴가신청--------------------------------------------------------->
-					<div id="retireDiv" class="hide">
-					<table class="tableType02 account docuTable">
-						<colgroup>
-							<col style="width:12.09%;">
-							<col style="width:37.91%;">
-							<col style="width:12.09%;">
-							<col style="width:37.91%;">
-						</colgroup>
-						<tbody>
-							<tr>
-								<th scope="row">입사일</th>
-								<td>
-									<span id="enrollDate">${loginUser.enrollDate}</span>
-								</td>
-								<th scope="row">퇴사 예정일</th>
-								<td>
-									<div>
-										<input type="text" class="datepicker" id="retireDate" readonly value="${now}">
-										<button type="button" class="icon month" onclick="$('#retireDate').focus();"></button>
-									</div>
-									<script>				
-										$(".datepicker").datepicker();
-									</script>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">사유</th>
-								<td style="padding-right:10px;" colspan="3">
-									<textarea rows="4" cols="130" name="reason" id="reason"></textarea>
-								</td>
-							</tr>
-						</tbody>
-						</table>
-					</div>
-					
-					<!------------------------------------------------------------------------>
-					
-					<!------휴가신청--------------------------------------------------------->
 					<div id="vacationDiv" class="hide">
 					<table class="tableType02 account docuTable">
 						<colgroup>
@@ -840,11 +790,11 @@ if (request.getProtocol().equals("HTTP/1.1"))
 									</label>
 									/
 									<label style="margin-right: 10px;margin-left: 10px;">
-										사용 : ${15-loginUser.vacation}일
+										사용 : 10일
 									</label>
 									/
 									<label style="margin-right: 10px;margin-left: 10px;">
-										잔여 : ${loginUser.vacation}일
+										잔여 : 5일
 									</label>
 								</td>
 							</tr>
@@ -868,18 +818,17 @@ if (request.getProtocol().equals("HTTP/1.1"))
 							<tr>
 								<th scope="row" id="th_spending_regist_month">휴가 기간</th>
 								<td>
-									<div id="allday" class="" style="display: inline-block;">
-										<input type="text" class="datepicker" name="vacationDate" id="alldayDate1" readonly value="${now}">
+									<div id="allday" class="">
+										<input type="text" class="datepicker" id="alldayDate1" readonly value="${now}">
 										<button type="button" class="icon month" onclick="$('#alldayDate1').focus();"></button>
 										&nbsp;~&nbsp;
-										<input type="text" class="datepicker" name="vacationDate" id="alldayDate2" readonly value="${now}">
+										<input type="text" class="datepicker" id="alldayDate2" readonly value="${now}">
 										<button type="button" class="icon month" onclick="$('#alldayDate2').focus();"></button>
 									</div>
 									<div id="harfday" style="display:none;">
 										<input type="text" class="datepicker" id="harfdaydate" readonly value="${now}">
 										<button type="button" class="icon month" onclick="$('#harfdaydate').focus();"></button>
 									</div>
-									<span class="mgl_20" id="useDay">1</span>일
 									<script>				
 										$(".datepicker").datepicker();
 									</script>
@@ -912,11 +861,11 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					
 					<!------------------------------------------------------------------------>
 					
-					
-					<!------------------------------------------------------------------------>
 					<h4 class="filezone hide" style="margin-top:50px;margin-bottom:0;padding: 0 0 15px 0;">첨부 파일</h4>
 						
 					<!-------------- 첨부파일존 시작 ---------------------------------------------------------->
+					
+					
 					
 					<div class="filezone hide">
 				        <table class="table" width="100%" style="border: 2px dashed #e4e4e4;height: 50px;">
@@ -929,11 +878,27 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				            </tbody>
 				        </table>
 				    </div>
+				        
+
+
 						
 					<!-------------- 첨부파일존 끝 ---------------------------------------------------------->
 					
 				</form>
+						
+						
+						
+						
+						
+						
+						
 					</div>
+					
+					
+					
+					
+					
+					
 					
 					<!-- 이 위까지 내용작성 -->
 				</div>
@@ -944,9 +909,25 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		
 		<div class="clearfix"></div>
 		
+		<!-- 
+		<footer>
+			<div class="container-fluid">
+				<p class="copyright">Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a></p>
+			</div>
+		</footer>
+		 -->
+
 	<!--  -->
 	</div>
 	<!-- END WRAPPER -->
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	<!-- script 작성 -->
@@ -960,6 +941,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		$("#menu1_1").addClass("active");
 		$("#menu1_1").attr('aria-expanded',true);
 		$("#m1_1").addClass("active");
+		
 		
 		
 		/* 오늘 날짜 구해서 년/월 세팅 */
@@ -1023,7 +1005,6 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				$(".referTable2").removeClass("show");			//회람 테이블
 				$(".typeA").removeClass("show");				//지출 테이블
 				$("#vacationDiv").removeClass("show");			//휴가 테이블
-				$("#retireDiv").removeClass("show");			//퇴사 테이블
 				$(".filezone").removeClass("show");				//첨부파일
 								
 				// 에디터 off-----------------------------
@@ -1042,7 +1023,6 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				$(".referTable2").removeClass("show");
 				$(".typeA").addClass("show");
 				$("#vacationDiv").removeClass("show");
-				$("#retireDiv").removeClass("show");
 				$(".filezone").addClass("show");
 				
 				$("#summernote").summernote('destroy');
@@ -1060,7 +1040,6 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				$(".typeA").removeClass("show");
 				$(".referTable2").addClass("show");
 				$("#vacationDiv").removeClass("show");
-				$("#retireDiv").removeClass("show");
 				$(".filezone").addClass("show");
 				
 				// 에디터 on--------------------
@@ -1073,7 +1052,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				//--------------------------
 				
 			}
-			if( $("#documentTypeSelect option:selected").val() == 'CF' ){	// 품의서
+			if( $("#documentTypeSelect option:selected").val() == 'CF' ){	// 참조
 				
 				$("#approval_document_title").val("");
 				
@@ -1084,10 +1063,8 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				$(".typeA").removeClass("show");
 				$(".referTable2").removeClass("show");
 				$("#vacationDiv").removeClass("show");
-				$("#retireDiv").removeClass("show");
 				$(".filezone").addClass("show");
 
-				//$("#summernote").html('<p><br></p><table border="1" cellspacing="0" cellpadding="0" style="word-break: break-all; width: 596px; border: 1px none rgb(0, 0, 0); height: 227px;"><tbody><tr><td style="border: 1px solid rgb(0, 0, 0); width: 151.5px; height: 48.5px;"><p style="text-align: center;">성명</p></td><td style="border: 1px solid rgb(0, 0, 0); width: 153px; height: 48.5px;"><p style="text-align: center;"><br></p></td><td style="border: 1px solid rgb(0, 0, 0); width: 131px; height: 48.5px;"><p style="text-align: center;">직급</p></td><td style="border: 1px solid rgb(0, 0, 0); width: 157.5px; height: 48.5px;"><p style="text-align: center;"><br></p></td></tr><tr><td style="border: 1px solid rgb(0, 0, 0); width: 151.5px; height: 48.5px;"><p style="text-align: center;">소속</p></td><td style="border: 1px solid rgb(0, 0, 0); width: 441px; height: 48.5px;" colspan="3"><p style="text-align: center;"><br></p></td></tr><tr><td style="border: 1px solid rgb(0, 0, 0); width: 151.5px; height: 48.5px;"><p style="text-align: center;">입사일</p></td><td style="border: 1px solid rgb(0, 0, 0); width: 153px; height: 48.5px;"><p style="text-align: center;"><br></p></td><td style="border: 1px solid rgb(0, 0, 0); width: 131px; height: 48.5px;"><p style="text-align: center;">퇴사일</p></td><td style="border: 1px solid rgb(0, 0, 0); width: 157.5px; height: 48.5px;"><p style="text-align: center;"><br></p></td></tr><tr><td style="border: 1px solid rgb(0, 0, 0); width: 151.5px; height: 81.5px;"><p style="text-align: center;">사유</p></td><td style="border: 1px solid rgb(0, 0, 0); width: 441px; height: 81.5px;" colspan="3"><p style="text-align: center;"><br></p></td></tr></tbody></table><p><br></p>');
 				$("#summernote").summernote({
 					tabsize: 2,
 			        height: 300,
@@ -1103,21 +1080,6 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				$(".typeA").removeClass("show");
 				$(".referTable2").removeClass("show");
 				$("#vacationDiv").addClass("show");
-				$("#retireDiv").removeClass("show");
-				$(".filezone").addClass("show");
-				
-				$("#summernote").summernote('destroy');
-				$("#summernote").hide();
-			}
-			if( $("#documentTypeSelect option:selected").val() == 'RT' ){	//사직원
-				$(".guide").css("display","none");
-				$(".docuTitle").removeClass("show");
-				$("#btnApprovalSelect").addClass("show");
-				$(".approvalTable").addClass("show");
-				$(".typeA").removeClass("show");
-				$(".referTable2").removeClass("show");
-				$("#vacationDiv").removeClass("show");
-				$("#retireDiv").addClass("show");
 				$(".filezone").addClass("show");
 				
 				$("#summernote").summernote('destroy');
@@ -1381,8 +1343,8 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				zone = $("#selectApprovalFourthLine");
 			}
 			
-			//console.log(approvalArr);
-			//console.log(zone.children());
+			console.log(approvalArr);
+			console.log(zone.children());
 			$.each(approvalArr, function(i, value1){
 				$.each(selectedArr, function(j, value2){
 					
@@ -1422,7 +1384,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			var docuType = $("#documentTypeSelect option:selected").val();
 			//$("#documentTypeSelect option:selected").val()
 			
-			if(docuType == 'AP' || docuType == 'CF' || docuType == 'VA'){
+			if(docuType == 'AP' || docuType == 'CF'){
 				
 				var referRow = $(".referRow");
 				referRow.html('');
@@ -1521,7 +1483,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 						}
 					},
 					error:function(){
-						alertify.alert('DEVELOFFICE', 'AJAX통신 실패');
+						alertify.alert('', 'AJAX통신 실패');
 					}
 				});
 				
@@ -1638,12 +1600,6 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		/* 결제 정보 한줄 지우기 */
 		function removeRow(obj) {
 			$(obj).parent().parent().remove();
-			$("#spRow").remove();
-			sumPriceRow();
-			
-			if($('input[name=price]').val() == 0){
-				$("#spRow").remove();
-			}
 		}
 		
 		/* 지출 가격 총 합 나타내기 */
@@ -1660,7 +1616,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			var $td1 = $('<td>');
 			var $td2 = $('<td>');
 			var $td3 = $('<td>');
-			var $td4 = $('<td style="border-top:1px solid #ececec;">').text('총 '+sumPrice);
+			var $td4 = $('<td>').text('총 '+sumPrice);
 			var $h = $('<input type="hidden" name="price">').val(sumPrice);
 			$td4.append($h);
 			var $td5 = $('<td>');
@@ -1704,7 +1660,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			var security = $("#set_security_level_y option:selected").val();
 						
 			if(saveTerm == "" || security == ""){
-				alertify.alert('DEVELOFFICE', '보존연한 및 보안등급을 설정해 주세요.');
+				alertify.alert('', '보존연한 및 보안등급을 설정해 주세요.');
 				return;
 			}
 			
@@ -1721,11 +1677,12 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			formData.append('security',security);
 			
 			
+			/* 제목 */
+			var title = $("#approval_document_title").val();
+			formData.append('title',title);
+			
+			
 			if(docuType == 'AP'){	//지출결의서
-				
-				/* 제목 */
-				var title = $("#approval_document_title").val();
-				formData.append('title',title);
 				
 				/* 결재라인(배열) */
 				var apArr = "";
@@ -1840,14 +1797,6 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				
 			}else if(docuType == 'CN'){	//회람
 				
-				/* 결재라인(배열) */
-				var apArr = "";
-				formData.append("apArr", apArr);
-				
-				/* 제목 */
-				var title = $("#approval_document_title").val();
-				formData.append('title',title);
-				
 				/* 참조라인(배열) */
 				var rfArr = "";
 				var rfNames = $('.referRow2 span');
@@ -1866,10 +1815,6 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				
 			}else if(docuType == 'CF'){	//품의서
 				
-				/* 제목 */
-				var title = $("#approval_document_title").val();
-				formData.append('title',title);
-				
 				/* 에디터 내용 */
 				var content = $("#summernote").val();
 				formData.append('content',content);
@@ -1885,7 +1830,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					}
 				});
 				if(apArr == null){
-					alertify.alert('DEVELOFFICE', '결재 라인이 지정되지 않았습니다.');
+					alertify.alert('', '결재 라인이 지정되지 않았습니다.');
 					return;
 				}
 				formData.append('apArr',apArr);
@@ -1901,114 +1846,6 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					}
 				});
 				formData.append('rfArr',rfArr);
-				
-			} else if(docuType == 'VA'){	// 휴가원	
-				
-				/* 결재라인(배열) */
-				var apArr = "";
-				var apNames = $('#nameRow input[name=empId]');
-				$.each(apNames,function(i, id){
-					if(i == 0){
-						apArr += id.value;
-					}else{
-						apArr += ","+id.value;
-					}
-				});
-				if(apArr == null){
-					alertify.alert('DEVELOFFICE', '결재 라인이 지정되지 않았습니다.');
-					return;
-				}
-				formData.append('apArr',apArr);
-				
-				/* 참조라인(배열) */
-				var rfArr = "";
-				var rfNames = $('.referRow span');
-				$.each(rfNames,function(i, id){
-					if(i == 0){
-						rfArr += id.getAttribute('empId');
-					}else{
-						rfArr += ","+id.getAttribute('empId');
-					}
-				});
-				formData.append('rfArr',rfArr);
-				
-				/* 종일,반차 선택 */
-				var vacationType = $('input:radio[name=vacationType]:checked').val();
-				formData.append('vacationType',vacationType);
-				
-				/* 날짜 */
-				if(vacationType == 'ALL'){
-					var startDate = $('#alldayDate1').val();
-					var endDate = $('#alldayDate2').val();
-					formData.append('startDate',startDate);
-					formData.append('endDate',endDate);
-				} else{
-					var startDate = $('#harfdaydate').val();
-					formData.append('startDate',startDate);
-					formData.append('endDate',startDate);
-				}
-				
-				/* 사용일 */
-				var useDay = $('#useDay').text();
-				
-				/* 휴가 종류 */
-				var vacationName = $('select[name=vacationName] option:selected').val();
-				formData.append('vacationName',vacationName);
-				
-				/* 사유 */
-				var reason = $('input[name=reason]').val();
-				formData.append('reason',reason);
-				
-				/* 제목 */
-				var title = '휴가신청('+vacationName;
-				title += ')_'+startDate+'/';
-				title += useDay+'일/'+'${loginUser.empName}';
-				formData.append('title',title);
-				
-			} else if(docuType == 'RT'){	// 퇴직원	
-				
-				
-				
-				/* 결재라인(배열) */
-				var apArr = "";
-				var apNames = $('#nameRow input[name=empId]');
-				$.each(apNames,function(i, id){
-					if(i == 0){
-						apArr += id.value;
-					}else{
-						apArr += ","+id.value;
-					}
-				});
-				if(apArr == null){
-					alertify.alert('DEVELOFFICE', '결재 라인이 지정되지 않았습니다.');
-					return;
-				}
-				formData.append('apArr',apArr);
-				
-				/* 참조라인(배열) */
-				var rfArr = "";
-				var rfNames = $('.referRow span');
-				$.each(rfNames,function(i, id){
-					if(i == 0){
-						rfArr += id.getAttribute('empId');
-					}else{
-						rfArr += ","+id.getAttribute('empId');
-					}
-				});
-				formData.append('rfArr',rfArr);
-				
-				/* 입사일 */
-				var enrollDate = $('#enrollDate').text();
-				formData.append('enrollDate',enrollDate);
-				/* 퇴사일 */				
-				var retireDate = $('#retireDate').val();
-				formData.append('retireDate',retireDate);
-				/* 사유 */
-				var reason = $('textarea[name=reason]').val();
-				formData.append('reason',reason);
-				/* 제목 */
-				var title = '사직원('+retireDate+')_${loginUser.empName}';
-				formData.append('title',title);
 			}
 			
 			$.ajax({
@@ -2020,83 +1857,34 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				success:function(data){
 					
 					if(data == "success"){
-    					location.href="documentTable.do?condition=전체";
+    					location.href="documentTable.do";
     					
     				} else{
-    					alertify.alert('DEVELOFFICE', '기안 실패');
+    					alertify.alert('', '기안 실패');
     				}
 				},
 				error:function(){
-					alertify.alert('DEVELOFFICE', 'AJAX통신 실패');
+					alertify.alert('', 'AJAX통신 실패');
 				}
 			});
 			
 		}
 		
 		
+		
 		/* 연차 종일/반차 선택*/
 		$(document).on('change','input[name=vacationType]',function(){
 			if($(this).val() == 'ALL'){
-				$("#allday").css('display','inline-block');
+				$("#allday").css('display','block');
 				$("#harfday").css('display','none');
-				$('#useDay').text(1);
-				$('#alldayDate1').val('${now}');
-				$('#alldayDate2').val('${now}');
 			}else{
 				$("#allday").css('display','none');
-				$("#harfday").css('display','inline-block');
-				$('#useDay').text(0.5);
-				$('#harfdaydate').val('${now}');
+				$("#harfday").css('display','block');
 			}
 		});
 		
-		
-		/* 휴가 날짜 선택할 때 */
-		$(document).on('change','input[name=vacationDate]',function(){
-			
-			var strDate1 = $("#alldayDate1").val();
-	 		var strDate2 = $("#alldayDate2").val();
-	 		var arr1 = strDate1.split('-');
-	 		var arr2 = strDate2.split('-');
-	 		
-	 		/* console.log(arr1);
-	 		console.log(arr2); */
-	 		
-	 		var dat1 = new Date(arr1[0], arr1[1]-1, arr1[2]);
-	 		var dat2 = new Date(arr2[0], arr2[1]-1, arr2[2]);
-	 	
-	 		/* console.log(dat2);	 */
-	 		
-	 	    // 날짜 차이 알아 내기
-	 	    var diff = dat2.getTime() - dat1.getTime();
-	 	    var result = Math.floor(diff/1000/60/60/24);
-	 	    
-	 	    
-	 	    if(diff <= 0){
-	 	    	
-	 	    	dat2.setDate(dat1.getDate()+1);
-	 	    	
-	 	    	var year = dat2.getFullYear();
-	 	    	var month = dat2.getMonth()+1;
-	 	    	var day = dat2.getDate();
-	 	    		 	    	
-		 	    var month1 = month;
-		 	    var day1 = day;
-		 	    
-		 	    	if(month1 < 10){
-		 	    		month1 = "0"+month1;
-		 	    	}
-		 	    	if(day1 < 10){
-		 	    		day1 = "0"+day1;
-		 	    	}
-		 	    	
-	 	    	var dat2_2 = (year + "-" + month1 + "-" + day1);
-	 	    	$("#alldayDate2").val($("#alldayDate1").val()); // 하루 밀린 날짜 출력(string)
-	 	    	
-	 	    	result = 0;
-	 	    }
-	    	$("#useDay").text(result+1);
-		});
+	
+	
 		
 		
 		
@@ -2251,10 +2039,64 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		        $("#fileTr_" + fIndex).remove();
 		    }
 		 
+		    // 파일 등록
+		    function uploadFile(){
+		        // 등록할 파일 리스트
+		        var uploadFileList = Object.keys(fileList);
+		 
+		        // 파일이 있는지 체크
+		        if(uploadFileList.length == 0){
+		            // 파일등록 경고창
+		            alert("파일이 없습니다.");
+		            return;
+		        }
+		        
+		        // 용량을 500MB를 넘을 경우 업로드 불가
+		        if(totalFileSize > maxUploadSize){
+		            // 파일 사이즈 초과 경고창
+		            alert("총 용량 초과\n총 업로드 가능 용량 : " + maxUploadSize + " MB");
+		            return;
+		        }
+		            
+		        if(confirm("등록 하시겠습니까?")){
+		            // 등록할 파일 리스트를 formData로 데이터 입력
+		            var form = $('#uploadForm');
+		            var formData = new FormData(form);
+		            for(var i = 0; i < uploadFileList.length; i++){
+		                formData.append('files', fileList[uploadFileList[i]]);
+		            }
+		            
+		            $.ajax({
+		                url:"업로드 경로",
+		                data:formData,
+		                type:'POST',
+		                enctype:'multipart/form-data',
+		                processData:false,
+		                contentType:false,
+		                dataType:'json',
+		                cache:false,
+		                success:function(result){
+		                    if(result.data.length > 0){
+		                        alert("성공");
+		                        location.reload();
+		                    }else{
+		                        alert("실패");
+		                        location.reload();
+		                    }
+		                }
+		            });
+		        }
+		    }
+
+
+			
+			
+			
+			
+			
+			
 			
 			/*------------------------- 파일 드랍 끝 ---------------------------  */
-			
-			
 	</script>
 	
 	
