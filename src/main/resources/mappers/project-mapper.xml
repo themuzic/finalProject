@@ -60,7 +60,7 @@
 	
 	
 	<!-- TaskList 불러오기 -->
-	<select id="selectTaskList" parameterType="ProjectTask" resultMap="projectTaskResultSet">
+	<select id="selectTaskList" parameterType="_int" resultMap="projectTaskResultSet">
 		select *
 		from project_task
 		where p_no=#{pNo} and status != 'N'
@@ -80,6 +80,19 @@
 		order by p_no desc
 	</select>
 	
+	<!-- 업무 추가 -->
+	<insert id="insertTask" parameterType="ProjectTask">
+		insert into project_task
+		values(task_seq.nextval, #{pNo}, #{taskWriter}, #{taskTitle}, #{taskContent},
+       		   default, default, sysdate, sysdate, null, null)
+	</insert>
+	
+	<!-- project 상세조회 -->
+	<select id="projectDetail" parameterType="_int" resultMap="projectResultSet">
+		select *
+		from project
+		where p_no=#{pNo} and status!='N'
+	</select>
 	
 	
 	

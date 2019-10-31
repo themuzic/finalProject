@@ -27,8 +27,8 @@ public class ProjectDao {
 	}
 
 	// task 리스트 조회
-	public ArrayList<ProjectTask> selectTaskList(ProjectTask p){
-		return (ArrayList)sqlSession.selectList("projectMapper.selectTaskList",p);
+	public ArrayList<ProjectTask> selectTaskList(int pNo){
+		return (ArrayList)sqlSession.selectList("projectMapper.selectTaskList", pNo);
 	}
 	
 	// project 리스트 조회
@@ -39,5 +39,13 @@ public class ProjectDao {
 		return list;
 	}
 	
-	//
+	//업무 추가
+	public int insertTask(ProjectTask t) {
+		return sqlSession.insert("projectMapper.insertTask", t);
+	}
+	
+	// 프로젝트 상세 조회
+	public Project projectDetail(int pNo) {
+		return sqlSession.selectOne("projectMapper.projectDetail", pNo);
+	}
 }

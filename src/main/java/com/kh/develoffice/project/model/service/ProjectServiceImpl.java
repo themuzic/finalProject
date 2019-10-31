@@ -30,14 +30,26 @@ public class ProjectServiceImpl implements ProjectService{
 
 	// task 리스트 조회
 	@Override
-	public ArrayList<ProjectTask> selectTaskList(ProjectTask p) {
-		return pDao.selectTaskList(p);
+	public ArrayList<ProjectTask> selectTaskList(int pNo) {
+		return pDao.selectTaskList(pNo);
 	}
 
 	// 프로젝트 리스트 조회
 	@Override
 	public ArrayList<Project> selectPlist(int empId) {
 		return pDao.selectPlist(empId);
+	}
+
+	// 업무 추가
+	@Override
+	public int insertTask(ProjectTask t) {
+		return pDao.insertTask(t);
+	}
+
+	// 프로젝트 상세 조회
+	@Override
+	public Project projectDetail(int pNo) {
+		return pDao.projectDetail(pNo);
 	}
 
 	

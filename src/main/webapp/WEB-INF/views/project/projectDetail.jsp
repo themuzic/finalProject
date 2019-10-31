@@ -149,6 +149,7 @@
 						</ul>
 					</div>
 					
+					<input type="hidden" name="pNo" value="${ projectDetail.pNo }">
 					
 					<div class="pContent">
 						
@@ -169,10 +170,47 @@
 							</div>
 							
 							<div class="btnArea" style="float:left; padding:120px 0 0 0;">
-								<button type="button" class="btn btn-default" onclick="insertTaskView.do">
+								<button type="button" class="btn btn-default" id="add-task">
 									<i class="fa fa-plus-square"></i> 업무리스트 추가
 								</button>
 								&nbsp;
+								
+							<!-- 업무 추가 MODAL -->
+					        <div class="" tabindex="-1" role="dialog" id="insertTaskModal" class="show" style="display:none;">
+					     	 
+					     	   <input type="hidden" id="pNo" value="${ projectDetail.pNo }">
+					     	   
+					            <div class="" role="document">
+					                <div class="">
+					                
+					                    <div class="">
+											<br>
+											
+					                        <div class="row">
+					                            <div class="col-xs-12">
+					                                <label class="col-xs-4" for="edit-title"><b>업무</b></label>
+					                                <input class="inputModal" type="text" id="edit-title"
+					                                    name="taskTitle" required="required">
+					                            </div>
+					                        </div>
+					                        
+					                        <hr>
+					                        <div class="row">
+					                            <div class="col-xs-12">
+					                                <label class="col-xs-4" for="edit-desc"><b>업무 내용</b></label>
+					                                <textarea rows="4" cols="50" class="inputModal" name="taskContent"
+					                                    id="taskContent" style="resize:none;"></textarea>
+					                            </div>
+					                        </div>
+					                    </div>
+					                    <hr>
+					                    <div class="modalBtnContainer-modifyEvent" style="text-align:right; padding-right:10px;">
+					                        <button type="button" class="btn btn-primary" id="saveEvent">저장</button>
+					                        <button type="button" id="btn-default" class="btn btn-default">닫기</button>
+					                    </div>
+					                </div><!-- /.modal-content -->
+					            </div><!-- /.modal-dialog -->
+					        </div><!-- /.modal -->
 								
 								<!-- PM만 보이게 -->
 								<button type="button" class="btn btn-success">
@@ -218,8 +256,8 @@
 						        <c:forEach items="${ taskList }" var="t">
 						        	<tr>
 						        		<td>
-						        			<input type="hidden" name="taskNo" value="${ taskList.taskNo }">
-						        			<input type="hidden" name="pNo" value="${ taskList.pNo }">
+						        			<input type="hidden" id="taskNo" name="taskNo" value="${ t.taskNo }">
+						        			<input type="hidden" name="pNo" value="${ t.pNo }">
 						        		</td>
 						        		<td>
 						        			<c:if test="${ empty loginUser }">${ t.taskTitle }</c:if>
@@ -266,23 +304,6 @@
 					
 					</div>
 					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
 					<!-- 이 위까지 내용작성 -->
 					
 					</div>
@@ -327,6 +348,69 @@
 			 });
 		
 		});
+		
+		// 모달창 생성
+		$(document).on('click','#add-task',function(){
+			$('#insertTaskModal').dialog({
+	   		  title: '업무 추가',
+	  	      modal: true,
+	  	      width: '600'
+	  		});
+			
+			$("#deleteEvent").css('display','none');
+			
+		});
+		
+		// 모달창 닫기
+		$(function() {
+		    $("#btn-default").on('click', function() {
+		        $("#insertTaskModal").dialog("close");
+		    });
+		});
+		
+		
+		// 업무 추가 인설트 - 저장 버튼
+		$(document).on('click', '#saveEvent', function(){
+
+			// var taskNo = $("#taskNo").val();
+			 var pNo = $("#pNo").val();
+			 var taskTitle = $("input[name=taskTitle]").val();
+			 var taskContent = $("#taskContent").val();
+			 
+			 $.ajax({
+			
+				url:"insertTask.do",
+				type:"POST",
+				data:{
+					
+					  //taskNo:taskNo,
+					  pNo:pNo,
+					  taskTitle:taskTitle,
+					  taskContent:taskContent,
+					  taskWriter:"${loginUser.empId}"
+					 
+				},
+				success:function(data){
+					if(data == 'success'){
+						$("#pNo").val("");
+						$("input[name=taskTitle]").val("");
+						$("#taskContent").val("");
+						
+						$("#eventModal").dialog("close");
+						
+						
+					}else{
+						alertify.alert("delveloffice", "업무 추가 실패");
+					}
+				},
+				error:function(){
+					alertify.alert("develoffice", "통신실패");
+				}
+			 });
+		});
+		
+		
+		
 		
 		
 		/* progress bar */

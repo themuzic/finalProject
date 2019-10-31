@@ -80,6 +80,7 @@
 							<c:forEach items="${ plist }" var="p">
 							<c:if test="${ !empty loginUser.empId }">
 								<input type="hidden" name="empId" value="${ loginUser.empId }">
+								<input type="hidden" name="pNo" value="${ p.pNo }">
 								<div class="card">
 							    <div class="content">
 							      <div class="header" style="padding:0 0 10px 0;">${ p.pName }</div>
@@ -100,36 +101,19 @@
 							        <p style="text-align:right;">${ p.pEnrollDate }</p>
 							      </div>
 							    </div>
-							    <div class="ui bottom attached button" onclick="location.href='projectDetail.do'">
+							    <div class="ui bottom attached button">
+							      <c:url value="projectDetail.do" var="pd">
+							      <input type="hidden" name="pNo" value="${ p.pNo }">
+							      		<c:param name="pNo" value="${ p.pNo }"/>
+							      </c:url>
+							      <a href="${ pd }">
 							      <i class="fas fa-sign-in-alt"></i>
 							      입장
+							      </a>
 							    </div>
 							   </div>
 							</c:if>
 							</c:forEach>
-						  	
-						  
-						  
-						  <!-- <div class="card">
-						    <div class="content">
-						      <div class="header" style="padding:0 0 10px 0;">Semi Project</div>
-						      <div class="meta" style="float:right; padding:0 0 10px 0;">
-						        <i class="fas fa-user-cog"></i>
-						        <span>원영주</span>
-						      </div>
-						      <div class="description">
-						        <i class="fas fa-users"></i>
-						        <span>Elliot Fu is a film-maker from New York.</span>
-						      </div>
-						    </div>
-						    <div class="ui bottom attached button" onclick="location.href='projectDetail.do'">
-						      <i class="fas fa-sign-in-alt"></i>
-						      입장
-						    </div>
-						  </div> -->
-						  
-						  
-						  
 						  
 						</div>
 						
