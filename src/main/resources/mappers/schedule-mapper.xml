@@ -34,19 +34,7 @@
 		<if test='splan == "T"'>
 		and dept_code=#{deptCode}
 		</if>
-		order by create_date desc
-		
-<!-- 		select s_no, to_char(trunc(#{startDate},'dd') + 1,'yyyy-mm-dd') start_date, start_time,to_char(trunc(#{endDate},'dd') + 1,'yyyy-mm-dd') end_date, end_time, emp_Id, emp_name || ' ' || job_name as emp_name, s.create_date, s_title,  -->
-<!--         s_content, back_color, s_type, s_plan, dept_code, all_day  -->
-<!-- 		from schedule s -->
-<!-- 		join employee using(emp_id) -->
-<!-- 		join job using(job_code) -->
-<!-- 		where s.status='Y' and s_plan=#{splan} -->
-<!-- 		<if test='splan="T"'> -->
-<!-- 		and dept_code=#{deptCode} -->
-<!-- 		</if> -->
-<!-- 		order by create_date desc -->
-		
+		order by create_date desc	
 	</select>
 	
 	<!-- 일정등록 -->
