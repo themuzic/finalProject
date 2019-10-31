@@ -538,13 +538,7 @@
 						</li>
 
 						<li>
-							<a href="#menu4" data-toggle="collapse" class="collapsed menu" id="menu4_1"><i class="fa fa-calendar"></i> <span>일정관리</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="menu4" class="collapse ">
-								<ul class="nav">
-									<li><a href="publicScheduleList.do" class="" id="m4_1">공통일정</a></li>
-									<li><a href="teamScheduleList.do" class="" id="m4_2">팀별일정</a></li>						
-								</ul>
-							</div>
+							<a href="teamScheduleList.do" class="" id="m4_2"><i class="fa fa-calendar"></i> <span>일정관리</span><i class="icon-submenu lnr lnr-chevron-left" style="font-size:12px; margin-left:85px;"></i></a>					
 						</li>
 
 						<li>

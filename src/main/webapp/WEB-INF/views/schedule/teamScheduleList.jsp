@@ -440,14 +440,15 @@
 
 				 });
 			},
+			
 		    // substr = 인덱스~몇번째
 		    eventMouseover: function(calEvent, jsEvent) {
-		        var tooltip = '<div class="tooltipevent" style="width:300px;height:150px;background:#e9e9e9;position:absolute;z-index:10001; padding-left:23px; padding-top:15px;">' 
+		        var tooltip = '<div class="tooltipevent" style="width:280px;height:250px;background:#e9e9e9;position:absolute;z-index:10001; padding-right:23px; padding-left:23px; padding-top:15px;">' 
 		        			  +	"<b>등록자</b>: &nbsp;" + calEvent.schd_idx + '<br>'
 		        			  + "<b>시작시간</b>: &nbsp;" + calEvent.start.format().split('T')[0] + " " + calEvent.start.format().split('T')[1].substr(0,5) + '<br>'
 		        			  + "<b>종료시간</b>: &nbsp;" + calEvent.end.format().split('T')[0] + " " + calEvent.end.format().split('T')[1].substr(0,5) + '<br>'
 		        			  + "<br>"
-		        			  + "<b>제목</b>: &nbsp;" + calEvent.title + '<br>'
+		        			  + "<b>일정</b>: &nbsp;" + calEvent.title + '<br>'
 		        			  + "<b>내용</b>: &nbsp;" + calEvent.description + '<br>'
 		        			  + '</div>';
 
@@ -469,9 +470,9 @@
 		        $('.tooltipevent').remove();
 		    },	   
 			
-			// 모달창 생성
+			// 일정 클릭 모달창 생성
 			eventRender: function (event, element) {
-				
+
 				var deptCode = '${loginUser.deptCode}';
 				var splan = $("input[name=splan]:checked").val();
 				
@@ -487,19 +488,73 @@
 				        	      width: '600'
 				        	});
 				        	
+							var startDate = $("input[name=startDate]");
+							var startTime = $("select[name=startTime]");
+							var endDate = $("input[name=endDate]");
+							var endTime = $("select[name=endTime]");
+							var stitle = $("input[name=stitle]");
+							var scontent = $("#edit-desc");
+							var stype = $("select[name=stype]");
+							var backColor = $("select[name=backColor]");
+				        	
+							// 내 아이디가 아니면 수정하는 것들 disabled 처리
+// 							console.log(event.className);
+				        	if(event.className != ${loginUser.empId}){
+				        		
+				        		startDate.attr("disabled", true);
+				        		endDate.attr("disabled", true);
+				        		startTime.prop("disabled", true);
+				        		endTime.prop("disabled", true);
+				        		stitle.attr("disabled", true);
+				        		scontent.attr("disabled", true);
+				        		stype.prop("disabled", true);
+				        		backColor.prop("disabled", true);
+				        		$("#allDay").attr("disabled", true);
+				        		
+				        	}else{
+				        		console.log("찍히나");
+				        		startDate.attr("disabled", false);
+				        		endDate.attr("disabled", false);
+				        		startTime.prop("disabled", false);
+				        		endTime.prop("disabled", false);
+				        		stitle.attr("disabled", false);
+				        		scontent.attr("disabled", false);
+				        		stype.prop("disabled", false);
+				        		backColor.prop("disabled", false);
+				        		$("#allDay").attr("disabled", false);
+				        	}
+							
+							$("#edit-title").val(event.title);
+							$("#startDate").val(event.start.format().split("T")[0]);
+							$("#endDate").val(event.end.format().split("T")[0]);
+							$("#edit-color").val(event.color);
+							$("#edit-desc").val(event.description);
+							$("#start").val(event.agenda);
+							
+							$("#end").val(event.end.format().split('T')[0] + " " + event.end.format().split('T')[1].substr(0,5));
+							
+							
+// 							$("#edit-type").val(event.stype);
+							// 시간이랑 타입은,,,
+							
+							
+							
+							
+				        	
+				        	/* 저장 버튼 보이지 않게 */
 				        	$("#saveEvent").css('display','none');
 				        	
-				        	console.log(event.className);
+// 				        	console.log(event.className);
+
 				        	if(${loginUser.empId} == event.className){
 				        		
 				        		$("#updateEvent").css('display','inline-block');
 					        	$("#deleteEvent").css('display','inline-block');
+					        	
 				        	}else{
 				        		$("#updateEvent").css('display','none');
 					        	$("#deleteEvent").css('display','none');
 				        	}
-				        	
-				        	
 				        	
 				        	$("#sNo").val(event.id); 
 				        	
@@ -519,7 +574,7 @@
 		};
 	
 	
-		// 모달창 생성
+		// 일정 추가 모달창 생성
 		$(document).on('click','.fc-day',function(){
 			
 			var deptCode = '${loginUser.deptCode}';
@@ -533,6 +588,36 @@
 		  	      width: '600'
 		  		});
 				
+				var startDate = $("input[name=startDate]");
+				var startTime = $("select[name=startTime]");
+				var endDate = $("input[name=endDate]");
+				var endTime = $("select[name=endTime]");
+				var stitle = $("input[name=stitle]");
+				var scontent = $("#edit-desc");
+				var stype = $("select[name=stype]");
+				var backColor = $("select[name=backColor]");
+        		
+        		// 일정 추가 모달창 초기화
+        		$("#edit-title").val('');
+				$("#startDate").val('');
+				$("#endDate").val('');
+				$("#edit-color").find('option:eq(0)').prop('selected', true);
+				$("#edit-desc").val('');
+				$("#start").find('option:eq(0)').prop('selected', true);
+				$("#end").find('option:eq(0)').prop('selected', true);
+				
+				// 그냥 일정 등록하는 모달에서는 disabled 풀어
+        		startDate.attr("disabled", false);
+        		endDate.attr("disabled", false);
+        		startTime.prop("disabled", false);
+        		endTime.prop("disabled", false);
+        		stitle.attr("disabled", false);
+        		scontent.attr("disabled", false);
+        		stype.prop("disabled", false);
+        		backColor.prop("disabled", false);
+        		$("#allDay").attr("disabled", false);
+
+				// 버튼 이벤트
 				$("#deleteEvent").css('display','none');
 				$("#saveEvent").css('display','inline-block');
 				$("#updateEvent").css('display','none');
@@ -555,37 +640,8 @@
 		    });
 		});
 		
-		$(document).on('change', 'input[name=splan]',function(){
-					console.log(${loginUser.deptCode});
-			
-			if(${loginUser.deptCode} != 2){
-				
-				if($(this).val() == 'C'){
-					$("#eventModal").removeClass('eventModal');
-					
-				}else{
-					if(!($("#eventModal").hasClass('eventModal'))){
-						$("#eventModal").addClass('eventModal');
-					}
-				}
-			}
-		});
-		
-		
 		// 일정 추가 인설트
 		$(document).on('click', '#saveEvent', function(){
-			
-	// 		var startDate = $("#startDate").val();
-	// 		var startTime = $("#startTime").val();
-	// 		var endDate = $("#endDate").val();
-	// 		var endTime = $("#endTime").val();
-	// 		var startDateTime = startDate + startTime;
-	// 		var endDateTime = endDate + endTime;
-			
-	// 		if(Number(startDate) >= Number(endDate) || Number(startDateTime) >= Number(endDateTime) ){
-				
-	// 			alertify.alert("develoffice","시작시간은 종료시간보다 크거나 같을 수 없습니다.");
-	// 		}
 	
 			 var sno = $("#sNo").val();
 			 var startDate = $("input[name=startDate]").val();
@@ -597,7 +653,6 @@
 			 var stype = $("select[name=stype] option:selected").val();
 			 var backColor = $("select[name=backColor] option:selected").val();
 			 var splan = $("input[name=splan]:checked").val();
-	// 		 console.log(startTime);
 			 var allDay;
 			 if($("#allDay").prop('checked')){
 				allDay ='Y'; 
@@ -625,9 +680,9 @@
 				success:function(data){
 					if(data == 'success'){
 						
-						$("input[name=startDate]").val("");
+						$("input[name=startDate]").val('');
 						$("select[name=startTime]").children().first().prop('selected', true);
-						$("input[name=endDate]").val("");
+						$("input[name=endDate]").val('');
 						$("select[name=endTime]").find('option:eq(0)').prop('selected', true);
 						$("input[name=stitle]").val("");
 						$("#edit-desc").val("");
@@ -646,7 +701,7 @@
 					}
 				},
 				error:function(){
-					alertify.alert("develoffice", "통신실패");
+					alertify.alert("develoffice", "모두 입력해주세요");
 				}
 			 });
 		});
@@ -745,6 +800,8 @@
 								calEvent.color = value.backColor;
 								calEvent.className = value.empId;
 								
+								calEvent.agenda = value.startTime;
+								
 								// 내 일정 아니면 못움직이게
 								if(value.deptCode == 2 || 3 || 4){
 									
@@ -832,7 +889,7 @@
 							 refresh(splan);
 							 addCalendarList($(this).val());
 						 }else{
-							 alertify.alert("develoffice","통신실패");
+							 alertify.alert("develoffice","모두 입력해주세요");
 						 }
 					 },
 					 error:function(){

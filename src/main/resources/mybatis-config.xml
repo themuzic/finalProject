@@ -30,6 +30,7 @@
 		<typeAlias type="com.kh.develoffice.todo.model.vo.Todo" alias="Todo"/>
 		<typeAlias type="com.kh.develoffice.todo.model.vo.Help" alias="Help"/>
 		<typeAlias type="com.kh.develoffice.mail.model.vo.Mail" alias="Mail"/>
+		<typeAlias type="com.kh.develoffice.schedule.model.vo.Schedule" alias="Schedule"/>
 		<typeAlias type="com.kh.develoffice.free.model.vo.FreeReply" alias="FreeReply"/>
 		<typeAlias type="com.kh.develoffice.free.model.vo.FreeLike" alias="FreeLike"/>
 		<typeAlias type="com.kh.develoffice.teamboard.model.vo.TeamBoard" alias="TeamBoard"/>
@@ -51,6 +52,7 @@
 		<mapper resource="mappers/free-mapper.xml"/>
 		<mapper resource="mappers/todo-mapper.xml"/>
 		<mapper resource="mappers/mail-mapper.xml"/> 
+		<mapper resource="mappers/schedule-mapper.xml"/>
 		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/project-mapper.xml"/>
 		<mapper resource="mappers/teamBoard-mapper.xml"/>
