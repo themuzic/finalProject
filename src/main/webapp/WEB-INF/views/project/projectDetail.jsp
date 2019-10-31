@@ -159,15 +159,48 @@
 							<!-- progress 바 -->
 							<!-- PM만 수정가능 , 나머지는 readonly -->
 							<div class="prgress-bar" style="float:right; border:1px solid #F2E9E1;">
-								<p align="center" style="font-size:23px; color:#53777A; font-weight:bold; padding:10px 0 0 0;" >진행률</p>
+								<p align="center" style="font-size:23px; color:#53777A; font-weight:bold; padding:10px 0 0 0;" >진행상황</p>
 								<div class="progress-circle p50">
-								  <span>50%</span>
+								  <span>${ projectDetail.pProgress }%</span>
 								  <div class="left-half-clipper">
 								    <div class="first50-bar"></div>
 								    <div class="value-bar"></div>
 								  </div>
 								</div>
 							</div>
+							
+							<!-- progress 수정 MODAL -->
+					        <div class="" tabindex="-1" role="dialog" id="updateProgressModal" class="show" style="width:300px; display:none;">
+					     	 
+					     	   <input type="hidden" id="pNo" value="${ projectDetail.pNo }">
+					     	   
+					            <div class="" role="document">
+					                <div class="">
+					                
+					                    <div class="">
+											<br>
+											
+					                        <div class="row">
+					                            <div class="col-xs-12">
+					                                <label class="col-xs-4" style="width:250px;" for="edit-title"><b>이번 프로젝트 % 완성되었나요?</b></label>
+					                                <input class="inputModal" type="number" id="edit-title"
+					                                    name="pProgress" required="required">
+					                            </div>
+					                        </div>
+					                        
+					                        <hr>
+					                        
+					                    </div>
+					                    <hr>
+					                    <div class="modalBtnContainer-modifyEvent" style="text-align:right; padding-right:10px;">
+					                        확실하신가요? &nbsp;<button type="button" class="btn btn-primary" id="saveProgress">예</button><br><br>
+					                        다시 생각해볼게요. &nbsp;<button type="button" id="backback" class="btn btn-default">닫기</button>
+					                    </div>
+					                </div><!-- /.modal-content -->
+					            </div><!-- /.modal-dialog -->
+					        </div><!-- /.modal -->
+							
+							
 							
 							<div class="btnArea" style="float:left; padding:120px 0 0 0;">
 								<button type="button" class="btn btn-default" id="add-task">
@@ -280,18 +313,7 @@
 						        	</tr>
 						        </c:forEach>
 						        
-						            <tr>
-						            	<td>
-						            		<input type="hidden">
-						            		<input type="checkbox">
-						            	</td>
-						            	<td></td>
-						            	<td style="padding-left:60px;">!!!이번주 점심 정하기!!!</td>
-						            	<td>진행중</td>
-						            	<td class="date">19-09-17 10:43</td>
-						            	<td class="date">19-10-13 09:47</td>
-						            </tr>
-						             
+						  
 						        </tbody> 
 							</table>
 							
@@ -382,22 +404,18 @@
 				url:"insertTask.do",
 				type:"POST",
 				data:{
-					
 					  //taskNo:taskNo,
 					  pNo:pNo,
 					  taskTitle:taskTitle,
 					  taskContent:taskContent,
 					  taskWriter:"${loginUser.empId}"
-					 
 				},
 				success:function(data){
 					if(data == 'success'){
 						$("#pNo").val("");
 						$("input[name=taskTitle]").val("");
-						$("#taskContent").val("");
 						
-						$("#eventModal").dialog("close");
-						
+						$("#insertTaskModal").dialog("close");
 						
 					}else{
 						alertify.alert("delveloffice", "업무 추가 실패");
@@ -413,7 +431,59 @@
 		
 		
 		
-		/* progress bar */
+		/* progress bar 모달*/
+		// 모달창 생성
+		$(document).on('click','.prgress-bar',function(){
+			$('#updateProgressModal').dialog({
+	   		  title: '진행상황 수정',
+	  	      modal: true,
+	  	      width: '600'
+	  		});
+			
+			$("#deleteEvent").css('display','none');
+			
+		});
+		
+		// 모달창 닫기
+		$(function() {
+		    $("#backback").on('click', function() {
+		        $("#updateProgressModal").dialog("close");
+		    });
+		});
+		
+		
+		// 진행상황 수정 - 저장 버튼
+		$(document).on('click', '#saveProgress', function(){
+
+			 var pNo = $("#pNo").val();
+			 var pProgress = $("input[name=pProgress]").val();
+			 
+			 $.ajax({
+			
+				url:"updateProgress.do",
+				type:"POST",
+				data:{
+					  pNo:pNo,
+					  pProgress:pProgress,
+					  empId:"${loginUser.empId}"
+				},
+				success:function(data){
+					if(data == 'success'){
+						$("#pNo").val("");
+						$("input[name=pProgress]").val("");
+						
+						$("#updateProgressModal").dialog("close");
+						
+						
+					}else{
+						alertify.alert("delveloffice", "업무 추가 실패");
+					}
+				},
+				error:function(){
+					alertify.alert("develoffice", "통신실패");
+				}
+			 });
+		});
 		
 	
 	

@@ -46,6 +46,13 @@ public class ProjectDao {
 	
 	// 프로젝트 상세 조회
 	public Project projectDetail(int pNo) {
-		return sqlSession.selectOne("projectMapper.projectDetail", pNo);
+		Project p = sqlSession.selectOne("projectMapper.projectDetail", pNo);
+		System.out.println("dao : " + p);
+		return p;
+	}
+	
+	// 진행상황 수정
+	public int updateProgress(int empId) {
+		return sqlSession.update("projectMapper.updateProgress", empId);
 	}
 }

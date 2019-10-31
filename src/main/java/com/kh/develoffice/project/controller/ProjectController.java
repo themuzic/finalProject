@@ -140,12 +140,12 @@ public class ProjectController {
 		
 		// 프로젝트 상세 조회
 		Project projectDetail = pService.projectDetail(pNo);
-		System.out.println(p);
 		
 		// 업무 리스트 불러오기
 		ArrayList<ProjectTask> taskList = pService.selectTaskList(pNo);
+		System.out.println(p);
 		
-		if(taskList != null) {
+		if(projectDetail != null) {
 			mv.addObject("projectDetail", projectDetail);
 			mv.addObject("taskList", taskList);
 			mv.setViewName("project/projectDetail");
@@ -158,11 +158,14 @@ public class ProjectController {
 	
 	@RequestMapping("afterTask.do")
 	public String afterTask(int pNo, HttpSession session, ProjectTask p, Model model) {
+		System.out.println("afterTask");
 		Employee e = (Employee)session.getAttribute("loginUser");
 		p.setTaskWriter(e.getEmpId());
 		
 		Project projectDetail = pService.projectDetail(pNo);
 		ArrayList<ProjectTask> taskList = pService.selectTaskList(pNo);
+		
+		System.out.println("afterTask2");
 		
 		if(taskList != null) {
 			model.addAttribute(projectDetail);
@@ -187,14 +190,35 @@ public class ProjectController {
 		System.out.println(t);
 		
 		int result = pService.insertTask(t);
+		System.out.println(t);
 		
 		if(result > 0) {
-			return "redirect:afterTask.do";
+			System.out.println("여기까지 넘어옴");
+			return "project/projectDetail";
 		} else {
 			model.addAttribute("msg", "보드 생성에 실패하였습니다.");
 			return "common/blankPage";
 		}
 		
+	}
+	
+	// 진행상황 수정
+	@ResponseBody
+	@RequestMapping("updateProgress.do")
+	public ModelAndView updateProgress(Project p, ModelAndView mv, HttpSession session) {
+		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		int empId = e.getEmpId();
+		//System.out.println("empId: " + empId);
+		int result = pService.updateProgress(empId);
+			
+		if(result > 0) {
+			mv.addObject("pProgress", p.getpProgress());
+			mv.setViewName("project/projectDetail");
+		}else {
+			mv.addObject("msg", "권한이 없습니다.");
+		}
+		return mv;
 	}
 	
 	

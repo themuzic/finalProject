@@ -25,4 +25,7 @@ public interface ProjectService {
 	
 	// 업무 추가
 	int insertTask(ProjectTask t);
+	
+	// 진행상황 수정
+	int updateProgress(int empId);
 }

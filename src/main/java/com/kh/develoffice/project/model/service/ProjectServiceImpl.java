@@ -52,6 +52,12 @@ public class ProjectServiceImpl implements ProjectService{
 		return pDao.projectDetail(pNo);
 	}
 
+	// 진행상황 수정
+	@Override
+	public int updateProgress(int empId) {
+		return pDao.updateProgress(empId);
+	}
+
 	
 
 	

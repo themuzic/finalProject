@@ -63,16 +63,12 @@
 	<select id="selectTaskList" parameterType="_int" resultMap="projectTaskResultSet">
 		select *
 		from project_task
-		where p_no=#{pNo} and status != 'N'
+		where p_no=#{pNo} and status ='Y'
 		order by task_no desc
 	</select>
 	
 	<!-- project 리스트 불러오기 -->
 	<select id="selectPlist" parameterType="_int" resultMap="projectResultSet">
-		<!-- select *
-		from project
-		join project_member using(p_no)
-		where emp_id=#{empId} and status='Y' -->
 		select *
 		from project p
 		join project_member m using(p_no)
@@ -94,6 +90,12 @@
 		where p_no=#{pNo} and status!='N'
 	</select>
 	
+	<!-- 진행상황 수정 -->
+	<update id="updateProgress" parameterType="_int">
+		update project
+		set p_progress=80
+		where pm_id=#{empId} and p_no=#{pNo}
+	</update>
 	
 	
 	
