@@ -92,7 +92,7 @@ body{
 	float: left;
 }
 .headLeft-sub{
-	padding: 10px 15px 0px 15px;
+	padding: 5px 0px 5px 15px;
 }
 
 .body-section{
@@ -131,7 +131,7 @@ body{
 .message ul li.msg-left img{
 	position: absolute;
 	width: 40px;
-	bottom: 30px;
+	top:10px;
 	border-radius:40%;
 }
 .message ul li.msg-left .msg-desc{
@@ -141,6 +141,7 @@ body{
 	padding:10px 10px;
 	border-radius: 5px 5px 5px 0px;
 	position: relative;
+	word-break: break-word;
 }
 .message ul li.msg-left .msg-desc:before{
 	position: absolute;
@@ -162,7 +163,7 @@ body{
 	position: absolute;
 	width: 40px;
 	right: 0px;
-	bottom: 30px;
+	top:10px;
 	border-radius: 40%;
 }
 .message ul li.msg-right .msg-desc{
@@ -173,6 +174,7 @@ body{
 	padding:10px 10px;
 	border-radius: 5px 5px 5px 0px;
 	position: relative;
+	word-break: break-word;
 }
 .message ul li.msg-right .msg-desc:before{
 	position: absolute;
@@ -396,6 +398,11 @@ body{
             }
         });
 		
+        $("#rename").on('click', function(){
+        	var name = $(this).parent().next().html();
+        	console.log(name);
+        })
+        
 		$('#alarm').on('click', function(){
 			console.log($(this).find("i").prop("class").split(" ")[3]);
 			var alarmClass = $(this).find("i").prop("class").split(" ")[3];
@@ -741,7 +748,7 @@ body{
 		<div class="head-section">
 			<div class="headLeft-section">
 				<div class="headLeft-sub">
-					<div style="float:right; padding-top:5px;">
+					<div style="float:right; padding-top:10px; margin-left: 10px; cursor:pointer;">
 						<c:if test="${c.chatType == 2 }">
 							<c:if test="${c.alarm eq 'Y' }">
 							<a id="alarm"><i class="alarm ui fa fa-bell"></i></a>
@@ -750,6 +757,9 @@ body{
 							<a id="alarm"><i class="alarm ui fa fa-bell-slash"></i></a>
 							</c:if>
 						</c:if>
+					</div>
+					<div style="float:right; padding-top:10px; cursor:pointer;">
+						<a id="rename"><i class="fa fa-edit"></i></a>
 					</div>
 					<h4>${c.chatName }</h4>
 				</div>
@@ -792,9 +802,7 @@ body{
 										<div style="margin-left:70px; font-size:12px">
 											${msg.empName} ${msg.jobName }
 										</div>
-										<div class="msg-desc">
-											${msg.content}
-										</div>
+										<div class="msg-desc">${msg.content}</div>
 										<small>${msg.createDate}</small>
 									</div>
 								</li>

@@ -83,5 +83,8 @@ public interface ChatService {
 	// 방에 알람 켜 있는 사람 조회 서비스
 	ArrayList<Chat> selectAlarmList(Chat c);
 
+	// 사원 검색 서비스
+	ArrayList<Employee> searchEmpList(String search);
+
 
 }

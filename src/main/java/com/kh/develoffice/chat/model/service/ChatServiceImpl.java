@@ -151,5 +151,10 @@ public class ChatServiceImpl implements ChatService {
 		return cDao.selectAlarmList(c);
 	}
 
+	@Override
+	public ArrayList<Employee> searchEmpList(String search) {
+		return cDao.searchEmpList(search);
+	}
+
 
 }

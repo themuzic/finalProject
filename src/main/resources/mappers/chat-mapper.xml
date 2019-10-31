@@ -188,7 +188,7 @@
 	<!-- 채팅방 인원 추가시 기존 인원 채팅방 이름 변경 -->
 	<update id="updateDefaultChatName" parameterType="Chat">
 		UPDATE JOIN_CHAT
-		SET CHAT_NAME = #{chatName}
+		SET CHAT_NAME = #{chatName}, AUTO_NAME = FN_KO_CHAR(#{chatName})
 		WHERE CHAT_ID = #{chatId} AND NAME_STATUS = 'N'
 	</update>
 	
@@ -242,11 +242,26 @@
 		WHERE CHAT_ID = #{chatId} AND EMP_ID = #{empId}
 	</update>
 
+	<!-- 알람 띄워야 할 리스트 출력 -->
 	<select id="selectAlarmList" parameterType="Chat" resultMap="alarmResult">
 		select emp_id, chat_name, chat_type
 		from join_chat
 		join chat using(chat_id)
 		where chat_id=#{chatId} and emp_id != #{empId} and alarm_yn='Y'
+	</select>
+	
+	<!-- 직원 검색 서비스 -->
+	<select id="searchEmpList" parameterType="String" resultMap="empResultSet">
+		select *
+		from emp
+		where div_name like '%' || #{search} || '%' or emp_name like '%' || #{search} || '%'
+	</select>
+
+	<!-- 대화방 검색 서비스 -->
+	<select id="searchChatList" parameterType="_int" resultMap="chatListResult">
+		select *
+		from chatlist_view
+		where emp_id = #{empId} and auto_name like '%' || #{search} || '%' or chat_name like '%' || #{search} || '%'
 	</select>
 
 </mapper>

@@ -3,6 +3,7 @@ package com.kh.develoffice.chat.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -31,13 +32,17 @@ public class ChatController {
 		int empId = ((Employee)session.getAttribute("loginUser")).getEmpId();
 		
 		ArrayList<Employee> empList = cService.selectEmpList();
+		
+		
 		for(int i=0; i<empList.size(); i++) {
 			if(empId == empList.get(i).getEmpId()) {
 				empList.remove(i);
 				break;
 			}
 		}
-		mv.addObject("empList", empList);
+		
+		String test = new Gson().toJson(empList);
+		mv.addObject("empList", empList).addObject("test", test);
 		mv.setViewName("chat/chatMainView");
 		return mv;
 	}
@@ -193,5 +198,20 @@ public class ChatController {
 		
 		mv.addObject("c", c).setViewName("chat/alarm");
 		return mv;
+	}
+	
+	@RequestMapping("empListSearch.do")
+	public void searchEmpList(String search, int empId, HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<Employee> empList = cService.searchEmpList(search);
+		for(int i=0; i<empList.size(); i++) {
+			if(empList.get(i).getEmpId() == empId) {
+				empList.remove(i);
+				break;
+			}
+		}
+		System.out.println(empList);
+		response.setContentType("application/json; charset=utf-8");
+		Gson gson = new Gson();
+		gson.toJson(empList, response.getWriter());
 	}
 }

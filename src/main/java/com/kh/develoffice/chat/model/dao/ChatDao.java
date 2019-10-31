@@ -129,6 +129,10 @@ public class ChatDao {
 		return (ArrayList)sqlSession.selectList("chatMapper.selectAlarmList", c);
 	}
 
+	public ArrayList<Employee> searchEmpList(String search) {
+		return (ArrayList)sqlSession.selectList("chatMapper.searchEmpList", search);
+	}
+
 
 	
 }

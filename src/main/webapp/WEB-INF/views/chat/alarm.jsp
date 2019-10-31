@@ -25,7 +25,7 @@
 </head>
 <body>
 	<div>
-		<div style="height:15%; text-align:right">
+		<div style="float:right; width:15%; text-align:right">
 		<c:if test="${c.chatType == 2 }">
 			<a id="alarm"><i class="alarm ui fa fa-bell"></i></a>
 			<a id="exit"><i class="fa fa-times"></i></a>
@@ -34,11 +34,13 @@
 			<a id="exit"><i class="fa fa-times"></i></a>
 		</c:if>
 		</div>
-		<div style="float:left; height:85%;">
-			<div style="float:left; width:15%; height:100%;" ><img style="width:100%; height:100%;  border-radius:40%;" src="resources/upload/profile/${c.chatStatus}"></div>
-			<div style="float:right; width:85%; height:100%;">
-				<div style="font-size:14px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; width:100%">${c.chatName }</div>
-				<div style="font-size:14px; display:inline-block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; width:100%;">${c.lastMsg }</div>
+		<div style="float:left; width:85%;">
+			<div style="float:left; width:15%; height:100%;" >
+				<img style="width:100%; height:100%;  border-radius:40%;" src="resources/upload/profile/${c.chatStatus}">
+			</div>
+			<div style="float:right; width:80%; height:100%;">
+				<div style="font-size:14px; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; width:100%"><b>${c.chatName }</b></div>
+				<div style="font-size:14px; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; width:100%;">${c.lastMsg }</div>
 			</div>
 		</div>
 	

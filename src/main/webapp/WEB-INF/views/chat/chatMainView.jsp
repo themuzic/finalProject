@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -171,6 +171,60 @@ ul li:hover{
             sendMessage();	// 메소드 실행
 
         });
+        
+        $("#search").on('keyup', function(){
+        	var search = $(this).val();
+        	console.log(search);
+        	var empList = ${test};
+        	var html = '';
+        	if(search == ""){
+        		$.each(empList, function(index, emp){
+        			html += '<li>' +
+        					'<div class="chatList">' +
+        					'<input type="hidden" name="empId" value="' + emp.empId + '">' +
+        					'<div class="img">' +
+        					'<img src="resources/upload/profile/' + emp.profilePath + '">' +
+        					'</div>' +
+        					'<div class="desc">' +
+        					'<h5>' + emp.empName + ' ' +  emp.jobName + '</h5>' +
+        					'<small>' + (emp.statusMsg == null ? '' : emp.statusMsg) + '</small>' +
+        					'</div>' +
+        					'</div>' +
+        					'</li>';
+        		});
+        		$("#empList").html(html);
+        	}else{
+	        	$.ajax({
+	        		url:'empListSearch.do',
+	        		type:'POST',
+	        		data:{search:search,empId:'${loginUser.empId}'},
+	        		dataType:'json',
+	        		success:function(data){
+	        			console.log(data);
+	        			$.each(data, function(index, emp){
+	        				console.log(emp);
+	            			html += '<li>' +
+	            					'<div class="chatList">' +
+	            					'<input type="hidden" name="empId" value="' + emp.empId + '">' +
+	            					'<div class="img">' +
+	            					'<img src="resources/upload/profile/' + emp.profilePath + '">' +
+	            					'</div>' +
+	            					'<div class="desc">' +
+	            					'<h5>' + emp.empName + ' ' +  emp.jobName + '</h5>' +
+	            					'<small>' + (emp.statusMsg == null ? '' : emp.statusMsg) + '</small>' +
+	            					'</div>' +
+	            					'</div>' +
+	            					'</li>';
+	            		
+	            		});
+	        			$("#empList").html(html);
+	        		},
+	        		error:function(){
+	        			console.log('통신에러 삐- 삐-');
+	        		}
+	        	});
+        	}
+        });
         $("#message").keydown(function (key) {	// 메세지 input태그에 키가 눌렸을때
             if (key.keyCode == 13) { // 엔터키면
                 sendMessage();	// 메소드 실행
@@ -339,7 +393,7 @@ ul li:hover{
 			</div>
 			<div class="body-section">
 				<div class="left-section" data-mcs-theme="minimal-dark">
-					<ul>
+					<ul id="empList">
 						<c:forEach items="${ empList }" var="emp">
 							<li>
 								<div class="chatList">

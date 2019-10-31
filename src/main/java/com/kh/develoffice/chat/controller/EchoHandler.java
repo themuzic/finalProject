@@ -1,4 +1,4 @@
-package com.kh.develoffice.chat.controller;
+﻿package com.kh.develoffice.chat.controller;
 
 
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class EchoHandler extends TextWebSocketHandler{
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
     	
     	String[] messageList = message.getPayload().split(":"); //받은 메세지를 :을 구분자로 스플릿
-//    	System.out.println("받은 메세지 = " +message.getPayload());
+ //   	System.out.println("받은 메세지 = " +message.getPayload());
     	if(message.getPayload().equals("알람연결")) {
     		alarmList.add(session);
     	}else if(message.getPayload().equals("채팅방 연결")) {		// 채팅방 리스트가 연결되었으면
@@ -117,7 +117,7 @@ public class EchoHandler extends TextWebSocketHandler{
     					m.setChatId(user.getEmpId());	// chatId에 상대 사번 넣고
     				}
     			}
-//    			System.out.println(m);
+ //   			System.out.println(m);
     			Chat c = cController.insertChat(m);	// 일단 갠톡 두명으로 방 만들고
     			chatId = c.getChatId();				// 생성한 방 번호 가져옴
     		}
@@ -238,6 +238,13 @@ public class EchoHandler extends TextWebSocketHandler{
 								sess.sendMessage(new TextMessage(empName +":"+ profilePath + ":" + content));	// 메세지 출력
 							}
 						}
+						// 내일 강사님한테 물어봐야지
+						for(int i=0; i<alarmEmpList.size(); i++) {
+							if(alarmEmpList.get(i).getEmpId() == otherId) {
+								alarmEmpList.remove(i);
+								i--;
+							}
+						}
 					}
 					for(WebSocketSession sess2 : messengerList) {						// 채팅방 리스트에 접속한 세션 전체 반복문 실행
 						for(Message user : people) {
@@ -247,8 +254,10 @@ public class EchoHandler extends TextWebSocketHandler{
 							}
 						}
 					}
+
 					for(WebSocketSession sess3 : alarmList) {
 						for(Chat emp : alarmEmpList) {
+								
 							if(((Employee)sess3.getAttributes().get("loginUser")).getEmpId() == emp.getEmpId()) {
 								sess3.sendMessage(new TextMessage(messageList[1] + ":" + emp.getChatName() + ":" + emp.getChatType() + ":" + profilePath + ":" + content));
 							}
@@ -291,7 +300,7 @@ public class EchoHandler extends TextWebSocketHandler{
         	}
         	chatList.put(key, list);
         }
-//        logger.info("{} 연결 끊김", session.getId());
+ //       logger.info("{} 연결 끊김", session.getId());
 
     }
 
