@@ -50,7 +50,7 @@
 					<div class="top-nav">
 						<table id="top-table">
 							<tr id="content-table">
-								<td>
+								<!-- <td>
 									<select class="form-control input-lg" style="width:40%;">
 										<option value="cheese">Final Project</option>
 										<option value="tomatoes">Semi Project</option>
@@ -59,10 +59,11 @@
 										<option value="pepperoni">Pepperoni</option>
 										<option value="onions">Onions</option>
 									</select>
-								</td>
+								</td> -->
 								<td>
 									<div class="ui inverted segment">
-									  <button type="button" style="background-color:#3287B2; color:white; float:right;" class="btn btn-lg" id="insertTdBoard" onclick="location.href='insertProject.do'">
+									  <button type="button" style="background-color:#3287B2; color:white; float:right;" 
+									  class="btn btn-lg" id="insertTdBoard" onclick="location.href='insertProjectForm.do'">
 									  	<i class="fas fa-plus-circle"></i> 새 프로젝트
 									  </button>
 									</div>
@@ -76,35 +77,40 @@
 					
 						<div class="ui cards">
 						
-							<div class="card">
-							  
-							  <c:forEach items="${ projectList }" var="p">
-								<c:if test="${ !empty loginUser.empId }">
-								
+							<c:forEach items="${ plist }" var="p">
+							<c:if test="${ !empty loginUser.empId }">
+								<input type="hidden" name="empId" value="${ loginUser.empId }">
+								<div class="card">
 							    <div class="content">
-							    	
-							    	<div class="header" style="padding:0 0 10px 0;">${ p.pName }</div>
+							      <div class="header" style="padding:0 0 10px 0;">${ p.pName }</div>
 							      <div class="meta" style="float:right; padding:0 0 10px 0;">
 							        <i class="fas fa-user-cog"></i>
-							        <span>전재광</span>
+							        <span>
+							       		<c:forEach items="${ empList }" var="e">
+							       		<c:if test="${ e.empId eq p.pmId }">
+							        		${ e.empName }
+							        	</c:if>
+							       		</c:forEach>
+							        </span>
 							      </div>
 							      <div class="description">
 							        <i class="fas fa-users"></i>
-							        <span>원영주 | 유현규 | 김상윤 | 설용환</span>
+							        <span>...프로젝트 구성원들...</span>
+							        <br>
+							        <p style="text-align:right;">${ p.pEnrollDate }</p>
 							      </div>
 							    </div>
 							    <div class="ui bottom attached button" onclick="location.href='projectDetail.do'">
 							      <i class="fas fa-sign-in-alt"></i>
 							      입장
 							    </div>
-								</c:if>
-							  </c:forEach>
-							  
-							</div>
+							   </div>
+							</c:if>
+							</c:forEach>
 						  	
 						  
 						  
-						  <div class="card">
+						  <!-- <div class="card">
 						    <div class="content">
 						      <div class="header" style="padding:0 0 10px 0;">Semi Project</div>
 						      <div class="meta" style="float:right; padding:0 0 10px 0;">
@@ -120,12 +126,14 @@
 						      <i class="fas fa-sign-in-alt"></i>
 						      입장
 						    </div>
-						  </div>
+						  </div> -->
 						  
 						  
 						  
 						  
 						</div>
+						
+					</div>
 					
 					
 					

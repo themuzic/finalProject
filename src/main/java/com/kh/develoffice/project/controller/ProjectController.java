@@ -2,19 +2,20 @@ package com.kh.develoffice.project.controller;
 
 import java.util.ArrayList;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.develoffice.common.Department;
 import com.kh.develoffice.document.model.service.DocumentService;
 import com.kh.develoffice.employee.model.service.EmployeeService;
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.project.model.service.ProjectService;
 import com.kh.develoffice.project.model.vo.Project;
+import com.kh.develoffice.project.model.vo.ProjectMember;
 import com.kh.develoffice.project.model.vo.ProjectTask;
 
 @Controller
@@ -30,8 +31,8 @@ public class ProjectController {
 	
 	
 	
-	@RequestMapping("insertProject.do")
-	public ModelAndView insertProject(ModelAndView mv) {
+	//@RequestMapping("insertProject.do")
+	/*public ModelAndView insertProject(ModelAndView mv, @RequestParam("empId") String[] empIds) {
 		
 		ArrayList<Department> deptList = dService.selectDept();
 		ArrayList<Employee> empList = eService.selectAllEmp();
@@ -73,16 +74,51 @@ public class ProjectController {
 		
 		
 		return mv;
+	}*/
+	
+	// 프로젝트 생성 뷰로 이동
+	@RequestMapping("insertProjectForm.do")
+	public String insertProjectForm() {
+		return "project/insertProjectForm";
+	}
+	
+	// 프로젝트 생성
+	@RequestMapping("insertProject.do")
+	public String insertProject(Project p, ProjectMember m,Model model) {
+		
+		int result = pService.insertProject(p);
+		
+		if(result > 0) {
+			int result2 = pService.insertPm(m);
+			if(result2 > 0) {
+				return "redirect:projectList.do";
+			} else {
+				model.addAttribute("msg", "보드 생성에 실패하였습니다.");
+				return "common/blankPage";
+			}
+		}else {
+			model.addAttribute("msg", "보드 생성에 실패하였습니다.");
+			return "common/blankPage";
+		}
+		
 	}
 	
 	// 프로젝트 리스트 불러오기
 	@RequestMapping("projectList.do")
-	public ModelAndView projectList(ModelAndView mv, Project p) {
-
+	public ModelAndView projectList(ModelAndView mv, HttpSession session) {
+		
+		ArrayList<Employee> empList = eService.selectAllEmp();
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		int empId = e.getEmpId();
+		//System.out.println(empList);
+		//System.out.println("controller : " + empId);
+		
 		//프로젝트 리스트 불러오기
-		ArrayList<Project> plist = pService.selectPlist(p);
+		ArrayList<Project> plist = pService.selectPlist(empId);
 		
 		if(plist != null) {
+			mv.addObject("empList", empList);
 			mv.addObject("plist", plist);
 			mv.setViewName("project/projectList");
 		}else {
@@ -114,7 +150,7 @@ public class ProjectController {
 	// 업무 추가 버튼 클릭 시
 	@RequestMapping("insertTaskView.do")
 	public String insertTask() {
-		return "project/insertTaskview";
+		return "project/insertTaskView";
 	}
 	
 	

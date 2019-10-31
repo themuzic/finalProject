@@ -73,19 +73,22 @@
 					
 					<div class="insertForm">
 					
+					
 						<div class="top-insertForm" align="center">
 							<h3 style="color:#3287B2; font-size:20px; font-weight:bold; ">
 								<i class="fas fa-hourglass-start"></i> 새 프로젝트
 							</h3>
 						
 						</div>
-
-					 	
-					 	<br><br>
-					 	
-					 	<div class="content-insertForm">
+						
+						<br><br>
+						
+						<form action="insertProject.do">
+							<div class="content-insertForm">
 					 		
 					 		<input type="hidden" name="empId" value="${ loginUser.empId }">
+					 		<input type="hidden" name="pmId" value="${ loginUser.empId }">
+					 		
 					 		
 					 		
 					 		<h4 style="padding: 2px 0 15px 0;">제목</h4>
@@ -149,7 +152,7 @@
 						 		<button type="reset" class="btn btn-danger">
 									<i class="far fa-trash-alt"></i> 취소하기
 								</button>
-								<button type="button" class="btn btn-success">
+								<button type="submit" class="btn btn-success">
 							 		<i class="fa fa-check-circle"></i> 생성하기
 							 	</button>
 						 	
@@ -157,6 +160,8 @@
 					 	
 					 	</div>
 					 	
+					 	
+					 	</form>
 					 	
 						
 					 	
@@ -310,6 +315,15 @@
 						
 						<!---------- 결제선 주소록 끝 ------------------------>
 					
+						
+					
+						
+					
+
+					 	
+					 	
+					 	
+					 	
 					
 					
 					

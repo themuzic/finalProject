@@ -43,6 +43,22 @@
 	</resultMap>
 	
 	
+	
+	
+	<!-- 프로젝트 생성 -->
+	<insert id="insertProject" parameterType="Project">
+		insert into project
+		values(PJ_SEQ.nextval, #{pName}, #{pContent}, #{pmId}, sysdate, default, default)
+	</insert>
+	
+	<!-- 프로젝트 생성 -->
+	<insert id="insertPm" parameterType="ProjectMember">
+		insert into project_member
+		values(PJ_SEQ.currval, #{empId})
+	</insert>
+	
+	
+	
 	<!-- TaskList 불러오기 -->
 	<select id="selectTaskList" parameterType="ProjectTask" resultMap="projectTaskResultSet">
 		select *
@@ -52,15 +68,16 @@
 	</select>
 	
 	<!-- project 리스트 불러오기 -->
-	<select id="selectPlist" parameterType="Project" resultMap="projectResultSet">
+	<select id="selectPlist" parameterType="_int" resultMap="projectResultSet">
 		<!-- select *
 		from project
 		join project_member using(p_no)
 		where emp_id=#{empId} and status='Y' -->
-		select p_no, p_name, p_content, pm_id
+		select *
 		from project p
 		join project_member m using(p_no)
-		where  status='Y'
+		where m.emp_id=#{empId} and status='Y'
+		order by p_no desc
 	</select>
 	
 	
