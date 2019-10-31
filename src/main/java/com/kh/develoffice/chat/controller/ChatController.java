@@ -2,6 +2,7 @@ package com.kh.develoffice.chat.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.google.gson.JsonObject;
 import com.kh.develoffice.chat.model.service.ChatService;
 import com.kh.develoffice.chat.model.vo.Chat;
 import com.kh.develoffice.chat.model.vo.Message;
@@ -237,5 +239,39 @@ public class ChatController {
 		response.setContentType("application/json; charset=utf-8");
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(chatList, response.getWriter());
+	}
+	
+	@ResponseBody
+	@RequestMapping("chatRename.do")
+	public String renameChat(Chat c, HttpServletResponse response) {
+		int result = cService.updateChatName(c);
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="chatRenameReturn.do", produces="text/html; charset=utf-8")
+	public String returnChatName(Chat c, HttpServletResponse response) {
+		ArrayList<String> chatNameList = cService.selectChatNameList(c.getChatId());	// 채팅방 이름 설정할 arraylist
+		
+		Collections.sort(chatNameList);		// 오름차순 정렬
+		
+		String chatName = String.join(", ", chatNameList);	// 채팅방 이름 설정
+		
+		c.setChatName(chatName);
+		
+		int result = cService.updateChatNameReturn(c);
+	//response.setContentType("text/html; charset=utf-8");
+		
+//		JsonObject json = new JsonObject();
+//		json.add("chatName", chatName);
+		if(result > 0) {
+			return chatName;
+		}else {
+			return "fail";
+		}
 	}
 }

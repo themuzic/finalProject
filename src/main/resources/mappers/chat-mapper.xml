@@ -264,4 +264,18 @@
 		where emp_id = #{empId} and (auto_name like '%' || #{chatName} || '%' or chat_name like '%' || #{chatName} || '%')
 	</select>
 
+	<!-- 채팅방 이름 변경 서비스 -->
+	<update id="updateChatName" parameterType="Chat">
+		update join_chat
+		set chat_name = #{chatName}, name_status = 'Y', AUTO_NAME = FN_KO_CHAR(#{chatName})
+		where chat_id=#{chatId} and emp_id=#{empId}
+	</update>
+	
+	<!-- 채팅방 이름 원래대로 -->
+	<update id="updateChatNameReturn" parameterType="Chat">
+		UPDATE JOIN_CHAT
+		SET CHAT_NAME = #{chatName}, NAME_STATUS = 'N', AUTO_NAME = FN_KO_CHAR(#{chatName})
+		WHERE CHAT_ID = #{chatId} AND EMP_ID = #{empId}
+	</update>
+	
 </mapper>

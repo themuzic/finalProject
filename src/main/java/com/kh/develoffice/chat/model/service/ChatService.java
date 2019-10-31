@@ -89,5 +89,11 @@ public interface ChatService {
 	// 대화방 검색 서비스
 	ArrayList<Chat> searchChatList(Chat c);
 
+	// 채팅방 이름 변경 서비스
+	int updateChatName(Chat c);
+
+	// 채팅방 이름 원래대로 바꾸는 서비스
+	int updateChatNameReturn(Chat c);
+
 
 }

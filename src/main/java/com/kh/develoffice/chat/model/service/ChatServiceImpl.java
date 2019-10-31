@@ -161,5 +161,15 @@ public class ChatServiceImpl implements ChatService {
 		return cDao.searchChatList(c);
 	}
 
+	@Override
+	public int updateChatName(Chat c) {
+		return cDao.updateChatName(c);
+	}
+
+	@Override
+	public int updateChatNameReturn(Chat c) {
+		return cDao.updateChatNameReturn(c);
+	}
+
 
 }

@@ -137,6 +137,14 @@ public class ChatDao {
 		return (ArrayList)sqlSession.selectList("chatMapper.searchChatList", c);
 	}
 
+	public int updateChatName(Chat c) {
+		return sqlSession.update("chatMapper.updateChatName", c);
+	}
+
+	public int updateChatNameReturn(Chat c) {
+		return sqlSession.update("chatMapper.updateChatNameReturn", c);
+	}
+
 
 	
 }

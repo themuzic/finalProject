@@ -377,6 +377,13 @@ body{
 .fa-bell-slash{
 	color:gray;
 }
+#chatRename{
+	width: 80%;
+    margin-top: 8px;
+    margin-bottom: 7px;
+    line-height: 1.1;
+    font-size: 18px;
+}
 </style>
 
 <script type="text/javascript">
@@ -397,11 +404,21 @@ body{
                 sendMessage();	// 메소드 실행
             }
         });
-		
+		$("#chatRename").keydown(function(key){
+			if(key.keyCode == 13){
+				renameFunction();
+			}
+		});
         $("#rename").on('click', function(){
-        	var name = $(this).parent().next().html();
-        	console.log(name);
-        })
+        	if($("#chatRename").hasClass('show')){				// 이름 변경 끝
+        		renameFunction();
+        	}else{												// 이름 변경 시작
+        		$("#chatRename").addClass('show');
+        		$("#chatRename").val($("#chatName").html());
+        		$("#chatName").addClass('hide');
+        		$("#chatRename").focus();
+        	}
+        });
         
 		$('#alarm').on('click', function(){
 			console.log($(this).find("i").prop("class").split(" ")[3]);
@@ -513,6 +530,52 @@ body{
         $("#messageArea").scrollTop(9999999);
 
     });
+    
+    function renameFunction(){
+    	var chatName = $("#chatRename").val();
+		if(chatName == $("#chatName").html()){
+			$("#chatRename").removeClass('show');
+    		$("#chatRename").val('');
+    		$("#chatName").removeClass('hide');
+		}else if(chatName == ''){
+			$.ajax({
+				url:'chatRenameReturn.do',
+				type:'POST',
+				data:{chatId:'${c.chatId}',empId:'${loginUser.empId}'},
+				success:function(data){
+					console.log(data);
+					if(data == 'fail'){
+    					alertify.alert('DEVELOFFICE', '채팅방 이름 변경에 실패하셨습니다.');
+    				}else{
+		        		$("#chatRename").removeClass('show');
+		        		$("#chatName").html(data);
+		        		$("#chatName").removeClass('hide');
+    				}
+				},
+				error:function(){
+				}
+			});
+		}else{
+    		$.ajax({
+    			url:'chatRename.do',
+    			type:'POST',
+    			data:{chatId:'${c.chatId}',chatName:chatName,empId:'${loginUser.empId}'},
+    			success:function(data){
+    				if(data == 'success'){
+		        		$("#chatRename").removeClass('show');
+		        		$("#chatRename").val('');
+		        		$("#chatName").html(chatName);
+		        		$("#chatName").removeClass('hide');
+    				}else{
+    					alertify.alert('DEVELOFFICE', '채팅방 이름 변경에 실패하셨습니다.');
+    				}
+    			},
+    			error:function(){
+    				
+    			}
+    		});
+		}
+    }
     
     function exitChat(){
     	var chatType = ${c.chatType};
@@ -761,7 +824,8 @@ body{
 					<div style="float:right; padding-top:10px; cursor:pointer;">
 						<a id="rename"><i class="fa fa-edit"></i></a>
 					</div>
-					<h4>${c.chatName }</h4>
+					<h4 id="chatName">${c.chatName }</h4>
+					<input type="text" id="chatRename" class="hide">
 				</div>
 			</div>
 			<div class="headRight-section">
