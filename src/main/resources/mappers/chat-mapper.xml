@@ -258,10 +258,10 @@
 	</select>
 
 	<!-- 대화방 검색 서비스 -->
-	<select id="searchChatList" parameterType="_int" resultMap="chatListResult">
+	<select id="searchChatList" parameterType="Chat" resultMap="chatListResult">
 		select *
 		from chatlist_view
-		where emp_id = #{empId} and auto_name like '%' || #{search} || '%' or chat_name like '%' || #{search} || '%'
+		where emp_id = #{empId} and (auto_name like '%' || #{chatName} || '%' or chat_name like '%' || #{chatName} || '%')
 	</select>
 
 </mapper>

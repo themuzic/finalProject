@@ -144,7 +144,7 @@ body *{
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	width: 75%;
+	max-width: 75%;
 	float: left;
 	font-size: 15px;
 }
@@ -178,6 +178,82 @@ body *{
 	    	$(".searchArea").css("border","1px solid #e4e4e4");
 	    	$(".searchArea i").css("color","#cdcdcd");
 	    	$("#search").attr("placeholder", "채팅방 이름,참여자 검색");
+    	});
+    	
+    	$("#search").on('keyup', function(){
+        	var search = $(this).val();
+        	var empId = '${loginUser.empId}';
+        	console.log(search);
+        	var empList = ${test};
+        	var html = '';
+        	if(search == ''){
+        		refresh();
+        	}else{
+        		$.ajax({
+	        		url:'chatListSearch.do',
+	        		type:'POST',
+	        		data:{search:search,empId:empId},
+	        		dataType:'json',
+	        		success:function(data){
+	        			console.log(data);
+	        			$.each(data, function(index, c){
+	        				html += "<li class='chatListForm'>" +
+								    "<div class='chatList'>" +
+								    "<input type='hidden' name='chatId' value=" + 
+								    c.chatId + 
+								    " >" +
+								    "<input type='hidden' name='chatType' value='" + 
+								    c.chatType + 
+								    "'>" +
+								    "<div class='img'>";
+							if(c.chatType == 1 || c.count <= 2){
+								$.each(c.profileList, function(index, profile){
+									if(profile.chatId == c.chatId && profile.empId != empId){
+										html += "<img src='resources/upload/profile/" +
+												profile.profilePath + 
+												"'>";
+									}
+								});
+							}else if(c.chatType == 2 && c.count >= 2){
+								$.each(c.profileList, function(index, profile){
+									if(index < 4){
+										if(profile.chatId == c.chatId){
+											html += "<img style='width:20px;' src='resources/upload/profile/" +
+													profile.profilePath + 
+													"'> ";
+										}
+									}
+								});
+							}
+							
+							html += "</div>" +
+									"<div class='desc'>" +
+									"<small class='time'>" +
+									c.modifyDate +
+									"</small>" +
+									"<h5 id=" + c.chatId + ">" + c.chatName + "</h5>" +
+									"<small style='float:left; color:gray;'>" + (c.count > 2 ? "(" + c.count + ")" : '') + "</small>" +
+									"<br clear='both'>" +
+									"<small class='content-area'>" + (c.lastMsg == undefined ? '' : c.lastMsg) + "</small>";
+							if(c.unRead > 0){
+								html += "<div style='width:5%; text-align:center; float:right; border-radius:50%; background-color:red; color:white;'>" +
+										c.unRead +
+										"</div>";
+								
+							}
+									
+							html += "</div>" +
+									"</div>" +
+									"</li>";
+	        			});
+			        	$("#allList").html(html);
+	        		},
+	        		error:function(){
+	        			
+	        		}
+	        		
+        		});
+        	}
     	});
     	
         $("#sendBtn").on("click", function() {	// 전송 버튼을 누를때
@@ -260,7 +336,7 @@ body *{
 
         var data = evt.data;
 		console.log(data);
-        if(data == "채팅방 갱신"){
+        if(data == "채팅방 갱신" && $("#search").val() == ''){
         	console.log("채팅방을 갱신하세요");
         	refresh();
         }
@@ -316,7 +392,7 @@ body *{
 							"</small>" +
 							"<h5 id=" + c.chatId + ">" + c.chatName + "</h5>" +
 							"<small style='float:left; color:gray;'>" + (c.count > 2 ? "(" + c.count + ")" : '') + "</small>" +
-							
+							"<br clear='both'>" +
 							"<small class='content-area'>" + (c.lastMsg == undefined ? '' : c.lastMsg) + "</small>";
 					if(c.unRead > 0){
 						html += "<div style='width:5%; text-align:center; float:right; border-radius:50%; background-color:red; color:white;'>" +
@@ -412,6 +488,7 @@ body *{
 									<c:if test="${c.count > 2 }">
 										<small style="float:left; color:gray;">(${c.count })</small>
 									</c:if>
+									<br clear="both">
 									<small class="content-area">${c.lastMsg }</small>
 									<c:if test="${c.unRead > 0}">
 										<div style="width:5%; text-align:center; float:right; border-radius:50%; background-color:red; color:white;">${c.unRead }</div>

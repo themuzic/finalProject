@@ -86,5 +86,8 @@ public interface ChatService {
 	// 사원 검색 서비스
 	ArrayList<Employee> searchEmpList(String search);
 
+	// 대화방 검색 서비스
+	ArrayList<Chat> searchChatList(Chat c);
+
 
 }

@@ -64,7 +64,9 @@ public class ChatController {
 			
 		}
 		
-		mv.addObject("chatList", chatList).setViewName("chat/chatListView");
+		String test = new Gson().toJson(chatList);
+		
+		mv.addObject("chatList", chatList).addObject("test",test).setViewName("chat/chatListView");
 		
 		return mv;
 	}
@@ -213,5 +215,27 @@ public class ChatController {
 		response.setContentType("application/json; charset=utf-8");
 		Gson gson = new Gson();
 		gson.toJson(empList, response.getWriter());
+	}
+	
+	@RequestMapping("chatListSearch.do")
+	public void searchChatList(String search, int empId, HttpServletResponse response) throws JsonIOException, IOException {
+		Chat searchList = new Chat();
+		System.out.println(empId);
+		searchList.setEmpId(empId);
+		searchList.setChatName(search);
+		ArrayList<Chat> chatList = cService.searchChatList(searchList);
+		ArrayList<Message> chatProfileList = cService.selectChatProfile(empId);
+		for(Chat c:chatList) {
+			ArrayList<Message> profile = new ArrayList<>();
+			for(Message m:chatProfileList) {
+				if(c.getChatId() == m.getChatId()) {
+					profile.add(m);
+				}
+			}
+			c.setProfileList(profile);
+		}
+		response.setContentType("application/json; charset=utf-8");
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(chatList, response.getWriter());
 	}
 }

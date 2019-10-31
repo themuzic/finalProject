@@ -156,5 +156,10 @@ public class ChatServiceImpl implements ChatService {
 		return cDao.searchEmpList(search);
 	}
 
+	@Override
+	public ArrayList<Chat> searchChatList(Chat c) {
+		return cDao.searchChatList(c);
+	}
+
 
 }

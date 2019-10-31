@@ -133,6 +133,10 @@ public class ChatDao {
 		return (ArrayList)sqlSession.selectList("chatMapper.searchEmpList", search);
 	}
 
+	public ArrayList<Chat> searchChatList(Chat c) {
+		return (ArrayList)sqlSession.selectList("chatMapper.searchChatList", c);
+	}
+
 
 	
 }

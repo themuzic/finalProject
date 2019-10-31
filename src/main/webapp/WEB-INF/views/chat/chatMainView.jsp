@@ -179,12 +179,12 @@ ul li:hover{
         	if(search == ""){
         		$.each(empList, function(index, emp){
         			html += '<li>' +
-        					'<div class="chatList">' +
+        					'<div class="chatList" style="padding-left: 14px;">' +
         					'<input type="hidden" name="empId" value="' + emp.empId + '">' +
         					'<div class="img">' +
         					'<img src="resources/upload/profile/' + emp.profilePath + '">' +
         					'</div>' +
-        					'<div class="desc">' +
+        					'<div class="desc" style="padding-top: 6px;font-size: 17px;">' +
         					'<h5>' + emp.empName + ' ' +  emp.jobName + '</h5>' +
         					'<small>' + (emp.statusMsg == null ? '' : emp.statusMsg) + '</small>' +
         					'</div>' +
@@ -203,12 +203,12 @@ ul li:hover{
 	        			$.each(data, function(index, emp){
 	        				console.log(emp);
 	            			html += '<li>' +
-	            					'<div class="chatList">' +
+	            					'<div class="chatList" style="padding-left: 14px;">' +
 	            					'<input type="hidden" name="empId" value="' + emp.empId + '">' +
 	            					'<div class="img">' +
 	            					'<img src="resources/upload/profile/' + emp.profilePath + '">' +
 	            					'</div>' +
-	            					'<div class="desc">' +
+	            					'<div class="desc" style="padding-top: 6px;font-size: 17px;">' +
 	            					'<h5>' + emp.empName + ' ' +  emp.jobName + '</h5>' +
 	            					'<small>' + (emp.statusMsg == null ? '' : emp.statusMsg) + '</small>' +
 	            					'</div>' +
