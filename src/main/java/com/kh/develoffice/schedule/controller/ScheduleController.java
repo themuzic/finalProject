@@ -125,7 +125,7 @@ public class ScheduleController {
 	@ResponseBody
 	@RequestMapping("updateSchedule.do")
 	public String updateSchedule(Schedule s) {
-		
+	
 		int result = sService.updateSchedule(s);
 		
 		if(result > 0) {
