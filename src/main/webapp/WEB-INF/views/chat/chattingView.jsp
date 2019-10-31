@@ -421,7 +421,6 @@ body{
         });
         
 		$('#alarm').on('click', function(){
-			console.log($(this).find("i").prop("class").split(" ")[3]);
 			var alarmClass = $(this).find("i").prop("class").split(" ")[3];
 			var fa = $(this).find("i");
 			if(alarmClass == 'fa-bell-slash'){
@@ -504,7 +503,6 @@ body{
         	var empIdHtml = '';
         	var empLength = empName.length;
         	var inviteHtml = "<b>${loginUser.empName} ${loginUser.jobName}</b>님이 ";
-        	console.log(empId);
         	$.each(empId, function(index, value){
         		if(index != (empLength-1)){
         			empIdHtml += $(value).attr('id').split('_')[1] + '_';
@@ -543,7 +541,6 @@ body{
 				type:'POST',
 				data:{chatId:'${c.chatId}',empId:'${loginUser.empId}'},
 				success:function(data){
-					console.log(data);
 					if(data == 'fail'){
     					alertify.alert('DEVELOFFICE', '채팅방 이름 변경에 실패하셨습니다.');
     				}else{
@@ -575,6 +572,7 @@ body{
     			}
     		});
 		}
+		sock.send("이름 변경:${loginUser.empId}");
     }
     
     function exitChat(){
@@ -615,7 +613,6 @@ body{
     sock = new SockJS("<c:url value="/echo"/>");
 	sock.onopen = onopen;
     function onopen(){
-    	console.log("오픈");
     	sock.send("chatId:${c.chatId}");
     	
     }

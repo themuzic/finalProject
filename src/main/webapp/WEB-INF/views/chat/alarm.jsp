@@ -34,7 +34,7 @@
 			<a id="exit"><i class="fa fa-times"></i></a>
 		</c:if>
 		</div>
-		<div style="float:left; width:85%;">
+		<div id="intoChat" style="float:left; width:85%;">
 			<div style="float:left; width:15%; height:100%;" >
 				<img style="width:100%; height:100%;  border-radius:40%;" src="resources/upload/profile/${c.chatStatus}">
 			</div>
@@ -91,6 +91,9 @@
 			});
 			$("#exit").on('click', function(){
 				self.close();
+			});
+			$("#intoChat").on('click', function(){
+				messenger = window.open("chatting.do?chatId=${c.chatId}&chatName=${c.chatName}&chatType=${c.chatType}", ${c.chatId} + "chatting", "width=400px,height=400px", "false");
 			});
 		});
 	</script>

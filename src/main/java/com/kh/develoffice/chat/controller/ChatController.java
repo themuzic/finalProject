@@ -146,7 +146,6 @@ public class ChatController {
 	public Chat insertChat(Message m) {
 		// 채팅방 생성
 		int type= m.getMsgType();
-		System.out.println("m:" + m + " type : " + type);
 		int result = cService.insertChat(type);
 		
 		// 만들어진 채팅방, 채팅방 이름 반환할 Chat 객체 생성
@@ -213,7 +212,6 @@ public class ChatController {
 				break;
 			}
 		}
-		System.out.println(empList);
 		response.setContentType("application/json; charset=utf-8");
 		Gson gson = new Gson();
 		gson.toJson(empList, response.getWriter());
@@ -222,7 +220,6 @@ public class ChatController {
 	@RequestMapping("chatListSearch.do")
 	public void searchChatList(String search, int empId, HttpServletResponse response) throws JsonIOException, IOException {
 		Chat searchList = new Chat();
-		System.out.println(empId);
 		searchList.setEmpId(empId);
 		searchList.setChatName(search);
 		ArrayList<Chat> chatList = cService.searchChatList(searchList);

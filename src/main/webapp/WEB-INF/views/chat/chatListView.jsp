@@ -183,7 +183,6 @@ body *{
     	$("#search").on('keyup', function(){
         	var search = $(this).val();
         	var empId = '${loginUser.empId}';
-        	console.log(search);
         	var empList = ${test};
         	var html = '';
         	if(search == ''){
@@ -195,7 +194,6 @@ body *{
 	        		data:{search:search,empId:empId},
 	        		dataType:'json',
 	        		success:function(data){
-	        			console.log(data);
 	        			$.each(data, function(index, c){
 	        				html += "<li class='chatListForm'>" +
 								    "<div class='chatList'>" +
@@ -255,32 +253,17 @@ body *{
         		});
         	}
     	});
-    	
-        $("#sendBtn").on("click", function() {	// 전송 버튼을 누를때
-
-            sendMessage();	// 메소드 실행
-
-        });
-        $("#message").keydown(function (key) {	// 메세지 input태그에 키가 눌렸을때
-            if (key.keyCode == 13) { // 엔터키면
-                sendMessage();	// 메소드 실행
-            }
-        });
         
         
         $("#menu").on("click", function(){		// 메뉴 아이콘 클릭했을때
         	$('.ui.labeled.icon.sidebar').sidebar('toggle');	// 사이드바 토글 이벤트
         });
 		
-        var i = 0;
 
         $(document).on("dblclick", ".chatListForm", function(){	// 채팅방 더블클릭 했을때
-        	console.log($(this).find("input[name=chatId]").val());
         	var chatId = $(this).find("input[name=chatId]").val();	// 더블클릭한 채팅방의 chatId
         	var chatName = $("#" +chatId);
         	var chatType = $(this).find("input[name=chatType]").val()
-        	/* var chatName = encodeURI(chatName); */
-        	console.log(chatType);
         	messenger = window.open("chatting.do?chatId=" + chatId + "&chatName=" + chatName.html() + "&chatType=" + chatType, chatId + "chatting", "width=500,height=545", "false");
         });
     });
@@ -301,7 +284,6 @@ body *{
     sock = new SockJS("<c:url value="/echo"/>");
 	sock.onopen = onopen;
     function onopen(){
-    	console.log("오픈");
     	sock.send("채팅방 연결");
     	
     }
@@ -318,26 +300,12 @@ body *{
 
     sock.onclose = onClose;
 
-
-
-
- 
-
-    function sendMessage() {
-	
-		
-        
-
-    }
-
     //evt 파라미터는 웹소켓을 보내준 데이터다.(자동으로 들어옴)
 
     function onMessage(evt) {
 
         var data = evt.data;
-		console.log(data);
         if(data == "채팅방 갱신" && $("#search").val() == ''){
-        	console.log("채팅방을 갱신하세요");
         	refresh();
         }
 
@@ -350,12 +318,10 @@ body *{
 			data:{empId:"${loginUser.empId}"},
 			dataType:"json",
 			success:function(data){
-				console.log(data);
 				var html = ""
 				var empId =	${loginUser.empId}
 				$.each(data, function(index, c){
 				
-				console.log("refresh실행");
 					html += "<li class='chatListForm'>" +
 						    "<div class='chatList'>" +
 						    "<input type='hidden' name='chatId' value=" + 
@@ -415,7 +381,6 @@ body *{
 	
     function onClose(evt) {
         $("#data").append("연결 끊김");
-
     }
 
 </script>
@@ -459,43 +424,43 @@ body *{
 				<div class="left-section" data-mcs-theme="minimal-dark">
 					<ul id="allList">
 						<c:forEach items="${chatList }" var="c">
-						<li class="chatListForm">
-							<div class="chatList">
-								<input type="hidden" name="chatId" value="${c.chatId }" >
-								<input type="hidden" name="chatType" value="${c.chatType }">
-								<div class="img">
-									<c:if test="${c.chatType == 1}">
-										<c:forEach items="${c.profileList }" var="profile">
-											<c:if test="${profile.chatId == c.chatId && profile.empId ne loginUser.empId }">
-												<img src="resources/upload/profile/${profile.profilePath }">
-											</c:if>
-										</c:forEach>
-									</c:if>
-									<c:if test="${c.chatType == 2}">
-										<c:forEach items="${c.profileList }" var="profile" varStatus="status">
-											<c:if test="${status.index < 4}">
-												<c:if test="${profile.chatId == c.chatId}">
-													<img style="width:20px;" src="resources/upload/profile/${profile.profilePath }">
+							<li class="chatListForm">
+								<div class="chatList">
+									<input type="hidden" name="chatId" value="${c.chatId }" >
+									<input type="hidden" name="chatType" value="${c.chatType }">
+									<div class="img">
+										<c:if test="${c.chatType == 1}">
+											<c:forEach items="${c.profileList }" var="profile">
+												<c:if test="${profile.chatId == c.chatId && profile.empId ne loginUser.empId }">
+													<img src="resources/upload/profile/${profile.profilePath }">
 												</c:if>
-											</c:if>
-										</c:forEach>
-									</c:if>
+											</c:forEach>
+										</c:if>
+										<c:if test="${c.chatType == 2}">
+											<c:forEach items="${c.profileList }" var="profile" varStatus="status">
+												<c:if test="${status.index < 4}">
+													<c:if test="${profile.chatId == c.chatId}">
+														<img style="width:20px;" src="resources/upload/profile/${profile.profilePath }">
+													</c:if>
+												</c:if>
+											</c:forEach>
+										</c:if>
+									</div>
+									
+									<div class="desc">
+										<small class="time">${c.modifyDate }</small>
+										<h5 id="${c.chatId}">${c.chatName }</h5>
+										<c:if test="${c.count > 2 }">
+											<small style="float:left; color:gray;">(${c.count })</small>
+										</c:if>
+										<br clear="both">
+										<small class="content-area">${c.lastMsg }</small>
+										<c:if test="${c.unRead > 0}">
+											<div style="width:5%; text-align:center; float:right; border-radius:50%; background-color:red; color:white;">${c.unRead }</div>
+										</c:if>
+									</div>
 								</div>
-								
-								<div class="desc">
-									<small class="time">${c.modifyDate }</small>
-									<h5 id="${c.chatId}">${c.chatName }</h5>
-									<c:if test="${c.count > 2 }">
-										<small style="float:left; color:gray;">(${c.count })</small>
-									</c:if>
-									<br clear="both">
-									<small class="content-area">${c.lastMsg }</small>
-									<c:if test="${c.unRead > 0}">
-										<div style="width:5%; text-align:center; float:right; border-radius:50%; background-color:red; color:white;">${c.unRead }</div>
-									</c:if>
-								</div>
-							</div>
-						</li>
+							</li>
 						</c:forEach>
 					</ul>
 				</div>

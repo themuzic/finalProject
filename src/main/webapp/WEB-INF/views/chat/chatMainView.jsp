@@ -164,16 +164,9 @@ ul li:hover{
 <script type="text/javascript">
 
     $(document).ready(function() {
-		
-        $("#sendBtn").on("click", function() {	// 전송 버튼을 누를때
 
-            sendMessage();	// 메소드 실행
-
-        });
-        
-        $("#search").on('keyup', function(){
+    	$("#search").on('keyup', function(){
         	var search = $(this).val();
-        	console.log(search);
         	var empList = ${test};
         	var html = '';
         	if(search == ""){
@@ -199,9 +192,7 @@ ul li:hover{
 	        		data:{search:search,empId:'${loginUser.empId}'},
 	        		dataType:'json',
 	        		success:function(data){
-	        			console.log(data);
 	        			$.each(data, function(index, emp){
-	        				console.log(emp);
 	            			html += '<li>' +
 	            					'<div class="chatList" style="padding-left: 14px;">' +
 	            					'<input type="hidden" name="empId" value="' + emp.empId + '">' +
@@ -224,11 +215,6 @@ ul li:hover{
 	        	});
         	}
         });
-        $("#message").keydown(function (key) {	// 메세지 input태그에 키가 눌렸을때
-            if (key.keyCode == 13) { // 엔터키면
-                sendMessage();	// 메소드 실행
-            }
-        });
     	
     	fn_scroll_plugin();		// 스크롤 생성 함수 실행
 		
@@ -245,14 +231,12 @@ ul li:hover{
 	    	$("#search").attr("placeholder", "이름검색");
     	});
 		
-
-        
+    	
         $("#menu").on("click", function(){
         	$('.ui.labeled.icon.sidebar').sidebar('toggle');
         });
 
         $(document).on("dblclick", ".chatList", function(){	// 사원 목록에서 사원 더블클릭 했을때
-        	console.log($(this).children().first().val());
         	var empId = ${loginUser.empId};
         	var otherId = $(this).children().first().val();	// 더블클릭한 상대의 사번
         	$.ajax({
@@ -261,7 +245,6 @@ ul li:hover{
     			data:{empId:empId,otherId:otherId},
     			dataType:"json",
     			success:function(data){
-    				console.log(data.chatId);
     				messenger = window.open("chatting.do?chatId=" + data.chatId + "&chatName=" + data.chatName + "&chatType=1", data.chatId + "chatting", "width=400px,height=400px", "false");
     			},
     			error:function(){
@@ -281,65 +264,7 @@ ul li:hover{
 			scrollInertia : 400 // 부드러운 스크롤 효과 적용
 		});
 	}
-    var sock;
 
-    //웸소켓을 지정한 url로 연결한다.
-   	sock = new SockJS("<c:url value="/echo"/>");
-
-
-
-    //자바스크립트 안에 function을 집어넣을 수 있음.
-
-    //데이터가 나한테 전달되읐을 때 자동으로 실행되는 function
-
-    sock.onmessage = onMessage;
-
-    
-    //데이터를 끊고싶을때 실행하는 메소드
-
-    sock.onclose = onClose;
-
-
-
-
-    /* sock.onopen = function(){
-
-        sock.send($("#message").val());
-
-    }; */
-
-    function sendMessage() {
-	
-		if($("#message").val() == ""){	// 메세지 내용이 없으면 실행되는 부분
-			
-		}else{							// 메세지 내용이 있으면
-        	/*소켓으로 보내겠다.  */
-	        sock.send($("#message").val());	// 메세지를 소켓에 보내고
-	        $("#message").val("");			// 메세지 내용을 비운다.
-			
-		}
-        
-
-    }
-
-    //evt 파라미터는 웹소켓을 보내준 데이터다.(자동으로 들어옴)
-
-    function onMessage(evt) {
-
-        var data = evt.data;
-		
-        $("#data").append(data + "<br/>");
-        document.body.scrollIntoView(false);	// 스크롤을 제일 아래로
-        //sock.close();
-
-    }
-
-
-    function onClose(evt) {
-		
-        $("#data").append("연결 끊김");
-
-    }
 </script>
 
 </head>

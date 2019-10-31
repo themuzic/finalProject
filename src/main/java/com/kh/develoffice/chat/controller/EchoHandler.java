@@ -62,7 +62,13 @@ public class EchoHandler extends TextWebSocketHandler{
     	
     	String[] messageList = message.getPayload().split(":"); //받은 메세지를 :을 구분자로 스플릿
  //   	System.out.println("받은 메세지 = " +message.getPayload());
-    	if(message.getPayload().equals("알람연결")) {
+    	if(messageList[0].equals("이름 변경")) {
+    		for(WebSocketSession sess : messengerList) {
+				if(((Employee)sess.getAttributes().get("loginUser")).getEmpId() == Integer.parseInt(messageList[1])) {
+					sess.sendMessage(new TextMessage("채팅방 갱신")); // 메세지 전달
+				}
+			}
+    	}else if(message.getPayload().equals("알람연결")) {
     		alarmList.add(session);
     	}else if(message.getPayload().equals("채팅방 연결")) {		// 채팅방 리스트가 연결되었으면
     		messengerList.add(session);					// 세션을 messengerList에 저장
