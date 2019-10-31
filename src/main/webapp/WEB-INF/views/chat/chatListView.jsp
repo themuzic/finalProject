@@ -234,7 +234,7 @@ body *{
 									"<br clear='both'>" +
 									"<small class='content-area'>" + (c.lastMsg == undefined ? '' : c.lastMsg) + "</small>";
 							if(c.unRead > 0){
-								html += "<div style='width:5%; text-align:center; float:right; border-radius:50%; background-color:red; color:white;'>" +
+								html += "<div style='width:25px;height:24px;text-align:center;float:right;border-radius:50%;background-color:red;color:white;'>" +
 										c.unRead +
 										"</div>";
 								
@@ -264,7 +264,7 @@ body *{
         	var chatId = $(this).find("input[name=chatId]").val();	// 더블클릭한 채팅방의 chatId
         	var chatName = $("#" +chatId);
         	var chatType = $(this).find("input[name=chatType]").val()
-        	messenger = window.open("chatting.do?chatId=" + chatId + "&chatName=" + chatName.html() + "&chatType=" + chatType, chatId + "chatting", "width=500,height=545", "false");
+        	messenger = window.open("chatting.do?chatId=" + chatId + "&chatName=" + chatName.html() + "&chatType=" + chatType, chatId + "chatting", "width=400px,height=400px", "false");
         });
     });
 
@@ -361,7 +361,7 @@ body *{
 							"<br clear='both'>" +
 							"<small class='content-area'>" + (c.lastMsg == undefined ? '' : c.lastMsg) + "</small>";
 					if(c.unRead > 0){
-						html += "<div style='width:5%; text-align:center; float:right; border-radius:50%; background-color:red; color:white;'>" +
+						html += "<div style='width:25px;height:24px;text-align:center; float:right; border-radius:50%; background-color:red; color:white;'>" +
 								c.unRead +
 								"</div>";
 						
@@ -456,7 +456,7 @@ body *{
 										<br clear="both">
 										<small class="content-area">${c.lastMsg }</small>
 										<c:if test="${c.unRead > 0}">
-											<div style="width:5%; text-align:center; float:right; border-radius:50%; background-color:red; color:white;">${c.unRead }</div>
+											<div style="width:25px;height:24px; text-align:center; float:right; border-radius:50%; background-color:red; color:white;">${c.unRead }</div>
 										</c:if>
 									</div>
 								</div>

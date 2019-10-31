@@ -210,7 +210,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				<div class="layer_box middle popup4" style="margin-left: -175px; margin-top: -120px; display: block; z-index: 1005;">
 					<div class="title_layer text_variables">예약 삭제</div>
 					<div>
-						<div>예약을 삭제하시겠습니까?</div>
+						<div style="text-align:center;">예약을 삭제하시겠습니까?</div>
 					</div>
 
 					<div class="layer_button">
