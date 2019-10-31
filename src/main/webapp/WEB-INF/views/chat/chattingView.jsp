@@ -404,7 +404,7 @@ body{
                 sendMessage();	// 메소드 실행
             }
         });
-		$("#chatRename").keydown(function(key){
+		$("#chatRename").keyup(function(key){
 			if(key.keyCode == 13){
 				renameFunction();
 			}
