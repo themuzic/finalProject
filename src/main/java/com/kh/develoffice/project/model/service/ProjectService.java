@@ -15,10 +15,14 @@ public interface ProjectService {
 	int insertPm(ProjectMember m);
 	
 	// Task 리스트 조회
-	ArrayList<ProjectTask> selectTaskList(ProjectTask p);
+	ArrayList<ProjectTask> selectTaskList(int pNo);
 	
 	// project 리스트 조회
 	ArrayList<Project> selectPlist(int empId);
 	
+	// 프로젝트 상세조회
+	Project projectDetail(int pNo); 
 	
+	// 업무 추가
+	int insertTask(ProjectTask t);
 }

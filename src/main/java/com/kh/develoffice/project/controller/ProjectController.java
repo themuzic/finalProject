@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.develoffice.document.model.service.DocumentService;
@@ -131,12 +132,21 @@ public class ProjectController {
 	
 	// 프로젝트 상세 페이지로 이동
 	@RequestMapping("projectDetail.do")
-	public ModelAndView projectDetail(ModelAndView mv, ProjectTask p) {
+	public ModelAndView projectDetail(int pNo, ModelAndView mv, HttpSession session, ProjectTask p) {
+		System.out.println("pNo: " + pNo);
+		System.out.println(p);
+		Employee e = (Employee)session.getAttribute("loginUser");
+		p.setTaskWriter(e.getEmpId());
+		
+		// 프로젝트 상세 조회
+		Project projectDetail = pService.projectDetail(pNo);
+		System.out.println(p);
 		
 		// 업무 리스트 불러오기
-		ArrayList<ProjectTask> taskList = pService.selectTaskList(p);
+		ArrayList<ProjectTask> taskList = pService.selectTaskList(pNo);
 		
 		if(taskList != null) {
+			mv.addObject("projectDetail", projectDetail);
 			mv.addObject("taskList", taskList);
 			mv.setViewName("project/projectDetail");
 		}else {
@@ -146,11 +156,45 @@ public class ProjectController {
 		return mv;
 	}
 	
+	@RequestMapping("afterTask.do")
+	public String afterTask(int pNo, HttpSession session, ProjectTask p, Model model) {
+		Employee e = (Employee)session.getAttribute("loginUser");
+		p.setTaskWriter(e.getEmpId());
+		
+		Project projectDetail = pService.projectDetail(pNo);
+		ArrayList<ProjectTask> taskList = pService.selectTaskList(pNo);
+		
+		if(taskList != null) {
+			model.addAttribute(projectDetail);
+			model.addAttribute(taskList);
+			
+			return "project/projectDetail"; 
+		} else {
+			model.addAttribute("msg", "보드 생성에 실패하였습니다.");
+			return "common/blankPage";
+		}
+	}
+	
 	
 	// 업무 추가 버튼 클릭 시
-	@RequestMapping("insertTaskView.do")
-	public String insertTask() {
-		return "project/insertTaskView";
+	@ResponseBody
+	@RequestMapping("insertTask.do")
+	public String insertTask(ProjectTask t, Model model, HttpSession session) {
+		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		t.setTaskWriter(e.getEmpId());
+		
+		System.out.println(t);
+		
+		int result = pService.insertTask(t);
+		
+		if(result > 0) {
+			return "redirect:afterTask.do";
+		} else {
+			model.addAttribute("msg", "보드 생성에 실패하였습니다.");
+			return "common/blankPage";
+		}
+		
 	}
 	
 	
