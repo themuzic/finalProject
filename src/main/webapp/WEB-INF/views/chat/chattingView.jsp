@@ -547,6 +547,7 @@ body{
 		        		$("#chatRename").removeClass('show');
 		        		$("#chatName").html(data);
 		        		$("#chatName").removeClass('hide');
+		        		sock.send("이름 변경:${loginUser.empId}");
     				}
 				},
 				error:function(){
@@ -563,6 +564,7 @@ body{
 		        		$("#chatRename").val('');
 		        		$("#chatName").html(chatName);
 		        		$("#chatName").removeClass('hide');
+		        		sock.send("이름 변경:${loginUser.empId}");
     				}else{
     					alertify.alert('DEVELOFFICE', '채팅방 이름 변경에 실패하셨습니다.');
     				}
@@ -572,7 +574,6 @@ body{
     			}
     		});
 		}
-		sock.send("이름 변경:${loginUser.empId}");
     }
     
     function exitChat(){
