@@ -132,25 +132,28 @@ public class TodoController {
 	/////////// TODO 생성 ///////////
 	@RequestMapping("insertTodo.do")
 	public ModelAndView insertTodo(Todo t, ModelAndView mv, HttpSession session,
-								   HttpServletRequest request,
-								   @RequestParam(name="tdBoardNo", required=false) Integer tdBoardNo) {
+								   HttpServletRequest request
+								   ) {
 		
 		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		int empId = e.getEmpId();
 		
 		TodoBoard tb = new TodoBoard();
 		tb.setEmpId(e.getEmpId());
 		
 		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
-		int tbNo = todoBoardList.get(0).getTdBoardNo();
-		System.out.println(tbNo);
+		int tdBoardNo = todoBoardList.get(0).getTdBoardNo();
+		System.out.println(tdBoardNo);
 		
 		t.setEmpId(e.getEmpId());
-		t.setTdBoardNo(tbNo);
+		t.setTdBoardNo(tdBoardNo);
 		
 		int result = tService.insertTodo(t);
 		
 		if(result > 0) {
-			mv.addObject("tbNo", tbNo).setViewName("redirect:todoList.do");
+			mv.addObject("empId", empId).addObject("tdBoardNo", tdBoardNo).setViewName("redirect:todoList.do");
+			//.setViewName("todo/todoListView");
 			//return "redirect:todoList.do";
 		} else {
 			mv.addObject("msg", "수정 실패").setViewName("common/errorPage");
