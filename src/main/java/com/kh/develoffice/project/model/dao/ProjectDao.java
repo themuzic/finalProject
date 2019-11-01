@@ -55,4 +55,18 @@ public class ProjectDao {
 	public int updateProgress(int empId) {
 		return sqlSession.update("projectMapper.updateProgress", empId);
 	}
+	
+	// 프로젝트 멤버 추가
+	public int insertMem(String[] empIds, int pNo) {
+
+		int result = 0;
+				
+		for(int i=0; i<empIds.length; i++) {
+			//System.out.println("dao: " + empIds[i]);
+			//System.out.println(empId);
+			ProjectMember mem = new ProjectMember(pNo, Integer.parseInt(empIds[i]));
+			result = sqlSession.insert("projectMapper.insertMem", mem);
+		}
+		return result;
+	}
 }

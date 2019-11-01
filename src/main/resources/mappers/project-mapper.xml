@@ -97,6 +97,11 @@
 		where pm_id=#{empId} and p_no=#{pNo}
 	</update>
 	
+	<!-- 프로젝트 멤버 추가 -->
+	<insert id="insertMem" parameterType="ProjectMember">
+		insert into project_member
+		values(#{pNo}, #{empId})
+	</insert>
 	
 	
 	

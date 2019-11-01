@@ -28,4 +28,7 @@ public interface ProjectService {
 	
 	// 진행상황 수정
 	int updateProgress(int empId);
+	
+	// 프로젝트 멤버 추가하기
+	int insertMem(String[] empIds, int pNo);
 }

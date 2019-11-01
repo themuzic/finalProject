@@ -4,13 +4,17 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.develoffice.common.Department;
 import com.kh.develoffice.document.model.service.DocumentService;
 import com.kh.develoffice.employee.model.service.EmployeeService;
 import com.kh.develoffice.employee.model.vo.Employee;
@@ -31,51 +35,24 @@ public class ProjectController {
 	
 	
 	
-	
-	//@RequestMapping("insertProject.do")
-	/*public ModelAndView insertProject(ModelAndView mv, @RequestParam("empId") String[] empIds) {
+	// 프로젝트 멤버 추가하기
+	@RequestMapping("insertMem.do")
+	public ModelAndView insertMem(ModelAndView mv, 
+			 					  @RequestParam("empId") String[] empIds, @RequestParam("pNo") int pNo) {
+		/*System.out.println(pNo);
+		for(int i = 0; i < empIds.length; i++) {
+			System.out.println("empId: " + empIds[i]);
+		}*/
 		
-		ArrayList<Department> deptList = dService.selectDept();
-		ArrayList<Employee> empList = eService.selectAllEmp();
+		int result = pService.insertMem(empIds, pNo);
 		
-		//System.out.println(deptList);
-		//System.out.println(empList);
-		
-		JSONArray deptArr = new JSONArray();
-		JSONArray empArr = new JSONArray();
-
-		for(Department d : deptList) {
-			JSONObject jObj = new JSONObject();
-			jObj.put("deptCode", d.getDeptCode());
-			jObj.put("deptName", d.getDeptName());
-			jObj.put("count", d.getCount());
-			
-			deptArr.add(jObj);
+		if(result > 0) {
+			mv.setViewName("project/projectDetail");
+		}else {
+			mv.addObject("msg", "리스트가 존재하지 않습니다.");
 		}
-		
-		for(Employee e : empList) {
-			JSONObject jObj = new JSONObject();
-			jObj.put("empId", e.getEmpId());
-			jObj.put("empName", e.getEmpName());
-			jObj.put("deptCode", e.getDeptCode());
-			jObj.put("deptName", e.getDeptName());
-			jObj.put("jobCode", e.getJobCode());
-			jObj.put("jobName", e.getJobName());
-			jObj.put("account", e.getAccount());
-			
-			empArr.add(jObj);
-		}
-		
-		
-		
-		mv.addObject("empList", empArr);
-		mv.addObject("deptList", deptArr);
-		mv.addObject("deptSize", deptArr.size());
-		mv.setViewName("project/insertProjectForm");
-		
-		
 		return mv;
-	}*/
+	}
 	
 	// 프로젝트 생성 뷰로 이동
 	@RequestMapping("insertProjectForm.do")
@@ -85,7 +62,7 @@ public class ProjectController {
 	
 	// 프로젝트 생성
 	@RequestMapping("insertProject.do")
-	public String insertProject(Project p, ProjectMember m,Model model) {
+	public String insertProject(Project p, ProjectMember m, Model model) {
 		
 		int result = pService.insertProject(p);
 		
@@ -133,6 +110,44 @@ public class ProjectController {
 	// 프로젝트 상세 페이지로 이동
 	@RequestMapping("projectDetail.do")
 	public ModelAndView projectDetail(int pNo, ModelAndView mv, HttpSession session, ProjectTask p) {
+		
+		ArrayList<Department> deptList = dService.selectDept();
+		ArrayList<Employee> empList = eService.selectAllEmp();
+		
+		//System.out.println(deptList);
+		//System.out.println(empList);
+		
+		JSONArray deptArr = new JSONArray();
+		JSONArray empArr = new JSONArray();
+
+		for(Department d : deptList) {
+			JSONObject jObj = new JSONObject();
+			jObj.put("deptCode", d.getDeptCode());
+			jObj.put("deptName", d.getDeptName());
+			jObj.put("count", d.getCount());
+			
+			deptArr.add(jObj);
+		}
+		
+		for(Employee e : empList) {
+			JSONObject jObj = new JSONObject();
+			jObj.put("empId", e.getEmpId());
+			jObj.put("empName", e.getEmpName());
+			jObj.put("deptCode", e.getDeptCode());
+			jObj.put("deptName", e.getDeptName());
+			jObj.put("jobCode", e.getJobCode());
+			jObj.put("jobName", e.getJobName());
+			jObj.put("account", e.getAccount());
+			
+			empArr.add(jObj);
+		}
+		
+		
+		
+		mv.addObject("empList", empArr);
+		mv.addObject("deptList", deptArr);
+		mv.addObject("deptSize", deptArr.size());
+		
 		System.out.println("pNo: " + pNo);
 		System.out.println(p);
 		Employee e = (Employee)session.getAttribute("loginUser");

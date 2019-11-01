@@ -58,6 +58,15 @@ public class ProjectServiceImpl implements ProjectService{
 		return pDao.updateProgress(empId);
 	}
 
+	// 프로젝트 멤버 추가하기
+	@Override
+	public int insertMem(String[] empIds, int pNo) {
+		/*for(int i = 0; i < empIds.length; i++) {
+			System.out.println("service: " + empIds[i]);
+		}*/
+		return pDao.insertMem(empIds, pNo);
+	}
+
 	
 
 	
