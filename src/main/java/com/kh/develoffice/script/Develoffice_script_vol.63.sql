@@ -1507,7 +1507,7 @@ where status='Y';
 
 -- «∞æ—¿Ã ∏ÆΩ∫∆Æ ∫‰
 create or replace view help_view as
-select work_id,h.emp_id,emp_name,work_title,work_content,reason,to_char(regist_date,'yyyy-mm-dd hh24:mi:ss') regist_date ,helper_id,status
+select work_id,h.emp_id,emp_name,work_title,work_content,reason,to_char(regist_date,'yyyy-mm-dd hh24:mi:ss') regist_date ,helper_id,to_char(bring_date,'yyyy-mm-dd hh24:mi:ss') bring_date,status
 from help h
 join employee e on(h.emp_id = e.emp_id);
 
