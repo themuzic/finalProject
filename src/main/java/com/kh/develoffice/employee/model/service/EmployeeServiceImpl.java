@@ -83,6 +83,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int updatePwd(Employee e) {
 		return eDao.updatePwd(e);
 	}
+
+	@Override
+	public int updateStar(int empId) {
+		return eDao.updateStar(empId);
+	}
+	
 	
 	
 

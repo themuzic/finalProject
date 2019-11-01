@@ -44,10 +44,14 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	}
 	.title{
 		background: #3287B2 !important;
+		padding-top: 4px !important;
 	}
 	.orgchart .node .content {
     border: 1px solid #3287B2;
-}
+	}
+	i{
+		display: none !important;
+	}
 </style>
 
 
@@ -101,26 +105,17 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			
 			$("#menu7").addClass("active");
 			
-		    var datascource = {
-		      'name': '전재광',
-		      'title': 'general manager',
-		      'children': [
-		        { 'name': 'Bo Miao', 'title': 'department manager' },
-		        { 'name': 'Su Miao', 'title': 'department manager',
-		          'children': [
-		            { 'name': 'Tie Hua', 'title': 'senior engineer' },
-		            { 'name': 'Hei Hei', 'title': 'senior engineer',
-		              'children': [
-		                { 'name': 'Pang Pang', 'title': 'engineer' },
-		                { 'name': 'Xiang Xiang', 'title': 'UE engineer' }
+		    var datascource = {'name':'DEVELOFFICE','title':'','children':[
+		        { 'name': '경영지원팀', 'title': '' ,'children':[ {'name':'총무팀'},{'name':'인사팀'},{'name':'회계팀'} ]},
+		        { 'name': '영업팀', 'title': '', 'children': [ { 'name': '7', 'title': 'senior engineer' },{ 'name': '8', 'title': 'senior engineer', 'children': [
+		                { 'name': '9', 'title': 'engineer' },
+		                { 'name': '10', 'title': 'UE engineer' }
 		              ]
 		            }
 		          ]
 		        },
-		        { 'name': 'Yu Jie', 'title': 'department manager' },
-		        { 'name': 'Yu Li', 'title': 'department manager' },
-		        { 'name': 'Hong Miao', 'title': 'department manager' },
-		        { 'name': 'Yu Wei', 'title': 'department manager' },
+		        { 'name': '서비스팀', 'title': '' },
+		        { 'name': '개발팀', 'title': '' },
 		      ]
 		    };
 		    var oc = $('#chart-container').orgchart({

@@ -66,6 +66,12 @@ public interface TodoService {
 	ArrayList<Help> selectBringHelpList(int empId);
 	// insert Help
 	int insertHelp(Help h);
+	// update help
+	int updateHelp(Help h);
+	// delete help
+	int deleteHelp(Help h);
+	// completeHelp
+	int completeHelp(Help h);
 	
 
 }

@@ -47,4 +47,7 @@ public interface EmployeeService {
 	// 비밀번호 수정
 	int updatePwd(Employee e);
 	
+	// 별 1개+
+	int updateStar(int empId);
+	
 }

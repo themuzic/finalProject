@@ -152,6 +152,24 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 
+	@Override
+	public int updateHelp(Help h) {
+		return tDao.updateHelp(h);
+	}
+
+
+	@Override
+	public int deleteHelp(Help h) {
+		return tDao.deleteHelp(h);
+	}
+
+
+	@Override
+	public int completeHelp(Help h) {
+		return tDao.completeHelp(h);
+	}
+
+
 	
 
 

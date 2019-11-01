@@ -35,6 +35,7 @@
 		<result property="reason" column="reason"/>
 		<result property="registDate" column="regist_date"/>
 		<result property="helperId" column="helper_id"/>
+		<result property="bringDate" column="bring_date"/>
 		<result property="status" column="status"/>
 	</resultMap>
   
@@ -177,27 +178,44 @@
 	</select>
 	
 	<select id="selectAllHelpList" resultMap="helpResultSet">
-		select * from help_view order by work_id desc
+		select * from help_view 
+		where helper_id is null
+		order by work_id desc
 	</select>
 	
 	<select id="selectMyHelpList" parameterType="_int" resultMap="helpResultSet">
 		select * from help_view 
-		where emp_id=#{empId}
+		where emp_id=#{empId} and helper_id is null
 		order by work_id desc
 	</select>
 	
 	<select id="selectBringHelpList" parameterType="_int" resultMap="helpResultSet">
 		select * from help_view 
-		where helper_id=#{empId}
+		where helper_id=#{empId} and status='N'
 		order by work_id desc
 	</select>
 	
 	<insert id="insertHelp" parameterType="Help">
 		insert into help
-		values(help_seq.nextval,#{empId},#{workTitle},#{workContent},#{reason},sysdate,null,default)
+		values(help_seq.nextval,#{empId},#{workTitle},#{workContent},#{reason},sysdate,null,null,default)
 	</insert>
 	
+	<update id="updateHelp" parameterType="Help">
+		update help
+		set helper_id=#{helperId}, bring_date=sysdate
+		where work_id=#{workId}
+	</update>
 	
+	<delete id="deleteHelp" parameterType="Help">
+		delete from help
+		where work_id=#{workId} and emp_id=#{empId}
+	</delete>
+	
+	<update id="completeHelp" parameterType="Help">
+		update help
+		set status='Y'
+		where work_id=#{workId} and helper_id=#{helperId}
+	</update>
 	
 	
 	

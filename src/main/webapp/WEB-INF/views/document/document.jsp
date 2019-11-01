@@ -1315,19 +1315,16 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			var selectedArr = $("#rightList option:selected");
 			var approval;
 			var num;
+			var rf;
 			
 			if($(this).hasClass('js-btn-approval-first-line')){
 				approval = $("#selectApprovalFirstLine");
 				num = $("#sp_selectApprovalFirstLine");
-			} else if($(this).hasClass('js-btn-approval-second-line')){
-				approval = $("#selectApprovalSecondLine");
-				num = $("#sp_selectApprovalSecondLine");
+				rf = $("#selectApprovalThirdLine");
 			} else if($(this).hasClass('js-btn-approval-third-line')){
 				approval = $("#selectApprovalThirdLine");
 				num = $("#sp_selectApprovalThirdLine");
-			} else if($(this).hasClass('js-btn-approval-fourth-line')){
-				approval = $("#selectApprovalFourthLine");
-				num = $("#sp_selectApprovalFourthLine");
+				rf = $("#selectApprovalFirstLine");
 			}
 			
 			$.each(selectedArr, function(index, value){
@@ -1336,23 +1333,40 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					var flag = 0;
 					
 					$.each(approval.children('option'), function(i, op){
-						
 						if(value.value == op.value){
 							flag = 1;
 						}
 					});
 					
+					if(rf.children('option').length > 0){	// 비어있지 않을때
+						$.each(rf.children('option'), function(i, op2){
+							if(value.value == op2.value){
+								flag = 1;
+							}
+						});
+					}
+					/* 검사 하고 나와서 */
 					if(flag == 0){
 						var $op = $('<option value="'+value.value+'" disabled>').text(value.text+'('+value.title+')');
 						approval.append($op);
 					}
 					
-				} else{
-					
-					var $op = $('<option value="'+value.value+'" disabled>').text(value.text+'('+value.title+')');
-					approval.append($op);
-				}
+				} else{	// 비어있을때
+					var flag = 0;
 				
+					if(rf.children('option').length > 0){	// 비어있지 않을때
+						$.each(rf.children('option'), function(i, op2){
+							if(value.value == op2.value){
+								flag = 1;
+							}
+						});
+					}
+					/* 검사 하고 나와서 */
+					if(flag == 0){
+						var $op = $('<option value="'+value.value+'" disabled>').text(value.text+'('+value.title+')');
+						approval.append($op);
+					}
+				}
 			});
 				num.text(approval.children().length);
 		});

@@ -22,6 +22,7 @@ public class Help {
 	private String reason;
 	private String registDate;
 	private int helperId;
+	private String bringDate;
 	private String status;
 	
 

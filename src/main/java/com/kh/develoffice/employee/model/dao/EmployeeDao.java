@@ -77,4 +77,10 @@ public class EmployeeDao {
 	public int updatePwd(Employee e) {
 		return sqlSession.update("employeeMapper.updatePwd", e);
 	}
+
+
+	public int updateStar(int empId) {
+		System.out.println(empId);
+		return sqlSession.update("employeeMapper.updateStar", empId);
+	}
 }

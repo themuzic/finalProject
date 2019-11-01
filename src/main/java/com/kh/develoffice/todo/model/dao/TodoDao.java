@@ -139,6 +139,21 @@ public class TodoDao {
 	public int insertHelp(Help h) {
 		return sqlSession.insert("todoMapper.insertHelp",h);
 	}
+
+
+	public int updateHelp(Help h) {
+		return sqlSession.update("todoMapper.updateHelp",h);
+	}
+
+
+	public int deleteHelp(Help h) {
+		return sqlSession.delete("todoMapper.deleteHelp",h);
+	}
+
+
+	public int completeHelp(Help h) {
+		return sqlSession.update("todoMapper.completeHelp",h);
+	}
 	
 	
 	

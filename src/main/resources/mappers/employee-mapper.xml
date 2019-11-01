@@ -122,5 +122,11 @@
 		set emp_pwd=#{empPwd}
 		where emp_id = #{empId}
 	</update>
+	
+	<update id="updateStar" parameterType="_int">
+		update employee
+		set star = star+1
+		where emp_id = #{empId}
+	</update>
 
 </mapper>

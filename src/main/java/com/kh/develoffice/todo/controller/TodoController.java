@@ -17,8 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
+import com.kh.develoffice.employee.model.service.EmployeeService;
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.todo.model.service.TodoService;
+import com.kh.develoffice.todo.model.vo.Help;
 import com.kh.develoffice.todo.model.vo.Todo;
 import com.kh.develoffice.todo.model.vo.TodoBoard;
 
@@ -29,7 +31,8 @@ public class TodoController {
 	
 	@Autowired
 	private TodoService tService;
-	
+	@Autowired
+	private EmployeeService eService;
 	
 	
 	
@@ -255,7 +258,6 @@ public class TodoController {
 		return mv;
 	}
 	
-	
 	/////////// todo 상세 조회
 	@RequestMapping("todoDetail.do")
 	public ModelAndView todoDetail(int todoNo, ModelAndView mv) {
@@ -287,16 +289,91 @@ public class TodoController {
 		return mv;
 	}
 	
-	
-	
 	@RequestMapping("help.do")
-	public ModelAndView help(ModelAndView mv) {
+	public ModelAndView help(ModelAndView mv, int empId) {
+		//ArrayList<Help> bringList = tService.selectBringHelpList(empId);
 		
+		//mv.addObject("bringList", bringList);
 		mv.setViewName("help/help");
-		
 		return mv;
 	}
 	
+	@ResponseBody
+	@RequestMapping("insertHelp.do")
+	public String insertHelp(Help h) {
+		
+		int result = tService.insertHelp(h);
+		
+		if(result > 0) {
+			
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("deleteHelp.do")
+	public String deleteHelp(Help h) {
+		
+		int result = tService.deleteHelp(h);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("updateHelp.do")
+	public String updateHelp(Help h) {
+		int result = tService.updateHelp(h);
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("completeHelp.do")
+	public String completeHelp(Help h, HttpSession session) {
+		
+		int result = tService.completeHelp(h);
+		int result2 = eService.updateStar(h.getHelperId());
+		if(result > 0 && result2 > 0) {
+			((Employee)session.getAttribute("loginUser")).setStar(((Employee)session.getAttribute("loginUser")).getStar()+1);
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@RequestMapping("selectHelp.do")
+	public void selectHelp(int empId, String condition, HttpServletResponse response) throws JsonIOException, IOException {
+		ArrayList<Help> helpList = new ArrayList<>();
+		if(condition.equals("all")) {
+			helpList = tService.selectAllHelpList();
+		} else {
+			helpList = tService.selectMyHelpList(empId);
+		}
+		
+		response.setContentType("application/json; charset=utf-8");
+		Gson gson = new Gson();
+		gson.toJson(helpList, response.getWriter());
+	}
+	
+	@RequestMapping("selectBringHelp.do")
+	public void selectBringHelp(Help h, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<Help> helpList = tService.selectBringHelpList(h.getHelperId());
+		
+		response.setContentType("application/json; charset=utf-8");
+		Gson gson = new Gson();
+		gson.toJson(helpList, response.getWriter());
+	}
 	
 	@ResponseBody
 	@RequestMapping("updateTodoWidget.do")
@@ -311,7 +388,6 @@ public class TodoController {
 		}
 	}
 	
-	
 	@RequestMapping("callTodoList.do")
 	public void callTodoList(Todo t, HttpServletResponse response) throws JsonIOException, IOException{
 		System.out.println(t);
@@ -321,6 +397,11 @@ public class TodoController {
 		Gson gson = new Gson();
 		gson.toJson(todoGoingList, response.getWriter());
 	}
+	
+	
+	
+	
+	
 	
 
 	

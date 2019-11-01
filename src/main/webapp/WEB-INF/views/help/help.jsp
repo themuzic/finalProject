@@ -176,7 +176,7 @@
 												<tr>
 													<th style="border-right:1px solid #ececec;width: 150px;">등록일</th>
 													<th style="border-right:1px solid #ececec;width: 278px;">제목</th>
-													<th style="width: 128px;">등록자</th>
+													<th id="th" style="width: 128px;">등록자</th>
 												</tr>
 											</thead>
 											<tbody id="helpTbody"></tbody>
@@ -190,7 +190,10 @@
 							<td>
 								<div class="help-wrap">
 									<div class="helpTitle">
-										<label class="title">내가 가져온 일감</label>
+										<label class="title fl">내가 가져온 일감</label>
+										<div id="myStarDiv" class="fl" style="margin-left:20px">
+										나의 별 갯수 : <span id="myStar">${loginUser.star}</span>
+										</div>
 									</div>
 									<div class="helpDiv">
 										<table class="helpTable">
@@ -314,7 +317,8 @@
 									</div>
 								
 									<div class="layer_button">
-										<button type="button" class="btn_variables booking_layer_close bringBtn" id="btn">가져오기</button>
+										<input type="hidden" name="workId" id="hh7" value="">
+										<button type="button" class="btn_variables booking_layer_close bringBtn" id="btn">가져오기</button>										
 										<button type="button" class="booking_layer_close closeBtn">닫기</button>
 									</div>
 									<a href="javascript:void(0)" class="icon btn_closelayer booking_layer_close closeBtn" title="레이어 닫기"><span class="blind">닫기</span></a>
@@ -352,6 +356,7 @@
 	
 		$(function(){
 			refresh();
+			callBringList();
 			
 			$("#menu3_1").removeClass("collapsed");
 			$("#menu3").addClass("in");
@@ -361,7 +366,7 @@
 			$("#m3_3").addClass("active");	
 			
 			$('#helpTbody').slimScroll({
-		        height: '400px',
+		        height: '351px',
 		        railVisible: true,
 		        railColor: '#222',
 		        railOpacity: 0.3,
@@ -371,7 +376,7 @@
 		    });
 			
 			$('#bringTbody').slimScroll({
-		        height: '400px',
+		        height: '351px',
 		        railVisible: true,
 		        railColor: '#222',
 		        railOpacity: 0.3,
@@ -423,6 +428,12 @@
 			console.log('select실행하러옴');
 			var condition = $('input[name=condition]:checked').val();
 			
+			if(condition == 'all'){
+				$("#th").text('등록자');
+			}else{
+				$("#th").text('진행 상태');
+			}
+			
 			$("#helpTbody").html("");
 			
 			$.ajax({
@@ -446,7 +457,17 @@
 							var tr = $('<tr>');
 							var td1 = $('<td style="text-align:center;width:150px;">').text(help.registDate);
 							var td2 = $('<td style="padding:0 10px;width:278px;">').text(help.workTitle);
-							var td3 = $('<td style="width:128px;">').text(help.empName);
+							var td3;
+							
+							if(condition == 'all'){
+								$("#th").text('등록자');
+								td3 = $('<td style="width:128px;">').text(help.empName);
+							}else{
+								$("#th").text('진행 상태');
+								td3 = $('<td style="width:128px;">').text((help.helperId == "")? '대기중' : '진행중');
+							}
+							
+							tr.append(helpPK);
 							tr.append(helpTitle);
 							tr.append(helpEmpId);
 							tr.append(helpEmpName);
@@ -463,7 +484,6 @@
 						var tr = $('<tr>');
 						var td = $('<td colspan="3" style="width:556px;height:50px;text-align:center;font-size:16px;font-weight:bold;">').text("등록된 일감이 없습니다.");
 						
-						console.log(tr);
 						tr.append(td);
 						$("#helpTbody").append(tr);
 					}
@@ -482,9 +502,10 @@
 			$("#hh3").text($(this).find('input[name=empName]').val());		//등록자
 			$("#hh4").text($(this).find('input[name=workContent]').val());	//일감내용
 			$("#hh5").text($(this).find('input[name=reason]').val());		//사유
-			$("#hh5").val($(this).find('input[name=empId]').val());			//사번
+			$("#hh6").val($(this).find('input[name=empId]').val());			//사번
+			$("#hh7").val($(this).find('input[name=workId]').val());		//일감번호
 			
-			if('${loginUser.empId}' == $('input[name=empId]').val()){
+			if('${loginUser.empId}' == $(this).find('input[name=empId]').val()){
 				$("#btn").removeClass('btn_variables');
 				$("#btn").removeClass('bringBtn');
 				$("#btn").addClass('warning');
@@ -499,54 +520,152 @@
 					$("#btn").text('가져오기');
 				}
 			}
-			$("#detail_check_layer").addClass('show');
+			
+			if($(this).text() != '등록된 일감이 없습니다.'){
+				$("#detail_check_layer").addClass('show');
+			}
 		});
 		
 		/* 일감 삭제 눌렀을 때 */
 		$(document).on('click','.delBtn',function(){
 			
+			var workId=$(this).prev().val();
+			
+			$.ajax({
+				url:"deleteHelp.do",
+				type:"POST",
+				data:{empId:'${loginUser.empId}',
+					workId:workId
+				},
+				success:function(data){
+					if(data == 'success'){
+						refresh();
+					}else{
+						alertify.alert('','일감 삭제 실패');
+					}
+				},
+				error:function(){
+					alertify.alert('','AJAX통신 실패');
+				}
+			});
+			$(this).next().click();
 		});
 		
 		
 		/* 일감 가져오기 눌렀을 때 */
 		$(document).on('click','.bringBtn',function(){
+			var workId = $("#hh7").val();
 			
-			
-			
-			
-			var helpTitle = $("<input type='hidden' name='workTitle'>").val($("#hh1").text());
-			var helpEmpId = $("<input type='hidden' name='empId'>").val($("#hh5").text());
-			var helpEmpName = $("<input type='hidden' name='empName'>").val($("#hh3").text());
-			var helpContent = $("<input type='hidden' name='workContent'>").val($("#hh4").text());
-			var helpReason = $("<input type='hidden' name='reason'>").val($("#hh5").text());
-			var helpDate = $("<input type='hidden' name='registDate'>").val($("#hh2").text());
-			
-			var tr = $('<tr>');
-			var td1 = $('<td style="text-align:center;width:150px;">').text(getTimeStamp());
-			var td2 = $('<td style="padding:0 10px;width:278px;">').text($("#hh1").text());
-			var td3 = $('<td style="width:128px;">').text($("#hh3").text());
-			tr.append(helpTitle);
-			tr.append(helpEmpId);
-			tr.append(helpEmpName);
-			tr.append(helpContent);
-			tr.append(helpReason);
-			tr.append(helpDate);
-			tr.append(td1);
-			tr.append(td2);
-			tr.append(td3);
-			
-			$("#bringTbody").append(tr);
-			
-			var div = $('<div class="contentDiv" style="display:none;text-indent:20px;">').text($("#hh4").text());
-			var div2 = $('<div class="btnDiv" style="text-align:right">');
-			var btn = $('<button class="comBtn ui primary button" style="font-size:10px;">').text("완료");
-			div2.append(btn);
-			div.append(div2);
-			
-			$("#bringTbody").append(div);
-			
+			$.ajax({
+				url:"updateHelp.do",
+				type:"POST",
+				data:{helperId:'${loginUser.empId}',
+					workId:workId
+				},
+				success:function(data){
+					if(data == 'success'){
+						callBringList();
+						refresh();
+					}else{
+						alertify.alert('','일감 가져오기 실패');
+					}
+				},
+				error:function(){
+					alertify.alert('','AJAX통신 실패');
+				}
+			});
 			$(this).next().click();
 		});
+		
+		/* 가져온 일감 완료 눌렀을 때 */
+		$(document).on('click','.comBtn',function(){
+			var workId = $(this).next().val();
+			
+			$.ajax({
+				url:"completeHelp.do",
+				type:"POST",
+				data:{helperId:'${loginUser.empId}',
+					workId:workId
+				},
+				success:function(data){
+					if(data == 'success'){
+						callBringList();
+						var star=$("#myStar").text();
+						$("#myStar").text(Number(star)+1);
+						alertify.alert('','별 1개가 적립되었습니다.');
+					}else{
+						alertify.alert('','일감 완료 실패');
+					}
+				},
+				error:function(){
+					alertify.alert('','AJAX통신 실패');
+				}
+			});
+			$(this).next().click();
+		});
+		
+		/* 내가 가져온 일감 뿌려주기 */
+		function callBringList(){
+			
+			$("#bringTbody").html("");
+			
+			$.ajax({
+				url:"selectBringHelp.do",
+				type:"POST",
+				data:{helperId:'${loginUser.empId}'
+				},
+				success:function(data){
+					if(data != ""){
+						
+						$.each(data,function(index, help){
+							var helpPK = $("<input type='hidden' name='workId'>").val(help.workId);
+							var helpTitle = $("<input type='hidden' name='workTitle'>").val(help.workTitle);
+							var helpEmpId = $("<input type='hidden' name='empId'>").val(help.empId);
+							var helpEmpName = $("<input type='hidden' name='empName'>").val(help.empName);
+							var helpContent = $("<input type='hidden' name='workContent'>").val(help.workContent);
+							var helpReason = $("<input type='hidden' name='reason'>").val(help.reason);
+							var helpDate = $("<input type='hidden' name='registDate'>").val(help.registDate);
+							var bringDate = $("<input type='hidden' name='bringDate'>").val(help.bringDate);
+							
+							var tr = $('<tr>');
+							var td1 = $('<td style="text-align:center;width:150px;">').text(help.bringDate);
+							var td2 = $('<td style="padding:0 10px;width:278px;">').text(help.workTitle);
+							var td3 = $('<td style="width:128px;">').text(help.empName);
+							
+							tr.append(helpTitle);
+							tr.append(helpEmpId);
+							tr.append(helpEmpName);
+							tr.append(helpContent);
+							tr.append(helpReason);
+							tr.append(helpDate);
+							tr.append(bringDate);
+							tr.append(td1);
+							tr.append(td2);
+							tr.append(td3);
+							
+							var div = $('<div class="contentDiv" style="display:none;text-indent:20px;">').text(help.workContent);
+							var div2 = $('<div class="btnDiv" style="text-align:right">');
+							var btn = $('<button class="comBtn ui primary button" style="font-size:10px;">').text("완료");
+							div2.append(btn);
+							div2.append(helpPK);
+							div.append(div2);
+							
+							$("#bringTbody").append(tr);
+							$("#bringTbody").append(div);
+						});
+					}else{
+						var tr = $('<tr>');
+						var td = $('<td colspan="3" style="width:556px;height:50px;text-align:center;font-size:16px;font-weight:bold;">').text("가져온 일감이 없습니다.");
+						
+						tr.append(td);
+						$("#bringTbody").append(tr);
+					}
+				},
+				error:function(){
+					alertify.alert('','AJAX통신 실패');
+				}
+			});
+		}
 		
 		/* 가져온 일감을 누르면 */
 		$("#bringTbody").on('click','tr',function(){
@@ -561,13 +680,6 @@
 				$(this).next('div').slideDown();
 			}
 		});
-		
-		
-		
-		
-		
-		
-		
 		
 		/* 현재 시간 출력해주는 메소드 */
 		function getTimeStamp() {
