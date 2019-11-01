@@ -169,10 +169,11 @@
 											<div class="divider"></div>
 											<span>댓글<b id="uberCount"></b>ㆍ</span>
 											<div class="divider"></div>
-											<span class="fa fa-clock-o"></span> <span>${n.noCreateDate} ㆍ</span>
+											<span class="fa fa-clock-o"></span> <span>${n.noCreateDate}</span>
 											<div class="divider"></div>
-											<span>첨부파일:
+											
 												<c:if test="${!empty n.originalFileName }">
+													<span> ㆍ첨부파일:
 													<a href="${contextPath}/resources/nupload/${n.renameFileName}" download=${f.originalFileName}>${n.originalFileName }</a>           
 												</c:if>
 											</span>
@@ -189,7 +190,7 @@
 			                        <a href="listNotice.do"><i class="fas fa-bars "></i><span> 목록보기</span></a>
 			                    </div>
 				         			<c:if test="${loginUser.empId eq n.noWriter }">
-				         				 <div class="test2">
+				         			<div class="test2">
 					                    <c:url var="update" value="noticeUpdateView.do">
 					                    	<c:param name="noId" value="${n.noId}"/>
 					                    </c:url>
@@ -200,7 +201,7 @@
 					                    <c:url var="delete" value="noticeDelete.do">
 					                    	<c:param name="noId" value="${n.noId}"></c:param>
 					                    </c:url>
-				                        <a href="${delete}" style="color:white; cursor:pointer;" ><i class="far fa-trash-alt"></i><span> 삭제하기</span></a>  
+				                        <a href="${delete}"><i class="far fa-trash-alt"></i><span> 삭제하기</span></a>  
 				                    </div>
 			         			</c:if>
 			           		</div>

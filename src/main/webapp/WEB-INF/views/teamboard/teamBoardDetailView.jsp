@@ -199,7 +199,7 @@
 					                    <c:url var="delete" value="teamBoardDelete.do">
 					                    	<c:param name="tbId" value="${tb.tbId}"></c:param>
 					                    </c:url>
-				                        <a href="${delete}" style="color:white; cursor:pointer;" ><i class="far fa-trash-alt"></i><span> 삭제하기</span></a>  
+				                        <a href="${delete}"><i class="far fa-trash-alt"></i><span> 삭제하기</span></a>  
 				                    </div>
 			         			</c:if>
 			           		</div>

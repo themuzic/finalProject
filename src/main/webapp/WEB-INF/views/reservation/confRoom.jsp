@@ -383,6 +383,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		$(function(){
 			
 			/* 사이드바의 해당 메뉴 활성화 유지하기 */
+			$("#menu5_1").removeClass("collapsed");
 			$("#menu5").addClass("in");
 			$("#menu5").attr('aria-expanded',true);
 			$("#menu5_1").addClass("active");

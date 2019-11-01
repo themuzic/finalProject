@@ -219,6 +219,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	
 	$(function(){
 		/* 사이드바의 해당 메뉴 활성화 유지하기 */
+		$("#menu1_1").removeClass("collapsed");
 		if('${condition}' == '전체'){
 			$("#menu1").addClass("in");
 			$("#menu1").attr('aria-expanded',true);

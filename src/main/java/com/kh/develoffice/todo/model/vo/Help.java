@@ -16,9 +16,11 @@ public class Help {
 	
 	private int workId;
 	private int empId;
+	private String empName;
 	private String workTitle;
 	private String workContent;
 	private String registDate;
+	private String reason;
 	private int helperId;
 	private String status;
 	

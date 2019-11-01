@@ -169,10 +169,10 @@
 											<div class="divider"></div>
 											<span>댓글<b id="uberCount"></b>ㆍ</span>
 											<div class="divider"></div>
-											<span class="fa fa-clock-o"></span> <span>${f.frCreateDate} ㆍ</span>
+											<span class="fa fa-clock-o"></span> <span>${f.frCreateDate}</span>
 											<div class="divider"></div>
-											<span>첨부파일:
 												<c:if test="${!empty f.originalFileName }">
+													<span> ㆍ첨부파일:
 													<a href="${contextPath}/resources/fupload/${f.renameFileName}" download=${f.originalFileName}>${f.originalFileName }</a>           
 												</c:if>
 											</span>
@@ -208,7 +208,7 @@
 					                    <c:url var="delete" value="freeDelete.do">
 					                    	<c:param name="frId" value="${f.frId}"></c:param>
 					                    </c:url>
-				                        <a href="${delete}" style="color:white; cursor:pointer;" ><i class="far fa-trash-alt"></i><span> 삭제하기</span></a>  
+				                        <a href="${delete}"><i class="far fa-trash-alt"></i><span> 삭제하기</span></a>  
 				                    </div>
 			         			</c:if>
 			           		</div>

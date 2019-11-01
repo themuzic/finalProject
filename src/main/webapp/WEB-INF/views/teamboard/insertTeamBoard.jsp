@@ -94,7 +94,7 @@
 					<form action="tbinsert.do" class="ui form uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">
 					  <div class="field">
 					    <label style="font-size:15px;">제목</label>
-					    <input type="text" name="frTitle" placeholder="제목" style="font-size: 16px;">
+					    <input type="text" name="tbTitle" placeholder="제목" style="font-size: 16px;">
 					  </div>
 					  <div class="field">
 					    <label style="font-size:15px;">내용</label>
