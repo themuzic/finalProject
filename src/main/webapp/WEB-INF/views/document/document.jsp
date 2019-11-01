@@ -1872,6 +1872,10 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				
 				/* 제목 */
 				var title = $("#approval_document_title").val();
+				if(title == ""){
+					alertify.alert('DEVELOFFICE','제목을 입력하지 않았습니다.');
+					return;
+				}
 				formData.append('title',title);
 				
 				/* 참조라인(배열) */
@@ -2210,7 +2214,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		                // 확장자
 		                var ext = fileNameArr[fileNameArr.length - 1];
 		                // 파일 사이즈(단위 :MB)
-		                var fileSize = files[i].size / 1024 / 1024;
+		                var fileSize = (files[i].size / 1024 / 1024).toFixed(2);
 		                
 		                if($.inArray(ext, ['exe', 'bat', 'sh', 'java', 'jsp', 'html', 'js', 'css', 'xml']) >= 0){
 		                    // 확장자 체크

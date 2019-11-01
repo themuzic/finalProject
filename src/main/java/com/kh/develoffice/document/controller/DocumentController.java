@@ -95,8 +95,8 @@ public class DocumentController {
 		
 		for(Document d : docuList){
 			
-			String[] sArr = d.getDocuDate().split(" ");
-			d.setDocuDate(sArr[0]);
+//			String[] sArr = d.getDocuDate().split(" ");
+//			d.setDocuDate(sArr[0]);
 			
 			for(Approval a : apList) {
 				if(d.getDocuNum() == a.getDocuNum()) {
@@ -333,19 +333,8 @@ public class DocumentController {
 		System.out.println("uploadFile.size() : "+uploadFile.size());
 		System.out.println("uploadFile.getOriginalFilename() : "+uploadFile);
 		
-		
 		if(uploadFile!=null && !uploadFile.get(0).getOriginalFilename().equals("")) {	// 첨부파일이 넘어온 경우
-			
-			for(int i = 0; i < uploadFile.size(); i++) {
-				System.out.println(uploadFile.get(i));
-				filename = saveFile(uploadFile.get(i), request);
-			}
-			
-			if(filename != null) {	// 파일이 잘 저장된 경우
-				docu.setFileStatus("Y");
-			} else {
-				docu.setFileStatus("N");
-			}
+			docu.setFileStatus("Y");
 		} else {
 			docu.setFileStatus("N");
 		}
@@ -353,9 +342,24 @@ public class DocumentController {
 		String type = document.getDocuType();
 		int result = dService.insertDocument(docu);	//통합문서 insert
 		int result2 = 0;
-		System.out.println("type : "+type);
-		System.out.println(rt);
+		
 		if(result > 0) {	// 통합문서 insert 성공
+			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = root + "\\upload\\documentFile";
+			int fileResult = 0;
+			
+			for(int i = 0; i < uploadFile.size(); i++) {
+				filename = saveFile(uploadFile.get(i), request);
+				
+				DocumentFile dFile = new DocumentFile();
+				dFile.setFilePath(savePath);
+				dFile.setOriginName(uploadFile.get(i).getOriginalFilename());
+				dFile.setChangeName(filename);
+				
+				fileResult += dService.insertFile(dFile);
+			}
+			System.out.println(fileResult+"개 파일 insert 성공");
 			
 			if(type.equals("AP")) {
 				result2 = dService.insertDocuA(docuA);	//지출결의서 insert
@@ -391,27 +395,6 @@ public class DocumentController {
 						}
 					}
 				}
-				
-				if(docu.getFileStatus().equals("Y")) {	// 첨부파일이 있으면
-					
-					int fileResult = 0;
-					
-					String root = request.getSession().getServletContext().getRealPath("resources");
-					String savePath = root + "\\upload\\documentFile";
-					for(int i = 0; i < uploadFile.size(); i++) {
-						DocumentFile dFile = new DocumentFile();
-						dFile.setFilePath(savePath);
-						dFile.setOriginName(uploadFile.get(i).getOriginalFilename());
-						dFile.setChangeName(filename);
-						
-						fileResult += dService.insertFile(dFile);
-					}
-					
-					if(fileResult <= 0) {
-						System.out.println("첨부 파일 insert 실패");
-						return "fail";
-					}
-				}
 				return "success";
 				
 			} else {	// 문서타입별 insert 실패
@@ -442,9 +425,10 @@ public class DocumentController {
 		
 		// 파일명 수정작업 --> 년월일시분초.확장자
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String random = String.valueOf((int)(Math.random()*100)+1);
 		
 		String renameFileName = sdf.format(new Date(System.currentTimeMillis())) // 년월일시분초
-							  + originalFileName.substring(originalFileName.lastIndexOf("."));
+							  + random + originalFileName.substring(originalFileName.lastIndexOf("."));
 		
 		// 실제 저장될 경로 savePath + 저장하고자하는 파일명 renameFileName
 		String renamePath = savePath + "\\" + renameFileName;	

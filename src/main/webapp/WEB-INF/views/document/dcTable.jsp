@@ -119,7 +119,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 						      		<th data-orderable="false" style="text-align:center;">문서 번호</th>
 							  		<th data-orderable="false" id="title" style="text-align:center;">제목</th>
 							  		<th data-orderable="false" id="writer" width="100" style="text-align:center;">기안자</th>
-							  		<th style="text-align:center;" width="150">기안일</th>
+							  		<th style="text-align:center;" width="150">기안일시</th>
 							  		<th data-orderable="true" style="text-align:center;" width="100">구분</th>
 							  		<th data-orderable="true" style="text-align:center;" width="100">상태</th>
 					    		</tr>
