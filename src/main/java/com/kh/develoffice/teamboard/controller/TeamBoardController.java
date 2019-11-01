@@ -34,9 +34,9 @@ public class TeamBoardController {
 	private TeamBoardService tbSerivce;
 	
 	@RequestMapping("listTeamBoard.do")
-	public ModelAndView TeamBoardList(ModelAndView mv) {
-		
-		ArrayList<TeamBoard> list = tbSerivce.selectList();
+	public ModelAndView TeamBoardList(ModelAndView mv, HttpSession session) {
+		int deptCode = ((Employee)session.getAttribute("loginUser")).getDeptCode();
+		ArrayList<TeamBoard> list = tbSerivce.selectList(deptCode);
 		
 		if(list != null) {
 			mv.addObject("list",list);

@@ -18,6 +18,7 @@ public class Notice {
 	private int noId;
 	private String noTitle;
 	private String noWriter;
+	private int deptCode;
 	private String empName;
 	private String noContent;
 	private String originalFileName;

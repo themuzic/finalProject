@@ -4,7 +4,8 @@
 	<resultMap id="noticeResultSet" type="Notice">
 		<id property="noId" column="notice_no"/>
 		<result property="noTitle" column="notice_title"/>	
-		<result property="noWriter" column="notice_writer"/>	
+		<result property="noWriter" column="notice_writer"/>
+		<result property="deptCode"	 column="dept_code"/>
 		<result property="empName" column="empName"/>	
 		<result property="noContent" column="notice_content"/>	
 		<result property="originalFileName" column="notice_original_filename"/>	

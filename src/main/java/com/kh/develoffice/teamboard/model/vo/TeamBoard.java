@@ -18,6 +18,7 @@ public class TeamBoard {
 	private int tbId;
 	private String tbTitle;
 	private String tbWriter;
+	private int deptCode;
 	private String empName;
 	private String tbContent;
 	private String originalFileName;

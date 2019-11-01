@@ -21,8 +21,8 @@ public class TeamBoardServiceImpl implements TeamBoardService{
 	}
 
 	@Override
-	public ArrayList<TeamBoard> selectList() {
-		return tbDao.selectList();
+	public ArrayList<TeamBoard> selectList(int deptCode) {
+		return tbDao.selectList(deptCode);
 	}
 
 	@Override

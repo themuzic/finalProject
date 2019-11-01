@@ -5,6 +5,8 @@
 		<id property="tbId" column="tb_no"/>
 		<result property="tbTitle" column="tb_title"/>
 		<result property="tbWriter" column="tb_writer"/>
+		<result property="deptCode"	 column="dept_code"/>
+		<result property="empName" column="empName"/>
 		<result property="tbContent" column="tb_content"/>
 		<result property="originalFileName" column="tb_original_filename"/>
 		<result property="renameFileName" column="tb_rename_filename"/>
@@ -31,10 +33,10 @@
 		where status='Y'
 	</select>
 	
-	<select id="selectList" resultMap="teamBoardResultSet">
+	<select id="selectList" parameterType="_int" resultMap="teamBoardResultSet">
 		select *
 		from team_board_detail
-		where status='Y'
+		where status='Y' and dept_code = #{deptCode}
 		order by tb_no desc
 	</select>
 	

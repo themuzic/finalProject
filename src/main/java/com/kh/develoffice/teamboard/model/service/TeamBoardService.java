@@ -11,7 +11,7 @@ public interface TeamBoardService {
 
 	int getListCount();
 	
-	ArrayList<TeamBoard> selectList();
+	ArrayList<TeamBoard> selectList(int deptCode);
 	
 	int insertTeamBoard(TeamBoard tb);
 	

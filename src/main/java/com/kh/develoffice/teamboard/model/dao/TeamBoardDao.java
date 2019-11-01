@@ -19,8 +19,8 @@ public class TeamBoardDao {
 		return  sqlSession.selectOne("TeamBoardMapper.getListCount");
 	}
 
-	public ArrayList<TeamBoard> selectList() {
-		return (ArrayList)sqlSession.selectList("TeamBoardMapper.selectList");
+	public ArrayList<TeamBoard> selectList(int deptCode) {
+		return (ArrayList)sqlSession.selectList("TeamBoardMapper.selectList", deptCode);
 	}
 
 	public int insertTeamBoard(TeamBoard tb) {

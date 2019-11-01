@@ -163,9 +163,9 @@
 					       
 					    </table>
 
-						<%-- <c:if test="${loignUser eq 관리자}"> --%>				
+						<c:if test="${loginUser.deptCode eq 2 || loginUser.deptCode eq 3 || loginUser.deptCode eq 4}">				
 						    <button onclick="location.href='insertNoticeView.do';" class="btn btn-primary" style="float:right;">글쓰기</button>
-						<%-- </c:if> --%>
+						</c:if>
 						
 						
 					<!-- 이 위까지 내용작성 -->
