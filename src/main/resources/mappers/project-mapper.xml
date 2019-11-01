@@ -76,6 +76,12 @@
 		order by p_no desc
 	</select>
 	
+	<!-- project Member 리스트 조회 -->
+	<select id="selectMlist" resultMap="projectMemberResultSet">
+		select *
+		from project_member
+	</select>
+	
 	<!-- 업무 추가 -->
 	<insert id="insertTask" parameterType="ProjectTask">
 		insert into project_task

@@ -20,6 +20,9 @@ public interface ProjectService {
 	// project 리스트 조회
 	ArrayList<Project> selectPlist(int empId);
 	
+	// projectMember 리스트 조회
+	ArrayList<ProjectMember> selectMlist();
+	
 	// 프로젝트 상세조회
 	Project projectDetail(int pNo); 
 	

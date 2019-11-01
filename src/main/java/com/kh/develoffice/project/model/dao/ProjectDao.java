@@ -39,6 +39,11 @@ public class ProjectDao {
 		return list;
 	}
 	
+	// 프로젝트 멤버 리스트 조회
+	public ArrayList<ProjectMember> selectMlist(){
+		return (ArrayList)sqlSession.selectList("projectMapper.selectMlist");
+	}
+	
 	//업무 추가
 	public int insertTask(ProjectTask t) {
 		return sqlSession.insert("projectMapper.insertTask", t);
@@ -62,8 +67,8 @@ public class ProjectDao {
 		int result = 0;
 				
 		for(int i=0; i<empIds.length; i++) {
-			//System.out.println("dao: " + empIds[i]);
-			//System.out.println(empId);
+			System.out.println(pNo + ", dao: " + empIds[i]);
+	
 			ProjectMember mem = new ProjectMember(pNo, Integer.parseInt(empIds[i]));
 			result = sqlSession.insert("projectMapper.insertMem", mem);
 		}

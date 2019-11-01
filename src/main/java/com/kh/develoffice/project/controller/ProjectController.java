@@ -39,10 +39,10 @@ public class ProjectController {
 	@RequestMapping("insertMem.do")
 	public ModelAndView insertMem(ModelAndView mv, 
 			 					  @RequestParam("empId") String[] empIds, @RequestParam("pNo") int pNo) {
-		/*System.out.println(pNo);
+		System.out.println(pNo);
 		for(int i = 0; i < empIds.length; i++) {
 			System.out.println("empId: " + empIds[i]);
-		}*/
+		}
 		
 		int result = pService.insertMem(empIds, pNo);
 		
@@ -94,10 +94,14 @@ public class ProjectController {
 		
 		//프로젝트 리스트 불러오기
 		ArrayList<Project> plist = pService.selectPlist(empId);
+		// 프로젝트 멤버 리스트 불러오기
+		ArrayList<ProjectMember> mlist = pService.selectMlist();
+		
 		
 		if(plist != null) {
 			mv.addObject("empList", empList);
 			mv.addObject("plist", plist);
+			mv.addObject("mlist", mlist);
 			mv.setViewName("project/projectList");
 		}else {
 			mv.addObject("msg", "리스트가 존재하지 않습니다.");
@@ -109,7 +113,7 @@ public class ProjectController {
 	
 	// 프로젝트 상세 페이지로 이동
 	@RequestMapping("projectDetail.do")
-	public ModelAndView projectDetail(int pNo, ModelAndView mv, HttpSession session, ProjectTask p) {
+	public ModelAndView projectDetail(@RequestParam("pNo") int pNo, ModelAndView mv, HttpSession session, ProjectTask p) {
 		
 		ArrayList<Department> deptList = dService.selectDept();
 		ArrayList<Employee> empList = eService.selectAllEmp();

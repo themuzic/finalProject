@@ -39,6 +39,12 @@ public class ProjectServiceImpl implements ProjectService{
 	public ArrayList<Project> selectPlist(int empId) {
 		return pDao.selectPlist(empId);
 	}
+	
+	// 프로젝트멤버 리스트 조회
+	@Override
+	public ArrayList<ProjectMember> selectMlist() {
+		return pDao.selectMlist();
+	}
 
 	// 업무 추가
 	@Override
@@ -66,6 +72,8 @@ public class ProjectServiceImpl implements ProjectService{
 		}*/
 		return pDao.insertMem(empIds, pNo);
 	}
+
+	
 
 	
 
