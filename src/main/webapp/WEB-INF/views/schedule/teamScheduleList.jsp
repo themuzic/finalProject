@@ -204,7 +204,7 @@
 		                            <div class="col-xs-12">
 		                                <label class="col-xs-4" for="edit-desc"><b>설명</b></label>
 		                                <textarea rows="4" cols="50" class="inputModal" name="scontent"
-		                                    id="edit-desc" style="resize:none;"></textarea>
+		                                    id="edit-desc" style="resize:none;" required></textarea>
 		                            </div>
 		                        </div>
 		                    </div>
@@ -894,12 +894,7 @@
 								}else if(value.stype == '전체일정'){
 									calEvent.color = '#4d638c';
 								}
-								
-								
-								// 내 일정 아니면 못움직이게
-// 								console.log(value.empId);
-// 								console.log(${loginUser.empId});
-// 								console.log(value.deptCode);
+							
 								
 								if(splan == 'C'){
 									if('${loginUser.deptCode}' == 2 || '${loginUser.deptCode}' == 3 || '${loginUser.deptCode}' == 4){

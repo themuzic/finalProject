@@ -13,4 +13,14 @@ public interface ScheduleService {
 
 	int insertSchedule(Schedule s);
 
+	ArrayList<Schedule> addScheduleList(Schedule s);
+
+	int deleteSchedule(Schedule s);
+
+	int updateSchedule(Schedule s);
+
+	int movingSchedule(Schedule s);
+
+	String scheduleType(int sno);
+
 }

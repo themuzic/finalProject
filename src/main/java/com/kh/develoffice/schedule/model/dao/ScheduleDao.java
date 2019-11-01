@@ -17,6 +17,7 @@ public class ScheduleDao {
 	private SqlSessionTemplate sqlSession;
 
 	public int getListCount(Schedule s) {
+		
 		return sqlSession.selectOne("scheduleMapper.getListCount", s);
 	}
 
@@ -32,5 +33,33 @@ public class ScheduleDao {
 		
 		return sqlSession.insert("scheduleMapper.insertSchedule", s);
 	}
+
+	public ArrayList<Schedule> addScheduleList(Schedule s) {
+		
+		return (ArrayList)sqlSession.selectList("scheduleMapper.teamScheduleList",s);
+	}
+
+	public int deleteSchedule(Schedule s) {
+		
+		return sqlSession.update("scheduleMapper.deleteSchedule", s);
+	
+	}
+
+	public int updateSchedule(Schedule s) {
+		
+		return sqlSession.update("scheduleMapper.updateSchedule", s);
+	}
+
+	public int movingSchedule(Schedule s) {
+		
+		return sqlSession.update("scheduleMapper.movingSchedule", s);
+	}
+
+	public String scheduleType(int sno) {
+		
+		return sqlSession.selectOne("scheduleMapper.scheduleType",sno);
+	}
+		
+	
 
 }
