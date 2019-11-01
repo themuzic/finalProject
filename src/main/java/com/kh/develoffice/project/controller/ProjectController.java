@@ -94,6 +94,7 @@ public class ProjectController {
 		
 		//프로젝트 리스트 불러오기
 		ArrayList<Project> plist = pService.selectPlist(empId);
+		
 		// 프로젝트 멤버 리스트 불러오기
 		ArrayList<ProjectMember> mlist = pService.selectMlist();
 		
@@ -213,7 +214,7 @@ public class ProjectController {
 		
 		if(result > 0) {
 			System.out.println("여기까지 넘어옴");
-			return "project/projectDetail";
+			return "redirect:projectDetail.do";
 		} else {
 			model.addAttribute("msg", "보드 생성에 실패하였습니다.");
 			return "common/blankPage";

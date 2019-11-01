@@ -163,6 +163,7 @@
 						
 						<!-- 업무추가 버튼, progress-bar -->
 						<div class="pContent1" >
+						<input type="hidden" name="pNo" value="${ projectDetail.pNo }">
 						
 							<!-- progress 바 -->
 							<!-- PM만 수정가능 , 나머지는 readonly -->
@@ -873,6 +874,7 @@
 		
 		
 		
+		/* 업무 추가 모달 */
 		// 모달창 생성
 		$(document).on('click','#add-task',function(){
 			$('#insertTaskModal').dialog({
@@ -896,7 +898,7 @@
 		// 업무 추가 인설트 - 저장 버튼
 		$(document).on('click', '#saveEvent', function(){
 
-			// var taskNo = $("#taskNo").val();
+			 var taskNo = $("#taskNo").val();
 			 var pNo = $("#pNo").val();
 			 var taskTitle = $("input[name=taskTitle]").val();
 			 var taskContent = $("#taskContent").val();
@@ -906,16 +908,18 @@
 				url:"insertTask.do",
 				type:"POST",
 				data:{
-					  //taskNo:taskNo,
+					  taskNo:taskNo,
 					  pNo:pNo,
 					  taskTitle:taskTitle,
 					  taskContent:taskContent,
-					  taskWriter:"${loginUser.empId}"
+					  taskWriter:'${loginUser.empId}'
 				},
 				success:function(data){
 					if(data == 'success'){
+						$("#taskNo").val("");
 						$("#pNo").val("");
 						$("input[name=taskTitle]").val("");
+						$("#taskContent").val("");
 						
 						$("#insertTaskModal").dialog("close");
 						

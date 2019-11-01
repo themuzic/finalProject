@@ -76,9 +76,14 @@
 					<div class="ui three cards" id="project-list">
 					
 						<div class="ui cards">
-						
+							<!-- 
+								1. 로그인한 유저 empid와 mlist의 empid가 같아야하고
+								2. 그 empid가 포함된 프로젝트만 보이게. 
+							 -->
+							<input type="hidden" value="${mlist}">
 							<c:forEach items="${ plist }" var="p">
-							<c:if test="${ !empty loginUser.empId }">
+							<%-- <c:if test="${ loginUser.empId ne mlist.empId }">아직 참여 중인 프로젝트가 없습니다.</c:if>
+							<c:if test="${ loginUser.empId eq mlist.empId }"> --%>
 								<input type="hidden" name="empId" value="${ loginUser.empId }">
 								<input type="hidden" name="pNo" value="${ p.pNo }">
 								<div class="card">
@@ -96,7 +101,17 @@
 							      </div>
 							      <div class="description">
 							        <i class="fas fa-users"></i>
-							        <span>...프로젝트 구성원들...</span>
+							        <span>
+							        	<c:forEach items="${ mlist }" var="m">
+							        		<c:if test="${ p.pNo eq m.pNo }">
+							        			<c:forEach items="${ empList }" var="e">
+										       		<c:if test="${ e.empId eq m.empId }">
+										        		${ e.empName }
+										        	</c:if>
+									       		</c:forEach>
+							        		</c:if>
+							        	</c:forEach>
+							        </span>
 							        <br>
 							        <p style="text-align:right;">${ p.pEnrollDate }</p>
 							      </div>
@@ -112,7 +127,7 @@
 							      </a>
 							    </div>
 							   </div>
-							</c:if>
+							<%-- </c:if> --%>
 							</c:forEach>
 						  
 						</div>
