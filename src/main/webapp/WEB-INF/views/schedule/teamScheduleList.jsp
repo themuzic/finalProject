@@ -100,13 +100,6 @@
 		                
 		                    <div class="">
 								<br>
-								
-		                        <div class="row">
-		                            <div class="col-xs-12" style="margin-bottom:10px;">
-		                                <label class="col-xs-4" for="edit-allDay"><b>하루종일</b></label>
-		                                <input class='allDayNewEvent' id="allDay" name="allDay" type="checkbox">
-		                            </div>
-		                        </div>
 		
 		                        <div class="row">
 		                            <div class="col-xs-12">
@@ -937,9 +930,10 @@
 		          var dat2 = new Date(arr2[0], arr2[1]-1, arr2[2]);
 		          
 		           // 날짜 차이 알아 내기
+		           
+		           var diffM = dat2.getMonth() - dat1.getMonth();
 		           var diff = dat2.getTime() - dat1.getTime();
 		           var result = Math.floor(diff/1000/60/60/24);
-		           
 		           
 		           if(diff <= 0){
 		              
@@ -960,7 +954,7 @@
 		                 }
 		                 
 		              var dat2_2 = (year + "-" + month1 + "-" + day1);
-		              $("#endDate").val(dat2_2); // 하루 밀린 날짜 출력(string)
+		              $("#endDate").val(strDate1); // 하루 밀린 날짜 출력(string)
 		              
 		       		};
 			 });
