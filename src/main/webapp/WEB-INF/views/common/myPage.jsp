@@ -119,7 +119,8 @@ input[type=text]{
 										</div>
 										<img src="resources/upload/profile/${loginUser.profilePath}" id="profileImg" class="img-circle profileImgArea" style="width:150px;">
 										<h3 class="name">${loginUser.empName} ${loginUser.jobName}</h3>
-										<span id="statusMsg">${loginUser.statusMsg}</span>
+										<span id="statusMsgSpan">${loginUser.statusMsg}</span>
+										<span><div class="ui input"><input type="text" id="statusMsg" class="hide" style="height:20px;background:#F8F8F8;text-align:right;"></div></span>
 									</div>
 									<div class="profile-stat">
 										<div class="row">
@@ -378,20 +379,26 @@ input[type=text]{
 					$(".profileImgArea").css("cursor", "pointer");
 					$("#phoneSpan").addClass('hide');
 					$("#addressSpan").addClass('hide');
+					$("#statusMsgSpan").addClass('hide');
 					$("#phone").val($("#phoneSpan").text());
 					$("#address").val($("#addressSpan").text());
+					$("#statusMsg").val($("#statusMsgSpan").text());
 					$("#phone").addClass('show');
 					$("#address").addClass('show');
+					$("#statusMsg").addClass('show');
 					
 					
 				}else{
 					$(".profileImgArea").css("cursor", "default");
 					$("#phone").removeClass('show');
 					$("#address").removeClass('show');
+					$("#statusMsg").removeClass('show');
 					$("#phoneSpan").text($("#phone").val());
 					$("#addressSpan").text($("#address").val());					
+					$("#statusMsgSpan").text($("#statusMsg").val());					
 					$("#phoneSpan").removeClass('hide');
 					$("#addressSpan").removeClass('hide');
+					$("#statusMsgSpan").removeClass('hide');
 					
 					var formData = new FormData();
 					var statusMsg = $("#statusMsg").val();

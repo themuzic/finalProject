@@ -98,7 +98,7 @@ public class DocumentServiceImpl implements DocumentService {
 	}
 
 	@Override
-	public DocumentFile selectDocuFile(int docuNum) {
+	public ArrayList<DocumentFile> selectDocuFile(int docuNum) {
 		return dDao.selectDocuFile(docuNum);
 	}
 

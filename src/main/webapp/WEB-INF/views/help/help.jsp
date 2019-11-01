@@ -483,7 +483,6 @@
 					}else{
 						var tr = $('<tr>');
 						var td = $('<td colspan="3" style="width:556px;height:50px;text-align:center;font-size:16px;font-weight:bold;">').text("등록된 일감이 없습니다.");
-						
 						tr.append(td);
 						$("#helpTbody").append(tr);
 					}
@@ -493,7 +492,6 @@
 				}
 			});
 		}
-		
 		
 		/* 등록된 일감을 눌렀을 때 */
 		$("#helpTbody").on('click','tr',function(){
@@ -520,12 +518,10 @@
 					$("#btn").text('가져오기');
 				}
 			}
-			
 			if($(this).text() != '등록된 일감이 없습니다.'){
 				$("#detail_check_layer").addClass('show');
 			}
 		});
-		
 		/* 일감 삭제 눌렀을 때 */
 		$(document).on('click','.delBtn',function(){
 			
@@ -550,7 +546,6 @@
 			});
 			$(this).next().click();
 		});
-		
 		
 		/* 일감 가져오기 눌렀을 때 */
 		$(document).on('click','.bringBtn',function(){

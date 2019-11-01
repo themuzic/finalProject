@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -227,8 +228,25 @@ public class DocumentController {
 		mv.addObject("rfList",rfList);
 		
 		if(document.getFileStatus().equals("Y")) {	//첨부 파일이 있으면
-			DocumentFile dFile = dService.selectDocuFile(docuNum);
-			mv.addObject("dFile",dFile);
+			JSONArray fileArr = new JSONArray();
+			ArrayList<DocumentFile> fileList = dService.selectDocuFile(docuNum);
+			
+			mv.addObject("fileList",fileList);
+			
+//			for(DocumentFile df : fileList) {
+//				JSONObject jObj = new JSONObject();
+//				jObj.put("fileNo", df.getFileNo());
+//				jObj.put("docuNum", df.getDocuNum());
+//				jObj.put("filePath", df.getFilePath());
+//				jObj.put("originName", df.getOriginName());
+//				jObj.put("changeName", df.getChangeName());
+//				jObj.put("createDate", df.getCreateDate());
+//				jObj.put("status", df.getStatus());
+//				
+//				fileArr.add(jObj);
+//			}
+//			mv.addObject("fileList",fileArr);
+			
 		}
 		
 		if(document.getDocuType().equals("AP")) {	//지출결의서
@@ -300,7 +318,7 @@ public class DocumentController {
 	@RequestMapping("insertDocument.do")
 	public String insertDocument(Document document, DocuA docuA, DocuB docuB, Vacation va, Retire rt,
 			HttpServletRequest request, HttpSession session,
-			@RequestParam(name="uploadFile", required=false) MultipartFile uploadFile) throws Exception {
+			@RequestParam(name="uploadFile", required=false) List<MultipartFile> uploadFile) throws Exception {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss", Locale.KOREA );
 		
@@ -310,10 +328,18 @@ public class DocumentController {
 		Document docu = document;
 		
 		String filename = "";
-
-		if(uploadFile!=null && !uploadFile.getOriginalFilename().equals("")) {	// 첨부파일이 넘어온 경우
 		
-			filename = saveFile(uploadFile, request);
+		System.out.println("uploadFile.getName() : "+uploadFile);
+		System.out.println("uploadFile.size() : "+uploadFile.size());
+		System.out.println("uploadFile.getOriginalFilename() : "+uploadFile);
+		
+		
+		if(uploadFile!=null && !uploadFile.get(0).getOriginalFilename().equals("")) {	// 첨부파일이 넘어온 경우
+			
+			for(int i = 0; i < uploadFile.size(); i++) {
+				System.out.println(uploadFile.get(i));
+				filename = saveFile(uploadFile.get(i), request);
+			}
 			
 			if(filename != null) {	// 파일이 잘 저장된 경우
 				docu.setFileStatus("Y");
@@ -368,15 +394,18 @@ public class DocumentController {
 				
 				if(docu.getFileStatus().equals("Y")) {	// 첨부파일이 있으면
 					
+					int fileResult = 0;
+					
 					String root = request.getSession().getServletContext().getRealPath("resources");
 					String savePath = root + "\\upload\\documentFile";
-					
-					DocumentFile dFile = new DocumentFile();
-					dFile.setFilePath(savePath);
-					dFile.setOriginName(uploadFile.getOriginalFilename());
-					dFile.setChangeName(filename);
-					
-					int fileResult = dService.insertFile(dFile);
+					for(int i = 0; i < uploadFile.size(); i++) {
+						DocumentFile dFile = new DocumentFile();
+						dFile.setFilePath(savePath);
+						dFile.setOriginName(uploadFile.get(i).getOriginalFilename());
+						dFile.setChangeName(filename);
+						
+						fileResult += dService.insertFile(dFile);
+					}
 					
 					if(fileResult <= 0) {
 						System.out.println("첨부 파일 insert 실패");

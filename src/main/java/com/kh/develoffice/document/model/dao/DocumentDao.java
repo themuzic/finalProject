@@ -99,8 +99,8 @@ public class DocumentDao {
 	}
 	
 	
-	public DocumentFile selectDocuFile(int docuNum) {
-		return sqlSession.selectOne("documentMapper.selectDocuFile",docuNum);
+	public ArrayList<DocumentFile> selectDocuFile(int docuNum) {
+		return (ArrayList)sqlSession.selectList("documentMapper.selectDocuFile",docuNum);
 	}
 	
 	

@@ -60,7 +60,7 @@ public interface DocumentService {
 	DocuB selectDocuB(int docuNum);
 	
 	// 첨부파일 정보 불러오기
-	DocumentFile selectDocuFile(int docuNum);
+	ArrayList<DocumentFile> selectDocuFile(int docuNum);
 	
 	// 결제 확인 상태 바꾸기
 	int apCheck(Approval ap);

@@ -243,10 +243,12 @@
 										<div class="filebox">
 										
 											<c:if test="${document.fileStatus eq 'Y'}">
-												<span class="cont_file" style="float: left;">
-													<img src="resources/images/pptx.png">&nbsp;
-													<a href="${contextPath}/resources/upload/documentFile/${dFile.changeName}" download="${dFile.originName}">${dFile.originName}</a>
-												</span>
+												<c:forEach var="file" items="${fileList}">
+													<span class="cont_file" style="float: left;">
+														<img src="resources/images/pptx.png">&nbsp;
+														<a href="${contextPath}/resources/upload/documentFile/${file.changeName}" download="${file.originName}">${file.originName}</a>
+													</span><br>
+												</c:forEach>
 											</c:if>
 										
 										</div>

@@ -1725,10 +1725,21 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			
 			var formData = new FormData();
 			/* 첨부 파일 */
+			/*
 			if($('input[name=uploadFile]').length > 0){		//첨부파일이 있으면
-				formData.append('uploadFile',$('input[name=uploadFile]')[0].files[0]);
+				console.log("$('input[name=uploadFile]')"+$('input[name=uploadFile]'));
+				console.log("$('input[name=uploadFile]')[0].files"+$('input[name=uploadFile]')[0].files);
+				$.each($('input[name=uploadFile]')[0].files,function(index, f){
+					formData.append('uploadFile',f);
+				});
 			}
-		
+			*/
+			if($('input[name=uploadFile]').length > 0){
+				$.each(fileList, function(index, f){
+					formData.append('uploadFile',f);
+				});
+			}
+			
 			formData.append('docuType',docuType);
 			formData.append('docuCode',docuCode);
 			formData.append('empId',empId);
@@ -2026,6 +2037,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				formData.append('title',title);
 			}
 			
+			
 			$.ajax({
 				url:"insertDocument.do",
 				type:"POST",
@@ -2045,6 +2057,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					alertify.alert('DEVELOFFICE', 'AJAX통신 실패');
 				}
 			});
+			
 			
 		}
 		
@@ -2238,7 +2251,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		        html += "<tr id='fileTr_" + fIndex + "'>";
 		        html += "    <td class='left' >";
 		        html +=         fileName + " / " + fileSize + "MB "  + "&nbsp;<a href='#' onclick='deleteFile(" + fIndex + "); return false;' class='btn small bg_02' style='box-shadow:none; border:1px solid #ececec;'>삭제</a>"
-		        html +=	"       <input type='file' name='uploadFile' id='test' multiple='multiple'>"
+		        html +=	"       <input type='file' class='multi hide' name='uploadFile' id='test' multiple='multiple'>"
 		        html += "    </td>"
 		        html += "</tr>"
 		        $('#fileTableTbody').append(html);
@@ -2278,6 +2291,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 <!-- Javascript -->
 	
 	<script src="resources/assets/scripts/klorofil-common.js"></script>
+	<script src="resources/js/jquery.MultiFile.js"></script>
 
 
 

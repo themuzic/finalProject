@@ -106,8 +106,8 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			$("#menu7").addClass("active");
 			
 		    var datascource = {'name':'DEVELOFFICE','title':'','children':[
-		        { 'name': '경영지원팀', 'title': '' ,'children':[ {'name':'총무팀'},{'name':'인사팀'},{'name':'회계팀'} ]},
-		        { 'name': '영업팀', 'title': '', 'children': [ { 'name': '7', 'title': 'senior engineer' },{ 'name': '8', 'title': 'senior engineer', 'children': [
+		        			{ 'name': '경영지원팀', 'title': '' ,'children':[ {'name':'총무팀'},{'name':'인사팀'},{'name':'회계팀'} ]},
+		        			{ 'name': '영업팀', 'title': '', 'children': [ { 'name': '7', 'title': 'senior engineer' },{ 'name': '8', 'title': 'senior engineer', 'children': [
 		                { 'name': '9', 'title': 'engineer' },
 		                { 'name': '10', 'title': 'UE engineer' }
 		              ]
