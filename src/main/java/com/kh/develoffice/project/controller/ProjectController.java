@@ -1,7 +1,9 @@
 package com.kh.develoffice.project.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kh.develoffice.common.Department;
 import com.kh.develoffice.document.model.service.DocumentService;
 import com.kh.develoffice.employee.model.service.EmployeeService;
@@ -21,6 +25,7 @@ import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.project.model.service.ProjectService;
 import com.kh.develoffice.project.model.vo.Project;
 import com.kh.develoffice.project.model.vo.ProjectMember;
+import com.kh.develoffice.project.model.vo.ProjectReply;
 import com.kh.develoffice.project.model.vo.ProjectTask;
 
 @Controller
@@ -210,14 +215,12 @@ public class ProjectController {
 		System.out.println(t);
 		
 		int result = pService.insertTask(t);
-		System.out.println(t);
+		System.out.println("여기까지 넘어옴");
 		
 		if(result > 0) {
-			System.out.println("여기까지 넘어옴");
-			return "redirect:projectDetail.do";
+			return "success";
 		} else {
-			model.addAttribute("msg", "보드 생성에 실패하였습니다.");
-			return "common/blankPage";
+			return "fail";
 		}
 		
 	}
@@ -225,22 +228,71 @@ public class ProjectController {
 	// 진행상황 수정
 	@ResponseBody
 	@RequestMapping("updateProgress.do")
-	public ModelAndView updateProgress(Project p, ModelAndView mv, HttpSession session) {
+	public String updateProgress(Project p, Model model, HttpSession session) {
+		System.out.println(p);
 		
 		Employee e = (Employee)session.getAttribute("loginUser");
 		int empId = e.getEmpId();
 		//System.out.println("empId: " + empId);
-		int result = pService.updateProgress(empId);
-			
+		int result = pService.updateProgress(p);
+		System.out.println("updateProgress 여기까지 넘어옴.");
+		
 		if(result > 0) {
-			mv.addObject("pProgress", p.getpProgress());
-			mv.setViewName("project/projectDetail");
+			//model.addAttribute("pProgress", p.getpProgress());
+			return "success";
 		}else {
-			mv.addObject("msg", "권한이 없습니다.");
+			return "fail";
+		}
+	}
+	
+	// 업무 상세사항 뷰로 이동
+	@RequestMapping("taskDetail.do")
+	public ModelAndView taskDetail(int taskNo, ModelAndView mv) {
+		
+		ProjectTask taskDetail = pService.taskDetail(taskNo);
+		
+		if(taskDetail != null) {
+			mv.addObject("taskDetail", taskDetail);
+			mv.setViewName("project/taskDetail");
+		}else {
+			mv.addObject("msg", "존재하지 않습니다.");
 		}
 		return mv;
 	}
 	
+	
+	@RequestMapping("rlist.do")
+	public void getReplyList(int taskNo, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<ProjectReply> list = pService.selectReplyList(taskNo);
+		
+//		System.out.println(list);
+		
+		response.setContentType("application/json; charset=utf-8");
+		
+		Gson gson = new Gson();
+		gson.toJson(list, response.getWriter());
+		
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("rinsert.do")
+	public String insertReply(ProjectReply r, HttpSession session) {
+		
+		int id = ((Employee)session.getAttribute("loginUser")).getEmpId();
+		
+		r.settRwriter(id);	// 작성한 회원 아이디 담기
+		
+		int result = pService.insertReply(r);
+		//System.out.println(r.gettRContent());
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
 	
 	
 	

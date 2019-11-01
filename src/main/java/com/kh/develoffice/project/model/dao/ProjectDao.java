@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.develoffice.project.model.vo.Project;
 import com.kh.develoffice.project.model.vo.ProjectMember;
+import com.kh.develoffice.project.model.vo.ProjectReply;
 import com.kh.develoffice.project.model.vo.ProjectTask;
 
 @Repository("pDao")
@@ -52,13 +53,13 @@ public class ProjectDao {
 	// 프로젝트 상세 조회
 	public Project projectDetail(int pNo) {
 		Project p = sqlSession.selectOne("projectMapper.projectDetail", pNo);
-		System.out.println("dao : " + p);
+		//System.out.println("dao : " + p);
 		return p;
 	}
 	
 	// 진행상황 수정
-	public int updateProgress(int empId) {
-		return sqlSession.update("projectMapper.updateProgress", empId);
+	public int updateProgress(Project p) {
+		return sqlSession.update("projectMapper.updateProgress", p);
 	}
 	
 	// 프로젝트 멤버 추가
@@ -67,11 +68,27 @@ public class ProjectDao {
 		int result = 0;
 				
 		for(int i=0; i<empIds.length; i++) {
-			System.out.println(pNo + ", dao: " + empIds[i]);
+			//System.out.println(pNo + ", dao: " + empIds[i]);
 	
 			ProjectMember mem = new ProjectMember(pNo, Integer.parseInt(empIds[i]));
 			result = sqlSession.insert("projectMapper.insertMem", mem);
 		}
 		return result;
+	}
+	
+	// task 상세 조회
+	public ProjectTask taskDetail(int taskNo) {
+		return sqlSession.selectOne("projectMapper.taskDetail", taskNo);
+	}
+	
+	// task에 딸려있는 댓글 리스트 조회
+	public ArrayList<ProjectReply> selectReplyList(int taskNo){
+		return (ArrayList)sqlSession.selectList("projectMapper.selectReplyList", taskNo);
+	}
+	
+	// task 댓글 작성하기
+	public int insertReply(ProjectReply r) {
+		System.out.println(r.gettRContent());
+		return sqlSession.insert("projectMapper.insertReply", r);
 	}
 }

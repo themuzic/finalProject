@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.develoffice.project.model.vo.Project;
 import com.kh.develoffice.project.model.vo.ProjectMember;
+import com.kh.develoffice.project.model.vo.ProjectReply;
 import com.kh.develoffice.project.model.vo.ProjectTask;
 
 public interface ProjectService {
@@ -30,8 +31,18 @@ public interface ProjectService {
 	int insertTask(ProjectTask t);
 	
 	// 진행상황 수정
-	int updateProgress(int empId);
+	int updateProgress(Project p);
 	
 	// 프로젝트 멤버 추가하기
 	int insertMem(String[] empIds, int pNo);
+	
+	// task 상세 조회
+	ProjectTask taskDetail(int taskNo);
+	
+	// task에 딸려있는 댓글 리스트 조회
+	ArrayList<ProjectReply> selectReplyList(int taskNo);
+	
+	// task 댓글 작성하기
+	int insertReply(ProjectReply r);
+
 }

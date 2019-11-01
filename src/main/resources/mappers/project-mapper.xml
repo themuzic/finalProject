@@ -33,10 +33,10 @@
 	</resultMap>
 	
 	<resultMap id="projectReplyResultSet" type="ProjectReply">
-		<id property="pRId" column="p_rid"/>
-		<result property="pNo" column="p_no"/>
-		<result property="pRwriter" column="p_rwriter"/>
-		<result property="pRContent" column="p_rcontent"/>
+		<id property="tRId" column="t_rid"/>
+		<result property="taskNo" column="task_no"/>
+		<result property="tRwriter" column="t_rwriter"/>
+		<result property="tRContent" column="t_rcontent"/>
 		<result property="createDate" column="create_date"/>
 		<result property="modifyDate" column="modify_date"/>
 		<result property="status" column="status"/>
@@ -97,10 +97,10 @@
 	</select>
 	
 	<!-- 진행상황 수정 -->
-	<update id="updateProgress" parameterType="_int">
+	<update id="updateProgress" parameterType="Project">
 		update project
-		set p_progress=80
-		where pm_id=#{empId} and p_no=#{pNo}
+		set p_progress=#{pProgress}
+		where p_no=#{pNo}
 	</update>
 	
 	<!-- 프로젝트 멤버 추가 -->
@@ -109,6 +109,26 @@
 		values(#{pNo}, #{empId})
 	</insert>
 	
+	<!-- taskDetail 조회 -->
+	<select id="taskDetail" parameterType="_int" resultMap="projectTaskResultSet">
+		select *
+		from project_task
+		where task_no=#{taskNo}
+	</select>
+	
+	<!-- task에 딸려있는 댓글 리스트 조회 -->
+	<select id="selectReplyList" parameterType="_int" resultMap="projectReplyResultSet">
+		select *
+		from project_reply
+		where task_no=#{taskNo} and status='Y'
+		order by t_rid desc
+	</select>
+	
+	<!-- task 댓글 작성하기 -->
+	<insert id="insertReply" parameterType="ProjectReply">
+		insert into project_reply
+		values(task_re_seq.nextval, #{taskNo}, #{tRwriter}, #{tRContent}, sysdate, sysdate, default)
+	</insert> 
 	
 	
 	

@@ -4,10 +4,10 @@ import java.sql.Date;
 
 public class ProjectReply {
 	
-	private int pRId;
-	private int pNo;
-	private int pRwriter;
-	private String pRContent;
+	private int tRId;
+	private int taskNo;
+	private int tRwriter;
+	private String tRContent;
 	private Date createDate;
 	private Date modifyDate;
 	private String status;
@@ -16,48 +16,48 @@ public class ProjectReply {
 		
 	}
 
-	public ProjectReply(int pRId, int pNo, int pRwriter, String pRContent, Date createDate, Date modifyDate,
+	public ProjectReply(int tRId, int taskNo, int tRwriter, String tRContent, Date createDate, Date modifyDate,
 			String status) {
 		super();
-		this.pRId = pRId;
-		this.pNo = pNo;
-		this.pRwriter = pRwriter;
-		this.pRContent = pRContent;
+		this.tRId = tRId;
+		this.taskNo = taskNo;
+		this.tRwriter = tRwriter;
+		this.tRContent = tRContent;
 		this.createDate = createDate;
 		this.modifyDate = modifyDate;
 		this.status = status;
 	}
 
-	public int getpRId() {
-		return pRId;
+	public int gettRId() {
+		return tRId;
 	}
 
-	public void setpRId(int pRId) {
-		this.pRId = pRId;
+	public void settRId(int tRId) {
+		this.tRId = tRId;
 	}
 
-	public int getpNo() {
-		return pNo;
+	public int getTaskNo() {
+		return taskNo;
 	}
 
-	public void setpNo(int pNo) {
-		this.pNo = pNo;
+	public void setTaskNo(int taskNo) {
+		this.taskNo = taskNo;
 	}
 
-	public int getpRwriter() {
-		return pRwriter;
+	public int gettRwriter() {
+		return tRwriter;
 	}
 
-	public void setpRwriter(int pRwriter) {
-		this.pRwriter = pRwriter;
+	public void settRwriter(int tRwriter) {
+		this.tRwriter = tRwriter;
 	}
 
-	public String getpRContent() {
-		return pRContent;
+	public String gettRContent() {
+		return tRContent;
 	}
 
-	public void setpRContent(String pRContent) {
-		this.pRContent = pRContent;
+	public void settRContent(String tRContent) {
+		this.tRContent = tRContent;
 	}
 
 	public Date getCreateDate() {
@@ -86,8 +86,8 @@ public class ProjectReply {
 
 	@Override
 	public String toString() {
-		return "ProjectReply [pRId=" + pRId + ", pNo=" + pNo + ", pRwriter=" + pRwriter + ", pRContent=" + pRContent
-				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
+		return "ProjectReply [tRId=" + tRId + ", taskNo=" + taskNo + ", tRwriter=" + tRwriter + ", tRContent="
+				+ tRContent + ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
 	}
 	
 	

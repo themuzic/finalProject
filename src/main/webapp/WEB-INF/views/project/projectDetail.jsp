@@ -86,7 +86,7 @@
 <style>
 	.contentWrap{
 		float:left;
-		width:75%;
+		width:95%;
 		background: white;
 		padding-top:30px;
 		padding-bottom:30px;
@@ -169,7 +169,7 @@
 							<!-- PM만 수정가능 , 나머지는 readonly -->
 							<div class="prgress-bar" style="float:right; border:1px solid #F2E9E1; cursor:pointer;">
 								<p align="center" style="font-size:23px; color:#53777A; font-weight:bold; padding:10px 0 0 0;" >진행상황</p>
-								<div class="progress-circle p50">
+								<div class="progress-circle p${ projectDetail.pProgress }">
 								  <span>${ projectDetail.pProgress }%</span>
 								  <div class="left-half-clipper">
 								    <div class="first50-bar"></div>
@@ -922,6 +922,7 @@
 						$("#taskContent").val("");
 						
 						$("#insertTaskModal").dialog("close");
+						location.reload();
 						
 					}else{
 						alertify.alert("delveloffice", "업무 추가 실패");
@@ -980,13 +981,15 @@
 						
 						$("#updateProgressModal").dialog("close");
 						
+						location.reload();
 						
 					}else{
 						alertify.alert("delveloffice", "업무 추가 실패");
 					}
 				},
-				error:function(){
-					alertify.alert("develoffice", "통신실패");
+				error:function(request,status,error){
+			        alert("error code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			        console.log("에러에러")
 				}
 			 });
 		});

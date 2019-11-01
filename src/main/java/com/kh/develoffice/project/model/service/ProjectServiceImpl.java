@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.develoffice.project.model.dao.ProjectDao;
 import com.kh.develoffice.project.model.vo.Project;
 import com.kh.develoffice.project.model.vo.ProjectMember;
+import com.kh.develoffice.project.model.vo.ProjectReply;
 import com.kh.develoffice.project.model.vo.ProjectTask;
 
 @Service("pService")
@@ -60,8 +61,8 @@ public class ProjectServiceImpl implements ProjectService{
 
 	// 진행상황 수정
 	@Override
-	public int updateProgress(int empId) {
-		return pDao.updateProgress(empId);
+	public int updateProgress(Project p) {
+		return pDao.updateProgress(p);
 	}
 
 	// 프로젝트 멤버 추가하기
@@ -71,6 +72,24 @@ public class ProjectServiceImpl implements ProjectService{
 			System.out.println("service: " + empIds[i]);
 		}*/
 		return pDao.insertMem(empIds, pNo);
+	}
+
+	// task 상세 조회
+	@Override
+	public ProjectTask taskDetail(int taskNo) {
+		return pDao.taskDetail(taskNo);
+	}
+
+	// task에 딸려있는 댓글 리스트 조회
+	@Override
+	public ArrayList<ProjectReply> selectReplyList(int taskNo) {
+		return pDao.selectReplyList(taskNo);
+	}
+
+	// task 댓글 작성하기
+	@Override
+	public int insertReply(ProjectReply r) {
+		return pDao.insertReply(r);
 	}
 
 	
