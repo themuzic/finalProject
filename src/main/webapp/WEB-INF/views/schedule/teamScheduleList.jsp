@@ -60,6 +60,12 @@
 	#ui-datepicker-div{
 		min-height:100px;
 	}
+	.fc-popover fc-more-popover{
+		height:250px;
+	}
+	#pagingArea a{
+		cursor:pointer;
+	}
 
 </style>
 
@@ -85,44 +91,37 @@
 			
 				<!-- 풀캘린더 불러오기 -->	
 				<div class="wrap">
-					 <div id="loading"></div>
 					<div id="calendar"></div>
 				</div>
 			
 			
 				<!-- 일정 추가 MODAL -->
 		        <div class="" tabindex="-1" role="dialog" id="eventModal" class="show" style="display:none;">
+		     	   <input type="hidden" id="sNo" value="">
 		            <div class="" role="document">
 		                <div class="">
 		                
 		                    <div class="">
 								<br>
-								
-		                        <div class="row">
-		                            <div class="col-xs-12" style="margin-bottom:10px;">
-		                                <label class="col-xs-4" for="edit-allDay"><b>하루종일</b></label>
-		                                <input class='allDayNewEvent' id="allDay" name="allDay" type="checkbox">
-		                            </div>
-		                        </div>
 		
 		                        <div class="row">
 		                            <div class="col-xs-12">
 		                                <label class="col-xs-4" for="edit-title"><b>일정명</b></label>
 		                                <input class="inputModal" type="text" id="edit-title"
-		                                    name="stitle" required="required">
+		                                    name="stitle" required>
 		                            </div>
 		                        </div>
 		                        <div class="row">
 		                            <div class="col-xs-12">
-		                                <label class="col-xs-4" for="edit-start"><b>시작</b></label>
-		                                <input class="inputModal datepicker" type="text" name="startDate" id="edit-start">
+		                                <label class="col-xs-4" for="startDate"><b>시작 날짜</b></label>
+		                                <input class="inputModal datepicker datedate" type="text" name="startDate" id="startDate" required>
 		                            </div>
 		                        </div>
 		                        
 		                        <div class="after" style="padding-bottom:10px;">
 									<label for="" style="margin-left:14px;"><b>시작 시간</b></label>
 										<select id="start" class="select-box" name="startTime"
-											style="width:367px; margin-left:110px;">
+											style="width:367px; margin-left:110px;" required>
 											<option>시간을 선택하세요</option>
 											<option value="09:00">오전 09:00</option>
 											<option value="09:30">오전 09:30</option>
@@ -147,16 +146,15 @@
 		                        
 		                        <div class="row">
 		                            <div class="col-xs-12">
-		                                <label class="col-xs-4" for="edit-end"><b>끝</b></label>
-		                                <input class="inputModal datepicker" type="text" name="endDate" id="edit-end">
+		                                <label class="col-xs-4" for="endDate"><b>끝 날짜</b></label>
+		                                <input class="inputModal datepicker datedate" type="text" name="endDate" id="endDate" required>
 		                            </div>
 		                        </div>
 		                        
 		                        <div class="after" style="padding-bottom:10px;">
 									<label for="" style="margin-left:14px;"><b>끝 시간</b></label>
-										
 										<select id="end" class="select-box" name="endTime"
-											style="width:367px; margin-left:124px;">
+											style="width:367px; margin-left:124px;" required>
 											<option>시간을 선택하세요</option>
 											<option value="09:30">오전 09:30</option>
 											<option value="10:00">오전 10:00</option>
@@ -180,40 +178,25 @@
 									</div>
 		                        
 		                        <script>
+
 		                        	$(function(){
-		                        		$('.datetimepicker').datetimepicker({
+		                        		$('.datepicker').datepicker({
 		                        	        lang:'ko',
-		                        	        format:'Y-m-d H:i'
+		                        	        dateformat:'yy-mm-dd',
 		                        	    });
 		                        	});
 
 		                        </script>
 		                        
-		                        <div class="row">
-		                            <div class="col-xs-12">
+		                        <div class="row show" id="typeS">
+		                            <div class="col-xs-12 hideType">
 		                                <label class="col-xs-4" for="edit-type"><b>구분</b></label>
-		                                <select class="inputModal" type="text" name="stype" id="edit-type" style="width:367px;;">
-		                                	<option>일정 종류를 선택하세요</option>
-		                                    <option value="휴가">휴가</option>
-		                                    <option value="회의">회의</option>
-		                                    <option value="외근">외근</option>
-		                                    <option value="출장">출장</option>
-		                                </select>
-		                            </div>
-		                        </div>
-		                        <div class="row">
-		                            <div class="col-xs-12">
-		                                <label class="col-xs-4" for="edit-color"><b>색상</b></label>
-		                                <select class="inputModal" name="backColor" id="edit-color" style="width:367px;">
-		                                	<option>색상을 선택하세요</option>
-		                                    <option value="#D25565" style="color:#D25565;">빨간색</option>
-		                                    <option value="#9775fa" style="color:#9775fa;">보라색</option>
-		                                    <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
-		                                    <option value="#74c0fc" style="color:#74c0fc;">파란색</option>
-		                                    <option value="#f06595" style="color:#f06595;">핑크색</option>
-		                                    <option value="#63e6be" style="color:#63e6be;">연두색</option>
-		                                    <option value="#a9e34b" style="color:#a9e34b;">초록색</option>
-		                                    <option value="#4d638c" style="color:#4d638c;">남색</option>
+		                                <select class="inputModal required" name="stype" id="edit-type" style="width:367px;" required="required">
+		                                	<option value="">일정 종류를 선택하세요</option>
+		                                    <option value="휴가" style="color:#f06595">휴가</option>
+		                                    <option value="회의" style="color:cornflowerblue">회의</option>
+		                                    <option value="외근" style="color:#ffa94d">외근</option>
+		                                    <option value="출장" style="color:#9775fa">출장</option>
 		                                </select>
 		                            </div>
 		                        </div>
@@ -227,40 +210,24 @@
 		                    </div>
 		                    <hr>
 		                    <div class="modalBtnContainer-modifyEvent" style="text-align:right; padding-right:10px;">
-		                        <button type="button" class="btn btn-primary" id="updateEvent">저장</button>
+		                        <button type="button" class="btn btn-primary" id="saveEvent">저장</button>
+		                        <button type="button" class="btn btn-primary" id="updateEvent" style="display:none;">수정</button>
 		                        <button type="button" class="btn btn-danger" id="deleteEvent">삭제</button>
 		                        <button type="button" id="btn-default" class="btn btn-default">닫기</button>
 		                    </div>
 		                </div><!-- /.modal-content -->
 		            </div><!-- /.modal-dialog -->
 		        </div><!-- /.modal -->
+				
+				<div align="right" id="colorList" class="colorList" style="padding-top:10px; font-size:13px;">
+					<span style="color:#f06595"><b>※휴가</b></span>&nbsp;&nbsp;
+					<span style="color:cornflowerblue"><b>※회의</b></span>&nbsp;&nbsp;
+					<span style="color:#ffa94d"><b>※외근</b></span>&nbsp;&nbsp;
+					<span style="color:#9775fa"><b>※출장</b></span>&nbsp;&nbsp;
+					<span style="color:#a9e34b"><b>※내가 쓴 글</b></span>
+				</div>
+				
 				<hr>	
-			
-				<div id="searchArea" align="right">
-					<form action="search.do">
-						<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray" >
-						    <option>------</option>
-						    <option value="writer">작성자</option>
-						    <option value="type">일정종류</option>
-						    <option value="title">제목</option>
-						    <option value="content">내용</option>
-						</select>
-						<div class="ui input">
-							<input type="search" name="search" value="${ search }" placeholder="Search..." style="height:32px;">
-							<i class="circular search link"></i>
-						</div>	         
-						<button type="submit" onclick="return validate();" style="color:#3287B2">검색하기</button>
-					</form>
-		       </div>
-	       
-		       <script>
-			       function validate(){
-			           if($("option:selected").val() == "------"){
-			              alertify.alert("DEVELOFFICE", "검색 조건을 체크해주세요");
-			           return false;
-			           }
-			        }
-		       </script>
 		       
 		       <div align="left">
 					<b style="color: #505363">팀 일정</b>
@@ -282,7 +249,6 @@
 							<th style="color: #676767;">번호</th>
 							<th style="color: #676767;">작성자</th>
 							<th style="color: #676767;">제목</th>
-<!-- 							<th style="color: #676767;" id="sType">일정종류</th> -->
 							<th class="aa" style="color: #676767;">작성일</th>
 						</tr>
 					</thead>
@@ -298,77 +264,53 @@
 					</c:forEach>
 				</tbody>
 			</table>
-	
+			
 			<div id="pagingArea" align="center">
-	 			<!-- [이전] -->
-				<c:if test="${ pi.currentPage == 1 }">
-					이전&nbsp;
-				</c:if>
-				<c:if test="${ pi.currentPage > 1 }">
-					<c:if test="${ !empty s }">
-						<c:url var="mlistBack" value="search2.do">
-							<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
-							<c:param name="condition" value="${ condition }"/>
-							<c:param name="search" value="${ search }"/>
-							<c:param name="mailFrom" value="${ m.mailFrom }"/>
-							<c:param name="mailTo" value="${ m.mailTo }"/>
-						</c:url>
-					</c:if>
-					<c:if test="${ empty s }">
-						<c:url var="slistBack" value="teamScheduleList.do">
-							<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
-						</c:url>
-					</c:if>
-					<a href="${ slistBack }">이전</a>
-				 </c:if>
-	         
-		         <!-- [번호들] -->
-		         <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p">
-		            <c:if test="${ p eq pi.currentPage }">
-		               <font color="#3287B2" size="3">${ p }</font>
-		            </c:if>
-		            <c:if test="${ p ne pi.currentPage }">
-		               <c:if test="${ !empty m }"> <!-- 검색결과 있으면 -->
-		                  <c:url var="slistPage" value="search2.do">
-		                     <c:param name="currentPage" value="${ p }"/>
-		                     <c:param name="condition" value="${ condition }"/>
-		                     <c:param name="search" value="${ search }"/>
-		                     <c:param name="mailFrom" value="${ m.mailFrom }"/>
-							 <c:param name="mailTo" value="${ m.mailTo }"/>
-		                  </c:url>
-		               </c:if>
-		               <c:if test="${ empty m }"> <!-- 검색 결과 없으면 -->
-			               <c:url var="slistPage" value="teamScheduleList.do">
-			                  <c:param name="currentPage" value="${ p }"/>
-			               </c:url>                  
-		               </c:if>
-		               <a href="${ slistPage }">${ p }</a>
-		            </c:if>
-		         </c:forEach>
-	         
-	        	<!-- [다음] -->
-				<c:if test="${ pi.currentPage == pi.maxPage }">
-					&nbsp;다음
-				</c:if>
-				<c:if test="${ pi.currentPage < pi.maxPage }">
-					<c:if test="${ !empty m }">
-						<c:url var="slistNext" value="search2.do">
-							<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
-							<c:param name="condition" value="${ condition }"/>
-							<c:param name="search" value="${ search }"/>
-							<c:param name="mailFrom" value="${ m.mailFrom }"/>
-							<c:param name="mailTo" value="${ m.mailTo }"/>
-						</c:url>
-					</c:if>
-					<c:if test="${ empty m }">
-						<c:url var="slistNext" value="teamScheduleList.do">
-							<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
-						</c:url>
-					</c:if>
-					<a href="${ slistNext }">다음</a>
-				</c:if>
+			<!-- 이전 -->
+<%-- 				<c:if test="${ pi.currentPage eq 1 }"> --%>
+<!-- 					이전&nbsp; -->
+<%-- 				</c:if> --%>
+<%-- 				<c:if test="${ pi.currentPage ne 1 }"> --%>
+<%-- 					<c:url value="teamScheduleList.do" var="before"> --%>
+<%-- 						<c:param name="currentPage" value="${ pi.currentPage -1 }"/> --%>
+<%-- 						<c:param name="splan" value="${ s.splan }"/> --%>
+<%-- 						<c:param name="stype" value="${ s.stype }"/> --%>
+<%-- 					</c:url> --%>
+<%-- 					<a href="${ before }">이전</a> --%>
+<%-- 				</c:if> --%>
+					
+			<!-- 번호들 -->
+<%-- 				<c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p"> --%>
+<%-- 					<c:if test="${ p eq pi.currentPage }"> --%>
+<%-- 						 <font color="#3287B2" size="3">${ p }</font> --%>
+<%-- 					</c:if> --%>
+<%-- 					<c:if test="${ p ne pi.currentPage }"> --%>
+<%-- 						<c:url value="teamScheduleList.do" var="page"> --%>
+<%-- 							<c:param name="currentPage" value="${ p }"/> --%>
+<%-- 							<c:param name="splan" value="${ s.splan }"/> --%>
+<%-- 							<c:param name="stype" value="${ s.stype }"/> --%>
+<%-- 						</c:url> --%>
+<%-- 						<a href="${ page }">${ p }</a> --%>
+<%-- 					</c:if> --%>
+<%-- 				</c:forEach> --%>
+				
+<!-- 				다음 -->
+<%-- 				<c:if test="${ pi.currentPage eq pi.maxPage }"> --%>
+<!-- 					&nbsp;다음 -->
+<%-- 				</c:if> --%>
+<%-- 				<c:if test="${ pi.currentPage ne pi.maxPage }"> --%>
+<%-- 					<c:url value="teamScheduleList.do" var="next"> --%>
+<%-- 						<c:param name="currentPage" value="${ pi.currentPage +1 }"/> --%>
+<%-- 						<c:param name="splan" value="${ s.splan }"/> --%>
+<%-- 						<c:param name="stype" value="${ s.stype }"/> --%>
+<%-- 					</c:url> --%>
+<%-- 					<a href="${ next }">다음</a>					 --%>
+<%-- 				</c:if> --%>
 			</div>
 		</div>
+					
+
+
 					
 					
 					
@@ -382,7 +324,6 @@
 		<!-- END MAIN -->
 		
 		<div class="clearfix"></div>
-		
 
 	<!--  -->
 	<!-- END WRAPPER -->
@@ -407,33 +348,22 @@
 	$("#menu4_1").addClass("active");
 	$("#menu4_1").attr('aria-expanded',true);
 	$("#m4_2").addClass("active");	
-	
-	});
 		 
+	});
 	</script>
 	
 	<script>
 	
 	j(function(){
-		calendarStart();
-		refresh('T');
 		
-// 		$.each(data, function(index, value){
-			
-// 			var calEvent = {};
-			
-// 			calEvent.id = value.sno;
-// 			calEvent.title = value.stitle;
-// 			calEvent.start = value.startDate + "T" + startTime; 
-// 			calEvent.end = value.endDate + "T" + endTime; 
-// 			calEvent.color = value.backColor;
-
-// 			j('#calendar').fullCalendar('renderEvent', calEvent, true); // 개중요, 얘가 넘겨줌
-// 		});
+		calendarStart();
+		refresh(1);
+		addCalendarList('T');
 	});
 	
+	
 	function calendarStart(){
-	 
+		
 		j("#calendar").html("");
 			 
 			 var date = new Date();
@@ -441,7 +371,7 @@
 			 var m = date.getMonth();
 			 var y = date.getFullYear();
 			 
-			 var calendar = j('#calendar').fullCalendar({
+			 j('#calendar').fullCalendar({
 			  
 			   header: {
 				   left: "month,basicWeek,basicDay",
@@ -462,228 +392,686 @@
 				   week: "YYYY년 MMM DD일 (ddd) ",
 				   day: "YYYY년 MMM DD일 dddd"
 			   },
-			  
-				editable: true,		// 실행된 달력에서 일정(event)을 표시한 바(bar)를 마우스로 이동할 수 있게 하는 것
-				eventLimit: true, 	// 하루 기본일정 3개, 그 이상시, more로 처리
-				
-				events: [
-// 				{
-// 					title: '회사 쉬는날',
-// 					start: '2019-10-28'
-// 				},
-// 				{
-// 					title: '휴가',
-// 					start: '2019-10-29',
-// 					end: '2019-11-01'
-// 				},
-// 				{
-// 					id: 999,
-// 					title: '미팅 시간',
-// 					start: '2019-11-04T16:00'
-// 				},
-// 				{
-// 					title: '1팀 회의',
-// 					start: '2019-11-11',
-// 					end: '2019-11-14'
-// 				},
-// 				{
+			  	
+			    editable: false,		// 일정 움직일 수 있게
+				eventLimit: true, 		// 하루 기본일정 3개, 그 이상시, more로 처리
+				events: [],
 
-// 				},
-			],
-			// 모달창 생성
-			eventRender: function (event, element) {
-		        element.attr('href', 'javascript:void(0);');
-		        element.click(function() {
-		        	$('#eventModal').dialog({
-		         		  title: '새로운 일정',
-		        	      modal: true,
-		        	      width: '600'
-		        	});
-		        	
-		        });
-		    }
-
-		});
-	};
-	
-	
-	// 모달창 생성
-	$(document).on('click','.fc-day',function(){
-		$('#eventModal').dialog({
-   		  title: '새로운 일정',
-  	      modal: true,
-  	      width: '600'
-  		});
-		
-	});
-	
-	// 모달창 닫기
-	$(function() {
-	    $("#btn-default").on('click', function() {
-	        $("#eventModal").dialog("close");
-	    });
-	});
-	
-	$(document).on('click', '#updateEvent', function(){
-		 
-		 var startDate = $("input[name=startDate]").val();
-		 var startTime = $("select[name=startTime] option:selected").val();
-		 var endDate = $("input[name=endDate]").val();
-		 var endTime = $("select[name=endTime] option:selected").val();
-		 var stitle = $("input[name=stitle]").val();
-		 var scontent = $("#edit-desc").val();
-		 var stype = $("select[name=stype] option:selected").val();
-		 var backColor = $("select[name=backColor] option:selected").val();
-		 var splan = $("input[name=splan]:checked").val();
-		 
-		 var allDay;
-		 
-		 if($("#allDay").prop('checked')){
-			allDay ='Y'; 
-		 }else{
-			 allDay ='N';
-		 }
-		 
-		 $.ajax({
-		
-			url:"insertSchedule.do",
-			type:"POST",
-			data:{startDate:startDate,
-				  startTime:startTime,
-				  endDate:endDate,
-				  endTime:endTime,
-				  stitle:stitle,
-				  scontent:scontent,
-				  stype:stype,
-				  backColor:backColor,
-				  empId:'${loginUser.empId}',
-				  splan:splan,
-				  allDay:allDay
-				  
-			},
-			success:function(data){
-				if(data == 'success'){
-					$("input[name=startDate]").val("");
-					$("select[name=startTime]").children().first().prop('selected', true);
-					$("input[name=endDate]").val("");
-					$("select[name=endTime]").find('option:eq(0)').prop('selected', true);
-					$("input[name=stitle]").val("");
-					$("#edit-desc").val("");
-					$("select[name=stype]").find('option:eq(0)').prop('selected', true);
-					$("select[name=backColor]").find('option:eq(0)').prop('selected', true);
-					$("#allDay").prop('checked', false);
-					
-					$("#eventModal").dialog("close");
+			// 일정 움직일 때 업데이트
+			eventDrop: function(info) {
 				
-				}else{
-					alertify.alert("delveloffice", "실패");
-				}
-			},
-			error:function(){
-				alertify.alert("develoffice", "통신실패");
-			}
-		 });
-	});
-	
-	
-	function refresh(splan){
-		$.ajax({
-			
-			url: "sRefresh.do",
-			type: "post",
-			data: {
-				deptCode: '${loginUser.deptCode}',
-				splan:splan,
-				currentPage:1
-			},
-			dataType:"json",
-			success:function(data){
-				var html = "";
-				
-					$("#select_list").html("");
+				 var sno = info.id;
+				 var startDate = info.start.format("YYYY-MM-DD").split("T")[0];
+				 var endDate = info.end.format("YYYY-MM-DD").split("T")[0];
+				 
+				 var splan = $("input[name=splan]:checked").val();
+				 
+				 $.ajax({
 					
-					$.each(data, function(index, s){
+					url :"movingSchedule.do",
+					type:"post",
+					data:{
+						sno:sno,
+						startDate:startDate,
+						endDate:endDate
+					},
+					success:function(data){
 						
-						if(splan == 'T'){
+						if(data == 'success'){
+							refresh(1);
 							
-							html +=
-								'<tr>' + 
-									'<td class="sNo">' + s.sno + '</td>' +
-									'<td class="sName">' + s.empName + '</td>' +
-									'<td class="sTitle">' + s.stitle  + '</td>' +
-									'<td class="sType">' + s.stype + '</td>' +
-									'<td class="sDate aa">' + s.createDate + '</td>' + 
-								'</tr>';
 						}else{
-							
-							html +=
-								'<tr>' + 
-									'<td class="sNo">' + s.sno + '</td>' +
-									'<td class="sName">' + s.empName + '</td>' +
-									'<td class="sTitle">' + s.stitle  + '</td>' +
-									'<td class="sDate aa">' + s.createDate + '</td>' + 
-								'</tr>';
-							}
-						});
-					
-						// 너는 for문 때문에 밖으로 나가
-						if(splan == 'T'){
-							$('#sss').children().last().prev().after('<th style="color: #676767;" id="sType">일정종류</th>');
-						}else{
-							$('#sType').remove();
+							alertify.alert("develoffice", "에러!!!!!!");
 						}
+					},
+					error:function(){
+						alertify.alert("develoffice","통신실패");
+					}
+
+				 });
+			},
+			
+		    // substr = 인덱스~몇번째
+		    eventMouseover: function(calEvent, jsEvent) {
+		    	
+		        var tooltip = '<div class="tooltipevent" style="width:260px;height:200px;background:#e9e9e9;position:absolute;z-index:10001; padding-right:21px; padding-left:21px; padding-top:15px;">' 
+		        			  +	"<b>등록자</b>: &nbsp;" + calEvent.schd_idx + '<br>'
+		        			  + "<b>시작시간</b>: &nbsp;" + calEvent.start.format().split('T')[0] + " " + calEvent.start.format().split('T')[1].substr(0,5) + '<br>'
+		        			  + "<b>종료시간</b>: &nbsp;" + calEvent.end.format().split('T')[0] + " " + calEvent.end.format().split('T')[1].substr(0,5) + '<br>'
+		        			  + "<br>"
+		        			  + "<b>일정</b>: &nbsp;" + calEvent.title + '<br>'
+		        			  + "<b>내용</b>: &nbsp;" + calEvent.description + '<br>'
+		        			  + '</div>';
+		        			  
+		        			  
+		        			  
+						        if(event.color =='#a9e34b'){
+									
+									var sno = event.id;
+									scheduleType(sno);
+										
+									}else if(event.color == '#f06595'){
+										$("#edit-type").val('휴가');
+									}else if(event.color == 'cornflowerblue'){
+										$("#edit-type").val('회의');
+									}else if(event.color == '#ffa94d'){
+										$("#edit-type").val('외근');
+									}else if(event.color == '#9775fa'){
+										$("#edit-type").val('출장');
+									}
+
+		        var $tooltip = $(tooltip).appendTo('body');
+		        
+		        $(this).mouseover(function(e) {
+		            $(this).css('z-index', 10000);
+		            $tooltip.fadeIn('500');
+		            $tooltip.fadeTo('10', 1.9);
+		            
+		        }).mousemove(function(e) {
+		            $tooltip.css('top', e.pageY + 10);
+		            $tooltip.css('left', e.pageX + 20);
+		        });
+		    },
+
+		    eventMouseout: function(calEvent, jsEvent) {
+		        $(this).css('z-index', 8);
+		        $('.tooltipevent').remove();
+		    },	   
+			
+			// 일정 클릭 모달창 생성
+			eventRender: function (event, element) {
+
+				var deptCode = '${loginUser.deptCode}';
+				var splan = $("input[name=splan]:checked").val();
+				
+		        if((deptCode == 2 || deptCode == 3 || deptCode ==4) || (splan == 'T')){
+			        
+		        	element.attr('href', 'javascript:void(0);');
+			        element.click(function() {
+			        	
+				        	$('#eventModal').dialog({
+				         		  title: '일정 수정 및 삭제',
+				        	      modal: true,
+				        	      width: '600'
+				        	});
+				        	
+							var startDate = $("input[name=startDate]");
+							var startTime = $("select[name=startTime]");
+							var endDate = $("input[name=endDate]");
+							var endTime = $("select[name=endTime]");
+							var stitle = $("input[name=stitle]");
+							var scontent = $("#edit-desc");
+							var stype = $("select[name=stype]");
+				        	
+							// 내 아이디가 아니면 수정하는 것들 disabled 처리
+				        	if(event.className != ${loginUser.empId}){
+				        		
+				        		startDate.attr("disabled", true);
+				        		endDate.attr("disabled", true);
+				        		startTime.prop("disabled", true);
+				        		endTime.prop("disabled", true);
+				        		stitle.attr("disabled", true);
+				        		scontent.attr("disabled", true);
+				        		stype.prop("disabled", true);
+				        		$("#allDay").attr("disabled", true);
+				        		
+				        	}else{
+				        		startDate.attr("disabled", false);
+				        		endDate.attr("disabled", false);
+				        		startTime.prop("disabled", false);
+				        		endTime.prop("disabled", false);
+				        		stitle.attr("disabled", false);
+				        		scontent.attr("disabled", false);
+				        		stype.prop("disabled", false);
+				        		$("#allDay").attr("disabled", false);
+				        	}
+							
+				        	// 수정할 데이터 넣어놓기
+							$("#edit-title").val(event.title);
+							$("#startDate").val(event.start.format().split("T")[0]);
+							$("#endDate").val(event.end.format().split("T")[0]);
+							
+							if(event.color =='#a9e34b'){
+								
+							var sno = event.id;
+							
+							// 내 아이디일 때 일정타입 볼 수 있게 함수 불러
+							scheduleType(sno);
+								
+							}else if(event.color == '#f06595'){
+								$("#edit-type").val('휴가');
+							}else if(event.color == 'cornflowerblue'){
+								$("#edit-type").val('회의');
+							}else if(event.color == '#ffa94d'){
+								$("#edit-type").val('외근');
+							}else if(event.color == '#9775fa'){
+								$("#edit-type").val('출장');
+							}
+							
+							$("#edit-desc").val(event.description);
+							$("#start").val(event.start.format().split('T')[1].substring(0,5));
+							$("#end").val(event.end.format().split('T')[1].substring(0,5));
+
+							/* 저장 버튼 보이지 않게 */
+				        	$("#saveEvent").css('display','none');
+				        	
+				        	if(${loginUser.empId} == event.className){
+				        		
+				        		$("#updateEvent").css('display','inline-block');
+					        	$("#deleteEvent").css('display','inline-block');
+					        	
+				        	}else{
+				        		$("#updateEvent").css('display','none');
+					        	$("#deleteEvent").css('display','none');
+				        	}
+				        	
+				        	$("#sNo").val(event.id); 
+				        	
+				        	// 라디오 버튼에 따른 모달창 종류
+				        	var splan = $("input[name=splan]:checked").val();
+							 
+							if(splan == 'C'){
+								$(".hideType").css('display','none');
+							}else{
+								$(".hideType").css('display','block');
+							}
 						
-						$("#select_list").html(html);
-				},
-				error:function(){
-					alert("통신실패");
-				},
+			        	});
+					}			
+			    },      
 			});
 		};
+	
+		// 일정 추가 모달창 생성
+		$(document).on('click','.fc-day',function(){
+			
+			var deptCode = '${loginUser.deptCode}';
+			var splan = $("input[name=splan]:checked").val();
+			
+	        if((deptCode == 2 || deptCode == 3 || deptCode == 4) || (splan == 'T')){
+			
+				$('#eventModal').dialog({
+		   		  title: '새로운 일정',
+		  	      modal: true,
+		  	      width: '600'
+		  		});
+				
+				var startDate = $("input[name=startDate]");
+				var startTime = $("select[name=startTime]");
+				var endDate = $("input[name=endDate]");
+				var endTime = $("select[name=endTime]");
+				var stitle = $("input[name=stitle]");
+				var scontent = $("#edit-desc");
+				var stype = $("select[name=stype]");
+        		
+        		// 일정 추가 모달창 초기화
+        		$("#edit-title").val('');
+				$("#startDate").val('');
+				$("#endDate").val('');
+				$("#edit-desc").val('');
+				$("#edit-type").val('');
+				$("#start").find('option:eq(0)').prop('selected', true);
+				$("#end").find('option:eq(0)').prop('selected', true);
+				
+				// 그냥 일정 등록하는 모달에서는 disabled 풀어
+        		startDate.attr("disabled", false);
+        		endDate.attr("disabled", false);
+        		startTime.prop("disabled", false);
+        		endTime.prop("disabled", false);
+        		stitle.attr("disabled", false);
+        		scontent.attr("disabled", false);
+        		stype.prop("disabled", false);
+        		$("#allDay").attr("disabled", false);
 
-		// 라디오버튼 클릭시 value에 맞게 변환
-		$(document).on('change','input[name=splan]',function(){
-			refresh($(this).val());
+				// 버튼 이벤트
+				$("#deleteEvent").css('display','none');
+				$("#saveEvent").css('display','inline-block');
+				$("#updateEvent").css('display','none');
+				
+				// 라디오 버튼에 따른 모달창 종류
+				var splan = $("input[name=splan]:checked").val();
+				 
+				if(splan == 'C'){
+					$(".hideType").css('display','none');
+				}else{
+					$(".hideType").css('display','block');
+				}
+			}
 		});
 		
-		function addCalendarList(){
-				
-			  $.ajax({
-				url : "addCalendar.do",
-				type : "post",
-				data: {
-					
-					
-					
-				},
+		// 모달창 닫기
+		$(function() {
+		    $("#btn-default").on('click', function() {
+		        $("#eventModal").dialog("close");
+		    });
+		});
+		
+		// 일정 추가 인설트
+		$(document).on('click', '#saveEvent', function(){
+	
+			 var sno = $("#sNo").val();
+			 var startDate = $("input[name=startDate]").val();
+			 var startTime = $("select[name=startTime] option:selected").val();
+			 var endDate = $("input[name=endDate]").val();
+			 var endTime = $("select[name=endTime] option:selected").val();
+			 var stitle = $("input[name=stitle]").val();
+			 var scontent = $("#edit-desc").val();
+			 var stype = $("select[name=stype] option:selected").val();
+			 var splan = $("input[name=splan]:checked").val();
+			 var allDay;
+			 if($("#allDay").prop('checked')){
+				allDay ='Y'; 
+			 }else{
+				 allDay ='N';
+			 }
+			 
+			 $.ajax({
 			
-				dataType : "json",
-				success : function(data) {
-					if(data =='success'){
+				url:"insertSchedule.do",
+				type:"POST",
+				data:{
+					  startDate:startDate,
+					  startTime:startTime,
+					  endDate:endDate,
+					  endTime:endTime,
+					  stitle:stitle,
+					  scontent:scontent,
+					  stype:stype,
+					  empId:'${loginUser.empId}',
+					  splan:splan,
+					  allDay:allDay
+				},
+				success:function(data){
+					if(data == 'success'){
 						
-						$.each(data, function(index, value){
-							
-							var calEvent = {};
-							
-							calEvent.id = value.sno;
-							calEvent.title = value.stitle;
-							calEvent.start = value.startDate + "T" + startTime; 
-							calEvent.end = value.endDate + "T" + endTime; 
-							calEvent.color = value.backColor;
-
-							j('#calendar').fullCalendar('renderEvent', calEvent, true); // 개중요, 얘가 넘겨줌
-						});
+						$("input[name=startDate]").val('');
+						$("select[name=startTime]").children().first().prop('selected', true);
+						$("input[name=endDate]").val('');
+						$("select[name=endTime]").find('option:eq(0)').prop('selected', true);
+						$("input[name=stitle]").val("");
+						$("#edit-desc").val("");
+						$("select[name=stype]").find('option:eq(0)').prop('selected', true);
+						$("#allDay").prop('checked', false);
+						
+						 j("#calendar").fullCalendar('removeEvents'); // 달력 새로고침
+						 addCalendarList(splan);
+						 $("#eventModal").dialog("close");
+						 refresh(1);
+						
+					}else{
+						alertify.alert("delveloffice", "실패");
 					}
 				},
-				error : function() {
-					alertify.alert("통신실패");
+				error:function(){
+					alertify.alert("develoffice", "모두 입력해주세요");
+				}
+			 });
+		});
+		
+		// 게시판 새로고침
+		function refresh(currentPage){
+			var splan = $('input[name=splan]:checked').val();
+			$.ajax({
+				
+				url: "sRefresh.do",
+				type: "post",
+				data: {
+					deptCode: '${loginUser.deptCode}',
+					splan:splan,
+					currentPage:currentPage
 				},
+				dataType:"json",
+				success:function(data){
+					var html = "";
+					
+						$("#select_list").html("");
+						
+						$.each(data, function(index, s){
+							
+							if(splan == 'T'){
+								
+								html +=
+									'<tr>' + 
+										'<td class="sNo">' + s.sno + '</td>' +
+										'<td class="sName">' + s.empName + '</td>' +
+										'<td class="sTitle">' + s.stitle  + '</td>' +
+										'<td class="sType">' + s.stype + '</td>' +
+										'<td class="sDate aa">' + s.createDate + '</td>' + 
+									'</tr>';
+							}else{
+								
+								html +=
+									'<tr>' + 
+										'<td class="sNo">' + s.sno + '</td>' +
+										'<td class="sName">' + s.empName + '</td>' +
+										'<td class="sTitle">' + s.stitle  + '</td>' +
+										'<td class="sDate aa">' + s.createDate + '</td>' + 
+									'</tr>';
+								}
+							});
+						
+								if(splan == 'T'){
+									
+									if( $('#sss').children().length == 4){
+									
+										$('#sss').children().last().prev().after('<th style="color: #676767;" id="sType">일정종류</th>');
+									}
+								}else{
+									$('#sType').remove();
+								}
+	 						
+							$("#select_list").html(html);
+					},
+					error:function(){
+						alertify.alert("통신실패");
+					},
+				});
+				
+				// 페이징 처리
+				var pageHtml = "";
+				$.ajax({
+					
+					url:"getPi.do",
+					type:"post",
+					data:{
+						currentPage:currentPage,
+						deptCode:'${loginUser.deptCode}',
+						splan:splan,
+					},
+					dataType:"json",
+				    
+					success:function(pi){
+					
+					<!-- 이전 -->
+					if(pi.currentPage != 1){
+							pageHtml +=
+								 '<a onclick="refresh('
+								+ (pi.currentPage -1)
+								+ ');">이전</a> ';
+							
+					}else{
+							pageHtml +=
+							     '이전&nbsp;';
+					}
+					
+					<!-- 번호들 -->
+					for(var i=pi.startPage; i <= pi.endPage; i++){
+						if(i == pi.currentPage){
+							
+							pageHtml +=	
+								'<font color="#3287B2" size="3">'
+								+ i 
+								+ '</font> ';
+						}else{
+							
+							pageHtml +=
+								'<a onclick="refresh('
+								+ i
+								+ ')">'
+								+ i
+								+ '</a> ';
+						}
+					}
+						
+					<!-- 다음 -->
+					if(pi.currentPage != pi.maxPage){
+						
+						pageHtml +=
+								'<a onclick="refresh('
+							    + (pi.currentPage +1)
+							    + ');">다음</a>';
+					}else{
+						
+						pageHtml +=
+								'&nbsp;다음';
+					}
+					$("#pagingArea").html(pageHtml);
+					
+				    },
+				    error:function(){
+						alertify.alert("develoffice","응 다시해");
+					}
+				});
+			};
+	
+			// 라디오버튼 클릭시 value에 맞게 변환
+			$(document).on('change','input[name=splan]',function(){
+				
+				j("#calendar").fullCalendar('removeEvents'); // 달력 새로고침
+				
+				refresh(1);
+				addCalendarList($(this).val());
+				
+				// 일정 설명 on / off
+				var splan = $("input[name=splan]:checked").val();
+				 
+				if(splan == 'C'){
+					$(".colorList").css('display','none');
+					
+				}else{
+					$(".colorList").css('display','block');
+				}
 			});
-		
-		 };
-		
+			
+			// 달력에 add하기
+			function addCalendarList(splan){
+				
+				  $.ajax({
+					url : "addCalendar.do",
+					type : "post",
+					data: {
+						deptCode: '${loginUser.deptCode}',
+						splan:splan
+					},
+					dataType : "json",
+					success : function(data) {
+						
+						if(data != null){
+							
+							$.each(data, function(index, value){
+								
+								var calEvent = {};
+								
+								calEvent.id = value.sno;
+								calEvent.title = value.stitle;
+								calEvent.schd_idx = value.empName;
+								calEvent.description = value.scontent;
+								calEvent.start = value.startDate + 'T' + value.startTime;
+								calEvent.end = value.endDate + 'T' + value.endTime;
+								calEvent.className = value.empId;
+								calEvent.color = value.stype;
+								
+								if(value.empId == '${loginUser.empId}'){
+									calEvent.color = '#a9e34b';
+								}else if(value.stype == '휴가'){
+									calEvent.color = '#f06595';
+								}else if(value.stype == '회의'){
+									calEvent.color = 'cornflowerblue';
+								}else if(value.stype == '외근'){
+									calEvent.color = '#ffa94d';
+								}else if(value.stype == '출장'){
+									calEvent.color = '#9775fa';
+								}else if(value.stype == '전체일정'){
+									calEvent.color = '#4d638c';
+								}
+								
+								
+								// 내 일정 아니면 못움직이게
+// 								console.log(value.empId);
+// 								console.log(${loginUser.empId});
+// 								console.log(value.deptCode);
+								
+								if(splan == 'C'){
+									if('${loginUser.deptCode}' == 2 || '${loginUser.deptCode}' == 3 || '${loginUser.deptCode}' == 4){
+										calEvent.editable = true;
+									}
+								}
+								
+								if(value.empId == '${loginUser.empId}'){
+										
+									calEvent.editable = true;
+								}
+								
+									
+								j('#calendar').fullCalendar('renderEvent', calEvent, true); // 개중요, 얘가 넘겨줌
+							});
+							
+						}
+					},
+					error : function() {
+						alertify.alert("통신실패");
+					},
+				});
+			
+			 };
+			 
+			 // 삭제
+			 $(document).on('click', '#deleteEvent', function(){
+				
+				 var sno =$("#sNo").val();
+				 var splan = $("input[name=splan]:checked").val();
+				 
+				 $.ajax({
+					 
+					 url: "deleteSchedule.do",
+					 type: "post",
+					 data: {
+						 sno:sno,
+						 empId:'${loginUser.empId}'
+						 
+					 },
+					 success:function(data){
+						 if(data == 'success'){
+							 
+							 $("#eventModal").dialog("close");
+							 j("#calendar").fullCalendar('removeEvents',sno);
+							 refresh(1);
+							 
+						 }else{
+							 alertify.alert("develoffice", "에러에러에러에러");
+						 }
+					 },
+					 error:function(){
+						 alertify.alert("develoffice","통신실패");
+					 }
+				 });
+			 });
+			 
+			 // 수정
+			 $(document).on('click',"#updateEvent", function(){
+				
+				 var sno = $("#sNo").val();
+				 var startDate = $("input[name=startDate]").val();
+				 var startTime = $("select[name=startTime] option:selected").val();
+				 var endDate = $("input[name=endDate]").val();
+				 var endTime = $("select[name=endTime] option:selected").val();
+				 var stitle = $("input[name=stitle]").val();
+				 var scontent = $("#edit-desc").val();
+				 var stype = $("select[name=stype] option:selected").val();
+				 var splan = $("input[name=splan]:checked").val(); 
+				
+				 $.ajax({
+					
+					 url:"updateSchedule.do",
+					 type:"post",
+					 data:{
+						 sno:sno,
+						 stitle:stitle,
+						 startDate:startDate,
+						 startTime:startTime,
+						 endDate:endDate,
+						 endTime:endTime,
+						 stype:stype,
+						 scontent:scontent,
+						 empId:'${loginUser.empId}',
+					 },
+					 success:function(data){
+						 if(data == 'success'){
+							 
+							 j("#calendar").fullCalendar('removeEvents'); // 달력 새로고침
+							 addCalendarList(splan);
+							 $("#eventModal").dialog("close");
+							 refresh(1);
+							 
+						 }else{
+							 alertify.alert("develoffice","통신 실패");
+						 }
+					 },
+					 error:function(){
+						 alertify.alert("develoffice","모두 입력해주세요");
+					 }
+				 });
+			 });
+			 
+			 // 달력에서 이전 날짜로 못가게
+			 $(".datedate").change(function(){
+	             
+		          var strDate1 = $("#startDate").val();
+		          var strDate2 = $("#endDate").val();
+		          var arr1 = strDate1.split('-');
+		          var arr2 = strDate2.split('-');
+		          
+		          var dat1 = new Date(arr1[0], arr1[1]-1, arr1[2]);
+		          var dat2 = new Date(arr2[0], arr2[1]-1, arr2[2]);
+		          
+		           // 날짜 차이 알아 내기
+		           
+		           var diffM = dat2.getMonth() - dat1.getMonth();
+		           var diff = dat2.getTime() - dat1.getTime();
+		           var result = Math.floor(diff/1000/60/60/24);
+		           
+		           if(diff <= 0){
+		              
+		              dat2.setDate(dat1.getDate()+1);
+		              
+		              var year = dat2.getFullYear();
+		              var month = dat2.getMonth()+1;
+		              var day = dat2.getDate();
+		                            
+		              var month1 = month;
+		              var day1 = day;
+		              
+		                 if(month1 < 10){
+		                    month1 = "0"+month1;
+		                 }
+		                 if(day1 < 10){
+		                    day1 = "0"+day1;
+		                 }
+		                 
+		              var dat2_2 = (year + "-" + month1 + "-" + day1);
+		              $("#endDate").val(strDate1); // 하루 밀린 날짜 출력(string)
+		              
+		       		};
+			 });
+			 
+			 // 내꺼일 때 스케줄 타입 알아오기
+			 function scheduleType(sno){
+			 
+				$.ajax({
+					
+					url:"scheduleType.do",
+					type:"post",
+					data:{
+						sno:sno
+					},
+					success:function(data){
+						if(data == 'fail'){
+							alertify.alert("다시 해오세용");
+						}else{
+							$("#edit-type").val(data);
+						}
+					},
+					error:function(){
+						alertify.alert("통신 쉴패");
+					}
+				});
+				 
+			 }
+			 
+			 
+
+
 	</script>
-
-
+	
 </body>
 </html>

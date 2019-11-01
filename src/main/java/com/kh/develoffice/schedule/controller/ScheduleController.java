@@ -28,13 +28,6 @@ public class ScheduleController {
 	@Autowired
 	private ScheduleService sService;
 	
-	// 게시판 페이징 카운트
-	@RequestMapping("publicScheduleList.do")
-	public String publicScheduleList() {
-		
-		return "schedule/publicScheduleList";
-	}
-	
 	// 게시판에 일정 셀렉
 	@RequestMapping("teamScheduleList.do")
 	public ModelAndView teamSchedulelList(Schedule s, ModelAndView mv, HttpSession session, HttpServletResponse response,
@@ -45,6 +38,7 @@ public class ScheduleController {
 		Employee e = (Employee)session.getAttribute("loginUser");
 		
 		s.setEmpId(e.getEmpId());
+		s.setDeptCode(e.getDeptCode());
 		s.setSplan("T");
 
 		// 게시글 총 개수
@@ -87,6 +81,12 @@ public class ScheduleController {
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) throws JsonIOException, IOException {
 		
 		response.setCharacterEncoding("utf-8");
+		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		s.setEmpId(e.getEmpId());
+		s.setDeptCode(e.getDeptCode());
+//		s.setSplan("T");
 		
 		int listCount = sService.getListCount(s);
 		
@@ -170,7 +170,18 @@ public class ScheduleController {
 		}
 	}
 	
-	
-	
+	@RequestMapping("getPi.do")
+	public void getPi(int currentPage, Schedule s, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		response.setContentType("application/json; charset=utf-8");
+		
+		int listCount = sService.getListCount(s);
+		
+		PageInfo pi = Pagination2.getPageInfo(currentPage, listCount);
+		
+		Gson gson = new Gson();
+		
+		gson.toJson(pi,response.getWriter());
+	}
 	
 }
