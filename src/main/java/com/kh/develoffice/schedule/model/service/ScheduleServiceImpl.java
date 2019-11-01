@@ -56,4 +56,10 @@ public class ScheduleServiceImpl implements ScheduleService{
 		return sDao.movingSchedule(s);
 	}
 
+	@Override
+	public String scheduleType(int sno) {
+	
+		return sDao.scheduleType(sno);
+	}
+
 }

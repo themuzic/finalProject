@@ -21,4 +21,6 @@ public interface ScheduleService {
 
 	int movingSchedule(Schedule s);
 
+	String scheduleType(int sno);
+
 }

@@ -197,26 +197,10 @@
 		                                <label class="col-xs-4" for="edit-type"><b>구분</b></label>
 		                                <select class="inputModal required" name="stype" id="edit-type" style="width:367px;" required="required">
 		                                	<option value="">일정 종류를 선택하세요</option>
-		                                    <option value="휴가">휴가</option>
-		                                    <option value="회의">회의</option>
-		                                    <option value="외근">외근</option>
-		                                    <option value="출장">출장</option>
-		                                </select>
-		                            </div>
-		                        </div>
-		                        <div class="row show" id="colorS">
-		                            <div class="col-xs-12 hideType">
-		                                <label class="col-xs-4" for="edit-color"><b>색상</b></label>
-		                                <select class="inputModal required" name="backColor" id="edit-color" style="width:367px;" required="required">
-		                                	<option value="">색상을 선택하세요</option>
-		                                    <option value="#D25565" style="color:#D25565;">빨간색</option>
-<!-- 		                                    <option value="#9775fa" style="color:#9775fa;">보라색</option> -->
-		                                    <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
-		                                    <option value="#74c0fc" style="color:#74c0fc;">파란색</option>
-		                                    <option value="#f06595" style="color:#f06595;">핑크색</option>
-		                                    <option value="#63e6be" style="color:#63e6be;">연두색</option>
-		                                    <option value="#a9e34b" style="color:#a9e34b;">초록색</option>
-		                                    <option value="#4d638c" style="color:#4d638c;">남색</option>
+		                                    <option value="휴가" style="color:#f06595">휴가</option>
+		                                    <option value="회의" style="color:cornflowerblue">회의</option>
+		                                    <option value="외근" style="color:#ffa94d">외근</option>
+		                                    <option value="출장" style="color:#9775fa">출장</option>
 		                                </select>
 		                            </div>
 		                        </div>
@@ -238,6 +222,15 @@
 		                </div><!-- /.modal-content -->
 		            </div><!-- /.modal-dialog -->
 		        </div><!-- /.modal -->
+				
+				<div align="right" id="colorList" class="colorList" style="padding-top:10px; font-size:13px;">
+					<span style="color:#f06595"><b>※휴가</b></span>&nbsp;&nbsp;
+					<span style="color:cornflowerblue"><b>※회의</b></span>&nbsp;&nbsp;
+					<span style="color:#ffa94d"><b>※외근</b></span>&nbsp;&nbsp;
+					<span style="color:#9775fa"><b>※출장</b></span>&nbsp;&nbsp;
+					<span style="color:#a9e34b"><b>※내가 쓴 글</b></span>
+				</div>
+				
 				<hr>	
 		       
 		       <div align="left">
@@ -353,13 +346,11 @@
 	$("#menu4_1").addClass("active");
 	$("#menu4_1").attr('aria-expanded',true);
 	$("#m4_2").addClass("active");	
-	
-	});
 		 
+	});
 	</script>
 	
 	<script>
-	
 	
 	j(function(){
 		
@@ -398,12 +389,10 @@
 				   month: "YYYY년 MMMM",
 				   week: "YYYY년 MMM DD일 (ddd) ",
 				   day: "YYYY년 MMM DD일 dddd"
-// 				   day: "YYYY-MM-DD"
 			   },
 			  	
 			    editable: false,		// 일정 움직일 수 있게
 				eventLimit: true, 		// 하루 기본일정 3개, 그 이상시, more로 처리
-				
 				events: [],
 
 			// 일정 움직일 때 업데이트
@@ -442,7 +431,8 @@
 			
 		    // substr = 인덱스~몇번째
 		    eventMouseover: function(calEvent, jsEvent) {
-		        var tooltip = '<div class="tooltipevent" style="width:280px;height:230px;background:#e9e9e9;position:absolute;z-index:10001; padding-right:23px; padding-left:23px; padding-top:15px;">' 
+		    	
+		        var tooltip = '<div class="tooltipevent" style="width:260px;height:200px;background:#e9e9e9;position:absolute;z-index:10001; padding-right:21px; padding-left:21px; padding-top:15px;">' 
 		        			  +	"<b>등록자</b>: &nbsp;" + calEvent.schd_idx + '<br>'
 		        			  + "<b>시작시간</b>: &nbsp;" + calEvent.start.format().split('T')[0] + " " + calEvent.start.format().split('T')[1].substr(0,5) + '<br>'
 		        			  + "<b>종료시간</b>: &nbsp;" + calEvent.end.format().split('T')[0] + " " + calEvent.end.format().split('T')[1].substr(0,5) + '<br>'
@@ -450,6 +440,23 @@
 		        			  + "<b>일정</b>: &nbsp;" + calEvent.title + '<br>'
 		        			  + "<b>내용</b>: &nbsp;" + calEvent.description + '<br>'
 		        			  + '</div>';
+		        			  
+		        			  
+		        			  
+						        if(event.color =='#a9e34b'){
+									
+									var sno = event.id;
+									scheduleType(sno);
+										
+									}else if(event.color == '#f06595'){
+										$("#edit-type").val('휴가');
+									}else if(event.color == 'cornflowerblue'){
+										$("#edit-type").val('회의');
+									}else if(event.color == '#ffa94d'){
+										$("#edit-type").val('외근');
+									}else if(event.color == '#9775fa'){
+										$("#edit-type").val('출장');
+									}
 
 		        var $tooltip = $(tooltip).appendTo('body');
 		        
@@ -493,10 +500,8 @@
 							var stitle = $("input[name=stitle]");
 							var scontent = $("#edit-desc");
 							var stype = $("select[name=stype]");
-							var backColor = $("select[name=backColor]");
 				        	
 							// 내 아이디가 아니면 수정하는 것들 disabled 처리
-// 							console.log(event.className);
 				        	if(event.className != ${loginUser.empId}){
 				        		
 				        		startDate.attr("disabled", true);
@@ -506,11 +511,9 @@
 				        		stitle.attr("disabled", true);
 				        		scontent.attr("disabled", true);
 				        		stype.prop("disabled", true);
-				        		backColor.prop("disabled", true);
 				        		$("#allDay").attr("disabled", true);
 				        		
 				        	}else{
-				        		console.log("찍히나");
 				        		startDate.attr("disabled", false);
 				        		endDate.attr("disabled", false);
 				        		startTime.prop("disabled", false);
@@ -518,7 +521,6 @@
 				        		stitle.attr("disabled", false);
 				        		scontent.attr("disabled", false);
 				        		stype.prop("disabled", false);
-				        		backColor.prop("disabled", false);
 				        		$("#allDay").attr("disabled", false);
 				        	}
 							
@@ -526,12 +528,28 @@
 							$("#edit-title").val(event.title);
 							$("#startDate").val(event.start.format().split("T")[0]);
 							$("#endDate").val(event.end.format().split("T")[0]);
-							$("#edit-color").val(event.color);
+							
+							if(event.color =='#a9e34b'){
+								
+							var sno = event.id;
+							
+							// 내 아이디일 때 일정타입 볼 수 있게 함수 불러
+							scheduleType(sno);
+								
+							}else if(event.color == '#f06595'){
+								$("#edit-type").val('휴가');
+							}else if(event.color == 'cornflowerblue'){
+								$("#edit-type").val('회의');
+							}else if(event.color == '#ffa94d'){
+								$("#edit-type").val('외근');
+							}else if(event.color == '#9775fa'){
+								$("#edit-type").val('출장');
+							}
+							
 							$("#edit-desc").val(event.description);
 							$("#start").val(event.start.format().split('T')[1].substring(0,5));
 							$("#end").val(event.end.format().split('T')[1].substring(0,5));
-				        	
-							
+
 							/* 저장 버튼 보이지 않게 */
 				        	$("#saveEvent").css('display','none');
 				        	
@@ -562,7 +580,6 @@
 			});
 		};
 	
-	
 		// 일정 추가 모달창 생성
 		$(document).on('click','.fc-day',function(){
 			
@@ -584,14 +601,13 @@
 				var stitle = $("input[name=stitle]");
 				var scontent = $("#edit-desc");
 				var stype = $("select[name=stype]");
-				var backColor = $("select[name=backColor]");
         		
         		// 일정 추가 모달창 초기화
         		$("#edit-title").val('');
 				$("#startDate").val('');
 				$("#endDate").val('');
-				$("#edit-color").find('option:eq(0)').prop('selected', true);
 				$("#edit-desc").val('');
+				$("#edit-type").val('');
 				$("#start").find('option:eq(0)').prop('selected', true);
 				$("#end").find('option:eq(0)').prop('selected', true);
 				
@@ -603,7 +619,6 @@
         		stitle.attr("disabled", false);
         		scontent.attr("disabled", false);
         		stype.prop("disabled", false);
-        		backColor.prop("disabled", false);
         		$("#allDay").attr("disabled", false);
 
 				// 버튼 이벤트
@@ -640,7 +655,6 @@
 			 var stitle = $("input[name=stitle]").val();
 			 var scontent = $("#edit-desc").val();
 			 var stype = $("select[name=stype] option:selected").val();
-			 var backColor = $("select[name=backColor] option:selected").val();
 			 var splan = $("input[name=splan]:checked").val();
 			 var allDay;
 			 if($("#allDay").prop('checked')){
@@ -661,7 +675,6 @@
 					  stitle:stitle,
 					  scontent:scontent,
 					  stype:stype,
-					  backColor:backColor,
 					  empId:'${loginUser.empId}',
 					  splan:splan,
 					  allDay:allDay
@@ -676,7 +689,6 @@
 						$("input[name=stitle]").val("");
 						$("#edit-desc").val("");
 						$("select[name=stype]").find('option:eq(0)').prop('selected', true);
-						$("select[name=backColor]").find('option:eq(0)').prop('selected', true);
 						$("#allDay").prop('checked', false);
 						
 						 j("#calendar").fullCalendar('removeEvents'); // 달력 새로고침
@@ -760,6 +772,16 @@
 				
 				refresh($(this).val());
 				addCalendarList($(this).val());
+				
+				// 일정 설명 on / off
+				var splan = $("input[name=splan]:checked").val();
+				 
+				if(splan == 'C'){
+					$(".colorList").css('display','none');
+					
+				}else{
+					$(".colorList").css('display','block');
+				}
 			});
 			
 			// 달력에 add하기
@@ -788,13 +810,22 @@
 								calEvent.start = value.startDate + 'T' + value.startTime;
 								calEvent.end = value.endDate + 'T' + value.endTime;
 								calEvent.className = value.empId;
+								calEvent.color = value.stype;
 								
-								console.log(value.backColor);
-								if(value.empId == '${loginUser.empId}') {
-									calEvent.color = value.backColor;
-								} else if(value.deptCode == 2 || value.deptCode == 3 || value.deptCode == 4){
+								if(value.empId == '${loginUser.empId}'){
+									calEvent.color = '#a9e34b';
+								}else if(value.stype == '휴가'){
+									calEvent.color = '#f06595';
+								}else if(value.stype == '회의'){
+									calEvent.color = 'cornflowerblue';
+								}else if(value.stype == '외근'){
+									calEvent.color = '#ffa94d';
+								}else if(value.stype == '출장'){
 									calEvent.color = '#9775fa';
+								}else if(value.stype == '전체일정'){
+									calEvent.color = '#4d638c';
 								}
+								
 								
 								// 내 일정 아니면 못움직이게
 								if(value.deptCode == 2 || value.deptCode == 3 || value.deptCode == 4){
@@ -859,8 +890,6 @@
 				 var stitle = $("input[name=stitle]").val();
 				 var scontent = $("#edit-desc").val();
 				 var stype = $("select[name=stype] option:selected").val();
-				 var backColor = $("select[name=backColor] option:selected").val();
-				 
 				 var splan = $("input[name=splan]:checked").val(); 
 				
 				 $.ajax({
@@ -875,7 +904,6 @@
 						 endDate:endDate,
 						 endTime:endTime,
 						 stype:stype,
-						 backColor:backColor,
 						 scontent:scontent,
 						 empId:'${loginUser.empId}',
 					 },
@@ -936,6 +964,30 @@
 		              
 		       		};
 			 });
+			 
+			 // 내꺼일 때 스케줄 타입 알아오기
+			 function scheduleType(sno){
+			 
+				$.ajax({
+					
+					url:"scheduleType.do",
+					type:"post",
+					data:{
+						sno:sno
+					},
+					success:function(data){
+						if(data == 'fail'){
+							alertify.alert("다시 해오세용");
+						}else{
+							$("#edit-type").val(data);
+						}
+					},
+					error:function(){
+						alertify.alert("통신 쉴패");
+					}
+				});
+				 
+			 }
 
 
 	</script>

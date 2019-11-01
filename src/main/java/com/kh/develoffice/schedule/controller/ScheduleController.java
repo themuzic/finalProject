@@ -3,7 +3,6 @@ package com.kh.develoffice.schedule.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -65,6 +64,11 @@ public class ScheduleController {
 	@RequestMapping("insertSchedule.do")
 	public String insertSchedule(Schedule s) {
 		
+		System.out.println(s);
+		if(s.getStype().equals("") || s.getStype() == null) {
+			s.setStype("전체일정");
+		}
+		
 //		System.out.println(s);
 		int result = sService.insertSchedule(s);
 		
@@ -125,6 +129,10 @@ public class ScheduleController {
 	@ResponseBody
 	@RequestMapping("updateSchedule.do")
 	public String updateSchedule(Schedule s) {
+		
+		if(s.getStype().equals("") || s.getStype() == null) {
+			s.setStype("전체일정");
+		}
 	
 		int result = sService.updateSchedule(s);
 		
@@ -147,8 +155,21 @@ public class ScheduleController {
 		}else {
 			return "fail";
 		}
-		
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="scheduleType.do", produces="text/html; charset=utf-8")
+	public String scheduleType(int sno) {
+		
+		String stype = sService.scheduleType(sno);
+		
+		if(stype == null) {
+			return "fail";
+		}else {
+			return stype;
+		}
+	}
+	
 	
 	
 	

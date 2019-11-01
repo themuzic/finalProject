@@ -54,6 +54,11 @@ public class ScheduleDao {
 		
 		return sqlSession.update("scheduleMapper.movingSchedule", s);
 	}
+
+	public String scheduleType(int sno) {
+		
+		return sqlSession.selectOne("scheduleMapper.scheduleType",sno);
+	}
 		
 	
 
