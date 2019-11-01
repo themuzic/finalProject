@@ -195,8 +195,8 @@
 		                        <div class="row show" id="typeS">
 		                            <div class="col-xs-12 hideType">
 		                                <label class="col-xs-4" for="edit-type"><b>구분</b></label>
-		                                <select class="inputModal" name="stype" id="edit-type" style="width:367px;" required>
-		                                	<option>일정 종류를 선택하세요</option>
+		                                <select class="inputModal required" name="stype" id="edit-type" style="width:367px;" required="required">
+		                                	<option value="">일정 종류를 선택하세요</option>
 		                                    <option value="휴가">휴가</option>
 		                                    <option value="회의">회의</option>
 		                                    <option value="외근">외근</option>
@@ -207,10 +207,10 @@
 		                        <div class="row show" id="colorS">
 		                            <div class="col-xs-12 hideType">
 		                                <label class="col-xs-4" for="edit-color"><b>색상</b></label>
-		                                <select class="inputModal" name="backColor" id="edit-color" style="width:367px;" required>
-		                                	<option>색상을 선택하세요</option>
+		                                <select class="inputModal required" name="backColor" id="edit-color" style="width:367px;" required="required">
+		                                	<option value="">색상을 선택하세요</option>
 		                                    <option value="#D25565" style="color:#D25565;">빨간색</option>
-		                                    <option value="#9775fa" style="color:#9775fa;">보라색</option>
+<!-- 		                                    <option value="#9775fa" style="color:#9775fa;">보라색</option> -->
 		                                    <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
 		                                    <option value="#74c0fc" style="color:#74c0fc;">파란색</option>
 		                                    <option value="#f06595" style="color:#f06595;">핑크색</option>
@@ -415,7 +415,6 @@
 				 
 				 var splan = $("input[name=splan]:checked").val();
 				 
-// 				 console.log(sno  + "//" + startDate + "//" + endDate);
 				 $.ajax({
 					
 					url :"movingSchedule.do",
@@ -443,7 +442,7 @@
 			
 		    // substr = 인덱스~몇번째
 		    eventMouseover: function(calEvent, jsEvent) {
-		        var tooltip = '<div class="tooltipevent" style="width:280px;height:250px;background:#e9e9e9;position:absolute;z-index:10001; padding-right:23px; padding-left:23px; padding-top:15px;">' 
+		        var tooltip = '<div class="tooltipevent" style="width:280px;height:230px;background:#e9e9e9;position:absolute;z-index:10001; padding-right:23px; padding-left:23px; padding-top:15px;">' 
 		        			  +	"<b>등록자</b>: &nbsp;" + calEvent.schd_idx + '<br>'
 		        			  + "<b>시작시간</b>: &nbsp;" + calEvent.start.format().split('T')[0] + " " + calEvent.start.format().split('T')[1].substr(0,5) + '<br>'
 		        			  + "<b>종료시간</b>: &nbsp;" + calEvent.end.format().split('T')[0] + " " + calEvent.end.format().split('T')[1].substr(0,5) + '<br>'
@@ -480,7 +479,6 @@
 			        
 		        	element.attr('href', 'javascript:void(0);');
 			        element.click(function() {
-			        		console.log("실행");
 			        	
 				        	$('#eventModal').dialog({
 				         		  title: '일정 수정 및 삭제',
@@ -524,28 +522,19 @@
 				        		$("#allDay").attr("disabled", false);
 				        	}
 							
+				        	// 수정할 데이터 넣어놓기
 							$("#edit-title").val(event.title);
 							$("#startDate").val(event.start.format().split("T")[0]);
 							$("#endDate").val(event.end.format().split("T")[0]);
 							$("#edit-color").val(event.color);
 							$("#edit-desc").val(event.description);
-							$("#start").val(event.agenda);
-							
-							$("#end").val(event.end.format().split('T')[0] + " " + event.end.format().split('T')[1].substr(0,5));
-							
-							
-// 							$("#edit-type").val(event.stype);
-							// 시간이랑 타입은,,,
-							
-							
-							
-							
+							$("#start").val(event.start.format().split('T')[1].substring(0,5));
+							$("#end").val(event.end.format().split('T')[1].substring(0,5));
 				        	
-				        	/* 저장 버튼 보이지 않게 */
+							
+							/* 저장 버튼 보이지 않게 */
 				        	$("#saveEvent").css('display','none');
 				        	
-// 				        	console.log(event.className);
-
 				        	if(${loginUser.empId} == event.className){
 				        		
 				        		$("#updateEvent").css('display','inline-block');
@@ -690,11 +679,10 @@
 						$("select[name=backColor]").find('option:eq(0)').prop('selected', true);
 						$("#allDay").prop('checked', false);
 						
-						$("#eventModal").dialog("close");
-						
-						j("#calendar").fullCalendar('removeEvents');
-						refresh(splan);
-						addCalendarList(splan);
+						 j("#calendar").fullCalendar('removeEvents'); // 달력 새로고침
+						 addCalendarList(splan);
+						 $("#eventModal").dialog("close");
+						 refresh(splan);
 						
 					}else{
 						alertify.alert("delveloffice", "실패");
@@ -767,7 +755,9 @@
 	
 			// 라디오버튼 클릭시 value에 맞게 변환
 			$(document).on('change','input[name=splan]',function(){
+				
 				j("#calendar").fullCalendar('removeEvents'); // 달력 새로고침
+				
 				refresh($(this).val());
 				addCalendarList($(this).val());
 			});
@@ -797,13 +787,17 @@
 								calEvent.description = value.scontent;
 								calEvent.start = value.startDate + 'T' + value.startTime;
 								calEvent.end = value.endDate + 'T' + value.endTime;
-								calEvent.color = value.backColor;
 								calEvent.className = value.empId;
 								
-								calEvent.agenda = value.startTime;
+								console.log(value.backColor);
+								if(value.empId == '${loginUser.empId}') {
+									calEvent.color = value.backColor;
+								} else if(value.deptCode == 2 || value.deptCode == 3 || value.deptCode == 4){
+									calEvent.color = '#9775fa';
+								}
 								
 								// 내 일정 아니면 못움직이게
-								if(value.deptCode == 2 || 3 || 4){
+								if(value.deptCode == 2 || value.deptCode == 3 || value.deptCode == 4){
 									
 									if(value.empId == '${loginUser.empId}'){
 										calEvent.editable = true;
@@ -866,6 +860,8 @@
 				 var scontent = $("#edit-desc").val();
 				 var stype = $("select[name=stype] option:selected").val();
 				 var backColor = $("select[name=backColor] option:selected").val();
+				 
+				 var splan = $("input[name=splan]:checked").val(); 
 				
 				 $.ajax({
 					
@@ -881,19 +877,22 @@
 						 stype:stype,
 						 backColor:backColor,
 						 scontent:scontent,
-						 empId:'${loginUser.empId}'
+						 empId:'${loginUser.empId}',
 					 },
 					 success:function(data){
 						 if(data == 'success'){
+							 
+							 j("#calendar").fullCalendar('removeEvents'); // 달력 새로고침
+							 addCalendarList(splan);
 							 $("#eventModal").dialog("close");
 							 refresh(splan);
-							 addCalendarList($(this).val());
+							 
 						 }else{
-							 alertify.alert("develoffice","모두 입력해주세요");
+							 alertify.alert("develoffice","통신 실패");
 						 }
 					 },
 					 error:function(){
-						 alertify.alert("develoffice","통신실패");
+						 alertify.alert("develoffice","모두 입력해주세요");
 					 }
 				 });
 			 });
@@ -906,13 +905,8 @@
 		          var arr1 = strDate1.split('-');
 		          var arr2 = strDate2.split('-');
 		          
-	// 	          console.log(arr1);
-	// 	          console.log(arr2); 
-		          
 		          var dat1 = new Date(arr1[0], arr1[1]-1, arr1[2]);
 		          var dat2 = new Date(arr2[0], arr2[1]-1, arr2[2]);
-		       
-	// 	          console.log(dat2);    
 		          
 		           // 날짜 차이 알아 내기
 		           var diff = dat2.getTime() - dat1.getTime();
@@ -942,19 +936,7 @@
 		              
 		       		};
 			 });
-			 
-			 
-			 
-			 
-			 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
+
 
 	</script>
 	
