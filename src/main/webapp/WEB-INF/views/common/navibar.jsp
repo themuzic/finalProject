@@ -532,7 +532,10 @@
 								<ul class="nav">
 									<li><a href="projectList.do" class="" id="m3_1">프로젝트관리</a></li>
 									<li><a href="todoBoardList.do" class="" id="m3_2">TO-DO</a></li>
-									<li><a href="help.do" class="" id="m3_3">품앗이</a></li>								
+									<c:url value="help.do" var="help">
+										<c:param name="empId" value="${loginUser.empId}"/>
+									</c:url>
+									<li><a href="${help}" class="" id="m3_3">품앗이</a></li>								
 								</ul>
 							</div>
 						</li>

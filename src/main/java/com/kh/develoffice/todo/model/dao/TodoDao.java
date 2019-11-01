@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.mail.model.vo.PageInfo;
+import com.kh.develoffice.todo.model.vo.Help;
 import com.kh.develoffice.todo.model.vo.Todo;
 import com.kh.develoffice.todo.model.vo.TodoBoard;
 
@@ -117,6 +118,26 @@ public class TodoDao {
 
 	public ArrayList<Todo> callTodoList(Todo t) {
 		return (ArrayList)sqlSession.selectList("todoMapper.callTodoList",t);
+	}
+
+
+	public ArrayList<Help> selectAllHelpList() {
+		return (ArrayList)sqlSession.selectList("todoMapper.selectAllHelpList");
+	}
+
+
+	public ArrayList<Help> selectMyHelpList(int empId) {
+		return (ArrayList)sqlSession.selectList("todoMapper.selectMyHelpList",empId);
+	}
+
+
+	public ArrayList<Help> selectBringHelpList(int empId) {
+		return (ArrayList)sqlSession.selectList("todoMapper.selectBringHelpList",empId);
+	}
+
+
+	public int insertHelp(Help h) {
+		return sqlSession.insert("todoMapper.insertHelp",h);
 	}
 	
 	

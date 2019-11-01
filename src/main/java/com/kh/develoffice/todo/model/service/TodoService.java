@@ -2,7 +2,7 @@ package com.kh.develoffice.todo.model.service;
 
 import java.util.ArrayList;
 
-
+import com.kh.develoffice.todo.model.vo.Help;
 import com.kh.develoffice.todo.model.vo.Todo;
 import com.kh.develoffice.todo.model.vo.TodoBoard;
 
@@ -57,5 +57,15 @@ public interface TodoService {
 	
 	// 위젯에서 쓸 todo 리스트 호출
 	ArrayList<Todo> callTodoList(Todo t);
+	
+	// all helplist
+	ArrayList<Help> selectAllHelpList();
+	// my helplist
+	ArrayList<Help> selectMyHelpList(int empId);
+	// bring helplist
+	ArrayList<Help> selectBringHelpList(int empId);
+	// insert Help
+	int insertHelp(Help h);
+	
 
 }

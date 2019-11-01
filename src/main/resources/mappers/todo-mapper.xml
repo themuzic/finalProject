@@ -29,8 +29,10 @@
 	<resultMap id="helpResultSet" type="Help">
 		<id property="workId" column="work_id"/>
 		<result property="empId" column="emp_id"/>
+		<result property="empName" column="emp_name"/>
 		<result property="workTitle" column="work_title"/>
 		<result property="workContent" column="work_content"/>
+		<result property="reason" column="reason"/>
 		<result property="registDate" column="regist_date"/>
 		<result property="helperId" column="helper_id"/>
 		<result property="status" column="status"/>
@@ -173,6 +175,32 @@
 		where rownum <= 5
 		]]>
 	</select>
+	
+	<select id="selectAllHelpList" resultMap="helpResultSet">
+		select * from help_view order by work_id desc
+	</select>
+	
+	<select id="selectMyHelpList" parameterType="_int" resultMap="helpResultSet">
+		select * from help_view 
+		where emp_id=#{empId}
+		order by work_id desc
+	</select>
+	
+	<select id="selectBringHelpList" parameterType="_int" resultMap="helpResultSet">
+		select * from help_view 
+		where helper_id=#{empId}
+		order by work_id desc
+	</select>
+	
+	<insert id="insertHelp" parameterType="Help">
+		insert into help
+		values(help_seq.nextval,#{empId},#{workTitle},#{workContent},#{reason},sysdate,null,default)
+	</insert>
+	
+	
+	
+	
+	
   
   
   

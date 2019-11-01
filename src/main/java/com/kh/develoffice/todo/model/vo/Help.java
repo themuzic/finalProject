@@ -19,8 +19,8 @@ public class Help {
 	private String empName;
 	private String workTitle;
 	private String workContent;
-	private String registDate;
 	private String reason;
+	private String registDate;
 	private int helperId;
 	private String status;
 	

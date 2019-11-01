@@ -346,7 +346,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 													<li id="" class="last">
 														<div class="Container">
 															<img onclick="" src="https://approval.office.hiworks.com/assets/images/common/tree_images/tree_m.gif" class="plus">
-															<strong onclick="" id="subOffice" class="selectedNode">DEVELOFFICE <span style="font-weight:normal; color:silver; font-size:8pt">(${deptSize})</span></strong>
+															<strong onclick="" id="subOffice" class="selectedNode">DEVELOFFICE <span style="font-weight:normal; color:silver; font-size:8pt">(${empSize})</span></strong>
 														</div>
 														<ul style="" id="subDept">
 														</ul>

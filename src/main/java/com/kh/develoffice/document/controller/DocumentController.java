@@ -76,6 +76,7 @@ public class DocumentController {
 			empArr.add(jObj);
 		}
 		mv.addObject("empList", empArr);
+		mv.addObject("empSize", empArr.size());
 		mv.addObject("deptList", deptArr);
 		mv.addObject("deptSize", deptArr.size());
 		mv.setViewName("document/document");

@@ -115,6 +115,13 @@
 	body{
 		overflow: hidden;
 	}
+	.contentDiv{
+		border-left:1px solid #ececec;
+		border-right:1px solid #ececec;
+		border-bottom:1px solid #ececec;
+		padding:5px 10px 10px 10px;
+		width:557px;
+	}
 	
 </style>
 
@@ -151,7 +158,11 @@
 							<td>
 								<div class="help-wrap">
 									<div class="helpTitle">
-										<label class="title">도와주세요</label>
+										<label class="title fl">도와주세요</label>
+										<div id="radioDiv" class="fl" style="margin-left:20px">
+											<input type="radio" name="condition" id="radio1" value="all" onclick="refresh();" checked><label for="radio1">전체 목록</label>
+											<input type="radio" name="condition" id="radio2" value="my" onclick="refresh();" style="margin-left:7px;"><label for="radio2">내 목록</label>
+										</div>
 										<i class="fas fa-plus fr" id="addHelp" style="padding-top:6px;margin-right:20px;cursor:pointer;" title="일감 추가"></i>
 									</div>
 									<div class="helpDiv">
@@ -303,7 +314,7 @@
 									</div>
 								
 									<div class="layer_button">
-										<button type="button" class="btn_variables booking_layer_close bringBtn">가져오기</button>
+										<button type="button" class="btn_variables booking_layer_close bringBtn" id="btn">가져오기</button>
 										<button type="button" class="booking_layer_close closeBtn">닫기</button>
 									</div>
 									<a href="javascript:void(0)" class="icon btn_closelayer booking_layer_close closeBtn" title="레이어 닫기"><span class="blind">닫기</span></a>
@@ -314,12 +325,6 @@
 											
 						
 						<!-- 예약 확인 모달창 끝 ----------------------------------------------------->
-					
-					
-						
-						
-					
-					
 					
 					<!-- 이 위까지 내용작성 -->
 					
@@ -346,6 +351,7 @@
 		
 	
 		$(function(){
+			refresh();
 			
 			$("#menu3_1").removeClass("collapsed");
 			$("#menu3").addClass("in");
@@ -381,11 +387,6 @@
 			$("#addHelpLayer").addClass('show');
 		});
 		
-		/* input 눌렀을때 */
-		$(document).on('click','.addHelpInput',function(){
-			$(this).val("");
-		});
-		
 		/* 일감 등록 모달에서 등록 버튼 눌렀을 때 */
 		$("#saveBtn").on('click',function(){
 			
@@ -396,35 +397,86 @@
 			$("#addHelpContent").val("");
 			$("#addHelpReason").val("");
 			
-			var helpTitle = $("<input type='hidden' name='workTitle'>").val(title);
-			var helpEmpId = $("<input type='hidden' name='empId'>").val(${loginUser.empId});
-			var helpEmpName = $("<input type='hidden' name='empName'>").val('${loginUser.empName}');
-			var helpContent = $("<input type='hidden' name='workContent'>").val(content);
-			var helpReason = $("<input type='hidden' name='reason'>").val(reason);
-			var helpDate = $("<input type='hidden' name='registDate'>").val(getTimeStamp());
-			
-			var tr = $('<tr>');
-			var td1 = $('<td style="text-align:center;width:150px;">').text(getTimeStamp());
-			var td2 = $('<td style="padding:0 10px;width:278px;">').text(title);
-			var td3 = $('<td style="width:128px;">').text('${loginUser.empName}');
-			tr.append(helpTitle);
-			tr.append(helpEmpId);
-			tr.append(helpEmpName);
-			tr.append(helpContent);
-			tr.append(helpReason);
-			tr.append(helpDate);
-			tr.append(td1);
-			tr.append(td2);
-			tr.append(td3);
-			
-			$("#helpTbody").append(tr);
-			
+			$.ajax({
+				url:"insertHelp.do",
+				type:"POST",
+				data:{empId:'${loginUser.empId}',
+					workTitle:title,
+					workContent:content,
+					reason:reason
+				},
+				success:function(data){
+					if(data == 'success'){
+						refresh();
+					}else{
+						alertify.alert('','일감 등록 실패');
+					}
+				},
+				error:function(){
+					alertify.alert('','AJAX통신 실패');
+				}
+			});
 			$("#addHelpLayer").removeClass('show');
 		});
 		
+		function refresh(){
+			console.log('select실행하러옴');
+			var condition = $('input[name=condition]:checked').val();
+			
+			$("#helpTbody").html("");
+			
+			$.ajax({
+				url:"selectHelp.do",
+				type:"POST",
+				data:{empId:'${loginUser.empId}',
+					condition:condition
+				},
+				success:function(data){
+					if(data != ""){
+						$.each(data, function(index, help){
+							
+							var helpPK = $("<input type='hidden' name='workId'>").val(help.workId);
+							var helpTitle = $("<input type='hidden' name='workTitle'>").val(help.workTitle);
+							var helpEmpId = $("<input type='hidden' name='empId'>").val(help.empId);
+							var helpEmpName = $("<input type='hidden' name='empName'>").val(help.empName);
+							var helpContent = $("<input type='hidden' name='workContent'>").val(help.workContent);
+							var helpReason = $("<input type='hidden' name='reason'>").val(help.reason);
+							var helpDate = $("<input type='hidden' name='registDate'>").val(help.registDate);
+							
+							var tr = $('<tr>');
+							var td1 = $('<td style="text-align:center;width:150px;">').text(help.registDate);
+							var td2 = $('<td style="padding:0 10px;width:278px;">').text(help.workTitle);
+							var td3 = $('<td style="width:128px;">').text(help.empName);
+							tr.append(helpTitle);
+							tr.append(helpEmpId);
+							tr.append(helpEmpName);
+							tr.append(helpContent);
+							tr.append(helpReason);
+							tr.append(helpDate);
+							tr.append(td1);
+							tr.append(td2);
+							tr.append(td3);
+							
+							$("#helpTbody").append(tr);
+						});
+					}else{
+						var tr = $('<tr>');
+						var td = $('<td colspan="3" style="width:556px;height:50px;text-align:center;font-size:16px;font-weight:bold;">').text("등록된 일감이 없습니다.");
+						
+						console.log(tr);
+						tr.append(td);
+						$("#helpTbody").append(tr);
+					}
+				},
+				error:function(){
+					alertify.alert('','AJAX통신 실패');
+				}
+			});
+		}
+		
+		
 		/* 등록된 일감을 눌렀을 때 */
 		$("#helpTbody").on('click','tr',function(){
-			$(this)
 			$("#hh1").text($(this).find('input[name=workTitle]').val());	//제목
 			$("#hh2").text($(this).find('input[name=registDate]').val());	//등록일
 			$("#hh3").text($(this).find('input[name=empName]').val());		//등록자
@@ -432,11 +484,35 @@
 			$("#hh5").text($(this).find('input[name=reason]').val());		//사유
 			$("#hh5").val($(this).find('input[name=empId]').val());			//사번
 			
+			if('${loginUser.empId}' == $('input[name=empId]').val()){
+				$("#btn").removeClass('btn_variables');
+				$("#btn").removeClass('bringBtn');
+				$("#btn").addClass('warning');
+				$("#btn").addClass('delBtn');
+				$("#btn").text('삭제');
+			} else {
+				if($("#btn").text() != '가져오기'){
+					$("#btn").removeClass('warning');
+					$("#btn").removeClass('delBtn');
+					$("#btn").addClass('btn_variables');
+					$("#btn").addClass('bringBtn');
+					$("#btn").text('가져오기');
+				}
+			}
 			$("#detail_check_layer").addClass('show');
 		});
 		
+		/* 일감 삭제 눌렀을 때 */
+		$(document).on('click','.delBtn',function(){
+			
+		});
+		
+		
 		/* 일감 가져오기 눌렀을 때 */
 		$(document).on('click','.bringBtn',function(){
+			
+			
+			
 			
 			var helpTitle = $("<input type='hidden' name='workTitle'>").val($("#hh1").text());
 			var helpEmpId = $("<input type='hidden' name='empId'>").val($("#hh5").text());
@@ -461,11 +537,29 @@
 			
 			$("#bringTbody").append(tr);
 			
-			var div = $('<div style="display:none">').text($("#hh4").text());
+			var div = $('<div class="contentDiv" style="display:none;text-indent:20px;">').text($("#hh4").text());
+			var div2 = $('<div class="btnDiv" style="text-align:right">');
+			var btn = $('<button class="comBtn ui primary button" style="font-size:10px;">').text("완료");
+			div2.append(btn);
+			div.append(div2);
 			
 			$("#bringTbody").append(div);
 			
 			$(this).next().click();
+		});
+		
+		/* 가져온 일감을 누르면 */
+		$("#bringTbody").on('click','tr',function(){
+			
+			if($(this).hasClass('open')){
+				$(this).removeClass('open');
+				$(this).next('div').slideUp();
+			}else{
+				$("#bringTbody tr").removeClass('open');
+				$(this).addClass('open');
+				$('.contentDiv').slideUp();
+				$(this).next('div').slideDown();
+			}
 		});
 		
 		

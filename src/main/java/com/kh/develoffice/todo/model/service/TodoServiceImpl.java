@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.todo.model.dao.TodoDao;
+import com.kh.develoffice.todo.model.vo.Help;
 import com.kh.develoffice.todo.model.vo.Todo;
 import com.kh.develoffice.todo.model.vo.TodoBoard;
 
@@ -124,6 +125,30 @@ public class TodoServiceImpl implements TodoService {
 	@Override
 	public ArrayList<Todo> callTodoList(Todo t) {
 		return tDao.callTodoList(t);
+	}
+
+
+	@Override
+	public ArrayList<Help> selectAllHelpList() {
+		return tDao.selectAllHelpList();
+	}
+
+
+	@Override
+	public ArrayList<Help> selectMyHelpList(int empId) {
+		return tDao.selectMyHelpList(empId);
+	}
+
+
+	@Override
+	public ArrayList<Help> selectBringHelpList(int empId) {
+		return tDao.selectBringHelpList(empId);
+	}
+
+
+	@Override
+	public int insertHelp(Help h) {
+		return tDao.insertHelp(h);
 	}
 
 
