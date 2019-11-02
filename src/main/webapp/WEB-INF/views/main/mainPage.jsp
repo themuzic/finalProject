@@ -36,7 +36,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		text-align: center;
 		padding-left: 8px;
 	}
-	#docuWidgetTbody td{
+	#docuWidgetTbody td, .tBody td{
 		background:white;
 		overflow: hidden;
 	    text-overflow: ellipsis;
@@ -158,7 +158,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 										<tbody id="docuWidgetTbody">
 											<c:if test="${docuList eq '[]'}">
 												<tr>
-													<td colspan="5" style="border-bottom:0;">관련된 문서가 없습니다.</td>
+													<td colspan="5" style="border-bottom:0;text-align:center;">관련된 문서가 없습니다.</td>
 												</tr>
 											</c:if>
 											<c:if test="${docuList ne '[]'}">
@@ -255,11 +255,12 @@ if (request.getProtocol().equals("HTTP/1.1"))
 									</div>
 								</div>
 								
-								<div class="panel-body" style="padding-left:25px;padding-right:25px;padding-bottom:20px;">
+								<div class="panel-body" style="padding-left:25px;padding-right:25px;padding-bottom:20px;padding-top:0;">
 									<div class="ui top attached tabular menu">
 									  <a class="item active todoTab" data-tab="first" name="first">진행중</a>
 									  <a class="item todoTab" data-tab="second" name="second">대기</a>
 									</div>
+									
 									<div class="ui bottom attached tab segment active tabContent" data-tab="first" name="first">
 										<div class="panel-body">
 											<ul class="list-unstyled todo-list">
@@ -294,6 +295,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 											</ul>
 										</div>
 									</div>
+									
 									<div class="ui bottom attached tab segment tabContent" data-tab="second" name="second" style="margin-bottom:10px;">
 										<div class="panel-body">
 											<ul class="list-unstyled todo-list">
@@ -358,7 +360,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 										<tbody id="docuWidgetTbody">
 											<c:if test="${mailList eq '[]'}">
 												<tr>
-													<td colspan="3" style="border-bottom:0;">받은 메일이 없습니다.</td>
+													<td colspan="3" style="border-bottom:0;text-align:center;">받은 메일이 없습니다.</td>
 												</tr>
 											</c:if>
 											<c:if test="${mailList ne '[]'}">
@@ -386,8 +388,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 							<!------------------------------------------------------------------------------>
 							
 							
-							<!-- 공지사항 위젯 -->
-							<!-- 
+							<!-- 게시판 위젯 -->
 							<div class="panel" style="position:absolute;min-width:610px;">
 								<input type="hidden" class="widgetType" name="widgetType" value="5">
 								<input type="hidden" class="left" name="left" value="">
@@ -396,24 +397,35 @@ if (request.getProtocol().equals("HTTP/1.1"))
 								<input type="hidden" class="status" name="status" value="Y">
 								<div class="panel-heading">
 									<h3 class="panel-title">공지사항</h3>
+									<dvi style="position:absolute;right:180px;top:50%;">
+										<input type="radio" name="boardType" value="N" id="board1" checked>
+										<label for="board1">공지사항</label>
+										<input type="radio" name="boardType" value="T" id="board2">
+										<label for="board2">팀 게시판</label>
+										<input type="radio" name="boardType" value="F" id="board3">
+										<label for="board3">자유 게시판</label>
+									</dvi>
 									<div class="right">
 										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
 										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
 									</div>
 								</div>
 								<div class="panel-body no-padding">
-									<table class="table table-striped" id="noticeTable">
+									<table class="table table-striped" id="#boardTable">
 										<thead>
-											<tr style="text-align:center;">
-												<th style="width:200px;">제목</th>
-												<th style="width:230px;">작성자</th>
-												<th style="width:170px;">작성일</th>
+											<tr style="">
+												<th style="width:170px;text-align:center;padding:8px;">작성일</th>
+												<th style="width:300px;text-align:center;padding:8px;">제목</th>
+												<th style="width:100px;text-align:center;padding:8px;">작성자</th>
 											</tr>
 										</thead>
-										<tbody id="docuWidgetTbody">
+										<tbody id="boardTbody" class="tBody">
+										
+										
+										
 											<c:if test="${mailList eq '[]'}">
 												<tr>
-													<td colspan="3" style="border-bottom:0;">공지 사항이 없습니다.</td>
+													<td colspan="3" style="border-bottom:0;text-align:center;">공지 사항이 없습니다.</td>
 												</tr>
 											</c:if>
 											<c:if test="${mailList ne '[]'}">
@@ -429,17 +441,19 @@ if (request.getProtocol().equals("HTTP/1.1"))
 													</tr>
 												</c:forEach>
 											</c:if>
+											
+											
+											
 										</tbody>
 									</table>
 								</div>
 								<div class="panel-footer">
 									<div class="row">
-										<!-- <div class="col-md-6"><span class="panel-note"><i class="fa fa-clock-o"></i> Last 24 hours</span></div>
-										<div class="col-md-6 text-right fr"><a href="#" class="btn btn-primary">더보기</a></div>
+										<div class="col-md-6"></div>
+										<div class="col-md-6 text-right fr"><a href="#" class="btn btn-primary" id="goBoardList">더보기</a></div>
 									</div>
 								</div>
 							</div>
-							 -->
 							<!------------------------------------------------------------------------------>
 						
 					
@@ -708,13 +722,97 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				alertify.alert('DEVELOFFICE', 'AJAX통신 실패');
 			}
 		});
-		
-		
-		
-		
-		
-		
 	});
+	
+	
+	/* 게시판 위젯 */
+	
+	$(document).on('change','input[name=boardType]',function(){
+		refreshBoard();
+	});
+	
+	function refreshBoard() {
+		
+		var condition = $('input[name=boardType]:checked').val();
+		
+		if(condition == 'N'){
+			$("#goBoardList").attr('href','listNotice.do');
+		}else if(condition == 'T'){
+			$("#goBoardList").attr('href','listTeamBoard.do');
+		}else{
+			$("#goBoardList").attr('href','listFree.do');
+		}
+		
+		$("#boardTbody").html("");
+		
+		$.ajax({
+			url:"refreshBoardWidget.do",
+			type:"POST",
+			data:{empId:'${loginUser.empId}',
+				  deptCode:'${loginUser.deptCode}',
+				  condition:condition
+			},
+			success:function(data){
+				
+				if(data ==""){	// 빈 배열이면
+					
+					var tr = $('<tr>');
+					var td = $('<td colspan="3" style="border-bottom:0;text-align:center;">').text('게시글이 없습니다.');
+					tr.append(td);
+					$("#boardTbody").append(tr);
+					
+				}else{	// 데이터가 있으면
+					
+					for(var i = 0; i < 5; i++){
+						
+						var tr = $('<tr>');
+						
+						if(condition == 'N'){	//공지사항
+							
+							var td1 = $('<td style="text-align:center;padding-left:8px;">').text(data[i].noCreateDate);	//작성일
+							var td2 = $('<td>');	//제목
+							var title = $('<a href="noticeDetail.do?noId='+data[i].noId+'">').text(data[i].noTitle);
+							var td3 = $('<td style="text-align:center;padding-left:8px;">').text(data[i].empName);	//작성자
+							td2.append(title);
+							tr.append(td1);
+							tr.append(td2);
+							tr.append(td3);
+							
+						} else if(condition == 'T'){ // 팀
+							
+							var td1 = $('<td style="text-align:center;padding-left:8px;">').text(data[i].tbCreateDate);	//작성일
+							var td2 = $('<td>');	//제목
+							var title = $('<a href="teamBoardDetail.do?tbId='+data[i].tbId+'">').text(data[i].tbTitle);
+							var td3 = $('<td style="text-align:center;padding-left:8px;">').text(data[i].empName);	//작성자
+							td2.append(title);
+							tr.append(td1);
+							tr.append(td2);
+							tr.append(td3);
+							
+						}else{ // 자게
+							
+							var td1 = $('<td style="text-align:center;padding-left:8px;">').text(data[i].frCreateDate);	//작성일
+							var td2 = $('<td>');	//제목
+							var title = $('<a href="freeDetail.do?frId='+data[i].frId+'">').text(data[i].frTitle);
+							var td3 = $('<td style="text-align:center;padding-left:8px;">').text(data[i].empName);	//작성자
+							td2.append(title);
+							tr.append(td1);
+							tr.append(td2);
+							tr.append(td3);
+							
+						}
+						console.log(tr)
+						$("#boardTbody").append(tr);
+						
+						
+					}
+				}
+			},
+			error:function(){
+				alertify.alert('DEVELOFFICE','게시판 위젯 정보 AJAX통신 실패');
+			}
+		});
+	}
 	
 	
 	
@@ -724,6 +822,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	/* ----------------------------------------------- */
 	$(function() {
 		
+		refreshBoard();
 		//console.log('${mailList}' == '[]');
 		
 		

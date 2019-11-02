@@ -23,8 +23,8 @@ public class Free {
 	private String originalFileName;
 	private String renameFileName;
 	private int frCount;
-	private Date frCreateDate;
-	private Date frModifyDate;
+	private String frCreateDate;
+	private String frModifyDate;
 	private String frStatus;
 	private int frLikeCount;
 

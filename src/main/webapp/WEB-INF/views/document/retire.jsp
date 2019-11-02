@@ -264,7 +264,7 @@
 													<span class="cont_file" style="float: left;">
 														<img src="resources/images/pptx.png">&nbsp;
 														<a href="${contextPath}/resources/upload/documentFile/${file.changeName}" download="${file.originName}">${file.originName}</a>
-													</span><br>
+													</span><br clear="both">
 												</c:forEach>
 											</c:if>
 										
@@ -339,11 +339,11 @@
 				}
 			}
 			
-			/* 휴가 정보 채우기 */
+			/* 사직원 정보 채우기 */
 			var rtInfo = $('#rtTbody');
 			
 			//vaInfo.append('<tr><th>신청일시</th><td colspan="3">'+'${d.docuDate}'+'</td></tr>');
-			rtInfo.append('<tr><th>사용자</th><td>${rt.empName}</td><th>직급</th><td>${rt.jobName}</td></tr>');
+			rtInfo.append('<tr><th>신청인</th><td>${rt.empName}</td><th>직급</th><td>${rt.jobName}</td></tr>');
 			rtInfo.append('<tr><th>소속</th><td colspan="3">${rt.deptName}</td></tr>');
 			rtInfo.append('<tr><th>입사일</th><td>${rt.enrollDate}</td><th>퇴사일</th><td>${rt.retireDate}</td></tr>');
 			rtInfo.append('<tr><th rowspan="2">사유</th><td colspan="3" rowspan="2"><p>${rt.reason}</p></td></tr>');

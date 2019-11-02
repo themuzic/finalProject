@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kh.develoffice.document.model.service.DocumentService;
 import com.kh.develoffice.document.model.vo.Approval;
 import com.kh.develoffice.document.model.vo.Document;
@@ -32,8 +35,14 @@ import com.kh.develoffice.employee.model.service.EmployeeService;
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.employee.model.vo.Widget;
 import com.kh.develoffice.employee.model.vo.WorkTime;
+import com.kh.develoffice.free.model.service.FreeService;
+import com.kh.develoffice.free.model.vo.Free;
 import com.kh.develoffice.mail.model.service.MailService;
 import com.kh.develoffice.mail.model.vo.Mail;
+import com.kh.develoffice.notice.model.service.NoticeService;
+import com.kh.develoffice.notice.model.vo.Notice;
+import com.kh.develoffice.teamboard.model.service.TeamBoardService;
+import com.kh.develoffice.teamboard.model.vo.TeamBoard;
 import com.kh.develoffice.todo.model.service.TodoService;
 import com.kh.develoffice.todo.model.vo.Todo;
 
@@ -49,6 +58,12 @@ public class EmployeeController {
 	private MailService mService;
 	@Autowired
 	private TodoService tService;
+	@Autowired
+	private FreeService fService;
+	@Autowired
+	private NoticeService nService;
+	@Autowired
+	private TeamBoardService tbSerivce;
 	/**
 	 * - 로그인 
 	 * @param emp
@@ -60,13 +75,13 @@ public class EmployeeController {
 	   public ModelAndView loginMember(Employee emp, HttpSession session, ModelAndView mv) {
 		
 		Employee loginUser = eService.loginEmp(emp);	// 로그인 객체 정보 호출
+		int empId = loginUser.getEmpId();
 		System.out.println("로그인한 유저 : "+loginUser);
-		   if(loginUser != null) {
-			   
-			   int id = loginUser.getEmpId();
+		if(loginUser != null) {
 			   session.setAttribute("loginUser", loginUser);	// 세션에 로그인 객체 담기
 			   
-			   ArrayList<Widget> widgetList = eService.selectWidget(id);	// 해당 계정의 위젯 정보 호출
+			// 해당 계정의 위젯 정보 호출
+			   ArrayList<Widget> widgetList = eService.selectWidget(empId);
 			   
 			   JSONArray jArr = new JSONArray();
 				for(Widget w : widgetList) {
@@ -82,7 +97,8 @@ public class EmployeeController {
 				}
 				mv.addObject("widgetList", jArr);
 				
-				ArrayList<WorkTime> workList = eService.selectWorkList(id);	// 근태 정보 호출
+				// 근태 정보 호출
+				ArrayList<WorkTime> workList = eService.selectWorkList(empId);
 				JSONArray work = new JSONArray();
 				for(WorkTime w : workList) {
 					JSONObject jObj = new JSONObject();
@@ -95,169 +111,8 @@ public class EmployeeController {
 				}
 				mv.addObject("workList", work);
 			   
-				
-				ArrayList<Document> dd = dService.selectDocuList(id);		// 나와 관련된 문서 모두 호출
-				ArrayList<Document> docuList = new ArrayList<>();
-				int limit=0;
-				if(dd != null) {
-					
-					if(dd.size() < 5) {
-						limit=dd.size();
-					}else {
-						limit=5;
-					}
-					
-					for(int i = 0; i < limit; i++) {
-						docuList.add(dd.get(i));
-					}
-				}
-					
-					ArrayList<Approval> apList = dService.selectMyApproval(id);		// 문서당 결재라인 호출
-					ArrayList<Reference> rfList = dService.selectMyReference(id);	//문서당 참조라인 호출
-					
-					for(Document d : docuList){
-						
-						String[] sArr = d.getDocuDate().split(" ");
-						d.setDocuDate(sArr[0]);
-						
-						for(Approval a : apList) {
-							if(d.getDocuNum() == a.getDocuNum()) {
-								d.setDv("결재");				
-							}
-						}
-						for(Reference r : rfList) {
-							if(d.getDocuNum() == r.getDocuNum()) {
-								d.setDv("참조");
-							}
-						}
-						if(d.getDocuType().equals("CN")) {
-							d.setDv("회람");
-							d.setStatus("완료");
-							continue;
-						}
-						if(d.getEmpId() == emp.getEmpId()) {	// 내가 작성한 문서 이면
-							d.setDv("기안");
-							
-							ArrayList<Approval> apArr = dService.approvalCheck(d.getDocuNum());
-							for(int i=0; i<apArr.size(); i++) {
-								if(apArr.get(apArr.size()-1).getStatus().equals("Y")) {
-									d.setStatus("완료");
-								} else {
-									d.setStatus("진행중");
-								}
-							}
-						} else {	// 내가 올린 기안이 아니면
-							ArrayList<Approval> apArr = dService.approvalCheck(d.getDocuNum());
-							for(int i=0; i<apArr.size(); i++) {
-								
-								if(apArr.get(i).getEmpId() == emp.getEmpId()) {	// 내가 결재라인에 있을때
-									if( i != 0 && apArr.get(i-1).getStatus().equals("Y") && apArr.get(i).getStatus().equals("N")) {
-										d.setStatus("결재 대기");
-										break;
-									} else if(apArr.get(apArr.size()-1).getStatus().equals("Y")){
-										d.setStatus("완료");
-									} else if(i == 0 && apArr.get(i).getStatus().equals("N")) {
-										d.setStatus("결재 대기");
-										break;
-									} else {
-										d.setStatus("진행중");
-									}
-								} else {	// 내가 결재라인에 없을때
-									if(apArr.get(apArr.size()-1).getStatus().equals("Y")) {
-										d.setStatus("완료");
-									} else {
-										d.setStatus("진행중");
-									}
-								}
-							}
-						}
-					}
-					mv.addObject("docuList", docuList);
-					
-					// 내 받은메일함 메일 가져오기
-					ArrayList<Mail> tempMailList = mService.selectMyMail(loginUser);
-					ArrayList<Mail> mailList = new ArrayList<>();
-					
-					int limit2=0;
-					if(tempMailList != null) {
-						
-						if(tempMailList.size() < 5) {
-							limit2=tempMailList.size();
-						}else {
-							limit2=5;
-						}
-						
-						for(int i = 0; i < limit2; i++) {
-							mailList.add(tempMailList.get(i));
-						}
-						//System.out.println(mailList);
-						mv.addObject("mailList", mailList);
-					}
-					
-					// 내 todo 가져오기
-					
-					// 진행중 리스트
-					ArrayList<Todo> todoGoingList = tService.selectWidgetGoingTodoList(id);
-					// 대기 리스트
-					ArrayList<Todo> todoWaitList = tService.selectWidgetWaitTodoList(id);
-					
-					mv.addObject("todoGoingList", todoGoingList);
-					mv.addObject("todoWaitList", todoWaitList);
-					
-					mv.setViewName("main/mainPage");
-		   } else {			   
-			   mv.addObject("msg", "로그인 실패");		// 전달하고자 하는 데이터 담기 addObject(key, value);
-			   mv.setViewName("login");	// 뷰에 대한 정보 담기 setViewName(뷰명);
-		   }
-		  
-		return mv;
-	}
-	
-	/**
-	 * 로고 누르면 메인페이지 이동
-	 * @param empId
-	 * @param mv
-	 * @param session
-	 * @return
-	 */
-	@RequestMapping("mainPage.do")
-	public ModelAndView mainPage(int empId, ModelAndView mv, HttpSession session) {
-		
-		Employee loginUser = eService.selectEmp(empId);	// 로그인 객체 정보 호출
-		System.out.println("로그인한 유저 : "+loginUser);
-		   if(loginUser != null) {
-			   session.setAttribute("loginUser", loginUser);	// 세션에 로그인 객체 담기
-			   ArrayList<Widget> widgetList = eService.selectWidget(empId);	// 해당 계정의 위젯 정보 호출
-			   
-			   JSONArray jArr = new JSONArray();
-				for(Widget w : widgetList) {
-					JSONObject jObj = new JSONObject();
-					jObj.put("widgetType", w.getWidgetType());
-					jObj.put("empId", w.getEmpId());
-					jObj.put("left", w.getLeft());
-					jObj.put("top", w.getTop());
-					jObj.put("fold", w.getFold());
-					jObj.put("status", w.getStatus());
-					
-					jArr.add(jObj);
-				}
-				mv.addObject("widgetList", jArr);
-				
-				ArrayList<WorkTime> workList = eService.selectWorkList(empId);	// 근태 정보 호출
-				JSONArray work = new JSONArray();
-				for(WorkTime w : workList) {
-					JSONObject jObj = new JSONObject();
-					jObj.put("today", w.getToday());
-					jObj.put("empId", w.getEmpId());
-					jObj.put("checkIn", w.getCheckIn());
-					jObj.put("checkOut", w.getCheckOut());
-					
-					work.add(jObj);
-				}
-				mv.addObject("workList", work);
-			   
-				
-				ArrayList<Document> dd = dService.selectDocuList(empId);		// 나와 관련된 문서 모두 호출
+				// 나와 관련된 문서 모두 호출
+				ArrayList<Document> dd = dService.selectDocuList(empId);
 				ArrayList<Document> docuList = new ArrayList<>();
 				//System.out.println(dd.size());
 				int limit=0;
@@ -333,40 +188,201 @@ public class EmployeeController {
 							}
 						}
 					}
-					//System.out.println(docuList);
 					mv.addObject("docuList", docuList);
-					
-					ArrayList<Mail> tempMailList = mService.selectMyMail(loginUser);
-					ArrayList<Mail> mailList = new ArrayList<>();
-					
-					int limit2=0;
-					if(tempMailList != null) {
-						
-						if(tempMailList.size() < 5) {
-							limit2=tempMailList.size();
-						}else {
-							limit2=5;
-						}
-						
-						for(int i = 0; i < limit2; i++) {
-							mailList.add(tempMailList.get(i));
-						}
-						System.out.println(mailList);
-						mv.addObject("mailList", mailList);
-						
-						// 내 todo 가져오기
-						
-						// 진행중 리스트
-						ArrayList<Todo> todoGoingList = tService.selectWidgetGoingTodoList(empId);
-						// 대기 리스트
-						ArrayList<Todo> todoWaitList = tService.selectWidgetWaitTodoList(empId);
-						
-						mv.addObject("todoGoingList", todoGoingList);
-						mv.addObject("todoWaitList", todoWaitList);
-						
-						mv.setViewName("main/mainPage");
-					}
 				}
+				// 메일 호출
+				ArrayList<Mail> tempMailList = mService.selectMyMail(loginUser);
+				ArrayList<Mail> mailList = new ArrayList<>();
+					
+				int limit2=0;
+				if(tempMailList != null) {
+					
+					if(tempMailList.size() < 5) {
+						limit2=tempMailList.size();
+					}else {
+						limit2=5;
+					}
+					
+					for(int i = 0; i < limit2; i++) {
+						mailList.add(tempMailList.get(i));
+					}
+					mv.addObject("mailList", mailList);
+				}
+				
+				// todo 호출
+				// 진행중 리스트
+				ArrayList<Todo> todoGoingList = tService.selectWidgetGoingTodoList(empId);
+				// 대기 리스트
+				ArrayList<Todo> todoWaitList = tService.selectWidgetWaitTodoList(empId);
+				
+				mv.addObject("todoGoingList", todoGoingList);
+				mv.addObject("todoWaitList", todoWaitList);
+				
+				mv.setViewName("main/mainPage");
+				
+		   } else {			   
+			   mv.addObject("msg", "로그인 실패");		// 전달하고자 하는 데이터 담기 addObject(key, value);
+			   mv.setViewName("login");	// 뷰에 대한 정보 담기 setViewName(뷰명);
+		   }
+		  
+		return mv;
+	}
+	
+	/**
+	 * 로고 누르면 메인페이지 이동
+	 * @param empId
+	 * @param mv
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("mainPage.do")
+	public ModelAndView mainPage(int empId, ModelAndView mv, HttpSession session) {
+		
+		Employee loginUser = eService.selectEmp(empId);	// 로그인 객체 정보 호출
+		System.out.println("로그인한 유저 : "+loginUser);
+		   if(loginUser != null) {
+			   session.setAttribute("loginUser", loginUser);	// 세션에 로그인 객체 담기
+			   
+			// 해당 계정의 위젯 정보 호출
+			   ArrayList<Widget> widgetList = eService.selectWidget(empId);
+			   
+			   JSONArray jArr = new JSONArray();
+				for(Widget w : widgetList) {
+					JSONObject jObj = new JSONObject();
+					jObj.put("widgetType", w.getWidgetType());
+					jObj.put("empId", w.getEmpId());
+					jObj.put("left", w.getLeft());
+					jObj.put("top", w.getTop());
+					jObj.put("fold", w.getFold());
+					jObj.put("status", w.getStatus());
+					
+					jArr.add(jObj);
+				}
+				mv.addObject("widgetList", jArr);
+				
+				// 근태 정보 호출
+				ArrayList<WorkTime> workList = eService.selectWorkList(empId);
+				JSONArray work = new JSONArray();
+				for(WorkTime w : workList) {
+					JSONObject jObj = new JSONObject();
+					jObj.put("today", w.getToday());
+					jObj.put("empId", w.getEmpId());
+					jObj.put("checkIn", w.getCheckIn());
+					jObj.put("checkOut", w.getCheckOut());
+					
+					work.add(jObj);
+				}
+				mv.addObject("workList", work);
+			   
+				// 나와 관련된 문서 모두 호출
+				ArrayList<Document> dd = dService.selectDocuList(empId);
+				ArrayList<Document> docuList = new ArrayList<>();
+				//System.out.println(dd.size());
+				int limit=0;
+				if(dd != null) {
+					
+					if(dd.size() < 5) {
+						limit=dd.size();
+					}else {
+						limit=5;
+					}
+					
+					for(int i = 0; i < limit; i++) {
+						docuList.add(dd.get(i));
+					}
+					
+					ArrayList<Approval> apList = dService.selectMyApproval(empId);		// 문서당 결재라인 호출
+					ArrayList<Reference> rfList = dService.selectMyReference(empId);	//문서당 참조라인 호출
+					
+					for(Document d : docuList){
+						
+						String[] sArr = d.getDocuDate().split(" ");
+						d.setDocuDate(sArr[0]);
+						
+						for(Approval a : apList) {
+							if(d.getDocuNum() == a.getDocuNum()) {
+								d.setDv("결재");				
+							}
+						}
+						for(Reference r : rfList) {
+							if(d.getDocuNum() == r.getDocuNum()) {
+								d.setDv("참조");
+							}
+						}
+						if(d.getDocuType().equals("CN")) {
+							d.setDv("회람");
+							d.setStatus("완료");
+							continue;
+						}
+						if(d.getEmpId() == empId) {	// 내가 작성한 문서 이면
+							d.setDv("기안");
+							
+							ArrayList<Approval> apArr = dService.approvalCheck(d.getDocuNum());
+							for(int i=0; i<apArr.size(); i++) {
+								if(apArr.get(apArr.size()-1).getStatus().equals("Y")) {
+									d.setStatus("완료");
+								} else {
+									d.setStatus("진행중");
+								}
+							}
+						} else {	// 내가 올린 기안이 아니면
+							ArrayList<Approval> apArr = dService.approvalCheck(d.getDocuNum());
+							for(int i=0; i<apArr.size(); i++) {
+								
+								if(apArr.get(i).getEmpId() == empId) {	// 내가 결재라인에 있을때
+									if( i != 0 && apArr.get(i-1).getStatus().equals("Y") && apArr.get(i).getStatus().equals("N")) {
+										d.setStatus("결재 대기");
+										break;
+									} else if(apArr.get(apArr.size()-1).getStatus().equals("Y")){
+										d.setStatus("완료");
+									} else if(i == 0 && apArr.get(i).getStatus().equals("N")) {
+										d.setStatus("결재 대기");
+										break;
+									} else {
+										d.setStatus("진행중");
+									}
+								} else {	// 내가 결재라인에 없을때
+									if(apArr.get(apArr.size()-1).getStatus().equals("Y")) {
+										d.setStatus("완료");
+									} else {
+										d.setStatus("진행중");
+									}
+								}
+							}
+						}
+					}
+					mv.addObject("docuList", docuList);
+				}
+				// 메일 호출
+				ArrayList<Mail> tempMailList = mService.selectMyMail(loginUser);
+				ArrayList<Mail> mailList = new ArrayList<>();
+					
+				int limit2=0;
+				if(tempMailList != null) {
+					
+					if(tempMailList.size() < 5) {
+						limit2=tempMailList.size();
+					}else {
+						limit2=5;
+					}
+					
+					for(int i = 0; i < limit2; i++) {
+						mailList.add(tempMailList.get(i));
+					}
+					mv.addObject("mailList", mailList);
+				}
+				
+				// todo 호출
+				// 진행중 리스트
+				ArrayList<Todo> todoGoingList = tService.selectWidgetGoingTodoList(empId);
+				// 대기 리스트
+				ArrayList<Todo> todoWaitList = tService.selectWidgetWaitTodoList(empId);
+				
+				mv.addObject("todoGoingList", todoGoingList);
+				mv.addObject("todoWaitList", todoWaitList);
+					
+				mv.setViewName("main/mainPage");
+				
 		   } else {			   
 			   mv.addObject("msg", "로그인 실패");		// 전달하고자 하는 데이터 담기 addObject(key, value);
 			   mv.setViewName("login");	// 뷰에 대한 정보 담기 setViewName(뷰명);
@@ -671,6 +687,26 @@ public class EmployeeController {
 		return "common/orgChart";
 	}
 	
+	@ResponseBody
+	@RequestMapping("refreshBoardWidget.do")
+	public void refreshBoardWidget(Employee emp, String condition, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		response.setContentType("application/json; charset=utf-8");
+		Gson gson = new Gson();
+		
+		if(condition.equals("N")) {	// 공지사항
+			ArrayList<Notice> boardList = nService.selectList();
+			gson.toJson(boardList, response.getWriter());
+			
+		}else if(condition.equals("T")) {	// 팀 게시판
+			ArrayList<TeamBoard> boardList = tbSerivce.selectList(emp.getDeptCode());
+			gson.toJson(boardList, response.getWriter());
+			
+		}else {	// 자유게시판
+			ArrayList<Free> boardList = fService.selectList();
+			gson.toJson(boardList, response.getWriter());			
+		}
+	}
 	
 	
 	

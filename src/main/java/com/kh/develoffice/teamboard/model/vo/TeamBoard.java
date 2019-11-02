@@ -24,7 +24,7 @@ public class TeamBoard {
 	private String originalFileName;
 	private String renameFileName;
 	private int tbCount;
-	private Date tbCreateDate;
-	private Date tbModifyDate;
+	private String tbCreateDate;
+	private String tbModifyDate;
 	private String tbStatus;
 }

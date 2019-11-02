@@ -624,7 +624,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 									
 									<!-- 자동 완성 팝업창 시작 -->
 						
-									<ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content dropdown-menu block approval-autocomplete" id="ui-id" tabindex="0" style="display:none; position:absolute; top:838px; left:198px; width:285px; padding:0;z-index:1500;">
+									<ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content dropdown-menu block approval-autocomplete hide" id="ui-id" tabindex="0" style="position:absolute; top:838px; left:198px; width:285px; padding:0;z-index:1500;">
 										<!-- top:836px; left:198px; -->
 										<!-- top:854px; left:145px; -->
 									</ul>
@@ -1437,7 +1437,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			var docuType = $("#documentTypeSelect option:selected").val();
 			//$("#documentTypeSelect option:selected").val()
 			
-			if(docuType == 'AP' || docuType == 'CF' || docuType == 'VA'){
+			if(docuType == 'AP' || docuType == 'CF' || docuType == 'VA' || docuType == 'RT'){
 				
 				var referRow = $(".referRow");
 				referRow.html('');

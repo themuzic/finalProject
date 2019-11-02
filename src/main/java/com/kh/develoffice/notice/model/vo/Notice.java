@@ -24,8 +24,8 @@ public class Notice {
 	private String originalFileName;
 	private String renameFileName;
 	private int noCount;
-	private Date noCreateDate;
-	private Date noModifyDate;
+	private String noCreateDate;
+	private String noModifyDate;
 	private String noStatus;
 	
 }

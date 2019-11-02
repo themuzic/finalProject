@@ -264,7 +264,7 @@
 													<span class="cont_file" style="float: left;">
 														<img src="resources/images/pptx.png">&nbsp;
 														<a href="${contextPath}/resources/upload/documentFile/${file.changeName}" download="${file.originName}">${file.originName}</a>
-													</span><br>
+													</span><br clear="both">
 												</c:forEach>
 											</c:if>
 										
