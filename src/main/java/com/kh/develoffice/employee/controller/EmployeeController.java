@@ -563,8 +563,26 @@ public class EmployeeController {
 	 * @return
 	 */
 	@RequestMapping("myProfile.do")
-	public String myProfilePage() {
-		return "common/myPage";
+	public ModelAndView myProfilePage(int empId, ModelAndView mv) {
+		
+		ArrayList<Widget> widgetList = eService.selectWidget(empId);
+		
+		JSONArray jArr = new JSONArray();
+		for(Widget w : widgetList) {
+			JSONObject jObj = new JSONObject();
+			jObj.put("widgetType", w.getWidgetType());
+			jObj.put("empId", w.getEmpId());
+			jObj.put("left", w.getLeft());
+			jObj.put("top", w.getTop());
+			jObj.put("fold", w.getFold());
+			jObj.put("status", w.getStatus());
+			
+			jArr.add(jObj);
+		}
+		mv.addObject("widgetList", jArr);
+		mv.setViewName("common/myPage");
+		
+		return mv;
 	}
 	
 	/**

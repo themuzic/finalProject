@@ -457,7 +457,10 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="resources/upload/profile/${loginUser.profilePath}" class="img-circle" alt="Avatar"> <span>${loginUser.empName}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 							<ul class="dropdown-menu">
-								<li><a href="myProfile.do"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+								<c:url value="myProfile.do" var="myProfile">
+									<c:param name="empId" value="${loginUser.empId}"/>
+								</c:url>
+								<li><a href="${myProfile}"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
 								<!-- <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li> -->
 								<!-- <li><a href="orgChart.do"><i class="lnr lnr-cog"></i> <span>조직도</span></a></li> -->
 								<li><a href="logout.do"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>

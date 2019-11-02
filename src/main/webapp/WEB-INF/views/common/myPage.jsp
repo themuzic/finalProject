@@ -85,6 +85,19 @@ input[type=text]{
 }
 .profile-info ul > li {
     margin-bottom: 10px !important;
+
+}
+#widgetSettingTable td{
+	padding: 7px 0;
+	color:lightgray;
+}
+.widgetCheck{
+	opacity: 0;
+}
+#widgetSettingTable tr>td:last-child {
+	text-align: right;
+	padding: 0;
+}
 </style>
 
 
@@ -107,7 +120,7 @@ input[type=text]{
 					
 					
 					<div class="panel panel-profile">
-						<div class="clearfix">
+						<div class="clearfix" style="height: 740px;">
 							<!-- LEFT COLUMN -->
 							<div class="profile-left">
 								<!-- PROFILE HEADER -->
@@ -120,7 +133,7 @@ input[type=text]{
 										<img src="resources/upload/profile/${loginUser.profilePath}" id="profileImg" class="img-circle profileImgArea" style="width:150px;">
 										<h3 class="name">${loginUser.empName} ${loginUser.jobName}</h3>
 										<span id="statusMsgSpan">${loginUser.statusMsg}</span>
-										<span><div class="ui input"><input type="text" id="statusMsg" class="hide" style="height:20px;background:#F8F8F8;text-align:right;"></div></span>
+										<span><div class="ui input"><input type="text" id="statusMsg" class="hide" style="height:20px;background:#F8F8F8;text-align:right;margin:0;"></div></span>
 									</div>
 									<div class="profile-stat">
 										<div class="row">
@@ -172,42 +185,75 @@ input[type=text]{
 							<!-- END LEFT COLUMN -->
 							<!-- RIGHT COLUMN -->
 							<div class="profile-right">
-								<h4 class="heading">Samuel's Awards</h4>
+								<h4 class="heading" style="padding-bottom:19px;">위젯 설정</h4>
 								<!-- AWARDS -->
-								<div class="awards">
-									<div class="row">
-										<div class="col-md-3 col-sm-6">
-											<div class="award-item">
-												<div class="hexagon">
-													<span class="lnr lnr-sun award-icon"></span>
-												</div>
-												<span>Most Bright Idea</span>
-											</div>
+								<div class="awards" style="margin-bottom:10px;">
+									<div class="row" style="padding:0 30px;">
+										
+										<table id="widgetSettingTable" style="">
+										
+											<tr>
+												<td>근태 정보</td>
+												<td>
+													<div class="column">
+													    <div class="ui test toggle checkbox">
+													      <input type="checkbox" name="1" class="widgetCheck" checked="">
+													      <label></label>
+													    </div>
+												  	</div>
+												</td>
+											</tr>
+											<tr>
+												<td>전자 결재</td>
+												<td>
+													<div class="column">
+													    <div class="ui test toggle checkbox">
+													      <input type="checkbox" name="2" class="widgetCheck" checked="">
+													      <label></label>
+													    </div>
+												  	</div>
+												</td>
+											</tr>
+											<tr>
+												<td>TO-DO</td>
+												<td>
+													<div class="column">
+													    <div class="ui test toggle checkbox">
+													      <input type="checkbox" name="3" class="widgetCheck" checked="">
+													      <label></label>
+													    </div>
+												  	</div>
+												</td>
+											</tr>
+											<tr>
+												<td>받은 메일함</td>
+												<td>
+													<div class="column">
+													    <div class="ui test toggle checkbox">
+													      <input type="checkbox" name="4" class="widgetCheck" checked="">
+													      <label></label>
+													    </div>
+												  	</div>
+												</td>
+											</tr>
+											<tr>
+												<td>게시판</td>
+												<td>
+													<div class="column">
+													    <div class="ui test toggle checkbox">
+													      <input type="checkbox" name="5" class="widgetCheck" checked="">
+													      <label></label>
+													    </div>
+												  	</div>
+												</td>
+											</tr>
+										</table>
+										
+										<div id="widgetBtnDiv" style="text-align:right;font-size:13px;margin-top:10px;">
+											<div class="ui positive check button" id="allCheck" style="font-size:13px;">전체 선택</div>
+											<div class="ui negative uncheck button" id="allUnCheck" style="font-size:13px;">전체 헤제</div>
 										</div>
-										<div class="col-md-3 col-sm-6">
-											<div class="award-item">
-												<div class="hexagon">
-													<span class="lnr lnr-clock award-icon"></span>
-												</div>
-												<span>Most On-Time</span>
-											</div>
-										</div>
-										<div class="col-md-3 col-sm-6">
-											<div class="award-item">
-												<div class="hexagon">
-													<span class="lnr lnr-magic-wand award-icon"></span>
-												</div>
-												<span>Problem Solver</span>
-											</div>
-										</div>
-										<div class="col-md-3 col-sm-6">
-											<div class="award-item">
-												<div class="hexagon">
-													<span class="lnr lnr-heart award-icon"></span>
-												</div>
-												<span>Most Loved</span>
-											</div>
-										</div>
+										
 									</div>
 								</div>
 								<!-- END AWARDS -->
@@ -338,18 +384,6 @@ input[type=text]{
 					
 					
 					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
 					<!-- 이 위까지 내용작성 -->
 					
 					</div>
@@ -372,67 +406,7 @@ input[type=text]{
 	<!-- script 작성 -->
 	<script>
 		$(function(){
-			//$("#imgInputArea").hide();
-			$("#update").on('click', function(){
-				if($("#update").prop("checked")){
-					$(".userAdvice").removeAttr("readonly");
-					$(".profileImgArea").css("cursor", "pointer");
-					$("#phoneSpan").addClass('hide');
-					$("#addressSpan").addClass('hide');
-					$("#statusMsgSpan").addClass('hide');
-					$("#phone").val($("#phoneSpan").text());
-					$("#address").val($("#addressSpan").text());
-					$("#statusMsg").val($("#statusMsgSpan").text());
-					$("#phone").addClass('show');
-					$("#address").addClass('show');
-					$("#statusMsg").addClass('show');
-					
-					
-				}else{
-					$(".profileImgArea").css("cursor", "default");
-					$("#phone").removeClass('show');
-					$("#address").removeClass('show');
-					$("#statusMsg").removeClass('show');
-					$("#phoneSpan").text($("#phone").val());
-					$("#addressSpan").text($("#address").val());					
-					$("#statusMsgSpan").text($("#statusMsg").val());					
-					$("#phoneSpan").removeClass('hide');
-					$("#addressSpan").removeClass('hide');
-					$("#statusMsgSpan").removeClass('hide');
-					
-					var formData = new FormData();
-					var statusMsg = $("#statusMsg").val();
-					var phone = $("#phone").val();
-					var address = $("#address").val();
-					formData.append('statusMsg', statusMsg);
-					formData.append('phone', phone);
-					formData.append('address', address);
-					if($("input[name=profile]").length > 0){
-						formData.append('profile',$("input[name=profile]")[0].files[0]);
-					}
-					$.ajax({
-						url:"myPageUpdate.do",
-						type:"POST",
-						processData:false,
-						contentType:false,
-						data:formData,
-						success:function(data){
-							console.log("ajax실행 후 세션 : ${loginUser}");
-							if(data == 'fail'){
-								alertify.alert('develolffice', '수정 실패');
-							}else{
-								$(".img-circle").attr("src", "resources/upload/profile/" + data);
-								alertify.alert('develolffice', '수정 되었습니다.');
-							}
-						},
-						error:function(){
-							
-						}
-					});
-					$(".userAdvice").attr("readonly", true);
-					
-				}
-			});
+			
 			var today = new Date();
 			var dateArray = ('${loginUser.enrollDate}').split('-');
 			var enrollDate = new Date(dateArray[0], Number(dateArray[1])-1, dateArray[2]);
@@ -448,37 +422,141 @@ input[type=text]{
 				}
 			});
 			*/
-			$(document).on("click", ".profileImgArea", function(e){
-				if($("#update").prop("checked")){
-					$("#imgUpdate").click();
-				}
+			
+			/* 페이지 들어오면 위젯 정보 on/off 상태 확인해서 세팅 */			
+			$.each(${widgetList}, function(i, w){
+				
+				$.each($('.widgetCheck'),function(j, check){
+					
+					if(w.widgetType == check.name){
+						if(w.status == 'Y'){
+							$(check).attr('checked',true);
+							$(check).parents('td').prev().css({'color':'#3287B2','font-weight':'bold'});
+						}else{
+							$(check).attr('checked',false);
+							$(check).parents('td').prev().css({'color':'lightgray','font-weight':'normal'});
+						}
+					}
+				});
 			});
 			
 			
+			
+			
+			
 		});
-			function loadImg(value){
-				// value => input태그
-				// num => 조건문으로 작업
-				// file이 존재하는지
-				 if(value.files && value.files[0]){
-					
-					// 파일을 읽어들일 FileReader객체 생성
-					var reader = new FileReader();
-					
-					// 파일 읽기가 다 완료되었을 때 실행되는 메소드
-					reader.onload = function(e){
-						$("#profileImg").attr("src", e.target.result);// data:URL
-						}
+		
+		
+		$("#update").on('click', function(){
+			if($("#update").prop("checked")){
+				$(".profileImgArea").css("cursor", "pointer");
+				$("#phoneSpan").addClass('hide');
+				$("#addressSpan").addClass('hide');
+				$("#statusMsgSpan").addClass('hide');
+				$("#phone").val($("#phoneSpan").text());
+				$("#address").val($("#addressSpan").text());
+				$("#statusMsg").val($("#statusMsgSpan").text());
+				$("#phone").addClass('show');
+				$("#address").addClass('show');
+				$("#statusMsg").addClass('show');
 				
-					// 파일 읽어주는 메소드
-					reader.readAsDataURL(value.files[0]);
-				}else{
-					$("#profileImg").attr("src", "resources/upload/profile/${loginUser.profilePath}");// data:URL
-					
+				
+			}else{
+				$(".profileImgArea").css("cursor", "default");
+				$("#phone").removeClass('show');
+				$("#address").removeClass('show');
+				$("#statusMsg").removeClass('show');
+				$("#phoneSpan").text($("#phone").val());
+				$("#addressSpan").text($("#address").val());					
+				$("#statusMsgSpan").text($("#statusMsg").val());					
+				$("#phoneSpan").removeClass('hide');
+				$("#addressSpan").removeClass('hide');
+				$("#statusMsgSpan").removeClass('hide');
+				
+				var formData = new FormData();
+				var statusMsg = $("#statusMsg").val();
+				var phone = $("#phone").val();
+				var address = $("#address").val();
+				formData.append('statusMsg', statusMsg);
+				formData.append('phone', phone);
+				formData.append('address', address);
+				if($("input[name=profile]").length > 0){
+					formData.append('profile',$("input[name=profile]")[0].files[0]);
 				}
+				$.ajax({
+					url:"myPageUpdate.do",
+					type:"POST",
+					processData:false,
+					contentType:false,
+					data:formData,
+					success:function(data){
+						console.log("ajax실행 후 세션 : ${loginUser}");
+						if(data == 'fail'){
+							alertify.alert('develolffice', '수정 실패');
+						}else{
+							$(".img-circle").attr("src", "resources/upload/profile/" + data);
+							alertify.alert('develolffice', '수정 되었습니다.');
+						}
+					},
+					error:function(){
+						
+					}
+				});
 			}
-	
-	
+		});
+		
+		$(document).on("click", ".profileImgArea", function(e){
+			if($("#update").prop("checked")){
+				$("#imgUpdate").click();
+			}
+		});
+		
+		function loadImg(value){
+			// value => input태그
+			// num => 조건문으로 작업
+			// file이 존재하는지
+			 if(value.files && value.files[0]){
+				
+				// 파일을 읽어들일 FileReader객체 생성
+				var reader = new FileReader();
+				
+				// 파일 읽기가 다 완료되었을 때 실행되는 메소드
+				reader.onload = function(e){
+					$("#profileImg").attr("src", e.target.result);// data:URL
+					}
+			
+				// 파일 읽어주는 메소드
+				reader.readAsDataURL(value.files[0]);
+			}else{
+				$("#profileImg").attr("src", "resources/upload/profile/${loginUser.profilePath}");// data:URL
+				
+			}
+		}
+		
+		/* 위젯 설정 버튼들 */
+		$(document).on('change','input.widgetCheck',function(){
+			
+			if($(this).prop('checked')){
+				$(this).parents('td').prev().css({'color':'#3287B2','font-weight':'bold'});
+			}else{
+				$(this).parents('td').prev().css({'color':'lightgray','font-weight':'normal'});
+			}
+			
+		});
+		
+		/* 전체 선택 */
+		$('.test.checkbox').checkbox('attach events', '.check.button', 'check');
+		/* 전체 해제 */
+		$('.test.checkbox').checkbox('attach events', '.uncheck.button', 'uncheck');
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	</script>
 	
 	
