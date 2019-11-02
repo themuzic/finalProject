@@ -173,6 +173,7 @@ public class MailController {
 			jObj.put("jobCode", e.getJobCode());
 			jObj.put("jobName", e.getJobName());
 			jObj.put("account", e.getAccount());
+			jObj.put("email", e.getEmail());
 			
 			empArr.add(jObj);
 		}
@@ -207,6 +208,10 @@ public class MailController {
 	public String mailSending(Mail m, HttpServletRequest request, Model model, HttpSession session,
 								@RequestParam(name="uploadFile", required=false) MultipartFile uploadFile) {
 		
+		Employee emp = (Employee)session.getAttribute("loginUser");
+		
+		String email = emp.getEmail();
+		
 		System.out.println("넘어온 메일 객체 : "+m);
 		System.out.println("넘어온 파일 정보 : "+uploadFile);
 		
@@ -219,13 +224,13 @@ public class MailController {
 		System.out.println("바뀐 파일명 : "+filename);
 		   
 	    try {
-	      mailSender.setUsername("sangyoonsla@gmail.com"); 		// 디비에서 메일 아이디 담고
-	      mailSender.setPassword("rlatkddbs123");			// 디비에서 메일 비밀번호 담고
+	      mailSender.setUsername(email); 					// 디비에서 메일 아이디 담고
+	      mailSender.setPassword("develoffice1!");			// 디비에서 메일 비밀번호 담고
 	      
 	      MimeMessage message = mailSender.createMimeMessage();
 	      MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 	 
-	      messageHelper.setFrom("sangyoonsla@gmail.com");
+	      messageHelper.setFrom(email);
 	      message.setRecipients(Message.RecipientType.TO, m.getMailTo()); 	// 받는사람
 	      message.setRecipients(Message.RecipientType.CC, m.getMailCc()); 	// 참조    
 	      messageHelper.setSubject(m.getMailTitle());   		// 메일제목은 생략이 가능하다
@@ -254,12 +259,12 @@ public class MailController {
 		}else {
 			   
 		    try {
-		      mailSender.setUsername("sangyoonsla@gmail.com"); 		// 디비에서 메일 아이디 담고
-			  mailSender.setPassword("rlatkddbs123");			// 디비에서 메일 비밀번호 담고
+		      mailSender.setUsername(email); 		// 디비에서 메일 아이디 담고
+			  mailSender.setPassword("develoffice1!");			// 디비에서 메일 비밀번호 담고
 		      MimeMessage message = mailSender.createMimeMessage();
 		      MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 		 
-		      messageHelper.setFrom("sangyoonsla@gmail.com");
+		      messageHelper.setFrom(email);
 		      message.setRecipients(Message.RecipientType.TO, m.getMailTo()); 	// 받는사람
 		      message.setRecipients(Message.RecipientType.CC, m.getMailCc()); 	// 참조    
 		      messageHelper.setSubject(m.getMailTitle());   		// 메일제목은 생략이 가능하다
@@ -642,6 +647,42 @@ public class MailController {
 	@RequestMapping("transfer.do")
 	public ModelAndView transfer(Mail mail, ModelAndView mv, HttpSession session) {
 		
+		
+		ArrayList<Department> deptList = dService.selectDept();
+		ArrayList<Employee> empList = eService.selectAllEmp();
+		
+		JSONArray deptArr = new JSONArray();
+		JSONArray empArr = new JSONArray();
+
+		for(Department d : deptList) {
+			JSONObject jObj = new JSONObject();
+			jObj.put("deptCode", d.getDeptCode());
+			jObj.put("deptName", d.getDeptName());
+			jObj.put("count", d.getCount());
+			
+			deptArr.add(jObj);
+		}
+		
+		for(Employee e : empList) {
+			JSONObject jObj = new JSONObject();
+			jObj.put("empId", e.getEmpId());
+			jObj.put("empName", e.getEmpName());
+			jObj.put("deptCode", e.getDeptCode());
+			jObj.put("deptName", e.getDeptName());
+			jObj.put("jobCode", e.getJobCode());
+			jObj.put("jobName", e.getJobName());
+			jObj.put("account", e.getAccount());
+			jObj.put("email", e.getEmail());
+			
+			empArr.add(jObj);
+		}
+		
+		mv.addObject("empList", empArr);
+		mv.addObject("deptList", deptArr);
+		mv.addObject("deptSize", deptArr.size());
+//		mv.setViewName("mail/transfer");
+
+		
 		mail.setEmpId(((Employee)session.getAttribute("loginUser")).getEmpId());
 		
 		Mail m = mService.receiveDetail(mail);
@@ -666,8 +707,6 @@ public class MailController {
 		m.setMailNum(mailNum);
 		m.setMailImportant(importantFlag);
 		m.setEmpId(empId);
-		
-//		System.out.println(m);
 		
 		int result = mService.updateImportant(m);
 		

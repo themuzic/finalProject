@@ -217,23 +217,9 @@
 						
 						<div id="approval_address_layer" class="booking_layer_div layer_box hide typeD">
 						
-						<div class="layer_box large address line " id="div_approval_view_one" style="margin-left: -400px; margin-top: -311px; display: block;width: 800px;">
-							<div class="title_layer text_variables" id="titleApprovalLineSetting">결재선 설정</div>
-							<div class="line-search after" id="searchP" style="display: block;">
-								<ul class="after">
-									<li><label for="rdo_sch_name"><input type="radio" value="name" name="searchField" id="rdo_sch_name" onclick="$j('#keyword').focus();" checked="checked"> 이름</label></li>
-									<li><label for="rdo_sch_const"><input type="radio" value="const" name="searchField" id="rdo_sch_const" onclick="$j('#keyword').focus();"> 조직</label></li>
-								</ul>
-								<div class="fl input-area">
-									<input type="text" style="width:203px;position: absolute;" class="text-box vm" id="keyword" onkeypress="if(event.keyCode == 13){ event.preventDefault(); addressbook.click_searchBtn();}">
-									<span class="icon h_detail vm"></span>
-									<span class="refresh vm" onclick="addressbook.setTab(addressbook.currentTab);"></span>
-								</div>
-								<select class="fl " style="width: 203px; margin-left: 24px; display: inline-block;position: absolute;right: 110px;" onchange="ApprovalDocument.selectApprovalLine();" id="selectApprovalLine">
-									<option value="">자주 쓰는 결재선</option>
-								</select>
-							</div>
-						
+						<div class="layer_box large address line " id="div_approval_view_one" style="margin-left: -400px; margin-top: -311px; display: block;width: 770px;">
+							<div class="title_layer text_variables" id="titleApprovalLineSetting">주소록</div>
+							
 							<div class="after line-list-wrap">
 								<div class="fl">
 									<div class="after">
@@ -255,7 +241,7 @@
 													<li id="" class="last">
 														<div class="Container">
 															<img onclick="" src="https://approval.office.hiworks.com/assets/images/common/tree_images/tree_m.gif" class="plus">
-															<strong onclick="" id="subOffice" class="selectedNode">DEVELOFFICE <span style="font-weight:normal; color:silver; font-size:8pt">(${deptSize})</span></strong>
+															<strong onclick="" id="subOffice" class="selectedNode">DEVELOFFICE <span style="font-weight:normal; color:silver; font-size:8pt">(${empSize})</span></strong>
 														</div>
 														<ul style="" id="subDept">
 														</ul>
@@ -268,7 +254,6 @@
 											<select multiple="multiple" id="rightList" style=""></select>
 						
 											<div class="choice-area" style="width: 203px;font-size: 12px;padding: 5px;">
-												<a class="text_variables fl mgr_20" id="selectAll" style="cursor:pointer">전체</a>
 												<a class="text_variables mgr_20" id="cancelAll" style="cursor:pointer">선택안함</a>
 												<span id="pagingP"></span>
 											</div>
@@ -286,40 +271,13 @@
 										<a class="icon btn-add js-btn-approval-third-line"><span class="blind"></span></a>
 										<a class="icon btn-del js-btn-approval-third-line"><span class="blind"></span></a>
 									</div>
+									
 								</div>
-								
 								<div class="fr mgb20">
-									<div class="dropdown hide show" style="top:60px;right:0">
-										<div class="dropdown-menu multi-team hide" id="layerMultiNode" style="width:290px">
-											<p class="pdb_20">선택된 결재자가 여러 조직에 속해 있을 경우, 하나의 조직을 선택하셔야 합니다.</p>
-											<p class="pdb_10" id="multiNodeUser"></p>
-											<div style="overflow:auto;max-height:132px;padding:0;">
-												<table class="tableType01" id="tableMultiNode">
-													<caption>문서 수정 이력 목록으로 시간, 관리로 구성되어 있습니다.</caption>
-													<colgroup>
-														<col width="15%">
-														<col width="85%">
-													</colgroup>
-													<thead>
-														<tr>
-															<th scope="col">선택</th>
-															<th scope="col">소속 부서</th>
-														</tr>
-													</thead>
-													<tbody>
-													</tbody>
-												</table>
-											</div>
-						
-											<div class="layer_button">
-												<button type="button" class="btn_variables">확인</button> <button type="button" onclick="$j('#layerMultiNode').hide();">취소</button>
-											</div>
-										</div>
-									</div>
 									<div class="first-line four-line after">
 										<div class="fl">
 											<div class="to-item after">
-												<span class="title">결재 <span class="point_color bold" id="sp_selectApprovalFirstLine">0</span></span>
+												<span class="title">받는 사람 <span class="point_color bold" id="sp_selectApprovalFirstLine">0</span></span>
 												<div class="updown-wrap first js-move-approval-first-line" style="width: 55px;">
 													<span class="blind icon down"></span>
 													<span class="blind icon up"></span>
@@ -331,18 +289,12 @@
 											</div>
 						
 										</div>
-										<div class="spr-approval approval-direction">
-											결<br>
-											재<br>
-											방<br>
-											향<br>
-										</div>
 									</div>
-											
+									
 									<div class="three-line after">
 										<div class="fl">
 											<div class="to-item after">
-												<span class="title">참조 <span class="point_color bold" id="sp_selectApprovalThirdLine">0</span></span>
+												<span class="title">참조인 <span class="point_color bold" id="sp_selectApprovalThirdLine">0</span></span>
 												<div class="updown-wrap first js-move-approval-third-line" style="width: 55px;">
 													<span class="blind icon down"></span>
 													<span class="blind icon up"></span>
@@ -353,13 +305,7 @@
 												</select>
 										   </div>
 										</div>
-										<div class="spr-approval approval-direction">
-											결<br>
-											재<br>
-											방<br>
-											향<br>
-										</div>
-									</div>								
+									</div>
 									
 								</div>
 							</div>
@@ -377,7 +323,7 @@
 						
 						
 						
-				<!---------- 결제선 주소록 끝 ------------------------>
+					<!---------- 결제선 주소록 끝 ------------------------>
 					
 					
 					
@@ -515,19 +461,11 @@
 		                    alert("업로드 불가");
 		                    return;
 		                }
-		                /*
-		               inFile = "<input type='file' name='uploadFile'>";
-		                inFile.files[0]=e.originalEvent.dataTransfer.files;
-		                //inFile = $("<input type='file' name='uploadFile'>").prop('files',e.originalEvent.dataTransfer.files);
-			            console.log(inFile);
-			            */
 			            
 		                selectFile(files);
 		            }else{
 		                alert("ERROR");
 		            }
-		            
-		            
 		            
 		        });
 		    }
@@ -622,7 +560,6 @@
 		            return;
 		        }
 		        
-		        // 용량을 500MB를 넘을 경우 업로드 불가
 		        if(totalFileSize > maxUploadSize){
 		            // 파일 사이즈 초과 경고창
 		            alert("총 용량 초과\n총 업로드 가능 용량 : " + maxUploadSize + " MB");
@@ -663,10 +600,281 @@
 			
 			
 			
-			/* 결재선 스크립트 */
-			$(function(){
+		/* 결재선 창 기능 시작 */
+		
+		/* 제일 왼쪽 div에 모든 부서명 출력 */
+		$.each(${deptList}, function(index, dept){
+			
+			if(index != 0){
 				
+				if(index != ${deptList}.length-1){	// 마지막 인덱스가 아니면
+					
+					$subDeptLi = $('<li class="subDept_li" id="subDept'+index+'">');
+					$subDeptDiv = $('<div class="Container">');
+					$subDeptStrong = $('<strong>')
+					$subDeptSpan1 = $('<span class="subDeptName">').text(dept.deptName);
+					$subDeptSpan2 = $('<span style="font-weight:normal; color:silver; font-size:8pt">').text('('+dept.count+')');
+					
+					$subDeptStrong.append($subDeptSpan1);
+					$subDeptStrong.append($subDeptSpan2);
+					$subDeptDiv.append($subDeptStrong);
+					$subDeptLi.append($subDeptDiv);
+				} else{		// 마지막 인덱스이면
+					
+					$subDeptLi = $('<li class="subDept_li last" id="subDept'+index+'">');
+					$subDeptDiv = $('<div class="Container">');
+					$subDeptStrong = $('<strong>')
+					$subDeptSpan1 = $('<span class="subDeptName">').text(dept.deptName);
+					$subDeptSpan2 = $('<span style="font-weight:normal; color:silver; font-size:8pt">').text('('+dept.count+')');
+					
+					$subDeptStrong.append($subDeptSpan1);
+					$subDeptStrong.append($subDeptSpan2);
+					$subDeptDiv.append($subDeptStrong);
+					$subDeptLi.append($subDeptDiv);
+				}
+				$("#subDept").append($subDeptLi);
+			}
+		});
+		
+		var imgFlag = 0;	// 기본 : -
+		/* 조직도 펼치기 / 접기 */
+		$(".plus").on('click',function(){
+			
+			if(imgFlag == 0){	// - 일때
+				imgFlag = 1;	// + 로 바꿈
+			} else if(imgFlag == 1){	// + 일때
+				imgFlag = 0;	// - 로 바꿈
+			}
+			
+			if(imgFlag == 0){	// + > - 로 변환
+				$(this).attr('src','resources/images/tree_m.gif');
+				$("#subDept").css('display','block');
+			} else if(imgFlag == 1){	// - > + 로 변환
+				$(this).attr('src','resources/images/tree_p.gif');
+				$("#subDept").css('display','none');
+			}
+			
+		});
+		
+		/* 부서명들 중 가장 상단의 회사명 클릭 시 */
+		$("#subOffice").click(function(){
+			$("#rightList").html("");
+			$(".subDept_li").css('color','#676767');
+			
+			$.each(${empList}, function(index, emp){
+				
+				$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'" title="'+emp.deptName+'" name="' + emp.email + '">').text(emp.empName+" "+emp.jobName);
+				$("#rightList").append($op);
+			});
+		});
+		
+		/* 부서명 클릭 시 */
+		$("#subDept").on('click','.subDept_li',function(){
+			
+			$(this).css('color','#2985db');
+			$(this).siblings().css('color','#676767');
+			var dept = $(this).find('.subDeptName').text();
+			$("#rightList").html("");
+			
+			$.each(${empList}, function(index, emp){
+				
+				if(dept == emp.deptName){
+					$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'" title="'+emp.deptName+'" name="' + emp.email + '">').text(emp.empName+" "+emp.jobName);
+					$("#rightList").append($op);
+				}
+			});
+		});
+		
+		//전체선택
+		$("#selectAll").on('click',function(){
+			$("#rightList option").attr('selected',true);
+			$("#rightList option").css({
+				'background-color':'#e8ecee',
+				'color':'#676767'
+			});
+		});
+		//전체선택취소
+		$("#cancelAll").on('click',function(){
+			$("#rightList option").attr('selected',false);
+			$("#rightList option").css({
+				'background-color':'white',
+				'color':'#676767'
 			})
+		});
+		//정렬 버튼
+		$('#anchorApprovalUserOrder').on('click',function(){
+			$("#orderApprovalDropdown").toggleClass('show');
+		});
+		//이름 or 직급 정렬
+		$(".js-approval-node-order").on('click',function(){
+			
+			var sortArr = ${empList};
+			
+			if(document.getElementById('rightList').innerHTML != ""){
+				
+				//console.log('if문 통과1');
+				
+				if($(this).hasClass('sortByName')){	//이름정렬
+					//console.log('if문 통과2');
+					sortArr.sort(function(a, b){
+						return a.empName < b.empName ? -1 : a.empName > b.empName ? 1: 0;
+					});
+					
+				} else{	//직급정렬
+					sortArr.sort(function(a, b){
+						return a.jobCode - b.jobCode;
+					});
+					
+				}
+				
+				$("#rightList").html("");
+				
+				var conditionArr = $(".subDept_li");
+				var conditionName = "";
+				
+				//선택된 부서(파란색) 이름 찾기
+				$.each(conditionArr, function(index, li){					
+					//console.log(li.style.color);
+					if(li.style.color == 'rgb(41, 133, 219)'){
+						conditionName = li.childNodes[0].childNodes[0].childNodes[0].innerHTML;
+					}
+				});
+				
+				$.each(sortArr, function(index, emp){
+					if(conditionName == ""){	//파란색으로 선택된 부서명이 없으면 => 전체 직원 선택이면
+						$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'" title="'+emp.deptName+'" name="' + emp.email + '">').text(emp.empName+" "+emp.jobName);
+						$("#rightList").append($op);
+					} else {	// 파란색으로 선택된 부서명이 있으면
+						if(conditionName == emp.deptName){
+							$op = $('<option value="'+emp.empId+'" class="'+emp.jobCode+'" title="'+emp.deptName+'" name="' + emp.email + '">').text(emp.empName+" "+emp.jobName);
+							$("#rightList").append($op);
+						}
+					}
+				});
+			}
+			
+			$("#orderApprovalDropdown").toggleClass('show');
+		});
+
+		
+		/* 결제선 추가 버튼 */
+		$(".btn-add").on('click',function(){
+			
+			var selectedArr = $("#rightList option:selected");
+			var approval;
+			var num;
+			var rf;
+			
+			if($(this).hasClass('js-btn-approval-first-line')){
+				approval = $("#selectApprovalFirstLine");
+				num = $("#sp_selectApprovalFirstLine");
+				rf = $("#selectApprovalThirdLine");
+			} else if($(this).hasClass('js-btn-approval-third-line')){
+				approval = $("#selectApprovalThirdLine");
+				num = $("#sp_selectApprovalThirdLine");
+				rf = $("#selectApprovalFirstLine");
+			}
+			
+			$.each(selectedArr, function(index, value){
+				
+				if(approval.children('option').length > 0){	// 비어있지 않을때
+					var flag = 0;
+					
+					$.each(approval.children('option'), function(i, op){
+						if(value.value == op.value){
+							flag = 1;
+						}
+					});
+					
+					if(rf.children('option').length > 0){	// 비어있지 않을때
+						$.each(rf.children('option'), function(i, op2){
+							if(value.value == op2.value){
+								flag = 1;
+							}
+						});
+					}
+					/* 검사 하고 나와서 */
+					if(flag == 0){
+						var $op = $('<option value="'+value.value+'" name="' + value.getAttribute('name') + '"  disabled>').text(value.text+'('+value.title+')');
+						approval.append($op);
+					}
+					
+				} else{	// 비어있을때
+					var flag = 0;
+				
+					if(rf.children('option').length > 0){	// 비어있지 않을때
+						$.each(rf.children('option'), function(i, op2){
+							if(value.value == op2.value){
+								flag = 1;
+							}
+						});
+					}
+					/* 검사 하고 나와서 */
+					if(flag == 0){
+						var $op = $('<option value="'+value.value+'" name="' + value.getAttribute('name') + '"disabled>').text(value.text+'('+value.title+')');
+						approval.append($op);
+					}
+				}
+			});
+				num.text(approval.children().length);
+		});
+		
+		/* 결제선 삭제 버튼 */
+		$(".btn-del").on('click',function(){
+			
+			var selectedArr = $("#rightList option:selected");
+			var zone;
+			var approvalArr;
+			var num;
+			
+			if($(this).hasClass('js-btn-approval-first-line')){
+				approvalArr = $("#selectApprovalFirstLine option");
+				zone = $("#selectApprovalFirstLine");
+				num = $("#sp_selectApprovalFirstLine");
+			} else if($(this).hasClass('js-btn-approval-second-line')){
+				approvalArr = $("#selectApprovalSecondLine option");
+				zone = $("#selectApprovalSecondLine");
+				
+			} else if($(this).hasClass('js-btn-approval-third-line')){
+				approvalArr = $("#selectApprovalThirdLine option");
+				zone = $("#selectApprovalThirdLine");
+				num = $("#sp_selectApprovalThirdLine");
+			} else if($(this).hasClass('js-btn-approval-fourth-line')){
+				approvalArr = $("#selectApprovalFourthLine option");
+				zone = $("#selectApprovalFourthLine");
+			}
+			
+			$.each(approvalArr, function(i, value1){
+				$.each(selectedArr, function(j, value2){
+					
+					if(value1.value == value2.value){
+						value1.remove();
+					}
+				});
+			});
+			
+			num.text(zone.children().length)
+		});
+		
+		/* 결제선 추가 창 확인 버튼 */
+		$(".confirmBtn").on('click',function(){
+			
+			var approvalList = $("#selectApprovalFirstLine").children('option')[0];		//결제라인
+			var referList = $("#selectApprovalThirdLine").children('option')[0];		//참조라인
+
+			$("#mailTo").text(approvalList.getAttribute('name'));
+			
+			if(referList != undefined){
+				$("#mailCc").text(referList.getAttribute('name'));
+			}
+			
+			
+			$(this).next().click();
+		});
+		
+		/* 결재선 창 기능 끝 */
+			
+			
 	
 	</script>
 
