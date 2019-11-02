@@ -401,7 +401,6 @@ public class DocumentController {
 				System.out.println("문서 타입별 insert 실패");
 				return "fail";
 			}
-			
 		} else {	// 통합문서 insert 실패
 			System.out.println("통합 문서 테이블 insert 실패");
 			return "fail";

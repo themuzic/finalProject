@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="scheduleMapper">
+	
+	<resultMap id="scheduleListMap" type="Schedule">
+		<id property="sno" column="s_no"/>
+		<result property="empId" column="emp_id"/>
+		<result property="empName" column="emp_name"/>
+		<result property="startDate" column="start_date"/>
+		<result property="startTime" column="start_Time"/>
+		<result property="endDate" column="end_date"/>
+		<result property="endTime" column="end_Time"/>
+		<result property="allDay" column="all_day"/>
+		<result property="stitle" column="s_title"/>
+		<result property="scontent" column="s_content"/>
+		<result property="stype" column="s_type"/>
+		<result property="createDate" column="create_date"/>
+		<result property="status" column="status"/>
+		<result property="splan" column="s_plan"/>
+		<result property="deptCode" column="dept_code"/>
+	</resultMap>
+	
+	<!-- 페이징 처리 -->
+	<select id="getListCount" parameterType="Schedule" resultType="_int">
+		select count(*)
+		from schedule_list
+		where status='Y'
+		<if test='splan == "T"'>
+		and dept_code=#{deptCode}
+		and s_plan='T'
+		</if>
+		<if test='splan =="C"'>
+		and (dept_code=2 or dept_code=3 or dept_code=4)
+		and s_plan='C'
+		</if>
+		order by create_date desc
+	</select>
+	
+	<!-- 일정 셀렉 -->
+	<select id="teamScheduleList" parameterType="Schedule" resultMap="scheduleListMap">
+		select *
+		from schedule_list
+		where status='Y'
+		<if test='splan == "T"'>
+		and dept_code=#{deptCode} 
+		and s_plan='T'
+		</if>
+		<if test='splan =="C"'>
+		and (dept_code=2 or dept_code=3 or dept_code=4)
+		and s_plan='C'
+		</if>
+		order by create_date desc	
+		
+		
+<!-- 		select * -->
+<!-- 		from schedule_list -->
+<!-- 		where s_plan=#{splan} -->
+<!-- 		<if test='splan == "T"'> -->
+<!-- 		and dept_code=#{deptCode} -->
+<!-- 		</if> -->
+	</select>
+	
+	<!-- 일정등록 -->
+	<insert id="insertSchedule" parameterType="Schedule">
+		insert into schedule
+			 values(sche_seq.nextval,#{empId},#{startDate},#{startTime},#{endDate},#{endTime},#{allDay},#{stitle},#{scontent},#{stype},
+					sysdate,default,#{splan})
+	</insert>
+	
+	<!-- 일정삭제 -->
+	<update id="deleteSchedule" parameterType="Schedule">
+		update Schedule
+		set status='N'
+		where emp_id=#{empId} and s_no=#{sno}
+	</update>
+	
+	<!-- 일정 업데이트 -->
+	<update id="updateSchedule" parameterType="Schedule">
+		update Schedule
+		set all_day=#{allDay},
+		    s_title=#{stitle},
+		    start_date=#{startDate},
+		    start_time=#{startTime},
+		    end_date=#{endDate},
+		    end_time=#{endTime},
+		    s_type=#{stype},
+		    s_content=#{scontent}
+		where emp_id=#{empId} and s_no=#{sno} and status='Y'
+	</update>
+	
+	<!-- 움직이면서 업데이트 -->
+	<update id="movingSchedule" parameterType="Schedule">
+		update Schedule
+		set start_date=#{startDate},
+		    end_date=#{endDate}
+		where s_no=#{sno} and status='Y'
+	</update>
+	
+	<select id="scheduleType" parameterType="_int" resultType="String">
+		select s_type
+		from schedule
+		where s_no=#{sno}
+	</select>
+
+</mapper>

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +13,7 @@
 <style>
 	.contentWrap{
 		float:left;
-		width:100%;
+		width:75%;
 		background: white;
 		padding-top:30px;
 		padding-bottom:30px;
@@ -41,25 +40,9 @@
 					<div class="contentWrap">
 					
 					<!-- 이 아래부터 내용 작성 -->
-					<div class="setting_title">
-						<h3 style="font-weight: bold;">품앗이</h3>
-					</div>
 					
-					<div class="ui segment">
-					  <div class="ui top aligned dimmer">
-					    <div class="content">
-					      <h2 class="ui inverted header">Title</h2>
-					      <div class="ui primary button">Add</div>
-					      <div class="ui button">View</div>
-					    </div>
-					  </div>
-						
-					<div>
-						<table>
-							
-						</table>
-					</div>
-					</div>
+					
+					
 					
 					
 					
@@ -92,18 +75,11 @@
 	
 	<!-- script 작성 -->
 	<script>
-	
-		
-	
 		$(function(){
 			
-			$("#menu3").addClass("in");
-			$("#menu3").attr('aria-expanded',true);
-			$("#menu3_1").addClass("active");
-			$("#menu3_1").attr('aria-expanded',true);
-			$("#m3_3").addClass("active");	
 			
-			$('.ui.dimmer').dimmer({on:'click'});
+			
+			
 			
 			
 		});

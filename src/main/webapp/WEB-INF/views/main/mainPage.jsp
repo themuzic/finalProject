@@ -48,6 +48,9 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	.todo-list > li p{
 		padding: 0px 0 0px 35px !important;
 	}
+	.panel-body li{
+		padding:10px 0;
+	}
 </style>
 
 </head>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="employeeMapper">
+
+	<resultMap id="empResultSet" type="Employee">
+		<id property="empId" column="emp_id"/>
+		<result property="empName" column="emp_name"/>
+		<result property="empPwd" column="emp_pwd"/>
+		<result property="gender" column="gender"/>
+		<result property="birth" column="birth"/>
+		<result property="deptCode" column="dept_code"/>
+		<result property="deptName" column="dept_name"/>
+		<result property="jobCode" column="job_code"/>
+		<result property="jobName" column="job_name"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+		<result property="address" column="address"/>
+		<result property="salary" column="salary"/>
+		<result property="account" column="account"/>
+		<result property="star" column="star"/>
+		<result property="enrollDate" column="enroll_date"/>
+		<result property="retireDate" column="retire_date"/>
+		<result property="empStatus" column="emp_status"/>
+		<result property="profilePath" column="profile_path"/>
+		<result property="vacation" column="vacation"/>
+		<result property="workStatus" column="work_status"/>
+		<result property="statusMsg" column="status_msg"/>
+	</resultMap>
+	
+	
+	<resultMap id="workResultSet" type="WorkTime">
+		<id property="today" column="today"/>
+		<id property="empId" column="emp_id"/>
+		<result property="checkIn" column="checkin"/>
+		<result property="checkOut" column="checkout"/>
+	</resultMap>
+
+	
+	<resultMap id="widgetResultSet" type="Widget">
+		<id property="widgetType" column="widget_type"/>
+		<id property="empId" column="emp_id"/>
+		<result property="left" column="left"/>
+		<result property="top" column="top"/>
+		<result property="fold" column="fold"/>
+		<result property="status" column="status"/>
+	</resultMap>
+	
+	
+	
+	<select id="loginEmp" parameterType="Employee" resultMap="empResultSet">
+		select * from emp where emp_id=#{empId} and emp_pwd=#{empPwd} and emp_status='Y'
+	</select>
+	
+	
+	<update id="saveWidget" parameterType="Widget">
+		update widget
+		set left=#{left}, top=#{top}, fold=#{fold}, status=#{status}
+		where widget_type=#{widgetType} and emp_id=#{empId}
+	</update>
+	
+	
+	<select id="selectWidget" parameterType="_int" resultMap="widgetResultSet">
+		select * from widget where emp_id=#{id}
+	</select>
+	
+	
+	<select id="selectAllEmp" resultMap="empResultSet">
+		select * from emp where emp_status='Y' order by job_code, emp_name
+	</select>
+	
+	
+	<select id="autocomplete" parameterType="String" resultMap="empResultSet">
+		select * from emp
+		where div_name like fn_ko_char(#{key})||'%'
+	</select>
+	
+	<select id="selectWorkList" parameterType="_int" resultMap="workResultSet">
+		select today, emp_id, TO_CHAR(checkin,'yyyy-mm-dd hh24:mi:ss') checkin, TO_CHAR(checkout,'yyyy-mm-dd hh24:mi:ss') checkout
+		from worktime
+		where emp_id=#{id} and substr(today,5,2) = substr(to_char(sysdate,'yyyymmdd'),5,2)
+	</select>
+	
+	<insert id="insertStartTime" parameterType="WorkTime">
+		insert into worktime
+		values(#{today},#{empId},sysdate,null)
+	</insert>
+	
+	<update id="updateEndTime" parameterType="WorkTime">
+		update worktime
+		set checkout = sysdate
+		where today=#{today} and emp_id=#{empId}
+	</update>
+	
+	<update id="updateWorkStatus" parameterType="WorkTime">
+		update employee
+		set work_status = 'Y'
+		where emp_id=#{empId}
+	</update>
+	
+	
+	<update id="updateWorkStatus2" parameterType="WorkTime">
+		update employee
+		set work_status = 'N'
+		where emp_id=#{empId}
+	</update>
+	
+	<select id="selectEmp" parameterType="_int" resultMap="empResultSet">
+		select * from emp where emp_id=#{empId} and emp_status='Y'
+	</select>
+	
+	<update id="updateMyPage" parameterType="Employee">
+		update employee
+		set phone=#{phone}, status_msg=#{statusMsg}, address=#{address}
+		<if test="profilePath != null">
+			, profile_path=#{profilePath}
+		</if>
+		where emp_id=#{empId}
+	</update>
+	
+	<update id="updatePwd" parameterType="Employee">
+		update employee
+		set emp_pwd=#{empPwd}
+		where emp_id = #{empId}
+	</update>
+	
+	<update id="updateStar" parameterType="_int">
+		update employee
+		set star = star+1
+		where emp_id = #{empId}
+	</update>
+
+</mapper>

@@ -343,11 +343,8 @@
 	$(function(){
 
 	/* 사이드바의 해당 메뉴 활성화 유지하기 */
-	$("#menu4").addClass("in");
-	$("#menu4").attr('aria-expanded',true);
-	$("#menu4_1").addClass("active");
-	$("#menu4_1").attr('aria-expanded',true);
-	$("#m4_2").addClass("active");	
+	$("#menu4").addClass("active");
+	
 		 
 	});
 	</script>

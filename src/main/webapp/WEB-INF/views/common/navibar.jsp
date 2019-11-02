@@ -541,7 +541,7 @@
 						</li>
 
 						<li>
-							<a href="teamScheduleList.do" class="" id="m4_2"><i class="fa fa-calendar"></i> <span>일정관리</span><i class="icon-submenu lnr lnr-chevron-left" style="font-size:12px; margin-left:85px;"></i></a>					
+							<a href="teamScheduleList.do" class="" id="menu4"><i class="fa fa-calendar"></i> <span>일정관리</span><i class="icon-submenu lnr lnr-chevron-left" style="font-size:12px; margin-left:85px;"></i></a>					
 						</li>
 
 						<li>
@@ -591,7 +591,7 @@
 							</div>
 						</li>
 						<li>
-							<a href="orgChart.do" data-toggle="" class="" id="menu7"><i class="far fa-address-book"></i> <span>조직도</span> <i class="icon-submenu lnr lnr-chevron-left fr" style="font-size:12px;"></i></a>
+							<a href="orgChart.do" class="" id="menu7"><i class="far fa-address-book"></i> <span>조직도</span> <i class="icon-submenu lnr lnr-chevron-left fr" style="font-size:12px;"></i></a>
 						</li>
 
 					</ul>
@@ -622,6 +622,7 @@
 		});
 		$(document).on('click','.menu',function(){
 			$('#menu7').removeClass('active');
+			$('#menu4').removeClass('active');
 		});
 		
 		var sock;

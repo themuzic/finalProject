@@ -49,7 +49,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	.orgchart .node .content {
     border: 1px solid #3287B2;
 	}
-	i{
+	#chart-container i{
 		display: none !important;
 	}
 </style>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="todoMapper">
+
+	<resultMap id="todoBoardResultSet" type="TodoBoard">
+		<id property="tdBoardNo" column="td_board_no"/>
+		<result property="tdBoardName" column="td_board_name"/>
+		<result property="empId" column="emp_id"/>
+		<result property="tdBoardContent" column="td_board_content"/>
+		<result property="tdBoardColor" column="td_board_color"/>
+		<result property="tdBoardEnrollDate" column="td_board_enroll_date"/>
+		<result property="tdBoardModifyDate" column="td_board_modify_date"/>
+		<result property="tdBoardStatus" column="td_board_status"/>
+	</resultMap>
+	
+	
+	<resultMap id="todoResultSet" type="Todo">
+		<id property="todoNo" column="todo_no"/>
+		<result property="tdBoardNo" column="td_board_no"/>
+		<result property="empId" column="emp_id"/>
+		<result property="todoName" column="todo_name"/>
+		<result property="todoContent" column="todo_content"/>
+		<result property="todoEnrollDate" column="todo_enroll_date"/>
+		<result property="todoStatus" column="todo_status"/>
+	</resultMap>
+	
+	
+	<resultMap id="helpResultSet" type="Help">
+		<id property="workId" column="work_id"/>
+		<result property="empId" column="emp_id"/>
+		<result property="empName" column="emp_name"/>
+		<result property="workTitle" column="work_title"/>
+		<result property="workContent" column="work_content"/>
+		<result property="reason" column="reason"/>
+		<result property="registDate" column="regist_date"/>
+		<result property="helperId" column="helper_id"/>
+		<result property="bringDate" column="bring_date"/>
+		<result property="status" column="status"/>
+	</resultMap>
+  
+  
+  	<!-- TO-DO Board 생성 -->
+  	<insert id="insertTodoBoard" parameterType="TodoBoard">
+  		insert into todo_board
+		values(todo_board_seq.nextval, #{tdBoardName}, #{empId}, #{tdBoardContent}, 
+			   #{tdBoardColor}, sysdate, sysdate, default)
+  	</insert>
+  
+  	<!-- TO-Do Board 조회 -->
+	<select id="selectBoardList" parameterType="TodoBoard" resultMap="todoBoardResultSet">
+		select *
+		from todo_board
+		where emp_id=#{empId} and td_board_status='Y'
+		order by td_board_no desc
+	</select>
+	
+	
+	<!-- Todo 리스트의 왼쪽 전체 리스트 최근 15개 조회 -->
+	<select id="selectTodoAList" parameterType="Todo" resultMap="todoResultSet">		
+		<![CDATA[
+		select *
+		from (select * from todo
+      		  where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status!='N'
+      		  order by todo_no desc)
+		where rownum <= 15
+		]]>
+	</select>
+	<!-- Todo 리스트의 오른쪽 진행중 리스트 최근 5개 조회 -->
+	<select id="selectTodoOList" parameterType="Todo" resultMap="todoResultSet">	
+		<![CDATA[
+		select *
+		from (select * from todo
+	   		  where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status='ongoing'
+	   		  order by todo_no desc)
+		where rownum <= 5
+		]]>
+	</select>
+	<!-- Todo 리스트의 오른쪽 대기 리스트 최근 5개 조회 -->
+	<select id="selectTodoWList" parameterType="Todo" resultMap="todoResultSet">	
+		<![CDATA[
+		select *
+		from (select * from todo
+	   		  where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status='waiting'
+	   		  order by todo_no desc)
+		where rownum <= 5
+		]]>
+	</select>
+	<!-- Todo 리스트의 오른쪽 완료 리스트 최근 5개 조회 -->
+	<select id="selectTodoCList" parameterType="Todo" resultMap="todoResultSet">	
+		<![CDATA[
+		select *
+		from (select * from todo
+	   		  where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status='completion'
+	   		  order by todo_no desc)
+		where rownum <= 5
+		]]>
+	</select>
+	
+	<!-- allTodo -->
+	<select id="allTodo" parameterType="Todo" resultMap="todoResultSet">
+		select * from todo
+	  	where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status!='N'
+	  	order by todo_no desc
+	</select>
+	<!-- ongoingTodo -->
+	<select id="onTodo" parameterType="Todo" resultMap="todoResultSet">
+		select * from todo
+	  	where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status='ongoing'
+	  	order by todo_no desc
+	</select>	
+	<!-- waitingTodo -->
+	<select id="waTodo" parameterType="Todo" resultMap="todoResultSet">
+		select * from todo
+	  	where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status='waiting'
+	  	order by todo_no desc
+	</select>	
+	<!-- completionTodo -->
+	<select id="comTodo" parameterType="Todo" resultMap="todoResultSet">
+		select * from todo
+	  	where emp_id=#{empId} and td_board_no=#{tdBoardNo} and todo_status='completion'
+	  	order by todo_no desc
+	</select>	
+	
+	
+	<!-- Todo 삭제 -->
+	<update id="deleteTodo" parameterType="Todo">
+		update todo
+		set todo_status='N'
+		where todo_no=#{todoNo} and emp_id=#{empId}
+	</update>
+	
+	
+	<!-- Todo 생성 -->
+	<insert id="insertTodo" parameterType="Todo">
+		INSERT INTO TODO 
+		VALUES(TODO_SEQ.NEXTVAL, #{tdBoardNo}, #{empId}, 
+			   #{todoName}, #{todoContent}, SYSDATE, 'waiting')
+	</insert>
+	
+	
+	<!-- Todo 상세조회 -->
+	<select id="todoDetail" parameterType="_int" resultMap="todoResultSet">
+		select *
+		from todo
+		where todo_no=#{todoNo} and todo_status!='N'
+	</select>
+  
+  
+  	<!-- Todo 상태 변경 -->
+  	<update id="updateTodo" parameterType="Todo">
+  		update todo
+		set todo_status=#{todoStatus}, todo_name=#{todoName}, todo_content=#{todoContent}
+		where todo_no=#{todoNo}
+  	</update>
+  
+	
+	<select id="selectWidgetGoingTodoList" parameterType="_int" resultMap="todoResultSet">
+		select * from todo where emp_id=#{id} and todo_status='ongoing' order by todo_no desc
+	</select>
+	
+	<select id="selectWidgetWaitTodoList" parameterType="_int" resultMap="todoResultSet">
+		select * from todo where emp_id=#{id} and todo_status='waiting' order by todo_no desc
+	</select>
+  
+	<update id="updateTodoWidget" parameterType="Todo">
+		update todo set todo_status=#{todoStatus} where todo_no=#{todoNo}
+	</update>
+	
+	<select id="callTodoList" parameterType="Todo" resultMap="todoResultSet">
+		<![CDATA[
+		select *
+		from (select * from todo
+	   		  where emp_id=#{empId} and todo_status=#{todoStatus}
+	   		  order by todo_no desc)
+		where rownum <= 5
+		]]>
+	</select>
+	
+	<select id="selectAllHelpList" resultMap="helpResultSet">
+		select * from help_view 
+		where helper_id is null
+		order by work_id desc
+	</select>
+	
+	<select id="selectMyHelpList" parameterType="_int" resultMap="helpResultSet">
+		select * from help_view 
+		where emp_id=#{empId} and helper_id is null
+		order by work_id desc
+	</select>
+	
+	<select id="selectBringHelpList" parameterType="_int" resultMap="helpResultSet">
+		select * from help_view 
+		where helper_id=#{empId} and status='N'
+		order by work_id desc
+	</select>
+	
+	<insert id="insertHelp" parameterType="Help">
+		insert into help
+		values(help_seq.nextval,#{empId},#{workTitle},#{workContent},#{reason},sysdate,null,null,default)
+	</insert>
+	
+	<update id="updateHelp" parameterType="Help">
+		update help
+		set helper_id=#{helperId}, bring_date=sysdate
+		where work_id=#{workId}
+	</update>
+	
+	<delete id="deleteHelp" parameterType="Help">
+		delete from help
+		where work_id=#{workId} and emp_id=#{empId}
+	</delete>
+	
+	<update id="completeHelp" parameterType="Help">
+		update help
+		set status='Y'
+		where work_id=#{workId} and helper_id=#{helperId}
+	</update>
+	
+	
+	
+  
+  
+  
+  
+</mapper>

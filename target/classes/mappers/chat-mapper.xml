@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chatMapper">
+	
+	<resultMap id="empResultSet" type="Employee">
+		<id property="empId" column="emp_id"/>
+		<result property="empName" column="emp_name"/>
+		<result property="empPwd" column="emp_pwd"/>
+		<result property="gender" column="gender"/>
+		<result property="birth" column="birth"/>
+		<result property="deptCode" column="dept_code"/>
+		<result property="deptName" column="dept_name"/>
+		<result property="jobCode" column="job_code"/>
+		<result property="jobName" column="job_name"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+		<result property="address" column="address"/>
+		<result property="salary" column="salary"/>
+		<result property="account" column="account"/>
+		<result property="star" column="star"/>
+		<result property="enrollDate" column="enroll_date"/>
+		<result property="retireDate" column="retire_date"/>
+		<result property="empStatus" column="emp_status"/>
+		<result property="profilePath" column="profile_path"/>
+	</resultMap>
+	
+	<resultMap id="chatListResult" type="Chat">
+		<id property="chatId" column="chat_id"/>
+		<result property="chatName" column="chat_name"/>
+		<result property="createDate" column="create_date"/>
+		<result property="modifyDate" column="modify_date"/>
+		<result property="lastMsg" column="m_content"/>
+		<result property="chatType" column="chat_type"/>
+		<result property="count" column="chat_count"/>
+		<result property="unRead" column="join_count"/>
+	</resultMap>
+	
+	<resultMap id="chatProfileResult" type="Message">
+		<id property="chatId" column="chat_id"/>
+		<id property="empId" column="emp_id"/>
+		<result property="profilePath" column="profile_path"/>
+	</resultMap>
+	
+	<resultMap id="alarmResult" type="Chat">
+		<id property="empId" column="emp_id"/>
+		<result property="chatName" column="chat_name"/>
+		<result property="chatType" column="chat_type"/>
+	</resultMap>
+	
+	<resultMap id="chatIdNameResult" type="Chat">
+		<id property="chatId" column="chat_id"/>
+		<id property="chatName" column="chat_name"/>
+		<result property="chatType" column="chat_type"/>
+		<result property="chatStatus" column="chat_status"/>
+	</resultMap>
+	
+	<resultMap id="messageListResult" type="Message">
+		<id property="msgId" column="msg_id"/>
+		<result property="chatId" column="chat_id"/>
+		<result property="empId" column="emp_id"/>
+		<result property="empName" column="emp_name"/>
+		<result property="jobName" column="job_name"/>
+		<result property="profilePath" column="profile_path"/>
+		<result property="content" column="m_content"/>
+		<result property="createDate" column="m_create_date"/>
+		<result property="originName" column="origin_name"/>
+		<result property="changeName" column="change_name"/>
+		<result property="status" column="m_status"/>
+		<result property="validity" column="validity"/>
+		<result property="msgType" column="m_type"/>
+	</resultMap>
+	
+	<!-- 채팅방 리스트 출력용 서비스 -->
+	<select id="selectChatList" parameterType="_int" resultMap="chatListResult">
+		select *
+		from chatlist_view
+		where emp_id = #{empId}
+	</select>
+	
+	<!-- 채팅방 사람들 프로필 경로 출력용 서비스 -->
+	<select id="selectChatProfile" parameterType="_int" resultMap="chatProfileResult">
+		SELECT J.CHAT_ID, J.EMP_ID, PROFILE_PATH
+		FROM JOIN_CHAT J
+		JOIN CHAT C ON(J.CHAT_ID = C.CHAT_ID)
+		JOIN EMPLOYEE E ON(J.EMP_ID = E.EMP_ID)
+		WHERE J.EMP_ID != #{empId}
+	</select>
+	
+	<!-- 채팅 삽입 -->
+	<insert id="insertMessage" parameterType="Message">
+		INSERT INTO MESSAGE
+		VALUES(MSG_SEQ.NEXTVAL, #{chatId}, #{empId}, #{content}, SYSDATE, DEFAULT, #{msgType})
+	</insert>
+	
+	<!-- 채팅방 갱신 -->
+	<update id="updateChatMod" parameterType="_int">
+		UPDATE CHAT
+		SET MODIFY_DATE = (SELECT MAX(M_CREATE_DATE)
+		                   FROM MESSAGE
+		                   WHERE CHAT_ID = #{chatId}
+		                   GROUP BY CHAT_ID)
+		WHERE CHAT_ID = #{chatId}
+	</update>
+	
+	<!-- 채팅방 확인 갱신 -->
+	<update id="updateJoinMod" parameterType="Message">
+		UPDATE JOIN_CHAT
+		SET MODIFY_DATE = SYSDATE
+		WHERE CHAT_ID = #{chatId} AND EMP_ID = #{empId}
+	</update>
+	
+	<!-- 채팅 리스트 출력용 서비스 -->
+	<select id="selectMsgList" parameterType="Chat" resultMap="messageListResult">
+	<![CDATA[ 
+		SELECT *
+		FROM MESSAGE_LIST
+		WHERE CHAT_ID = #{chatId} 
+			  AND M_CREATE_DATE >= (SELECT JOIN_DATE
+			  FROM JOIN_CHAT
+			  WHERE EMP_ID = #{empId} AND CHAT_ID = #{chatId})
+	]]>
+	</select>
+	
+	<!-- 채팅방에 속해있는 사람들 조회 서비스 -->
+	<select id="selectUsers" parameterType="_int" resultMap="chatProfileResult">
+		SELECT EMP_ID
+		FROM JOIN_CHAT
+		WHERE CHAT_ID = #{chatId}
+	</select>
+	
+	<!-- 갠톡 생성 유무 -->
+	<select id="getChatStatus" parameterType="Message" resultType="_int">
+		select count(*)
+		from join_chat j
+		join chat c on(c.chat_id = j.chat_id)
+		join join_chat j2 on(j.chat_id = j2.chat_id and j.emp_id != j2.emp_id)
+		where chat_type=1 and j.emp_id = #{empId} and j2.emp_id = #{chatId}
+	</select>
+	
+	<!-- 마지막 채팅방 번호 -->
+	<select id="selectNewChatId" resultType="_int">
+		select chat_seq.currval
+		from chat
+		where rownum = 1
+	</select>
+	
+	<!-- 갠톡 채팅방번호, 이름 조회 -->
+	<select id="selectChatId" parameterType="Message" resultMap="chatIdNameResult">
+		select j.chat_id, j.chat_name, c.chat_type, j.chat_status
+		from join_chat j
+		join chat c on(c.chat_id = j.chat_id)
+		join join_chat j2 on(c.chat_id = j2.chat_id and j.emp_id != j2.emp_id)
+		where chat_type = #{msgType} and j.emp_id = #{empId} and j2.emp_id = #{chatId}
+	</select>
+	
+	<!-- 채팅방 생성 -->
+	<insert id="insertChat" parameterType="_int">
+		insert into chat values(CHAT_SEQ.NEXTVAL, DEFAULT, SYSDATE, 'Y', #{type})
+	</insert>
+	
+	<!-- 사원 이름 직급 조회 -->
+	<select id="selectChatName" parameterType="_int" resultType="String">
+		select emp_name || ' ' || job_name
+		from employee
+		join job using(job_code)
+		where emp_id=#{empId}
+	</select>
+	
+	<!-- 단톡에 속해있는 사람들 이름 직급 조회 -->
+	<select id="selectChatNameList" parameterType="_int" resultType="String">
+		select emp_name || ' ' || job_name
+		from employee
+		join join_chat using(emp_id)
+		join job using(job_code)
+		where chat_id=#{chatId}
+	</select>
+	
+	<!-- 채팅방 인원 생성 -->
+	<insert id="insertJoinChat" parameterType="Chat">
+		INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, #{chatName}, DEFAULT, DEFAULT, DEFAULT, #{empId}, DEFAULT, DEFAULT, FN_KO_CHAR(#{chatName}))
+	</insert>
+	
+	<!-- 채팅방 인원 추가 -->
+	<insert id="inviteJoinChat" parameterType="Chat">
+		INSERT INTO JOIN_CHAT VALUES(#{chatId}, #{chatName}, DEFAULT, DEFAULT, DEFAULT, #{empId}, DEFAULT, DEFAULT, FN_KO_CHAR(#{chatName}))
+	</insert>
+	
+	<!-- 채팅방 인원 추가시 기존 인원 채팅방 이름 변경 -->
+	<update id="updateDefaultChatName" parameterType="Chat">
+		UPDATE JOIN_CHAT
+		SET CHAT_NAME = #{chatName}, AUTO_NAME = FN_KO_CHAR(#{chatName})
+		WHERE CHAT_ID = #{chatId} AND NAME_STATUS = 'N'
+	</update>
+	
+	<!-- 초대 목록 인원 생성 -->
+	<select id="selectInviteList" parameterType="_int" resultMap="empResultSet">
+		select *
+		from emp
+		where emp_id not in (SELECT EMP_ID
+		                     FROM JOIN_CHAT
+		                     WHERE CHAT_ID = #{chatId})
+	</select>
+	
+	<!-- 방 번호에 해당하는 사원의 방 이름 -->
+	<select id="selectUserChatName" parameterType="Chat" resultMap="chatIdNameResult">
+		select chat_id, chat_name
+		from join_chat
+		where chat_id = #{chatId} and emp_id = #{empId}
+	</select>
+	
+	<!-- 갠톡 채팅방 다시 입장 -->
+	<update id="updateChatStatus" parameterType="Chat">
+		UPDATE JOIN_CHAT
+		SET JOIN_DATE = SYSDATE, MODIFY_DATE=SYSDATE, CHAT_STATUS='Y'
+		WHERE CHAT_ID = #{chatId} AND EMP_ID = #{empId}
+	</update>
+	
+	<!-- 단톡 채팅방 나가기 -->
+	<delete id="deleteChat" parameterType="Chat">
+		delete from join_chat
+		where chat_id = #{chatId} and emp_id = #{empId}
+	</delete>
+	
+	<!-- 알람 유무 조회 -->
+	<select id="selectAlarm" parameterType="Chat" resultType="string">
+		select alarm_yn
+		from join_chat
+		where emp_id = #{empId} and chat_id = #{chatId}
+	</select>
+	
+	<!-- 알람 켜고 끄기 -->
+	<update id="updateAlarm" parameterType="Chat">
+		update join_chat
+		set alarm_yn = #{alarm}
+		where chat_id = #{chatId} and emp_id = #{empId}
+	</update>
+	
+	<!-- 갠톡 채팅방 나가기 -->
+	<update id="deleteChatStatus" parameterType="Chat">
+		UPDATE JOIN_CHAT
+		SET CHAT_STATUS='N'
+		WHERE CHAT_ID = #{chatId} AND EMP_ID = #{empId}
+	</update>
+
+	<!-- 알람 띄워야 할 리스트 출력 -->
+	<select id="selectAlarmList" parameterType="Chat" resultMap="alarmResult">
+		select emp_id, chat_name, chat_type
+		from join_chat
+		join chat using(chat_id)
+		where chat_id=#{chatId} and emp_id != #{empId} and alarm_yn='Y'
+	</select>
+	
+	<!-- 직원 검색 서비스 -->
+	<select id="searchEmpList" parameterType="String" resultMap="empResultSet">
+		select *
+		from emp
+		where div_name like '%' || #{search} || '%' or emp_name like '%' || #{search} || '%'
+	</select>
+
+	<!-- 대화방 검색 서비스 -->
+	<select id="searchChatList" parameterType="Chat" resultMap="chatListResult">
+		select *
+		from chatlist_view
+		where emp_id = #{empId} and (auto_name like '%' || #{chatName} || '%' or chat_name like '%' || #{chatName} || '%')
+	</select>
+
+	<!-- 채팅방 이름 변경 서비스 -->
+	<update id="updateChatName" parameterType="Chat">
+		update join_chat
+		set chat_name = #{chatName}, name_status = 'Y', AUTO_NAME = FN_KO_CHAR(#{chatName})
+		where chat_id=#{chatId} and emp_id=#{empId}
+	</update>
+	
+	<!-- 채팅방 이름 원래대로 -->
+	<update id="updateChatNameReturn" parameterType="Chat">
+		UPDATE JOIN_CHAT
+		SET CHAT_NAME = #{chatName}, NAME_STATUS = 'N', AUTO_NAME = FN_KO_CHAR(#{chatName})
+		WHERE CHAT_ID = #{chatId} AND EMP_ID = #{empId}
+	</update>
+	
+</mapper>

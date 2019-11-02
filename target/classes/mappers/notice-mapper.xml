@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+	<resultMap id="noticeResultSet" type="Notice">
+		<id property="noId" column="notice_no"/>
+		<result property="noTitle" column="notice_title"/>	
+		<result property="noWriter" column="notice_writer"/>
+		<result property="deptCode"	 column="dept_code"/>
+		<result property="empName" column="empName"/>	
+		<result property="noContent" column="notice_content"/>	
+		<result property="originalFileName" column="notice_original_filename"/>	
+		<result property="renameFileName" column="notice_rename_filename"/>	
+		<result property="noCount" column="notice_count"/>	
+		<result property="noCreateDate" column="notice_create_date"/>	
+		<result property="noModifyDate" column="notice_modify_date"/>	
+		<result property="noStatus" column="status"/>	
+	</resultMap>
+	
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from notice
+		where status='Y'
+	</select>
+	
+	<select id="selectList" resultMap="noticeResultSet">
+		select *
+		from notice_detail
+		where status='Y'
+		order by notice_no desc
+	</select>
+
+	<update id="updateCount" parameterType="_int">
+		update notice
+		set notice_count=notice_count+1
+		where notice_no=#{noId}	
+	</update>
+	
+	<select id="selectNoticeBoard" parameterType="_int" resultMap="noticeResultSet">
+		select *
+		from notice_detail
+		where notice_no=#{noId} and status='Y'
+	</select>
+	
+	 <insert id="insertNoticeBoard" parameterType="Notice">
+		insert into notice
+		values(notice_seq.nextval,#{noTitle},#{noWriter},#{noContent},#{originalFileName},#{renameFileName},default,sysdate,sysdate,default)
+	</insert>
+	
+	<update id="deleteNoticeBoard" parameterType="_int">
+		update notice
+		set status='N'
+		where notice_no=#{noId}
+	</update>
+	
+	<update id="updateNoticeBoard" parameterType="Notice">
+		update notice
+		set notice_title=#{noTitle},notice_content=#{noContent},notice_original_filename=#{originalFileName},notice_rename_filename=#{renameFileName},notice_modify_date=sysdate
+		where notice_no=#{noId}
+	</update>
+	
+	
+</mapper>

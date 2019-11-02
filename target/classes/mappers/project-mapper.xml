@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="projectMapper">
+
+	<resultMap id="projectResultSet" type="Project">
+		<id property="pNo" column="p_no"/>
+		<result property="pName" column="p_name"/>
+		<result property="pContent" column="p_content"/>
+		<result property="pmId" column="pm_id"/>
+		<result property="pEnrollDate" column="p_enroll_date"/>
+		<result property="pProgress" column="p_progress"/>
+		<result property="Status" column="status"/>
+	</resultMap>
+	
+	<resultMap id="projectMemberResultSet" type="ProjectMember">
+		<id property="pNo" column="p_no"/>
+		<id property="empId" column="emp_id"/>
+	</resultMap>
+	
+	<resultMap id="projectTaskResultSet" type="ProjectTask">
+		<id property="taskNo" column="task_no"/>
+		<result property="pNo" column="p_no"/>
+		<result property="taskWriter" column="task_writer"/>
+		<result property="taskTitle" column="task_title"/>
+		<result property="taskContent" column="task_content"/>
+		<result property="taskCount" column="task_count"/>
+		<result property="status" column="status"/>
+		<result property="tCreateDate" column="t_create_date"/>
+		<result property="tModifyDate" column="t_modify_date"/>
+		<result property="tOriginalFileName" column="t_original_filename"/>
+		<result property="tRenameFileName" column="t_rename_filename"/>
+	</resultMap>
+	
+	<resultMap id="projectReplyResultSet" type="ProjectReply">
+		<id property="tRId" column="t_rid"/>
+		<result property="taskNo" column="task_no"/>
+		<result property="tRwriter" column="t_rwriter"/>
+		<result property="tRContent" column="t_rcontent"/>
+		<result property="createDate" column="create_date"/>
+		<result property="modifyDate" column="modify_date"/>
+		<result property="status" column="status"/>
+	</resultMap>
+	
+	
+	
+	
+	<!-- 프로젝트 생성 -->
+	<insert id="insertProject" parameterType="Project">
+		insert into project
+		values(PJ_SEQ.nextval, #{pName}, #{pContent}, #{pmId}, sysdate, default, default)
+	</insert>
+	
+	<!-- 프로젝트 생성 -->
+	<insert id="insertPm" parameterType="ProjectMember">
+		insert into project_member
+		values(PJ_SEQ.currval, #{empId})
+	</insert>
+	
+	
+	
+	<!-- TaskList 불러오기 -->
+	<select id="selectTaskList" parameterType="_int" resultMap="projectTaskResultSet">
+		select *
+		from project_task
+		where p_no=#{pNo} and status ='Y'
+		order by task_no desc
+	</select>
+	
+	<!-- project 리스트 불러오기 -->
+	<select id="selectPlist" parameterType="_int" resultMap="projectResultSet">
+		select *
+		from project p
+		join project_member m using(p_no)
+		where m.emp_id=#{empId} and status='Y'
+		order by p_no desc
+	</select>
+	
+	<!-- project Member 리스트 조회 -->
+	<select id="selectMlist" resultMap="projectMemberResultSet">
+		select *
+		from project_member
+	</select>
+	
+	<!-- 업무 추가 -->
+	<insert id="insertTask" parameterType="ProjectTask">
+		insert into project_task
+		values(task_seq.nextval, #{pNo}, #{taskWriter}, #{taskTitle}, #{taskContent},
+       		   default, default, sysdate, sysdate, null, null)
+	</insert>
+	
+	<!-- project 상세조회 -->
+	<select id="projectDetail" parameterType="_int" resultMap="projectResultSet">
+		select *
+		from project
+		where p_no=#{pNo} and status!='N'
+	</select>
+	
+	<!-- 진행상황 수정 -->
+	<update id="updateProgress" parameterType="Project">
+		update project
+		set p_progress=#{pProgress}
+		where p_no=#{pNo}
+	</update>
+	
+	<!-- 프로젝트 멤버 추가 -->
+	<insert id="insertMem" parameterType="ProjectMember">
+		insert into project_member
+		values(#{pNo}, #{empId})
+	</insert>
+	
+	<!-- taskDetail 조회 -->
+	<select id="taskDetail" parameterType="_int" resultMap="projectTaskResultSet">
+		select *
+		from project_task
+		where task_no=#{taskNo}
+	</select>
+	
+	<!-- task에 딸려있는 댓글 리스트 조회 -->
+	<select id="selectReplyList" parameterType="_int" resultMap="projectReplyResultSet">
+		select *
+		from project_reply
+		where task_no=#{taskNo} and status='Y'
+		order by t_rid desc
+	</select>
+	
+	<!-- task 댓글 작성하기 -->
+	<insert id="insertReply" parameterType="ProjectReply">
+		insert into project_reply
+		values(task_re_seq.nextval, #{taskNo}, #{tRwriter}, #{tRContent}, sysdate, sysdate, default)
+	</insert> 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+</mapper>

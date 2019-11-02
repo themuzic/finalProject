@@ -51,7 +51,6 @@ public class NoticeController {
 	public String insertNoticeBoard(Notice n, HttpServletRequest request, Model model,
 							  @RequestParam(name="nUploadFile", required = false) MultipartFile file) {
 		
-		
 		if(file != null && !file.getOriginalFilename().equals("")) {     // 첨부 파일이 넘어온 경우
 			
 			// 서버에 파일을 등록(폴더에 저장)

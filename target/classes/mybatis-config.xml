@@ -10,11 +10,52 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.develoffice.document.model.vo.Document" alias="Document"/>
+		<typeAlias type="com.kh.develoffice.document.model.vo.DocuA" alias="DocuA"/>
+		<typeAlias type="com.kh.develoffice.document.model.vo.DocuB" alias="DocuB"/>
+		<typeAlias type="com.kh.develoffice.document.model.vo.Vacation" alias="Vacation"/>
+		<typeAlias type="com.kh.develoffice.document.model.vo.Retire" alias="Retire"/>
+		<typeAlias type="com.kh.develoffice.document.model.vo.DocumentFile" alias="DocumentFile"/>
+		<typeAlias type="com.kh.develoffice.document.model.vo.Approval" alias="Approval"/>
+		<typeAlias type="com.kh.develoffice.document.model.vo.Reference" alias="Reference"/>
+		<typeAlias type="com.kh.develoffice.employee.model.vo.Employee" alias="Employee"/>
+		<typeAlias type="com.kh.develoffice.employee.model.vo.WorkTime" alias="WorkTime"/>
+		<typeAlias type="com.kh.develoffice.employee.model.vo.Widget" alias="Widget"/>
+		<typeAlias type="com.kh.develoffice.reservation.model.vo.Reservation" alias="Reservation"/>
+		<typeAlias type="com.kh.develoffice.reservation.model.vo.Payment" alias="Payment"/>
+		<typeAlias type="com.kh.develoffice.chat.model.vo.Chat" alias="Chat"/>
+		<typeAlias type="com.kh.develoffice.chat.model.vo.Message" alias="Message"/>
+		<typeAlias type="com.kh.develoffice.free.model.vo.Free" alias="Free"/>
+		<typeAlias type="com.kh.develoffice.common.Department" alias="Department"/>
+		<typeAlias type="com.kh.develoffice.todo.model.vo.TodoBoard" alias="TodoBoard"/>
+		<typeAlias type="com.kh.develoffice.todo.model.vo.Todo" alias="Todo"/>
+		<typeAlias type="com.kh.develoffice.todo.model.vo.Help" alias="Help"/>
+		<typeAlias type="com.kh.develoffice.mail.model.vo.Mail" alias="Mail"/>
+		<typeAlias type="com.kh.develoffice.schedule.model.vo.Schedule" alias="Schedule"/>
+		<typeAlias type="com.kh.develoffice.free.model.vo.FreeReply" alias="FreeReply"/>
+		<typeAlias type="com.kh.develoffice.free.model.vo.FreeLike" alias="FreeLike"/>
+		<typeAlias type="com.kh.develoffice.teamboard.model.vo.TeamBoard" alias="TeamBoard"/>
+		<typeAlias type="com.kh.develoffice.teamboard.model.vo.TeamBoardReply" alias="TeamBoardReply"/>
+		<typeAlias type="com.kh.develoffice.notice.model.vo.Notice" alias="Notice"/>
+		<typeAlias type="com.kh.develoffice.project.model.vo.Project" alias="Project"/>
+		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectMember" alias="ProjectMember"/>
+		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectTask" alias="ProjectTask"/>
+		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectReply" alias="ProjectReply"/>
+		
 	</typeAliases>
 	
 	
 	<mappers>
 		<mapper resource="mappers/document-mapper.xml"/>
+		<mapper resource="mappers/employee-mapper.xml"/>
+		<mapper resource="mappers/reservation-mapper.xml"/>
+		<mapper resource="mappers/chat-mapper.xml"/>
+		<mapper resource="mappers/free-mapper.xml"/>
+		<mapper resource="mappers/todo-mapper.xml"/>
+		<mapper resource="mappers/mail-mapper.xml"/> 
+		<mapper resource="mappers/schedule-mapper.xml"/>
+		<mapper resource="mappers/notice-mapper.xml"/>
+		<mapper resource="mappers/project-mapper.xml"/>
+		<mapper resource="mappers/teamBoard-mapper.xml"/>
 	</mappers>
 
 </configuration>
