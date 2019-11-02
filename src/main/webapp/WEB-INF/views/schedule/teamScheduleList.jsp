@@ -973,8 +973,12 @@
 							
 								
 								if(splan == 'C'){
-									if('${loginUser.deptCode}' == 2 || '${loginUser.deptCode}' == 3 || '${loginUser.deptCode}' == 4){
-										calEvent.editable = true;
+									
+									if(value.empId == '${loginUser.empId}'){
+										
+										if('${loginUser.deptCode}' == 2 || '${loginUser.deptCode}' == 3 || '${loginUser.deptCode}' == 4){
+											calEvent.editable = true;
+										}
 									}
 								}
 								
