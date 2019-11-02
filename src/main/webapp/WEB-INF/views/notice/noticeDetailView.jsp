@@ -258,7 +258,8 @@
 	<!-- script 작성 -->
 	<script>
 		$(function() {
-
+			
+			$("#menu6_1").removeClass("collapsed");
 			$("#menu6").addClass("in");
 			$("#menu6").attr('aria-expanded', true);
 			$("#menu6_1").addClass("active");

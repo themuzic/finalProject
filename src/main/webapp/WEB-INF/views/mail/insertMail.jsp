@@ -403,6 +403,7 @@
 			});
 			$('.dropdown-toggle').dropdown();
 			
+			$("#menu2_1").removeClass("collapsed");
 			$("#menu2").addClass("in");
 			$("#menu2").attr('aria-expanded',true);
 			$("#menu2_1").addClass("active");

@@ -299,6 +299,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		    });
 			
 			/* 사이드바의 해당 메뉴 활성화 유지하기 */
+			$("#menu2_1").removeClass("collapsed");
 			$("#menu2").addClass("in");
 			$("#menu2").attr('aria-expanded',true);
 			$("#menu2_1").addClass("active");

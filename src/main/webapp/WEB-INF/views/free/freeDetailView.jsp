@@ -257,16 +257,17 @@
 	<script>
 		
 		$(function() {
-		
-				$("#menu6").addClass("in");
-				$("#menu6").attr('aria-expanded',true);
-				$("#menu6_1").addClass("active");
-				$("#menu6_1").attr('aria-expanded',true);
-				$("#m6_3").addClass("active");	
 				
-				$(".add-sendlist").click(function(){
-					$("#divBCC").css("display", "block");
-				})
+			$("#menu6_1").removeClass("collapsed");
+			$("#menu6").addClass("in");
+			$("#menu6").attr('aria-expanded',true);
+			$("#menu6_1").addClass("active");
+			$("#menu6_1").attr('aria-expanded',true);
+			$("#m6_3").addClass("active");	
+			
+			$(".add-sendlist").click(function(){
+				$("#divBCC").css("display", "block");
+			})
 				
 			
 		});
