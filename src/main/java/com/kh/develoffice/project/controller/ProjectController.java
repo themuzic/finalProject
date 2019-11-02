@@ -44,15 +44,16 @@ public class ProjectController {
 	@RequestMapping("insertMem.do")
 	public ModelAndView insertMem(ModelAndView mv, 
 			 					  @RequestParam("empId") String[] empIds, @RequestParam("pNo") int pNo) {
-		System.out.println(pNo);
+		System.out.println("insertMem.do : " + pNo);
 		for(int i = 0; i < empIds.length; i++) {
-			System.out.println("empId: " + empIds[i]);
+			System.out.println("insertMem-empId: " + empIds[i]);
 		}
 		
 		int result = pService.insertMem(empIds, pNo);
 		
 		if(result > 0) {
-			mv.setViewName("project/projectDetail");
+			mv.addObject("pNo", pNo);
+			mv.setViewName("redirect:projectDetail.do");
 		}else {
 			mv.addObject("msg", "리스트가 존재하지 않습니다.");
 		}
@@ -123,6 +124,7 @@ public class ProjectController {
 		
 		ArrayList<Department> deptList = dService.selectDept();
 		ArrayList<Employee> empList = eService.selectAllEmp();
+		ArrayList<ProjectMember> mlist = pService.selectMlist();
 		
 		//System.out.println(deptList);
 		//System.out.println(empList);
@@ -148,12 +150,13 @@ public class ProjectController {
 			jObj.put("jobCode", e.getJobCode());
 			jObj.put("jobName", e.getJobName());
 			jObj.put("account", e.getAccount());
+			jObj.put("workStatus", e.getWorkStatus());
 			
 			empArr.add(jObj);
 		}
 		
 		
-		
+		mv.addObject("mlist", mlist);
 		mv.addObject("empList", empArr);
 		mv.addObject("deptList", deptArr);
 		mv.addObject("deptSize", deptArr.size());

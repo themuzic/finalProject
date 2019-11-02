@@ -22,7 +22,7 @@ public class ProjectDao {
 		return sqlSession.insert("projectMapper.insertProject", p);
 	}
 	
-	// project 생성 시 pm 멤버 테이블에 추가
+	// project 생성 시 멤버 테이블에 추가
 	public int insertPm(ProjectMember m) {
 		return sqlSession.insert("projectMapper.insertPm", m);
 	}
@@ -68,7 +68,7 @@ public class ProjectDao {
 		int result = 0;
 				
 		for(int i=0; i<empIds.length; i++) {
-			//System.out.println(pNo + ", dao: " + empIds[i]);
+			System.out.println(pNo + ", dao: " + empIds[i]);
 	
 			ProjectMember mem = new ProjectMember(pNo, Integer.parseInt(empIds[i]));
 			result = sqlSession.insert("projectMapper.insertMem", mem);

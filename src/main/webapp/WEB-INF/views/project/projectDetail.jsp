@@ -17,6 +17,7 @@
 <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
 
 <link rel="stylesheet" href="resources/semantic/item.css">
+<link rel="stylesheet" href="resources/semantic/list.css">
 
 <script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 
@@ -120,6 +121,18 @@
 		cursor: default;
 	}
 	
+	#pContent1{
+		width:95%;
+	}
+	.progress-bar{
+		width:50%;
+		float:left;
+	}
+	.mem-list{
+		width:50%;
+		float:right;
+	}
+	
 
 
 </style>
@@ -167,16 +180,32 @@
 						
 							<!-- progress 바 -->
 							<!-- PM만 수정가능 , 나머지는 readonly -->
-							<div class="prgress-bar" style="float:right; border:1px solid #F2E9E1; cursor:pointer;">
-								<p align="center" style="font-size:23px; color:#53777A; font-weight:bold; padding:10px 0 0 0;" >진행상황</p>
-								<div class="progress-circle p${ projectDetail.pProgress }">
-								  <span>${ projectDetail.pProgress }%</span>
-								  <div class="left-half-clipper">
-								    <div class="first50-bar"></div>
-								    <div class="value-bar"></div>
-								  </div>
+							<c:if test="${ loginUser.empId eq projectDetail.pmId }">
+								<div id="progress-bar" class="prgress-bar" style=" float:left; margin:0 0 20px 0; border:1px solid #F2E9E1; cursor:pointer;">
+									<p align="center" style="font-size:23px; color:#53777A; font-weight:bold; padding:10px 0 0 0;" >진행상황</p>
+									<div class="progress-circle p${ projectDetail.pProgress }">
+									  <span>${ projectDetail.pProgress }%</span>
+									  <div class="left-half-clipper">
+									    <div class="first50-bar"></div>
+									    <div class="value-bar"></div>
+									  </div>
+									</div>
 								</div>
-							</div>
+							</c:if>
+							<c:if test="${ loginUser.empId ne projectDetail.pmId }">
+								<div id="progress-bar" class="prgress-bar" style=" float:left; margin:0 0 20px 0; border:1px solid #F2E9E1; cursor:not-allowed;">
+									<p align="center" style="font-size:23px; color:#53777A; font-weight:bold; padding:10px 0 0 0;" >진행상황</p>
+									<div class="progress-circle p${ projectDetail.pProgress }">
+									  <span>${ projectDetail.pProgress }%</span>
+									  <div class="left-half-clipper">
+									    <div class="first50-bar"></div>
+									    <div class="value-bar"></div>
+									  </div>
+									</div>
+								</div>
+							</c:if>
+							
+							<br>
 							
 							<!-- progress 수정 MODAL -->
 					        <div class="" tabindex="-1" role="dialog" id="updateProgressModal" class="show" style="width:300px; display:none;">
@@ -209,10 +238,50 @@
 					            </div><!-- /.modal-dialog -->
 					        </div><!-- /.modal -->
 							
+							<!-- 멤버 리스트 & 멤버 추가 div -->
+							<div id="mem-div">
+							<!-- 프로젝트 참여 멤버 -->
+							<div class="ui list" id="mem-list" style="width:50%; float:right; margin:0 0 20px 0;">
+								<c:forEach items="${ mlist }" var="m">
+									<c:if test="${ projectDetail.pNo eq m.pNo }">
+										<c:forEach items="${ empList }" var="e">
+											<c:if test="${ e.empId eq m.empId }">
+											  <div class="item">
+											    <img class="ui avatar image" src="">
+											    <div class="content">
+											      <a class="header">${ e.empName }</a>
+											      <div class="description">
+											      	<c:if test="${ e.workStatus eq 'Y' }">
+											      		<b>${ e.empName }</b> 님은 지금 근무 중~
+											      	</c:if>
+											      	<c:if test="${ e.workStatus eq 'N' }">
+											      		출근X
+											      	</c:if>
+											      </div>
+											    </div>
+											  </div>
+											</c:if>
+										</c:forEach>
+									</c:if>
+								</c:forEach>
+							</div>
+			
+								<!-- <button type="button" class="btn btn-danger">
+									<i class="fas fa-user-times"></i>&nbsp;팀원 삭제
+								</button> -->
+							</div>
+							</div>
 							
-							
-								<!-- PM만 보이게 -->
+						</div>
+						
+						<br><br>
+						
+						<div class="pContent2" style="margin:100px 0 0 0;">
+							<!-- PM만 보이게 -->
 								<!-- 멤버 추가는 insertProject에서 빼고 detail에서 넣을 수 있도록 -->
+								
+								<c:if test="${ loginUser.empId eq projectDetail.pmId }">
+								
 								<form action="insertMem.do">
 								
 							 	<div class="addMember">
@@ -220,7 +289,7 @@
 									
 									
 									<input type="hidden" name="pNo" value="${ projectDetail.pNo }">
-						 			
+									<%-- <input type="hidden" name="empId" value="${ loginUser.empId }"> --%>
 						 			
 										<table class="cal_table1 approve-write js-approval-line" style="border:0px solid white;">
 											<colgroup>
@@ -231,7 +300,7 @@
 												<tr>
 													<th scope="row" class="sign">
 														<div onclick="addMem();" style="height: 50px; display: table-cell; width: 150px; 
-														vertical-align: middle; text-align: center;position: relative; cursor:pointer;">멤버</div>
+														vertical-align: middle; text-align: center;position: relative; cursor:pointer;">추가 팀원</div>
 													</th>
 													<td class="sign vt" id="approvalFirstLine">
 														<table style="width:100%;table-layout:fixed">
@@ -254,14 +323,21 @@
 										</table>
 										
 									</div>
-									<button type="submit" id="btnApprovalSelect"  class="btn btn-default">
+									
+									
+									<button type="submit" id="btnApprovalSelect" class="btn btn-default" style="float:right;">
 										<i class="fas fa-user-plus"></i>&nbsp;팀원 추가
 									</button>
-									&nbsp;
-							 		
 							 	</div>
-							 	
+						
 								</form>
+								</c:if> 
+								
+								<c:if test="${ loginUser.empId ne projectDetail.pmId }">
+									<button type="button" id="btnApprovalSelect"  class="btn btn-default" style="cursor:not-allowed; float:right;">
+										<i class="fas fa-times"></i>&nbsp;팀장만 팀원을 추가할 수 있습니다.
+									</button>
+								</c:if>
 							 	
 							 	<!---------- 결제선 주소록 시작 ------------------------>
 						
@@ -380,22 +456,13 @@
 								
 								<!---------- 결제선 주소록 끝 ------------------------>
 								
-								
-								<!-- <button type="button" class="btn btn-danger">
-									<i class="fas fa-user-times"></i>&nbsp;팀원 삭제
-								</button> -->
-							</div>
-							
-							
 						</div>
 						
-						<br><br><br><br><br><br><br><br><br><br><br>
-						
-						<div class="pContent2">
+						<div class="pContent3">
 						
 							
-							<div class="btnArea" style="float:left; padding:120px 0 0 0;">
-								<button type="button" class="btn btn-default" id="add-task">
+							<div class="btnArea" style="float:left; padding:40px 0 10px 0;">
+								<button type="button" class="btn btn-default" id="add-task" style="margin:0 0 10px 0;">
 									<i class="fa fa-plus-square"></i> 업무리스트 추가
 								</button>
 							<br>
@@ -445,7 +512,6 @@
 									<col style="width:55%;">
 									<col style="width:7%;">
 									<col style="width:10%;">
-									<col style="width:10%;">
 									<col style="width:13%;">
 								</colgroup>
 							
@@ -454,7 +520,6 @@
 						             	<th data-orderable="false" style="text-align:left;"><i><input type="checkbox" id="chkAll"></i></th>							      	
 								  		<th data-orderable="false" id="title" style="text-align:center;">업무</th>
 								  		<th data-orderable="false" id="writer" style="text-align:center;">작성자</th>
-								  		<th data-orderable="false" style="text-align:center">첨부파일</th>
 							  			<th style="text-align:center;">조회수</th>
 								  		<th data-orderable="false" style="text-align:center;"><i class="far fa-clock"></i>&nbsp;작성일</th>
 						    		</tr>
@@ -466,6 +531,7 @@
 						        		<td>
 						        			<input type="hidden" id="taskNo" name="taskNo" value="${ t.taskNo }">
 						        			<input type="hidden" name="pNo" value="${ t.pNo }">
+						        			<input type="checkbox" name="check" class="check chkBox" value="${ t.taskNo }" />
 						        		</td>
 						        		<td>
 						        			<c:if test="${ empty loginUser }">${ t.taskTitle }</c:if>
@@ -476,11 +542,13 @@
 						        				<a href="${ taskDetail }">${ t.taskTitle }</a>
 						        			</c:if>
 						        		</td>
-						        		<td><input type="hidden" value="${ t.taskWriter }"></td>
 						        		<td>
-						        			<c:if test="${ !empty t.tOriginalFileName }">
-						        				<i class="far fa-file-alt"></i>
-						        			</c:if>
+						        			<input type="hidden" value="${ t.taskWriter }">
+						        			<c:forEach items="${ empList }" var="e">
+												<c:if test="${ e.empId eq t.taskWriter }">
+						        					${ e.empName }
+						        				</c:if>
+						        			</c:forEach>
 						        		</td>
 						        		<td>${ t.taskCount }</td>
 						        		<td>${ t.tCreateDate }</td>

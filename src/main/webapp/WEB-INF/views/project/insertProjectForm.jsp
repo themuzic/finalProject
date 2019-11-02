@@ -90,7 +90,6 @@
 					 		<input type="hidden" name="pmId" value="${ loginUser.empId }">
 					 		
 					 		
-					 		
 					 		<h4 style="padding: 2px 0 15px 0;">제목</h4>
 						 	<input class="form-control input-lg" name="pName" placeholder="제목을 입력해주세요" type="text">
 						 	

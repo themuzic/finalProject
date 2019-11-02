@@ -51,7 +51,7 @@
 		values(PJ_SEQ.nextval, #{pName}, #{pContent}, #{pmId}, sysdate, default, default)
 	</insert>
 	
-	<!-- 프로젝트 생성 -->
+	<!-- 프로젝트 생성 시  pmid projectMember에 넣어주기 -->
 	<insert id="insertPm" parameterType="ProjectMember">
 		insert into project_member
 		values(PJ_SEQ.currval, #{empId})
