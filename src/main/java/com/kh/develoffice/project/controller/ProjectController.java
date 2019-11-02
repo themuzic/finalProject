@@ -39,7 +39,7 @@ public class ProjectController {
 	private EmployeeService eService;
 	
 	
-	
+
 	// 프로젝트 멤버 추가하기
 	@RequestMapping("insertMem.do")
 	public ModelAndView insertMem(ModelAndView mv, 
@@ -253,8 +253,10 @@ public class ProjectController {
 	public ModelAndView taskDetail(int taskNo, ModelAndView mv) {
 		
 		ProjectTask taskDetail = pService.taskDetail(taskNo);
+		ArrayList<Employee> empList = eService.selectAllEmp();
 		
 		if(taskDetail != null) {
+			mv.addObject("empList",empList);
 			mv.addObject("taskDetail", taskDetail);
 			mv.setViewName("project/taskDetail");
 		}else {
