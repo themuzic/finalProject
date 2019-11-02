@@ -229,11 +229,14 @@
 				
 				<hr>	
 		       
-		       <div align="left">
+		       <div align="left" style="padding-bottom:5px;">
 					<b style="color: #505363">팀 일정</b>
 					<input type="radio" name="splan" id="team" class="splan" value="T" style="margin-bottom:7px;" checked>&nbsp;
-					<b style="color: #505363">전체 일정</b>
+					<b style="color: #505363">회사 일정</b>
 					<input type="radio" name="splan" id="company" class="splan" value="C" style="margin-bottom:7px;">
+					<div style="float:right;">
+						<button type="button" id="addBtn" class="ui grey basic button big addBtn">일정등록</button>
+					</div>
 				</div>			
 						
 				<table class="ui selectable celled table">
@@ -308,11 +311,6 @@
 <%-- 				</c:if> --%>
 			</div>
 		</div>
-					
-
-
-					
-					
 					
 					<!-- 이 위까지 내용작성 -->
 					
@@ -639,6 +637,68 @@
 			}
 		});
 		
+		
+		// 일정추가 버튼
+		$(document).on('click','.addBtn',function(){
+		
+		var deptCode = '${loginUser.deptCode}';
+		var splan = $("input[name=splan]:checked").val();
+		
+        if((deptCode == 2 || deptCode == 3 || deptCode == 4) || (splan == 'T')){
+		
+			$('#eventModal').dialog({
+	   		  title: '새로운 일정',
+	  	      modal: true,
+	  	      width: '600'
+	  		});
+			
+			var startDate = $("input[name=startDate]");
+			var startTime = $("select[name=startTime]");
+			var endDate = $("input[name=endDate]");
+			var endTime = $("select[name=endTime]");
+			var stitle = $("input[name=stitle]");
+			var scontent = $("#edit-desc");
+			var stype = $("select[name=stype]");
+       		
+			
+       		// 일정 추가 모달창 초기화
+       		$("#edit-title").val('');
+			$("#startDate").val('');
+			$("#endDate").val('');
+			$("#edit-desc").val('');
+			$("#edit-type").val('');
+			$("#start").find('option:eq(0)').prop('selected', true);
+			$("#end").find('option:eq(0)').prop('selected', true);
+			
+			// 그냥 일정 등록하는 모달에서는 disabled 풀어
+       		startDate.attr("disabled", false);
+       		endDate.attr("disabled", false);
+       		startTime.prop("disabled", false);
+       		endTime.prop("disabled", false);
+       		stitle.attr("disabled", false);
+       		scontent.attr("disabled", false);
+       		stype.prop("disabled", false);
+       		$("#allDay").attr("disabled", false);
+
+			// 버튼 이벤트
+			$("#deleteEvent").css('display','none');
+			$("#saveEvent").css('display','inline-block');
+			$("#updateEvent").css('display','none');
+			
+			// 라디오 버튼에 따른 모달창 종류
+			var splan = $("input[name=splan]:checked").val();
+			 
+			if(splan == 'C'){
+				$(".hideType").css('display','none');
+			}else{
+				$(".hideType").css('display','block');
+			}
+		}
+	});
+		
+		
+		
+
 		// 모달창 닫기
 		$(function() {
 		    $("#btn-default").on('click', function() {
@@ -711,6 +771,8 @@
 		// 게시판 새로고침
 		function refresh(currentPage){
 			var splan = $('input[name=splan]:checked').val();
+			
+			// 새로고침
 			$.ajax({
 				
 				url: "sRefresh.do",
@@ -844,13 +906,30 @@
 				
 				// 일정 설명 on / off
 				var splan = $("input[name=splan]:checked").val();
+				var deptCode = '${loginUser.deptCode}';
 				 
+				console.log('${loginUser.deptCode}');
+				
 				if(splan == 'C'){
 					$(".colorList").css('display','none');
 					
+					// 라디오에 따른 일정등록 버튼 활성화
+					if(deptCode == 2){
+						$("#addBtn").css('display','block');
+					}else if(deptCode == 3){
+						$("#addBtn").css('display','block');
+					}else if(deptCode ==4){
+						$("#addBtn").css('display','block');
+					}else{
+						$("#addBtn").css('display','none');
+					}
+					
 				}else{
 					$(".colorList").css('display','block');
+					$("#addBtn").css('display','block');
 				}
+				
+				
 			});
 			
 			// 달력에 add하기
@@ -1034,7 +1113,7 @@
 		                 }
 		                 
 		              var dat2_2 = (year + "-" + month1 + "-" + day1);
-		              $("#endDate").val(strDate1); // 하루 밀린 날짜 출력(string)
+		              $("#endDate").val(strDate1);
 		              
 		       		};
 			 });
