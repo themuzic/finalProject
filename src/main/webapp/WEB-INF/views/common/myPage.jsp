@@ -320,15 +320,15 @@ input[type=text]{
 										<ul class="list-unstyled activity-timeline">
 											<li>
 												<i class="fas fa-chalkboard-teacher activity-icon"></i>
-												<p>각종 동영상 강의는 <a href="#">CLASS247</a></p>
+												<p>각종 동영상 강의는 <a href="#" target="_blank">CLASS247</a></p>
 											</li>
 											<li>
 												<i class="fas fa-plane-departure activity-icon"></i>
-												<p>여유로운 제주에서의 휴식은 <a href="#">제주에 어서 와보람</a></p>
+												<p>여유로운 제주에서의 휴식은 <a href="http://iclasskh.iptime.org:9090/jejuTest/" target="_blank">제주에 어서 와보람</a></p>
 											</li>
 											<li>
 												<i class="fas fa-heart activity-icon"></i>
-												<p>사내든 어디서든 연애할 땐 <a href="#">사잇길</a></p>
+												<p>사내든 어디서든 연애할 땐 <a href="http://iclasskh.iptime.org:9090/saitgil" target="_blank">사잇길</a></p>
 											</li>
 										</ul>
 									</div>
