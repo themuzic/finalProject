@@ -16,6 +16,7 @@ import com.kh.develoffice.common.Job;
 import com.kh.develoffice.document.model.service.DocumentService;
 import com.kh.develoffice.employee.model.service.EmployeeService;
 import com.kh.develoffice.employee.model.vo.Employee;
+import com.kh.develoffice.employee.model.vo.Widget;
 import com.kh.develoffice.insa.model.service.InsaService;
 
 @Controller
@@ -72,4 +73,50 @@ public class InsaController {
 		}
 	}
 	
+	@RequestMapping("insaInsertForm.do")
+	public String insaInsertForm() {
+		return "insa/insertView";
+	}
+	
+	@ResponseBody
+	@RequestMapping("insertInsa.do")
+	public String insaInsert(Employee e, HttpServletResponse response) {
+		
+		e.setEmpPwd(String.join("", e.getBirth().toString().split("-")));
+		int result = iService.insaInsert(e);
+		
+		if(result > 0) {
+			
+			int empId = iService.currvalEmpId();
+			String id = String.valueOf(empId); // int -> String으로 바꿔줌
+			
+			Widget w = new Widget();
+			w.setEmpId(empId);
+			w.setWidgetType(1);
+			w.setLeft(25);
+			w.setTop(108);
+			int w1	= eService.insertWidget(w);
+			w.setWidgetType(3);
+			w.setTop(380);
+			int w2	= eService.insertWidget(w);
+			w.setWidgetType(5);
+			w.setTop(625);
+			int w3	= eService.insertWidget(w);
+			w.setWidgetType(2);
+			w.setLeft(696);
+			w.setTop(108);
+			int w4	= eService.insertWidget(w);
+			w.setWidgetType(4);
+			w.setTop(380);
+			int w5	= eService.insertWidget(w);
+			
+			
+			
+			return id;
+		}else {
+			
+			return "fail";
+		}
+	}
+
 }

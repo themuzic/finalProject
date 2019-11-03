@@ -19,4 +19,17 @@
 		where emp_id = #{empId}
 	</update>
 	
+	<insert id="insaInsert" parameterType="Employee">
+		insert into employee
+		values (emp_seq.nextval,#{empName},#{empPwd},#{gender},#{birth},#{deptCode},#{jobCode},
+		        #{phone},null,null,2000000,#{phone},0,to_date(sysdate,'YYYY-MM-DD'),null,default,
+		        default,null,FN_KO_CHAR(#{empName}),default,default)
+	</insert>
+	
+	<select id="currvalEmpId" resultType="_int">
+		select emp_seq.currval
+		from employee
+		where rownum = 1
+	</select>
+	
 </mapper>

@@ -13,4 +13,8 @@ public interface InsaService {
 	// 인사 이동
 	int insaUpdate(Employee e);
 
+	int insaInsert(Employee e);
+
+	int currvalEmpId();
+
 }

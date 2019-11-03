@@ -22,4 +22,12 @@ public class InsaDao {
 	public int insaUpdate(Employee e) {
 		return sqlSession.update("insaMapper.insaUpdate",e);
 	}
+
+	public int insaInsert(Employee e) {
+		return sqlSession.insert("insaMapper.insaInsert",e);
+	}
+
+	public int currvalEmpId() {
+		return sqlSession.selectOne("insaMapper.currvalEmpId");
+	}
 }

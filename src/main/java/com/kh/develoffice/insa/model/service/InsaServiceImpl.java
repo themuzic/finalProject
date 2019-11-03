@@ -25,4 +25,14 @@ public class InsaServiceImpl implements InsaService {
 		return iDao.insaUpdate(e);
 	}
 
+	@Override
+	public int insaInsert(Employee e) {
+		return iDao.insaInsert(e);
+	}
+
+	@Override
+	public int currvalEmpId() {
+		return iDao.currvalEmpId();
+	}
+
 }
