@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="insaMapper">
+	
+	
+	<resultMap id="jobResultSet" type="Job">
+		<id property="jobCode" column="job_code"/>
+		<result property="jobName" column="job_name"/>
+	</resultMap>
+	
+	<select id="selectJob" resultMap="jobResultSet">
+		select *
+		from job
+	</select>
+	
+	<update id="insaUpdate" parameterType="Employee">
+		update employee
+		set dept_code = #{deptCode}, job_code = #{jobCode}
+		where emp_id = #{empId}
+	</update>
+	
+</mapper>
