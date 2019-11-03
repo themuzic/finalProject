@@ -275,6 +275,11 @@
 	</select>
 	
 	
+	<select id="checkApNum" parameterType="_int" resultType="_int">
+		select count(*)
+		from approval
+		where docu_num=#{docuNum} and status='N'
+	</select>
 	
 	
 	

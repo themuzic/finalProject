@@ -93,6 +93,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int updateWidget(Widget w) {
 		return eDao.updateWidget(w);
 	}
+
+	@Override
+	public int updateRetireDate(Employee emp) {
+		return eDao.updateRetireDate(emp);
+	}
 	
 	
 	

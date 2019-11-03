@@ -88,4 +88,9 @@ public class EmployeeDao {
 	public int updateWidget(Widget w) {
 		return sqlSession.update("employeeMapper.updateWidget", w);
 	}
+
+
+	public int updateRetireDate(Employee emp) {
+		return sqlSession.update("employeeMapper.updateRetireDate", emp);
+	}
 }

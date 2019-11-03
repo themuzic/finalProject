@@ -141,5 +141,10 @@ public class DocumentDao {
 	public Retire selectRetire(int docuNum) {
 		return sqlSession.selectOne("documentMapper.selectRetire",docuNum);
 	}
+
+
+	public int checkApNum(int docuNum) {
+		return sqlSession.selectOne("documentMapper.checkApNum",docuNum);
+	}
 	
 }

@@ -86,4 +86,8 @@ public interface DocumentService {
 	// 퇴직서 select
 	Retire selectRetire(int docuNum);
 	
+	// 해당 문서의 결제가 끝났는지 체크
+	int checkApNum(int docuNum);
+	
+	
 }

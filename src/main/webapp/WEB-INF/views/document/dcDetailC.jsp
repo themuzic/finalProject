@@ -329,7 +329,8 @@
 				type:"POST",
 				data:{
 					docuNum:dNum,
-					empId:${loginUser.empId}
+					empId:'${loginUser.empId}',
+					docuType:'${d.docuType}'
 				},
 				success:function(data){
 						

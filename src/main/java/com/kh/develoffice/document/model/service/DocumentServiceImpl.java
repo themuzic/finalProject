@@ -142,6 +142,11 @@ public class DocumentServiceImpl implements DocumentService {
 		return dDao.selectRetire(docuNum);
 	}
 
+	@Override
+	public int checkApNum(int docuNum) {
+		return dDao.checkApNum(docuNum);
+	}
+
 	
 
 }

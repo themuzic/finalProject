@@ -360,7 +360,10 @@
 				type:"POST",
 				data:{
 					docuNum:dNum,
-					empId:${loginUser.empId}
+					empId:${loginUser.empId},
+					retireDate:'${rt.retireDate}',
+					docuType:'${d.docuType}',
+					vaId:'${d.empId}'
 				},
 				success:function(data){
 						

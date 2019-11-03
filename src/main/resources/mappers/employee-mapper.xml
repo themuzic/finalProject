@@ -134,6 +134,12 @@
 		set status=#{status}
 		where widget_type=#{widgetType} and emp_id=#{empId}
 	</update>
+	
+	<update id="updateRetireDate" parameterType="Employee">
+		update employee
+		set retire_date = #{retireDate}
+		where emp_id=#{empId}
+	</update>
 
 
 

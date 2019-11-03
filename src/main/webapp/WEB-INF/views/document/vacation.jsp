@@ -371,15 +371,21 @@
 		/* 결재 버튼을 누르면 */
 		$("#stampRow").on('click','.confirm',function(){
 			var thisBtn = $(this);
-			var dNum = $("input[name=docuNum]").val(); 
-			/* console.log(${now});
-			console.log(${now2}); */
+			var dNum = $("input[name=docuNum]").val();
+			
 			$.ajax({
 				url:"apCheck.do",
 				type:"POST",
 				data:{
 					docuNum:dNum,
-					empId:${loginUser.empId}
+					empId:'${loginUser.empId}',
+					startDate:'${va.startDate}'.split(' ')[0],
+					endDate:'${va.endDate}'.split(' ')[0],
+					stitle:'${va.vacationName}',
+					scontent:'${va.reason}',
+					vaId:'${d.empId}',
+					allDay:'${va.vacationType}',
+					docuType:'${d.docuType}'
 				},
 				success:function(data){
 						
@@ -406,7 +412,7 @@
 				type:"POST",
 				data:{
 					docuNum:dNum,
-					empId:${loginUser.empId}
+					empId:'${loginUser.empId}'
 				},
 				success:function(data){
 					

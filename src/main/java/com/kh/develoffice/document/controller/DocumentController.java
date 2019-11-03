@@ -34,6 +34,8 @@ import com.kh.develoffice.document.model.vo.Retire;
 import com.kh.develoffice.document.model.vo.Vacation;
 import com.kh.develoffice.employee.model.service.EmployeeService;
 import com.kh.develoffice.employee.model.vo.Employee;
+import com.kh.develoffice.schedule.model.service.ScheduleService;
+import com.kh.develoffice.schedule.model.vo.Schedule;
 
 @Controller
 public class DocumentController {
@@ -42,6 +44,8 @@ public class DocumentController {
 	private DocumentService dService;
 	@Autowired
 	private EmployeeService eService;
+	@Autowired
+	private ScheduleService sService;
 	
 	@RequestMapping("insertDocumentForm.do")
 	public ModelAndView insertDocumentForm(ModelAndView mv) {
@@ -204,6 +208,7 @@ public class DocumentController {
 			d.put("deptName", document.getDeptName());
 			d.put("status", document.getStatus());
 			d.put("docuDate", document.getDocuDate());
+			d.put("docuType", document.getDocuType());
 			
 			mv.addObject("d",d);
 		}
@@ -445,17 +450,73 @@ public class DocumentController {
 	
 	@ResponseBody
 	@RequestMapping("apCheck.do")
-	public String apCheck(Approval ap) {
+	public String apCheck(Approval ap, Schedule s, String docuType, Retire r,
+						@RequestParam(name="vaId", required=false)int vaId) {
+		
+		System.out.println("컨트롤러에서 받은 ap : "+ap);
+		System.out.println("컨트롤러에서 받은 s : "+s);
+		System.out.println("컨트롤러에서 받은 r : "+r);
+		System.out.println("컨트롤러에서 받은 vaId : "+vaId);
+		
 		
 		int result = dService.apCheck(ap);
+		int result2 = dService.updateModifyDate(ap.getDocuNum());
 		
-		if(result > 0) {
-			int result2 = dService.updateModifyDate(ap.getDocuNum());
-				if(result2 > 0) {
-					return "success";
+		if(result > 0 && result2 > 0) {
+			
+			if(docuType.equals("VA")) {
+				int checkApNum = dService.checkApNum(ap.getDocuNum());
+				
+				if(checkApNum == 0) {
+					s.setEmpId(vaId);
+					s.setStype("휴가");
+					s.setSplan("T");
+					if(s.getAllDay().equals("ALL")) {	//종일
+						s.setStartTime("09:00");
+						s.setEndTime("18:00");
+						s.setAllDay("Y");
+					} else if(s.getAllDay().equals("AM")) {	//오전반차
+						s.setStartTime("09:00");
+						s.setEndTime("13:00");
+						s.setAllDay("N");
+					} else {	// 오후반차
+						s.setStartTime("13:00");
+						s.setEndTime("18:00");
+						s.setAllDay("N");
+					}
+					System.out.println("인서트하는 스케줄 : "+s);
+					int scheResult = sService.insertSchedule(s);
+					
+					if(scheResult > 0) {
+						return "success";
+					} else {
+						return "fail";
+					}
 				} else {
-					return "fail";
+					return "success";
 				}
+				
+			} else if(docuType.equals("RT")) {
+				
+				int checkApNum = dService.checkApNum(ap.getDocuNum());
+				
+				if(checkApNum == 0) {
+					Employee emp = new Employee();
+					emp.setEmpId(vaId);
+					emp.setRetireDate(r.getRetireDate());
+					int rtResult = eService.updateRetireDate(emp);
+					
+					if(rtResult > 0) {
+						return "success";
+					} else {
+						return "fail";
+					}
+				} else {
+					return "success";
+				}
+			} else {
+				return "success";
+			}
 		} else {
 			return "fail";
 		}

@@ -30,8 +30,8 @@ public class Employee {
 	private int salary;			//기본급
 	private String account;		//급여계좌
 	private int star;			//별갯수
-	private Date enrollDate;	//입사날짜
-	private Date retireDate;	//퇴사날짜
+	private String enrollDate;	//입사날짜
+	private String retireDate;	//퇴사날짜
 	private String empStatus;	//상태(y/n)
 	private String profilePath; //프사경로
 	private String statusMsg;	//메신저 상태메세지
