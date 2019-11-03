@@ -299,8 +299,15 @@ input[type=text]{
 												</thead>
 												<tbody>
 												<c:forEach items="${ projectList }" var="p">
+													<input type="hidden" name="empId" value="${ loginUser.empId }">
+													<input type="hidden" name="pNo" value="${ p.pNo }">
 													<tr>
-														<td><a href="#">${ p.pName }</a></td>
+														<td>
+															<c:url var="projectDetail" value="projectDetail.do">
+																<c:param name="pNo" value="${ p.pNo }"/>
+															</c:url>
+															<a href="${ projectDetail }">${ p.pName }</a>
+														</td>
 														<td>
 															<div class="progress">
 																<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
