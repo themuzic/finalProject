@@ -193,7 +193,6 @@
 		                                <label class="col-xs-4" for="edit-type"><b>구분</b></label>
 		                                <select class="inputModal required" name="stype" id="edit-type" style="width:367px;" required="required">
 		                                	<option value="">일정 종류를 선택하세요</option>
-		                                    <option value="휴가" style="color:#f06595">휴가</option>
 		                                    <option value="회의" style="color:cornflowerblue">회의</option>
 		                                    <option value="외근" style="color:#ffa94d">외근</option>
 		                                    <option value="출장" style="color:#9775fa">출장</option>
@@ -220,7 +219,6 @@
 		        </div><!-- /.modal -->
 				
 				<div align="right" id="colorList" class="colorList" style="padding-top:10px; font-size:13px;">
-					<span style="color:#f06595"><b>※휴가</b></span>&nbsp;&nbsp;
 					<span style="color:cornflowerblue"><b>※회의</b></span>&nbsp;&nbsp;
 					<span style="color:#ffa94d"><b>※외근</b></span>&nbsp;&nbsp;
 					<span style="color:#9775fa"><b>※출장</b></span>&nbsp;&nbsp;
