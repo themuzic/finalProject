@@ -389,6 +389,9 @@
 		
 		/* 일감 등록 버튼 눌렀을 때 */
 		$("#addHelp").on('click',function(){
+			$("#addHelpTitle").val("");
+			$("#addHelpContent").val("");
+			$("#addHelpReason").val("");
 			$("#addHelpLayer").addClass('show');
 		});
 		

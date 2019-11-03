@@ -188,7 +188,7 @@ input[type=text]{
 								<h4 class="heading" style="padding-bottom:19px;">위젯 설정</h4>
 								<!-- AWARDS -->
 								<div class="awards" style="margin-bottom:10px;">
-									<div class="row" style="padding:0 30px;">
+									<div class="row fl" style="padding:0 30px;width: 60%;">
 										
 										<table id="widgetSettingTable" style="">
 										
@@ -255,10 +255,24 @@ input[type=text]{
 										</div>
 										
 									</div>
+									
+									<!-- 상품권 div -->
+									<div class="row fl" style="width: 40%;padding: 5px 20px;">
+									
+									상품권 div
+									
+									
+									
+									
+									</div>
+									
+									
+									
 								</div>
 								<!-- END AWARDS -->
+								<br style="clear:both;">
 								<!-- TABBED CONTENT -->
-								<div class="custom-tabs-line tabs-line-bottom left-aligned">
+								<div class="custom-tabs-line tabs-line-bottom left-aligned" style="margin-top: 20px;">
 									<ul class="nav" role="tablist">
 										<li class="active"><a href="#tab-bottom-left1" role="tab" data-toggle="tab">참여 프로젝트 <span class="badge">${ countProject }</span></a></li>
 										<li><a href="#tab-bottom-left2" role="tab" data-toggle="tab">자기개발 지원</a></li>

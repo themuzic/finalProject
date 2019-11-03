@@ -677,6 +677,11 @@
 		    
 		}	<!--  이니시스 결제 close   -->
 		
+		$(document).on('click','#myReserv',function(){
+			location.href="myReservListView.do?empId=${loginUser.empId}";
+		});
+		
+		
 		
 	</script>
 	

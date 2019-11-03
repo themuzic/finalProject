@@ -108,7 +108,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 													<td style="border-bottom:none;">
 														<table class="rs-resource-tbl" no="5109">
 															<thead class="rs-view booking_resource_img_top">
-																<tr><th scope="col"><span class="resource_name_span" title="회의실" style="text-align: center;">회의실</span></th></tr>
+																<tr><th scope="col"><span class="resource_name_span" title="차량" style="text-align: center;">차량</span></th></tr>
 																<tr class="rs-bg"><td class="" style="padding-top: 10px;"><img src="resources/images/car.png" alt=""></td></tr>
 																<tr><td class="rs-divider-td"><hr class="rs-divider"></td></tr>
 															</thead>
@@ -220,7 +220,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 									<dl class="after">
 										<dt><label for="">자원 이름</label></dt>
 										<dd>
-											<input type="text" name="reservType" id="resource_list_select" style="width:270px" value="회의실" readonly>
+											<input type="text" name="reservType" id="resource_list_select" style="width:270px" value="차량" readonly>
 											<input type="hidden" name="empId" value="${ loginUser.empId }">
 										</dd>
 									</dl>
@@ -322,7 +322,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 								<div class="to-add">
 									<dl class="after">
 										<dt><label for="">자원 이름</label></dt>
-										<dd>회의실</dd>
+										<dd>차량</dd>
 									</dl>
 									<dl class="after">
 										<dt><label for="">예약 시간</label></dt>
