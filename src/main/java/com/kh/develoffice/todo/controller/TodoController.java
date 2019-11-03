@@ -92,17 +92,30 @@ public class TodoController {
 		Employee e = (Employee)session.getAttribute("loginUser");
 		t.setEmpId(e.getEmpId());
 		
-		// 전체리스트
+		// 전체리스트 (15개)
 		ArrayList<Todo> todoAList = tService.selectTodoAList(t);
-		// 진행중 리스트
+		// 진행중 리스트 (5개)
 		ArrayList<Todo> todoOList = tService.selectTodoOList(t);
-		// 대기 리스트
+		// 대기 리스트 (5개)
 		ArrayList<Todo> todoWList = tService.selectTodoWList(t);
-		// 완료 리스트
+		// 완료 리스트 (5개)
 		ArrayList<Todo> todoCList = tService.selectTodoCList(t);
+		// 진짜 전체 Todo
+		TodoBoard tb = new TodoBoard();
+		tb.setEmpId(e.getEmpId());
+		
+		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		int tbNo = todoBoardList.get(0).getTdBoardNo();
+		
+		t.setTdBoardNo(tbNo);
+		
+		ArrayList<Todo> allTodo = tService.allTodo(t);
+		System.out.println(tbNo);
+		
 		
 		mv.addObject("todoAList", todoAList).addObject("todoOList", todoOList)
-		.addObject("todoWList", todoWList).addObject("todoCList", todoCList).setViewName("todo/todoListView");
+		.addObject("todoWList", todoWList).addObject("todoCList", todoCList)
+		.addObject("allTodo", allTodo).setViewName("todo/todoListView");
 		
 		return mv;	
 	}
@@ -130,6 +143,7 @@ public class TodoController {
 	}
 	
 	/////////// TODO 생성 ///////////
+	@ResponseBody
 	@RequestMapping("insertTodo.do")
 	public ModelAndView insertTodo(Todo t, ModelAndView mv, HttpSession session,
 								   HttpServletRequest request

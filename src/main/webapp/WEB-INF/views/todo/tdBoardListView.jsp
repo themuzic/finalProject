@@ -62,24 +62,36 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
+					<div class="ui huge three steps">
+					  <div class="disabled step">
+					    <i class="lnr lnr-inbox"></i>
+					    <div class="content">
+					      <div class="title">&nbsp;일감관리</div>
+					    </div>
+					  </div>
+					  <div class="active step">
+					    <i class="fas fa-th-list"></i>
+					    <div class="content">
+					      <div class="title">&nbsp;<span style="color:black">TO-DO</span></div>
+					    </div>
+					  </div>
+					  <div class="disabled step">
+					    <i class="fas fa-info-circle"></i>
+					    <div class="content">
+					      <div class="title">&nbsp;My To-Do</div>
+					    </div>
+					  </div>
+					</div>
+					
 					
 					<!-- 상단 드롭다운 & 보드생성 버튼 -->
 					<div class="top-nav">
 						<table id="top-table">
 							<tr id="content-table">
+								
 								<td>
-									<select class="form-control input-lg" style="width:40%;">
-										<option value="cheese">2019년 10월</option>
-										<option value="tomatoes">2019년 9월</option>
-										<option value="mozarella">2019년 8월</option>
-										<option value="mushrooms">Mushrooms</option>
-										<option value="pepperoni">Pepperoni</option>
-										<option value="onions">Onions</option>
-									</select>
-								</td>
-								<td>
-									<div class="ui inverted segment">
-									  <button type="button" style="background-color:#3287B2; color:white;" class="btn btn-lg" id="insertTdBoard" onclick="location.href='insertTodoBoardView.do'">
+									<div class="ui inverted segment" style="float:right;">
+									  <button type="button" style="background-color:#3287B2; color:white;" class="btn" id="insertTdBoard" onclick="location.href='insertTodoBoardView.do'">
 									  	<i class="fas fa-plus-circle"></i> Board
 									  </button>
 									</div>

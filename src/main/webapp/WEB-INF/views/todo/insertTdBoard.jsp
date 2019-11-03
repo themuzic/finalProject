@@ -68,14 +68,15 @@
 					    </div> -->
 					    
 						 <form action="insertTodoBoard.do" method="post" encType="multipart/form-data" class="insertForm">
+						 
+						 	<h3 align="center"><span style="font-weight:bold; color:#3287B2;"><i class="fas fa-pencil-alt"></i>&nbsp;새 Board 생성</span></h3>
 						 	
 						 	
-						 	<div class="writer-area" style="float:right;">
-						 		<span style="padding: 2px 0px 15px 0; font-weight:bold; font-size:15px;">작성자<i class="fas fa-user-edit"></i></span>
+						 	<div class="writer-area" style="float:right; padding:15px 0 0 0;">
+						 		<span style="padding: 2px 0px 15px 0; font-weight:bold; font-size:15px;"><i class="fas fa-user-edit"></i></span>
 						 		<input type="hidden" name="empId" value="${loginUser.empId }">
 						 		<input type="text" readonly name="empName" value="${ loginUser.empName }" 
 						 			   style="width:60px; border:solid 0px black; font-size:15px;">
-						 		
 						 	</div>
 						 	
 						 	<br><br><br>

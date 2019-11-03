@@ -124,11 +124,32 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
+					<div class="ui huge three steps" style="margin:0 0 30px 0;">
+					  <div class="disabled step">
+					    <i class="lnr lnr-inbox"></i>
+					    <div class="content">
+					      <div class="title">&nbsp;일감관리</div>
+					    </div>
+					  </div>
+					  <div class="disabled step">
+					    <i class="fas fa-th-list"></i>
+					    <div class="content">
+					      <div class="title">&nbsp;TO-DO</div>
+					    </div>
+					  </div>
+					  <div class="active step">
+					    <i class="fas fa-info-circle"></i>
+					    <div class="content">
+					      <div class="title"><span style="color:black">&nbsp;My To-Do</span></div>
+					    </div>
+					  </div>
+					</div>
+					
 					
 					<div class="allContentWrap" style="padding:0 30px 0 10px">
 					
 								
-						<button type="button" class="large ui button" onclick="location.href='allTodoView.do'" style="margin:0 0 10px 0; background-color:#337ab7; color:white; font-size: 1.5rem;">
+						<button type="button" class="large ui button" onclick="location.href='allTodoView.do'" style="margin:0 0 10px 0; background-color:#337ab7; color:white; font-size: 1.2rem;">
 						  	<i class="fas fa-globe"></i> &nbsp;전체보기
 						</button>
 							
@@ -186,24 +207,60 @@
 						</table>
 						
 						<div class="btnArea" align="center">
-							<button type="button" onclick="location.href='insertTodoView.do'" class="btn btn-default">
+							<button type="button" id="insertTodo" class="btn btn-default" style="font-size: 1.2rem;"><!-- onclick="location.href='insertTodoView.do'"  -->
 								<i class="fa fa-plus-square"></i> 추가하기 
 							</button>
-							<button type="button" id="deleteTodo"  onclick="deleteTodo();" class="btn btn-danger">
+							<button type="button" id="deleteTodo"  onclick="deleteTodo();" class="btn btn-danger" style="font-size: 1.2rem;">
 								<i class="far fa-trash-alt"></i> 삭제하기
 							</button>
 						</div>
 						
-						
-						
 					</div>
+					
+					<!-- 프로젝트 추가 MODAL -->
+			        <div class="" tabindex="-1" role="dialog" id="insertTodoModal" class="show" style="display:none;">
+			     	 
+			     	   <%-- <input type="hidden" id="tdBoardNo" value="${ allTodo.tdBoardNo }"> --%>
+					   <input type="hidden" name="empId" value="${ loginUser.empId }">
+			            
+			            <div class="" role="document">
+			                <div class="">
+			                
+			                    <div class="">
+									<br>
+									
+			                        <div class="row">
+			                            <div class="col-xs-12">
+			                                <label class="col-xs-4" for="edit-title"><b>My TO-DO</b></label>
+			                                <input class="inputModal" type="text" id="edit-title"
+			                                    name="todoName" required="required">
+			                            </div>
+			                        </div>
+			                        
+			                        <hr>
+			                        <div class="row">
+			                            <div class="col-xs-12">
+			                                <label class="col-xs-4" for="edit-desc" style="width:100px;"><b>내용(선택사항)</b></label><br>
+			                                <textarea rows="4" cols="50" class="inputModal" name="todoContent"
+			                                    id="todoContent" style="resize:none;"></textarea>
+			                            </div>
+			                        </div>
+			                    </div>
+			                    <hr>
+			                    <div class="modalBtnContainer-modifyEvent" style="text-align:right; padding-right:10px;">
+			                        <button type="button" class="btn btn-primary" id="saveEvent">저장</button>
+			                        <button type="button" id="btn-default" class="btn btn-default">닫기</button>
+			                    </div>
+			                </div><!-- /.modal-content -->
+			            </div><!-- /.modal-dialog -->
+			        </div><!-- /.modal -->
 						
 					
 					<div class="statusContentWrap" style="padding:0 10px 0 30px">
 	
 						<div class="ongoingTD">
 						
-							<button class="large ui button btn-lg" onclick="location.href='ongoingTodoView.do'" style="margin:0 0 10px 0; background-color:#5bc0de; color:white; font-size: 1.5rem;">
+							<button class="large ui button btn-lg" onclick="location.href='ongoingTodoView.do'" style="margin:0 0 10px 0; background-color:#5bc0de; color:white; font-size: 1.2rem;">
 								<i class="fas fa-tasks"></i> &nbsp;진행중
 							</button>
 							
@@ -249,7 +306,7 @@
 						</div>
 						
 						<div class="waitingTD">
-							<button class="large ui button btn-lg" onclick="location.href='waitingTodoView.do'" style="margin:0 0 10px 0; background-color:#5cb85c; color:white; font-size: 1.5rem;">
+							<button class="large ui button btn-lg" onclick="location.href='waitingTodoView.do'" style="margin:0 0 10px 0; background-color:#5cb85c; color:white; font-size: 1.2rem;">
 							  	<i class="fas fa-spinner"></i> &nbsp;대기
 							</button>
 							<table id="yourTable3" class="table table-bordered" style="border:none;">
@@ -290,7 +347,7 @@
 						</div>
 						
 						<div class="completionTD">
-							<button class="large ui button btn-lg" onclick="location.href='completionTodoView.do'" style="margin:0 0 10px 0; background-color:#f0ad4e; color:white; font-size: 1.5rem;">
+							<button class="large ui button btn-lg" onclick="location.href='completionTodoView.do'" style="margin:0 0 10px 0; background-color:#f0ad4e; color:white; font-size: 1.2rem;">
 							 	<i class="fas fa-check"></i> &nbsp;완료
 							</button>
 							<table id="yourTable4" class="table table-bordered" style="border:none;">
@@ -442,7 +499,71 @@
 		};
 		
 		
+		/* 업무 추가 모달 */
+		// 모달창 생성
+		$(document).on('click','#insertTodo',function(){
+			$('#insertTodoModal').dialog({
+	   		  title: '새 TO-DO',
+	  	      modal: true,
+	  	      width: '600'
+	  		});
+			
+			$("#deleteEvent").css('display','none');
+			
+		});
 		
+		// 모달창 닫기
+		$(function() {
+		    $("#btn-default").on('click', function() {
+		        $("#insertTodoModal").dialog("close");
+		    });
+		});
+		
+		
+		// 프로젝트 추가 인설트 - 저장 버튼
+		$(document).on('click', '#saveEvent', function(){
+
+			 var todoNo = $("#todoNo").val();
+			 var tdBoardNo = $("#tdBoardNo").val();
+			 var todoName = $("input[name=todoName]").val();
+			 var todoContent = $("#todoContent").val();
+			 
+			 $.ajax({
+			
+				url:"insertTodo.do",
+				type:"POST",
+				data:{
+					  todoNo:todoNo,
+					  tdBoardNo:tdBoardNo,
+					  todoName:todoName,
+					  todoContent:todoContent,
+					  empId:'${loginUser.empId}'
+				},
+				success:function(data){
+					if(data == 'success'){
+					
+						$("#todoNo").val("");
+						$("#tdBoardNo").val("");
+						$("input[name=todoName]").val("");
+						$("#todoContent").val("");
+						
+						$("#insertProjectModal").dialog("close");
+						location.reload();
+						
+					}else{
+						console.log(todoNo);
+						console.log(tdBoardNo);
+						console.log(todoName);
+						alertify.alert("delveloffice", "확인");
+						location.reload();
+					}
+				},
+				error:function(){
+					alertify.alert("develoffice", "통신실패");
+				}
+			 });
+		});
+	
 		
 		
 		

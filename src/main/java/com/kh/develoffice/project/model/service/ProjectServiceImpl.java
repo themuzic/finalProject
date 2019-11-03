@@ -85,6 +85,18 @@ public class ProjectServiceImpl implements ProjectService{
 	public ProjectTask taskDetail(int taskNo) {
 		return pDao.taskDetail(taskNo);
 	}
+	
+	// taks 수정
+	@Override
+	public int updateTask(ProjectTask p) {
+		return pDao.updateTask(p);
+	}
+	
+	// task 삭제
+	@Override
+	public int deleteTask(int taskNo) {
+		return pDao.deleteTask(taskNo);
+	}
 
 	// task에 딸려있는 댓글 리스트 조회
 	@Override
@@ -109,6 +121,10 @@ public class ProjectServiceImpl implements ProjectService{
 	public int rdelete(ProjectReply r) {
 		return pDao.rdelete(r);
 	}
+
+	
+
+	
 
 	
 

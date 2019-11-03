@@ -43,28 +43,34 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
-					
-					<!-- <div class="boardTitle-dropdown" style="width:20%;">
-						<select class="form-control input-sm">
-							<option value="cheese">Cheese</option>
-							<option value="tomatoes">Tomatoes</option>
-							<option value="mozarella">Mozzarella</option>
-							<option value="mushrooms">Mushrooms</option>
-							<option value="pepperoni">Pepperoni</option>
-							<option value="onions">Onions</option>
-						</select>
-					
-					</div> -->
-					
-					<br><br>
+					<div class="ui huge three steps" style="margin:0 0 30px 0;">
+					  <div class="disabled step">
+					    <i class="lnr lnr-inbox"></i>
+					    <div class="content">
+					      <div class="title">&nbsp;일감관리</div>
+					    </div>
+					  </div>
+					  <div class="disabled step">
+					    <i class="fas fa-th-list"></i>
+					    <div class="content">
+					      <div class="title">&nbsp;TO-DO</div>
+					    </div>
+					  </div>
+					  <div class="active step">
+					    <i class="fas fa-info-circle"></i>
+					    <div class="content">
+					      <div class="title"><span style="color:black">&nbsp;My To-Do</span></div>
+					    </div>
+					  </div>
+					</div>
 					
 					<form action="updateTodo.do">
 					
 					<div class="detail-todo">
 					
-						<h2 style="color:#3287B2; font-weight:bold;">
-							<i class="fas fa-envelope-open-text"></i> &nbsp;TO-DO
-						</h2> 
+						<h4 style="color:#3287B2; font-weight:bold;">
+							<i class="fas fa-envelope-open-text"></i> &nbsp;My TO-DO
+						</h4> 
 						<br>
 						
 						
@@ -77,16 +83,15 @@
 						<input type="hidden" name="tdBoardNo" value="${ todoDetail.tdBoardNo }">
 						
 						
-						<h3 style="color:#3287B2; font-weight:bold;">
-							<i class="fas fa-file-alt"></i> &nbsp;contents
-						</h3>
+						<h4 style="color:#3287B2; font-weight:bold;">
+							<i class="fas fa-file-alt"></i> &nbsp;내용
+						</h4>
 						<br>
 						<textarea class="form-control" name="todoContent" placeholder="textarea" rows="20">${ todoDetail.todoContent }</textarea>
 						<br>
-						<h5 style="color:#3287B2; font-weight:bold;">
-							<i class="fas fa-envelope-open-text"></i> &nbsp;${ todoDetail.todoStatus }
+						<h5 style="color:#3287B2; font-weight:bold; padding:0 0 5px 0;">
+							<i class="fas fa-envelope-open-text"></i> &nbsp;상태 선택
 						</h5> 
-						<br>
 						
 						<div class="boardTitle-dropdown" style="width:20%;">
 							<select class="form-control input-sm" name="todoStatus">
