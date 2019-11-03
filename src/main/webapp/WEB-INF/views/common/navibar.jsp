@@ -596,6 +596,12 @@
 						<li>
 							<a href="orgChart.do" class="" id="menu7"><i class="far fa-address-book"></i> <span>조직도</span> <i class="icon-submenu lnr lnr-chevron-left fr" style="font-size:12px;"></i></a>
 						</li>
+						
+						<c:if test="${loginUser.deptCode == '3' }">
+							<li>
+								<a href="insaUpdateForm.do" class="" id="menu8"><i class="far fa-id-card"></i> <span>인사관리</span> <i class="icon-submenu lnr lnr-chevron-left fr" style="font-size:12px;"></i></a>
+							</li>
+						</c:if>
 
 					</ul>
 				</nav>
