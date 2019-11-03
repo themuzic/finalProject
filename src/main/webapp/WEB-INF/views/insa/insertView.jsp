@@ -155,7 +155,7 @@
 		            		alertify.alert("develoffice","fail");
 		            	}else{
 		            		alertify.alert("develoffice",empName + "님의 사번은 " + data +" 입니다.", function(){
-		            			location.href = "mainPage.do";
+		            			location.href = "mainPage.do?empId=${loginUser.empId}";
 		            		});
 		            	}
 		            },
@@ -171,7 +171,16 @@
 			location.href = "mainPage.do?empId=${loginUser.empId}";
 		});
 
-	
+		
+		$(function(){
+			/* 사이드바의 해당 메뉴 활성화 유지하기 */
+			$("#menu8_1").removeClass("collapsed");
+			$("#menu8").addClass("in");
+			$("#menu8").attr('aria-expanded',true);
+			$("#menu8_1").addClass("active");
+			$("#menu8_1").attr('aria-expanded',true);
+			$("#m8_1").addClass("active");
+		});
 	
 	
 	</script>

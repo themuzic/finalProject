@@ -427,8 +427,10 @@
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<a id="messenger" onclick="messenger();">Talk&nbsp;<i class="fas fa-comment-dots" style="position:relative;top:-10px;"></i></a>
+							<a id="messenger" onclick="messenger();" style="font-size:15px;font-weight:bold;">Develoffice Talk&nbsp;<i class="fas fa-comment-dots" style="position:relative;top:-10px;"></i></a>
 						</li>
+						
+						<!-- 
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
 								<i class="lnr lnr-alarm"></i>
@@ -443,6 +445,8 @@
 								<li><a href="#" class="more">See all notifications</a></li>
 							</ul>
 						</li>
+						 -->
+						
 						<!-- 
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="lnr lnr-question-circle"></i> <span>Help</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
@@ -599,7 +603,13 @@
 						
 						<c:if test="${loginUser.deptCode == '3' }">
 							<li>
-								<a href="insaUpdateForm.do" class="" id="menu8"><i class="far fa-id-card"></i> <span>인사관리</span> <i class="icon-submenu lnr lnr-chevron-left fr" style="font-size:12px;"></i></a>
+								<a href="#menu8" data-toggle="collapse" class="collapsed menu" id="menu8_1"><i class="far fa-id-card"></i> <span>인사관리</span> <i class="icon-submenu lnr lnr-chevron-left fr" style="font-size:12px;"></i></a>
+								<div id="menu8" class="collapse ">
+								<ul class="nav">
+									<li><a href="insaInsertForm.do" class="" id="m8_1">신규입사</a></li>
+									<li><a href="insaUpdateForm.do" class="" id="m8_2">인사이동</a></li>
+								</ul>
+							</div>
 							</li>
 						</c:if>
 

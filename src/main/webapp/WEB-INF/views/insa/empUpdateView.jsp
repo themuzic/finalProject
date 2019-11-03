@@ -171,6 +171,15 @@
 	<!-- script 작성 -->
 	<script>
 		$(function() {
+			
+			/* 사이드바의 해당 메뉴 활성화 유지하기 */
+			$("#menu8_1").removeClass("collapsed");
+			$("#menu8").addClass("in");
+			$("#menu8").attr('aria-expanded',true);
+			$("#menu8_1").addClass("active");
+			$("#menu8_1").attr('aria-expanded',true);
+			$("#m8_2").addClass("active");
+			
 			/* 결재선 창 기능 시작 */
 			
 			/* 제일 왼쪽 div에 모든 부서명 출력 */
