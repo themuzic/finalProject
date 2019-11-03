@@ -103,7 +103,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 						
 						<div style="padding-bottom:15px;">
 							<span style="padding-right:20px;"><a href="javascript:void(0);" onclick="insertDocument();"><b>기안하기</b></a></span>
-							<span><a href="javascript:void(0);"><b>임시저장</b></a></span>
+							<!-- <span><a href="javascript:void(0);"><b>임시저장</b></a></span> -->
 						</div>
 						
 						<!--------------------------------------------------------------------------------->
@@ -1620,12 +1620,12 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			var $h6 = $('<input type="hidden" name="brief">').val($("#inputBrief").val());
 			$td6.append($h6);
 			
-			var $td7 = $('<td>');
-			var $btn1 = $('<button type="button" name="button" class="weakblue" onclick="">').text('수정');
-			var $span = $('<span class="weakgray">').text(' | ');
+			var $td7 = $('<td style="text-align:center;">');
+			//var $btn1 = $('<button type="button" name="button" class="weakblue" onclick="">').text('수정');
+			//var $span = $('<span class="weakgray">').text(' | ');
 			var $btn2 = $('<button type="button" name="button" class="weakblue" onclick="removeRow(this);">').text('삭제');
-			$td7.append($btn1);
-			$td7.append($span);
+			//$td7.append($btn1);
+			//$td7.append($span);
 			$td7.append($btn2);
 			
 			$tr.append($td1);
@@ -1980,6 +1980,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				
 				/* 사용일 */
 				var useDay = $('#useDay').text();
+				formData.append('useDay',useDay);
 				
 				/* 휴가 종류 */
 				var vacationName = $('select[name=vacationName] option:selected').val();

@@ -260,33 +260,13 @@ input[type=text]{
 								<!-- TABBED CONTENT -->
 								<div class="custom-tabs-line tabs-line-bottom left-aligned">
 									<ul class="nav" role="tablist">
-										<li class="active"><a href="#tab-bottom-left1" role="tab" data-toggle="tab">Recent Activity</a></li>
-										<li><a href="#tab-bottom-left2" role="tab" data-toggle="tab">Projects <span class="badge">${ countProject }</span></a></li>
+										<li class="active"><a href="#tab-bottom-left1" role="tab" data-toggle="tab">참여 프로젝트 <span class="badge">${ countProject }</span></a></li>
+										<li><a href="#tab-bottom-left2" role="tab" data-toggle="tab">자기개발 지원</a></li>
 									</ul>
 								</div>
 								<div class="tab-content">
+									
 									<div class="tab-pane fade in active" id="tab-bottom-left1">
-										<ul class="list-unstyled activity-timeline">
-											<li>
-												<i class="fa fa-comment activity-icon"></i>
-												<p>Commented on post <a href="#">Prototyping</a> <span class="timestamp">2 minutes ago</span></p>
-											</li>
-											<li>
-												<i class="fa fa-cloud-upload activity-icon"></i>
-												<p>Uploaded new file <a href="#">Proposal.docx</a> to project <a href="#">New Year Campaign</a> <span class="timestamp">7 hours ago</span></p>
-											</li>
-											<li>
-												<i class="fa fa-plus activity-icon"></i>
-												<p>Added <a href="#">Martin</a> and <a href="#">3 others colleagues</a> to project repository <span class="timestamp">Yesterday</span></p>
-											</li>
-											<li>
-												<i class="fa fa-check activity-icon"></i>
-												<p>Finished 80% of all <a href="#">assigned tasks</a> <span class="timestamp">1 day ago</span></p>
-											</li>
-										</ul>
-										<div class="margin-top-30 text-center"><a href="#" class="btn btn-default">See all activity</a></div>
-									</div>
-									<div class="tab-pane fade" id="tab-bottom-left2">
 										<div class="table-responsive">
 											<table class="table project-table">
 												<thead>
@@ -335,6 +315,24 @@ input[type=text]{
 											</table>
 										</div>
 									</div>
+									
+									<div class="tab-pane fade" id="tab-bottom-left2">
+										<ul class="list-unstyled activity-timeline">
+											<li>
+												<i class="fas fa-chalkboard-teacher activity-icon"></i>
+												<p>각종 동영상 강의는 <a href="#">CLASS247</a></p>
+											</li>
+											<li>
+												<i class="fas fa-plane-departure activity-icon"></i>
+												<p>여유로운 제주에서의 휴식은 <a href="#">제주에 어서 와보람</a></p>
+											</li>
+											<li>
+												<i class="fas fa-heart activity-icon"></i>
+												<p>사내든 어디서든 연애할 땐 <a href="#">사잇길</a></p>
+											</li>
+										</ul>
+									</div>
+									
 								</div>
 								<!-- END TABBED CONTENT -->
 							</div>

@@ -333,7 +333,7 @@ public class DocumentController {
 		System.out.println("uploadFile.size() : "+uploadFile.size());
 		System.out.println("uploadFile.getOriginalFilename() : "+uploadFile);
 		
-		if(uploadFile!=null && !uploadFile.get(0).getOriginalFilename().equals("")) {	// 첨부파일이 넘어온 경우
+		if(uploadFile.size() > 0) {	// 첨부파일이 넘어온 경우
 			docu.setFileStatus("Y");
 		} else {
 			docu.setFileStatus("N");

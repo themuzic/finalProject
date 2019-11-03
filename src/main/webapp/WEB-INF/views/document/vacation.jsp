@@ -102,10 +102,10 @@
 												<th scope="row">문서 번호</th>
 												<c:choose>
 													<c:when test="${document.docuNum lt '10'}">
-														<td>품의-${document.docuCode}-000${document.docuNum}</td>
+														<td>휴가-${document.docuCode}-000${document.docuNum}</td>
 													</c:when>
 													<c:when test="${document.docuNum gt '9'}">
-														<td>품의-${document.docuCode}-00${document.docuNum}</td>
+														<td>휴가-${document.docuCode}-00${document.docuNum}</td>
 													</c:when>
 												</c:choose>
 											</tr>
