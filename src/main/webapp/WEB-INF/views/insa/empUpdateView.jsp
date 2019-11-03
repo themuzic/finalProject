@@ -16,7 +16,6 @@
 .contentWrap {
 	float: left;
 	width: 62%;
-	background: white;
 	padding-top: 30px;
 	padding-bottom: 10px;
 	padding-left: 50px;
@@ -29,9 +28,7 @@
 	bottom:auto;
 	border:0px;
 }
-body{
-	overflow: hidden;
-}
+
 </style>
 
 
@@ -54,7 +51,7 @@ body{
 
 							<div class="layer_box large address line "
 								id="div_approval_view_one"
-								style="display: block; width: 770px; position:relative;border:0px; left:0;">
+								style="display: block; z-index:1; width: 770px; position:relative;border:0px; left:0;">
 								<div class="title_layer text_variables" id="titleApprovalLineSetting" style="padding-bottom:0;">인사이동</div>
 								<div class="after line-list-wrap">
 									<div class="fl">
