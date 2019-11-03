@@ -40,6 +40,7 @@
 		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectMember" alias="ProjectMember"/>
 		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectTask" alias="ProjectTask"/>
 		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectReply" alias="ProjectReply"/>
+		<typeAlias type="com.kh.develoffice.common.Job" alias="Job"/>
 		
 	</typeAliases>
 	
@@ -56,6 +57,7 @@
 		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/project-mapper.xml"/>
 		<mapper resource="mappers/teamBoard-mapper.xml"/>
+		<mapper resource="mappers/insa-mapper.xml"/>
 	</mappers>
 
 </configuration>
