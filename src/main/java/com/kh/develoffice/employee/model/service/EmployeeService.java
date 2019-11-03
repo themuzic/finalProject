@@ -55,5 +55,8 @@ public interface EmployeeService {
 
 	// 사직서 결제되면 퇴사예정일 업데이트
 	int updateRetireDate(Employee emp);
+
+	// 위젯 insert
+	int insertWidget(Widget w);
 	
 }

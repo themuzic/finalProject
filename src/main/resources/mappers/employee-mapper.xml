@@ -141,6 +141,11 @@
 		where emp_id=#{empId}
 	</update>
 
+	<insert id="insertWidget" parameterType="Widget">
+		insert into widget
+		values(#{widgetType},#{empId},#{left},#{top},'N','Y')
+	</insert>
+
 
 
 </mapper>
