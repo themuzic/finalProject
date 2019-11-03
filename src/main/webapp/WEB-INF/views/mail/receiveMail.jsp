@@ -106,7 +106,8 @@ if (request.getProtocol().equals("HTTP/1.1"))
 							<form action="search2.do">
 								<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray">
 								    <option>------</option>
-								    <option value="writer">이메일</option>
+								    <option value="writer">보낸사람</option>
+								    <option value="receiver">받은사람</option>
 								    <option value="title">제목</option>
 								    <option value="content">내용</option>
 								</select>
@@ -125,7 +126,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		       function validate(){
 		           if($("option:selected").val() == "------"){
 // 		              alert("검색 조건을 체크해주세요");
-		              alertify.alert("", "검색 조건을 체크해주세요");
+		              alertify.alert("develoffice", "검색 조건을 체크해주세요");
 		           return false;
 		           }
 		        }
@@ -213,7 +214,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				<c:if test="${ !empty m }">
 					<c:url var="mlistBack" value="search2.do">
 						<c:param name="currentPage" value="${ pi.currentPage-1 }"/>
-						<c:param name="condition" value="${ condition }"/>
+<%-- 						<c:param name="condition" value="${ condition }"/> --%>
 						<c:param name="search" value="${ search }"/>
 						<c:param name="mailFrom" value="${ m.mailFrom }"/>
 						<c:param name="mailTo" value="${ m.mailTo }"/>
@@ -236,7 +237,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	               <c:if test="${ !empty m }"> <!-- 검색결과 있으면 -->
 	                  <c:url var="mlistPage" value="search2.do">
 	                     <c:param name="currentPage" value="${ p }"/>
-	                     <c:param name="condition" value="${ condition }"/>
+<%-- 	                     <c:param name="condition" value="${ condition }"/> --%>
 	                     <c:param name="search" value="${ search }"/>
 	                     <c:param name="mailFrom" value="${ m.mailFrom }"/>
 						 <c:param name="mailTo" value="${ m.mailTo }"/>
@@ -259,7 +260,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				<c:if test="${ !empty m }">
 					<c:url var="mlistNext" value="search2.do">
 						<c:param name="currentPage" value="${ pi.currentPage+1 }"/>
-						<c:param name="condition" value="${ condition }"/>
+<%-- 						<c:param name="condition" value="${ condition }"/> --%>
 						<c:param name="search" value="${ search }"/>
 						<c:param name="mailFrom" value="${ m.mailFrom }"/>
 						<c:param name="mailTo" value="${ m.mailTo }"/>
@@ -341,12 +342,12 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					$("#lookAll").addClass("hide");
 			});
 			
-			/* 전체 체크 할때 삭제 버튼 보이고 숨기기 */
-			$(document).on('click','.chkBox',function(){
+			/* 체크 할때 삭제 버튼 보이고 숨기기 */
+			$(document).on('change','.chkBox',function(){
 				
-				console.log($(".chkBox").prop("checked"));
+				console.log($(this).prop("checked"));
 				
-				if($(".chkBox").prop("checked") == false) {
+				if($(this).prop("checked") == false) {
  					$('#delBtn').removeClass('show');
  				} else{
  					$('#delBtn').addClass('show');

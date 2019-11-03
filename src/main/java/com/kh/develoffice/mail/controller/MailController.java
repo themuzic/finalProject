@@ -63,11 +63,11 @@ public class MailController {
 		
 		// 게시글 총 개수
 		int listCount = mService.getListCount(m);
-		
+		System.out.println(listCount);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Mail> list = mService.receiveMailList(pi, m);
-		
+		System.out.println(pi);
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/receiveMail");
 		
 		return mv;
@@ -87,11 +87,11 @@ public class MailController {
 		
 		// 게시글 총 개수
 		int listCount = mService.getListCount(m);
-		
+//		System.out.println(listCount);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
+		System.out.println(pi);
 		ArrayList<Mail> list = mService.sendMailList(pi, m);
-		
+//		System.out.println(pi);
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/sendMail");
 		
 		return mv;
@@ -115,7 +115,7 @@ public class MailController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Mail> list = mService.deleteMailList(pi, e);
-		
+		System.out.println(pi);
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/deleteMail");
 		
 		return mv;
@@ -139,7 +139,7 @@ public class MailController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Mail> list = mService.importantMailList(pi, e);
-		
+		System.out.println(pi);
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/importantMail");
 		
 		return mv;
@@ -189,6 +189,37 @@ public class MailController {
 	@RequestMapping("replyMail.do")
 	public ModelAndView replyMail(ModelAndView mv, Mail m) {
 		
+		ArrayList<Department> deptList = dService.selectDept();
+		ArrayList<Employee> empList = eService.selectAllEmp();
+		
+		JSONArray deptArr = new JSONArray();
+		JSONArray empArr = new JSONArray();
+
+		for(Department d : deptList) {
+			JSONObject jObj = new JSONObject();
+			jObj.put("deptCode", d.getDeptCode());
+			jObj.put("deptName", d.getDeptName());
+			jObj.put("count", d.getCount());
+			
+			deptArr.add(jObj);
+		}
+		
+		for(Employee e : empList) {
+			JSONObject jObj = new JSONObject();
+			jObj.put("empId", e.getEmpId());
+			jObj.put("empName", e.getEmpName());
+			jObj.put("deptCode", e.getDeptCode());
+			jObj.put("deptName", e.getDeptName());
+			jObj.put("jobCode", e.getJobCode());
+			jObj.put("jobName", e.getJobName());
+			jObj.put("account", e.getAccount());
+			jObj.put("email", e.getEmail());
+			
+			empArr.add(jObj);
+		}
+		mv.addObject("empList", empArr);
+		mv.addObject("deptList", deptArr);
+		mv.addObject("deptSize", deptArr.size());
 		mv.addObject("m", m).setViewName("mail/insertMail");
 		
 		return mv;
@@ -198,6 +229,37 @@ public class MailController {
 	@RequestMapping("allReplyMail.do")
 	public ModelAndView allReplyMail(ModelAndView mv, Mail m) {
 		
+		ArrayList<Department> deptList = dService.selectDept();
+		ArrayList<Employee> empList = eService.selectAllEmp();
+		
+		JSONArray deptArr = new JSONArray();
+		JSONArray empArr = new JSONArray();
+
+		for(Department d : deptList) {
+			JSONObject jObj = new JSONObject();
+			jObj.put("deptCode", d.getDeptCode());
+			jObj.put("deptName", d.getDeptName());
+			jObj.put("count", d.getCount());
+			
+			deptArr.add(jObj);
+		}
+		
+		for(Employee e : empList) {
+			JSONObject jObj = new JSONObject();
+			jObj.put("empId", e.getEmpId());
+			jObj.put("empName", e.getEmpName());
+			jObj.put("deptCode", e.getDeptCode());
+			jObj.put("deptName", e.getDeptName());
+			jObj.put("jobCode", e.getJobCode());
+			jObj.put("jobName", e.getJobName());
+			jObj.put("account", e.getAccount());
+			jObj.put("email", e.getEmail());
+			
+			empArr.add(jObj);
+		}
+		mv.addObject("empList", empArr);
+		mv.addObject("deptList", deptArr);
+		mv.addObject("deptSize", deptArr.size());
 		mv.addObject("m", m).setViewName("mail/insertMail");
 		
 		return mv;
@@ -374,6 +436,8 @@ public class MailController {
 			m.setWriter(search);
 		}else if(condition.equals("title")) {
 			m.setTitle(search);
+		}else if(condition.equals("receiver")) {
+			m.setReceiver(search);
 		}else {
 			m.setContent(search);
 		}
@@ -410,6 +474,8 @@ public class MailController {
 			m.setWriter(search);
 		}else if(condition.equals("title")) {
 			m.setTitle(search);
+		}else if(condition.equals("receiver")) {
+			m.setReceiver(search);
 		}else {
 			m.setContent(search);
 		}
@@ -446,6 +512,8 @@ public class MailController {
 			m.setWriter(search);
 		}else if(condition.equals("title")) {
 			m.setTitle(search);
+		}else if(condition.equals("receiver")) {
+			m.setReceiver(search);
 		}else {
 			m.setContent(search);
 		}
@@ -482,6 +550,8 @@ public class MailController {
 			m.setWriter(search);
 		}else if(condition.equals("title")) {
 			m.setTitle(search);
+		}else if(condition.equals("receiver")) {
+			m.setReceiver(search);
 		}else {
 			m.setContent(search);
 		}

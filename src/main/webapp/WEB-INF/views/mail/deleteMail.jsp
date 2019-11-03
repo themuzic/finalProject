@@ -93,7 +93,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					  <div id='chkMenu' class="chkMenu" name="chkMenu" style="font-size:15px; display:block; height: 20px;">
 				        	<div id="delBtn" class="hide" style="padding-top:10px;">
 					            <span class="detail_select delBtn" id="m_list_checked_menu_delete" style="margin-left:5px;">
-									<a href="javascript:void(0)" onclick="deleteM();">삭제</a>&nbsp;&nbsp;
+									<a href="javascript:void(0)" onclick="restore();">복구</a>&nbsp;&nbsp;
 					            </span>
 					            <span class="detail_select delBtn">
 					                <a href="javascript:void(0)" onclick="deleteAll();">완전삭제</a>&nbsp;&nbsp;
@@ -103,10 +103,11 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					</td>
 					<td style="text-align:right;border:0;padding-right:5px;">
 						 <div id="searchArea" align="right" class="fr">
-							<form action="search2.do">
+							<form action="search3.do">
 								<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray">
 								    <option>------</option>
-								    <option value="writer">이메일</option>
+								    <option value="writer">보낸사람</option>
+								    <option value="receiver">받은사람</option>
 								    <option value="title">제목</option>
 								    <option value="content">내용</option>
 								</select>
@@ -125,7 +126,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		       function validate(){
 		           if($("option:selected").val() == "------"){
 // 		              alert("검색 조건을 체크해주세요");
-		              alertify.alert("", "검색 조건을 체크해주세요");
+		              alertify.alert("develoffice", "검색 조건을 체크해주세요");
 		           return false;
 		           }
 		        }
@@ -160,7 +161,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 							<input type="hidden" value="${ m.mailNum }">
 							<input type="checkbox" class="check chkBox" name="check" value="${ m.mailNum }">
 						</td>
-						<td class="mFrom">${ loginUser.email }</td>
+						<td class="mFrom">${ m.mailFrom }</td>
 						<td class="mTo">${ m.mailTo }</td>
 						<td class="mTitle">
 							<c:if test="${ empty loginUser }">
@@ -327,12 +328,12 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					$("#lookAll").addClass("hide");
 			});
 			
-			/* 전체 체크 할때 삭제 버튼 보이고 숨기기 */
-			$(document).on('click','.chkBox',function(){
+			/* 체크 할때 삭제 버튼 보이고 숨기기 */
+			$(document).on('change','.chkBox',function(){
 				
-				console.log($(".chkBox").prop("checked"));
+				console.log($(this).prop("checked"));
 				
-				if($(".chkBox").prop("checked") == false) {
+				if($(this).prop("checked") == false) {
  					$('#delBtn').removeClass('show');
  				} else{
  					$('#delBtn').addClass('show');
