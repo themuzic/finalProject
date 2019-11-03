@@ -108,7 +108,7 @@
 			                        <hr>
 			                        <div class="row">
 			                            <div class="col-xs-12">
-			                                <label class="col-xs-4" for="edit-desc" style="width:100px;"><b>프로젝트 내용(선택사항)</b></label><br>
+			                                <label class="col-xs-4" for="edit-desc" style="width:200px;"><b>프로젝트 내용(선택사항)</b></label><br><br>
 			                                <textarea rows="4" cols="50" class="inputModal" name="pContent"
 			                                    id="pContent" style="resize:none;"></textarea>
 			                            </div>

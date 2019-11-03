@@ -240,7 +240,7 @@
 			                        <hr>
 			                        <div class="row">
 			                            <div class="col-xs-12">
-			                                <label class="col-xs-4" for="edit-desc" style="width:100px;"><b>내용(선택사항)</b></label><br>
+			                                <label class="col-xs-4" for="edit-desc" style="width:150px;"><b>내용(선택사항)</b></label><br>
 			                                <textarea rows="4" cols="50" class="inputModal" name="todoContent"
 			                                    id="todoContent" style="resize:none;"></textarea>
 			                            </div>
