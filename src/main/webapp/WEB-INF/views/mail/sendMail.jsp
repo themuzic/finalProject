@@ -103,10 +103,11 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					</td>
 					<td style="text-align:right;border:0;padding-right:5px;">
 						 <div id="searchArea" align="right" class="fr">
-							<form action="search2.do">
+							<form action="search.do">
 								<select id="searchCondition" name="condition" style="height:32px; border:1px solid lightgray">
 								    <option>------</option>
-								    <option value="writer">이메일</option>
+								     <option value="writer">보낸사람</option>
+								    <option value="receiver">받은사람</option>
 								    <option value="title">제목</option>
 								    <option value="content">내용</option>
 								</select>
@@ -125,7 +126,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		       function validate(){
 		           if($("option:selected").val() == "------"){
 // 		              alert("검색 조건을 체크해주세요");
-		              alertify.alert("", "검색 조건을 체크해주세요");
+		              alertify.alert("develoffice", "검색 조건을 체크해주세요");
 		           return false;
 		           }
 		        }
@@ -162,7 +163,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 							<td>
 								<input type="hidden" value="${ m.mailNum }">
 								<input type="hidden" value="${ m.mailCc }">
-								<input type="checkbox" name="check" class="check chkBox" value="${ m.mailNum }">
+								<input type="checkbox" name="check" class="chkBox check" value="${ m.mailNum }">
 							</td>
 							<td>
 								<div class="star">
@@ -343,12 +344,12 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					$("#lookAll").addClass("hide");
 			});
 			
-			/* 전체 체크 할때 삭제 버튼 보이고 숨기기 */
-			$(document).on('click','.chkBox',function(){
+			/* 체크 할때 삭제 버튼 보이고 숨기기 */
+			$(document).on('change','.chkBox',function(){
 				
 				console.log($(".chkBox").prop("checked"));
 				
-				if($(".chkBox").prop("checked") == false) {
+				if($(this).prop("checked") == false) {
  					$('#delBtn').removeClass('show');
  				} else{
  					$('#delBtn').addClass('show');
@@ -413,24 +414,24 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			var dd = $("input:checkbox[name=check]:checked");
 
 			$.each(dd, function(i, ck){
-				
 				var tr = ck.parentNode.parentNode;
 				
 				$.ajax({
 					url: "trash.do",
 					type: "POST",
-					data: {mailNum: ck.value,
-						   empId:"${loginUser.empId}"
+					data: {
+						mailNum: ck.value,
+						empId:"${loginUser.empId}"
 					},
 					success: function(data){
 						if(data == "success"){
 							tr.remove();
 						}else{
-							alertify.alert("", "삭제실패");
+							alertify.alert("develoffice", "삭제실패");
 						}
 					},
 					error: function(){
-						alertify.alert("", "통신실패");
+						alertify.alert("develoffice", "통신실패");
 					}
 				});
 			});
@@ -448,8 +449,9 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				$.ajax({
 					url: "deleteAll.do",
 					type: "POST",
-					data: {mailNum: ck.value,
-						   empId:"${loginUser.empId}"
+					data: {
+						mailNum: ck.value,
+						empId:"${loginUser.empId}"
 					},
 					success: function(data){
 						if(data == "success"){

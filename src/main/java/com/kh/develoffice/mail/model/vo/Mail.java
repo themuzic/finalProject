@@ -33,6 +33,7 @@ public class Mail {
 	private String status;
 	
 	private String writer;
+	private String receiver;
 	private String title;
 	private String content;
 	

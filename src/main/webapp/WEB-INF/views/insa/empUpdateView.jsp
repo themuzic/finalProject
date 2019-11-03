@@ -15,10 +15,10 @@
 <style>
 .contentWrap {
 	float: left;
-	width: 75%;
+	width: 62%;
 	background: white;
 	padding-top: 30px;
-	padding-bottom: 30px;
+	padding-bottom: 10px;
 	padding-left: 50px;
 	padding-right: 50px;
 	font-size: 14px;
@@ -28,6 +28,9 @@
 	top:auto;
 	bottom:auto;
 	border:0px;
+}
+body{
+	overflow: hidden;
 }
 </style>
 
@@ -52,8 +55,7 @@
 							<div class="layer_box large address line "
 								id="div_approval_view_one"
 								style="display: block; width: 770px; position:relative;border:0px; left:0;">
-								<div class="title_layer text_variables"
-									id="titleApprovalLineSetting">인사이동</div>
+								<div class="title_layer text_variables" id="titleApprovalLineSetting" style="padding-bottom:0;">인사이동</div>
 								<div class="after line-list-wrap">
 									<div class="fl">
 										<div class="after">
@@ -61,7 +63,7 @@
 												<a class="icon order" title="정렬"
 													id="anchorApprovalUserOrder" style="cursor: pointer;"></a>
 												<ul class="dropdown-menu hide" id="orderApprovalDropdown"
-													style="width: 70px; top: 124px; left: 314px;">
+													style="width: 70px; top: 80px;left: 315px;">
 													<li><a class="js-approval-node-order sortByName">이름순</a></li>
 													<li><a class="js-approval-node-order sortByJob">직급순</a></li>
 												</ul>
