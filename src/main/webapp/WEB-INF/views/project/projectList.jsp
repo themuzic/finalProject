@@ -10,6 +10,8 @@
 <title>DEVELOFFICE</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+<link rel="stylesheet" href="resources/semantic/step2.css">
+
 <style>
 	.contentWrap{
 		float:left;
@@ -21,10 +23,7 @@
 		padding-right:50px;
 		font-size:14px;
 	}
-	.top-nav{
-		margin-top:5px;
-		margin-bottom:25px;
-	}
+	
 	
 
 </style>
@@ -47,23 +46,36 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
-					<div class="top-nav">
+					<div class="ui huge three steps">
+					  <div class="step">
+					    <i class="lnr lnr-inbox"></i>
+					    <div class="content">
+					      <div class="title">&nbsp;일감관리</div>
+					    </div>
+					  </div>
+					  <div class="active step">
+					    <i class="fab fa-product-hunt"></i>
+					    <div class="content">
+					      <div class="title">&nbsp;<span style="color:black">프로젝트 관리</span></div>
+					    </div>
+					  </div>
+					  <div class="disabled step">
+					    <i class="fas fa-info-circle"></i>
+					    <div class="content">
+					      <div class="title">&nbsp;Project</div>
+					    </div>
+					  </div>
+					</div>
+					
+					<div class="top-nav" style="padding:10px 0 40px 0;">
+					
 						<table id="top-table">
 							<tr id="content-table">
-								<!-- <td>
-									<select class="form-control input-lg" style="width:40%;">
-										<option value="cheese">Final Project</option>
-										<option value="tomatoes">Semi Project</option>
-										<option value="mozarella">Mini Project</option>
-										<option value="mushrooms">Mushrooms</option>
-										<option value="pepperoni">Pepperoni</option>
-										<option value="onions">Onions</option>
-									</select>
-								</td> -->
+								
 								<td>
 									<div class="ui inverted segment">
 									  <button type="button" style="background-color:#3287B2; color:white; float:right;" 
-									  class="btn btn-lg" id="insertTdBoard" onclick="location.href='insertProjectForm.do'">
+									  class="btn " id="insertProject" ><!-- onclick="location.href='insertProjectForm.do'" -->
 									  	<i class="fas fa-plus-circle"></i> 새 프로젝트
 									  </button>
 									</div>
@@ -73,9 +85,47 @@
 					
 					</div>
 					
+					<!-- 프로젝트 추가 MODAL -->
+			        <div class="" tabindex="-1" role="dialog" id="insertProjectModal" class="show" style="display:none;">
+			     	 
+			     	   
+			            <div class="" role="document">
+			                <div class="">
+			                
+			                    <div class="">
+									<br>
+									<input type="hidden" id="pNo" name="pNo" value="">
+									<input type="hidden" name="empId" value="${ loginUser.empId }">
+					   				<input type="hidden" name="pmId" value="${ loginUser.empId }">
+			                        <div class="row">
+			                            <div class="col-xs-12">
+			                                <label class="col-xs-4" for="edit-title"><b>프로젝트</b></label>
+			                                <input class="inputModal" type="text" id="edit-title"
+			                                    name="pName" required="required">
+			                            </div>
+			                        </div>
+			                        
+			                        <hr>
+			                        <div class="row">
+			                            <div class="col-xs-12">
+			                                <label class="col-xs-4" for="edit-desc" style="width:100px;"><b>프로젝트 내용(선택사항)</b></label><br>
+			                                <textarea rows="4" cols="50" class="inputModal" name="pContent"
+			                                    id="pContent" style="resize:none;"></textarea>
+			                            </div>
+			                        </div>
+			                    </div>
+			                    <hr>
+			                    <div class="modalBtnContainer-modifyEvent" style="text-align:right; padding-right:10px;">
+			                        <button type="button" class="btn btn-primary" id="saveEvent">저장</button>
+			                        <button type="button" id="btn-default" class="btn btn-default">닫기</button>
+			                    </div>
+			                </div><!-- /.modal-content -->
+			            </div><!-- /.modal-dialog -->
+			        </div><!-- /.modal -->
+					
 					<div class="ui three cards" id="project-list">
 					
-						<div class="ui cards">
+						<div class="ui cards" >
 							<!-- 
 								1. 로그인한 유저 empid와 mlist의 empid가 같아야하고
 								2. 그 empid가 포함된 프로젝트만 보이게. 
@@ -85,10 +135,11 @@
 							<%-- <c:if test="${ loginUser.empId ne mlist.empId }">아직 참여 중인 프로젝트가 없습니다.</c:if>
 							<c:if test="${ loginUser.empId eq mlist.empId }"> --%>
 								<input type="hidden" name="empId" value="${ loginUser.empId }">
-								<input type="hidden" name="pNo" value="${ p.pNo }">
-								<div class="card">
+								<input type="hidden" id="pNo" name="pNo" value="${ p.pNo }">
+								<div class="card" style="margin:15px 15px 15px 15px;">
 							    <div class="content">
-							      <div class="header" style="padding:0 0 10px 0;">${ p.pName }</div>
+							      <div class="header" id="pName" style="padding:0 0 10px 0;">${ p.pName } </div>
+							      <input hidden="type" value="${ p.pContent }">
 							      <div class="meta" style="float:right; padding:0 0 10px 0;">
 							        <i class="fas fa-user-cog"></i>
 							        <span>
@@ -170,9 +221,69 @@
 			$("#m3_1").addClass("active");
 			
 			
+		});
+		
+		/* 업무 추가 모달 */
+		// 모달창 생성
+		$(document).on('click','#insertProject',function(){
+			$('#insertProjectModal').dialog({
+	   		  title: '새 프로젝트',
+	  	      modal: true,
+	  	      width: '600'
+	  		});
 			
+			$("#deleteEvent").css('display','none');
 			
+		});
+		
+		// 모달창 닫기
+		$(function() {
+		    $("#btn-default").on('click', function() {
+		        $("#insertProjectModal").dialog("close");
+		    });
+		});
+		
+		
+		// 프로젝트 추가 인설트 - 저장 버튼
+		$(document).on('click', '#saveEvent', function(){
+
+			 var pNo = $("#pNo").val();
+			 var pName = $("input[name=pName]").val();
+			 var pContent = $("#pContent").val();
+			 
+			 $.ajax({
 			
+				url:"insertProject.do",
+				type:"POST",
+				data:{
+					  pNo:pNo,
+					  pName:pName,
+					  pContent:pContent,
+					  pmId:'${loginUser.empId}',
+					  empId:'${loginUser.empId}'
+				},
+				success:function(data){
+					if(data == 'success'){
+					
+						$("#pNo").val("");
+						$("input[name=pName]").val("");
+						$("#pContent").val("");
+						
+						$("#insertProjectModal").dialog("close");
+						location.reload();
+						
+					}else{
+						console.log(pNo);
+						console.log(pName);
+						console.log(pContent);
+						alertify.alert("delveloffice", "확인");
+						location.reload();
+					}
+				},
+				error:function(){
+					alertify.alert("develoffice", "통신실패");
+				}
+			 });
 		});
 	
 	

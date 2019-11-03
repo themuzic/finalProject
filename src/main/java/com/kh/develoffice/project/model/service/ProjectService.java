@@ -43,6 +43,12 @@ public interface ProjectService {
 	// task 상세 조회
 	ProjectTask taskDetail(int taskNo);
 	
+	// task 수정
+	int updateTask(ProjectTask p);
+	
+	// task 삭제
+	int deleteTask(int taskNo);
+	
 	// task에 딸려있는 댓글 리스트 조회
 	ArrayList<ProjectReply> selectReplyList(int taskNo);
 	

@@ -87,6 +87,16 @@ public class ProjectDao {
 		return sqlSession.selectOne("projectMapper.taskDetail", taskNo);
 	}
 	
+	// task 수정
+	public int updateTask(ProjectTask p) {
+		return sqlSession.update("projectMapper.updateTask", p);
+	}
+	
+	// task 삭제
+	public int deleteTask(int taskNo) {
+		return sqlSession.update("projectMapper.deleteTask", taskNo);
+	}
+	
 	// task에 딸려있는 댓글 리스트 조회
 	public ArrayList<ProjectReply> selectReplyList(int taskNo){
 		return (ArrayList)sqlSession.selectList("projectMapper.selectReplyList", taskNo);

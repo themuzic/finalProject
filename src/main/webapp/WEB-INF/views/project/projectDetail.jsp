@@ -87,7 +87,7 @@
 <style>
 	.contentWrap{
 		float:left;
-		width:95%;
+		width:75%;
 		background: white;
 		padding-top:30px;
 		padding-bottom:30px;
@@ -158,17 +158,35 @@
 					<!-- 상단 네비로 업무 & 타임라인 "TaskWorld" 참고!! -->
 					
 					<!-- 상단 바 -->
-					<div class="top-navbar" align="center" style="margin:0 0 60px 0;">
-						<ul>
-							<li>
-								<span style="color:#3287B2; font-size:18px; font-weight:bold;">
-									<i class="far fa-hourglass"></i> OUR PROJECT <i class="fas fa-hourglass-half"></i>
-								</span>
-							</li>
-							<li onclick="location.href='#'"><i class="fas fa-tasks"></i>&nbsp;업무</li>
-							<li onclick="location.href='#'"><i class="fas fa-stream"></i>&nbsp;타임라인</li>
-						</ul>
+					<div class="top-navbar" align="center" style="margin:0 0 30px 0;">
+					
+						<div class="ui huge three steps">
+						  <div class="disabled step">
+						    <i class="lnr lnr-inbox"></i>
+						    <div class="content">
+						      <div class="title">&nbsp;일감관리</div>
+						    </div>
+						  </div>
+						  <div class="disabled step">
+						    <i class="fab fa-product-hunt"></i>
+						    <div class="content">
+						      <div class="title" style="font-color:black;'">&nbsp;프로젝트 관리</div>
+						    </div>
+						  </div>
+						  <div class="active step">
+						    <i class="fas fa-info-circle"></i>
+						    <div class="content">
+						      <div class="title">&nbsp;<span style="color:black;">Project</span></div>
+						    </div>
+						  </div>
+						</div>
+						
 					</div>
+					
+					<h2><span><i class="fab fa-product-hunt"></i>&nbsp;${ projectDetail.pName }</span></h2>
+					<br>
+					<h4><span>${ projectDetail.pContent }</span></h4>
+					<br>
 					
 					<input type="hidden" name="pNo" value="${ projectDetail.pNo }">
 					
@@ -208,7 +226,7 @@
 							<br>
 							
 							<!-- progress 수정 MODAL -->
-					        <div class="" tabindex="-1" role="dialog" id="updateProgressModal" class="show" style="width:300px; display:none;">
+					        <div class="" tabindex="-1" role="dialog" id="updateProgressModal" class="show" style="width:450px; height:600px; display:none;">
 					     	 
 					     	   <input type="hidden" id="pNo" value="${ projectDetail.pNo }">
 					     	   
@@ -220,13 +238,12 @@
 											
 					                        <div class="row">
 					                            <div class="col-xs-12">
-					                                <label class="col-xs-4" style="width:250px;" for="edit-title"><b>이번 프로젝트 % 완성되었나요?</b></label>
+					                                <label class="col-xs-4" style="width:250px;" for="edit-title"><b>이번 프로젝트 몇 % 완성되었나요?</b></label>
 					                                <input class="inputModal" type="number" id="edit-title"
 					                                    name="pProgress" required="required">
 					                            </div>
 					                        </div>
 					                        
-					                        <hr>
 					                        
 					                    </div>
 					                    <hr>
@@ -247,15 +264,15 @@
 										<c:forEach items="${ empList }" var="e">
 											<c:if test="${ e.empId eq m.empId }">
 											  <div class="item">
-											    <img class="ui avatar image" src="">
+											    
 											    <div class="content">
-											      <a class="header">${ e.empName }</a>
+											      <a class="header"><i class="far fa-id-badge"></i>&nbsp;${ e.empName }</a>
 											      <div class="description">
 											      	<c:if test="${ e.workStatus eq 'Y' }">
 											      		<b>${ e.empName }</b> 님은 지금 근무 중~
 											      	</c:if>
 											      	<c:if test="${ e.workStatus eq 'N' }">
-											      		출근X
+											      		<b>${ e.empName }</b> 님은 자리에 없습니다.
 											      	</c:if>
 											      </div>
 											    </div>
@@ -510,9 +527,8 @@
 								<colgroup>
 									<col style="width:5%;">
 									<col style="width:55%;">
-									<col style="width:7%;">
-									<col style="width:10%;">
-									<col style="width:13%;">
+									<col style="width:12%;">
+									<col style="width:18%;">
 								</colgroup>
 							
 						        <thead>
@@ -520,7 +536,7 @@
 						             	<th data-orderable="false" style="text-align:left;"><i><input type="checkbox" id="chkAll"></i></th>							      	
 								  		<th data-orderable="false" id="title" style="text-align:center;">업무</th>
 								  		<th data-orderable="false" id="writer" style="text-align:center;">작성자</th>
-							  			<th style="text-align:center;">조회수</th>
+							  			
 								  		<th data-orderable="false" style="text-align:center;"><i class="far fa-clock"></i>&nbsp;작성일</th>
 						    		</tr>
 						        </thead>
@@ -550,7 +566,7 @@
 						        				</c:if>
 						        			</c:forEach>
 						        		</td>
-						        		<td>${ t.taskCount }</td>
+						        		
 						        		<td>${ t.tCreateDate }</td>
 						        	
 						        	</tr>

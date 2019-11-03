@@ -70,51 +70,84 @@
 					<div class="contentWrap">
 					
 					<!-- 이 아래부터 내용 작성 -->
+					<div class="top-navbar" align="center" style="margin:0 0 30px 0;">
 					
-					<br><br>
+						<div class="ui huge three steps">
+						  <div class="disabled step">
+						    <i class="lnr lnr-inbox"></i>
+						    <div class="content">
+						      <div class="title">&nbsp;일감관리</div>
+						    </div>
+						  </div>
+						  <div class="disabled step">
+						    <i class="fab fa-product-hunt"></i>
+						    <div class="content">
+						      <div class="title" style="font-color:black;'">&nbsp;프로젝트 관리</div>
+						    </div>
+						  </div>
+						  <div class="active step">
+						    <i class="fas fa-info-circle"></i>
+						    <div class="content">
+						      <div class="title">&nbsp;<span style="color:black;">Project</span></div>
+						    </div>
+						  </div>
+						</div>
+						
+					</div>
 					
-					<form action="updateTodo.do">
+					
+					<form action="updateTask.do">
+					
+					<input type="hidden" name="empId" value="${ loginUser.empId }">
+					<input type="hidden" name="taskNo" value="${ taskDetail.taskNo }">
+					<input type="hidden" name="pNo" value="${ taskDetail.pNo }">
 					
 					<div class="detail-todo">
 					
-						<h2 style="color:#3287B2; font-weight:bold;">
-							<i class="fas fa-envelope-open-text"></i> &nbsp;TO-DO
-						</h2> 
+						<h4 style="color:#3287B2; font-weight:bold;">
+							<i class="fas fa-envelope-open-text"></i> &nbsp;업무
+						</h4> 
 						<br>
 						
-						
-						<input class="form-control input-lg" name="taskTitle" value="${ taskDetail.taskTitle }" type="text" readonly>
-							
-						<br><br>
-						
-						<input type="hidden" name="empId" value="${ loginUser.empId }">
-						<input type="hidden" name="taskNo" value="${ taskDetail.taskNo }">
-						
-						
-						<h3 style="color:#3287B2; font-weight:bold;">
-							<i class="fas fa-file-alt"></i> &nbsp;contents
-						</h3>
-						<br>
-						<textarea class="form-control" name="taskContent" placeholder="textarea" rows="20" readonly>${ taskDetail.taskContent }</textarea>
-						<br>
-						
-						
+						<c:if test="${ loginUser.empId eq taskDetail.taskWriter }">
+							<input type=hidden name="taskWriter" value="${ loginUser.empId }">
+							<input class="form-control" name="taskTitle" value="${ taskDetail.taskTitle }" type="text">
+						</c:if>
+						<c:if test="${ loginUser.empId ne taskDetail.taskWriter }">
+							<input class="form-control" name="taskTitle" value="${ taskDetail.taskTitle }" type="text" readonly>
+						</c:if>
 						<br><br>
 						
 						
-					<div class="btn-area" align="center">
-						<input type="hidden" name="empId" value="${ loginUser.empId }">
-						<input type="hidden" name="taskNo" value="${ taskDetail.taskNo }">
+						<h4 style="color:#3287B2; font-weight:bold;">
+							<i class="fas fa-file-alt"></i> &nbsp;상세사항
+						</h4>
+						<br>
+						<c:if test="${ loginUser.empId eq taskDetail.taskWriter }">
+							<textarea class="form-control" name="taskContent" placeholder="" rows="20">${ taskDetail.taskContent }</textarea>
+						</c:if>
+						<c:if test="${ loginUser.empId ne taskDetail.taskWriter }">
+							<textarea class="form-control" name="taskContent" placeholder="" rows="20" readonly>${ taskDetail.taskContent }</textarea>
+						</c:if>
+						<br>
+						
+						<br>
+						
+						
+					<div class="btn-area" align="right">
 						
 						<c:if test="${ loginUser.empId eq taskDetail.taskWriter }">
 							
-						<button type="button" onclick="location.href='updateTaskView.do'" class="large ui button btn-lg"
-								style="margin:0 0 5px 0; background-color:#5cb85c; color:white; font-size: 1.5rem;">
+						<button type="submit" class="btn"
+								style="margin:0 0 5px 0; background-color:#5cb85c; color:white; font-size: 1.2rem;">
 							<i class="fas fa-check"></i> &nbsp;수정하기
 						</button>
-						
+						<button type="button" class="btn" style="margin:0 0 5px 0; background-color:red; color:white; font-size: 1.2rem;"
+						 		onclick="location.href='deleteTask.do?taskNo=${taskDetail.taskNo}&pNo=${ taskDetail.pNo }'">
+							<i class="far fa-trash-alt"></i> &nbsp; 삭제하기
+						</button>
 						</c:if>
-						<button type="button" class="large ui button btn-lg" onclick="location.href='todoList.do?tdBoardNo=${todoDetail.tdBoardNo}'" style="margin:0 0 5px 0; background-color:red; color:white; font-size: 1.5rem;">
+						<button type="button" class="btn" onclick="location.href='projectDetail.do?pNo=${taskDetail.pNo}'" style="margin:0 0 5px 0; background-color:#3287B2; color:white; font-size: 1.2rem;">
 							<i class="fas fa-bars "></i> &nbsp;목록으로
 						</button>
 					</div>

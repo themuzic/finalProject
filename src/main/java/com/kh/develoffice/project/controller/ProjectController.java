@@ -69,11 +69,12 @@ public class ProjectController {
 	}
 	
 	// 프로젝트 생성
+	@ResponseBody
 	@RequestMapping("insertProject.do")
 	public String insertProject(Project p, ProjectMember m, Model model) {
-		
+		System.out.println("전: " + p);
 		int result = pService.insertProject(p);
-		
+		System.out.println("후: " + p);
 		if(result > 0) {
 			int result2 = pService.insertPm(m);
 			if(result2 > 0) {
@@ -264,6 +265,40 @@ public class ProjectController {
 			mv.setViewName("project/taskDetail");
 		}else {
 			mv.addObject("msg", "존재하지 않습니다.");
+		}
+		return mv;
+	}
+	
+	// 업무 상세사항 수정
+	@RequestMapping("updateTask.do")
+	public ModelAndView updateTask(ModelAndView mv, ProjectTask p) {
+		//System.out.println("수정전 : " + p);
+		
+		int result = pService.updateTask(p);
+		//System.out.println("수정후 : " + p);
+		if(result > 0) {
+			mv.addObject("taskNo", p.getTaskNo());
+			mv.setViewName("redirect:taskDetail.do");
+		}else {
+			mv.addObject("msg", "수정 실패");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	// 업무 삭제
+	@RequestMapping("deleteTask.do")
+	public ModelAndView deleteTask(ModelAndView mv, int taskNo, int pNo) {
+		System.out.println("taskNo: " + taskNo);
+	
+		int result = pService.deleteTask(taskNo);
+		
+		if(result > 0) {
+			mv.addObject("pNo", pNo);
+			mv.setViewName("redirect:projectDetail.do");
+		}else {
+			mv.addObject("msg", "수정 실패");
+			mv.setViewName("common/errorPage");
 		}
 		return mv;
 	}

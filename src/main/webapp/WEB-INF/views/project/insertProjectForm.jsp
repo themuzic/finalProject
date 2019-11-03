@@ -81,7 +81,6 @@
 						
 						</div>
 						
-						<br><br>
 						
 						<form action="insertProject.do">
 							<div class="content-insertForm">
@@ -97,10 +96,6 @@
 						 	
 						 	<h4 style="padding: 2px 0 15px 0;">설명 (선택사항)</h4>
 						 	<textarea class="form-control" name="pContent" placeholder="상세내용을 입력해주세요" rows="4"></textarea>
-						 	
-						 	<br><br>
-						 	
-						 	
 						 	
 						 	<br><br>
 						 	<div class="insertButton" align="center"> 
