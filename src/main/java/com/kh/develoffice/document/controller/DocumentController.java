@@ -97,6 +97,10 @@ public class DocumentController {
 		ArrayList<Approval> apList = dService.selectMyApproval(emp.getEmpId());
 		ArrayList<Reference> rfList = dService.selectMyReference(emp.getEmpId());
 		
+		if(condition == null) {
+			condition = "전체";
+		}
+		
 		for(Document d : docuList){
 			
 //			String[] sArr = d.getDocuDate().split(" ");
@@ -115,6 +119,11 @@ public class DocumentController {
 			if(d.getDocuType().equals("CN")) {
 				d.setDv("회람");
 				d.setStatus("완료");
+				
+				if(d.getEmpId() == emp.getEmpId()) {
+					d.setDv("기안");
+				}
+				
 				continue;
 			}
 			if(d.getEmpId() == emp.getEmpId()) {	// 내가 작성한 문서 이면
