@@ -63,7 +63,7 @@ body{
 												<a class="icon order" title="정렬"
 													id="anchorApprovalUserOrder" style="cursor: pointer;"></a>
 												<ul class="dropdown-menu hide" id="orderApprovalDropdown"
-													style="width: 70px; top: 124px; left: 314px;">
+													style="width: 70px; top: 80px;left: 315px;">
 													<li><a class="js-approval-node-order sortByName">이름순</a></li>
 													<li><a class="js-approval-node-order sortByJob">직급순</a></li>
 												</ul>
