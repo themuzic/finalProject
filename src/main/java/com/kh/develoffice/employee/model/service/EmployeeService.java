@@ -50,4 +50,7 @@ public interface EmployeeService {
 	// 별 1개+
 	int updateStar(int empId);
 	
+	// 위젯 ON/OFF설정 업데이트
+	int updateWidget(Widget w);
+	
 }

@@ -88,6 +88,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int updateStar(int empId) {
 		return eDao.updateStar(empId);
 	}
+
+	@Override
+	public int updateWidget(Widget w) {
+		return eDao.updateWidget(w);
+	}
 	
 	
 	

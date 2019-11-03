@@ -128,5 +128,13 @@
 		set star = star+1
 		where emp_id = #{empId}
 	</update>
+	
+	<update id="updateWidget" parameterType="Widget">
+		update widget
+		set status=#{status}
+		where widget_type=#{widgetType} and emp_id=#{empId}
+	</update>
+
+
 
 </mapper>

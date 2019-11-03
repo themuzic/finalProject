@@ -83,4 +83,9 @@ public class EmployeeDao {
 		System.out.println(empId);
 		return sqlSession.update("employeeMapper.updateStar", empId);
 	}
+
+
+	public int updateWidget(Widget w) {
+		return sqlSession.update("employeeMapper.updateWidget", w);
+	}
 }

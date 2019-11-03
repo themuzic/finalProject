@@ -396,7 +396,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 								<input type="hidden" class="fold" name="fold" value="N">
 								<input type="hidden" class="status" name="status" value="Y">
 								<div class="panel-heading">
-									<h3 class="panel-title">공지사항</h3>
+									<h3 class="panel-title">게시판</h3>
 									<dvi style="position:absolute;right:180px;top:50%;">
 										<input type="radio" name="boardType" value="N" id="board1" checked>
 										<label for="board1">공지사항</label>
@@ -577,18 +577,21 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					panel.nextSibling.nextSibling.nextSibling.nextSibling.setAttribute('value',widget.top);
 					
 					if(widget.fold == "Y"){
-						panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.style.display = 'none';
-						panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[1].classList.add('click');
-						panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[1].click();
-						panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.setAttribute('value','Y');
-						//console.log('folding 완료');
+						$(panel).siblings('.panel-body').css('display','none');
+						$(panel).parents('.panel').find('.btn-toggle-collapse').click();
+						$(panel).siblings('.fold').val('Y');
+						
+						//panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.style.display = 'none';
+						//panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[1].classList.add('click');
+						//panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[1].click();
+						//panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.setAttribute('value','Y');
 					}
 					
 					if(widget.status == "N"){
-						panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[3].click();
-						panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.setAttribute('value','N');
-						//console.log('hide 완료');
-						
+						$(panel).parents('.panel').find('.btn-remove').click();
+						$(panel).siblings('status').val('N');
+						//panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[3].click();
+						//panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.setAttribute('value','N');
 					}
 				}
 			});

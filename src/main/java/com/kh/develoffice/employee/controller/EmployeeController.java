@@ -727,9 +727,20 @@ public class EmployeeController {
 	}
 	
 	
-	
-	
-	
+	@ResponseBody
+	@RequestMapping("updateWidget.do")
+	public String updateWidget(Widget w) {
+		
+		int result = eService.updateWidget(w);
+		
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+		
+		
+	}
 	
 	
 

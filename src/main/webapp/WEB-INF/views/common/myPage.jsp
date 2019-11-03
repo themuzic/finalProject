@@ -535,13 +535,14 @@ input[type=text]{
 		
 		/* 위젯 설정 버튼들 */
 		$(document).on('change','input.widgetCheck',function(){
-			
+			updateWidget(this);
+			/*
 			if($(this).prop('checked')){
 				$(this).parents('td').prev().css({'color':'#3287B2','font-weight':'bold'});
 			}else{
 				$(this).parents('td').prev().css({'color':'lightgray','font-weight':'normal'});
 			}
-			
+			*/
 		});
 		
 		/* 전체 선택 */
@@ -550,6 +551,42 @@ input[type=text]{
 		$('.test.checkbox').checkbox('attach events', '.uncheck.button', 'uncheck');
 		
 		
+		function updateWidget(checkbox){
+			
+			var widgetType = checkbox.name;
+			var status;
+			if(checkbox.checked){
+				status = 'Y';
+			}else{
+				status = 'N';
+			}
+			
+			$.ajax({
+				url:"updateWidget.do",
+				type:"POST",
+				data:{
+					empId:'${loginUser.empId}',
+					widgetType:widgetType,
+					status:status
+				},
+				success:function(data){
+					if(data == 'success'){
+						
+						if(status == 'Y'){
+							$(checkbox).parents('td').prev().css({'color':'#3287B2','font-weight':'bold'});
+						}else{
+							$(checkbox).parents('td').prev().css({'color':'lightgray','font-weight':'normal'});
+						}
+						
+					}else{
+						console.log('위젯 설정 실패');
+					}
+				},
+				error:function(){
+					alertify.alert('DEVELOFFICE','위젯 ON/OFF설정 AJAX통신 실패');
+				}
+			});
+		}
 		
 		
 		
