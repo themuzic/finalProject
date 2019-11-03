@@ -7,21 +7,23 @@ public class ProjectReply {
 	private int tRId;
 	private int taskNo;
 	private int tRwriter;
+	private String empName;
 	private String tRContent;
-	private Date createDate;
-	private Date modifyDate;
+	private String createDate;
+	private String modifyDate;
 	private String status;
 	
 	public ProjectReply() {
 		
 	}
 
-	public ProjectReply(int tRId, int taskNo, int tRwriter, String tRContent, Date createDate, Date modifyDate,
-			String status) {
+	public ProjectReply(int tRId, int taskNo, int tRwriter, String empName, String tRContent, String createDate,
+			String modifyDate, String status) {
 		super();
 		this.tRId = tRId;
 		this.taskNo = taskNo;
 		this.tRwriter = tRwriter;
+		this.empName = empName;
 		this.tRContent = tRContent;
 		this.createDate = createDate;
 		this.modifyDate = modifyDate;
@@ -52,6 +54,14 @@ public class ProjectReply {
 		this.tRwriter = tRwriter;
 	}
 
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
 	public String gettRContent() {
 		return tRContent;
 	}
@@ -60,19 +70,19 @@ public class ProjectReply {
 		this.tRContent = tRContent;
 	}
 
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
-	public Date getModifyDate() {
+	public String getModifyDate() {
 		return modifyDate;
 	}
 
-	public void setModifyDate(Date modifyDate) {
+	public void setModifyDate(String modifyDate) {
 		this.modifyDate = modifyDate;
 	}
 
@@ -86,10 +96,11 @@ public class ProjectReply {
 
 	@Override
 	public String toString() {
-		return "ProjectReply [tRId=" + tRId + ", taskNo=" + taskNo + ", tRwriter=" + tRwriter + ", tRContent="
-				+ tRContent + ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
+		return "ProjectReply [tRId=" + tRId + ", taskNo=" + taskNo + ", tRwriter=" + tRwriter + ", empName=" + empName
+				+ ", tRContent=" + tRContent + ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", status="
+				+ status + "]";
 	}
-	
-	
 
+	
+	
 }

@@ -2,6 +2,7 @@ package com.kh.develoffice.project.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.develoffice.free.model.vo.FreeReply;
 import com.kh.develoffice.project.model.vo.Project;
 import com.kh.develoffice.project.model.vo.ProjectMember;
 import com.kh.develoffice.project.model.vo.ProjectReply;
@@ -24,6 +25,9 @@ public interface ProjectService {
 	// projectMember 리스트 조회
 	ArrayList<ProjectMember> selectMlist();
 	
+	// 내가 포함된 project 갯수 조회
+	int countProject(int empId);
+	
 	// 프로젝트 상세조회
 	Project projectDetail(int pNo); 
 	
@@ -45,4 +49,9 @@ public interface ProjectService {
 	// task 댓글 작성하기
 	int insertReply(ProjectReply r);
 
+	// 댓글 수정하기
+	int rupdate(ProjectReply r);
+	
+	// 댓글 삭제하기
+	int rdelete(ProjectReply r);
 }

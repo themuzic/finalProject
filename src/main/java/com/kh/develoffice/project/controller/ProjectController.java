@@ -3,6 +3,7 @@ package com.kh.develoffice.project.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -22,6 +23,7 @@ import com.kh.develoffice.common.Department;
 import com.kh.develoffice.document.model.service.DocumentService;
 import com.kh.develoffice.employee.model.service.EmployeeService;
 import com.kh.develoffice.employee.model.vo.Employee;
+import com.kh.develoffice.free.model.vo.FreeReply;
 import com.kh.develoffice.project.model.service.ProjectService;
 import com.kh.develoffice.project.model.vo.Project;
 import com.kh.develoffice.project.model.vo.ProjectMember;
@@ -91,6 +93,7 @@ public class ProjectController {
 	@RequestMapping("projectList.do")
 	public ModelAndView projectList(ModelAndView mv, HttpSession session) {
 		
+		// 전체 사원 호출
 		ArrayList<Employee> empList = eService.selectAllEmp();
 		Employee e = (Employee)session.getAttribute("loginUser");
 		
@@ -265,7 +268,7 @@ public class ProjectController {
 		return mv;
 	}
 	
-	
+	// 댓글 리스트
 	@RequestMapping("rlist.do")
 	public void getReplyList(int taskNo, HttpServletResponse response) throws JsonIOException, IOException {
 		
@@ -280,7 +283,7 @@ public class ProjectController {
 		
 	}
 	
-	
+	// 댓글 생성
 	@ResponseBody
 	@RequestMapping("rinsert.do")
 	public String insertReply(ProjectReply r, HttpSession session) {
@@ -300,7 +303,37 @@ public class ProjectController {
 	}
 	
 	
+	@ResponseBody
+	@RequestMapping("rupdate.do")
+	public String rupdate(ProjectReply r, HttpServletRequest request) {
+		
+		int result = pService.rupdate(r);
+		System.out.println("넘어왔나? " + r.gettRContent());
+		System.out.println("con-rId : " + r.gettRId());
+		System.out.println("con-taskNo : " + r.getTaskNo());
+		
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
 	
+	// 댓글 삭제
+	@ResponseBody
+	@RequestMapping("rdelete.do")
+	public String rdelete(ProjectReply r, HttpServletRequest request) {
+		/* System.out.println(r); */
+		int result = pService.rdelete(r);
+		/* System.out.println(result); */
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
 	
 	
 	

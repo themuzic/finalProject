@@ -41,6 +41,8 @@ import com.kh.develoffice.mail.model.service.MailService;
 import com.kh.develoffice.mail.model.vo.Mail;
 import com.kh.develoffice.notice.model.service.NoticeService;
 import com.kh.develoffice.notice.model.vo.Notice;
+import com.kh.develoffice.project.model.service.ProjectService;
+import com.kh.develoffice.project.model.vo.Project;
 import com.kh.develoffice.teamboard.model.service.TeamBoardService;
 import com.kh.develoffice.teamboard.model.vo.TeamBoard;
 import com.kh.develoffice.todo.model.service.TodoService;
@@ -64,6 +66,8 @@ public class EmployeeController {
 	private NoticeService nService;
 	@Autowired
 	private TeamBoardService tbSerivce;
+	@Autowired
+	private ProjectService pService;
 	/**
 	 * - 로그인 
 	 * @param emp
@@ -380,6 +384,7 @@ public class EmployeeController {
 				
 				mv.addObject("todoGoingList", todoGoingList);
 				mv.addObject("todoWaitList", todoWaitList);
+				
 					
 				mv.setViewName("main/mainPage");
 				
@@ -566,6 +571,18 @@ public class EmployeeController {
 	public ModelAndView myProfilePage(int empId, ModelAndView mv) {
 		
 		ArrayList<Widget> widgetList = eService.selectWidget(empId);
+		
+		// project 호출
+		ArrayList<Project> projectList = pService.selectPlist(empId);
+		mv.addObject("projectList", projectList);
+		
+		// 내가 포함된 project 갯수 호출
+		int countProject = pService.countProject(empId);
+		mv.addObject("countProject", countProject);
+		
+		// 전체 사원 호출
+		ArrayList<Employee> empList = eService.selectAllEmp();
+		mv.addObject("empList", empList);
 		
 		JSONArray jArr = new JSONArray();
 		for(Widget w : widgetList) {

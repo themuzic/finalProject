@@ -59,6 +59,12 @@ public class ProjectServiceImpl implements ProjectService{
 		return pDao.projectDetail(pNo);
 	}
 
+	// 내가 포함된 project 갯수조회
+	@Override
+	public int countProject(int empId) {
+		return pDao.countProject(empId);
+	}
+	
 	// 진행상황 수정
 	@Override
 	public int updateProgress(Project p) {
@@ -91,6 +97,20 @@ public class ProjectServiceImpl implements ProjectService{
 	public int insertReply(ProjectReply r) {
 		return pDao.insertReply(r);
 	}
+
+	// 댓글 수정
+	@Override
+	public int rupdate(ProjectReply r) {
+		return pDao.rupdate(r);
+	}
+
+	// 댓글 삭제
+	@Override
+	public int rdelete(ProjectReply r) {
+		return pDao.rdelete(r);
+	}
+
+	
 
 	
 

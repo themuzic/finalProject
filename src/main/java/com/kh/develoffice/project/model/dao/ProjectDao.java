@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.develoffice.free.model.vo.FreeReply;
 import com.kh.develoffice.project.model.vo.Project;
 import com.kh.develoffice.project.model.vo.ProjectMember;
 import com.kh.develoffice.project.model.vo.ProjectReply;
@@ -57,6 +58,11 @@ public class ProjectDao {
 		return p;
 	}
 	
+	// 내가 포함된 프로젝트 갯수 조회
+	public int countProject(int empId) {
+		return sqlSession.selectOne("projectMapper.countProject", empId);
+	}
+	
 	// 진행상황 수정
 	public int updateProgress(Project p) {
 		return sqlSession.update("projectMapper.updateProgress", p);
@@ -88,7 +94,22 @@ public class ProjectDao {
 	
 	// task 댓글 작성하기
 	public int insertReply(ProjectReply r) {
-		System.out.println(r.gettRContent());
+		//System.out.println(r.gettRContent());
 		return sqlSession.insert("projectMapper.insertReply", r);
+	}
+	
+	// 댓글 수정
+	public int rupdate(ProjectReply r) {
+		System.out.println("dao-rId : " + r.gettRId());
+		System.out.println("dao-taskNo : " + r.getTaskNo());
+		System.out.println(r.gettRContent());
+		return sqlSession.update("projectMapper.rupdate", r);
+	}
+
+	// 댓글 삭제
+	public int rdelete(ProjectReply r) {
+		System.out.println("tRId : " + r.gettRId());
+		System.out.println("taskNo : " + r.getTaskNo());
+		return sqlSession.update("projectMapper.rdelete", r);
 	}
 }

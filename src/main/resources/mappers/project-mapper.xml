@@ -36,6 +36,7 @@
 		<id property="tRId" column="t_rid"/>
 		<result property="taskNo" column="task_no"/>
 		<result property="tRwriter" column="t_rwriter"/>
+		<result property="empName" column="empName"/>
 		<result property="tRContent" column="t_rcontent"/>
 		<result property="createDate" column="create_date"/>
 		<result property="modifyDate" column="modify_date"/>
@@ -74,6 +75,14 @@
 		join project_member m using(p_no)
 		where m.emp_id=#{empId} and status='Y'
 		order by p_no desc
+	</select>
+	
+	<!-- 내가 포함된 project 갯수 조회 -->
+	<select id="countProject" parameterType="_int" resultType="_int">
+		select count(*)
+		from project p
+		join project_member m using(p_no)
+		where m.emp_id=#{empId} and status='Y'
 	</select>
 	
 	<!-- project Member 리스트 조회 -->
@@ -118,8 +127,9 @@
 	
 	<!-- task에 딸려있는 댓글 리스트 조회 -->
 	<select id="selectReplyList" parameterType="_int" resultMap="projectReplyResultSet">
-		select *
-		from project_reply
+		select t_rid, task_no, t_rwriter, empname, t_rcontent, to_char(create_date,'yyyy-mm-dd hh24:mi:ss') create_date,
+				to_char(modify_date,'yyyy-mm-dd hh24:mi:ss') modify_date, status
+		from project_re_detail
 		where task_no=#{taskNo} and status='Y'
 		order by t_rid desc
 	</select>
@@ -130,8 +140,19 @@
 		values(task_re_seq.nextval, #{taskNo}, #{tRwriter}, #{tRContent}, sysdate, sysdate, default)
 	</insert> 
 	
+	<!-- 댓글 수정 -->
+	<update id="rupdate" parameterType="ProjectReply">
+		update project_reply
+		set t_rcontent=#{tRContent}, modify_date=sysdate
+		where t_rid=#{tRId} and task_no=#{taskNo}
+	</update>
 	
-	
+	<!-- 댓글 삭제 -->
+	<update id="rdelete" parameterType="ProjectReply">
+		update project_reply
+		set status = 'N'
+		where t_rid=#{tRId} and task_no=#{taskNo}
+	</update>
 	
 	
 	
