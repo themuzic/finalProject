@@ -151,6 +151,12 @@
 		set star = star-#{star}
 		where emp_id = #{empId}
 	</update>
+	
+	<update id="minusVacation">
+		update employee
+		set vacation = vacation-#{useDay}
+		where emp_id=#{empId}
+	</update>
 
 
 

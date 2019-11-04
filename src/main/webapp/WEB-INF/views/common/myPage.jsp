@@ -356,7 +356,7 @@ input[type=text]{
 										<ul class="list-unstyled activity-timeline">
 											<li>
 												<i class="fas fa-chalkboard-teacher activity-icon"></i>
-												<p>각종 동영상 강의는 <a href="#" target="_blank">CLASS247</a></p>
+												<p>각종 동영상 강의는 <a href="http://192.168.30.186:8247/class247/" target="_blank">CLASS247</a></p>
 											</li>
 											<li>
 												<i class="fas fa-plane-departure activity-icon"></i>

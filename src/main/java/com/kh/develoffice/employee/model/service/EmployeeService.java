@@ -1,6 +1,7 @@
 package com.kh.develoffice.employee.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.employee.model.vo.Widget;
@@ -61,5 +62,8 @@ public interface EmployeeService {
 
 	// 상품권 교환으로 별 차감
 	int minusStar(Employee emp);
+	
+	// 연차 차감
+	int minusVacation(HashMap hm);
 	
 }

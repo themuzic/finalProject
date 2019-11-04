@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -460,11 +461,13 @@ public class DocumentController {
 	@ResponseBody
 	@RequestMapping("apCheck.do")
 	public String apCheck(Approval ap, Schedule s, String docuType, Retire r,
-						@RequestParam(name="vaId", required=false)int vaId) {
+						@RequestParam(name="vaId", required=false)int vaId,
+						@RequestParam(name="useDay", required=false)int useDay) {
 		
 		System.out.println("컨트롤러에서 받은 ap : "+ap);
 		System.out.println("컨트롤러에서 받은 s : "+s);
 		System.out.println("컨트롤러에서 받은 r : "+r);
+		System.out.println("컨트롤러에서 받은 useDay : "+useDay);
 		System.out.println("컨트롤러에서 받은 vaId : "+vaId);
 		
 		
@@ -493,10 +496,17 @@ public class DocumentController {
 						s.setEndTime("18:00");
 						s.setAllDay("N");
 					}
-					System.out.println("인서트하는 스케줄 : "+s);
+					// 휴가 스케줄 인서트
 					int scheResult = sService.insertSchedule(s);
 					
-					if(scheResult > 0) {
+					// 해당 계정 연차 차감
+					HashMap hm = new HashMap();
+					hm.put("useDay", useDay);
+					hm.put("empId", vaId);
+					
+					int upResult = eService.minusVacation(hm);
+					
+					if(scheResult > 0 && upResult > 0) {
 						return "success";
 					} else {
 						return "fail";

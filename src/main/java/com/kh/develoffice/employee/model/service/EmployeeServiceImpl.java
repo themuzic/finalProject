@@ -1,6 +1,7 @@
 package com.kh.develoffice.employee.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -107,6 +108,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public int minusStar(Employee emp) {
 		return eDao.minusStar(emp);
+	}
+
+	@Override
+	public int minusVacation(HashMap hm) {
+		return eDao.minusVacation(hm);
 	}
 	
 	

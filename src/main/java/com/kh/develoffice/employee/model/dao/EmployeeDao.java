@@ -1,6 +1,7 @@
 package com.kh.develoffice.employee.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,5 +102,10 @@ public class EmployeeDao {
 
 	public int minusStar(Employee emp) {
 		return sqlSession.update("employeeMapper.minusStar", emp);
+	}
+
+
+	public int minusVacation(HashMap hm) {
+		return sqlSession.update("employeeMapper.minusVacation", hm);
 	}
 }

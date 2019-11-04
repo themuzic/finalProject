@@ -385,7 +385,8 @@
 					scontent:'${va.reason}',
 					vaId:'${d.empId}',
 					allDay:'${va.vacationType}',
-					docuType:'${d.docuType}'
+					docuType:'${d.docuType}',
+					useDay:Number('${va.useDay}')
 				},
 				success:function(data){
 						

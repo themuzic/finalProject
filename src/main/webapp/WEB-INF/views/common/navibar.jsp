@@ -548,7 +548,7 @@
 						</li>
 
 						<li>
-							<a href="teamScheduleList.do" class="" id="menu4"><i class="fa fa-calendar"></i> <span>일정관리</span><i class="icon-submenu lnr lnr-chevron-left" style="font-size:12px; margin-left:85px;"></i></a>					
+							<a href="teamScheduleList.do" class="" id="menu4"><i class="fa fa-calendar"></i> <span>일정관리</span><i class="icon-submenu lnr lnr-chevron-left fr" style="font-size:12px;"></i></a>					
 						</li>
 
 						<li>
