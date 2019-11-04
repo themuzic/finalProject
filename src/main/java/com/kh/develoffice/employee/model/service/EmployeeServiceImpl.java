@@ -103,6 +103,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int insertWidget(Widget w) {
 		return eDao.insertWidget(w);
 	}
+
+	@Override
+	public int minusStar(Employee emp) {
+		return eDao.minusStar(emp);
+	}
 	
 	
 	

@@ -58,5 +58,8 @@ public interface EmployeeService {
 
 	// 위젯 insert
 	int insertWidget(Widget w);
+
+	// 상품권 교환으로 별 차감
+	int minusStar(Employee emp);
 	
 }

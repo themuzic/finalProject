@@ -97,4 +97,9 @@ public class EmployeeDao {
 	public int insertWidget(Widget w) {
 		return sqlSession.insert("employeeMapper.insertWidget", w);
 	}
+
+
+	public int minusStar(Employee emp) {
+		return sqlSession.update("employeeMapper.minusStar", emp);
+	}
 }

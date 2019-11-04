@@ -155,7 +155,7 @@
 											</c:if>
 						            	</td>
 						            	<td>${n.noCount}</td>
-						            	<td>${n.noCreateDate}</td>
+						            	<td>${f.noCreateDate.split(" ")[0]}</td>
 						            </tr>
 					        	</c:forEach>
 					            

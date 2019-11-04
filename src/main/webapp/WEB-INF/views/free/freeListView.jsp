@@ -162,7 +162,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 											</c:if>
 						            	</td>
 						            	<td>${f.frCount}</td>
-						            	<td>${f.frCreateDate}</td>
+						            	<td>${f.frCreateDate.split(" ")[0]}</td>
 						            </tr>
 					        	</c:forEach>
 					            

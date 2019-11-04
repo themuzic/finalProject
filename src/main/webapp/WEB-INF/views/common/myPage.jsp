@@ -98,6 +98,15 @@ input[type=text]{
 	text-align: right;
 	padding: 0;
 }
+#pTable td{
+	padding: 0 8px 14px 8px;
+}
+#pTable tr>td:last-child{
+	text-align: right;
+}
+.pBtn{
+	
+}
 </style>
 
 
@@ -144,7 +153,7 @@ input[type=text]{
 												남은 연차 일수 <span>${loginUser.vacation}일</span>
 											</div>
 											<div class="col-md-4 stat-item">
-												별  <span>${loginUser.star}개</span>
+												별  <span id="star">${loginUser.star}개</span>
 											</div>
 										</div>
 									</div>
@@ -257,12 +266,25 @@ input[type=text]{
 									</div>
 									
 									<!-- 상품권 div -->
-									<div class="row fl" style="width: 40%;padding: 5px 20px;">
+									<div class="row fl" style="width: 370px;padding: 5px 20px;height: 240px;">
 									
-									상품권 div
-									
-									
-									
+									<table id="pTable">
+										<tbody style="border-left: 1px solid #eaeaea;">
+											<tr>
+												<td rowspan="6"></td>
+												<td>상품권 20만원(별20개)</td>
+												<td><button class="ui primary button pBtn" name="20">지급신청</button></td>
+											</tr>
+											<tr>
+												<td>상품권 50만원(별45개)</td>
+												<td><button class="ui primary button pBtn" name="45">지급신청</button></td>
+											</tr>
+											<tr><td></td><td></td></tr>
+											<tr><td></td><td></td></tr>
+											<tr><td></td><td></td></tr>
+											<tr style="height: 110px;"><td></td><td></td></tr>
+										</tbody>
+									</table>
 									
 									</div>
 									
@@ -561,7 +583,37 @@ input[type=text]{
 			});
 		}
 		
-		
+		$('.pBtn').on('click',function(){
+			
+			var minus = $(this).attr('name');
+			
+			if(${loginUser.star}-minus < 0){
+				alertify.alert('DEVELOFFICE','별이 부족합니다.');
+				return;
+			}
+			
+			$.ajax({
+				url:"minusStar.do",
+				type:"POST",
+				data:{empId:'${loginUser.empId}',
+					  star:minus},
+				success:function(data){
+					
+					if(data == 'success'){
+						$('#star').text( ${loginUser.star}-minus+'개' );
+						alertify.alert('DEVELOFFICE','상품권 지급 신청 완료 : 총무과에서 수령하세요.');
+					}else{
+						alertify.alert('DEVELOFFICE','상품권 지급 실패');
+					}
+					
+					
+				},
+				error:function(){
+					alertify.alert('DEVELOFFICE','상품권 지급 AJAX통신 실패');
+				}
+			});
+			
+		});
 		
 		
 		

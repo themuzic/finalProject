@@ -379,6 +379,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	
 	<!-- script 작성 -->
 	<script>
+		reservList = ${reservList};
 	
 		$(function(){
 			
@@ -388,7 +389,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			$("#menu5").attr('aria-expanded',true);
 			$("#menu5_1").addClass("active");
 			$("#menu5_1").attr('aria-expanded',true);
-			$("#m5_3").addClass("active");
+			$("#m5_2").addClass("active");
 			
 		});
 		
@@ -526,15 +527,18 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				data:$form.serialize(),
 				success:function(data){
 					
-					if(data == "success"){
-						alertify.alert('', '예약 성공');
+					if(data != null){
+						
+						reservList = data;
+						showReserv();
 						$close.click();
-    				} else{
-    					alertify.alert('', '예약 실패');
-    				}
+						
+					}else{
+						alertify.alert('DEVELOFFICE', '예약 실패');
+					}
 				},
 				error:function(){
-					alertify.alert('', '통신 실패 : 다시 시도해 주세요.');
+					alertify.alert('DEVELOFFICE', '통신 실패 : 다시 시도해 주세요.');
 				}
 			});
 			
@@ -543,6 +547,8 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		
 		/* 해당 날짜에 예약이 있으면 보여주기 */
 		function showReserv() {
+			console.log(reservList);
+			
 			var $timePanel = $("#time-table td");
 			var temp = $("#booking_date").val(); 
 			var startTD;
@@ -550,25 +556,27 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			var startPoint;
 			var endPoint;
 			
+			/* 모든 칸 초기화 */
 			$.each($timePanel, function(i, td){
 				if(td.classList.contains('reserv')){
 					td.classList.remove('reserv');
+					td.classList.add('blank');
 				}
 			});
 			
 			
-			if(${reservList} != null){
+			if(reservList != null){
 				
-					//console.log(${reservList});
+					console.log('reservList 가 null 아님');
 				
-				$.each(${reservList}, function(i, r){
+				$.each(reservList, function(i, r){
 					
-					//console.log(${reservList});
+					console.log('반복문들어옴');
 					//console.log(temp);
 					//console.log(r.reservDate);
 					
 					if(r.reservDate == temp){
-						//console.log("오늘의 예약 : "+r.reservNum);
+						console.log(temp+"의 예약 : "+r.reservNum);
 						
 						$.each($timePanel, function(j, td){
 							
@@ -589,8 +597,8 @@ if (request.getProtocol().equals("HTTP/1.1"))
 						
 						for(var i in $timePanel){
 							if(i >= startPoint && i <= endPoint-1){
-								$timePanel[i].classList.add('reserv');
 								$timePanel[i].classList.remove('blank');
+								$timePanel[i].classList.add('reserv');
 								$timePanel[i].setAttribute('value',r.reservNum);
 							}
 						}
@@ -633,14 +641,6 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			$("#booking_info_detail_layer").addClass('show');
 		});
 			
-				
-		
-				
-				
-				
-				
-		
-		
 		
 	
 	</script>

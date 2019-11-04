@@ -164,7 +164,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 											</c:if>
 						            	</td>
 						            	<td>${tb.tbCount}</td>
-						            	<td>${tb.tbCreateDate}</td>
+						            	<td>${f.tbCreateDate.split(" ")[0]}</td>
 						            </tr>
 					        	</c:forEach>
 					            

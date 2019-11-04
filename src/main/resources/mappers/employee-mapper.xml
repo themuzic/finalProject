@@ -145,6 +145,12 @@
 		insert into widget
 		values(#{widgetType},#{empId},#{left},#{top},'N','Y')
 	</insert>
+	
+	<update id="minusStar" parameterType="Employee">
+		update employee
+		set star = star-#{star}
+		where emp_id = #{empId}
+	</update>
 
 
 

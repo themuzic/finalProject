@@ -755,9 +755,25 @@ public class EmployeeController {
 		} else {
 			return "fail";
 		}
-		
-		
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping("minusStar.do")
+	public String minusStar(Employee emp, Model m) {
+		int result = eService.minusStar(emp);
+		
+		if(result > 0) {
+			
+			Employee loginUser = eService.selectEmp(emp.getEmpId());	// 로그인 객체 정보 호출
+			m.addAttribute("loginUser",loginUser);
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	
 	
 	
 

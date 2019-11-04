@@ -1,9 +1,12 @@
 package com.kh.develoffice.reservation.controller;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.develoffice.reservation.model.service.ReservationService;
 import com.kh.develoffice.reservation.model.vo.Payment;
 import com.kh.develoffice.reservation.model.vo.Reservation;
@@ -181,7 +187,7 @@ public class ReservationController {
 	
 	@ResponseBody
 	@RequestMapping("insertReserv.do")
-	public String insertReserv(Reservation reserv) {
+	public void insertReserv(Reservation reserv, HttpServletResponse response) throws JsonIOException, IOException {
 		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss", Locale.KOREA );
 		Date nowDate = new Date(new java.util.Date().getTime());
 
@@ -189,15 +195,16 @@ public class ReservationController {
 		
 		reserv.setInsertDate(insertDate);
 		
-		System.out.println(reserv);
+		response.setContentType("application/json; charset=utf-8");
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		ArrayList<Reservation> reservList = new ArrayList<>();
 		
 		int result = rService.insertReserv(reserv);
-		
 		if(result > 0) {
-			return "success";
-		} else {
-			return "fail";
+			reservList = rService.selectReserv(reserv);
 		}
+		gson.toJson(reservList, response.getWriter());
 	}
 	
 	

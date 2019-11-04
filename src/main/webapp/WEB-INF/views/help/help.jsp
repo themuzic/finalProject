@@ -387,7 +387,7 @@
 		    
 		});
 		
-		/* 일감 등록 버튼 눌렀을 때 */
+		/* 일감 등록창 여는 버튼 눌렀을 때 */
 		$("#addHelp").on('click',function(){
 			$("#addHelpTitle").val("");
 			$("#addHelpContent").val("");
@@ -428,7 +428,6 @@
 		});
 		
 		function refresh(){
-			console.log('select실행하러옴');
 			var condition = $('input[name=condition]:checked').val();
 			
 			if(condition == 'all'){
@@ -641,7 +640,7 @@
 							tr.append(td2);
 							tr.append(td3);
 							
-							var div = $('<div class="contentDiv" style="display:none;text-indent:20px;">').text(help.workContent);
+							var div = $('<div class="contentDiv" style="display:none;padding-left: 50px;">').text(help.workContent);
 							var div2 = $('<div class="btnDiv" style="text-align:right">');
 							var btn = $('<button class="comBtn ui primary button" style="font-size:10px;">').text("완료");
 							div2.append(btn);
