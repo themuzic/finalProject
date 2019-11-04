@@ -908,8 +908,6 @@ body{
 				<div class="right-section-bottom">
 
 						<div class="upload-btn">
-						  	<button class="btn" type="button"><i class="fa fa-photo"></i></button>
-						  	<input type="file" name="myfile" />
 						</div>
 						<input type="text" id="message" placeholder="type here...">
 						<button id="sendBtn" class="btn-send" type="button"><i class="fa fa-send"></i></button>
