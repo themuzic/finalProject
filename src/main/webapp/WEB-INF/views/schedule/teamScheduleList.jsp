@@ -227,15 +227,15 @@
 				
 				<hr>	
 		       
-		       <div align="left" style="padding-bottom:5px;">
-					<b style="color: #505363">팀 일정</b>
+		      <div align="left" style="padding-bottom:5px;">
+					<b style="color: #505363"><label for="team">팀 일정</label></b>
 					<input type="radio" name="splan" id="team" class="splan" value="T" style="margin-bottom:7px;" checked>&nbsp;
-					<b style="color: #505363">회사 일정</b>
+					<b style="color: #505363"><label for="company">회사 일정</label></b>
 					<input type="radio" name="splan" id="company" class="splan" value="C" style="margin-bottom:7px;">
 					<div style="float:right;">
 						<button type="button" id="addBtn" class="ui grey basic button big addBtn">일정등록</button>
 					</div>
-				</div>			
+				</div>		
 						
 				<table class="ui selectable celled table">
 				<colgroup>
