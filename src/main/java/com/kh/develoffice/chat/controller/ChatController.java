@@ -251,9 +251,15 @@ public class ChatController {
 	
 	@ResponseBody
 	@RequestMapping(value="chatRenameReturn.do", produces="text/html; charset=utf-8")
-	public String returnChatName(Chat c, HttpServletResponse response) {
+	public String returnChatName(Chat c, HttpServletResponse response, HttpSession session) {
+		Employee loginUser = (Employee)session.getAttribute("loginUser");
 		ArrayList<String> chatNameList = cService.selectChatNameList(c.getChatId());	// 채팅방 이름 설정할 arraylist
-		
+		for(String name : chatNameList) {
+			if(name.equals(loginUser.getEmpName() + " " + loginUser.getJobName())) {
+				chatNameList.remove(name);
+				break;
+			}
+		}
 		Collections.sort(chatNameList);		// 오름차순 정렬
 		
 		String chatName = String.join(", ", chatNameList);	// 채팅방 이름 설정

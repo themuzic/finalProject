@@ -8,6 +8,31 @@
 		<result property="jobName" column="job_name"/>
 	</resultMap>
 	
+	<resultMap id="empResultSet" type="Employee">
+		<id property="empId" column="emp_id"/>
+		<result property="empName" column="emp_name"/>
+		<result property="empPwd" column="emp_pwd"/>
+		<result property="gender" column="gender"/>
+		<result property="birth" column="birth"/>
+		<result property="deptCode" column="dept_code"/>
+		<result property="deptName" column="dept_name"/>
+		<result property="jobCode" column="job_code"/>
+		<result property="jobName" column="job_name"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+		<result property="address" column="address"/>
+		<result property="salary" column="salary"/>
+		<result property="account" column="account"/>
+		<result property="star" column="star"/>
+		<result property="enrollDate" column="enroll_date"/>
+		<result property="retireDate" column="retire_date"/>
+		<result property="empStatus" column="emp_status"/>
+		<result property="profilePath" column="profile_path"/>
+		<result property="vacation" column="vacation"/>
+		<result property="workStatus" column="work_status"/>
+		<result property="statusMsg" column="status_msg"/>
+	</resultMap>
+	
 	<select id="selectJob" resultMap="jobResultSet">
 		select *
 		from job
@@ -32,4 +57,15 @@
 		where rownum = 1
 	</select>
 	
+	<select id="selectRetireList" resultMap="empResultSet">
+		select *
+		from emp
+		where emp_status='Y' and retire_date is not null
+	</select>
+	
+	<update id="deleteEmployee" parameterType="_int">
+		update employee
+		set emp_status = 'N'
+		where emp_id = #{empId}
+	</update>
 </mapper>

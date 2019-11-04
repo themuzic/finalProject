@@ -30,4 +30,12 @@ public class InsaDao {
 	public int currvalEmpId() {
 		return sqlSession.selectOne("insaMapper.currvalEmpId");
 	}
+
+	public ArrayList<Employee> selectRetireList() {
+		return (ArrayList)sqlSession.selectList("insaMapper.selectRetireList");
+	}
+
+	public int deleteEmployee(int empId) {
+		return sqlSession.update("insaMapper.deleteEmployee", empId);
+	}
 }

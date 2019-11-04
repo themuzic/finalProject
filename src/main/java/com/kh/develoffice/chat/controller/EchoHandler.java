@@ -111,8 +111,9 @@ public class EchoHandler extends TextWebSocketHandler{
     		}
     	}else if(messageList[0].equals("system")) {	// 시스템 메세지가 전달 됐을 때
     		int chatId = Integer.parseInt(messageList[2]);	// 기본 chatId는 초대한 방 번호
-    		int empId = ((Employee)session.getAttributes().get("loginUser")).getEmpId();	// 보낸사람 아이디 출력
-    		
+    		Employee loginUser = (Employee)session.getAttributes().get("loginUser");
+    		int empId = loginUser.getEmpId();	// 보낸사람 아이디 출력
+    		String name = loginUser.getEmpName() + " " + loginUser.getJobName();
     		if(messageList[5].equals("1")) {		// 초대한 방이 갠톡이면
     			ArrayList<Message> users = cService.selectUsers(chatId);	// 갠톡 두명 사번 따와서
     			Message m = new Message();			// Message객체 생성
@@ -141,6 +142,12 @@ public class EchoHandler extends TextWebSocketHandler{
 				for(String emp:empList) {		// 추가할 인원들 수만큼 반복문
 					String empName = cService.selectChatName(Integer.parseInt(emp));	// 그 인원 이름 직급 추출
 					chatNameList.add(empName);		// 채팅방 이름에 담음
+				}
+				for(String empName:chatNameList) {
+					if(empName.equals(name)) {
+						chatNameList.remove(empName);
+						break;
+					}
 				}
 				Collections.sort(chatNameList);		// 오름차순 정렬
 				

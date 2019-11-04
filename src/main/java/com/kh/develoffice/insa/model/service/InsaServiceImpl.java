@@ -35,4 +35,14 @@ public class InsaServiceImpl implements InsaService {
 		return iDao.currvalEmpId();
 	}
 
+	@Override
+	public ArrayList<Employee> selectRetireList() {
+		return iDao.selectRetireList();
+	}
+
+	@Override
+	public int deleteEmployee(int empId) {
+		return iDao.deleteEmployee(empId);
+	}
+
 }

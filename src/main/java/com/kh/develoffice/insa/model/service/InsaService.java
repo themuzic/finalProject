@@ -17,4 +17,10 @@ public interface InsaService {
 
 	int currvalEmpId();
 
+	// 퇴사 예정 직원들
+	ArrayList<Employee> selectRetireList();
+
+	// 퇴사 확정!! 땅땅
+	int deleteEmployee(int empId);
+
 }

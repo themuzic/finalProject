@@ -118,5 +118,23 @@ public class InsaController {
 			return "fail";
 		}
 	}
+	
+	@RequestMapping("retireEmpList.do")
+	public ModelAndView retireEmpListView(ModelAndView mv) {
+		ArrayList<Employee> retireList = iService.selectRetireList();
+		
+		mv.addObject("retireList", retireList).setViewName("insa/retireEmpView");
+		return mv;
+	}
+	@ResponseBody
+	@RequestMapping("deleteEmp.do")
+	public String deleteEmployee(int empId) {
+		int result = iService.deleteEmployee(empId);
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
 
 }
