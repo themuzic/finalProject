@@ -338,7 +338,7 @@
 									var $divMetadate = $("<div class='metadata'>");
 									var $spanDate = $("<span class='date'>").text(value.tbrCreateDate);
 									var $divText = $("<div class='text' style='margin-top:7px;'>").text(value.tbrContent);
-									var $divActions = $("<div class='actions fr'>");
+									var $divActions = $("<div id='" + tbrWriter + "' class='actions fr'>");
 									var $aReply1 = $("<a onclick='writeReply(this)' id='fix' class='reply'>").text("수정");
 									var $aReply2 = $("<a id='del' class='reply replyDelete'>").text("삭제");
 									var $hiddenId2 = $("<input id='hdel' type='hidden' name='tbrId'>").val(value.tbrId);
@@ -394,10 +394,17 @@
 				/* 댓글 수정 버튼 누르면 */
 				function writeReply(e){
 					console.log($(e));
-					$(e).parents('.comment').next('form').css('display','block');
-					$(e).parents('.actions').prev('.text').css('display','none');
-					$(e).parents('.comment').next('form').find('.frrContent').val($(e).parents('.actions').prev('.text').text());
+					if($(e).parent().attr('id') == '${loginUser.empId}'){
+						
+						$(e).parents('.comment').next('form').css('display','block');
+						$(e).parents('.actions').prev('.text').css('display','none');
+						$(e).parents('.comment').next('form').find('.frrContent').val($(e).parents('.actions').prev('.text').text());
+					}else{
+						alertify.alert('Develoffice', '본인만 수정할 수 있습니다.');
+					}
 				}
+
+
 				
 				$(document).on('click','.replyUpdate',function(){
 					
@@ -430,40 +437,45 @@
 					});
 				});
 				
-					$(document).on('click','.replyDelete',function(){
+				$(document).on('click','.replyDelete',function(){
 					
-					var id = $(this).children().val();
-					
-					//console.log(id);
-					var frId = $('input[name=reftbId]').val();
-					
-					//console.log($(this).parents('.comment'));
-					var dddd = $(this).parents('.comment');
-					var ddddform = $(this).parents('.comment').next("form");
-					
-					$.ajax({
-						url:"teamBoardRdelete.do",
-						type:"POST",
-						data:{
-							tbrId:id,
-							reftbId:frId
-						},
-						success:function(data){
-							if(data == "success"){
-								console.log("wwwwwww");
-								console.log(dddd);
-								$(dddd).css("display","none");
-								$(ddddform).css("display","none");
-								$("#comment_start_num").text($("#comment_start_num").text()-1);
-								//getReplyList(); 
-							}else{
-								alert("댓글삭제실패!");
-							}
-						},
-						error:function(){
-							console.log("통신 실패입니다.");						
-							}
-					});
+					if($(this).parent().attr('id') == '${loginUser.empId}'){
+						
+						var id = $(this).children().val();
+						
+						//console.log(id);
+						var frId = $('input[name=reftbId]').val();
+						
+						//console.log($(this).parents('.comment'));
+						var dddd = $(this).parents('.comment');
+						var ddddform = $(this).parents('.comment').next("form");
+						
+						$.ajax({
+							url:"teamBoardRdelete.do",
+							type:"POST",
+							data:{
+								tbrId:id,
+								reftbId:frId
+							},
+							success:function(data){
+								if(data == "success"){
+									console.log("wwwwwww");
+									console.log(dddd);
+									$(dddd).css("display","none");
+									$(ddddform).css("display","none");
+									$("#comment_start_num").text($("#comment_start_num").text()-1);
+									//getReplyList(); 
+								}else{
+									alert("댓글삭제실패!");
+								}
+							},
+							error:function(){
+								console.log("통신 실패입니다.");						
+								}
+						});
+					}else{
+						alertify.alert('Develoffice', '본인만 삭제할 수 있습니다.');
+					}
 					
 					
 				});
