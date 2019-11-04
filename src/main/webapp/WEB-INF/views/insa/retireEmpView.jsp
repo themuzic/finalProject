@@ -97,33 +97,50 @@
 		$(function(){
 			
 			$("#retire_button").on('click', function(){
-				var button = $(this);
-				button.removeClass("active");
-				button.addClass("loading");
-				var empId = $(this).parent().prop("id");
-				console.log(empId);
-				setTimeout(function() {
-					$.ajax({
-						url:"deleteEmp.do",
-						type:"POST",
-						data:{empId:empId},
-						success:function(data){
-							if(data == "success"){
-								button.addClass("active");
-								button.removeClass("loading");
-								button.html('퇴사 처리됨').attr("disabled", true);
-							}else{
-								alertify.alert("Develoffice", "퇴사 실패!!");
+				var strDate1 = $(this).parent().prev().html();
+				var arr1 = strDate1.split('-');
+				
+				var dat1 = new Date(arr1[0], arr1[1]-1, arr1[2]);
+				var dat2 = new Date();
+				
+				 // 날짜 차이 알아 내기
+				
+				var diffM = dat2.getMonth() - dat1.getMonth();
+				var diff = dat2.getTime() - dat1.getTime();
+				var result = Math.floor(diff/1000/60/60/24);
+				
+				if(diff <= 0){
+					
+					alertify.alert("Develoffice", '퇴사 예정일보다 이릅니다.');
+				}else{
+					var button = $(this);
+					button.removeClass("active");
+					button.addClass("loading");
+					var empId = $(this).parent().prop("id");
+					console.log(empId);
+					setTimeout(function() {
+						$.ajax({
+							url:"deleteEmp.do",
+							type:"POST",
+							data:{empId:empId},
+							success:function(data){
+								if(data == "success"){
+									button.addClass("active");
+									button.removeClass("loading");
+									button.html('퇴사 처리됨').attr("disabled", true);
+								}else{
+									alertify.alert("Develoffice", "퇴사 실패!!");
+								}
+							},
+							error:function(){
+								
 							}
-						},
-						error:function(){
-							
-						}
-					});
-				}, 3000);
+						});
+					}, 3000);
+				}
 			});
 			
-			
+		
 			
 			
 		});
