@@ -96,6 +96,14 @@
 	<script>
 		$(function(){
 			
+			/* 사이드바의 해당 메뉴 활성화 유지하기 */
+			$("#menu8_1").removeClass("collapsed");
+			$("#menu8").addClass("in");
+			$("#menu8").attr('aria-expanded',true);
+			$("#menu8_1").addClass("active");
+			$("#menu8_1").attr('aria-expanded',true);
+			$("#m8_3").addClass("active");
+			
 			$("#retire_button").on('click', function(){
 				var strDate1 = $(this).parent().prev().html();
 				var arr1 = strDate1.split('-');

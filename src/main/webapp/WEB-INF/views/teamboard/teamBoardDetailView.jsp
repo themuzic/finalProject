@@ -345,7 +345,7 @@
 									
 									var $formReply = $("<form id='formRep' class='ui reply form' style='display:none;'>");
 									var $divField = $("<div class='field'>");
-									var $textArea = $("<textarea class='frrContent' style='resize: none;'>");
+									var $textArea = $("<textarea class='frrContent' style='resize: none;font-size: 16px;'>");
 									var $divFrsubmit = $("<div class='ui blue submit icon button replyUpdate' style='font-size:1.3rem; background-color:#3287B2;'>").text("수정");
 									var $hiddenId = $('<input type="hidden" name="tbrId">').val(value.tbrId);
 									$divMetadate.append($spanDate);

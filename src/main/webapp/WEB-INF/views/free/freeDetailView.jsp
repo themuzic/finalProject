@@ -163,7 +163,7 @@
 											</h2>
 										</div>
 										<div class="btm_area clear">
-											</span><b>${f.empName}</b>ㆍ</sapn>
+											<%-- </span><b>${f.empName}</b>ㆍ</sapn> --%>
 											<div class="divider"></div>
 											<span>조회 수&nbsp;<b>${f.frCount}</b>ㆍ</span>
 											<div class="divider"></div>
@@ -343,7 +343,7 @@
 								$.each(data, function(index, value){
 									var $divComment = $("<div class='comment'>");
 									var $divContent = $("<div class='content'>");
-									var $aAuthor = $("<a class='author'>").text(value.empName);
+									/* var $aAuthor = $("<a class='author'>").text(value.empName); */
 									var $divMetadate = $("<div class='metadata'>");
 									var $spanDate = $("<span class='date'>").text(value.frrCreateDate);
 									var $divText = $("<div class='text' style='margin-top:7px;'>").text(value.frrContent);
@@ -354,7 +354,7 @@
 									
 									var $formReply = $("<form id='formRep' class='ui reply form' style='display:none;'>");
 									var $divField = $("<div class='field'>");
-									var $textArea = $("<textarea class='frrContent' style='resize: none;'>");
+									var $textArea = $("<textarea class='frrContent' style='resize: none;font-size: 16px;'>");
 									var $divFrsubmit = $("<div class='ui blue submit icon button replyUpdate' style='font-size:1.3rem; background-color:#3287B2;'>").text("수정");
 									var $hiddenId = $('<input type="hidden" name="frrId">').val(value.frrId);
 									$divMetadate.append($spanDate);
@@ -362,7 +362,7 @@
 									$divActions.append($aReply2);
 									$aReply2.append($hiddenId2);
 									
-									$divContent.append($aAuthor);
+									/* $divContent.append($aAuthor); */
 									$divContent.append($divMetadate);
 									$divContent.append($divText);
 									$divContent.append($divActions);

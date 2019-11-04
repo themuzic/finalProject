@@ -389,7 +389,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			$("#menu5").attr('aria-expanded',true);
 			$("#menu5_1").addClass("active");
 			$("#menu5_1").attr('aria-expanded',true);
-			$("#m5_2").addClass("active");
+			$("#m5_3").addClass("active");
 			
 		});
 		

@@ -527,7 +527,7 @@
 									<li><a href="insertMail.do" class="" id="m2_1">메일쓰기</a></li>
 									<li><a href="receiveMail.do" class="" id="m2_2">받은메일함</a></li>
 									<li><a href="sendMail.do" class="" id="m2_3">보낸메일함</a></li>
-									<li><a href="importantMail.do" class="" id="2_5">중요메일함</a>
+									<li><a href="importantMail.do" class="" id="m2_5">중요메일함</a>
 									<li><a href="deleteMail.do" class="" id="m2_4">휴지통</a></li>									
 								</ul>
 							</div>
@@ -592,8 +592,10 @@
 							<div id="menu6" class="collapse ">
 								<ul class="nav">
 									<li><a href="listNotice.do" class="" id="m6_1">공지사항</a></li>
-									<li><a href="listTeamBoard.do" class="" id="m6_2">팀게시판</a></li>
-									<li><a href="listFree.do" class="" id="m6_3">자유게시판</a></li>								
+									<c:if test="${loginUser.empId ne '10001'}">
+										<li><a href="listTeamBoard.do" class="" id="m6_2">팀게시판</a></li>
+										<li><a href="listFree.do" class="" id="m6_3">자유게시판</a></li>
+									</c:if>							
 								</ul>
 							</div>
 						</li>
@@ -608,6 +610,7 @@
 								<ul class="nav">
 									<li><a href="insaInsertForm.do" class="" id="m8_1">신규입사</a></li>
 									<li><a href="insaUpdateForm.do" class="" id="m8_2">인사이동</a></li>
+									<li><a href="retireEmpList.do" class="" id="m8_3">퇴사처리</a></li>
 								</ul>
 							</div>
 							</li>

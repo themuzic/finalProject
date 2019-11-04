@@ -862,10 +862,10 @@
 			var approvalList = $("#selectApprovalFirstLine").children('option')[0];		//결제라인
 			var referList = $("#selectApprovalThirdLine").children('option')[0];		//참조라인
 
-			$("#mailTo").text(approvalList.getAttribute('name'));
+			$("#mailTo").val(approvalList.getAttribute('name'));
 			
 			if(referList != undefined){
-				$("#mailCc").text(referList.getAttribute('name'));
+				$("#mailCc").val(referList.getAttribute('name'));
 			}
 			
 			

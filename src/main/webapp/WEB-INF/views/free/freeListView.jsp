@@ -133,7 +133,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 					            <tr>
 						      		<th style="text-align:center;" width="50"><i class="fas fa-list-ol"></i></th>
 							  		<th id="title" style="text-align:center;" >제목</th>
-							  		<th data-orderable="false" id="writer" width="60" style="text-align:center;">작성자</th>
+							  		<!-- <th data-orderable="false" id="writer" width="60" style="text-align:center;">작성자</th> -->
 							  		<th data-orderable="false"	width="60" style="text-align:center">첨부파일</th>
 							  		<th style="text-align:center;" width="50">조회수</th>
 							  		<th data-orderable="false" style="text-align:center;" width="100">작성일</th>
@@ -155,7 +155,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 												<a href="${frdetail}">${f.frTitle}</a>						
 											</c:if> 
 						            	</td>
-						            	<td>${f.empName}</td>
+						            	<%-- <td>${f.empName}</td> --%>
 						            	<td>
 						            		<c:if test="${!empty f.originalFileName }">
 												<i class="far fa-file-alt"></i>           
