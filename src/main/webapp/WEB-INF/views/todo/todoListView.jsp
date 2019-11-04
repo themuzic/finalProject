@@ -77,7 +77,7 @@
 	.contentWrap{
 	 	display:inline;
 		float:left;
-		width:95%;
+		width:75%;
 		background: white;
 		padding-top:30px;
 		padding-bottom:30px;
@@ -147,11 +147,11 @@
 					  </div>
 					</div>
 					
-					
+					<form action="allTodoView.do">
 					<div class="allContentWrap" style="padding:0 30px 0 10px">
-					
-								
-						<button type="button" class="large ui button" onclick="location.href='allTodoView.do'" style="margin:0 0 10px 0; background-color:#337ab7; color:white; font-size: 1.2rem;">
+						
+						<input type="hidden" name="tdBoardNo" value="${ tdBoardNo }">		
+						<button type="submit" class="large ui button" style="margin:0 0 10px 0; background-color:#337ab7; color:white; font-size: 1.2rem;">
 						  	<i class="fas fa-globe"></i> &nbsp;전체보기
 						</button>
 							
@@ -218,11 +218,12 @@
 						</div>
 						
 					</div>
+					</form>
 					
 					<!-- 프로젝트 추가 MODAL -->
 			        <div class="" tabindex="-1" role="dialog" id="insertTodoModal" class="show" style="display:none;overflow: hidden;">
 			     	 
-			     	   <%-- <input type="hidden" id="tdBoardNo" value="${ allTodo.tdBoardNo }"> --%>
+			     	   
 					   <input type="hidden" name="empId" value="${ loginUser.empId }">
 			            
 			            <div class="" role="document">
@@ -236,6 +237,7 @@
 			                                <label class="col-xs-4" for="edit-title"><b>My TO-DO</b></label>
 			                                <input class="inputModal" type="text" id="edit-title"
 			                                    name="todoName" required="required">
+			                                <input class="inputModal" type="hidden" name="tdBoardNo" value="${ tdBoardNo }">
 			                            </div>
 			                        </div>
 			                        
@@ -244,7 +246,7 @@
 			                            <div class="col-xs-12">
 			                                <label class="col-xs-4" for="edit-desc" style="width:150px;"><b>내용(선택사항)</b></label><br>
 			                                <textarea rows="4" cols="50" class="inputModal" name="todoContent"
-			                                    id="todoContent" style="resize:none;"></textarea>
+			                                    id="todoContent" style="resize:none;" placeholder="TO-DO는 대기 상태로 생성됩니다."></textarea>
 			                            </div>
 			                        </div>
 			                    </div>
@@ -259,10 +261,12 @@
 						
 					
 					<div class="statusContentWrap" style="padding:0 10px 0 30px">
-	
-						<div class="ongoingTD">
 						
-							<button class="large ui button btn-lg" onclick="location.href='ongoingTodoView.do'" style="margin:0 0 10px 0; background-color:#5bc0de; color:white; font-size: 1.2rem;">
+						
+						<form action="ongoingTodoView.do">
+						<div class="ongoingTD">
+							<input type="hidden" name="tdBoardNo" value="${ tdBoardNo }">
+							<button class="large ui button btn-lg" type="submit" style="margin:0 0 10px 0; background-color:#5bc0de; color:white; font-size: 1.2rem;">
 								<i class="fas fa-tasks"></i> &nbsp;진행중
 							</button>
 							
@@ -306,9 +310,12 @@
 							</table>
 							
 						</div>
+						</form>
 						
+						<form action="waitingTodoView.do">
 						<div class="waitingTD">
-							<button class="large ui button btn-lg" onclick="location.href='waitingTodoView.do'" style="margin:0 0 10px 0; background-color:#5cb85c; color:white; font-size: 1.2rem;">
+							<input type="hidden" name="tdBoardNo" value="${ tdBoardNo }">
+							<button class="large ui button btn-lg" style="margin:0 0 10px 0; background-color:#5cb85c; color:white; font-size: 1.2rem;">
 							  	<i class="fas fa-spinner"></i> &nbsp;대기
 							</button>
 							<table id="yourTable3" class="table table-bordered" style="border:none;">
@@ -347,9 +354,12 @@
 								</tbody>
 							</table>
 						</div>
+						</form>
 						
+						<form action="completionTodoView.do">
 						<div class="completionTD">
-							<button class="large ui button btn-lg" onclick="location.href='completionTodoView.do'" style="margin:0 0 10px 0; background-color:#f0ad4e; color:white; font-size: 1.2rem;">
+							<input type="hidden" name="tdBoardNo" value="${ tdBoardNo }">
+							<button class="large ui button btn-lg" style="margin:0 0 10px 0; background-color:#f0ad4e; color:white; font-size: 1.2rem;">
 							 	<i class="fas fa-check"></i> &nbsp;완료
 							</button>
 							<table id="yourTable4" class="table table-bordered" style="border:none;">
@@ -387,7 +397,8 @@
 								</tbody>
 							</table>
 							
-						</div>					
+						</div>
+						</form>					
 					
 					</div>
 		
@@ -526,7 +537,7 @@
 		$(document).on('click', '#saveEvent', function(){
 
 			 var todoNo = $("#todoNo").val();
-			 var tdBoardNo = $("#tdBoardNo").val();
+			 var tdBoardNo = $("input[name=tdBoardNo]").val();
 			 var todoName = $("input[name=todoName]").val();
 			 var todoContent = $("#todoContent").val();
 			 
@@ -545,7 +556,7 @@
 					if(data == 'success'){
 					
 						$("#todoNo").val("");
-						$("#tdBoardNo").val("");
+						$("input[name=tdBoardNo]").val("");
 						$("input[name=todoName]").val("");
 						$("#todoContent").val("");
 						

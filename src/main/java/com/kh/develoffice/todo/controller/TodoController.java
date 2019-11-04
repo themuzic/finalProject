@@ -104,18 +104,18 @@ public class TodoController {
 		TodoBoard tb = new TodoBoard();
 		tb.setEmpId(e.getEmpId());
 		
-		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
-		int tbNo = todoBoardList.get(0).getTdBoardNo();
+		//ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		//int tbNo = todoBoardList.get(0).getTdBoardNo();
 		
-		t.setTdBoardNo(tbNo);
+		//t.setTdBoardNo(tbNo);
 		
-		ArrayList<Todo> allTodo = tService.allTodo(t);
-		System.out.println(tbNo);
-		
+		//ArrayList<Todo> allTodo = tService.allTodo(t);
+		//System.out.println(tbNo);
+		mv.addObject("tdBoardNo", t.getTdBoardNo());
 		
 		mv.addObject("todoAList", todoAList).addObject("todoOList", todoOList)
 		.addObject("todoWList", todoWList).addObject("todoCList", todoCList)
-		.addObject("allTodo", allTodo).setViewName("todo/todoListView");
+		.setViewName("todo/todoListView");
 		
 		return mv;	
 	}
@@ -131,13 +131,14 @@ public class TodoController {
 		tb.setEmpId(e.getEmpId());
 		
 		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
-		int tbNo = todoBoardList.get(0).getTdBoardNo();
-		System.out.println(tbNo);
+		//int tbNo = todoBoardList.get(0).getTdBoardNo();
+		//System.out.println(tbNo);
 		
 		t.setEmpId(e.getEmpId());
-		t.setTdBoardNo(tbNo);
-		
-		mv.addObject("tbNo", tbNo).setViewName("todo/insertTodo");
+		//t.setTdBoardNo(tbNo);
+		mv.addObject("tdBoardNo", t.getTdBoardNo());
+		//mv.addObject("tbNo", tbNo)
+		mv.setViewName("todo/insertTodo");
 		
 		return mv;
 	}
@@ -156,17 +157,19 @@ public class TodoController {
 		TodoBoard tb = new TodoBoard();
 		tb.setEmpId(e.getEmpId());
 		
-		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
-		int tdBoardNo = todoBoardList.get(0).getTdBoardNo();
-		System.out.println(tdBoardNo);
+		//ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		//int tdBoardNo = todoBoardList.get(0).getTdBoardNo();
+		//System.out.println(tdBoardNo);
 		
 		t.setEmpId(e.getEmpId());
-		t.setTdBoardNo(tdBoardNo);
+		//t.setTdBoardNo(tdBoardNo);
 		
 		int result = tService.insertTodo(t);
 		
 		if(result > 0) {
-			mv.addObject("empId", empId).addObject("tdBoardNo", tdBoardNo).setViewName("redirect:todoList.do");
+			mv.addObject("tdBoardNo", t.getTdBoardNo());
+			mv.addObject("empId", empId).setViewName("redirect:todoList.do");
+			//addObject("tdBoardNo", tdBoardNo).
 			//.setViewName("todo/todoListView");
 			//return "redirect:todoList.do";
 		} else {
@@ -200,14 +203,14 @@ public class TodoController {
 		TodoBoard tb = new TodoBoard();
 		tb.setEmpId(e.getEmpId());
 		
-		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
-		int tbNo = todoBoardList.get(0).getTdBoardNo();
+		//ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		//int tbNo = todoBoardList.get(0).getTdBoardNo();
 		
 		t.setEmpId(e.getEmpId());
-		t.setTdBoardNo(tbNo);
+		//t.setTdBoardNo(tbNo);
 		
 		ArrayList<Todo> allTodo = tService.allTodo(t);
-		
+		mv.addObject("tdBoardNo", t.getTdBoardNo());
 		mv.addObject("allTodo", allTodo).setViewName("todo/allTodo");
 		return mv;
 	}
@@ -221,14 +224,14 @@ public class TodoController {
 		TodoBoard tb = new TodoBoard();
 		tb.setEmpId(e.getEmpId());
 		
-		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
-		int tbNo = todoBoardList.get(0).getTdBoardNo();
+		//ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		//int tbNo = todoBoardList.get(0).getTdBoardNo();
 		
 		t.setEmpId(e.getEmpId());
-		t.setTdBoardNo(tbNo);
+		//t.setTdBoardNo(tbNo);
 		
 		ArrayList<Todo> onTodo = tService.onTodo(t);
-		
+		mv.addObject("tdBoardNo", t.getTdBoardNo());
 		mv.addObject("onTodo", onTodo).setViewName("todo/ongoingTodo");
 		return mv;
 	}
@@ -237,19 +240,21 @@ public class TodoController {
 	@RequestMapping("waitingTodoView.do")
 	public ModelAndView waTodo(ModelAndView mv, HttpSession session, Todo t) {
 			
+		System.out.println(t);
 		Employee e = (Employee)session.getAttribute("loginUser");
 		
 		TodoBoard tb = new TodoBoard();
 		tb.setEmpId(e.getEmpId());
 		
-		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
-		int tbNo = todoBoardList.get(0).getTdBoardNo();
+		//ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		//int tbNo = todoBoardList.get(0).getTdBoardNo();
 		
 		t.setEmpId(e.getEmpId());
-		t.setTdBoardNo(tbNo);
+		//t.getTdBoardNo();
 		
 		ArrayList<Todo> waTodo = tService.waTodo(t);
 		
+		mv.addObject("tdBoardNo", t.getTdBoardNo());
 		mv.addObject("waTodo", waTodo).setViewName("todo/waitingTodo");
 		return mv;
 	}
@@ -263,14 +268,14 @@ public class TodoController {
 		TodoBoard tb = new TodoBoard();
 		tb.setEmpId(e.getEmpId());
 		
-		ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
-		int tbNo = todoBoardList.get(0).getTdBoardNo();
+		//ArrayList<TodoBoard> todoBoardList = tService.selectBoardList(tb);
+		//int tbNo = todoBoardList.get(0).getTdBoardNo();
 		
 		t.setEmpId(e.getEmpId());
-		t.setTdBoardNo(tbNo);
+		//t.setTdBoardNo(tbNo);
 		
 		ArrayList<Todo> comTodo = tService.comTodo(t);
-		
+		mv.addObject("tdBoardNo", t.getTdBoardNo());
 		mv.addObject("comTodo", comTodo).setViewName("todo/completionTodo");
 		return mv;
 	}

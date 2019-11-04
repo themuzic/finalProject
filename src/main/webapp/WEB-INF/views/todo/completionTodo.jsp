@@ -124,7 +124,7 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
-					<button class="large ui button btn-lg" onclick="location.href='completionTodo.do'" style="margin:0 0 5px 0; background-color:#f0ad4e; color:white; font-size: 1.5rem;">
+					<button class="large ui button btn-lg" onclick="location.href='completionTodoView.do'" style="margin:0 0 5px 0; background-color:#f0ad4e; color:white; font-size: 1.5rem;">
 					 	<i class="fas fa-check"></i> &nbsp;완료 List
 					</button>
 					<br><br>

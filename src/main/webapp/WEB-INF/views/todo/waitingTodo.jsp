@@ -124,7 +124,7 @@
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
-					<button class="large ui button btn-lg" onclick="location.href='waitingTodo.do'" style="margin:0 0 5px 0; background-color:#5cb85c; color:white; font-size: 1.5rem;">
+					<button class="large ui button btn-lg" onclick="location.href='waitingTodoView.do'" style="margin:0 0 5px 0; background-color:#5cb85c; color:white; font-size: 1.5rem;">
 							  	<i class="fas fa-spinner"></i> &nbsp;대기 List
 							</button>
 					<br><br>
