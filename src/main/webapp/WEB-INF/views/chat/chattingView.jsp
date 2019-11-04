@@ -746,7 +746,7 @@ body{
         		   "</div>" + 
         		   "</li>";
         }else if(data[0] == "chatId"){
-        	messenger = window.open("chatting.do?chatId=" + data[1] + "&chatName=" + data[3] + "&chatType=" + 2, data[1] + "chatting", "width=500,height=545", "false");
+        	messenger = window.open("chatting.do?chatId=" + data[1] + "&chatName=" + data[3] + "&chatType=" + 2, data[1] + "chatting", "width=400px,height=400px", "false");
         }else{
         	html = "<li class='msg-left'>" +
 			   "<div class='msg-left-sub'>" +

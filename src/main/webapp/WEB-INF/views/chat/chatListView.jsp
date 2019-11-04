@@ -263,7 +263,7 @@ body *{
         $(document).on("dblclick", ".chatListForm", function(){	// 채팅방 더블클릭 했을때
         	var chatId = $(this).find("input[name=chatId]").val();	// 더블클릭한 채팅방의 chatId
         	var chatName = $("#" +chatId);
-        	var chatType = $(this).find("input[name=chatType]").val()
+        	var chatType = $(this).find("input[name=chatType]").val();
         	messenger = window.open("chatting.do?chatId=" + chatId + "&chatName=" + chatName.html() + "&chatType=" + chatType, chatId + "chatting", "width=400px,height=400px", "false");
         });
     });
