@@ -123,8 +123,8 @@
 					<div class="contentWrap">
 					
 					<!-- 이 아래부터 내용 작성 -->
-					
-					<button class="large ui button btn-lg" onclick="location.href='completionTodoView.do'" style="margin:0 0 5px 0; background-color:#f0ad4e; color:white; font-size: 1.5rem;">
+					<form action="completionTodoView.do">
+					<button class="large ui button btn-lg" type="submit" style="margin:0 0 5px 0; background-color:#f0ad4e; color:white; font-size: 1.2rem;">
 					 	<i class="fas fa-check"></i> &nbsp;완료 List
 					</button>
 					<br><br>
@@ -179,13 +179,16 @@
 					
 					<br>
 					
-					
+					<div class="btn-area">
 					<button type="reset" onclick="deleteTodo();" class="btn btn-danger" style="margin:0 5px 0 5px;">
 						<i class="far fa-trash-alt"></i> 삭제하기
 					</button>
+					<button type="button" class="btn" onclick="location.href='todoList.do?tdBoardNo=${tdBoardNo}'" style="margin:0 0 5px 0; background-color:#3287B2; color:white; font-size: 1.2rem;">
+						<i class="fas fa-bars "></i> &nbsp;목록으로
+					</button>
+					</div>
 					
-					
-					
+					</form>
 					
 					<!-- 이 위까지 내용작성 -->
 					

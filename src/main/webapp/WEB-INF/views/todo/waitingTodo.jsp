@@ -123,8 +123,8 @@
 					<div class="contentWrap">
 					
 					<!-- 이 아래부터 내용 작성 -->
-					
-					<button class="large ui button btn-lg" onclick="location.href='waitingTodoView.do'" style="margin:0 0 5px 0; background-color:#5cb85c; color:white; font-size: 1.5rem;">
+					<form action="waitingTodoView.do">
+					<button class="large ui button btn-lg" type="submit" style="margin:0 0 5px 0; background-color:#5cb85c; color:white; font-size: 1.2rem;">
 							  	<i class="fas fa-spinner"></i> &nbsp;대기 List
 							</button>
 					<br><br>
@@ -179,16 +179,16 @@
 					
 					<br>
 					
-					
+					<div class="btn-area">
 					<button type="reset" onclick="deleteTodo();" class="btn btn-danger" style="margin:0 5px 0 5px;">
 						<i class="far fa-trash-alt"></i> 삭제하기
 					</button>
+					<button type="button" class="btn" onclick="location.href='todoList.do?tdBoardNo=${tdBoardNo}'" style="margin:0 0 5px 0; background-color:#3287B2; color:white; font-size: 1.2rem;">
+						<i class="fas fa-bars "></i> &nbsp;목록으로
+					</button>
+					</div>
 					
-					<!-- <button type="button" class="btn btn-warning" style="margin:0 5px 0 5px;">
-						<i class="fas fa-angle-double-right"></i>&nbsp; 다음 달로 넘기기 &nbsp;<i class="fas fa-angle-double-right"></i>
-					</button> -->
-					
-					
+					</form>
 					<!-- 이 위까지 내용작성 -->
 					
 					</div>
