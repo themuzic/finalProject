@@ -63,11 +63,11 @@ public class MailController {
 		
 		// 게시글 총 개수
 		int listCount = mService.getListCount(m);
-		System.out.println(listCount);
+//		System.out.println(listCount);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Mail> list = mService.receiveMailList(pi, m);
-		System.out.println(pi);
+//		System.out.println(pi);
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/receiveMail");
 		
 		return mv;
@@ -89,7 +89,7 @@ public class MailController {
 		int listCount = mService.getListCount(m);
 //		System.out.println(listCount);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		System.out.println(pi);
+//		System.out.println(pi);
 		ArrayList<Mail> list = mService.sendMailList(pi, m);
 //		System.out.println(pi);
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/sendMail");
@@ -115,7 +115,7 @@ public class MailController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Mail> list = mService.deleteMailList(pi, e);
-		System.out.println(pi);
+//		System.out.println(pi);
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/deleteMail");
 		
 		return mv;
@@ -139,7 +139,7 @@ public class MailController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Mail> list = mService.importantMailList(pi, e);
-		System.out.println(pi);
+//		System.out.println(pi);
 		mv.addObject("pi", pi).addObject("list", list).setViewName("mail/importantMail");
 		
 		return mv;
@@ -350,38 +350,52 @@ public class MailController {
 		
 		int ccEmpId = 0; // 없을 때 저장 안함
 		
-		if(ccEmail != null) {
+		if(ccEmail != null && ccEmail != toEmail) {
 			
 			ccEmpId = mService.selectEmpId(ccEmail);
 		}
 			
-		if(result > 0) {
-			
-			int result1 = mService.insertStatusMail(fromEmpId);
-			
-			int result2 = 1;
-			
-			if(toEmpId != 0) {
+		if (result > 0) {
+
+			if (fromEmpId == toEmpId || ccEmpId == fromEmpId) {
 				
-				result2 = mService.insertStatusMail(toEmpId);
+				int result4 = mService.insertStatusMail(toEmpId);
+				
+				if(result4 > 0) {
+					return "mail/successMail";
+					
+				} else {
+					model.addAttribute("msg", "메일전송 실패!");
+					return "common/errorPage";
+				}
+
+			} else {
+
+				int result1 = mService.insertStatusMail(fromEmpId);
+				int result2 = 1;
+
+				if (toEmpId != 0) {
+					result2 = mService.insertStatusMail(toEmpId);
+				}
+
+				int result3 = 1;
+
+				if (ccEmpId != 0) {
+					result3 = mService.insertStatusMail(ccEmpId);
+				}
+
+				if (result1 > 0 && result2 > 0 && result3 > 0) {
+					return "mail/successMail";
+				} else {
+					model.addAttribute("msg", "메일전송 실패!");
+					return "common/errorPage";
+				}
+
 			}
-			
-			int result3 = 1;
-			
-			if(ccEmpId !=0) {
-				result3 = mService.insertStatusMail(ccEmpId);
-			}
-			
-			if(result1 > 0 && result2 > 0 && result3 > 0) {
-				return "mail/successMail";
-			}else {
-				model.addAttribute("msg", "메일전송 실패!");
-				return "common/errorPage";
-			}
-		}else {
+		} else {
 			model.addAttribute("msg", "메일전송 실패!");
 			return "common/errorPage";
-		}		
+		}
 	}
 	 
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
@@ -466,9 +480,13 @@ public class MailController {
 		
 		m.setEmpId(e.getEmpId());
 		m.setMailTo(e.getEmail());
+		m.setMailCc(e.getEmail());
 		
 		String condition = request.getParameter("condition"); // writer, title, content
 		String search = request.getParameter("search");
+		
+		System.out.println(condition);
+		System.out.println(search);
 		
 		if(condition.equals("writer")) {
 			m.setWriter(search);
@@ -479,7 +497,7 @@ public class MailController {
 		}else {
 			m.setContent(search);
 		}
-		
+		System.out.println("m : "+m);
 		// 게시글 총 개수
 		int listCount = mService.getSearchListCount(m);
 		

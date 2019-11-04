@@ -156,7 +156,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				</thead>
 				<tbody class="select_subject">
 				<c:forEach items="${ list }" var="m">
-					<c:if test="${ m.mailTo == loginUser.email || m.mailCc == loginUser.email}">
+<%-- 					<c:if test="${ m.mailTo == loginUser.email || m.mailCc == loginUser.email}"> --%>
 							<tr>
 								<td>
 									<input type="checkbox" id="check" name="check" class="check chkBox" value="${ m.mailNum }">
@@ -200,7 +200,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 								</td>
 								<td class="mDate aa">${ m.mailDate }</td>
 							</tr>
-					</c:if>
+<%-- 					</c:if> --%>
 				</c:forEach>
 			</tbody>
 		</table>
