@@ -16,7 +16,7 @@
 <style>
 	.contentWrap{
 		float:left;
-		width:50%;
+		width:40%;
 		background: white;
 		padding-top:30px;
 		padding-bottom:30px;

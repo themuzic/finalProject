@@ -133,7 +133,9 @@
 		float:right;
 	}
 	
-
+	.ui-dialog{
+		min-height: 310px;
+	}
 
 </style>
 
@@ -226,14 +228,14 @@
 							<br>
 							
 							<!-- progress 수정 MODAL -->
-					        <div class="" tabindex="-1" role="dialog" id="updateProgressModal" class="show" style="width:450px; height:600px; display:none;">
+					        <div class="" tabindex="-1" role="dialog" id="updateProgressModal" class="show" style="width:400px; height:600px; display:none;overflow: hidden;">
 					     	 
 					     	   <input type="hidden" id="pNo" value="${ projectDetail.pNo }">
 					     	   
 					            <div class="" role="document">
 					                <div class="">
 					                
-					                    <div class="">
+					                    <div class="" style="margin: 30px 0;">
 											<br>
 											
 					                        <div class="row">
@@ -299,7 +301,7 @@
 								
 								<c:if test="${ loginUser.empId eq projectDetail.pmId }">
 								
-								<form action="insertMem.do">
+								<form action="insertMem.do" onsubmit="return checkMember()">
 								
 							 	<div class="addMember">
 									<div class="TeamMemArea" style="padding:10px 0 0 0"> 
@@ -324,7 +326,7 @@
 															<colgroup><col><col><col><col><col><col><col></colgroup>
 															<tbody id="apTbody">
 															<tr id="nameRow" style="border:0px solid white;">
-																<td class="name"><input type="hidden" name="empId" value=""></td>
+																<td class="name"></td>
 																<td class="name"></td>
 																<td class="name"></td>
 																<td class="name"></td>
@@ -485,7 +487,7 @@
 							<br>
 								
 							<!-- 업무 추가 MODAL -->
-					        <div class="" tabindex="-1" role="dialog" id="insertTaskModal" class="show" style="display:none;">
+					        <div class="" tabindex="-1" role="dialog" id="insertTaskModal" class="show" style="display:none;overflow: hidden;">
 					     	 
 					     	   <input type="hidden" id="pNo" value="${ projectDetail.pNo }">
 					     	   
@@ -1078,7 +1080,13 @@
 			 });
 		});
 		
-	
+		function checkMember(){
+			
+			if($('#nameRow td')[0].innerHTML == ""){
+				alertify.alert('DEVELOFFICE','추가할 팀원이 없습니다.');
+				return false;
+			}
+		}
 	
 	
 	</script>

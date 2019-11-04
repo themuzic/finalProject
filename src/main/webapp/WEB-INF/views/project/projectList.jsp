@@ -24,6 +24,9 @@
 		font-size:14px;
 	}
 	
+	.ui-dialog{
+		min-height: 350px;
+	}
 	
 
 </style>
@@ -86,7 +89,7 @@
 					</div>
 					
 					<!-- 프로젝트 추가 MODAL -->
-			        <div class="" tabindex="-1" role="dialog" id="insertProjectModal" class="show" style="display:none;">
+			        <div class="" tabindex="-1" role="dialog" id="insertProjectModal" class="show" style="display:none;overflow: hidden;">
 			     	 
 			     	   
 			            <div class="" role="document">
@@ -94,7 +97,7 @@
 			                
 			                    <div class="">
 									<br>
-									<input type="hidden" id="pNo" name="pNo" value="">
+									<!-- <input type="hidden" id="pNo" name="pNo" value=""> -->
 									<input type="hidden" name="empId" value="${ loginUser.empId }">
 					   				<input type="hidden" name="pmId" value="${ loginUser.empId }">
 			                        <div class="row">
@@ -123,9 +126,9 @@
 			            </div><!-- /.modal-dialog -->
 			        </div><!-- /.modal -->
 					
-					<div class="ui three cards" id="project-list">
+					<div class="ui three cards" id="project-list" style="margin:auto auto auto auto;">
 					
-						<div class="ui cards" >
+						<div class="ui cards" style="float:center;">
 							<!-- 
 								1. 로그인한 유저 empid와 mlist의 empid가 같아야하고
 								2. 그 empid가 포함된 프로젝트만 보이게. 
@@ -164,7 +167,7 @@
 							        	</c:forEach>
 							        </span>
 							        <br>
-							        <p style="text-align:right;">${ p.pEnrollDate }</p>
+							        <p style="text-align:right; padding:10px 0 0 0;">${ p.pEnrollDate }</p>
 							      </div>
 							    </div>
 							    <div class="ui bottom attached button">
