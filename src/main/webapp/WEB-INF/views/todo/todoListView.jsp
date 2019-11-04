@@ -102,7 +102,9 @@
 		display:inline; 
 		float:left;
 	}
-	
+	.ui-dialog{
+		min-height: 325px;
+	}
 	
 </style>
 
@@ -218,7 +220,7 @@
 					</div>
 					
 					<!-- 프로젝트 추가 MODAL -->
-			        <div class="" tabindex="-1" role="dialog" id="insertTodoModal" class="show" style="display:none;">
+			        <div class="" tabindex="-1" role="dialog" id="insertTodoModal" class="show" style="display:none;overflow: hidden;">
 			     	 
 			     	   <%-- <input type="hidden" id="tdBoardNo" value="${ allTodo.tdBoardNo }"> --%>
 					   <input type="hidden" name="empId" value="${ loginUser.empId }">

@@ -108,7 +108,7 @@
 					<!-- 보드 리스트 -->
 					<div class="ui three cards">
 				
-						<div class="ui link cards">
+						<div class="ui link cards" >
 						
 						<c:forEach items="${ todoBoardList }" var="b">
 						
@@ -118,11 +118,12 @@
 								<c:param name="tdBoardNo" value="${b.tdBoardNo}"/>
 							</c:url>
 							 -->						
-							<div class="card" onclick="location.href='todoList.do?tdBoardNo=${b.tdBoardNo}'" style="height:250px;">
+							<div class="card" onclick="location.href='todoList.do?tdBoardNo=${b.tdBoardNo}'" style="height:250px; margin:15px 15px 15px 15px; padding:10px 10px 0 10px;">
 							   <input type="hidden" value="${b.tdBoardNo}">
-							    <div class="image" style="height:20px; background-color:${ b.tdBoardColor };">
+							    <div class="image" style="height:25px; background-color:${ b.tdBoardColor };">
 							    </div>
-							    <div class="content" style="padding:15px 0 10px 10px;">
+							    <div class="content" style="padding:20
+							    px 0 10px 10px;">
 							      <div class="header">${ b.tdBoardName }</div>
 							      <div class="meta" style="padding:8px 15px 10px 0; text-align:right;">
 							        <a><i class="fas fa-user"></i>&nbsp;${ loginUser.empName }</a>

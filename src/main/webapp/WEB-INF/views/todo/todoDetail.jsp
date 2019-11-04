@@ -39,7 +39,7 @@
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
-					<div class="contentWrap">
+					<div class="contentWrap" style="width:50%;">
 					
 					<!-- 이 아래부터 내용 작성 -->
 					
