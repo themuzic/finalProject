@@ -389,7 +389,11 @@ body{
 <script type="text/javascript">
 
     $(document).ready(function() {
-
+		$(document).on('click', '.profileButton', function(){
+			var profilePath = $(this).children().attr('src');
+			$("#modal-profile").attr('src', profilePath);
+		});
+			
     	$("#exit").on('click', function(){
     		alertify.confirm('DEVELOFFICE', '채팅방을 나가면 대화내용이 모두 삭제됩니다. 계속하시겠습니까?', function(){exitChat();}, function(){})
     	})
@@ -724,9 +728,9 @@ body{
         if(data[0] == "나"){
         	html = "<li class='msg-right'>" +
 			   "<div class='msg-right-sub'>" +
-			   "<img src='resources/upload/profile/" +
+			   "<a href='#profileModal' class='profileButton' data-target='#profileModal' data-toggle='modal'><img src='resources/upload/profile/" +
 			   profilePath + 
-			   "'>" +
+			   "'></a>" +
 			   "<div class='msg-desc'>" +
 			   str.substring(str.indexOf(":")+1,str.length) +
 			   "</div>" +
@@ -746,9 +750,9 @@ body{
         }else{
         	html = "<li class='msg-left'>" +
 			   "<div class='msg-left-sub'>" +
-			   "<img src='resources/upload/profile/" +
+			   "<a href='#profileModal' class='profileButton' data-target='#profileModal' data-toggle='modal'><img src='resources/upload/profile/" +
 			   data[1] +
-			   "'>" +
+			   "'></a>" +
 			   "<div style='margin-left:70px; font-size:12px'>" +
 			   data[0] +
 			   "</div>" +
@@ -777,7 +781,7 @@ body{
 </head>
 <body>
 
-	<!---------------------- 미리보기창 모달 -------------------------->               
+	<!---------------------- 초대 모달 -------------------------->               
     <!-- Modal -->
 	<div class="modal fade"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     	<div class="modal-dialog" role="document">
@@ -805,6 +809,26 @@ body{
        		</div>
 	   	</div>
     </div>
+    
+    <!-- 초대 모달 끝 -->
+    
+    <!-- 프로필 모달 -->
+    <div class="modal fade"  id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    	<div class="modal-dialog" style="width:60%;" role="document">
+    		<div class="modal-content">
+    			<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+     					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" style="text-align: center;">
+					<img id="modal-profile" style="width:100%; height:100%;">
+	         	</div>
+
+       		</div>
+	   	</div>
+    </div>
+    <!-- 프로필 모달 끝 -->
 	<div class="main-section">
 		<div class="head-section">
 			<div class="headLeft-section">
@@ -851,7 +875,7 @@ body{
 							<c:if test="${msg.empId == loginUser.empId  && msg.msgType == 1}">
 								<li class="msg-right">
 									<div class="msg-left-sub">
-										<img src="resources/upload/profile/${msg.profilePath}">
+										<a href="#profileModal" class="profileButton" data-target="#profileModal" data-toggle="modal"><img src="resources/upload/profile/${msg.profilePath}"></a>
 										<div class="msg-desc">
 											${msg.content}
 										</div>
@@ -862,7 +886,7 @@ body{
 							<c:if test="${msg.empId ne loginUser.empId && msg.msgType == 1}">
 								<li class="msg-left">
 									<div class="msg-left-sub">
-										<img src="resources/upload/profile/${msg.profilePath}">
+										<a href="#profileModal" class="profileButton" data-target="#profileModal" data-toggle="modal"><img src="resources/upload/profile/${msg.profilePath}"></a>
 										<div style="margin-left:70px; font-size:12px">
 											${msg.empName} ${msg.jobName }
 										</div>

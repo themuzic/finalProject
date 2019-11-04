@@ -14,6 +14,10 @@
 <!-- sockjs 라이브러리 -->
 <script type="text/javascript" src="resources/chat/js/sockjs-0.3.4.js"></script>
 
+<!-- 부트스트랩 cdn -->
+<link rel="stylesheet" href="resources/assets/vendor/bootstrap/css/bootstrap.min.css">
+<script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+
 <!-- 제이쿼리 이벤트 라이브러리 cdn -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <!-- 커스텀 스크롤바 라이브러리 cdn -->
@@ -165,6 +169,11 @@ ul li:hover{
 
     $(document).ready(function() {
 
+		$(document).on('click', '.profileButton', function(){
+			var profilePath = $(this).children().attr('src');
+			$("#modal-profile").attr('src', profilePath);
+		});
+		
     	$("#search").on('keyup', function(){
         	var search = $(this).val();
         	var empList = ${test};
@@ -269,6 +278,23 @@ ul li:hover{
 
 </head>
 <body>
+	<!-- 프로필 모달 -->
+    <div class="modal fade"  id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    	<div class="modal-dialog" style="width:60%;" role="document">
+    		<div class="modal-content">
+    			<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+     					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" style="text-align: center;">
+					<img id="modal-profile" style="width:100%; height:100%;">
+	         	</div>
+
+       		</div>
+	   	</div>
+    </div>
+    <!-- 프로필 모달 끝 -->
 	<div class="ui left demo vertical inverted very thin sidebar labeled icon menu" style="background:#e1e1e1; text-align:center; color:rgb(166, 166, 166);">
 		<br>
 		<div class="item" style="color:black;">
@@ -302,7 +328,7 @@ ul li:hover{
 							<li>
 								<div class="chatList">
 									<div class="img">
-										<img src="resources/upload/profile/${loginUser.profilePath}">
+										<a href="#profileModal" class="profileButton" data-target="#profileModal" data-toggle="modal"><img src="resources/upload/profile/${loginUser.profilePath}"></a>
 									</div>
 									<div class="desc" style="padding-top: 6px;font-size: 20px;">
 										<h5>${loginUser.empName } ${loginUser.jobName }</h5>
@@ -323,7 +349,7 @@ ul li:hover{
 								<div class="chatList" style="padding-left: 14px;">
 									<input type="hidden" name="empId" value="${emp.empId }">
 									<div class="img">
-										<img src="resources/upload/profile/${emp.profilePath}">
+										<a href="#profileModal" class="profileButton" data-target="#profileModal" data-toggle="modal"><img src="resources/upload/profile/${emp.profilePath}"></a>
 									</div>
 									<div class="desc" style="padding-top: 6px;font-size: 17px;">
 										<h5>${ emp.empName } ${emp.jobName }</h5>
