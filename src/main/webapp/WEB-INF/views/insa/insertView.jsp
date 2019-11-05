@@ -46,7 +46,7 @@
 					
 		            <div class="col-sm-6 col-md-offset-3">
 		            		<div align="center">
-		            			<h2 style="margin-left:60px; color:gray">Develoffice 사원추가</h1>
+		            			<h2 style="margin-left:60px; color:gray">DEVELOFFICE 사원추가</h1>
 		            		</div>
 		            		<br><br>
 	                        <label for="inputName" class="aa"><b>성명</b></label><br>
