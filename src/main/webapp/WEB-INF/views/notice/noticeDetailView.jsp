@@ -204,7 +204,7 @@
 												</c:if>
 											</div>
 											<div class="free_content" style="margin-bottom: 100px;">
-												<p style="font-size: 16px;">${n.noContent}</p>
+												<p style="font-size: 18px;">${n.noContent}</p>
 											</div>
 										</div>
 									</div>

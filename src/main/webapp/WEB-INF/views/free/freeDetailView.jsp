@@ -178,7 +178,7 @@
 											</span>
 										</div>
 										<div class="free_content" style="margin-bottom:100px;">
-											<p style="font-size:16px;">${f.frContent}</p>											
+											<p style="font-size:18px;">${f.frContent}</p>											
 										</div>
 									</div>
 								</div>

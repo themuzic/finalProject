@@ -177,7 +177,7 @@
 													</span>
 												</c:if>
 										</div>
-										<div class="free_content" style="margin-bottom:100px;font-size:16px;">${tb.tbContent}</div>
+										<div class="free_content" style="margin-bottom:100px;font-size:18px;">${tb.tbContent}</div>
 									</div>
 								</div>
 		    				</div>
