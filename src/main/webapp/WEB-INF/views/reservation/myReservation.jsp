@@ -258,7 +258,12 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	
 	<!-- script 작성 -->
 	<script>
+	
+	
+	
 		$(function(){
+			
+			rList = ${rList};
 			
 			/* 사이드바의 해당 메뉴 활성화 유지하기 */
 			$("#menu5_1").removeClass("collapsed");
@@ -281,7 +286,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			var $dd4 = $(".dd4");
 			var $del = $("#booking_detail_layer").find(".del_booking_layer_btn");
 			
-			$.each(${rList}, function(i, r){
+			$.each(rList, function(i, r){
 				
 				if(r.reservNum == thisTD[0].getAttribute('reservnum')){
 					
@@ -332,7 +337,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				},
 				success:function(data){
 					
-					if(data == "success"){
+					if(data.length > 0){
 						
 						$.each($tr, function(index, tr){
 							if(tr.getAttribute('reservnum') == rNum){
@@ -344,7 +349,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 							}
 						});
 						$close.click();
-						
+						rList = data;
     				} else{
     					alertify.alert('', '예약 내역 삭제 실패');
     				}

@@ -397,13 +397,19 @@ if (request.getProtocol().equals("HTTP/1.1"))
 								<input type="hidden" class="status" name="status" value="Y">
 								<div class="panel-heading">
 									<h3 class="panel-title">게시판</h3>
-									<dvi style="position:absolute;right:180px;top:50%;">
-										<input type="radio" name="boardType" value="N" id="board1" checked>
-										<label for="board1">공지사항</label>
-										<input type="radio" name="boardType" value="T" id="board2">
-										<label for="board2">팀 게시판</label>
-										<input type="radio" name="boardType" value="F" id="board3">
-										<label for="board3">자유 게시판</label>
+									<dvi style="position:absolute;right:145px;top:50%;">
+										<c:if test="${loginUser.empId eq '10001'}">
+											<input type="radio" name="boardType" value="N" id="board1" checked style="opacity: 0;">
+										</c:if>
+										<c:if test="${loginUser.empId ne '10001'}">
+											<input type="radio" name="boardType" value="N" id="board1" checked style="opacity: 0;">
+											<label for="board1" class="helpLabel" id="label1">공지사항</label>
+											<input type="radio" name="boardType" value="T" id="board2" style="opacity: 0;">
+											<label for="board2" class="helpLabel" id="label2">팀 게시판</label>
+											<input type="radio" name="boardType" value="F" id="board3" style="opacity: 0;">
+											<label for="board3" class="helpLabel" id="label3">자유 게시판</label>
+										</c:if>
+										
 									</dvi>
 									<div class="right">
 										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
@@ -419,7 +425,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 												<th style="width:100px;text-align:center;padding:8px;">작성자</th>
 											</tr>
 										</thead>
-										<tbody id="boardTbody" class="tBody">
+										<tbody id="boardTbody" class="tBody" style="width:100%;">
 										
 										
 										
@@ -475,9 +481,28 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	
 	
 	<script>
+	$(function(){
+		$('#label1').click();
+	});
 	
 	var endLeft;
 	var endTop;
+	
+	$(document).on('click',"#label1",function(){
+		$("#label1").addClass('helphelp');
+		$("#label2").removeClass('helphelp');
+		$("#label3").removeClass('helphelp');
+	});
+	$(document).on('click',"#label2",function(){
+		$("#label2").addClass('helphelp');
+		$("#label1").removeClass('helphelp');
+		$("#label3").removeClass('helphelp');
+	});
+	$(document).on('click',"#label3",function(){
+		$("#label3").addClass('helphelp');
+		$("#label1").removeClass('helphelp');
+		$("#label2").removeClass('helphelp');
+	});
     
 	/* 위젯 움직일때 */
     $(".panel").draggable({
@@ -797,7 +822,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 							var td1 = $('<td style="text-align:center;padding-left:8px;">').text(data[i].frCreateDate);	//작성일
 							var td2 = $('<td>');	//제목
 							var title = $('<a href="freeDetail.do?frId='+data[i].frId+'">').text(data[i].frTitle);
-							var td3 = $('<td style="text-align:center;padding-left:8px;">').text(data[i].empName);	//작성자
+							var td3 = $('<td style="text-align:center;padding-left:8px;">').text("익명");	//작성자
 							td2.append(title);
 							tr.append(td1);
 							tr.append(td2);

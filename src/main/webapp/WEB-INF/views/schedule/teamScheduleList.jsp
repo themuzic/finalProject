@@ -228,10 +228,10 @@
 				<hr>	
 		       
 		      <div align="left" style="padding-bottom:5px;">
-					<b style="color: #505363"><label for="team">팀 일정</label></b>
-					<input type="radio" name="splan" id="team" class="splan" value="T" style="margin-bottom:7px;" checked>&nbsp;
-					<b style="color: #505363"><label for="company">회사 일정</label></b>
-					<input type="radio" name="splan" id="company" class="splan" value="C" style="margin-bottom:7px;">
+					<b style="color: #505363"><label for="team" class="helpLabel" id="label1">팀 일정</label></b>
+					<input type="radio" name="splan" id="team" class="splan" value="T" style="margin-bottom:7px;opacity: 0;" checked>&nbsp;
+					<b style="color: #505363"><label for="company" class="helpLabel" id="label2">회사 일정</label></b>
+					<input type="radio" name="splan" id="company" class="splan" value="C" style="margin-bottom:7px;opacity: 0;">
 					<div style="float:right;">
 						<button type="button" id="addBtn" class="ui grey basic button big addBtn">일정등록</button>
 					</div>
@@ -337,11 +337,20 @@
 	<script>
 	
 	$(function(){
-
+		$('#label1').click();
 	/* 사이드바의 해당 메뉴 활성화 유지하기 */
 	$("#menu4").addClass("active");
 	
+	
 		 
+	});
+	$(document).on('click',"#label1",function(){
+		$("#label1").addClass('helphelp');
+		$("#label2").removeClass('helphelp');
+	});
+	$(document).on('click',"#label2",function(){
+		$("#label2").addClass('helphelp');
+		$("#label1").removeClass('helphelp');
 	});
 	</script>
 	

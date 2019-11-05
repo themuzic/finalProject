@@ -260,7 +260,7 @@ input[type=text]{
 										
 										<div id="widgetBtnDiv" style="text-align:right;font-size:13px;margin-top:10px;">
 											<div class="ui positive check button" id="allCheck" style="font-size:13px;">전체 선택</div>
-											<div class="ui negative uncheck button" id="allUnCheck" style="font-size:13px;">전체 헤제</div>
+											<div class="ui negative uncheck button" id="allUnCheck" style="font-size:13px;">전체 해제</div>
 										</div>
 										
 									</div>

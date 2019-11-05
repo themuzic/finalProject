@@ -123,6 +123,7 @@
 		width:557px;
 	}
 	
+	
 </style>
 
 
@@ -160,8 +161,10 @@
 									<div class="helpTitle">
 										<label class="title fl">도와주세요</label>
 										<div id="radioDiv" class="fl" style="margin-left:20px">
-											<input type="radio" name="condition" id="radio1" value="all" onclick="refresh();" checked><label for="radio1">전체 목록</label>
-											<input type="radio" name="condition" id="radio2" value="my" onclick="refresh();" style="margin-left:7px;"><label for="radio2">내 목록</label>
+											<input type="radio" name="condition" id="radio1" value="all" onclick="refresh();" checked>
+											<label for="radio1" class="helpLabel" id="label1">전체 목록</label>
+											<input type="radio" name="condition" id="radio2" value="my" onclick="refresh();" style="margin-left:7px;">
+											<label for="radio2" class="helpLabel" id="label2">내 목록</label>
 										</div>
 										<i class="fas fa-plus fr" id="addHelp" style="padding-top:6px;margin-right:20px;cursor:pointer;" title="일감 추가"></i>
 									</div>
@@ -357,6 +360,7 @@
 		$(function(){
 			refresh();
 			callBringList();
+			$('#label1').click();
 			
 			$("#menu3_1").removeClass("collapsed");
 			$("#menu3").addClass("in");
@@ -386,6 +390,17 @@
 		    });
 		    
 		});
+		
+		/*  전체/내가 등록한 일감 라디오 버튼 */
+		$(document).on('click',"#label1",function(){
+			$("#label1").addClass('helphelp');
+			$("#label2").removeClass('helphelp');
+		});
+		$(document).on('click',"#label2",function(){
+			$("#label2").addClass('helphelp');
+			$("#label1").removeClass('helphelp');
+		});
+		
 		
 		/* 일감 등록창 여는 버튼 눌렀을 때 */
 		$("#addHelp").on('click',function(){

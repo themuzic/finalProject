@@ -326,15 +326,15 @@ if (request.getProtocol().equals("HTTP/1.1"))
 									</dl>
 									<dl class="after">
 										<dt><label for="">예약 시간</label></dt>
-										<dd class="dd1"></dd>
+										<dd id="dd1"></dd>
 									</dl>
 									<dl class="after">
 										<dt><label for="">등록자</label></dt>
-										<dd class="dd2"></dd>
+										<dd id="dd2"></dd>
 									</dl>
 									<dl class="after">
 										<dt><label for="">사용 용도</label></dt>
-										<dd class="dd3">설계 회의</dd>
+										<dd id="dd3">설계 회의</dd>
 									</dl>
 									<dl class="after">
 										<dt><label for="">예약 상태</label></dt>
@@ -595,6 +595,10 @@ if (request.getProtocol().equals("HTTP/1.1"))
 						//console.log(endTD);
 						//console.log(endPoint);
 						
+						if(r.endTime == '18:00'){
+							endPoint = 18;
+						}
+						
 						for(var i in $timePanel){
 							if(i >= startPoint && i <= endPoint-1){
 								$timePanel[i].classList.remove('blank');
@@ -625,9 +629,13 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		$('#time-table').on('click','.reserv',function(){
 			var thisTD = $(this);
 			
-			var $dd1 = $(".dd1");
-			var $dd2 = $(".dd2");
-			var $dd3 = $(".dd3");
+			$("#dd1").text("");
+			$("#dd2").text("");
+			$("#dd3").text("");
+			
+			var $dd1 = $("#dd1");
+			var $dd2 = $("#dd2");
+			var $dd3 = $("#dd3");
 			
 			$.each(${reservList}, function(i, r){
 				

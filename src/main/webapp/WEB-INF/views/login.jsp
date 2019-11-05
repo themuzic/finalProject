@@ -36,11 +36,11 @@
 							<form class="form-auth-small" action="login.do" method="post">
 								<div class="form-group">
 									<label for="signin-id" class="control-label sr-only">Email</label>
-									<input type="text" class="form-control" name="empId" id="signin-id" value="" placeholder="ID" autofocus>
+									<input type="text" class="form-control" name="empId" id="signin-id" value="" placeholder="ID" autofocus required>
 								</div>
 								<div class="form-group">
 									<label for="signin-password" class="control-label sr-only">Password</label>
-									<input type="password" class="form-control" name="empPwd" id="signin-password" value="" placeholder="Password">
+									<input type="password" class="form-control" name="empPwd" id="signin-password" value="" placeholder="Password" required>
 								</div>
 								<div class="form-group clearfix">
 									<label class="fancy-checkbox element-left">

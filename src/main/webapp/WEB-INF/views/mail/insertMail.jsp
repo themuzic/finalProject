@@ -161,7 +161,7 @@
 					          <span aria-hidden="true">&times;</span>
 					        </button>
 					      </div>
-					      <div class="modal-body" style="height:450px; width:600px; padding-left:20px;">
+					      <div class="modal-body" style="width:600px; padding-left:20px;">
 					      	<br>
 					      	<div style="padding:3px;">
 								<p><b>보낸사람  : </b> 

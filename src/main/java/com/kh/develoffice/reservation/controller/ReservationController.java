@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.reservation.model.service.ReservationService;
 import com.kh.develoffice.reservation.model.vo.Payment;
 import com.kh.develoffice.reservation.model.vo.Reservation;
@@ -64,6 +66,25 @@ public class ReservationController {
 		
 		return mv;
 	}
+	/*
+	@RequestMapping("updateReservList.do")
+	public void updateReservList(HttpServletResponse response, HttpSession session) throws JsonIOException, IOException {
+		
+		int empId = ((Employee)session.getAttribute("loginUser")).getEmpId();
+		ArrayList<Reservation> reservList = rService.selectMyReserv(empId);
+		ArrayList<Reservation> rList = rService.selectMyReserv(empId);
+		ArrayList<Payment> payList = rService.selectPayList(empId);
+		
+		response.setContentType("application/json; charset=utf-8");
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		gson.toJson(reservList, response.getWriter());
+		gson.toJson(payList, response.getWriter());
+		gson.toJson(reservList, response.getWriter());
+		
+	}
+	*/
+	
 	
 	
 	@RequestMapping("conferenceRoom.do")
@@ -210,14 +231,36 @@ public class ReservationController {
 	
 	@ResponseBody
 	@RequestMapping("deleteReserv.do")
-	public String deleteReserv(Reservation reserv) {
-		
+	public JSONArray deleteReserv(Reservation reserv) {
+		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
 		int result = rService.deleteReserv(reserv);
+		JSONArray rList = new JSONArray();
 		
 		if(result > 0) {
-			return "success";
+			ArrayList<Reservation> reservList = rService.selectMyReserv(reserv.getEmpId());
+			
+			
+			for(Reservation r : reservList) {
+				JSONObject jObj = new JSONObject();
+				
+				jObj.put("reservNum", r.getReservNum());
+				jObj.put("empId", r.getEmpId());
+				jObj.put("empName", r.getEmpName());
+				jObj.put("jobName", r.getJobName());
+				jObj.put("reservType", r.getReservType());
+				jObj.put("insertDate", r.getInsertDate());
+				jObj.put("reservDate", sdf.format(r.getReservDate()));
+				jObj.put("startTime", r.getStartTime());
+				jObj.put("endTime", r.getEndTime());
+				jObj.put("reason", r.getReason());
+				jObj.put("delStatus", r.getDelStatus());
+				
+				rList.add(jObj);			
+			}
+			return rList;
+			
 		} else {
-			return "fail";
+			return rList;
 		}
 	}
 	

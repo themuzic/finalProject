@@ -386,6 +386,22 @@
 	.ajs-cancel{
 		color:red;
 	}
+	.helpLabel{
+		display: inline-block;
+	    height: 28px;
+	    margin: 0;
+	    padding-left: 27px;
+	    background: url("resources/images/sprite_chk.png") 0 -32px no-repeat;
+	    font-weight: bold;
+	    line-height: 28px;
+	    cursor: pointer;
+	}
+	.helphelp{
+		background-position: 0 0;
+	}
+	#radio1, #radio2 {
+		opacity: 0;
+	}
 </style>
 
 </head>

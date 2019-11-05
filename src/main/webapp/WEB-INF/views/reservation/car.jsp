@@ -595,6 +595,10 @@ if (request.getProtocol().equals("HTTP/1.1"))
 						//console.log(endTD);
 						//console.log(endPoint);
 						
+						if(r.endTime == '18:00'){
+							endPoint = 18;
+						}
+						
 						for(var i in $timePanel){
 							if(i >= startPoint && i <= endPoint-1){
 								$timePanel[i].classList.remove('blank');

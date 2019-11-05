@@ -338,7 +338,7 @@
 									var $divMetadate = $("<div class='metadata'>");
 									var $spanDate = $("<span class='date'>").text(value.tbrCreateDate);
 									var $divText = $("<div class='text' style='margin-top:7px;'>").text(value.tbrContent);
-									var $divActions = $("<div id='" + tbrWriter + "' class='actions fr'>");
+									var $divActions = $("<div id='" + value.tbrWriter + "' class='actions fr'>");
 									var $aReply1 = $("<a onclick='writeReply(this)' id='fix' class='reply'>").text("수정");
 									var $aReply2 = $("<a id='del' class='reply replyDelete'>").text("삭제");
 									var $hiddenId2 = $("<input id='hdel' type='hidden' name='tbrId'>").val(value.tbrId);

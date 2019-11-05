@@ -95,7 +95,7 @@
 						<div class="txt" style="margin-left:80px; position:relative;">
 							<div class="position">
 								<textarea class="cc_addr autocomplete" name="mailTo" id='mailTo' placeholder="메일 주소를 입력하세요." 
-									style="width:97%; height:30px; padding-top:5px; padding-left:3px;"></textarea>
+									style="width:97%; height:30px; padding-top:5px; padding-left:3px;resize: none;"></textarea>
 								<button type="button" class="" id="addressSelect" onclick="" style="display:inline-block;padding:0; font-size:20px">
 									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
 								</button>
@@ -112,10 +112,7 @@
 						<p style="width:80px; position:absolute;top:4px;">참조 </p>
 						<div class="txt title" style="margin-left:80px; position:relative;">
 							<div class="position">
-								<textarea  id="mailCc" name="mailCc" style="width:97%; height:30px;"></textarea>
-								<button type="button" class="" id="select" onclick="" style="display:inline-block;padding:0; font-size:20px">
-									<i class="fas fa-plus" style="font-size:15px; padding-left:3px;"></i>
-								</button>
+								<textarea  id="mailCc" name="mailCc" style="width:97%; height:30px;resize: none;"></textarea>
 							</div>
 					</div>
 					
@@ -123,7 +120,7 @@
 						<label style="width:80px; position:absolute;top:4px;">제목</label>
 						<div class="txt title" style="margin-left:80px; margin-top:10px; position:relative;">
 							<div class="position">
-								<textarea name="mailTitle" id="mailTitle" value="" style="width:97%; height:30px;">FW: ${ m.mailTitle }</textarea>
+								<textarea name="mailTitle" id="mailTitle" value="" style="width:97%; height:30px;resize: none;">FW: ${ m.mailTitle }</textarea>
 							</div>
 						</div>
 					</div>
@@ -178,7 +175,7 @@
 					          <span aria-hidden="true">&times;</span>
 					        </button>
 					      </div>
-					      <div class="modal-body" style="height:450px; width:600px; padding-left:20px;">
+					      <div class="modal-body" style="width:600px; padding-left:20px;">
 					      	<br>
 					      	<div style="padding:3px;">
 								<p><b>보낸사람  : </b> 

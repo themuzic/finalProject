@@ -75,7 +75,22 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	    border-right: 1px solid #ececec;
 	}
 	/* 에디터 CSS 끝 */
-	
+	.helpLabel{
+		display: inline-block;
+	    height: 28px;
+	    margin: 0;
+	    padding-left: 27px;
+	    background: url("resources/images/sprite_chk.png") 0 -32px no-repeat;
+	    font-weight: bold;
+	    line-height: 28px;
+	    cursor: pointer;
+	}
+	.helphelp{
+		background-position: 0 0;
+	}
+	#radio1, #radio2 {
+		opacity: 0;
+	}
 </style>
 
 
@@ -568,14 +583,14 @@ if (request.getProtocol().equals("HTTP/1.1"))
 							<tr>
 								<th scope="row">구분</th>
 								<td>
-									<label>
-										<input type="radio" name="accountingType" value="P" checked="" onchange="">
-										개인
-									</label>
-									<label style="margin-left: 20px;">
-										<input type="radio" name="accountingType" value="C" onchange="">
-										법인
-									</label>
+									
+										<input type="radio" name="accountingType" id="radio1" value="P" checked="" onchange="">
+										<label for="radio1" class="helpLabel" id="label1">개인</label>
+									
+									
+										<input type="radio" name="accountingType" id="radio2" value="C" onchange="">
+										<label for="radio2" class="helpLabel" id="label2">법인</label>
+									
 								</td>
 							</tr>
 							<tr>
@@ -962,6 +977,15 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		$("#menu1_1").attr('aria-expanded',true);
 		$("#m1_1").addClass("active");
 		
+		/* 라디오버튼 */
+		$("#label1").on('click',function(){
+			$("#label1").addClass('helphelp');
+			$("#label2").removeClass('helphelp');
+		});
+		$("#label2").on('click',function(){
+			$("#label2").addClass('helphelp');
+			$("#label1").removeClass('helphelp');
+		});
 		
 		/* 오늘 날짜 구해서 년/월 세팅 */
 		var today = new Date();
@@ -1045,6 +1069,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 				$("#vacationDiv").removeClass("show");
 				$("#retireDiv").removeClass("show");
 				$(".filezone").addClass("show");
+				$('#label1').click();
 				
 				$("#summernote").summernote('destroy');
 				$("#summernote").hide();

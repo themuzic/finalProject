@@ -36,9 +36,6 @@ if (request.getProtocol().equals("HTTP/1.1"))
 		padding-right:50px;
 		font-size:14px;
 	}
-	.rightLine, .leftLine{
-		width:50%;
-	}
 	.orgchart{
 		background:none;
 	}
@@ -49,9 +46,14 @@ if (request.getProtocol().equals("HTTP/1.1"))
 	.orgchart .node .content {
     border: 1px solid #3287B2;
 	}
-	#chart-container i{
+	#chart-container i.symbol{
 		display: none !important;
 	}
+	/* 
+	.rightLine, .leftLine{
+		width:50%;
+	}
+	 */
 </style>
 
 
@@ -105,13 +107,21 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			
 			$("#menu7").addClass("active");
 			
-		    var datascource = {'name':'DEVELOFFICE','title':'','children':[
-		        			{ 'name':'총무팀'},{'name':'인사팀'},{'name':'회계팀'},
-		        			{ 'name': '영업팀', 'title': '','children': [{'name': '한미선', 'title': '팀장'}]},
-					        { 'name': '서비스팀', 'title': '' },
-					        { 'name': '개발팀', 'title': '' },
-					      ]
-					    };
+		    var datascource = {'name':'DEVELOFFICE','title':'Company','children':[{'name':'전재광','title':'대표','children':[
+		    	
+		    							{'name':'김상윤','title':'이사','children':[
+			    								{'name':'총무팀','title':'Department','children':[{'name':'민병현','title':'팀장','children':[{'name':'서영수','title':'주임'}]}]},
+								    			{'name':'인사팀','title':'Department','children':[{'name':'설용환','title':'팀장','children':[{'name':'원영주','title':'대리','children':[{'name':'임종민','title':'사원'}]}]}]},
+								    			{'name':'회계팀','title':'Department','children':[{'name':'양정환','title':'팀장'}]}
+		    							]},
+		    							{'name':'이경준','title':'이사','children':[
+			    								{'name':'개발팀','title':'Department','children':[{'name':'유현규','title':'팀장','children':[{'name':'신진혁','title':'대리','children':[{'name':'강연재','title':'주임','children':[{'name':'강정학','title':'사원'},{'name':'손권모','title':'사원'}]},{'name':'김상민','title':'주임','children':[{'name':'김은기','title':'사원'},{'name':'이승은','title':'사원'}]}]}]}]},
+								    			{'name':'서비스팀','title':'Department','children':[{'name':'최영근','title':'팀장','children':[{'name':'김규식','title':'대리','children':[{'name':'구명지','title':'주임','children':[{'name':'한수진','title':'사원'}]}]}]}]},
+										        {'name':'영업팀','title':'Department','children':[{'name':'한미선','title':'팀장','children':[{'name':'조용준','title':'주임','children':[{'name':'김사랑','title':'사원'}]}]}]}
+		    							]}
+		    						]}
+		    				  
+		    					]};
 		    var oc = $('#chart-container').orgchart({
 		      'data' : datascource,
 		      'nodeContent': 'title',
