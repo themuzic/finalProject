@@ -255,6 +255,7 @@
 		select *
 		from emp
 		where div_name like '%' || #{search} || '%' or emp_name like '%' || #{search} || '%'
+		order by job_code, emp_name
 	</select>
 
 	<!-- 대화방 검색 서비스 -->
