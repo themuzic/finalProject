@@ -307,10 +307,6 @@ ul li:hover{
 	  		<br>채팅
 	  	</div>
 	  	<br>
-	  	<div class="item">
-	    	<i class="fa fa-2x fa-ellipsis-h"></i>
-	    	<br>더보기
-	  	</div>
 	</div>
 	<div class="pusher">
 		<div class="main-section">
