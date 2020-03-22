@@ -247,21 +247,6 @@ public class DocumentController {
 			ArrayList<DocumentFile> fileList = dService.selectDocuFile(docuNum);
 			
 			mv.addObject("fileList",fileList);
-			
-//			for(DocumentFile df : fileList) {
-//				JSONObject jObj = new JSONObject();
-//				jObj.put("fileNo", df.getFileNo());
-//				jObj.put("docuNum", df.getDocuNum());
-//				jObj.put("filePath", df.getFilePath());
-//				jObj.put("originName", df.getOriginName());
-//				jObj.put("changeName", df.getChangeName());
-//				jObj.put("createDate", df.getCreateDate());
-//				jObj.put("status", df.getStatus());
-//				
-//				fileArr.add(jObj);
-//			}
-//			mv.addObject("fileList",fileArr);
-			
 		}
 		
 		if(document.getDocuType().equals("AP")) {	//지출결의서
@@ -325,7 +310,6 @@ public class DocumentController {
 		}
 		
 		return mv;
-		/* return "document/vacation"; */
 		/* return "common/test"; */
 	}
 	
@@ -344,6 +328,7 @@ public class DocumentController {
 		
 		String filename = "";
 		
+		// 업로드 파일 콘솔 확인
 		System.out.println("uploadFile.getName() : "+uploadFile);
 		System.out.println("uploadFile.size() : "+uploadFile.size());
 		System.out.println("uploadFile.getOriginalFilename() : "+uploadFile);
@@ -424,7 +409,6 @@ public class DocumentController {
 	
 	
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
-		
 		// 파일이 저장될 경로 설정
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "\\upload\\documentFile";
@@ -464,12 +448,13 @@ public class DocumentController {
 						@RequestParam(name="vaId", required=false)int vaId,
 						@RequestParam(name="useDay", required=false)int useDay) {
 		
+		/*
 		System.out.println("컨트롤러에서 받은 ap : "+ap);
 		System.out.println("컨트롤러에서 받은 s : "+s);
 		System.out.println("컨트롤러에서 받은 r : "+r);
 		System.out.println("컨트롤러에서 받은 useDay : "+useDay);
 		System.out.println("컨트롤러에서 받은 vaId : "+vaId);
-		
+		*/
 		
 		int result = dService.apCheck(ap);
 		int result2 = dService.updateModifyDate(ap.getDocuNum());
@@ -500,7 +485,7 @@ public class DocumentController {
 					int scheResult = sService.insertSchedule(s);
 					
 					// 해당 계정 연차 차감
-					HashMap hm = new HashMap();
+					HashMap<String, Integer> hm = new HashMap<>();
 					hm.put("useDay", useDay);
 					hm.put("empId", vaId);
 					

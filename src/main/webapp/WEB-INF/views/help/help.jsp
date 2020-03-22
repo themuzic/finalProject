@@ -222,13 +222,6 @@
 					
 					
 					
-					
-					
-					
-					
-					
-					
-					
 						
 						
 						
@@ -388,7 +381,6 @@
 		        allowPageScroll: false,
 		        disableFadeOut: false
 		    });
-		    
 		});
 		
 		/*  전체/내가 등록한 일감 라디오 버튼 */
@@ -429,11 +421,8 @@
 					reason:reason
 				},
 				success:function(data){
-					if(data == 'success'){
-						refresh();
-					}else{
-						alertify.alert('','일감 등록 실패');
-					}
+					if(data == 'success') refresh();
+					else alertify.alert('','일감 등록 실패');
 				},
 				error:function(){
 					alertify.alert('','AJAX통신 실패');
@@ -445,11 +434,8 @@
 		function refresh(){
 			var condition = $('input[name=condition]:checked').val();
 			
-			if(condition == 'all'){
-				$("#th").text('등록자');
-			}else{
-				$("#th").text('진행 상태');
-			}
+			if(condition == 'all') $("#th").text('등록자');
+			else $("#th").text('진행 상태');
 			
 			$("#helpTbody").html("");
 			
@@ -505,7 +491,7 @@
 					}
 				},
 				error:function(){
-					alertify.alert('','AJAX통신 실패');
+					console.log('AJAX통신 실패');
 				}
 			});
 		}
@@ -706,18 +692,18 @@
 			    leadingZeros(d.getSeconds(), 2);
 
 			  return s;
-			}
+		}
 
-			function leadingZeros(n, digits) {
-			  var zero = '';
-			  n = n.toString();
+		function leadingZeros(n, digits) {
+		  var zero = '';
+		  n = n.toString();
 
-			  if (n.length < digits) {
-			    for (i = 0; i < digits - n.length; i++)
-			      zero += '0';
-			  }
-			  return zero + n;
-			}
+		  if (n.length < digits) {
+		    for (i = 0; i < digits - n.length; i++)
+		      zero += '0';
+		  }
+		  return zero + n;
+		}
 		
 		
 	

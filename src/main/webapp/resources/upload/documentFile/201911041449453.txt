@@ -1,0 +1,42 @@
+
+< 자바(JAVA) 프레임워크 개발자 양성과정 37회차 >
+11월 6일 ~ 5월 6일
+
+group : 37_semi_project
+
+user : 37_semi_team1		jeju/jeju				http://iclasskh.iptime.org:9090/jejuTest
+        37_semi_team2		pigeon/pigeon			http://iclasskh.iptime.org:9090/Pigeon_Market/
+        37_semi_team3 		project/project			http://iclasskh.iptime.org:9090/saitgil
+        37_semi_team4		donJo/donJo			http://iclasskh.iptime.org:9090/Semi
+        37_semi_team5		BabyAttack/BabyAttack		http://iclasskh.iptime.org:9090/SemiProject
+
+pwd : teamXXX		=> x 는 팀 번호
+
+
+
+group : 37_final_project
+user : 37_final_team1		class247/class247
+        37_final_team2		
+        37_final_team3 		develoffice/develoffice	
+        37_final_team4		
+        37_final_team5
+pwd : teamXXX		=> x 는 팀 번호
+
+
+
+< 자바(JAVA) 프레임워크 개발자 양성과정 41회차 >
+12월 6일 ~ 6월 6일
+
+
+group : 41_semi_project
+
+user : 41_semi_team1		jeju/jeju				http://iclasskh.iptime.org:9090/jejuTest
+        41_semi_team2		pigeon/pigeon			http://iclasskh.iptime.org:9090/Pigeon_Market/
+        41_semi_team3 		project/project			http://iclasskh.iptime.org:9090/saitgil
+        41_semi_team4		donJo/donJo			http://iclasskh.iptime.org:9090/Semi
+        41_semi_team5		BabyAttack/BabyAttack		http://iclasskh.iptime.org:9090/SemiProject
+
+pwd : teamXXX		=> x 는 팀 번호
+
+
+

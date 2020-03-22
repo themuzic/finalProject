@@ -5,8 +5,7 @@
 
 	<settings>
 		<setting name="jdbcTypeForNull" value="NULL"/>
-	</settings>
-	
+	</settings>	
 	
 	<typeAliases>
 		<typeAlias type="com.kh.develoffice.document.model.vo.Document" alias="Document"/>
@@ -40,10 +39,8 @@
 		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectMember" alias="ProjectMember"/>
 		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectTask" alias="ProjectTask"/>
 		<typeAlias type="com.kh.develoffice.project.model.vo.ProjectReply" alias="ProjectReply"/>
-		<typeAlias type="com.kh.develoffice.common.Job" alias="Job"/>
-		
+		<typeAlias type="com.kh.develoffice.common.Job" alias="Job"/>		
 	</typeAliases>
-	
 	
 	<mappers>
 		<mapper resource="mappers/document-mapper.xml"/>

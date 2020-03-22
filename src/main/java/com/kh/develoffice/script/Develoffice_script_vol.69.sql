@@ -1,26 +1,26 @@
------------------ï¿½ï¿½ï¿½ï¿½------------------
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+-----------------»èÁ¦------------------
+--Á¢¼ÓÀ¯ÀúÀÇ ¸ðµç Æ®¸®°Å »èÁ¦
 BEGIN
 FOR C IN (SELECT * FROM USER_TRIGGERS) LOOP
   EXECUTE IMMEDIATE 'DROP TRIGGER '||C.TRIGGER_NAME;
 END LOOP;
 END;
 /
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+--Á¢¼ÓÀ¯ÀúÀÇ ¸ðµçÅ×ÀÌºí ¹× Á¦¾àÁ¶°Ç »èÁ¦
 BEGIN
     FOR C IN (SELECT TABLE_NAME FROM USER_TABLES) LOOP
     EXECUTE IMMEDIATE ('DROP TABLE '||C.TABLE_NAME||' CASCADE CONSTRAINTS');
     END LOOP;
 END;
 /
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+--Á¢¼ÓÀ¯ÀúÀÇ ¸ðµç ½ÃÄö½º »èÁ¦
 BEGIN
 FOR C IN (SELECT * FROM USER_SEQUENCES) LOOP
   EXECUTE IMMEDIATE 'DROP SEQUENCE '||C.SEQUENCE_NAME;
 END LOOP;
 END;
 /
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+--Á¢¼ÓÀ¯ÀúÀÇ ¸ðµç ºä »èÁ¦
 BEGIN
 FOR C IN (SELECT * FROM USER_VIEWS) LOOP
   EXECUTE IMMEDIATE 'DROP VIEW '||C.VIEW_NAME;
@@ -54,45 +54,45 @@ CREATE TABLE "EMPLOYEE" (
 	"WORK_STATUS"	VARCHAR2(1)	DEFAULT 'N'	CHECK(WORK_STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "EMPLOYEE"."EMP_ID" IS 'ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "EMPLOYEE"."EMP_ID" IS '»ç¹øPK';
 
-COMMENT ON COLUMN "EMPLOYEE"."EMP_NAME" IS 'ï¿½Ì¸ï¿½';
+COMMENT ON COLUMN "EMPLOYEE"."EMP_NAME" IS 'ÀÌ¸§';
 
-COMMENT ON COLUMN "EMPLOYEE"."EMP_PWD" IS 'ï¿½ï¿½Ð¹ï¿½È£';
+COMMENT ON COLUMN "EMPLOYEE"."EMP_PWD" IS 'ºñ¹Ð¹øÈ£';
 
-COMMENT ON COLUMN "EMPLOYEE"."GENDER" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "EMPLOYEE"."GENDER" IS '¼ºº°';
 
-COMMENT ON COLUMN "EMPLOYEE"."BIRTH" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "EMPLOYEE"."BIRTH" IS '»ý³â¿ùÀÏ';
 
-COMMENT ON COLUMN "EMPLOYEE"."DEPT_CODE" IS 'ï¿½Î¼ï¿½ï¿½Úµï¿½FK';
+COMMENT ON COLUMN "EMPLOYEE"."DEPT_CODE" IS 'ºÎ¼­ÄÚµåFK';
 
-COMMENT ON COLUMN "EMPLOYEE"."JOB_CODE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½FK';
+COMMENT ON COLUMN "EMPLOYEE"."JOB_CODE" IS 'Á÷±ÞÄÚµåFK';
 
-COMMENT ON COLUMN "EMPLOYEE"."PHONE" IS 'ï¿½Þ´ï¿½ï¿½ï¿½ï¿½ï¿½È£';
+COMMENT ON COLUMN "EMPLOYEE"."PHONE" IS 'ÈÞ´ëÆù¹øÈ£';
 
-COMMENT ON COLUMN "EMPLOYEE"."EMAIL" IS 'ï¿½Ì¸ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "EMPLOYEE"."EMAIL" IS 'ÀÌ¸ÞÀÏ';
 
-COMMENT ON COLUMN "EMPLOYEE"."ADDRESS" IS 'ï¿½Ö¼ï¿½';
+COMMENT ON COLUMN "EMPLOYEE"."ADDRESS" IS 'ÁÖ¼Ò';
 
-COMMENT ON COLUMN "EMPLOYEE"."SALARY" IS 'ï¿½âº»ï¿½ï¿½';
+COMMENT ON COLUMN "EMPLOYEE"."SALARY" IS '±âº»±Þ';
 
-COMMENT ON COLUMN "EMPLOYEE"."ACCOUNT" IS 'ï¿½Þ¿ï¿½ï¿½ï¿½ï¿½Â¹ï¿½È£';
+COMMENT ON COLUMN "EMPLOYEE"."ACCOUNT" IS '±Þ¿©°èÁÂ¹øÈ£';
 
-COMMENT ON COLUMN "EMPLOYEE"."STAR" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "EMPLOYEE"."STAR" IS 'º°°¹¼ö';
 
-COMMENT ON COLUMN "EMPLOYEE"."ENROLL_DATE" IS 'ï¿½Ô»ç³¯Â¥';
+COMMENT ON COLUMN "EMPLOYEE"."ENROLL_DATE" IS 'ÀÔ»ç³¯Â¥';
 
-COMMENT ON COLUMN "EMPLOYEE"."RETIRE_DATE" IS 'ï¿½ï¿½ç³¯Â¥';
+COMMENT ON COLUMN "EMPLOYEE"."RETIRE_DATE" IS 'Åð»ç³¯Â¥';
 
-COMMENT ON COLUMN "EMPLOYEE"."EMP_STATUS" IS 'ï¿½ï¿½ï¿½ï¿½(Y/N)';
+COMMENT ON COLUMN "EMPLOYEE"."EMP_STATUS" IS '»óÅÂ(Y/N)';
 
-COMMENT ON COLUMN "EMPLOYEE"."PROFILE_PATH" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Ê»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "EMPLOYEE"."PROFILE_PATH" IS 'ÇÁ·ÎÇÊ»çÁø°æ·Î';
 
-COMMENT ON COLUMN "EMPLOYEE"."STATUS_MSG" IS 'ï¿½ï¿½ï¿½Â¸Þ¼ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "EMPLOYEE"."STATUS_MSG" IS '»óÅÂ¸Þ¼¼Áö';
 
-COMMENT ON COLUMN "EMPLOYEE"."DIV_NAME" IS 'ï¿½Úµï¿½ï¿½Ï¼ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½';
+COMMENT ON COLUMN "EMPLOYEE"."DIV_NAME" IS 'ÀÚµ¿¿Ï¼º °Ë»ö¿ë ÀÌ¸§';
 
-COMMENT ON COLUMN "EMPLOYEE"."VACATION" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½';
+COMMENT ON COLUMN "EMPLOYEE"."VACATION" IS '³²Àº¿¬Â÷ÀÏ¼ö';
 
 ----------------------------------------------------------
 
@@ -101,9 +101,9 @@ CREATE TABLE "DEPARTMENT" (
 	"DEPT_NAME"	VARCHAR2(30)	NULL
 );
 
-COMMENT ON COLUMN "DEPARTMENT"."DEPT_CODE" IS 'ï¿½Î¼ï¿½ï¿½Úµï¿½';
+COMMENT ON COLUMN "DEPARTMENT"."DEPT_CODE" IS 'ºÎ¼­ÄÚµå';
 
-COMMENT ON COLUMN "DEPARTMENT"."DEPT_NAME" IS 'ï¿½Î¼ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DEPARTMENT"."DEPT_NAME" IS 'ºÎ¼­¸í';
 
 ----------------------------------------------------------
 
@@ -112,9 +112,9 @@ CREATE TABLE "JOB" (
 	"JOB_NAME"	VARCHAR2(20)	NULL
 );
 
-COMMENT ON COLUMN "JOB"."JOB_CODE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½';
+COMMENT ON COLUMN "JOB"."JOB_CODE" IS 'Á÷±ÞÄÚµå';
 
-COMMENT ON COLUMN "JOB"."JOB_NAME" IS 'ï¿½ï¿½ï¿½Þ¸ï¿½';
+COMMENT ON COLUMN "JOB"."JOB_NAME" IS 'Á÷±Þ¸í';
 
 ----------------------------------------------------------
 
@@ -130,23 +130,23 @@ CREATE TABLE "RESERVATION" (
 	"DEL_STATUS"	VARCHAR2(1)		DEFAULT	'N'	CHECK(DEL_STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "RESERVATION"."RESERV_NUM" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½È£PK';
+COMMENT ON COLUMN "RESERVATION"."RESERV_NUM" IS '¿¹¾à¹øÈ£PK';
 
-COMMENT ON COLUMN "RESERVATION"."EMP_ID" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½FK';
+COMMENT ON COLUMN "RESERVATION"."EMP_ID" IS '¿¹¾àÇÑÁ÷¿øFK';
 
-COMMENT ON COLUMN "RESERVATION"."RESERV_TYPE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "RESERVATION"."RESERV_TYPE" IS '¿¹¾àÇÑ°ÍÁ¾·ù';
 
-COMMENT ON COLUMN "RESERVATION"."INSERT_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ³ï¿½Â¥';
+COMMENT ON COLUMN "RESERVATION"."INSERT_DATE" IS '¿¹¾àµî·ÏÇÑ³¯Â¥';
 
-COMMENT ON COLUMN "RESERVATION"."RESERV_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Ñ³ï¿½Â¥';
+COMMENT ON COLUMN "RESERVATION"."RESERV_DATE" IS '¿¹¾àÇÑ³¯Â¥';
 
-COMMENT ON COLUMN "RESERVATION"."START_TIME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û½Ã°ï¿½';
+COMMENT ON COLUMN "RESERVATION"."START_TIME" IS '¿¹¾à½ÃÀÛ½Ã°£';
 
-COMMENT ON COLUMN "RESERVATION"."END_TIME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½';
+COMMENT ON COLUMN "RESERVATION"."END_TIME" IS '¿¹¾àÁ¾·á½Ã°£';
 
-COMMENT ON COLUMN "RESERVATION"."REASON" IS 'ï¿½ï¿½ï¿½ëµµ';
+COMMENT ON COLUMN "RESERVATION"."REASON" IS '»ç¿ë¿ëµµ';
 
-COMMENT ON COLUMN "RESERVATION"."DEL_STATUS" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "RESERVATION"."DEL_STATUS" IS '»èÁ¦»óÅÂ';
 
 ----------------------------------------------------------
 
@@ -159,17 +159,17 @@ CREATE TABLE "PAYMENT" (
 	"PAY_DATE"	DATE	DEFAULT SYSDATE	NOT NULL
 );
 
-COMMENT ON COLUMN "PAYMENT"."PAY_NUM" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£PK';
+COMMENT ON COLUMN "PAYMENT"."PAY_NUM" IS '°áÁ¦¹øÈ£PK';
 
-COMMENT ON COLUMN "PAYMENT"."EMP_ID" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½FK';
+COMMENT ON COLUMN "PAYMENT"."EMP_ID" IS '°áÁ¦ÇÑÁ÷¿øFK';
 
-COMMENT ON COLUMN "PAYMENT"."PRICE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PAYMENT"."PRICE" IS '°áÁ¦°¡°Ý';
 
-COMMENT ON COLUMN "PAYMENT"."PRODUCT" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Ñ»ï¿½Ç°';
+COMMENT ON COLUMN "PAYMENT"."PRODUCT" IS '°áÁ¦ÇÑ»óÇ°';
 
-COMMENT ON COLUMN "PAYMENT"."QUANTITY" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¼ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PAYMENT"."QUANTITY" IS '°áÁ¦ÇÑ¼ö·®';
 
-COMMENT ON COLUMN "PAYMENT"."PAY_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¥';
+COMMENT ON COLUMN "PAYMENT"."PAY_DATE" IS '°áÁ¦³¯Â¥';
 
 ----------------------------------------------------------
 
@@ -183,19 +183,19 @@ CREATE TABLE "PROJECT" (
 	"STATUS"		VARCHAR2(1)	DEFAULT 'Y'	CHECK(STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "PROJECT"."P_NO" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È£';
+COMMENT ON COLUMN "PROJECT"."P_NO" IS 'ÇÁ·ÎÁ§Æ® ¹øÈ£';
 
-COMMENT ON COLUMN "PROJECT"."P_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ì¸ï¿½';
+COMMENT ON COLUMN "PROJECT"."P_NAME" IS 'ÇÁ·ÎÁ§Æ® ÀÌ¸§';
 
-COMMENT ON COLUMN "PROJECT"."P_CONTENT" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT"."P_CONTENT" IS 'ÇÃÁ§ »ó¼¼ ¼³¸í';
 
-COMMENT ON COLUMN "PROJECT"."PM_ID" IS 'ï¿½ï¿½ï¿½ï¿½IDPK';
+COMMENT ON COLUMN "PROJECT"."PM_ID" IS 'ÆÀÀåIDPK';
 
-COMMENT ON COLUMN "PROJECT"."P_ENROLL_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ï³ï¿½Â¥';
+COMMENT ON COLUMN "PROJECT"."P_ENROLL_DATE" IS 'ÇÃÁ§ µî·Ï³¯Â¥';
 
-COMMENT ON COLUMN "PROJECT"."P_PROGRESS" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT"."P_PROGRESS" IS 'ÇÃÁ§ ÁøÇà·ü';
 
-COMMENT ON COLUMN "PROJECT"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT"."STATUS" IS 'ÇÃÁ§»óÅÂ';
 
 ----------------------------------------------------------
 
@@ -209,19 +209,19 @@ CREATE TABLE "TODO" (
 	"TODO_STATUS"		VARCHAR2(10)		NOT NULL
 );
 
-COMMENT ON COLUMN "TODO"."TODO_NO" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£';
+COMMENT ON COLUMN "TODO"."TODO_NO" IS '¾÷¹« ¹øÈ£';
 
-COMMENT ON COLUMN "TODO"."TD_BOARD_NO" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£FK';
+COMMENT ON COLUMN "TODO"."TD_BOARD_NO" IS 'º¸µå ¹øÈ£FK';
 
-COMMENT ON COLUMN "TODO"."EMP_ID" IS 'ï¿½ï¿½ï¿½FK';
+COMMENT ON COLUMN "TODO"."EMP_ID" IS '»ç¹øFK';
 
-COMMENT ON COLUMN "TODO"."TODO_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TODO"."TODO_NAME" IS '¾÷¹« Á¦¸ñ';
 
-COMMENT ON COLUMN "TODO"."TODO_CONTENT" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TODO"."TODO_CONTENT" IS '¾÷¹« »ó¼¼ ³»¿ë';
 
-COMMENT ON COLUMN "TODO"."TODO_ENROLL_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥';
+COMMENT ON COLUMN "TODO"."TODO_ENROLL_DATE" IS '¾÷¹« µî·Ï ³¯Â¥';
 
-COMMENT ON COLUMN "TODO"."TODO_STATUS" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½Ï·ï¿½,ï¿½ï¿½ï¿½ï¿½)';
+COMMENT ON COLUMN "TODO"."TODO_STATUS" IS '¾÷¹« »óÅÂ(´ë±â, ÁøÇà, ¿Ï·á,»èÁ¦)';
 
 ----------------------------------------------------------
 
@@ -238,25 +238,25 @@ CREATE TABLE "NOTICE" (
 	"STATUS"			VARCHAR2(2)	DEFAULT 'Y'	CHECK(STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "NOTICE"."NOTICE_NO" IS 'ï¿½Û¹ï¿½È£';
+COMMENT ON COLUMN "NOTICE"."NOTICE_NO" IS '±Û¹øÈ£';
 
-COMMENT ON COLUMN "NOTICE"."NOTICE_TITLE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "NOTICE"."NOTICE_TITLE" IS '±ÛÁ¦¸ñ';
 
-COMMENT ON COLUMN "NOTICE"."NOTICE_WRITER" IS 'ï¿½Û¼ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "NOTICE"."NOTICE_WRITER" IS 'ÀÛ¼ºÀÚ';
 
-COMMENT ON COLUMN "NOTICE"."NOTICE_CONTENT" IS 'ï¿½Û³ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "NOTICE"."NOTICE_CONTENT" IS '±Û³»¿ë';
 
-COMMENT ON COLUMN "NOTICE"."NOTICE_ORIGINAL_FILENAME" IS 'ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "NOTICE"."NOTICE_ORIGINAL_FILENAME" IS 'ÆÄÀÏ¿øº»¸í';
 
-COMMENT ON COLUMN "NOTICE"."NOTICE_RENAME_FILENAME" IS 'ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "NOTICE"."NOTICE_RENAME_FILENAME" IS 'ÆÄÀÏ¼öÁ¤¸í';
 
-COMMENT ON COLUMN "NOTICE"."NOTICE_COUNT" IS 'ï¿½ï¿½È¸ï¿½ï¿½';
+COMMENT ON COLUMN "NOTICE"."NOTICE_COUNT" IS 'Á¶È¸¼ö';
 
-COMMENT ON COLUMN "NOTICE"."NOTICE_CREATE_DATE" IS 'ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "NOTICE"."NOTICE_CREATE_DATE" IS '°Ô½ÃÀÏÀÚ';
 
-COMMENT ON COLUMN "NOTICE"."NOTICE_MODIFY_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "NOTICE"."NOTICE_MODIFY_DATE" IS '¼öÁ¤ÀÏ';
 
-COMMENT ON COLUMN "NOTICE"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "NOTICE"."STATUS" IS '»óÅÂ';
 
 ----------------------------------------------------------
 
@@ -274,27 +274,27 @@ CREATE TABLE "FREE" (
 	"FREE_LIKE_COUNT"	NUMBER		DEFAULT 0
 );
 
-COMMENT ON COLUMN "FREE"."FREE_NO" IS 'ï¿½Û¹ï¿½È£';
+COMMENT ON COLUMN "FREE"."FREE_NO" IS '±Û¹øÈ£';
 
-COMMENT ON COLUMN "FREE"."FREE_TITLE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "FREE"."FREE_TITLE" IS '±ÛÁ¦¸ñ';
 
-COMMENT ON COLUMN "FREE"."FREE_WRITER" IS 'ï¿½Û¼ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "FREE"."FREE_WRITER" IS 'ÀÛ¼ºÀÚ';
 
-COMMENT ON COLUMN "FREE"."FREE_CONTENT" IS 'ï¿½Û³ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "FREE"."FREE_CONTENT" IS '±Û³»¿ë';
 
-COMMENT ON COLUMN "FREE"."F_ORIGINAL_FILENAME" IS 'ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "FREE"."F_ORIGINAL_FILENAME" IS 'ÆÄÀÏ¿øº»¸í';
 
-COMMENT ON COLUMN "FREE"."F_RENAME_FILENAME" IS 'ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "FREE"."F_RENAME_FILENAME" IS 'ÆÄÀÏ¼öÁ¤¸í';
 
-COMMENT ON COLUMN "FREE"."FREE_COUNT" IS 'ï¿½ï¿½È¸ï¿½ï¿½';
+COMMENT ON COLUMN "FREE"."FREE_COUNT" IS 'Á¶È¸¼ö';
 
-COMMENT ON COLUMN "FREE"."F_CREATE_DATE" IS 'ï¿½Ô½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "FREE"."F_CREATE_DATE" IS '°Ô½ÃÀÏ';
 
-COMMENT ON COLUMN "FREE"."F_MODIFY_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "FREE"."F_MODIFY_DATE" IS '¼öÁ¤ÀÏ';
 
-COMMENT ON COLUMN "FREE"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "FREE"."STATUS" IS '»óÅÂ';
 
-COMMENT ON COLUMN "FREE"."FREE_LIKE_COUNT" IS 'ï¿½ï¿½ï¿½Æ¿ï¿½';
+COMMENT ON COLUMN "FREE"."FREE_LIKE_COUNT" IS 'ÁÁ¾Æ¿ä';
 
 
 
@@ -310,19 +310,19 @@ CREATE TABLE "FREE_REPLY" (
 	"STATUS"		VARCHAR2(1)	DEFAULT 'Y'	CHECK(STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "FREE_REPLY"."FREE_RID" IS 'ï¿½ï¿½Û¹ï¿½È£';
+COMMENT ON COLUMN "FREE_REPLY"."FREE_RID" IS '´ñ±Û¹øÈ£';
 
-COMMENT ON COLUMN "FREE_REPLY"."REF_FID" IS 'ï¿½Û¹ï¿½È£';
+COMMENT ON COLUMN "FREE_REPLY"."REF_FID" IS '±Û¹øÈ£';
 
-COMMENT ON COLUMN "FREE_REPLY"."FREE_RWRITER" IS 'ï¿½Û¼ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "FREE_REPLY"."FREE_RWRITER" IS 'ÀÛ¼ºÀÚ';
 
-COMMENT ON COLUMN "FREE_REPLY"."FREE_RCONTENT" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "FREE_REPLY"."FREE_RCONTENT" IS '³»¿ë';
 
-COMMENT ON COLUMN "FREE_REPLY"."CREATE_DATE" IS 'ï¿½Û¼ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "FREE_REPLY"."CREATE_DATE" IS 'ÀÛ¼ºÀÏ';
 
-COMMENT ON COLUMN "FREE_REPLY"."MODIFY_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "FREE_REPLY"."MODIFY_DATE" IS '¼öÁ¤ÀÏ';
 
-COMMENT ON COLUMN "FREE_REPLY"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "FREE_REPLY"."STATUS" IS '»óÅÂ';
 
 
 ----------------------------------------------------------
@@ -341,27 +341,27 @@ CREATE TABLE "DOCUMENT" (
 	"FILE_STATUS"		VARCHAR2(1)	DEFAULT 'N'	CHECK(FILE_STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "DOCUMENT"."DOCU_NUM" IS 'ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "DOCUMENT"."DOCU_NUM" IS 'ÅëÇÕ¹®¼­PK';
 
-COMMENT ON COLUMN "DOCUMENT"."DOCU_TYPE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DOCUMENT"."DOCU_TYPE" IS '¹®¼­Á¾·ù';
 
-COMMENT ON COLUMN "DOCUMENT"."DOCU_CODE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£';
+COMMENT ON COLUMN "DOCUMENT"."DOCU_CODE" IS '¹®¼­¹øÈ£';
 
-COMMENT ON COLUMN "DOCUMENT"."EMP_ID" IS 'ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IDFK';
+COMMENT ON COLUMN "DOCUMENT"."EMP_ID" IS 'ÀÛ¼ºÇÑÁ÷¿øIDFK';
 
-COMMENT ON COLUMN "DOCUMENT"."TITLE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DOCUMENT"."TITLE" IS '¹®¼­Á¦¸ñ';
 
-COMMENT ON COLUMN "DOCUMENT"."SAVE_TERM" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DOCUMENT"."SAVE_TERM" IS 'º¸Á¸¿¬ÇÑ';
 
-COMMENT ON COLUMN "DOCUMENT"."SECURITY" IS 'ï¿½ï¿½ï¿½Èµï¿½ï¿½';
+COMMENT ON COLUMN "DOCUMENT"."SECURITY" IS 'º¸¾Èµî±Þ';
 
-COMMENT ON COLUMN "DOCUMENT"."DOCU_DATE" IS 'ï¿½Û¼ï¿½ï¿½Ñ³ï¿½Â¥';
+COMMENT ON COLUMN "DOCUMENT"."DOCU_DATE" IS 'ÀÛ¼ºÇÑ³¯Â¥';
 
-COMMENT ON COLUMN "DOCUMENT"."MODIFY_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥';
+COMMENT ON COLUMN "DOCUMENT"."MODIFY_DATE" IS '¸¶Áö¸·À¸·Î ¼öÁ¤µÈ ³¯Â¥';
 
-COMMENT ON COLUMN "DOCUMENT"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DOCUMENT"."STATUS" IS '¹®¼­ÀÇ ÇöÀç ÁøÇà »óÅÂ';
 
-COMMENT ON COLUMN "DOCUMENT"."FILE_STATUS" IS 'Ã·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DOCUMENT"."FILE_STATUS" IS 'Ã·ºÎÆÄÀÏ¿©ºÎ';
 
 ----------------------------------------------------------
 
@@ -372,15 +372,15 @@ CREATE TABLE "APPROVAL" (
 	"STATUS"			VARCHAR2(1)	DEFAULT 'N'	CHECK(STATUS IN('Y','N')),
 	"APPROVAL_DATE"		DATE		NULL
 );
-COMMENT ON COLUMN "APPROVAL"."AP_PK" IS 'ï¿½ï¿½ï¿½ç¼±PK';
+COMMENT ON COLUMN "APPROVAL"."AP_PK" IS '°áÀç¼±PK';
 
-COMMENT ON COLUMN "APPROVAL"."DOCU_NUM" IS 'ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½FK';
+COMMENT ON COLUMN "APPROVAL"."DOCU_NUM" IS 'ÅëÇÕ¹®¼­FK';
 
-COMMENT ON COLUMN "APPROVAL"."EMP_ID" IS 'ï¿½ï¿½ï¿½ç¼±ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½ï¿½ï¿½FK';
+COMMENT ON COLUMN "APPROVAL"."EMP_ID" IS '°áÀç¼±¿¡Æ÷ÇÔµÈÁ÷¿øFK';
 
-COMMENT ON COLUMN "APPROVAL"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(Y/N)';
+COMMENT ON COLUMN "APPROVAL"."STATUS" IS '°áÀç»óÅÂ(Y/N)';
 
-COMMENT ON COLUMN "APPROVAL"."APPROVAL_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Ñ³ï¿½Â¥';
+COMMENT ON COLUMN "APPROVAL"."APPROVAL_DATE" IS '°áÀçÇÑ³¯Â¥';
 
 ----------------------------------------------------------
 
@@ -391,13 +391,13 @@ CREATE TABLE "REFERENCE" (
 	"CHECK_DATE"	DATE		NULL
 );
 
-COMMENT ON COLUMN "REFERENCE"."DOCU_NUM" IS 'ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½ï¿½È£FKPK';
+COMMENT ON COLUMN "REFERENCE"."DOCU_NUM" IS 'ÅëÇÕ¹®¼­¹øÈ£FKPK';
 
-COMMENT ON COLUMN "REFERENCE"."EMP_ID" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½ï¿½ï¿½FKPK';
+COMMENT ON COLUMN "REFERENCE"."EMP_ID" IS 'ÂüÁ¶ÀÎ¿¡Æ÷ÇÔµÈÁ÷¿øFKPK';
 
-COMMENT ON COLUMN "REFERENCE"."STATUS" IS 'È®ï¿½Î»ï¿½ï¿½ï¿½(Y/N)';
+COMMENT ON COLUMN "REFERENCE"."STATUS" IS 'È®ÀÎ»óÅÂ(Y/N)';
 
-COMMENT ON COLUMN "REFERENCE"."CHECK_DATE" IS 'È®ï¿½ï¿½ï¿½Ñ³ï¿½Â¥';
+COMMENT ON COLUMN "REFERENCE"."CHECK_DATE" IS 'È®ÀÎÇÑ³¯Â¥';
 
 ----------------------------------------------------------
 
@@ -416,29 +416,29 @@ CREATE TABLE "DOCUA" (
 	"STATUS"			VARCHAR2(1)	DEFAULT 'Y'	CHECK(STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "DOCUA"."DOCU_NUM" IS 'ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½PKFK';
+COMMENT ON COLUMN "DOCUA"."DOCU_NUM" IS 'ÅëÇÕ¹®¼­PKFK';
 
-COMMENT ON COLUMN "DOCUA"."ACCOUNTING_TYPE" IS 'ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½)';
+COMMENT ON COLUMN "DOCUA"."ACCOUNTING_TYPE" IS '°áÁ¦Å¸ÀÔ(°³ÀÎ/¹ýÀÎ)';
 
-COMMENT ON COLUMN "DOCUA"."SPENDING_YEAR" IS 'È¸ï¿½ï¿½ï¿½ï¿½Ø³âµµ';
+COMMENT ON COLUMN "DOCUA"."SPENDING_YEAR" IS 'È¸°è±âÁØ³âµµ';
 
-COMMENT ON COLUMN "DOCUA"."SPENDING_MONTH" IS 'È¸ï¿½ï¿½ï¿½ï¿½Ø¿ï¿½';
+COMMENT ON COLUMN "DOCUA"."SPENDING_MONTH" IS 'È¸°è±âÁØ¿ù';
 
-COMMENT ON COLUMN "DOCUA"."SPENDER_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½';
+COMMENT ON COLUMN "DOCUA"."SPENDER_NAME" IS 'ÁöÃâÀÚÀÌ¸§';
 
-COMMENT ON COLUMN "DOCUA"."ACCOUNT_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½â³»ï¿½ï¿½)';
+COMMENT ON COLUMN "DOCUA"."ACCOUNT_NAME" IS '°èÁ¤°ú¸ñ(ÁöÃâ³»¿ë)';
 
-COMMENT ON COLUMN "DOCUA"."EXPENSE_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DOCUA"."EXPENSE_DATE" IS 'ÁöÃâÀÏÀÚ';
 
-COMMENT ON COLUMN "DOCUA"."DEPARTMENT_NAME" IS 'ï¿½Ú½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½Î¼ï¿½)';
+COMMENT ON COLUMN "DOCUA"."DEPARTMENT_NAME" IS 'ÄÚ½ºÆ®¼¾ÅÍ(ÁöÃâºÎ¼­)';
 
-COMMENT ON COLUMN "DOCUA"."PRICE" IS 'ï¿½Ý¾ï¿½';
+COMMENT ON COLUMN "DOCUA"."PRICE" IS '±Ý¾×';
 
-COMMENT ON COLUMN "DOCUA"."CUSTOMER" IS 'ï¿½Å·ï¿½Ã³';
+COMMENT ON COLUMN "DOCUA"."CUSTOMER" IS '°Å·¡Ã³';
 
-COMMENT ON COLUMN "DOCUA"."BRIEF" IS 'ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)';
+COMMENT ON COLUMN "DOCUA"."BRIEF" IS 'Àû¿ä(»çÀ¯)';
 
-COMMENT ON COLUMN "DOCUA"."STATUS" IS 'È°ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DOCUA"."STATUS" IS 'È°¼ºÈ­»óÅÂ';
 
 ----------------------------------------------------------
 
@@ -448,11 +448,11 @@ CREATE TABLE "DOCUB" (
 	"STATUS"	VARCHAR2(1)	DEFAULT 'Y'	CHECK(STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "DOCUB"."DOCU_NUM" IS 'ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½PKFK';
+COMMENT ON COLUMN "DOCUB"."DOCU_NUM" IS 'ÅëÇÕ¹®¼­PKFK';
 
-COMMENT ON COLUMN "DOCUB"."CONTENT" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DOCUB"."CONTENT" IS '¹®¼­³»¿ë';
 
-COMMENT ON COLUMN "DOCUB"."STATUS" IS 'È°ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DOCUB"."STATUS" IS 'È°¼ºÈ­»óÅÂ';
 
 ----------------------------------------------------------
 
@@ -466,19 +466,19 @@ CREATE TABLE "VACATION" (
 	"USE_DAY"		NUMBER			NOT NULL
 );
 
-COMMENT ON COLUMN "VACATION"."DOCU_NUM" IS 'ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "VACATION"."DOCU_NUM" IS 'ÅëÇÕ¹®¼­PK';
 
-COMMENT ON COLUMN "VACATION"."VACATION_TYPE" IS 'ï¿½Þ°ï¿½Å¸ï¿½ï¿½';
+COMMENT ON COLUMN "VACATION"."VACATION_TYPE" IS 'ÈÞ°¡Å¸ÀÔ';
 
-COMMENT ON COLUMN "VACATION"."VACATION_NAME" IS 'ï¿½Þ°ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "VACATION"."VACATION_NAME" IS 'ÈÞ°¡Á¾·ù';
 
-COMMENT ON COLUMN "VACATION"."START_DATE" IS 'ï¿½ï¿½ï¿½Û³ï¿½Â¥';
+COMMENT ON COLUMN "VACATION"."START_DATE" IS '½ÃÀÛ³¯Â¥';
 
-COMMENT ON COLUMN "VACATION"."END_DATE" IS 'ï¿½ï¿½ï¿½á³¯Â¥';
+COMMENT ON COLUMN "VACATION"."END_DATE" IS 'Á¾·á³¯Â¥';
 
-COMMENT ON COLUMN "VACATION"."REASON" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "VACATION"."REASON" IS '»çÀ¯';
 
-COMMENT ON COLUMN "VACATION"."USE_DAY" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "VACATION"."USE_DAY" IS '»ç¿ëÀÏ';
 
 ----------------------------------------------------------
 
@@ -490,15 +490,15 @@ CREATE TABLE "CHAT" (
 	"CHAT_TYPE"		NUMBER		NOT NULL
 );
 
-COMMENT ON COLUMN "CHAT"."CHAT_ID" IS 'Ã¤ï¿½Ã¹ï¿½ï¿½È£';
+COMMENT ON COLUMN "CHAT"."CHAT_ID" IS 'Ã¤ÆÃ¹æ¹øÈ£';
 
-COMMENT ON COLUMN "CHAT"."CREATE_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "CHAT"."CREATE_DATE" IS '»ý¼ºÀÏÀÚ';
 
-COMMENT ON COLUMN "CHAT"."MODIFY_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "CHAT"."MODIFY_DATE" IS '°»½ÅÀÏÀÚ';
 
-COMMENT ON COLUMN "CHAT"."CHAT_STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "CHAT"."CHAT_STATUS" IS '»óÅÂ';
 
-COMMENT ON COLUMN "CHAT"."CHAT_TYPE" IS 'ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½';
+COMMENT ON COLUMN "CHAT"."CHAT_TYPE" IS '´ÜÅå,°µÅåÅ¸ÀÔ';
 
 ----------------------------------------------------------
 
@@ -512,19 +512,19 @@ CREATE TABLE "MESSAGE" (
 	"M_TYPE"		NUMBER		NOT NULL
 );
 
-COMMENT ON COLUMN "MESSAGE"."MSG_ID" IS 'ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½È£';
+COMMENT ON COLUMN "MESSAGE"."MSG_ID" IS '¸Þ¼¼Áö¹øÈ£';
 
-COMMENT ON COLUMN "MESSAGE"."CHAT_ID" IS 'Ã¤ï¿½Ã¹ï¿½ï¿½È£';
+COMMENT ON COLUMN "MESSAGE"."CHAT_ID" IS 'Ã¤ÆÃ¹æ¹øÈ£';
 
-COMMENT ON COLUMN "MESSAGE"."EMP_ID" IS 'ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MESSAGE"."EMP_ID" IS '»ç¹ø';
 
-COMMENT ON COLUMN "MESSAGE"."M_CONTENT" IS 'ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MESSAGE"."M_CONTENT" IS '¸Þ¼¼Áö³»¿ë';
 
-COMMENT ON COLUMN "MESSAGE"."M_CREATE_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MESSAGE"."M_CREATE_DATE" IS '»ý¼ºÀÏÀÚ';
 
-COMMENT ON COLUMN "MESSAGE"."M_STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MESSAGE"."M_STATUS" IS '»óÅÂ';
 
-COMMENT ON COLUMN "MESSAGE"."M_TYPE" IS 'ï¿½Þ¼ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½';
+COMMENT ON COLUMN "MESSAGE"."M_TYPE" IS '¸Þ¼¼Áö Å¸ÀÔ';
 
 ----------------------------------------------------------
 
@@ -542,25 +542,25 @@ CREATE TABLE "TEAM_BOARD" (
 );
 
 
-COMMENT ON COLUMN "TEAM_BOARD"."TB_NO" IS 'ï¿½Û¹ï¿½È£';
+COMMENT ON COLUMN "TEAM_BOARD"."TB_NO" IS '±Û¹øÈ£';
 
-COMMENT ON COLUMN "TEAM_BOARD"."TB_TITLE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TEAM_BOARD"."TB_TITLE" IS '±ÛÁ¦¸ñ';
 
-COMMENT ON COLUMN "TEAM_BOARD"."TB_WRITER" IS 'ï¿½Û¼ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TEAM_BOARD"."TB_WRITER" IS 'ÀÛ¼ºÀÚ';
 
-COMMENT ON COLUMN "TEAM_BOARD"."TB_CONTENT" IS 'ï¿½Û³ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TEAM_BOARD"."TB_CONTENT" IS '±Û³»¿ë';
 
-COMMENT ON COLUMN "TEAM_BOARD"."TB_ORIGINAL_FILENAME" IS 'ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TEAM_BOARD"."TB_ORIGINAL_FILENAME" IS 'ÆÄÀÏ¿øº»¸í';
 
-COMMENT ON COLUMN "TEAM_BOARD"."TB_RENAME_FILENAME" IS 'ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TEAM_BOARD"."TB_RENAME_FILENAME" IS 'ÆÄÀÏ¼öÁ¤¸í';
 
-COMMENT ON COLUMN "TEAM_BOARD"."TB_COUNT" IS 'ï¿½ï¿½È¸ï¿½ï¿½';
+COMMENT ON COLUMN "TEAM_BOARD"."TB_COUNT" IS 'Á¶È¸¼ö';
 
-COMMENT ON COLUMN "TEAM_BOARD"."TB_CREATE_DATE" IS 'ï¿½Ô½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TEAM_BOARD"."TB_CREATE_DATE" IS '°Ô½ÃÀÏ';
 
-COMMENT ON COLUMN "TEAM_BOARD"."TB_MODIFY_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TEAM_BOARD"."TB_MODIFY_DATE" IS '¼öÁ¤ÀÏ';
 
-COMMENT ON COLUMN "TEAM_BOARD"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TEAM_BOARD"."STATUS" IS '»óÅÂ';
 
 ----------------------------------------------------------
 
@@ -569,9 +569,9 @@ CREATE TABLE "FREE_LIKE" (
 	"FREE_NO"	NUMBER		NOT NULL
 );
 
-COMMENT ON COLUMN "FREE_LIKE"."EMP_ID" IS 'ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "FREE_LIKE"."EMP_ID" IS '»ç¹øPK';
 
-COMMENT ON COLUMN "FREE_LIKE"."FREE_NO" IS 'ï¿½Û¹ï¿½È£';
+COMMENT ON COLUMN "FREE_LIKE"."FREE_NO" IS '±Û¹øÈ£';
 
 ----------------------------------------------------------
 
@@ -585,19 +585,19 @@ CREATE TABLE "TEAM_BOARD_REPLY" (
 	"STATUS"		VARCHAR2(1)	DEFAULT 'Y'	CHECK(STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "TEAM_BOARD_REPLY"."TB_RID" IS 'ï¿½ï¿½Û¹ï¿½È£';
+COMMENT ON COLUMN "TEAM_BOARD_REPLY"."TB_RID" IS '´ñ±Û¹øÈ£';
 
-COMMENT ON COLUMN "TEAM_BOARD_REPLY"."REF_TID" IS 'ï¿½Û¹ï¿½È£';
+COMMENT ON COLUMN "TEAM_BOARD_REPLY"."REF_TID" IS '±Û¹øÈ£';
 
-COMMENT ON COLUMN "TEAM_BOARD_REPLY"."TB_RWRITER" IS 'ï¿½Û¼ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TEAM_BOARD_REPLY"."TB_RWRITER" IS 'ÀÛ¼ºÀÚ';
 
-COMMENT ON COLUMN "TEAM_BOARD_REPLY"."TB_RCONTENT" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TEAM_BOARD_REPLY"."TB_RCONTENT" IS '³»¿ë';
 
-COMMENT ON COLUMN "TEAM_BOARD_REPLY"."TB_CREATE_DATE" IS 'ï¿½Û¼ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TEAM_BOARD_REPLY"."TB_CREATE_DATE" IS 'ÀÛ¼ºÀÏ';
 
-COMMENT ON COLUMN "TEAM_BOARD_REPLY"."TB_MODIFY_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TEAM_BOARD_REPLY"."TB_MODIFY_DATE" IS '¼öÁ¤ÀÏ';
 
-COMMENT ON COLUMN "TEAM_BOARD_REPLY"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TEAM_BOARD_REPLY"."STATUS" IS '»óÅÂ';
 
 
 ----------------------------------------------------------
@@ -613,21 +613,21 @@ CREATE TABLE "TODO_BOARD" (
 	"TD_BOARD_STATUS"		VARCHAR2(2)	DEFAULT 'Y'	CHECK(TD_BOARD_STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "TODO_BOARD"."TD_BOARD_NO" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£';
+COMMENT ON COLUMN "TODO_BOARD"."TD_BOARD_NO" IS 'º¸µå ¹øÈ£';
 
-COMMENT ON COLUMN "TODO_BOARD"."TD_BOARD_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½';
+COMMENT ON COLUMN "TODO_BOARD"."TD_BOARD_NAME" IS 'º¸µå ÀÌ¸§';
 
-COMMENT ON COLUMN "TODO_BOARD"."EMP_ID" IS 'ï¿½ï¿½ï¿½FK';
+COMMENT ON COLUMN "TODO_BOARD"."EMP_ID" IS '»ç¹øFK';
 
-COMMENT ON COLUMN "TODO_BOARD"."TD_BOARD_CONTENT" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TODO_BOARD"."TD_BOARD_CONTENT" IS 'º¸µå »ó¼¼ ³»¿ë';
 
-COMMENT ON COLUMN "TODO_BOARD"."TD_BOARD_COLOR" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "TODO_BOARD"."TD_BOARD_COLOR" IS 'º¸µå »ö±ò';
 
-COMMENT ON COLUMN "TODO_BOARD"."TD_BOARD_ENROLL_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥';
+COMMENT ON COLUMN "TODO_BOARD"."TD_BOARD_ENROLL_DATE" IS 'º¸µå »ý¼º ³¯Â¥';
 
-COMMENT ON COLUMN "TODO_BOARD"."TD_BOARD_MODIFY_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥';
+COMMENT ON COLUMN "TODO_BOARD"."TD_BOARD_MODIFY_DATE" IS 'º¸µå ¼öÁ¤ ³¯Â¥';
 
-COMMENT ON COLUMN "TODO_BOARD"."TD_BOARD_STATUS" IS 'ï¿½ï¿½ï¿½ï¿½ status';
+COMMENT ON COLUMN "TODO_BOARD"."TD_BOARD_STATUS" IS 'º¸µå status';
 
 ----------------------------------------------------------
 
@@ -644,19 +644,19 @@ CREATE TABLE "MAIL" (
 	"MAIL_TYPE"			NUMBER	DEFAULT 0	NOT NULL
 );
 
-COMMENT ON COLUMN "MAIL"."MAIL_NUM" IS 'ï¿½ï¿½ï¿½Ï¹ï¿½È£';
+COMMENT ON COLUMN "MAIL"."MAIL_NUM" IS '¸ÞÀÏ¹øÈ£';
 
-COMMENT ON COLUMN "MAIL"."MAIL_FROM" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MAIL"."MAIL_FROM" IS '¼ö½ÅÀÚ';
 
-COMMENT ON COLUMN "MAIL"."MAIL_TO" IS 'ï¿½ß½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MAIL"."MAIL_TO" IS '¹ß½ÅÀÚ';
 
-COMMENT ON COLUMN "MAIL"."MAIL_TITLE" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MAIL"."MAIL_TITLE" IS 'Á¦¸ñ';
 
-COMMENT ON COLUMN "MAIL"."MAIL_CONTENT" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MAIL"."MAIL_CONTENT" IS '³»¿ë';
 
-COMMENT ON COLUMN "MAIL"."MAIL_DATE" IS 'ï¿½Û¼ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MAIL"."MAIL_DATE" IS 'ÀÛ¼ºÀÏ';
 
-COMMENT ON COLUMN "MAIL"."MAIL_TYPE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MAIL"."MAIL_TYPE" IS '¸ÞÀÏÇÔ';
 
 ----------------------------------------------------------
 
@@ -667,13 +667,13 @@ CREATE TABLE "MAIL_DEL"(
     "MAIL_IMPORTANT"	NUMBER	DEFAULT 0	NOT NULL
 );
 
-COMMENT ON COLUMN "MAIL_DEL"."MAIL_NUM" IS 'ï¿½ï¿½ï¿½Ï¹ï¿½È£PK';
+COMMENT ON COLUMN "MAIL_DEL"."MAIL_NUM" IS '¸ÞÀÏ¹øÈ£PK';
 
-COMMENT ON COLUMN "MAIL_DEL"."EMP_ID" IS 'ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "MAIL_DEL"."EMP_ID" IS '»ç¹øPK';
 
-COMMENT ON COLUMN "MAIL_DEL"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MAIL_DEL"."STATUS" IS '»èÁ¦¿©ºÎ';
 
-COMMENT ON COLUMN "MAIL_DEL"."MAIL_IMPORTANT" IS 'ï¿½ß¿ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MAIL_DEL"."MAIL_IMPORTANT" IS 'Áß¿ä¸ÞÀÏ';
 
 ----------------------------------------------------------
 
@@ -693,31 +693,31 @@ CREATE TABLE "SCHEDULE" (
     "S_PLAN"        VARCHAR2(1)     DEFAULT 'C' CHECK(S_PLAN IN('T','C'))
 );
 
-COMMENT ON COLUMN "SCHEDULE"."S_NO" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£';
+COMMENT ON COLUMN "SCHEDULE"."S_NO" IS 'ÀÏÁ¤¹øÈ£';
 
-COMMENT ON COLUMN "SCHEDULE"."EMP_ID" IS 'ï¿½ï¿½ï¿½FK';
+COMMENT ON COLUMN "SCHEDULE"."EMP_ID" IS '»ç¹øFK';
 
-COMMENT ON COLUMN "SCHEDULE"."START_DATE" IS 'ï¿½ï¿½ï¿½Û³ï¿½Â¥';
+COMMENT ON COLUMN "SCHEDULE"."START_DATE" IS '½ÃÀÛ³¯Â¥';
 
-COMMENT ON COLUMN "SCHEDULE"."START_TIME" IS 'ï¿½ï¿½ï¿½Û½Ã°ï¿½';
+COMMENT ON COLUMN "SCHEDULE"."START_TIME" IS '½ÃÀÛ½Ã°£';
 
-COMMENT ON COLUMN "SCHEDULE"."END_DATE" IS 'ï¿½ï¿½ï¿½á³¯Â¥';
+COMMENT ON COLUMN "SCHEDULE"."END_DATE" IS 'Á¾·á³¯Â¥';
 
-COMMENT ON COLUMN "SCHEDULE"."END_TIME" IS 'ï¿½ï¿½ï¿½ï¿½Ã°ï¿½';
+COMMENT ON COLUMN "SCHEDULE"."END_TIME" IS 'Á¾·á½Ã°£';
 
-COMMENT ON COLUMN "SCHEDULE"."ALL_DAY" IS 'ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "SCHEDULE"."ALL_DAY" IS 'ÇÏ·çÁ¾ÀÏ';
 
-COMMENT ON COLUMN "SCHEDULE"."S_TITLE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "SCHEDULE"."S_TITLE" IS 'ÀÏÁ¤¸í';
 
-COMMENT ON COLUMN "SCHEDULE"."S_CONTENT" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "SCHEDULE"."S_CONTENT" IS 'ÀÏÁ¤³»¿ë';
 
-COMMENT ON COLUMN "SCHEDULE"."S_TYPE" IS 'ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½';
+COMMENT ON COLUMN "SCHEDULE"."S_TYPE" IS 'ÀÏÁ¤Å¸ÀÔ';
 
-COMMENT ON COLUMN "SCHEDULE"."CREATE_DATE" IS 'ï¿½ï¿½Ï½Ã°ï¿½';
+COMMENT ON COLUMN "SCHEDULE"."CREATE_DATE" IS 'µî·Ï½Ã°£';
 
-COMMENT ON COLUMN "SCHEDULE"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "SCHEDULE"."STATUS" IS '»óÅÂ';
 
-COMMENT ON COLUMN "SCHEDULE"."S_PLAN" IS 'ï¿½ï¿½ï¿½ï¿½/È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "SCHEDULE"."S_PLAN" IS '°³ÀÎ/È¸»ç ÀÏÁ¤';
 
 ----------------------------------------------------------
 
@@ -731,19 +731,19 @@ CREATE TABLE "PROJECT_REPLY" (
 	"STATUS"		VARCHAR2(1)	DEFAULT 'Y'	CHECK(STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "PROJECT_REPLY"."T_RID" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® TASK ï¿½ï¿½ï¿½ ï¿½ï¿½È£';
+COMMENT ON COLUMN "PROJECT_REPLY"."T_RID" IS 'ÇÁ·ÎÁ§Æ® TASK ´ñ±Û ¹øÈ£';
 
-COMMENT ON COLUMN "PROJECT_REPLY"."TASK_NO" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£';
+COMMENT ON COLUMN "PROJECT_REPLY"."TASK_NO" IS '¾÷¹«¹øÈ£';
 
-COMMENT ON COLUMN "PROJECT_REPLY"."T_RWRITER" IS 'ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "PROJECT_REPLY"."T_RWRITER" IS '»ç¹øPK';
 
-COMMENT ON COLUMN "PROJECT_REPLY"."T_RCONTENT" IS 'ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT_REPLY"."T_RCONTENT" IS '´ñ±Û ³»¿ë';
 
-COMMENT ON COLUMN "PROJECT_REPLY"."CREATE_DATE" IS 'ï¿½Û¼ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT_REPLY"."CREATE_DATE" IS 'ÀÛ¼ºÀÏ';
 
-COMMENT ON COLUMN "PROJECT_REPLY"."MODIFY_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT_REPLY"."MODIFY_DATE" IS '¼öÁ¤ÀÏ';
 
-COMMENT ON COLUMN "PROJECT_REPLY"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT_REPLY"."STATUS" IS '»óÅÂ';
 
 ----------------------------------------------------------
 
@@ -759,23 +759,23 @@ CREATE TABLE "JOIN_CHAT" (
 	"AUTO_NAME"		VARCHAR2(1000)		NOT NULL
 );
 
-COMMENT ON COLUMN "JOIN_CHAT"."CHAT_ID" IS 'Ã¤ï¿½Ã¹ï¿½ï¿½È£';
+COMMENT ON COLUMN "JOIN_CHAT"."CHAT_ID" IS 'Ã¤ÆÃ¹æ¹øÈ£';
 
-COMMENT ON COLUMN "JOIN_CHAT"."CHAT_NAME" IS 'Ã¤ï¿½Ã¹ï¿½ï¿½Ì¸ï¿½';
+COMMENT ON COLUMN "JOIN_CHAT"."CHAT_NAME" IS 'Ã¤ÆÃ¹æÀÌ¸§';
 
-COMMENT ON COLUMN "JOIN_CHAT"."NAME_STATUS" IS 'ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "JOIN_CHAT"."NAME_STATUS" IS 'ÀÌ¸§ º¯°æ ¿©ºÎ';
 
-COMMENT ON COLUMN "JOIN_CHAT"."CHAT_STATUS" IS 'Ã¤ï¿½Ã¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "JOIN_CHAT"."CHAT_STATUS" IS 'Ã¤ÆÃ¹æ »èÁ¦ ¿©ºÎ';
 
-COMMENT ON COLUMN "JOIN_CHAT"."ALARM_YN" IS 'ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "JOIN_CHAT"."ALARM_YN" IS '¾Ë¶÷¿©ºÎ';
 
-COMMENT ON COLUMN "JOIN_CHAT"."EMP_ID" IS 'ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "JOIN_CHAT"."EMP_ID" IS '»ç¹øPK';
 
-COMMENT ON COLUMN "JOIN_CHAT"."JOIN_DATE" IS 'ï¿½Ê´ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "JOIN_CHAT"."JOIN_DATE" IS 'ÃÊ´ëÀÏÀÚ';
 
-COMMENT ON COLUMN "JOIN_CHAT"."MODIFY_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "JOIN_CHAT"."MODIFY_DATE" IS '°»½ÅÀÏÀÚ';
 
-COMMENT ON COLUMN "JOIN_CHAT"."AUTO_NAME" IS 'ï¿½Úµï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½';
+COMMENT ON COLUMN "JOIN_CHAT"."AUTO_NAME" IS 'ÀÚµ¿¿Ï¼º¿ë ÀÌ¸§';
 
 ----------------------------------------------------------
 
@@ -784,9 +784,9 @@ CREATE TABLE "PROJECT_MEMBER" (
 	"EMP_ID"	NUMBER		NOT NULL
 );
 
-COMMENT ON COLUMN "PROJECT_MEMBER"."P_NO" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È£';
+COMMENT ON COLUMN "PROJECT_MEMBER"."P_NO" IS 'ÇÁ·ÎÁ§Æ® ¹øÈ£';
 
-COMMENT ON COLUMN "PROJECT_MEMBER"."EMP_ID" IS 'ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "PROJECT_MEMBER"."EMP_ID" IS '»ç¹øPK';
 
 ----------------------------------------------------------
 
@@ -797,13 +797,13 @@ CREATE TABLE "WORKTIME" (
 	"CHECKOUT"	DATE			NULL
 );
 
-COMMENT ON COLUMN "WORKTIME"."TODAY" IS 'ï¿½ï¿½ï¿½Ã³ï¿½Â¥';
+COMMENT ON COLUMN "WORKTIME"."TODAY" IS '¿À´Ã³¯Â¥';
 
-COMMENT ON COLUMN "WORKTIME"."EMP_ID" IS 'ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "WORKTIME"."EMP_ID" IS '»ç¹øPK';
 
-COMMENT ON COLUMN "WORKTIME"."CHECKIN" IS 'ï¿½ï¿½Ù½Ã°ï¿½';
+COMMENT ON COLUMN "WORKTIME"."CHECKIN" IS 'Ãâ±Ù½Ã°£';
 
-COMMENT ON COLUMN "WORKTIME"."CHECKOUT" IS 'ï¿½ï¿½Ù½Ã°ï¿½';
+COMMENT ON COLUMN "WORKTIME"."CHECKOUT" IS 'Åð±Ù½Ã°£';
 
 ----------------------------------------------------------
 
@@ -819,23 +819,23 @@ CREATE TABLE "HELP" (
 	"STATUS"		VARCHAR2(1)		DEFAULT 'N' CHECK(STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "HELP"."WORK_ID" IS 'ï¿½Ï°ï¿½ï¿½ï¿½È£PK';
+COMMENT ON COLUMN "HELP"."WORK_ID" IS 'ÀÏ°¨¹øÈ£PK';
 
-COMMENT ON COLUMN "HELP"."EMP_ID" IS 'ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½FK';
+COMMENT ON COLUMN "HELP"."EMP_ID" IS 'ÀÏ°¨µî·ÏÇÑÁ÷¿øFK';
 
-COMMENT ON COLUMN "HELP"."WORK_TITLE" IS 'ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "HELP"."WORK_TITLE" IS 'ÀÏ°¨Á¦¸ñ';
 
-COMMENT ON COLUMN "HELP"."WORK_CONTENT" IS 'ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "HELP"."WORK_CONTENT" IS 'ÀÏ°¨³»¿ë';
 
-COMMENT ON COLUMN "HELP"."REGIST_DATE" IS 'ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½Ñ³ï¿½Â¥ï¿½Ã°ï¿½';
+COMMENT ON COLUMN "HELP"."REGIST_DATE" IS 'ÀÏ°¨µî·ÏÇÑ³¯Â¥½Ã°£';
 
-COMMENT ON COLUMN "HELP"."HELPER_ID" IS 'ï¿½ë¸®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½FK';
+COMMENT ON COLUMN "HELP"."HELPER_ID" IS '´ë¸®¾÷¹«ÇÒÁ÷¿øFK';
 
-COMMENT ON COLUMN "HELP"."BRING_DATE" IS 'ï¿½ë¸®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½FK';
+COMMENT ON COLUMN "HELP"."BRING_DATE" IS '´ë¸®¾÷¹«ÇÒÁ÷¿øFK';
 
-COMMENT ON COLUMN "HELP"."REASON" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "HELP"."REASON" IS '»çÀ¯';
 
-COMMENT ON COLUMN "HELP"."STATUS" IS 'ï¿½ë¸®ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "HELP"."STATUS" IS '´ë¸®¾÷¹«¿Ï·á»óÅÂ';
 
 ----------------------------------------------------------
 
@@ -851,23 +851,23 @@ CREATE TABLE "CHAT_FILE" (
 	"VALIDITY"		DATE			NOT NULL
 );
 
-COMMENT ON COLUMN "CHAT_FILE"."FID" IS 'ï¿½ï¿½ï¿½Ï¹ï¿½È£';
+COMMENT ON COLUMN "CHAT_FILE"."FID" IS 'ÆÄÀÏ¹øÈ£';
 
-COMMENT ON COLUMN "CHAT_FILE"."CHAT_ID" IS 'Ã¤ï¿½Ã¹ï¿½ï¿½È£';
+COMMENT ON COLUMN "CHAT_FILE"."CHAT_ID" IS 'Ã¤ÆÃ¹æ¹øÈ£';
 
-COMMENT ON COLUMN "CHAT_FILE"."EMP_ID" IS 'ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "CHAT_FILE"."EMP_ID" IS '»ç¹øPK';
 
-COMMENT ON COLUMN "CHAT_FILE"."FILE_PATH" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "CHAT_FILE"."FILE_PATH" IS '»çÁø°æ·Î';
 
-COMMENT ON COLUMN "CHAT_FILE"."ORIGIN_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "CHAT_FILE"."ORIGIN_NAME" IS '¿øº»¸í';
 
-COMMENT ON COLUMN "CHAT_FILE"."CHANGE_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "CHAT_FILE"."CHANGE_NAME" IS '¼öÁ¤¸í';
 
-COMMENT ON COLUMN "CHAT_FILE"."CREATE_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "CHAT_FILE"."CREATE_DATE" IS '»ý¼ºÀÏÀÚ';
 
-COMMENT ON COLUMN "CHAT_FILE"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "CHAT_FILE"."STATUS" IS '»óÅÂ';
 
-COMMENT ON COLUMN "CHAT_FILE"."VALIDITY" IS 'ï¿½ï¿½È¿ï¿½â°£';
+COMMENT ON COLUMN "CHAT_FILE"."VALIDITY" IS 'À¯È¿±â°£';
 
 ----------------------------------------------------------
 
@@ -882,21 +882,21 @@ CREATE TABLE "PROJECT_FILE" (
 	"STATUS"		VARCHAR2(2)	DEFAULT 'Y'	CHECK(STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "PROJECT_FILE"."P_FID" IS 'ï¿½ï¿½ï¿½Ï¹ï¿½È£';
+COMMENT ON COLUMN "PROJECT_FILE"."P_FID" IS 'ÆÄÀÏ¹øÈ£';
 
-COMMENT ON COLUMN "PROJECT_FILE"."P_NO" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È£FK';
+COMMENT ON COLUMN "PROJECT_FILE"."P_NO" IS 'ÇÁ·ÎÁ§Æ® ¹øÈ£FK';
 
-COMMENT ON COLUMN "PROJECT_FILE"."EMP_ID" IS 'ï¿½ï¿½ï¿½FK';
+COMMENT ON COLUMN "PROJECT_FILE"."EMP_ID" IS '»ç¹øFK';
 
-COMMENT ON COLUMN "PROJECT_FILE"."FILE_PATH" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT_FILE"."FILE_PATH" IS '»çÁø°æ·Î';
 
-COMMENT ON COLUMN "PROJECT_FILE"."ORGIN_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT_FILE"."ORGIN_NAME" IS '¿øº»¸í';
 
-COMMENT ON COLUMN "PROJECT_FILE"."CHANGE_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT_FILE"."CHANGE_NAME" IS '¼öÁ¤¸í';
 
-COMMENT ON COLUMN "PROJECT_FILE"."CREATE_DATE" IS 'ï¿½ï¿½Ï³ï¿½Â¥';
+COMMENT ON COLUMN "PROJECT_FILE"."CREATE_DATE" IS 'µî·Ï³¯Â¥';
 
-COMMENT ON COLUMN "PROJECT_FILE"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT_FILE"."STATUS" IS '»óÅÂ';
 
 ----------------------------------------------------------
 
@@ -909,17 +909,17 @@ CREATE TABLE "MAILFILE" (
 	"STATUS"		VARCHAR2(1)	DEFAULT 'Y'	CHECK(STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "MAILFILE"."M_FID" IS 'ï¿½ï¿½ï¿½Ï¹ï¿½È£';
+COMMENT ON COLUMN "MAILFILE"."M_FID" IS 'ÆÄÀÏ¹øÈ£';
 
-COMMENT ON COLUMN "MAILFILE"."M_FILE_PATH" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MAILFILE"."M_FILE_PATH" IS '»çÁø°æ·Î';
 
-COMMENT ON COLUMN "MAILFILE"."ORIGIN_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MAILFILE"."ORIGIN_NAME" IS '¿øº»¸í';
 
-COMMENT ON COLUMN "MAILFILE"."CHANGE_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MAILFILE"."CHANGE_NAME" IS '¼öÁ¤¸í';
 
-COMMENT ON COLUMN "MAILFILE"."CREATE_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MAILFILE"."CREATE_DATE" IS '»ý¼ºÀÏÀÚ';
 
-COMMENT ON COLUMN "MAILFILE"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "MAILFILE"."STATUS" IS '»óÅÂ';
 
 ----------------------------------------------------------
 
@@ -933,19 +933,19 @@ CREATE TABLE "DOCUMENT_FILE" (
 	"STATUS"		VARCHAR2(1)	DEFAULT 'Y'	CHECK(STATUS IN('Y','N'))
 );
 
-COMMENT ON COLUMN "DOCUMENT_FILE"."FILE_NO" IS 'ï¿½ï¿½ï¿½Ï¹ï¿½È£';
+COMMENT ON COLUMN "DOCUMENT_FILE"."FILE_NO" IS 'ÆÄÀÏ¹øÈ£';
 
-COMMENT ON COLUMN "DOCUMENT_FILE"."DOCU_NUM" IS 'ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "DOCUMENT_FILE"."DOCU_NUM" IS 'ÅëÇÕ¹®¼­PK';
 
-COMMENT ON COLUMN "DOCUMENT_FILE"."FILE_PATH" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DOCUMENT_FILE"."FILE_PATH" IS '»çÁø°æ·Î';
 
-COMMENT ON COLUMN "DOCUMENT_FILE"."ORIGIN_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DOCUMENT_FILE"."ORIGIN_NAME" IS '¿øº»¸í';
 
-COMMENT ON COLUMN "DOCUMENT_FILE"."CHANGE_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DOCUMENT_FILE"."CHANGE_NAME" IS '¼öÁ¤¸í';
 
-COMMENT ON COLUMN "DOCUMENT_FILE"."CREATE_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DOCUMENT_FILE"."CREATE_DATE" IS '»ý¼ºÀÏÀÚ';
 
-COMMENT ON COLUMN "DOCUMENT_FILE"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "DOCUMENT_FILE"."STATUS" IS '»óÅÂ';
 
 ----------------------------------------------------------
 
@@ -960,21 +960,21 @@ CREATE TABLE "BOARD_FILE" (
 	"B_TYPE"		NUMBER			NOT NULL
 );
 
-COMMENT ON COLUMN "BOARD_FILE"."B_FID" IS 'ï¿½ï¿½ï¿½Ï¹ï¿½È£';
+COMMENT ON COLUMN "BOARD_FILE"."B_FID" IS 'ÆÄÀÏ¹øÈ£';
 
-COMMENT ON COLUMN "BOARD_FILE"."EMP_ID" IS 'ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "BOARD_FILE"."EMP_ID" IS '»ç¹øPK';
 
-COMMENT ON COLUMN "BOARD_FILE"."B_FILE_PATH" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "BOARD_FILE"."B_FILE_PATH" IS '»çÁø°æ·Î';
 
-COMMENT ON COLUMN "BOARD_FILE"."ORIGIN_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "BOARD_FILE"."ORIGIN_NAME" IS '¿øº»¸í';
 
-COMMENT ON COLUMN "BOARD_FILE"."CHANGE_NAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "BOARD_FILE"."CHANGE_NAME" IS '¼öÁ¤¸í';
 
-COMMENT ON COLUMN "BOARD_FILE"."CREATE_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "BOARD_FILE"."CREATE_DATE" IS '»ý¼ºÀÏÀÚ';
 
-COMMENT ON COLUMN "BOARD_FILE"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "BOARD_FILE"."STATUS" IS '»óÅÂ';
 
-COMMENT ON COLUMN "BOARD_FILE"."B_TYPE" IS 'ï¿½Ô½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½';
+COMMENT ON COLUMN "BOARD_FILE"."B_TYPE" IS '°Ô½ÃÆÇ Å¸ÀÔ';
 
 ----------------------------------------------------------
 
@@ -989,15 +989,15 @@ CREATE TABLE "WIDGET" (
 
 COMMENT ON COLUMN "WIDGET"."WIDGET_TYPE" IS 'PK';
 
-COMMENT ON COLUMN "WIDGET"."EMP_ID" IS 'ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "WIDGET"."EMP_ID" IS '»ç¹øPK';
 
-COMMENT ON COLUMN "WIDGET"."LEFT" IS 'LEFTï¿½ï¿½Ç¥';
+COMMENT ON COLUMN "WIDGET"."LEFT" IS 'LEFTÁÂÇ¥';
 
-COMMENT ON COLUMN "WIDGET"."TOP" IS 'TOPï¿½ï¿½Ç¥';
+COMMENT ON COLUMN "WIDGET"."TOP" IS 'TOPÁÂÇ¥';
 
-COMMENT ON COLUMN "WIDGET"."FOLD" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "WIDGET"."FOLD" IS 'Á¢Èù»óÅÂ';
 
-COMMENT ON COLUMN "WIDGET"."STATUS" IS 'È°ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "WIDGET"."STATUS" IS 'È°¼ºÈ­»óÅÂ';
 
 ----------------------------------------------------------
 
@@ -1008,13 +1008,13 @@ CREATE TABLE "RETIRE" (
 	"REASON"	VARCHAR2(3000)		NOT NULL
 );
 
-COMMENT ON COLUMN "RETIRE"."DOCU_NUM" IS 'ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "RETIRE"."DOCU_NUM" IS 'ÅëÇÕ¹®¼­PK';
 
-COMMENT ON COLUMN "RETIRE"."ENROLL_DATE" IS 'ï¿½Ô»ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "RETIRE"."ENROLL_DATE" IS 'ÀÔ»çÀÏ';
 
-COMMENT ON COLUMN "RETIRE"."RETIRE_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "RETIRE"."RETIRE_DATE" IS 'Åð»çÀÏ';
 
-COMMENT ON COLUMN "RETIRE"."REASON" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "RETIRE"."REASON" IS '»çÀ¯';
 
 ----------------------------------------------------------
 
@@ -1032,27 +1032,27 @@ CREATE TABLE "PROJECT_TASK" (
 	"T_RENAME_FILENAME"	VARCHAR2(100)		NULL
 );
 
-COMMENT ON COLUMN "PROJECT_TASK"."TASK_NO" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£';
+COMMENT ON COLUMN "PROJECT_TASK"."TASK_NO" IS '¾÷¹«¹øÈ£';
 
-COMMENT ON COLUMN "PROJECT_TASK"."P_NO" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È£';
+COMMENT ON COLUMN "PROJECT_TASK"."P_NO" IS 'ÇÁ·ÎÁ§Æ® ¹øÈ£';
 
-COMMENT ON COLUMN "PROJECT_TASK"."TASK_WRITER" IS 'ï¿½ï¿½ï¿½PK';
+COMMENT ON COLUMN "PROJECT_TASK"."TASK_WRITER" IS '»ç¹øPK';
 
-COMMENT ON COLUMN "PROJECT_TASK"."TASK_TITLE" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT_TASK"."TASK_TITLE" IS '¾÷¹« Á¦¸ñ';
 
-COMMENT ON COLUMN "PROJECT_TASK"."TASK_CONTENT" IS 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT_TASK"."TASK_CONTENT" IS '¾÷¹« ³»¿ë';
 
-COMMENT ON COLUMN "PROJECT_TASK"."TASK_COUNT" IS 'ï¿½ï¿½È¸ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT_TASK"."TASK_COUNT" IS 'Á¶È¸¼ö';
 
-COMMENT ON COLUMN "PROJECT_TASK"."STATUS" IS 'ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT_TASK"."STATUS" IS '»óÅÂ';
 
-COMMENT ON COLUMN "PROJECT_TASK"."T_CREATE_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT_TASK"."T_CREATE_DATE" IS 'µî·ÏÀÏ';
 
-COMMENT ON COLUMN "PROJECT_TASK"."T_MODIFY_DATE" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
+COMMENT ON COLUMN "PROJECT_TASK"."T_MODIFY_DATE" IS '¼öÁ¤ÀÏ';
 
-COMMENT ON COLUMN "PROJECT_TASK"."T_ORIGINAL_FILENAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½';
+COMMENT ON COLUMN "PROJECT_TASK"."T_ORIGINAL_FILENAME" IS '¿øº»ÆÄÀÏ¸í';
 
-COMMENT ON COLUMN "PROJECT_TASK"."T_RENAME_FILENAME" IS 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½';
+COMMENT ON COLUMN "PROJECT_TASK"."T_RENAME_FILENAME" IS '¼öÁ¤ÆÄÀÏ¸í';
 
 
 
@@ -1330,21 +1330,21 @@ CREATE SEQUENCE TASK_SEQ;
 
 -------------------- INSERT DEPARTMENT ------------------------------------
 INSERT INTO DEPARTMENT VALUES(1,'DEVELOFFICE');
-INSERT INTO DEPARTMENT VALUES(2,'ï¿½æ¿µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Ñ¹ï¿½)');
-INSERT INTO DEPARTMENT VALUES(3,'ï¿½æ¿µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Î»ï¿½)');
-INSERT INTO DEPARTMENT VALUES(4,'ï¿½æ¿µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(È¸ï¿½ï¿½)');
-INSERT INTO DEPARTMENT VALUES(5,'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
-INSERT INTO DEPARTMENT VALUES(6,'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
-INSERT INTO DEPARTMENT VALUES(7,'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+INSERT INTO DEPARTMENT VALUES(2,'°æ¿µÁö¿øÆÀ(ÃÑ¹«)');
+INSERT INTO DEPARTMENT VALUES(3,'°æ¿µÁö¿øÆÀ(ÀÎ»ç)');
+INSERT INTO DEPARTMENT VALUES(4,'°æ¿µÁö¿øÆÀ(È¸°è)');
+INSERT INTO DEPARTMENT VALUES(5,'°³¹ßÆÀ');
+INSERT INTO DEPARTMENT VALUES(6,'¼­ºñ½ºÆÀ');
+INSERT INTO DEPARTMENT VALUES(7,'¿µ¾÷ÆÀ');
 ----------------------------------------------------------
 
 
 -------------------- INSERT JOB ------------------------------------
-INSERT INTO JOB VALUES(1,'ï¿½ï¿½Ç¥');
-INSERT INTO JOB VALUES(2,'ï¿½Ì»ï¿½');
-INSERT INTO JOB VALUES(3,'ï¿½ï¿½ï¿½ï¿½');
-INSERT INTO JOB VALUES(4,'ï¿½ë¸®');
-INSERT INTO JOB VALUES(5,'ï¿½ï¿½ï¿½');
+INSERT INTO JOB VALUES(1,'´ëÇ¥');
+INSERT INTO JOB VALUES(2,'ÀÌ»ç');
+INSERT INTO JOB VALUES(3,'ÆÀÀå');
+INSERT INTO JOB VALUES(4,'´ë¸®');
+INSERT INTO JOB VALUES(5,'»ç¿ø');
 ----------------------------------------------------------
 
 
@@ -1368,20 +1368,20 @@ INSERT INTO JOB VALUES(5,'ï¿½ï¿½ï¿½');
 --	"EMP_STATUS"	VARCHAR2(1)	DEFAULT 'Y'	CHECK(EMP_STATUS IN('Y','N')),
 --  "PROFILE_PATH"	VARCHAR2(200)		DEFAULT 'default_profile.png'    NOT NULL
 
-INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL,'ï¿½ï¿½ï¿½ç±¤','1234','M','19850610',1,1,'01048992851','kh.develoffice@gmail.com',
-							'ï¿½ï¿½âµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¶ï¿½êµ¿',10000000,'01048992851','0',TO_DATE('20190415','YYYY-MM-DD'),NULL,DEFAULT,DEFAULT, NULL, FN_KO_CHAR('ï¿½ï¿½ï¿½ç±¤'),DEFAULT,DEFAULT);
+INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL,'ÀüÀç±¤','1234','M','19850610',1,1,'01048992851','kh.develoffice@gmail.com',
+							'°æ±âµµ ±¤¸í½Ã Ã¶»êµ¿',10000000,'01048992851','0',TO_DATE('20190415','YYYY-MM-DD'),NULL,DEFAULT,DEFAULT, NULL, FN_KO_CHAR('ÀüÀç±¤'),DEFAULT,DEFAULT);
 
-INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL,'ï¿½ï¿½ï¿½ï¿½ï¿½','1234','M','19901026',2,2,'01089819256','sangyoonsla@gmail.com',
-							'ï¿½ï¿½âµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½',8000000,'01089819256','0',TO_DATE('20190415','YYYY-MM-DD'),NULL,DEFAULT,DEFAULT, NULL, FN_KO_CHAR('ï¿½ï¿½ï¿½ï¿½ï¿½'),DEFAULT,DEFAULT);
+INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL,'±è»óÀ±','1234','M','19901026',2,2,'01089819256','sangyoonsla@gmail.com',
+							'°æ±âµµ ¼º³²½Ã ¼öÁ¤±¸',8000000,'01089819256','0',TO_DATE('20190415','YYYY-MM-DD'),NULL,DEFAULT,DEFAULT, NULL, FN_KO_CHAR('±è»óÀ±'),DEFAULT,DEFAULT);
 
-INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL, 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', '1234', 'F', '19940331', 6, 4, '01031563212', 'kh.191105.end@gmail.com',
-                            'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ãµï¿½ï¿½ ï¿½ï¿½èµ¿', 7000000, '01031563212', '0', TO_DATE('20190415','YYYY-MM-DD'),NULL,DEFAULT,DEFAULT, NULL, FN_KO_CHAR('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'),DEFAULT,DEFAULT);
+INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL, '¿ø¿µÁÖ', '1234', 'F', '19940331', 6, 4, '01031563212', 'kh.191105.end@gmail.com',
+                            '°­¿øµµ ÃáÃµ½Ã Åð°èµ¿', 7000000, '01031563212', '0', TO_DATE('20190415','YYYY-MM-DD'),NULL,DEFAULT,DEFAULT, NULL, FN_KO_CHAR('¿ø¿µÁÖ'),DEFAULT,DEFAULT);
 
-INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL,'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½','1234','M','19950712',5,5,'01092600714','yhg848484@gmail.com',
-							'ï¿½ï¿½âµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß¿ï¿½ï¿½ï¿½',5000000,'01092600714','0',TO_DATE('20190415','YYYY-MM-DD'),NULL,DEFAULT,DEFAULT, NULL, FN_KO_CHAR('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'),DEFAULT,DEFAULT);
+INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL,'À¯Çö±Ô','1234','M','19950712',5,5,'01092600714','yhg848484@gmail.com',
+							'°æ±âµµ ¼º³²½Ã Áß¿ø±¸',5000000,'01092600714','0',TO_DATE('20190415','YYYY-MM-DD'),NULL,DEFAULT,DEFAULT, NULL, FN_KO_CHAR('À¯Çö±Ô'),DEFAULT,DEFAULT);
 
-INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL, 'ï¿½ï¿½ï¿½ï¿½È¯', '1234', 'M', '19890214', 3, 3, '01083311011', 'dydghks11@naver.com',
-                            'ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 5000000, '01083311011', '0', TO_DATE('20190415','YYYY-MM-DD'),NULL,DEFAULT,DEFAULT, NULL, FN_KO_CHAR('ï¿½ï¿½ï¿½ï¿½È¯'),DEFAULT,DEFAULT);
+INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL, '¼³¿ëÈ¯', '1234', 'M', '19890214', 3, 3, '01083311011', 'dydghks11@naver.com',
+                            '¼­¿ï½Ã ¼ÛÆÄ±¸ ¹®Á¤µ¿', 5000000, '01083311011', '0', TO_DATE('20190415','YYYY-MM-DD'),NULL,DEFAULT,DEFAULT, NULL, FN_KO_CHAR('¼³¿ëÈ¯'),DEFAULT,DEFAULT);
 
 
 
@@ -1395,40 +1395,40 @@ INSERT INTO EMPLOYEE VALUES(EMP_SEQ.NEXTVAL, 'ï¿½ï¿½ï¿½ï¿½È¯', '1234', 'M', '198
 --	"STATUS"		VARCHAR2(1)	DEFAULT 'N'	CHECK(STATUS IN('Y','N'))
 
 INSERT INTO WIDGET VALUES(1,10001,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(2,10001,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(3,10001,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(4,10001,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(5,10001,25,108,'N','Y');
+INSERT INTO WIDGET VALUES(2,10001,696,108,'N','Y');
+INSERT INTO WIDGET VALUES(3,10001,25,380,'N','Y');
+INSERT INTO WIDGET VALUES(4,10001,696,380,'N','Y');
+INSERT INTO WIDGET VALUES(5,10001,25,578,'N','Y');
 
 INSERT INTO WIDGET VALUES(1,10002,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(2,10002,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(3,10002,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(4,10002,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(5,10002,25,108,'N','Y');
+INSERT INTO WIDGET VALUES(2,10002,696,108,'N','Y');
+INSERT INTO WIDGET VALUES(3,10002,25,380,'N','Y');
+INSERT INTO WIDGET VALUES(4,10002,696,380,'N','Y');
+INSERT INTO WIDGET VALUES(5,10002,25,578,'N','Y');
 
 INSERT INTO WIDGET VALUES(1,10003,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(2,10003,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(3,10003,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(4,10003,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(5,10003,25,108,'N','Y');
+INSERT INTO WIDGET VALUES(2,10003,696,108,'N','Y');
+INSERT INTO WIDGET VALUES(3,10003,25,380,'N','Y');
+INSERT INTO WIDGET VALUES(4,10003,696,380,'N','Y');
+INSERT INTO WIDGET VALUES(5,10003,25,578,'N','Y');
 
 INSERT INTO WIDGET VALUES(1,10004,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(2,10004,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(3,10004,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(4,10004,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(5,10004,25,108,'N','Y');
+INSERT INTO WIDGET VALUES(2,10004,696,108,'N','Y');
+INSERT INTO WIDGET VALUES(3,10004,25,380,'N','Y');
+INSERT INTO WIDGET VALUES(4,10004,696,380,'N','Y');
+INSERT INTO WIDGET VALUES(5,10004,25,578,'N','Y');
 
 INSERT INTO WIDGET VALUES(1,10005,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(2,10005,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(3,10005,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(4,10005,25,108,'N','Y');
-INSERT INTO WIDGET VALUES(5,10005,25,108,'N','Y');
+INSERT INTO WIDGET VALUES(2,10005,696,108,'N','Y');
+INSERT INTO WIDGET VALUES(3,10005,25,380,'N','Y');
+INSERT INTO WIDGET VALUES(4,10005,696,380,'N','Y');
+INSERT INTO WIDGET VALUES(5,10005,25,578,'N','Y');
 
 
 
-------------------VIEW ï¿½ï¿½ï¿½ï¿½------------------------------------
+------------------VIEW »ý¼º------------------------------------
 
--- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Î¼ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ß°ï¿½ 
+-- Á÷¿øÅ×ÀÌºí¿¡ ºÎ¼­,Á÷±ÞÀÌ¸§ Ãß°¡ 
 CREATE OR REPLACE VIEW EMP AS
 SELECT EMP_ID,EMP_NAME,EMP_PWD,GENDER,BIRTH,DEPT_CODE,DEPT_NAME,JOB_CODE,
        JOB_NAME,PHONE,EMAIL,ADDRESS,SALARY,ACCOUNT,STAR,ENROLL_DATE,RETIRE_DATE,
@@ -1439,7 +1439,7 @@ JOIN JOB USING(JOB_CODE)
 ORDER BY EMP_ID;
 							
 
--- Ã¤ï¿½Ã¹ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½
+-- Ã¤ÆÃ¹æ ¸®½ºÆ® Á¶È¸¿ë ºä
 CREATE OR REPLACE VIEW CHATLIST_VIEW AS
 SELECT J.CHAT_ID, J.EMP_ID, CHAT_NAME, C.CREATE_DATE, C.MODIFY_DATE "MODIFY_DATE", C.CHAT_TYPE,
 	(SELECT M_CONTENT
@@ -1462,7 +1462,7 @@ JOIN CHAT C ON(C.CHAT_ID = J.CHAT_ID)
 WHERE J.CHAT_STATUS = 'Y'
 ORDER BY C.MODIFY_DATE DESC;
 
--- ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½
+-- ¸Þ¼¼Áö ¸®½ºÆ® Á¶È¸¿ë ºä
 
 CREATE OR REPLACE VIEW MESSAGE_LIST AS
 SELECT MSG_ID, CHAT_ID, M.EMP_ID, EMP_NAME, JOB_NAME, PROFILE_PATH, M_CONTENT, M_CREATE_DATE, M_STATUS, M_TYPE
@@ -1470,20 +1470,20 @@ FROM MESSAGE M
 JOIN EMPLOYEE E ON(M.EMP_ID = E.EMP_ID)
 JOIN JOB J ON(E.JOB_CODE = J.JOB_CODE);
 
--- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½
+-- ¿¹¾à Á¶È¸¿ë ºä
 CREATE OR REPLACE VIEW RESERV AS
 SELECT RESERV_NUM,EMP_ID,EMP_NAME,JOB_NAME,RESERV_TYPE,INSERT_DATE,RESERV_DATE,START_TIME,END_TIME,REASON,DEL_STATUS
 FROM RESERVATION
 JOIN EMPLOYEE E USING(EMP_ID)
 JOIN JOB J ON E.JOB_CODE = J.JOB_CODE;
 
--- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½
+-- ¸ÞÀÏÇÔ Á¶È¸¿ë ºä
 CREATE OR REPLACE VIEW MAIL_VIEW AS
 SELECT MAIL_NUM, EMP_ID, MAIL_FROM, MAIL_TO, MAIL_CC, MAIL_TITLE, MAIL_DATE, MAIL_IMPORTANT, STATUS
 FROM MAIL
 JOIN MAIL_DEL USING(MAIL_NUM);
 
--- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+-- ¸ÞÀÏÇÔ µðÅ×ÀÏ ºä
 create or replace view mail_detail as
 select m.mail_num, mail_title, mail_content, d.emp_id, e.emp_name as "from_emp", mail_from, e2.emp_name as "to_emp", e3.emp_name as "cc_emp", mail_to, mail_cc, original_filename, rename_filename, to_char(mail_date,'yyyy-mm-dd hh24:mi:ss') mail_date, mail_important
 from mail m
@@ -1492,14 +1492,14 @@ join employee e on(e.email = mail_from)
 left join employee e2 on(e2.email = mail_to)
 left join employee e3 on(e3.email = mail_cc);
 
--- ï¿½Þ·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-
+-- ´Þ·Â ¼¿·º ºä-
 create or replace view schedule_select as
 select all_day, emp_name, s_title, start_date, start_time, end_date, end_time, s_type, s_content
 from schedule 
 join employee using(emp_id)
 where status='Y';
 
--- ï¿½Þ·ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½--
+-- ´Þ·Â °Ô½ÃÆÇ ¸®½ºÆ® ºä--
 create or replace view schedule_list as
 select s_no, start_date, start_time, end_date, end_time, emp_id, emp_name || ' ' || job_name as emp_name, create_date, s_title, s_content, s_type, s_plan, dept_code, status
 from schedule
@@ -1507,7 +1507,7 @@ join employee using(emp_id)
 join job using(job_code)
 join department using(dept_code);
 
--- Ç°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½
+-- Ç°¾ÑÀÌ ¸®½ºÆ® ºä
 create or replace view help_view as
 select work_id,h.emp_id,emp_name,work_title,work_content,reason,to_char(regist_date,'yyyy-mm-dd hh24:mi:ss') regist_date ,helper_id,to_char(bring_date,'yyyy-mm-dd hh24:mi:ss') bring_date,status
 from help h
@@ -1521,83 +1521,83 @@ join employee e on(h.emp_id = e.emp_id);
 
 
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST ï¿½Ï´Â°ï¿½',10001,'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½Ù¸ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î´ï¿½.
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST ÇÏ´Â°Å',10001,'´©±¸µçÁö Ã¼Æ÷ ¶Ç´Â ±¸¼ÓÀ» ´çÇÑ ¶§¿¡´Â Áï½Ã º¯È£ÀÎÀÇ Á¶·ÂÀ» ¹ÞÀ» ±Ç¸®¸¦ °¡Áø´Ù. ´Ù¸¸, Çü»çÇÇ°íÀÎÀÌ ½º½º·Î º¯È£ÀÎÀ» ±¸ÇÒ ¼ö ¾øÀ» ¶§¿¡´Â ¹ý·üÀÌ Á¤ÇÏ´Â ¹Ù¿¡ ÀÇÇÏ¿© ±¹°¡°¡ º¯È£ÀÎÀ» ºÙÀÎ´Ù.
 
-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½Ï¸ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ç»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Âµï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ¹Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ð¡ï¿½ï¿½Êºï¿½ï¿½ï¿½ï¿½Ê¼Ò¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½Þ¡ï¿½ï¿½ï¿½ï¿½Î¡ï¿½ï¿½ï¿½ï¿½ë¹°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½Ñ´ï¿½.
+Á¤´çÀº ±× ¸ñÀû¡¤Á¶Á÷°ú È°µ¿ÀÌ ¹ÎÁÖÀûÀÌ¾î¾ß ÇÏ¸ç, ±¹¹ÎÀÇ Á¤Ä¡Àû ÀÇ»çÇü¼º¿¡ Âü¿©ÇÏ´Âµ¥ ÇÊ¿äÇÑ Á¶Á÷À» °¡Á®¾ß ÇÑ´Ù. ±ºÀÎ ¶Ç´Â ±º¹«¿øÀÌ ¾Æ´Ñ ±¹¹ÎÀº ´ëÇÑ¹Î±¹ÀÇ ¿µ¿ª¾È¿¡¼­´Â Áß´ëÇÑ ±º»ç»ó ±â¹Ð¡¤ÃÊº´¡¤ÃÊ¼Ò¡¤À¯µ¶À½½Ä¹°°ø±Þ¡¤Æ÷·Î¡¤±º¿ë¹°¿¡ °üÇÑ ÁËÁß ¹ý·üÀÌ Á¤ÇÑ °æ¿ì¿Í ºñ»ó°è¾öÀÌ ¼±Æ÷µÈ °æ¿ì¸¦ Á¦¿ÜÇÏ°í´Â ±º»ç¹ý¿øÀÇ ÀçÆÇÀ» ¹ÞÁö ¾Æ´ÏÇÑ´Ù.
 
-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½Ó¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×¿ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½É·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ö¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ç¹«ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È¿ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½.
+´ëÅë·ÉÀº ¹ý·ü¿¡¼­ ±¸Ã¼ÀûÀ¸·Î ¹üÀ§¸¦ Á¤ÇÏ¿© À§ÀÓ¹ÞÀº »çÇ×°ú ¹ý·üÀ» ÁýÇàÇÏ±â À§ÇÏ¿© ÇÊ¿äÇÑ »çÇ×¿¡ °üÇÏ¿© ´ëÅë·É·ÉÀ» ¹ßÇÒ ¼ö ÀÖ´Ù. Áö¹æÀÚÄ¡´ÜÃ¼´Â ÁÖ¹ÎÀÇ º¹¸®¿¡ °üÇÑ »ç¹«¸¦ Ã³¸®ÇÏ°í Àç»êÀ» °ü¸®ÇÏ¸ç, ¹ý·ÉÀÇ ¹üÀ§¾È¿¡¼­ ÀÚÄ¡¿¡ °üÇÑ ±ÔÁ¤À» Á¦Á¤ÇÒ ¼ö ÀÖ´Ù.
 
-ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ä§ï¿½Ø¹ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½Ñ´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½Ü±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ç¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½Ã¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°Å»ï¿½È°ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+¸ðµç ±¹¹ÎÀº Åë½ÅÀÇ ºñ¹ÐÀ» Ä§ÇØ¹ÞÁö ¾Æ´ÏÇÑ´Ù. ±¹°¡´Â ¹ý·üÀÌ Á¤ÇÏ´Â ¹Ù¿¡ ÀÇÇÏ¿© Àç¿Ü±¹¹ÎÀ» º¸È£ÇÒ ÀÇ¹«¸¦ Áø´Ù. ±¹°¡´Â ÁÖÅÃ°³¹ßÁ¤Ã¥µîÀ» ÅëÇÏ¿© ¸ðµç ±¹¹ÎÀÌ ÄèÀûÇÑ ÁÖ°Å»ýÈ°À» ÇÒ ¼ö ÀÖµµ·Ï ³ë·ÂÇÏ¿©¾ß ÇÑ´Ù.',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST23 ï¿½Ï´Â°ï¿½',10002,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST23 ÇÏ´Â°Å',10002,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST4352 ï¿½Ï´Â°ï¿½',10003,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST4352 ÇÏ´Â°Å',10003,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST432 ï¿½Ï´Â°ï¿½',10004,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST432 ÇÏ´Â°Å',10004,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST 71ï¿½Ï´Â°ï¿½',10005,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST 71ÇÏ´Â°Å',10005,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST6431 ï¿½Ï´Â°ï¿½',10005,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST6431 ÇÏ´Â°Å',10005,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST146ï¿½Ï´Â°ï¿½',10004,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST146ÇÏ´Â°Å',10004,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST3215325 ï¿½Ï´Â°ï¿½',10003,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST3215325 ÇÏ´Â°Å',10003,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST1253 ï¿½Ï´Â°ï¿½',10002,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST1253 ÇÏ´Â°Å',10002,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST561 ï¿½Ï´Â°ï¿½',10001,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST561 ÇÏ´Â°Å',10001,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST3216 ï¿½Ï´Â°ï¿½',10002,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST3216 ÇÏ´Â°Å',10002,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST352 ï¿½Ï´Â°ï¿½',10003,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST352 ÇÏ´Â°Å',10003,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST6132 ï¿½Ï´Â°ï¿½',10004,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST6132 ÇÏ´Â°Å',10004,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST126ï¿½Ï´Â°ï¿½',10005,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST126ÇÏ´Â°Å',10005,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST7134ï¿½Ï´Â°ï¿½',10004,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST7134ÇÏ´Â°Å',10004,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST2135 ï¿½Ï´Â°ï¿½',10003,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST2135 ÇÏ´Â°Å',10003,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST7143 ï¿½Ï´Â°ï¿½',10002,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST7143 ÇÏ´Â°Å',10002,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST8765 ï¿½Ï´Â°ï¿½',10001,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST8765 ÇÏ´Â°Å',10001,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST345 ï¿½Ï´Â°ï¿½',10001,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST345 ÇÏ´Â°Å',10001,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST ï¿½Ï´Â°ï¿½',10002,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST ÇÏ´Â°Å',10002,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
-INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST53552 ï¿½Ï´Â°ï¿½',10003,'ï¿½ï¿½ï¿½ï¿½ TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
+INSERT INTO FREE VALUES(FREE_SEQ.NEXTVAL,'TEST53552 ÇÏ´Â°Å',10003,'³»¿ë TEST111111',NULL,NULL,0,SYSDATE,SYSDATE,DEFAULT,0);
 
 
--- Ã¤ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+-- Ã¤ÆÃÂÊ »ùÇÃ µ¥ÀÌÅÍ
 INSERT INTO CHAT VALUES(CHAT_SEQ.NEXTVAL, DEFAULT, SYSDATE, 'Y', 1);
-INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, 'ï¿½ï¿½ï¿½ç±¤ ï¿½ï¿½Ç¥', DEFAULT, DEFAULT, DEFAULT, 10004, DEFAULT, DEFAULT, FN_KO_CHAR('ï¿½ï¿½ï¿½ç±¤ ï¿½ï¿½Ç¥'));
-INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½', DEFAULT, DEFAULT, DEFAULT, 10001, DEFAULT, DEFAULT, FN_KO_CHAR('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½'));
-INSERT INTO MESSAGE VALUES(MSG_SEQ.NEXTVAL, CHAT_SEQ.CURRVAL, 10004, 'ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½È³ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½!', SYSDATE, 'Y', 1);
-INSERT INTO MESSAGE VALUES(MSG_SEQ.NEXTVAL, CHAT_SEQ.CURRVAL, 10001, 'ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¾ï¿½ ï¿½È³ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.', SYSDATE, 'Y', 1);
+INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, 'ÀüÀç±¤ ´ëÇ¥', DEFAULT, DEFAULT, DEFAULT, 10004, DEFAULT, DEFAULT, FN_KO_CHAR('ÀüÀç±¤ ´ëÇ¥'));
+INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, 'À¯Çö±Ô »ç¿ø', DEFAULT, DEFAULT, DEFAULT, 10001, DEFAULT, DEFAULT, FN_KO_CHAR('À¯Çö±Ô »ç¿ø'));
+INSERT INTO MESSAGE VALUES(MSG_SEQ.NEXTVAL, CHAT_SEQ.CURRVAL, 10004, '´ëÇ¥´Ô ¾È³çÇÏ¼¼¿ä!', SYSDATE, 'Y', 1);
+INSERT INTO MESSAGE VALUES(MSG_SEQ.NEXTVAL, CHAT_SEQ.CURRVAL, 10001, '±×·¡¿ä Çö±Ô¾¾ ¾È³çÇÏ¼¼¿ä.', SYSDATE, 'Y', 1);
 INSERT INTO CHAT VALUES(CHAT_SEQ.NEXTVAL, DEFAULT, SYSDATE, 'Y', 2);
-INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, 'ï¿½ï¿½ï¿½ç±¤ ï¿½ï¿½Ç¥, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½', DEFAULT, DEFAULT, DEFAULT, 10004, DEFAULT, DEFAULT, FN_KO_CHAR('ï¿½ï¿½ï¿½ç±¤ ï¿½ï¿½Ç¥, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½'));
-INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, 'ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½', DEFAULT, DEFAULT, DEFAULT, 10001, DEFAULT, DEFAULT, FN_KO_CHAR('ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½'));
-INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, 'ï¿½ï¿½ï¿½ç±¤ ï¿½ï¿½Ç¥, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½', DEFAULT, DEFAULT, DEFAULT, 10002, DEFAULT, DEFAULT, FN_KO_CHAR('ï¿½ï¿½ï¿½ç±¤ ï¿½ï¿½Ç¥, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½'));
-INSERT INTO MESSAGE VALUES(MSG_SEQ.NEXTVAL, CHAT_SEQ.CURRVAL, 10004, 'ï¿½ï¿½ï¿½â°¡ ï¿½Å±ä°¡ï¿½ï¿½?', SYSDATE, 'Y', 1);
-INSERT INTO MESSAGE VALUES(MSG_SEQ.NEXTVAL, CHAT_SEQ.CURRVAL, 10001, 'ï¿½ï¿½ ï¿½Â¾ï¿½.', sysdate, 'Y', 1);
-INSERT INTO MESSAGE VALUES(MSG_SEQ.NEXTVAL, CHAT_SEQ.CURRVAL, 10002, 'ï¿½ï¿½Ç¥ï¿½ï¿½ Ä¿ï¿½ï¿½ ï¿½ï¿½Ã³ï¿½ï¿½ï¿½?', SYSDATE, 'Y', 1);
+INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, 'ÀüÀç±¤ ´ëÇ¥, ±è»óÀ± ÀÌ»ç', DEFAULT, DEFAULT, DEFAULT, 10004, DEFAULT, DEFAULT, FN_KO_CHAR('ÀüÀç±¤ ´ëÇ¥, ±è»óÀ± ÀÌ»ç'));
+INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, '±è»óÀ± ÀÌ»ç, À¯Çö±Ô »ç¿ø', DEFAULT, DEFAULT, DEFAULT, 10001, DEFAULT, DEFAULT, FN_KO_CHAR('±è»óÀ± ÀÌ»ç, À¯Çö±Ô »ç¿ø'));
+INSERT INTO JOIN_CHAT VALUES(CHAT_SEQ.CURRVAL, 'ÀüÀç±¤ ´ëÇ¥, À¯Çö±Ô »ç¿ø', DEFAULT, DEFAULT, DEFAULT, 10002, DEFAULT, DEFAULT, FN_KO_CHAR('ÀüÀç±¤ ´ëÇ¥, À¯Çö±Ô »ç¿ø'));
+INSERT INTO MESSAGE VALUES(MSG_SEQ.NEXTVAL, CHAT_SEQ.CURRVAL, 10004, '¿©±â°¡ °Å±ä°¡¿ä?', SYSDATE, 'Y', 1);
+INSERT INTO MESSAGE VALUES(MSG_SEQ.NEXTVAL, CHAT_SEQ.CURRVAL, 10001, 'ÀÀ ¸Â¾Æ.', sysdate, 'Y', 1);
+INSERT INTO MESSAGE VALUES(MSG_SEQ.NEXTVAL, CHAT_SEQ.CURRVAL, 10002, '´ëÇ¥´Ô Ä¿ÇÇ µå½Ã³ª¿ä?', SYSDATE, 'Y', 1);
 
 
--- TO-DO BOARD ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-INSERT INTO TODO_BOARD VALUES(TODO_BOARD_SEQ.NEXTVAL, '4ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½', 10003, '4ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¤Ì¤Ì¤ï¿½', '#d9ead3', SYSDATE, SYSDATE, DEFAULT);
-INSERT INTO TODO_BOARD VALUES(TODO_BOARD_SEQ.NEXTVAL, '5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½', 10003, '5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¤Ì¤Ì¤ï¿½', '#76a5af', SYSDATE, SYSDATE, DEFAULT);
-INSERT INTO TODO_BOARD VALUES(TODO_BOARD_SEQ.NEXTVAL, '6ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½', 10003, '6ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¤Ì¤Ì¤ï¿½', '#073763', SYSDATE, SYSDATE, DEFAULT);
-INSERT INTO TODO_BOARD VALUES(TODO_BOARD_SEQ.NEXTVAL, '7ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½', 10003, '7ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¤Ì¤Ì¤ï¿½', '#674ea7', SYSDATE, SYSDATE, DEFAULT);
-INSERT INTO TODO_BOARD VALUES(TODO_BOARD_SEQ.NEXTVAL, '8ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½', 10003, '8ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¤Ì¤Ì¤ï¿½', '#f6b26b', SYSDATE, SYSDATE, DEFAULT);
+-- TO-DO BOARD »ùÇÃ µ¥ÀÌÅÍ
+INSERT INTO TODO_BOARD VALUES(TODO_BOARD_SEQ.NEXTVAL, '4¿ù ¾÷¹«', 10003, '4¿ù ¾÷¹«¤Ì¤Ì¤Ì¤Ì', '#d9ead3', SYSDATE, SYSDATE, DEFAULT);
+INSERT INTO TODO_BOARD VALUES(TODO_BOARD_SEQ.NEXTVAL, '5¿ù ¾÷¹«', 10003, '5¿ù ¾÷¹«¤Ì¤Ì¤Ì¤Ì', '#76a5af', SYSDATE, SYSDATE, DEFAULT);
+INSERT INTO TODO_BOARD VALUES(TODO_BOARD_SEQ.NEXTVAL, '6¿ù ¾÷¹«', 10003, '6¿ù ¾÷¹«¤Ì¤Ì¤Ì¤Ì', '#073763', SYSDATE, SYSDATE, DEFAULT);
+INSERT INTO TODO_BOARD VALUES(TODO_BOARD_SEQ.NEXTVAL, '7¿ù ¾÷¹«', 10003, '7¿ù ¾÷¹«¤Ì¤Ì¤Ì¤Ì', '#674ea7', SYSDATE, SYSDATE, DEFAULT);
+INSERT INTO TODO_BOARD VALUES(TODO_BOARD_SEQ.NEXTVAL, '8¿ù ¾÷¹«', 10003, '8¿ù ¾÷¹«¤Ì¤Ì¤Ì¤Ì', '#f6b26b', SYSDATE, SYSDATE, DEFAULT);
 
 
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
-----------------ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ DETAIL ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½-------------------------------------------------------------------------
+----------------ÀÚÀ¯ °Ô½ÃÆÇ DETAIL ºä »ý¼º-------------------------------------------------------------------------
 
 CREATE OR REPLACE VIEW FREE_DETAIL
 AS
@@ -1614,7 +1614,7 @@ WHERE R.FREE_RWRITER = E.EMP_ID;
 
  -------------------------------------------------------------------------------------------------------------------                           
 
-----------------ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ DETAIL ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½-------------------------------------------------------------------------
+----------------ÆÀ °Ô½ÃÆÇ DETAIL ºä »ý¼º-------------------------------------------------------------------------
 
 CREATE OR REPLACE VIEW TEAM_BOARD_DETAIL
 AS
@@ -1628,7 +1628,7 @@ SELECT TB_RID,REF_TID,TB_RWRITER,EMP_NAME AS EMPNAME,TB_RCONTENT,TB_CREATE_DATE,
 FROM TEAM_BOARD_REPLY T, EMPLOYEE E
 WHERE T.TB_RWRITER = E.EMP_ID;
 -------------------------------------------------------------------------------------------------------------------
-----------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ DETAIL ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½-------------------------------------------------------------------------
+----------------°øÁö»çÇ× DETAIL ºä »ý¼º-------------------------------------------------------------------------
 
 CREATE OR REPLACE VIEW NOTICE_DETAIL
 AS
@@ -1636,8 +1636,15 @@ SELECT NOTICE_NO,NOTICE_TITLE,NOTICE_WRITER,D.DEPT_CODE,EMP_NAME AS EMPNAME,NOTI
 FROM NOTICE N, EMPLOYEE E, DEPARTMENT D
 WHERE N.NOTICE_WRITER = E.EMP_ID and D.DEPT_CODE = E.DEPT_CODE;
 
-
 ------------------------------------------------------------------------------------------------------------------
+---------------- project reply ºä »ý¼º----------------------------
+CREATE OR REPLACE VIEW PROJECT_RE_DETAIL
+AS
+SELECT T_RID, TASK_NO, T_RWRITER, EMP_NAME AS EMPNAME, T_RCONTENT, CREATE_DATE, MODIFY_DATE, STATUS
+FROM PROJECT_REPLY P, EMPLOYEE E
+WHERE P.T_RWRITER = E.EMP_ID;
 
+
+---------------------------------------------------------------------------------------
 
 COMMIT;

@@ -1,32 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%  
-response.setHeader("Cache-Control","no-store");  
-response.setHeader("Pragma","no-cache");  
-response.setDateHeader("Expires",0);  
-if (request.getProtocol().equals("HTTP/1.1"))
-        response.setHeader("Cache-Control", "no-cache");
+<%
+	response.setHeader("Cache-Control", "no-store");
+	response.setHeader("Pragma", "no-cache");
+	response.setDateHeader("Expires", 0);
+	if (request.getProtocol().equals("HTTP/1.1"))
+		response.setHeader("Cache-Control", "no-cache");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <title>DEVELOFFICE</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="resources/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- summernote 에디터 -->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
-<script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
-	
+<link
+	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css"
+	rel="stylesheet">
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+<script
+	src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
+
 
 <!-- datepicker -->
 <script src="resources/js/jquery-ui.js"></script>
@@ -34,296 +38,321 @@ if (request.getProtocol().equals("HTTP/1.1"))
 <script src="resources/js/datepicker-ko.js"></script>
 
 <style>
-	#tableAccoutingDealInformation th{
-		padding-left: 12px;
-	}
-	
-	/* 에디터 CSS 시작 */
-	
-	.note-toolbar, .panel-heading{
-		padding-top:0px !important;
-		padding-bottom:5px !important;
-	}
-	.note-btn-group{
-		padding-right: 5px !important;
-	}
-	.panel-heading button{
-		padding:0 10px 0 10px !important;
-	}
-	.note-btn{
-		height: 30px;
-		border: 1px solid #ccc !important;
-		background:white !important;
-		box-shadow: none !important;
-	}
-	.btn-add, .btn-del{
-		cursor:pointer;
-	}
-	.popup_li:hover{
-		background:#b9dcee;
-	}
-	.team-membername {
-	    display: inline-block;
-	    color: #333;
-	    width: 130px !important;
-	}
-	.team-name{
-		margin-right: 10px;
-	}
-	td{
-	    border-bottom: 1px solid #ececec;
-	    border-right: 1px solid #ececec;
-	}
-	/* 에디터 CSS 끝 */
-	.helpLabel{
-		display: inline-block;
-	    height: 28px;
-	    margin: 0;
-	    padding-left: 27px;
-	    background: url("resources/images/sprite_chk.png") 0 -32px no-repeat;
-	    font-weight: bold;
-	    line-height: 28px;
-	    cursor: pointer;
-	}
-	.helphelp{
-		background-position: 0 0;
-	}
-	#radio1, #radio2 {
-		opacity: 0;
-	}
+#tableAccoutingDealInformation th {
+	padding-left: 12px;
+}
+
+/* 에디터 CSS 시작 */
+.note-toolbar, .panel-heading {
+	padding-top: 0px !important;
+	padding-bottom: 5px !important;
+}
+
+.note-btn-group {
+	padding-right: 5px !important;
+}
+
+.panel-heading button {
+	padding: 0 10px 0 10px !important;
+}
+
+.note-btn {
+	height: 30px;
+	border: 1px solid #ccc !important;
+	background: white !important;
+	box-shadow: none !important;
+}
+
+.btn-add, .btn-del {
+	cursor: pointer;
+}
+
+.popup_li:hover {
+	background: #b9dcee;
+}
+
+.team-membername {
+	display: inline-block;
+	color: #333;
+	width: 130px !important;
+}
+
+.team-name {
+	margin-right: 10px;
+}
+
+td {
+	border-bottom: 1px solid #ececec;
+	border-right: 1px solid #ececec;
+}
+/* 에디터 CSS 끝 */
+.helpLabel {
+	display: inline-block;
+	height: 28px;
+	margin: 0;
+	padding-left: 27px;
+	background: url("resources/images/sprite_chk.png") 0 -32px no-repeat;
+	font-weight: bold;
+	line-height: 28px;
+	cursor: pointer;
+}
+
+.helphelp {
+	background-position: 0 0;
+}
+
+#radio1, #radio2 {
+	opacity: 0;
+}
 </style>
-
-
 
 
 </head>
 <body>
-<fmt:formatDate var="now" value="<%=new java.util.Date() %>" pattern="yyyy-MM-dd"/>
+	<fmt:formatDate var="now" value="<%=new java.util.Date()%>"
+		pattern="yyyy-MM-dd" />
 	<!-- WRAPPER -->
 	<div id="wrapper">
-	<!--  -->
-	<jsp:include page="../common/navibar.jsp"/>
-	<!--  -->
-	
-	<!-- MAIN -->
+		<!--  -->
+		<jsp:include page="../common/navibar.jsp" />
+		<!--  -->
+
+		<!-- MAIN -->
 		<div class="main">
 			<!-- MAIN CONTENT -->
 			<div class="main-content">
 				<div class="container-fluid">
 					<!-- 이 아래부터 내용 작성 -->
-					
-					
+
 					<div class="documentWrap">
-						<form action="" name="uploadForm" id="uploadForm" enctype="multipart/form-data" method="post">
-						
-						<div style="padding-bottom:15px;">
-							<span style="padding-right:20px;"><a href="javascript:void(0);" onclick="insertDocument();"><b>기안하기</b></a></span>
-							<!-- <span><a href="javascript:void(0);"><b>임시저장</b></a></span> -->
-						</div>
-						
-						<!--------------------------------------------------------------------------------->
-						
+						<form action="" name="uploadForm" id="uploadForm"
+							enctype="multipart/form-data" method="post">
+
+							<div style="padding-bottom: 15px;">
+								<span style="padding-right: 20px;"><a
+									href="javascript:void(0);" onclick="insertDocument();"><b>기안하기</b></a></span>
+								<!-- <span><a href="javascript:void(0);"><b>임시저장</b></a></span> -->
+							</div>
+
+							<!--------------------------------------------------------------------------------->
+
 							<h4 style="padding: 2px 0 15px 0;">기본 설정</h4>
 							<table class="docuTable">
 								<colgroup>
-									<col style="width:14.15%;">
-									<col style="width:42.94%">
-									<col style="width:14.15%">
-									<col style="width:28.76%">
+									<col style="width: 14.15%;">
+									<col style="width: 42.94%">
+									<col style="width: 14.15%">
+									<col style="width: 28.76%">
 								</colgroup>
 								<tr>
 									<th>문서종류</th>
-									<td>
-										<select name="" class="write-select" autocomplete="off">
+									<td><select name="" class="write-select"
+										autocomplete="off">
 											<option value="" selected="">공용</option>
-										</select>
-										<input type="hidden" id="prevApprovalCategoryNo" value="">
-										<select name="docuType" class="write-select" id="documentTypeSelect" autocomplete="off">																
+									</select> <input type="hidden" id="prevApprovalCategoryNo" value="">
+										<select name="docuType" class="write-select"
+										id="documentTypeSelect" autocomplete="off">
 											<option value="N">선택</option>
 											<option value="AP">지출 결의서</option>
 											<option value="CN">회람</option>
 											<option value="CF">품의서</option>
 											<option value="VA">휴가원</option>
 											<option value="RT">사직원</option>
-										</select>
-										<!-- <button class="weakblue" onclick="ApprovalDocument.getSelectApprovalForm();">문서보기</button> -->
+									</select> <!-- <button class="weakblue" onclick="ApprovalDocument.getSelectApprovalForm();">문서보기</button> -->
 										<input type="hidden" id="prevApprovalFormNo" value="26723">
-										<input type="hidden" id="prevApprovalFormTitle" value="">										
+										<input type="hidden" id="prevApprovalFormTitle" value="">
 									</td>
 									<th>작성자</th>
 									<td><span>${loginUser.empName} ${loginUser.jobName}</span></td>
 								</tr>
 								<tr>
 									<th>보존연한</th>
-									
-									<td>
-										<select name="saveTerm" class="fl write-select" id="set_preserved_term_y">
+
+									<td><select name="saveTerm" class="fl write-select"
+										id="set_preserved_term_y">
 											<option value="">보존 연한</option>
 											<option value="1">1년</option>
 											<option value="3">3년</option>
 											<option value="5">5년</option>
 											<option value="10">10년</option>
 											<option value="0">영구</option>
-										</select>
-										<span class="fl hide" id="set_preserved_term_n">년</span>
-										<span class="lnr lnr-question-circle detailQ" style="padding-left:5px;line-height: 30px;"></span>
+									</select> <span class="fl hide" id="set_preserved_term_n">년</span> <span
+										class="lnr lnr-question-circle detailQ"
+										style="padding-left: 5px; line-height: 30px;"></span>
 										<div class="toolTip hide">
-											<div class="tooltip-box" style="width:570px; display:block;">
+											<div class="tooltip-box"
+												style="width: 570px; display: block;">
 												<p>ㆍ1년: 경미한 연결 문서 및 일시적인 사용 또는 처리에 그치는 문서</p>
-												<p>ㆍ3년: 사무의 수행상 1년 이상에 걸쳐 참고 또는 이용해야 할 문서 및 법률상 3년간 보존을 요하는 문서</p>
-												<p>ㆍ5년: 사무의 수행상 3년 이상에 걸쳐 참고 또는 이용해야 할 문서 및 법률상 5년간 보존을 요하는 문서</p>
-												<p>ㆍ10년: 사무의 수행상 장기간 참고 또는 이용해야 할 문서 및 법률상 10년간 보존을 요하는 문서</p>
+												<p>ㆍ3년: 사무의 수행상 1년 이상에 걸쳐 참고 또는 이용해야 할 문서 및 법률상 3년간 보존을
+													요하는 문서</p>
+												<p>ㆍ5년: 사무의 수행상 3년 이상에 걸쳐 참고 또는 이용해야 할 문서 및 법률상 5년간 보존을
+													요하는 문서</p>
+												<p>ㆍ10년: 사무의 수행상 장기간 참고 또는 이용해야 할 문서 및 법률상 10년간 보존을 요하는
+													문서</p>
 												<p>ㆍ영구: 회사의 존속에 필요 불가결한 문서 및 역사적 또는 기타 사유로 중요한 문서</p>
 											</div>
-										</div>
-									</td>
+										</div></td>
 									<th>보안등급</th>
-									
-									<td>
-										<select name="security" class="fl write-select" id="set_security_level_y">
+
+									<td><select name="security" class="fl write-select"
+										id="set_security_level_y">
 											<option value="">보안 등급</option>
 											<option value="S">S등급</option>
 											<option value="A">A등급</option>
 											<option value="B">B등급</option>
 											<option value="C">C등급</option>
-										</select>
-										<span class="fl hide" id="set_security_level_n">등급</span>
-										<span class="lnr lnr-question-circle detailQ" style="padding-left:5px;line-height: 30px;"></span>
-										<div class="toolTip hide" >
-											<div class="tooltip-box" style="width:470px; display:block;">
-												<p>ㆍS등급: 기안 상에 설정된 관련자들만 문서를 볼 수 있으며, 결재자와 합의자만 참조자를 추가할 수 있음.</p>
-												<p>ㆍA등급: 기안 상에 설정된 관련자들과 관리자가 설정한 5등급(과장)등급 이상인 사람이 문서를 볼 수 있음. 결재자와 합의자는 참조자를 추가할 수 있음.</p>
-												<p>ㆍB등급: 기안 상에 설정된 관련자들과 관리자가 설정한 7등급(사원)등급 이상인 사람이 문서를 볼 수 있음. 결재자, 합의자, 참조자 모두 참조자를 추가할 수 있음.</p>
-												<p>ㆍC등급: 모든 임직원이 문서를 열람할 수 있지만, 기안 상에 설정된 관련자들만 참조자를 추가할 수 있음.</p>
+									</select> <span class="fl hide" id="set_security_level_n">등급</span> <span
+										class="lnr lnr-question-circle detailQ"
+										style="padding-left: 5px; line-height: 30px;"></span>
+										<div class="toolTip hide">
+											<div class="tooltip-box"
+												style="width: 470px; display: block;">
+												<p>ㆍS등급: 기안 상에 설정된 관련자들만 문서를 볼 수 있으며, 결재자와 합의자만 참조자를 추가할
+													수 있음.</p>
+												<p>ㆍA등급: 기안 상에 설정된 관련자들과 관리자가 설정한 5등급(과장)등급 이상인 사람이 문서를
+													볼 수 있음. 결재자와 합의자는 참조자를 추가할 수 있음.</p>
+												<p>ㆍB등급: 기안 상에 설정된 관련자들과 관리자가 설정한 7등급(사원)등급 이상인 사람이 문서를
+													볼 수 있음. 결재자, 합의자, 참조자 모두 참조자를 추가할 수 있음.</p>
+												<p>ㆍC등급: 모든 임직원이 문서를 열람할 수 있지만, 기안 상에 설정된 관련자들만 참조자를 추가할
+													수 있음.</p>
 											</div>
-										</div>
-									</td>
-									
+										</div></td>
+
 								</tr>
 							</table>
-						
-						
-						<!--------------------------------------------------------------------------------->
-						
-						<div class="after">
-							<h4 style="padding: 2px 0 15px 0;margin:0;margin-right:20px; float:left;">결재선</h4>
-							<button type="button" class="hide" id="btnApprovalSelect" onclick="" style="display:inline-block;padding:0;">결재선설정</button>
-						</div>
-						<br clear="both">
-						
-						<!--------------------------------------------------------------------------------->
-						
-						<div class="guide">문서 종류 선택 시 결재선이 노출됩니다.</div>
-						
-						<!--------------------------------------------------------------------------------->
-						
-						
-						
-						<!-- 회람 -------------------------------------------------------->
-						
-						
-						<div id="approvalDocumentLine" class="referTable2 hide">
-						
-							<table class="cal_table1 approve-write refer">
-								<colgroup>
-									<col style="width:12.09%;">
-									<col style="width:87.91%;">
-								</colgroup>
-								<tbody>
-									<tr>
-										<th scope="row" style="text-align:center">회람</th>
-										<td id="approvalThirdLine" class="referRow2" style="padding: 8px 0 8px 12px;border-bottom: 1px solid #cdcdcd;text-align: left;height: 40px;">
-											
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						
-						 
-						<!-- 회람 -------------------------------------------------------->
-						
-						
-						
-						<div id="approvalDocumentLine" class="approvalTable hide">
-						
-						<!-- 결제 -->
-						<table class="cal_table1 approve-write js-approval-line">
-							<colgroup>
-								<col style="width:12.09%;">
-								<col style="width:87.91%;">
-							</colgroup>
-							<tbody>
-								<tr>
-									<th scope="row" class="sign"><div style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center;position: relative;">결재</div></th>
-									<td class="sign vt" id="approvalFirstLine">
-										<table style="width:100%;table-layout:fixed"><colgroup><col><col><col><col><col><col><col></colgroup>
-											<tbody id="apTbody">
-											<tr>
-												<td class="team name"></td>
-												<td class="team name"></td>
-												<td class="team name"></td>
-												<td class="team name"></td>
-												<td class="team name"></td>
-												<td class="team name"></td>
-												<td class="team name"></td>
-											</tr>
-											<tr>
-												<td class="stamp"></td>
-												<td class="stamp"></td>
-												<td class="stamp"></td>
-												<td class="stamp"></td>
-												<td class="stamp"></td>
-												<td class="stamp"></td>
-												<td class="stamp"></td>
-											</tr>
-											<tr id="nameRow">
-												<td class="name"></td>
-												<td class="name"></td>
-												<td class="name"></td>
-												<td class="name"></td>
-												<td class="name"></td>
-												<td class="name"></td>
-												<td class="name"></td>
-											</tr>
-											</tbody>
-										</table>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						 
-						<!-- 참조 -->
-						<table class="cal_table1 approve-write refer" id="referTable1">
-								<colgroup>
-									<col style="width:12.09%;">
-									<col style="width:87.91%;">
-								</colgroup>
-								<tbody>
-									<tr>
-										<th scope="row" style="text-align:center">참조</th>
-										<td id="approvalThirdLine" class="referRow" style="padding: 8px 0 8px 12px;border-bottom: 1px solid #cdcdcd;text-align: left;height:40px;">
-										</td>
-									</tr>
-								</tbody>
-							</table>
-										
-							
-						</div>
-						
-						
-						
-						
-						
-						
-						<!---------- 결제선 주소록 시작 ------------------------>
-						
-						<div id="approval_address_layer" class="booking_layer_div layer_box hide typeD">
-						
-						<div class="layer_box large address line " id="div_approval_view_one" style="margin-left: -400px; margin-top: -311px; display: block;width: 770px;">
-							<div class="title_layer text_variables" id="titleApprovalLineSetting">결재선 설정</div>
-							
-							<!-- 
+
+							<!--------------------------------------------------------------------------------->
+
+							<div class="after">
+								<h4
+									style="padding: 2px 0 15px 0; margin: 0; margin-right: 20px; float: left;">결재선</h4>
+								<button type="button" class="hide" id="btnApprovalSelect"
+									onclick="" style="display: inline-block; padding: 0;">결재선설정</button>
+							</div>
+							<br clear="both">
+
+							<!--------------------------------------------------------------------------------->
+
+							<div class="guide">문서 종류 선택 시 결재선이 노출됩니다.</div>
+
+							<!--------------------------------------------------------------------------------->
+
+
+
+							<!-- 회람 -------------------------------------------------------->
+
+							<div id="approvalDocumentLine" class="referTable2 hide">
+
+								<table class="cal_table1 approve-write refer">
+									<colgroup>
+										<col style="width: 12.09%;">
+										<col style="width: 87.91%;">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th scope="row" style="text-align: center">회람</th>
+											<td id="approvalThirdLine" class="referRow2"
+												style="padding: 8px 0 8px 12px; border-bottom: 1px solid #cdcdcd; text-align: left; height: 40px;">
+
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<!-- 회람 -------------------------------------------------------->
+
+
+
+							<div id="approvalDocumentLine" class="approvalTable hide">
+
+								<!-- 결제 -->
+								<table class="cal_table1 approve-write js-approval-line">
+									<colgroup>
+										<col style="width: 12.09%;">
+										<col style="width: 87.91%;">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th scope="row" class="sign"><div
+													style="height: 162px; display: table-cell; width: 110px; vertical-align: middle; text-align: center; position: relative;">결재</div></th>
+											<td class="sign vt" id="approvalFirstLine">
+												<table style="width: 100%; table-layout: fixed">
+													<colgroup>
+														<col>
+														<col>
+														<col>
+														<col>
+														<col>
+														<col>
+														<col>
+													</colgroup>
+													<tbody id="apTbody">
+														<tr>
+															<td class="team name"></td>
+															<td class="team name"></td>
+															<td class="team name"></td>
+															<td class="team name"></td>
+															<td class="team name"></td>
+															<td class="team name"></td>
+															<td class="team name"></td>
+														</tr>
+														<tr>
+															<td class="stamp"></td>
+															<td class="stamp"></td>
+															<td class="stamp"></td>
+															<td class="stamp"></td>
+															<td class="stamp"></td>
+															<td class="stamp"></td>
+															<td class="stamp"></td>
+														</tr>
+														<tr id="nameRow">
+															<td class="name"></td>
+															<td class="name"></td>
+															<td class="name"></td>
+															<td class="name"></td>
+															<td class="name"></td>
+															<td class="name"></td>
+															<td class="name"></td>
+														</tr>
+													</tbody>
+												</table>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<!-- 참조 -->
+								<table class="cal_table1 approve-write refer" id="referTable1">
+									<colgroup>
+										<col style="width: 12.09%;">
+										<col style="width: 87.91%;">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th scope="row" style="text-align: center">참조</th>
+											<td id="approvalThirdLine" class="referRow"
+												style="padding: 8px 0 8px 12px; border-bottom: 1px solid #cdcdcd; text-align: left; height: 40px;">
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+
+
+							<!---------- 결제선 주소록 시작 ------------------------>
+
+							<div id="approval_address_layer"
+								class="booking_layer_div layer_box hide typeD">
+
+								<div class="layer_box large address line "
+									id="div_approval_view_one"
+									style="margin-left: -400px; margin-top: -311px; display: block; width: 770px;">
+									<div class="title_layer text_variables"
+										id="titleApprovalLineSetting">결재선 설정</div>
+
+									<!-- 
 							<div class="line-search after" id="searchP" style="display: block;">
 								<ul class="after">
 									<li><label for="rdo_sch_name"><input type="radio" value="name" name="searchField" id="rdo_sch_name" onclick="$j('#keyword').focus();" checked="checked"> 이름</label></li>
@@ -339,61 +368,84 @@ if (request.getProtocol().equals("HTTP/1.1"))
 								</select>
 							</div>
 							 -->
-						
-							<div class="after line-list-wrap">
-								<div class="fl">
-									<div class="after">
-										<div class="fl" id="searchMessage" style="display: none;"><span id="searchKeyword"></span> 검색결과 : <span id="searchCount"></span></div>
-										<div class="fr">
-											<a class="icon order" title="정렬" id="anchorApprovalUserOrder" style="cursor:pointer;"></a>
-											<ul class="dropdown-menu hide" id="orderApprovalDropdown" style="width: 70px; top: 124px; left: 314px;">
-												<li><a class="js-approval-node-order sortByName">이름순</a></li>
-												<li><a class="js-approval-node-order sortByJob">직급순</a></li>
-											</ul>
-										</div>
-									</div>
-									<div class="after">
-										<div class="category-list" style="height: 397px;width: 205px;">
-											<select id="leftList" size="19" frameborder="0" style="display:none;">
-																	</select>
-											<div id="treeDiv" style="white-space: nowrap;float: none;" class="treeDiv OrgTree">
-												<ul>
-													<li id="" class="last">
-														<div class="Container">
-															<img onclick="" src="https://approval.office.hiworks.com/assets/images/common/tree_images/tree_m.gif" class="plus">
-															<strong onclick="" id="subOffice" class="selectedNode">DEVELOFFICE <span style="font-weight:normal; color:silver; font-size:8pt">(${empSize})</span></strong>
-														</div>
-														<ul style="" id="subDept">
+
+									<div class="after line-list-wrap">
+										<div class="fl">
+											<div class="after">
+												<div class="fl" id="searchMessage" style="display: none;">
+													<span id="searchKeyword"></span> 검색결과 : <span
+														id="searchCount"></span>
+												</div>
+												<div class="fr">
+													<a class="icon order" title="정렬"
+														id="anchorApprovalUserOrder" style="cursor: pointer;"></a>
+													<ul class="dropdown-menu hide" id="orderApprovalDropdown"
+														style="width: 70px; top: 124px; left: 314px;">
+														<li><a class="js-approval-node-order sortByName">이름순</a></li>
+														<li><a class="js-approval-node-order sortByJob">직급순</a></li>
+													</ul>
+												</div>
+											</div>
+											<div class="after">
+												<div class="category-list"
+													style="height: 397px; width: 205px;">
+													<select id="leftList" size="19" frameborder="0"
+														style="display: none;">
+													</select>
+													<div id="treeDiv" style="white-space: nowrap; float: none;"
+														class="treeDiv OrgTree">
+														<ul>
+															<li id="" class="last">
+																<div class="Container">
+																	<img onclick=""
+																		src="https://approval.office.hiworks.com/assets/images/common/tree_images/tree_m.gif"
+																		class="plus"> <strong onclick="" id="subOffice"
+																		class="selectedNode">DEVELOFFICE <span
+																		style="font-weight: normal; color: silver; font-size: 8pt">(${empSize})</span></strong>
+																</div>
+																<ul style="" id="subDept">
+																</ul>
+															</li>
 														</ul>
-													</li>
-												</ul>
+													</div>
+													<div id="leftProgressDiv" style="display: none;"
+														class="progressDiv">
+														<img src="resources/images/progress_big.gif">
+													</div>
+												</div>
+												<div class="name-list" style="width: auto;">
+													<select multiple="multiple" id="rightList" style=""></select>
+
+													<div class="choice-area"
+														style="width: 203px; font-size: 12px; padding: 5px;">
+														<a class="text_variables fl mgr_20" id="selectAll"
+															style="cursor: pointer">전체</a> <a
+															class="text_variables mgr_20" id="cancelAll"
+															style="cursor: pointer">선택안함</a> <span id="pagingP"></span>
+													</div>
+													<div id="rightProgressDiv" style="display: none;"
+														class="progressDiv">
+														<img src="resources/images/progress_big.gif">
+													</div>
+												</div>
 											</div>
-											<div id="leftProgressDiv" style="display: none;" class="progressDiv"><img src="resources/images/progress_big.gif"></div>
+
 										</div>
-										<div class="name-list" style="width: auto;">
-											<select multiple="multiple" id="rightList" style=""></select>
-						
-											<div class="choice-area" style="width: 203px;font-size: 12px;padding: 5px;">
-												<a class="text_variables fl mgr_20" id="selectAll" style="cursor:pointer">전체</a>
-												<a class="text_variables mgr_20" id="cancelAll" style="cursor:pointer">선택안함</a>
-												<span id="pagingP"></span>
+										<div class="add-del-btn with-fourline">
+											<div class="top" style="margin-top: 70px;">
+												<a class="icon btn-add js-btn-approval-first-line"><span
+													class="blind"></span></a> <a
+													class="icon btn-del js-btn-approval-first-line"><span
+													class="blind"></span></a>
 											</div>
-											<div id="rightProgressDiv" style="display: none;" class="progressDiv"><img src="resources/images/progress_big.gif"></div>
-										</div>
-									</div>
-						
-								</div>
-								<div class="add-del-btn with-fourline">
-									<div class="top" style="margin-top: 70px;">
-										<a class="icon btn-add js-btn-approval-first-line"><span class="blind"></span></a>
-										<a class="icon btn-del js-btn-approval-first-line"><span class="blind"></span></a>
-									</div>
-									<div class="middle" style="margin-top: 60px;">
-										<a class="icon btn-add js-btn-approval-third-line"><span class="blind"></span></a>
-										<a class="icon btn-del js-btn-approval-third-line"><span class="blind"></span></a>
-									</div>
-									
-									<!-- 
+											<div class="middle" style="margin-top: 60px;">
+												<a class="icon btn-add js-btn-approval-third-line"><span
+													class="blind"></span></a> <a
+													class="icon btn-del js-btn-approval-third-line"><span
+													class="blind"></span></a>
+											</div>
+
+											<!-- 
 									<div class="bottom" style="margin-top: 34px;">
 										<a class="icon btn-add js-btn-approval-third-line"><span class="blind"></span></a>
 										<a class="icon btn-del js-btn-approval-third-line"><span class="blind"></span></a>
@@ -403,567 +455,531 @@ if (request.getProtocol().equals("HTTP/1.1"))
 										<a class="icon btn-del js-btn-approval-fourth-line"><span class="blind"></span></a>
 									</div>
 									 -->
-									
-								</div>
-								<div class="fr mgb20">
-									<div class="dropdown hide show" style="top:60px;right:0">
-										<div class="dropdown-menu multi-team hide" id="layerMultiNode" style="width:290px">
-											<p class="pdb_20">선택된 결재자가 여러 조직에 속해 있을 경우, 하나의 조직을 선택하셔야 합니다.</p>
-											<p class="pdb_10" id="multiNodeUser"></p>
-											<div style="overflow:auto;max-height:132px;padding:0;">
-												<table class="tableType01" id="tableMultiNode">
-													<caption>문서 수정 이력 목록으로 시간, 관리로 구성되어 있습니다.</caption>
-													<colgroup>
-														<col width="15%">
-														<col width="85%">
-													</colgroup>
-													<thead>
-														<tr>
-															<th scope="col">선택</th>
-															<th scope="col">소속 부서</th>
-														</tr>
-													</thead>
-													<tbody>
-													</tbody>
-												</table>
-											</div>
-						
-											<div class="layer_button">
-												<button type="button" class="btn_variables">확인</button> <button type="button" onclick="$j('#layerMultiNode').hide();">취소</button>
-											</div>
-										</div>
-									</div>
-									<div class="first-line four-line after">
-										<div class="fl">
-											<div class="to-item after">
-												<span class="title">결재 <span class="point_color bold" id="sp_selectApprovalFirstLine">0</span></span>
-												<div class="updown-wrap first js-move-approval-first-line" style="width: 55px;">
-													<span class="blind icon down"></span>
-													<span class="blind icon up"></span>
-												</div>
-											</div>
-											<div class="list">
-												<select multiple="multiple" id="selectApprovalFirstLine" style="overflow-y: hidden !important;">
-												</select>
-											</div>
-						
-										</div>
-										<div class="spr-approval approval-direction">
-											결<br>
-											재<br>
-											방<br>
-											향<br>
-										</div>
-									</div>
-									
-									
-									<!-- 
-									<div class="three-line after">
-										<div class="fl">
-											<div class="to-item after">
-												<span class="title">합의 <span class="point_color bold" id="sp_selectApprovalSecondLine">0</span></span>
-												<div class="updown-wrap first js-move-approval-second-line" style="width: 55px;">
-													<span class="blind icon down"></span>
-													<span class="blind icon up"></span>
-												</div>
-											</div>
-											<div class="list">
-												<select multiple="multiple" id="selectApprovalSecondLine">
-												</select>
-											</div>
-										</div>
-									</div>
-									 -->
-									
-									
-									
-									<div class="three-line after">
-										<div class="fl">
-											<div class="to-item after">
-												<span class="title">참조 <span class="point_color bold" id="sp_selectApprovalThirdLine">0</span></span>
-												<div class="updown-wrap first js-move-approval-third-line" style="width: 55px;">
-													<span class="blind icon down"></span>
-													<span class="blind icon up"></span>
-												</div>
-											</div>
-											<div class="list">
-												<select multiple="multiple" id="selectApprovalThirdLine" style="overflow-y: hidden !important;">
-												</select>
-										   </div>
-										</div>
-										<div class="spr-approval approval-direction">
-											결<br>
-											재<br>
-											방<br>
-											향<br>
-										</div>
-									</div>
-									
-									<!-- 
-									<div class="last-line two-line after">
-										<div class="fl">
-											<div class="to-item after">
-												<span class="title">참조 <span class="point_color bold" id="sp_selectApprovalFourthLine">0</span></span>
-												<div class="updown-wrap first js-move-approval-fourth-line" style="width: 55px;">
-													<span class="blind icon down"></span>
-													<span class="blind icon up"></span>
-												</div>
-											</div>
-											<div class="list" style="height: 54px;">
-												<select multiple="multiple" id="selectApprovalFourthLine">
-												</select>
-										   </div>
-										</div>
-									</div>
-									 -->
-									
-								</div>
-							</div>
-							<div class="layer_button">
-								<button type="button" class="btn_variables confirmBtn">확인</button> <button type="button" class="closeBtn">취소</button>
-							</div>
-							<a class="icon btn_closelayer closeBtn" title="레이어 닫기"></a>
-						</div>
-						
-						<div class="layer_back" style="position: fixed;width: 100%;height: 100%;z-index: 1000;background-color: rgb(0, 0, 0);opacity: 0.3;top: 0px;left: 0px;margin: 0px;padding: 0px;"></div>
-					</div>
-						
-						
-						
-						
-						
-						
-						<!---------- 결제선 주소록 끝 ------------------------>
-						
-						
-						
-						
-						
-						
-						
-						
-						<!--------------------------------------------------------------------------------->
-						
-						<h4 style="margin-top:50px;margin-bottom:0;padding: 0 0 15px 0;">상세 입력</h4>
-						
-						<!--------------------------------------------------------------------------------->
-						
-						<div class="guide">문서 종류 선택 시 상세 입력이 노출됩니다.	</div>
-						
-						<!--------------------------------------------------------------------------------->
-						
-						<div class="write_input js-approval-input docuTitle hide" style="display: block;">
-							<label style="width:80px;position:absolute;top:4px;">제목</label>
-							<div class="txt title" style="margin-left: 80px;position:relative;">
-								<div class="position">
-									<input type="text" name="title" id="approval_document_title" value="" style="width:100%; height:26px;">
-								</div>
-							</div>
-						</div>
-						
-						<!--------------------------------------------------------------------------------->
-						<!--------- 에디터 ------------------------------------------------------------------>
-						
-						
-						
-						<textarea id="summernote" class="summernote" name="content" value=""></textarea>
-						<!-- <div id="summernote" class="summernote" name="content" value=""></div> -->
-						
-						
-						
-						<!----지출내역------------------------------------------------------------------>
-						
-						<div class="js-approval-input typeA hide" id="approvalDbContent" style="display: block;">
-						<table class="tableType02 account docuTable">
-						<colgroup>
-							<col style="width:12.09%;">
-							<col style="width:87.91%;">
-						</colgroup>
-						<tbody>
-							<tr>
-								<th scope="row">구분</th>
-								<td>
-									
-										<input type="radio" name="accountingType" id="radio1" value="P" checked="" onchange="">
-										<label for="radio1" class="helpLabel" id="label1">개인</label>
-									
-									
-										<input type="radio" name="accountingType" id="radio2" value="C" onchange="">
-										<label for="radio2" class="helpLabel" id="label2">법인</label>
-									
-								</td>
-							</tr>
-							<tr>
-								<th scope="row" id="th_spending_regist_month">회계 기준월</th>
-								<th scope="row" style="display:none;" id="th_spending_regist_days">회계 기준일</th>
-								<td>
-									<div class="to-item" id="spending_regist_md">
-										<!-- 회계 기준 : 월별 -->
-										<select class="write-select" name="spendingYear" style="width: 80px;" onchange="ApprovalDocument.changeFixedDate();" id="selectFixedYear">
-											<option value="2016">2016</option>
-											<option value="2017">2017</option>
-											<option value="2018">2018</option>
-											<option value="2019">2019</option>
-										</select>
-										년
-										<select class="write-select" name="spendingMonth" style="width: 55px;" id="selectFixedMonth">
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-											<option value="6">6</option>
-											<option value="7">7</option>
-											<option value="8">8</option>
-											<option value="9">9</option>
-											<option value="10">10</option>
-											<option value="11">11</option>
-											<option value="12">12</option>
-										</select>
-										월
-										<!-- 회계 기준 : 일별 -->
-										<select class="write-select" style="width: 120px; display:none;" onchange="ApprovalDocument.changeFixedDate();" id="selectFixedDays">
-											<option value="0">회계 기준일</option>
-										</select>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">지출자</th>
-								<td>
-									<input type="text" class="account-add js-complete ui-autocomplete-input hide" value="" id="inputSpenderName" >
-									<span class="" id="textSpenderName">${loginUser.empName}</span>
-									<input type="hidden" name="spenderName" value="${loginUser.empName}" id="spenderName">
-									<button type="button" class="weakblue mgl_20" id="modifySpenderName">변경</button>
 
-									
-									<!-- 자동 완성 팝업창 시작 -->
-						
-									<ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content dropdown-menu block approval-autocomplete hide" id="ui-id" tabindex="0" style="position:absolute; top:838px; left:198px; width:285px; padding:0;z-index:1500;">
-										<!-- top:836px; left:198px; -->
-										<!-- top:854px; left:145px; -->
-									</ul>
-									
-									<!-- 자동 완성 팝업창 끝 -->
-									
-									
-								</td>
-							</tr>
-							<tr id="accountRow">
-								<th scope="row">계좌 정보</th>
-								<td id="accountTd">
-									IBK기업은행 / ${loginUser.account}
-								</td>
-							</tr>
-						</tbody>
-						</table>
-						<div class="after" style="padding-bottom:10px;">
-							<h4 class="fl" style="float:left;">거래 내역</h4>
-							<button type="button" class="weakblue mgl_20 vt" id="addDealInfo" onclick="">추가</button>
-						</div>
-						
-						
-						
-						
-						<!-- 추가창 팝업 시작 --------------------------------------------------------------------->
-						
-						<div id="add_account_layer" class="booking_layer_div layer_box hide">
-						
-							<div class="layer_box large account" id="layerDealInformation" style="margin-left: -375px; margin-top: -171px; display: block; width: 750px;">
-								<div class="title_layer text_variables">
-											거래 내역 추가(개인)			</div>
-								<table class="tableType02">
+										</div>
+										<div class="fr mgb20">
+											<div class="dropdown hide show" style="top: 60px; right: 0">
+												<div class="dropdown-menu multi-team hide"
+													id="layerMultiNode" style="width: 290px">
+													<p class="pdb_20">선택된 결재자가 여러 조직에 속해 있을 경우, 하나의 조직을
+														선택하셔야 합니다.</p>
+													<p class="pdb_10" id="multiNodeUser"></p>
+													<div style="overflow: auto; max-height: 132px; padding: 0;">
+														<table class="tableType01" id="tableMultiNode">
+															<caption>문서 수정 이력 목록으로 시간, 관리로 구성되어 있습니다.</caption>
+															<colgroup>
+																<col width="15%">
+																<col width="85%">
+															</colgroup>
+															<thead>
+																<tr>
+																	<th scope="col">선택</th>
+																	<th scope="col">소속 부서</th>
+																</tr>
+															</thead>
+															<tbody>
+															</tbody>
+														</table>
+													</div>
+
+													<div class="layer_button">
+														<button type="button" class="btn_variables">확인</button>
+														<button type="button"
+															onclick="$j('#layerMultiNode').hide();">취소</button>
+													</div>
+												</div>
+											</div>
+											<div class="first-line four-line after">
+												<div class="fl">
+													<div class="to-item after">
+														<span class="title">결재 <span
+															class="point_color bold" id="sp_selectApprovalFirstLine">0</span></span>
+														<div class="updown-wrap first js-move-approval-first-line"
+															style="width: 55px;">
+															<span class="blind icon down"></span> <span
+																class="blind icon up"></span>
+														</div>
+													</div>
+													<div class="list">
+														<select multiple="multiple" id="selectApprovalFirstLine"
+															style="overflow-y: hidden !important;">
+														</select>
+													</div>
+
+												</div>
+												<div class="spr-approval approval-direction">
+													결<br> 재<br> 방<br> 향<br>
+												</div>
+											</div>
+
+											<div class="three-line after">
+												<div class="fl">
+													<div class="to-item after">
+														<span class="title">참조 <span
+															class="point_color bold" id="sp_selectApprovalThirdLine">0</span></span>
+														<div class="updown-wrap first js-move-approval-third-line"
+															style="width: 55px;">
+															<span class="blind icon down"></span> <span
+																class="blind icon up"></span>
+														</div>
+													</div>
+													<div class="list">
+														<select multiple="multiple" id="selectApprovalThirdLine"
+															style="overflow-y: hidden !important;">
+														</select>
+													</div>
+												</div>
+												<div class="spr-approval approval-direction">
+													결<br> 재<br> 방<br> 향<br>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div class="layer_button">
+										<button type="button" class="btn_variables confirmBtn">확인</button>
+										<button type="button" class="closeBtn">취소</button>
+									</div>
+									<a class="icon btn_closelayer closeBtn" title="레이어 닫기"></a>
+								</div>
+
+								<div class="layer_back"
+									style="position: fixed; width: 100%; height: 100%; z-index: 1000; background-color: rgb(0, 0, 0); opacity: 0.3; top: 0px; left: 0px; margin: 0px; padding: 0px;"></div>
+							</div>
+
+							<!---------- 결제선 주소록 끝 ------------------------>
+
+
+
+
+							<!--------------------------------------------------------------------------------->
+
+							<h4
+								style="margin-top: 50px; margin-bottom: 0; padding: 0 0 15px 0;">상세
+								입력</h4>
+
+							<!--------------------------------------------------------------------------------->
+
+							<div class="guide">문서 종류 선택 시 상세 입력이 노출됩니다.</div>
+
+							<!--------------------------------------------------------------------------------->
+
+							<div class="write_input js-approval-input docuTitle hide"
+								style="display: block;">
+								<label style="width: 80px; position: absolute; top: 4px;">제목</label>
+								<div class="txt title"
+									style="margin-left: 80px; position: relative;">
+									<div class="position">
+										<input type="text" name="title" id="approval_document_title"
+											value="" style="width: 100%; height: 26px;">
+									</div>
+								</div>
+							</div>
+
+							<!--------------------------------------------------------------------------------->
+							<!--------- 에디터 ------------------------------------------------------------------>
+
+
+							<textarea id="summernote" class="summernote" name="content"
+								value=""></textarea>
+
+
+							<!----지출내역------------------------------------------------------------------>
+
+							<div class="js-approval-input typeA hide" id="approvalDbContent"
+								style="display: block;">
+								<table class="tableType02 account docuTable">
 									<colgroup>
-										<col width="120">
-										<col>
-										<col width="120">
-										<col>
+										<col style="width: 12.09%;">
+										<col style="width: 87.91%;">
 									</colgroup>
 									<tbody>
 										<tr>
-											<th scope="row">계정과목</th>
+											<th scope="row">구분</th>
+											<td><input type="radio" name="accountingType"
+												id="radio1" value="P" checked="" onchange=""> <label
+												for="radio1" class="helpLabel" id="label1">개인</label> <input
+												type="radio" name="accountingType" id="radio2" value="C"
+												onchange=""> <label for="radio2" class="helpLabel"
+												id="label2">법인</label></td>
+										</tr>
+										<tr>
+											<th scope="row" id="th_spending_regist_month">회계 기준월</th>
+											<th scope="row" style="display: none;"
+												id="th_spending_regist_days">회계 기준일</th>
 											<td>
-												<label>
-													<select id="inputAccountingAccount">
-														<option value="">항목</option>
-														<option value="A">차량유지비</option>
-														<option value="B">복리후생비</option>
-														<option value="C">사무용품비</option>
-														<option value="E">기타</option>
+												<div class="to-item" id="spending_regist_md">
+													<!-- 회계 기준 : 월별 -->
+													<select class="write-select" name="spendingYear"
+														style="width: 80px;"
+														onchange="ApprovalDocument.changeFixedDate();"
+														id="selectFixedYear">
+														<option value="2016">2016</option>
+														<option value="2017">2017</option>
+														<option value="2018">2018</option>
+														<option value="2019">2019</option>
+													</select> 년 <select class="write-select" name="spendingMonth"
+														style="width: 55px;" id="selectFixedMonth">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+														<option value="6">6</option>
+														<option value="7">7</option>
+														<option value="8">8</option>
+														<option value="9">9</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+													</select> 월
+													<!-- 회계 기준 : 일별 -->
+													<select class="write-select"
+														style="width: 120px; display: none;"
+														onchange="ApprovalDocument.changeFixedDate();"
+														id="selectFixedDays">
+														<option value="0">회계 기준일</option>
 													</select>
-											</td>
-											<th scope="row">지출일자</th>
-											<td>
-												<label>
-													<input type="text" id="textExpenseDate" class="datepicker" readonly style="width:150px;">
-													<script>				
-														$(".datepicker").datepicker();
-													</script>
-													<button type="button" class="icon month" onclick="$('#textExpenseDate').focus();"><span class="blind">날짜 선택</span></button>
-												</label>
+												</div>
 											</td>
 										</tr>
 										<tr>
-											<th scope="row">코스트센터</th>
-											<td>
-												<select class="" id="selectAccountingDept" onchange="">
-													<option value="">부서</option>
-													<c:forEach var="d" items="${deptList}">
-														
-														<option value="${d.deptCode}">${d.deptName}</option>
-														
-													</c:forEach>
-													
-												</select>
-											</td>
-											<th scope="row">증빙</th>
-											<td>
-												<select class="" id="selectAccountingProof" onchange="">
-													<option value="">증빙</option>
-													<option value="receipt">일반 영수증</option>
-													<option value="card">개인 카드</option>
-													<option value="tax_bill">세금 계산서</option>
-													<option value="bill">계산서</option>
-													<option value="cash_receipt">현금 영수증</option>
-													<option value="etc">기타</option>
-												</select>
-											</td>
+											<th scope="row">지출자</th>
+											<td><input type="text"
+												class="account-add js-complete ui-autocomplete-input hide"
+												value="" id="inputSpenderName"> <span class=""
+												id="textSpenderName">${loginUser.empName}</span> <input
+												type="hidden" name="spenderName"
+												value="${loginUser.empName}" id="spenderName">
+												<button type="button" class="weakblue mgl_20"
+													id="modifySpenderName">변경</button> <!-- 자동 완성 팝업창 시작 -->
+
+												<ul
+													class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content dropdown-menu block approval-autocomplete hide"
+													id="ui-id" tabindex="0"
+													style="position: absolute; top: 838px; left: 198px; width: 285px; padding: 0; z-index: 1500;">
+													<!-- top:836px; left:198px; -->
+													<!-- top:854px; left:145px; -->
+												</ul> <!-- 자동 완성 팝업창 끝 --></td>
 										</tr>
-										<tr>
-											<th scope="row">금액</th>
-											<td>
-												<label><input type="text" id="inputSupplyPrice" maxlength="20"></label>
-											</td>
-											<th scope="row">적요</th>
-											<td>
-												<label><input type="text" id="inputBrief"></label>
-											</td>
+										<tr id="accountRow">
+											<th scope="row">계좌 정보</th>
+											<td id="accountTd">IBK기업은행 / ${loginUser.account}</td>
 										</tr>
-										<tr>
-											<th scope="row">거래처</th>
-											<td>
-												<label>
-													<input type="text" class="account-add" placeholder="직접 입력하세요." id="inputDealCustomer" maxlength="20">
-													<input type="text" class="account-add js-complete hide ui-autocomplete-input" placeholder="클릭 후 입력" id="inputAccountingCustomer" autocomplete="off">
-													<button id="btnAccountingCustomerSearchLayer" class="hide" onclick="ApprovalDocument.getCustomerSearchLayer('deal');"><span class="icon src"><em class="blind">검색</em></span></button>
-												</label>
-												<span class="hide" id="textAccountingCustomer"></span>
-												<button class="weakblue vm hide" id="btnAccountingCustomer" onclick="ApprovalDocument.setAccountingCustomer('', '', '', true);">변경</button>
-											</td>
-											
-										</tr>
-										
 									</tbody>
 								</table>
-								<div class="layer_button">
-									<button type="button" class="btn_variables" id="saveBtn">저장</button>
-									<button type="button" class="btn_variables" id="addBtn">저장 후 추가</button>
-									<button type="button" class="closeBtn">취소</button>
+								<div class="after" style="padding-bottom: 10px;">
+									<h4 class="fl" style="float: left;">거래 내역</h4>
+									<button type="button" class="weakblue mgl_20 vt"
+										id="addDealInfo" onclick="">추가</button>
 								</div>
-								<a href="javascript:void(0)" class="icon btn_closelayer closeBtn" title="레이어 닫기"></a>
-							
+
+
+								<!-- 추가창 팝업 시작 --------------------------------------------------------------------->
+								<div id="add_account_layer"
+									class="booking_layer_div layer_box hide">
+
+									<div class="layer_box large account" id="layerDealInformation"
+										style="margin-left: -375px; margin-top: -171px; display: block; width: 750px;">
+										<div class="title_layer text_variables">거래 내역 추가(개인)</div>
+										<table class="tableType02">
+											<colgroup>
+												<col width="120">
+												<col>
+												<col width="120">
+												<col>
+											</colgroup>
+											<tbody>
+												<tr>
+													<th scope="row">계정과목</th>
+													<td><select id="inputAccountingAccount">
+															<option value="">항목</option>
+															<option value="A">차량유지비</option>
+															<option value="B">복리후생비</option>
+															<option value="C">사무용품비</option>
+															<option value="E">기타</option>
+													</select></td>
+													<th scope="row">지출일자</th>
+													<td><label> <input type="text"
+															id="textExpenseDate" class="datepicker" readonly
+															style="width: 150px;"> <script>				
+														$(".datepicker").datepicker();
+													</script>
+															<button type="button" class="icon month"
+																onclick="$('#textExpenseDate').focus();">
+																<span class="blind">날짜 선택</span>
+															</button>
+													</label></td>
+												</tr>
+												<tr>
+													<th scope="row">코스트센터</th>
+													<td><select class="" id="selectAccountingDept"
+														onchange="">
+															<option value="">부서</option>
+															<c:forEach var="d" items="${deptList}">
+
+																<option value="${d.deptCode}">${d.deptName}</option>
+
+															</c:forEach>
+
+													</select></td>
+													<th scope="row">증빙</th>
+													<td><select class="" id="selectAccountingProof"
+														onchange="">
+															<option value="">증빙</option>
+															<option value="receipt">일반 영수증</option>
+															<option value="card">개인 카드</option>
+															<option value="tax_bill">세금 계산서</option>
+															<option value="bill">계산서</option>
+															<option value="cash_receipt">현금 영수증</option>
+															<option value="etc">기타</option>
+													</select></td>
+												</tr>
+												<tr>
+													<th scope="row">금액</th>
+													<td><label><input type="text"
+															id="inputSupplyPrice" maxlength="20"></label></td>
+													<th scope="row">적요</th>
+													<td><label><input type="text" id="inputBrief"></label>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">거래처</th>
+													<td><label> <input type="text"
+															class="account-add" placeholder="직접 입력하세요."
+															id="inputDealCustomer" maxlength="20"> <input
+															type="text"
+															class="account-add js-complete hide ui-autocomplete-input"
+															placeholder="클릭 후 입력" id="inputAccountingCustomer"
+															autocomplete="off">
+															<button id="btnAccountingCustomerSearchLayer"
+																class="hide"
+																onclick="ApprovalDocument.getCustomerSearchLayer('deal');">
+																<span class="icon src"><em class="blind">검색</em></span>
+															</button>
+													</label> <span class="hide" id="textAccountingCustomer"></span>
+														<button class="weakblue vm hide"
+															id="btnAccountingCustomer"
+															onclick="ApprovalDocument.setAccountingCustomer('', '', '', true);">변경</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<div class="layer_button">
+											<button type="button" class="btn_variables" id="saveBtn">저장</button>
+											<button type="button" class="btn_variables" id="addBtn">저장
+												후 추가</button>
+											<button type="button" class="closeBtn">취소</button>
+										</div>
+										<a href="javascript:void(0)"
+											class="icon btn_closelayer closeBtn" title="레이어 닫기"></a>
+									</div>
+
+									<div class="layer_back"
+										style="position: fixed; width: 100%; height: 100%; z-index: 1000; background-color: rgb(0, 0, 0); opacity: 0.3; top: 0px; left: 0px; margin: 0px; padding: 0px;"></div>
+								</div>
+
+								<!-- 추가창 팝업 끝 ---------------------------------------------------------------------->
+
+
+								<table class="tableType01 account mgb_20"
+									id="tableAccoutingDealInformation" style="margin-bottom: 20px;">
+									<colgroup>
+										<col>
+										<col>
+										<col>
+										<col>
+										<col>
+										<col>
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col"><a href="javascript:void(0);"
+												class="js-approval-spending-order js-approval-order black"
+												value="account_name">계정 과목<span class="down hide"></span></a></th>
+											<th scope="col"><a href="javascript:void(0);"
+												class="js-approval-spending-order js-approval-order black"
+												value="expense_date">지출일자<span class="down hide"></span></a></th>
+											<th scope="col"><a href="javascript:void(0);"
+												class="js-approval-spending-order js-approval-order black"
+												value="department_name">코스트센터<span class="down hide"></span></a></th>
+											<th scope="col"><a href="javascript:void(0);"
+												class="js-approval-spending-order js-approval-order black"
+												value="price">금액<span class="down hide"></span></a></th>
+											<th scope="col"><a href="javascript:void(0);"
+												class="js-approval-spending-order js-approval-order black"
+												value="customer_name">거래처<span class="down hide"></span></a></th>
+											<th scope="col"><a href="javascript:void(0);"
+												class="js-approval-spending-order js-approval-order black"
+												value="brief">적요<span class="down hide"></span></a></th>
+											<th scope="col"><a href="javascript:void(0);"
+												class="js-approval-spending-order js-approval-order black"
+												value="">관리<span class="down hide"></span></a></th>
+										</tr>
+									</thead>
+
+									<tbody id="spendTbody"></tbody>
+
+								</table>
 							</div>
-							
-							<div class="layer_back" style="position: fixed;width: 100%;height: 100%;z-index: 1000;background-color: rgb(0, 0, 0);opacity: 0.3;top: 0px;left: 0px;margin: 0px;padding: 0px;"></div>
-						</div>
-						
-						
-						<!-- 추가창 팝업 끝 ---------------------------------------------------------------------->
-						
-						
-			
-						<table class="tableType01 account mgb_20" id="tableAccoutingDealInformation" style="margin-bottom:20px;">
-							<colgroup>
-								<col>
-								<col>
-								<col>
-								<col>
-								<col>
-								<col>
-							</colgroup>
-							<thead>
-								<tr>
-									<th scope="col"><a href="javascript:void(0);" class="js-approval-spending-order js-approval-order black" value="account_name">계정 과목<span class="down hide"></span></a></th>
-									<th scope="col"><a href="javascript:void(0);" class="js-approval-spending-order js-approval-order black" value="expense_date">지출일자<span class="down hide"></span></a></th>
-									<th scope="col"><a href="javascript:void(0);" class="js-approval-spending-order js-approval-order black" value="department_name">코스트센터<span class="down hide"></span></a></th>
-									<th scope="col"><a href="javascript:void(0);" class="js-approval-spending-order js-approval-order black" value="price">금액<span class="down hide"></span></a></th>
-									<th scope="col"><a href="javascript:void(0);" class="js-approval-spending-order js-approval-order black" value="customer_name">거래처<span class="down hide"></span></a></th>
-									<th scope="col"><a href="javascript:void(0);" class="js-approval-spending-order js-approval-order black" value="brief">적요<span class="down hide"></span></a></th>
-									<th scope="col"><a href="javascript:void(0);" class="js-approval-spending-order js-approval-order black" value="">관리<span class="down hide"></span></a></th>
-								</tr>
-							</thead>
-							 
-						<tbody id="spendTbody"></tbody>
-							 
-						</table>
-					</div>				
-					
-					<!------------------------------------------------------------------------>
-					
-					
-					<!------휴가신청--------------------------------------------------------->
-					<div id="retireDiv" class="hide">
-					<table class="tableType02 account docuTable">
-						<colgroup>
-							<col style="width:12.09%;">
-							<col style="width:37.91%;">
-							<col style="width:12.09%;">
-							<col style="width:37.91%;">
-						</colgroup>
-						<tbody>
-							<tr>
-								<th scope="row">입사일</th>
-								<td>
-									<span id="enrollDate">${loginUser.enrollDate}</span>
-								</td>
-								<th scope="row">퇴사 예정일</th>
-								<td>
-									<div>
-										<input type="text" class="datepicker" id="retireDate" readonly value="${now}">
-										<button type="button" class="icon month" onclick="$('#retireDate').focus();"></button>
-									</div>
-									<script>				
-										$(".datepicker").datepicker();
-									</script>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">사유</th>
-								<td style="padding-right:10px;" colspan="3">
-									<textarea rows="4" cols="130" name="reason" id="reason"></textarea>
-								</td>
-							</tr>
-						</tbody>
-						</table>
+
+							<!------------------------------------------------------------------------>
+
+
+							<!------휴가신청--------------------------------------------------------->
+							<div id="retireDiv" class="hide">
+								<table class="tableType02 account docuTable">
+									<colgroup>
+										<col style="width: 12.09%;">
+										<col style="width: 37.91%;">
+										<col style="width: 12.09%;">
+										<col style="width: 37.91%;">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th scope="row">입사일</th>
+											<td><span id="enrollDate">${loginUser.enrollDate}</span>
+											</td>
+											<th scope="row">퇴사 예정일</th>
+											<td>
+												<div>
+													<input type="text" class="datepicker" id="retireDate"
+														readonly value="${now}">
+													<button type="button" class="icon month"
+														onclick="$('#retireDate').focus();"></button>
+												</div> <script>				
+											$(".datepicker").datepicker();
+										</script>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">사유</th>
+											<td style="padding-right: 10px;" colspan="3"><textarea
+													rows="4" cols="130" name="reason" id="reason"></textarea></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<!------------------------------------------------------------------------>
+
+							<!------휴가신청--------------------------------------------------------->
+							<div id="vacationDiv" class="hide">
+								<table class="tableType02 account docuTable">
+									<colgroup>
+										<col style="width: 12.09%;">
+										<col style="width: 87.91%;">
+									</colgroup>
+									<tbody>
+										<tr>
+											<th scope="row">연차 현황</th>
+											<td><label style="margin-right: 10px;"> 생성 : 15일
+											</label> / <label style="margin-right: 10px; margin-left: 10px;">
+													사용 : ${15-loginUser.vacation}일 </label> / <label
+												style="margin-right: 10px; margin-left: 10px;"> 잔여 :
+													${loginUser.vacation}일 </label></td>
+										</tr>
+										<tr>
+											<th scope="row">구분</th>
+											<td><label> <input type="radio"
+													name="vacationType" value="ALL" checked="" onchange="">
+													종일
+											</label> <label style="margin-left: 20px;"> <input
+													type="radio" name="vacationType" value="AM" onchange="">
+													오전반차
+											</label> <label style="margin-left: 20px;"> <input
+													type="radio" name="vacationType" value="PM" onchange="">
+													오후반차
+											</label></td>
+										</tr>
+										<tr>
+											<th scope="row" id="th_spending_regist_month">휴가 기간</th>
+											<td>
+												<div id="allday" class="" style="display: inline-block;">
+													<input type="text" class="datepicker" name="vacationDate"
+														id="alldayDate1" readonly value="${now}">
+													<button type="button" class="icon month"
+														onclick="$('#alldayDate1').focus();"></button>
+													&nbsp;~&nbsp; <input type="text" class="datepicker"
+														name="vacationDate" id="alldayDate2" readonly
+														value="${now}">
+													<button type="button" class="icon month"
+														onclick="$('#alldayDate2').focus();"></button>
+												</div>
+												<div id="harfday" style="display: none;">
+													<input type="text" class="datepicker" id="harfdaydate"
+														readonly value="${now}">
+													<button type="button" class="icon month"
+														onclick="$('#harfdaydate').focus();"></button>
+												</div> <span class="mgl_20" id="useDay">1</span>일 <script>				
+													$(".datepicker").datepicker();
+												</script>
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">종류</th>
+											<td><select class="write-select" name="vacationName"
+												style="width: 140px;" id="vacationType">
+													<option value="">휴가 종류 선택</option>
+													<option value="연차">연차</option>
+													<option value="훈련">훈련</option>
+													<option value="교육">교육</option>
+													<option value="경조사">경조사</option>
+													<option value="병가">병가</option>
+													<option value="출산">출산</option>
+													<option value="무급">무급</option>
+											</select></td>
+										</tr>
+										<tr>
+											<th scope="row">사유</th>
+											<td style="padding-right: 10px;"><input type="text"
+												name="reason" style="width: 100%;"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<!------------------------------------------------------------------------>
+
+
+							<!------------------------------------------------------------------------>
+							<h4 class="filezone hide"
+								style="margin-top: 50px; margin-bottom: 0; padding: 0 0 15px 0;">첨부
+								파일</h4>
+
+							<!-------------- 첨부파일존 시작 ---------------------------------------------------------->
+
+							<div class="filezone hide">
+								<table class="table" width="100%"
+									style="border: 2px dashed #e4e4e4; height: 50px;">
+									<tbody id="fileTableTbody">
+										<tr>
+											<td id="dropZone" style="padding: 15px; text-align: center;">
+												파일을 드래그 하세요</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<!-------------- 첨부파일존 끝 ---------------------------------------------------------->
+
+						</form>
 					</div>
-					
-					<!------------------------------------------------------------------------>
-					
-					<!------휴가신청--------------------------------------------------------->
-					<div id="vacationDiv" class="hide">
-					<table class="tableType02 account docuTable">
-						<colgroup>
-							<col style="width:12.09%;">
-							<col style="width:87.91%;">
-						</colgroup>
-						<tbody>
-							<tr>
-								<th scope="row">연차 현황</th>
-								<td>
-									<label style="margin-right: 10px;">
-										생성 : 15일
-									</label>
-									/
-									<label style="margin-right: 10px;margin-left: 10px;">
-										사용 : ${15-loginUser.vacation}일
-									</label>
-									/
-									<label style="margin-right: 10px;margin-left: 10px;">
-										잔여 : ${loginUser.vacation}일
-									</label>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">구분</th>
-								<td>
-									<label>
-										<input type="radio" name="vacationType" value="ALL" checked="" onchange="">
-										종일
-									</label>
-									<label style="margin-left: 20px;">
-										<input type="radio" name="vacationType" value="AM" onchange="">
-										오전반차
-									</label>
-									<label style="margin-left: 20px;">
-										<input type="radio" name="vacationType" value="PM" onchange="">
-										오후반차
-									</label>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row" id="th_spending_regist_month">휴가 기간</th>
-								<td>
-									<div id="allday" class="" style="display: inline-block;">
-										<input type="text" class="datepicker" name="vacationDate" id="alldayDate1" readonly value="${now}">
-										<button type="button" class="icon month" onclick="$('#alldayDate1').focus();"></button>
-										&nbsp;~&nbsp;
-										<input type="text" class="datepicker" name="vacationDate" id="alldayDate2" readonly value="${now}">
-										<button type="button" class="icon month" onclick="$('#alldayDate2').focus();"></button>
-									</div>
-									<div id="harfday" style="display:none;">
-										<input type="text" class="datepicker" id="harfdaydate" readonly value="${now}">
-										<button type="button" class="icon month" onclick="$('#harfdaydate').focus();"></button>
-									</div>
-									<span class="mgl_20" id="useDay">1</span>일
-									<script>				
-										$(".datepicker").datepicker();
-									</script>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">종류</th>
-								<td>
-									<select class="write-select" name="vacationName" style="width: 140px;" id="vacationType">
-										<option value="">휴가 종류 선택</option>
-										<option value="연차">연차</option>
-										<option value="훈련">훈련</option>
-										<option value="교육">교육</option>
-										<option value="경조사">경조사</option>
-										<option value="병가">병가</option>
-										<option value="출산">출산</option>
-										<option value="무급">무급</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">사유</th>
-								<td style="padding-right:10px;">
-									<input type="text" name="reason" style="width:100%;">
-								</td>
-							</tr>
-						</tbody>
-						</table>
-					</div>
-					
-					<!------------------------------------------------------------------------>
-					
-					
-					<!------------------------------------------------------------------------>
-					<h4 class="filezone hide" style="margin-top:50px;margin-bottom:0;padding: 0 0 15px 0;">첨부 파일</h4>
-						
-					<!-------------- 첨부파일존 시작 ---------------------------------------------------------->
-					
-					<div class="filezone hide">
-				        <table class="table" width="100%" style="border: 2px dashed #e4e4e4;height: 50px;">
-				            <tbody id="fileTableTbody">
-				                <tr>
-				                    <td id="dropZone" style="padding: 15px;text-align: center;">
-				                        파일을 드래그 하세요
-				                    </td>
-				                </tr>
-				            </tbody>
-				        </table>
-				    </div>
-						
-					<!-------------- 첨부파일존 끝 ---------------------------------------------------------->
-					
-				</form>
-					</div>
-					
+
 					<!-- 이 위까지 내용작성 -->
 				</div>
 			</div>
 			<!-- END MAIN CONTENT -->
 		</div>
 		<!-- END MAIN -->
-		
+
 		<div class="clearfix"></div>
-		
-	<!--  -->
+
+		<!--  -->
 	</div>
 	<!-- END WRAPPER -->
-	
-	
+
+
 	<!-- script 작성 -->
 	<script>
 	
@@ -1646,11 +1662,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			$td6.append($h6);
 			
 			var $td7 = $('<td style="text-align:center;">');
-			//var $btn1 = $('<button type="button" name="button" class="weakblue" onclick="">').text('수정');
-			//var $span = $('<span class="weakgray">').text(' | ');
 			var $btn2 = $('<button type="button" name="button" class="weakblue" onclick="removeRow(this);">').text('삭제');
-			//$td7.append($btn1);
-			//$td7.append($span);
 			$td7.append($btn2);
 			
 			$tr.append($td1);
@@ -2314,20 +2326,20 @@ if (request.getProtocol().equals("HTTP/1.1"))
 			
 			
 	</script>
-	
-	
-	
-	
-<!-- Javascript -->
-	
+
+
+
+
+	<!-- Javascript -->
+
 	<script src="resources/assets/scripts/klorofil-common.js"></script>
 	<script src="resources/js/jquery.MultiFile.js"></script>
 
 
 
-<!-- HI-WORKS -->
+	<!-- HI-WORKS -->
 	<script src="resources/js/main.js"></script>
- 	<script src="resources/js/common_new.js"></script>
+	<script src="resources/js/common_new.js"></script>
 	<script src="resources/js/approval_table.js"></script>
 </body>
 </html>

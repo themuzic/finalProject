@@ -184,7 +184,7 @@ ul li:hover{
         					'<div class="chatList" style="padding-left: 14px;">' +
         					'<input type="hidden" name="empId" value="' + emp.empId + '">' +
         					'<div class="img">' +
-        					'<img src="resources/upload/profile/' + emp.profilePath + '">' +
+        					'<a href="#profileModal" class="profileButton" data-target="#profileModal" data-toggle="modal"><img src="resources/upload/profile/' + emp.profilePath + '"></a>' +
         					'</div>' +
         					'<div class="desc" style="padding-top: 6px;font-size: 17px;">' +
         					'<h5>' + emp.empName + ' ' +  emp.jobName + '</h5>' +
@@ -206,7 +206,7 @@ ul li:hover{
 	            					'<div class="chatList" style="padding-left: 14px;">' +
 	            					'<input type="hidden" name="empId" value="' + emp.empId + '">' +
 	            					'<div class="img">' +
-	            					'<img src="resources/upload/profile/' + emp.profilePath + '">' +
+	            					'<a href="#profileModal" class="profileButton" data-target="#profileModal" data-toggle="modal"><img src="resources/upload/profile/' + emp.profilePath + '"></a>' +
 	            					'</div>' +
 	            					'<div class="desc" style="padding-top: 6px;font-size: 17px;">' +
 	            					'<h5>' + emp.empName + ' ' +  emp.jobName + '</h5>' +

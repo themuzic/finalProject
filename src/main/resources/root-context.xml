@@ -6,7 +6,6 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 	
 	<util:properties id="config" location="classpath:test.properties" />
-
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
@@ -59,7 +58,8 @@
 	 	<constructor-arg ref="sqlSession"/>
 	 </bean>
 	 
-	 <!-- <bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
+	 <!-- 
+	 <bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
 	      <property name="host" value="smtp.gmail.com" />
 	      <property name="port" value="587" />
 	      <property name="username" value="sangyoon2ya@gmail.com" />
@@ -72,7 +72,8 @@
 	               <prop key="mail.debug">true</prop>
 	         </props>
 	      </property>
-   	 </bean> -->
+   	 </bean>
+	 -->
    	 
    	 <bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
 	      <property name="host" value="smtp.gmail.com" />
@@ -88,11 +89,5 @@
 	         </props>
 	      </property>
    	 </bean>
-
-	 
-	 
-	 
-	 
-	 
-	 
+   	 
 </beans>

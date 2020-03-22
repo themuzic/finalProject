@@ -1,0 +1,19 @@
+* 애플리케이션 배포 절차
+1. 서버의 OS에 맞춰서 톰캣을 설치(다운)
+2. 서버관리자의 ID/PWD 지정한다. 
+3. JDK경로와 톰캣 서버를 설치 할 경로 지정
+4. 설치된 톰캣 폴더에 tomcatXXX.exe 실행 하여 WAS를 start한다. 
+   (단, 리눅스일 경우 startup.sh, shutdown.sh, catalina.sh 를 통해 서버를 제어하면 됨)
+5. 웹 프로젝트를 war파일로 export한다. 
+6. 톰캣폴더/webapps/  이 폴더 안에다가 war파일 위치시키기
+7. 톰캣 서버를 start 한다. --> 브라우저에서 url을 통해 접속해본다.
+
+* 형상관리 
+1. GitHub에 회원가입진행 -> 등록 이메일로 인증한다.
+2. 원격 저장소(Repository) 생성
+3. 포크하여 다른 사람의 원격 저장소를 내 계정으로 복사
+4. 프로젝트에 Git 적용하기
+5. 브랜치를 생성해서 작업 후 동기화 및 merge (병합)을 수행
+6. 브랜치는 새로 파일을 작성하고 commit 및 push를 수행
+7. 마스터 pull 또는 pull request를 수행
+8. 'Able to Merge'가 표시되면 Merge pull request를 수행

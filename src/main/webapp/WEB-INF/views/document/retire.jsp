@@ -363,7 +363,8 @@
 					empId:${loginUser.empId},
 					retireDate:'${rt.retireDate}',
 					docuType:'${d.docuType}',
-					vaId:'${d.empId}'
+					vaId:'${d.empId}',
+					useDay:'0'
 				},
 				success:function(data){
 						

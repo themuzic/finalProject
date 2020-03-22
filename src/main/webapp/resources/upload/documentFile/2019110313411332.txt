@@ -1,0 +1,5 @@
+update worktime
+set checkout = null
+where emp_id=10005;
+
+commit;

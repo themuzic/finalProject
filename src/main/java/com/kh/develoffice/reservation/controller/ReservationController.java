@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
-import com.kh.develoffice.employee.model.vo.Employee;
 import com.kh.develoffice.reservation.model.service.ReservationService;
 import com.kh.develoffice.reservation.model.vo.Payment;
 import com.kh.develoffice.reservation.model.vo.Reservation;
@@ -30,7 +28,6 @@ public class ReservationController {
 	
 	@Autowired
 	private ReservationService rService;
-	
 	
 	@RequestMapping("myReservListView.do")
 	public ModelAndView myReservListView(int empId, ModelAndView mv) {
@@ -66,6 +63,7 @@ public class ReservationController {
 		
 		return mv;
 	}
+	
 	/*
 	@RequestMapping("updateReservList.do")
 	public void updateReservList(HttpServletResponse response, HttpSession session) throws JsonIOException, IOException {
@@ -85,15 +83,11 @@ public class ReservationController {
 	}
 	*/
 	
-	
-	
 	@RequestMapping("conferenceRoom.do")
 	public ModelAndView conferenceRoom(Reservation reserv, ModelAndView mv) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
-		
 		ArrayList<Reservation> reservList = rService.selectReserv(reserv);
-		
 		JSONArray rArr = new JSONArray();
 		
 		for(Reservation r : reservList) {
@@ -124,9 +118,7 @@ public class ReservationController {
 	public ModelAndView car(Reservation reserv, ModelAndView mv) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
-		
 		ArrayList<Reservation> reservList = rService.selectReserv(reserv);
-		
 		JSONArray rArr = new JSONArray();
 		
 		for(Reservation r : reservList) {
@@ -157,9 +149,7 @@ public class ReservationController {
 	public ModelAndView massage(Reservation reserv, ModelAndView mv) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
-		
 		ArrayList<Reservation> reservList = rService.selectReserv(reserv);
-		
 		JSONArray rArr = new JSONArray();
 		
 		for(Reservation r : reservList) {
@@ -194,9 +184,6 @@ public class ReservationController {
 	@ResponseBody
 	@RequestMapping("payment.do")
 	public String insertPayment(Payment payment) {
-		
-		System.out.println(payment);
-				
 		int result = rService.insertPayment(payment);
 		
 		if(result > 0) {
@@ -213,7 +200,6 @@ public class ReservationController {
 		Date nowDate = new Date(new java.util.Date().getTime());
 
 		String insertDate = sdf.format(nowDate);
-		
 		reserv.setInsertDate(insertDate);
 		
 		response.setContentType("application/json; charset=utf-8");
@@ -238,7 +224,6 @@ public class ReservationController {
 		
 		if(result > 0) {
 			ArrayList<Reservation> reservList = rService.selectMyReserv(reserv.getEmpId());
-			
 			
 			for(Reservation r : reservList) {
 				JSONObject jObj = new JSONObject();

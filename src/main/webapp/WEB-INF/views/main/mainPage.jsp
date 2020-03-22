@@ -309,22 +309,22 @@ if (request.getProtocol().equals("HTTP/1.1"))
 													</li>
 												</c:if>
 												<c:if test="${todoWaitList ne []}">
-												<c:forEach var="todo" items="${todoWaitList}">
-													<li>
-														<label class="control-inline fancy-checkbox">
-															<input type="checkbox" class="todoCheck" value=""><span></span>
-															<input type="hidden" name="todoNo" value="${todo.todoNo}">
-														</label>
-														<p>
-															<span class="title">${todo.todoName}</span>
-															<span class="short-description">${todo.todoContent}</span>
-															<span class="date">${todo.todoEnrollDate}</span>
-														</p>
-														<div class="controls hide">
-															<a href="javascript:void(0);" class="btn btn-primary todoBtn">진행하기</a>
-														</div>
-													</li>
-												</c:forEach>
+													<c:forEach var="todo" items="${todoWaitList}">
+														<li>
+															<label class="control-inline fancy-checkbox">
+																<input type="checkbox" class="todoCheck" value=""><span></span>
+																<input type="hidden" name="todoNo" value="${todo.todoNo}">
+															</label>
+															<p>
+																<span class="title">${todo.todoName}</span>
+																<span class="short-description">${todo.todoContent}</span>
+																<span class="date">${todo.todoEnrollDate}</span>
+															</p>
+															<div class="controls hide">
+																<a href="javascript:void(0);" class="btn btn-primary todoBtn">진행하기</a>
+															</div>
+														</li>
+													</c:forEach>
 												</c:if>
 											</ul>
 										</div>
@@ -397,7 +397,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 								<input type="hidden" class="status" name="status" value="Y">
 								<div class="panel-heading">
 									<h3 class="panel-title">게시판</h3>
-									<dvi style="position:absolute;right:145px;top:50%;">
+									<div style="position:absolute;right:145px;top:50%;">
 										<c:if test="${loginUser.empId eq '10001'}">
 											<input type="radio" name="boardType" value="N" id="board1" checked style="opacity: 0;">
 										</c:if>
@@ -410,7 +410,7 @@ if (request.getProtocol().equals("HTTP/1.1"))
 											<label for="board3" class="helpLabel" id="label3">자유 게시판</label>
 										</c:if>
 										
-									</dvi>
+									</div>
 									<div class="right">
 										<button type="button" class="btn-toggle-collapse"><i class="lnr lnr-chevron-up"></i></button>
 										<button type="button" class="btn-remove"><i class="lnr lnr-cross"></i></button>
@@ -605,30 +605,15 @@ if (request.getProtocol().equals("HTTP/1.1"))
 						$(panel).siblings('.panel-body').css('display','none');
 						$(panel).parents('.panel').find('.btn-toggle-collapse').click();
 						$(panel).siblings('.fold').val('Y');
-						
-						//panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.style.display = 'none';
-						//panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[1].classList.add('click');
-						//panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[1].click();
-						//panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.setAttribute('value','Y');
 					}
 					
 					if(widget.status == "N"){
 						$(panel).parents('.panel').find('.btn-remove').click();
 						$(panel).siblings('status').val('N');
-						//panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.childNodes[3].childNodes[3].click();
-						//panel.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.setAttribute('value','N');
 					}
 				}
 			});
 		});
-	}
-	
-	function foldClick() {
-		
-	}
-	
-	function statusClick() {
-		
 	}
 	
 	/* ----TODO위젯----------------------------------- */

@@ -68,6 +68,8 @@ public class EmployeeController {
 	private TeamBoardService tbSerivce;
 	@Autowired
 	private ProjectService pService;
+	
+	
 	/**
 	 * - 로그인 
 	 * @param emp
@@ -406,8 +408,7 @@ public class EmployeeController {
 	public ModelAndView logout(SessionStatus status, ModelAndView mv) {
 		// SessionStatus : 세션의 상태를 관리하는 객체
 		
-		status.setComplete();
-		
+		status.setComplete();		
 		mv.setViewName("login");
 		
 		return mv;
@@ -421,8 +422,7 @@ public class EmployeeController {
 	 */
 	@ResponseBody
 	@RequestMapping("saveWidget.do")
-	public String saveWidget(Widget w) {
-		
+	public String saveWidget(Widget w) {		
 		int result = eService.saveWidget(w);
 		
 		if(result > 0) {
@@ -430,8 +430,7 @@ public class EmployeeController {
 		} else {
 			return "fail";
 		}
-	}
-	
+	}	
 	
 	
 	/**
